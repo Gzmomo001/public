@@ -2,18 +2,18 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
     <channel>
         <title>Claude Code on Henry Zhang</title>
-        <link>https://Gzmomo001.github.io/public/tags/claude-code/</link>
+        <link>http://localhost:1313/tags/claude-code/</link>
         <description>Recent content in Claude Code on Henry Zhang</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>zh-cn</language>
         <copyright>blog@mail.henry070.org</copyright>
-        <lastBuildDate>Sun, 11 Jan 2026 17:48:07 +0000</lastBuildDate><atom:link href="https://Gzmomo001.github.io/public/tags/claude-code/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Sun, 11 Jan 2026 17:48:07 +0000</lastBuildDate><atom:link href="http://localhost:1313/tags/claude-code/index.xml" rel="self" type="application/rss+xml" /><item>
         <title>SuperClaude 入门到精进：从零掌握 AI 辅助开发框架</title>
-        <link>https://Gzmomo001.github.io/public/p/superclaude-%E5%85%A5%E9%97%A8%E5%88%B0%E7%B2%BE%E8%BF%9B%E4%BB%8E%E9%9B%B6%E6%8E%8C%E6%8F%A1-ai-%E8%BE%85%E5%8A%A9%E5%BC%80%E5%8F%91%E6%A1%86%E6%9E%B6/</link>
+        <link>http://localhost:1313/p/superclaude-%E5%85%A5%E9%97%A8%E5%88%B0%E7%B2%BE%E8%BF%9B%E4%BB%8E%E9%9B%B6%E6%8E%8C%E6%8F%A1-ai-%E8%BE%85%E5%8A%A9%E5%BC%80%E5%8F%91%E6%A1%86%E6%9E%B6/</link>
         <pubDate>Mon, 12 Jan 2026 01:30:46 +0800</pubDate>
         
-        <guid>https://Gzmomo001.github.io/public/p/superclaude-%E5%85%A5%E9%97%A8%E5%88%B0%E7%B2%BE%E8%BF%9B%E4%BB%8E%E9%9B%B6%E6%8E%8C%E6%8F%A1-ai-%E8%BE%85%E5%8A%A9%E5%BC%80%E5%8F%91%E6%A1%86%E6%9E%B6/</guid>
-        <description>&lt;img src="https://Gzmomo001.github.io/public/default.jpeg" alt="Featured image of post SuperClaude 入门到精进：从零掌握 AI 辅助开发框架" /&gt;&lt;p&gt;version = &amp;ldquo;1.0.0&amp;rdquo;
+        <guid>http://localhost:1313/p/superclaude-%E5%85%A5%E9%97%A8%E5%88%B0%E7%B2%BE%E8%BF%9B%E4%BB%8E%E9%9B%B6%E6%8E%8C%E6%8F%A1-ai-%E8%BE%85%E5%8A%A9%E5%BC%80%E5%8F%91%E6%A1%86%E6%9E%B6/</guid>
+        <description>&lt;img src="http://localhost:1313/default.jpeg" alt="Featured image of post SuperClaude 入门到精进：从零掌握 AI 辅助开发框架" /&gt;&lt;p&gt;version = &amp;ldquo;1.0.0&amp;rdquo;
 sc_version = &amp;ldquo;4.1.5&amp;rdquo;&lt;/p&gt;
 &lt;h1 id=&#34;superclaude-入门到精进从零掌握-ai-辅助开发框架&#34;&gt;SuperClaude 入门到精进：从零掌握 AI 辅助开发框架
 &lt;/h1&gt;&lt;blockquote&gt;
@@ -2553,11 +2553,11 @@ describe(&amp;#39;TodoItem&amp;#39;, () =&amp;gt; {
         </item>
         <item>
         <title>Vibe Coding：AI 编程革命与程序员的新时代</title>
-        <link>https://Gzmomo001.github.io/public/p/vibe-codingai-%E7%BC%96%E7%A8%8B%E9%9D%A9%E5%91%BD%E4%B8%8E%E7%A8%8B%E5%BA%8F%E5%91%98%E7%9A%84%E6%96%B0%E6%97%B6%E4%BB%A3/</link>
+        <link>http://localhost:1313/p/vibe-codingai-%E7%BC%96%E7%A8%8B%E9%9D%A9%E5%91%BD%E4%B8%8E%E7%A8%8B%E5%BA%8F%E5%91%98%E7%9A%84%E6%96%B0%E6%97%B6%E4%BB%A3/</link>
         <pubDate>Thu, 08 Jan 2026 08:44:47 -0500</pubDate>
         
-        <guid>https://Gzmomo001.github.io/public/p/vibe-codingai-%E7%BC%96%E7%A8%8B%E9%9D%A9%E5%91%BD%E4%B8%8E%E7%A8%8B%E5%BA%8F%E5%91%98%E7%9A%84%E6%96%B0%E6%97%B6%E4%BB%A3/</guid>
-        <description>&lt;img src="https://Gzmomo001.github.io/public/default.jpeg" alt="Featured image of post Vibe Coding：AI 编程革命与程序员的新时代" /&gt;&lt;h1 id=&#34;vibe-codingai-编程革命与程序员的新时代&#34;&gt;Vibe Coding：AI 编程革命与程序员的新时代
+        <guid>http://localhost:1313/p/vibe-codingai-%E7%BC%96%E7%A8%8B%E9%9D%A9%E5%91%BD%E4%B8%8E%E7%A8%8B%E5%BA%8F%E5%91%98%E7%9A%84%E6%96%B0%E6%97%B6%E4%BB%A3/</guid>
+        <description>&lt;img src="http://localhost:1313/default.jpeg" alt="Featured image of post Vibe Coding：AI 编程革命与程序员的新时代" /&gt;&lt;h1 id=&#34;vibe-codingai-编程革命与程序员的新时代&#34;&gt;Vibe Coding：AI 编程革命与程序员的新时代
 &lt;/h1&gt;&lt;h2 id=&#34;引言2025---ai-编程元年&#34;&gt;引言：2025 - AI 编程元年
 &lt;/h2&gt;&lt;p&gt;2025 年 2 月，OpenAI 创始成员之一、前特斯拉人工智能总监 &lt;strong&gt;Andrej Karpathy&lt;/strong&gt; 在 X（Twitter）上发布了一条看似随意的推文，却引爆了整个技术社区对编程未来的讨论。这条推文首次正式提出了 &lt;strong&gt;&amp;ldquo;Vibe Coding&amp;rdquo;&lt;/strong&gt; 这个概念。&lt;/p&gt;
 &lt;blockquote&gt;

@@ -2,18 +2,18 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
     <channel>
         <title>SHA256 on Henry Zhang</title>
-        <link>https://Gzmomo001.github.io/public/tags/sha256/</link>
+        <link>http://localhost:1313/tags/sha256/</link>
         <description>Recent content in SHA256 on Henry Zhang</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>zh-cn</language>
         <copyright>blog@mail.henry070.org</copyright>
-        <lastBuildDate>Tue, 09 Dec 2025 11:32:50 -0500</lastBuildDate><atom:link href="https://Gzmomo001.github.io/public/tags/sha256/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Tue, 09 Dec 2025 11:32:50 -0500</lastBuildDate><atom:link href="http://localhost:1313/tags/sha256/index.xml" rel="self" type="application/rss+xml" /><item>
         <title>SHA 校验入门：从原理到实践</title>
-        <link>https://Gzmomo001.github.io/public/p/sha-%E6%A0%A1%E9%AA%8C%E5%85%A5%E9%97%A8%E4%BB%8E%E5%8E%9F%E7%90%86%E5%88%B0%E5%AE%9E%E8%B7%B5/</link>
+        <link>http://localhost:1313/p/sha-%E6%A0%A1%E9%AA%8C%E5%85%A5%E9%97%A8%E4%BB%8E%E5%8E%9F%E7%90%86%E5%88%B0%E5%AE%9E%E8%B7%B5/</link>
         <pubDate>Fri, 05 Dec 2025 02:31:57 -0500</pubDate>
         
-        <guid>https://Gzmomo001.github.io/public/p/sha-%E6%A0%A1%E9%AA%8C%E5%85%A5%E9%97%A8%E4%BB%8E%E5%8E%9F%E7%90%86%E5%88%B0%E5%AE%9E%E8%B7%B5/</guid>
-        <description>&lt;img src="https://Gzmomo001.github.io/public/default.jpeg" alt="Featured image of post SHA 校验入门：从原理到实践" /&gt;&lt;h1 id=&#34;sha-校验入门从原理到实践&#34;&gt;SHA 校验入门：从原理到实践
+        <guid>http://localhost:1313/p/sha-%E6%A0%A1%E9%AA%8C%E5%85%A5%E9%97%A8%E4%BB%8E%E5%8E%9F%E7%90%86%E5%88%B0%E5%AE%9E%E8%B7%B5/</guid>
+        <description>&lt;img src="http://localhost:1313/default.jpeg" alt="Featured image of post SHA 校验入门：从原理到实践" /&gt;&lt;h1 id=&#34;sha-校验入门从原理到实践&#34;&gt;SHA 校验入门：从原理到实践
 &lt;/h1&gt;&lt;p&gt;在数字世界中，我们经常需要下载和传输文件。但你如何能确定下载的文件就是发布者想要你收到的那个，没有被篡改，也没有在传输过程中损坏呢？答案就是 &lt;strong&gt;哈希校验（Hash Validation）&lt;/strong&gt;，而 SHA256 正是其中最常用的一种算法。&lt;/p&gt;
 &lt;p&gt;这篇笔记将带你从零开始，理解 SHA256 的基本原理，并学会在不同操作系统上进行实际操作。&lt;/p&gt;
 &lt;h2 id=&#34;什么是-sha256&#34;&gt;什么是 SHA256？

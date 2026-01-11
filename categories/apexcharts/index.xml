@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
     <channel>
         <title>Apexcharts on Henry Zhang</title>
-        <link>https://Gzmomo001.github.io/public/categories/apexcharts/</link>
+        <link>http://localhost:1313/categories/apexcharts/</link>
         <description>Recent content in Apexcharts on Henry Zhang</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>zh-cn</language>
         <copyright>blog@mail.henry070.org</copyright>
-        <lastBuildDate>Wed, 24 Dec 2025 13:36:01 -0500</lastBuildDate><atom:link href="https://Gzmomo001.github.io/public/categories/apexcharts/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Wed, 24 Dec 2025 13:36:01 -0500</lastBuildDate><atom:link href="http://localhost:1313/categories/apexcharts/index.xml" rel="self" type="application/rss+xml" /><item>
         <title>ApexCharts Shortcode Test</title>
-        <link>https://Gzmomo001.github.io/public/p/apexcharts-shortcode-test/</link>
+        <link>http://localhost:1313/p/apexcharts-shortcode-test/</link>
         <pubDate>Tue, 23 Dec 2025 09:30:46 -0500</pubDate>
         
-        <guid>https://Gzmomo001.github.io/public/p/apexcharts-shortcode-test/</guid>
+        <guid>http://localhost:1313/p/apexcharts-shortcode-test/</guid>
         <description>&lt;h1 id=&#34;apexcharts-shortcode-测试页面&#34;&gt;ApexCharts Shortcode 测试页面
 &lt;/h1&gt;&lt;p&gt;这是一个测试页面，用于验证修复后的 apexchart shortcode。&lt;/p&gt;
 &lt;h2 id=&#34;基础折线图&#34;&gt;基础折线图

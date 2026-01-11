@@ -2,18 +2,18 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
     <channel>
         <title>Javascript on Henry Zhang</title>
-        <link>https://Gzmomo001.github.io/public/tags/javascript/</link>
+        <link>http://localhost:1313/tags/javascript/</link>
         <description>Recent content in Javascript on Henry Zhang</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>zh-cn</language>
         <copyright>blog@mail.henry070.org</copyright>
-        <lastBuildDate>Sun, 23 Nov 2025 00:53:48 +0800</lastBuildDate><atom:link href="https://Gzmomo001.github.io/public/tags/javascript/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Sun, 23 Nov 2025 00:53:48 +0800</lastBuildDate><atom:link href="http://localhost:1313/tags/javascript/index.xml" rel="self" type="application/rss+xml" /><item>
         <title>JavaScript</title>
-        <link>https://Gzmomo001.github.io/public/p/javascript/</link>
+        <link>http://localhost:1313/p/javascript/</link>
         <pubDate>Tue, 12 Aug 2025 07:44:31 +0800</pubDate>
         
-        <guid>https://Gzmomo001.github.io/public/p/javascript/</guid>
-        <description>&lt;img src="https://Gzmomo001.github.io/public/default.jpeg" alt="Featured image of post JavaScript" /&gt;&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;https://www.youtube.com/watch?v=hdI2bqOjy3c&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+        <guid>http://localhost:1313/p/javascript/</guid>
+        <description>&lt;img src="http://localhost:1313/default.jpeg" alt="Featured image of post JavaScript" /&gt;&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;https://www.youtube.com/watch?v=hdI2bqOjy3c&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;review link&lt;/a&gt;&lt;/p&gt;
 </description>
         </item>

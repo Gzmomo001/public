@@ -2,18 +2,18 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
     <channel>
         <title>System on Henry Zhang</title>
-        <link>https://Gzmomo001.github.io/public/tags/system/</link>
+        <link>http://localhost:1313/tags/system/</link>
         <description>Recent content in System on Henry Zhang</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>zh-cn</language>
         <copyright>blog@mail.henry070.org</copyright>
-        <lastBuildDate>Wed, 06 Aug 2025 03:39:15 +0800</lastBuildDate><atom:link href="https://Gzmomo001.github.io/public/tags/system/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Wed, 06 Aug 2025 03:39:15 +0800</lastBuildDate><atom:link href="http://localhost:1313/tags/system/index.xml" rel="self" type="application/rss+xml" /><item>
         <title>Soft_links</title>
-        <link>https://Gzmomo001.github.io/public/p/soft_links/</link>
+        <link>http://localhost:1313/p/soft_links/</link>
         <pubDate>Thu, 31 Jul 2025 15:38:14 +0800</pubDate>
         
-        <guid>https://Gzmomo001.github.io/public/p/soft_links/</guid>
-        <description>&lt;img src="https://Gzmomo001.github.io/public/p/soft_links/link.png" alt="Featured image of post Soft_links" /&gt;&lt;h2 id=&#34;软连接&#34;&gt;软连接
+        <guid>http://localhost:1313/p/soft_links/</guid>
+        <description>&lt;img src="http://localhost:1313/p/soft_links/link.png" alt="Featured image of post Soft_links" /&gt;&lt;h2 id=&#34;软连接&#34;&gt;软连接
 &lt;/h2&gt;&lt;p&gt;在系统中我们往往可能需要在一个项目中使用项目之外的一些文件，但是这个文件又不在这项目的根目录在。大部分人往往都选择直接将需要的文件拷贝到项目的路目中。但是这样既浪费时间又浪费系统的存储空间。尔软连接的出现就是为了解决这一问题。我们可以直接通过命令创建一个软连接。让目标文件或者文件夹的替身出现在我们的项目目录下。这样我们就可以在不使用绝对路径的情况下使用该路径了。&lt;/p&gt;
 &lt;h3 id=&#34;如何使用软连接ln&#34;&gt;如何使用软连接（ln
 &lt;/h3&gt;&lt;p&gt;在 linux 中软连接的是由&amp;rsquo;ln&amp;rsquo;这一指令完成的。&lt;/p&gt;

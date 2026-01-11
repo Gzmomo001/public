@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
     <channel>
         <title>Test on Henry Zhang</title>
-        <link>https://Gzmomo001.github.io/public/tags/test/</link>
+        <link>http://localhost:1313/tags/test/</link>
         <description>Recent content in Test on Henry Zhang</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>zh-cn</language>
         <copyright>blog@mail.henry070.org</copyright>
-        <lastBuildDate>Thu, 08 Jan 2026 14:46:05 -0500</lastBuildDate><atom:link href="https://Gzmomo001.github.io/public/tags/test/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Thu, 08 Jan 2026 14:46:05 -0500</lastBuildDate><atom:link href="http://localhost:1313/tags/test/index.xml" rel="self" type="application/rss+xml" /><item>
         <title>mermaid-test</title>
-        <link>https://Gzmomo001.github.io/public/p/mermaid-test/</link>
+        <link>http://localhost:1313/p/mermaid-test/</link>
         <pubDate>Thu, 25 Dec 2025 02:23:00 -0500</pubDate>
         
-        <guid>https://Gzmomo001.github.io/public/p/mermaid-test/</guid>
+        <guid>http://localhost:1313/p/mermaid-test/</guid>
         <description>&lt;h1 id=&#34;mermaid图表测试&#34;&gt;Mermaid图表测试
 &lt;/h1&gt;&lt;p&gt;这是一个测试Mermaid图表功能的博客文章。以下是各种类型的Mermaid图表示例。&lt;/p&gt;
 &lt;h2 id=&#34;流程图&#34;&gt;流程图

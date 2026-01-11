@@ -2,18 +2,18 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
     <channel>
         <title>Defualt on Henry Zhang</title>
-        <link>https://Gzmomo001.github.io/public/tags/defualt/</link>
+        <link>http://localhost:1313/tags/defualt/</link>
         <description>Recent content in Defualt on Henry Zhang</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>zh-cn</language>
         <copyright>blog@mail.henry070.org</copyright>
-        <lastBuildDate>Wed, 28 May 2025 04:06:59 +0800</lastBuildDate><atom:link href="https://Gzmomo001.github.io/public/tags/defualt/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Wed, 28 May 2025 04:06:59 +0800</lastBuildDate><atom:link href="http://localhost:1313/tags/defualt/index.xml" rel="self" type="application/rss+xml" /><item>
         <title>Daliy_blog2025 05 24</title>
-        <link>https://Gzmomo001.github.io/public/p/daliy_blog2025-05-24/</link>
+        <link>http://localhost:1313/p/daliy_blog2025-05-24/</link>
         <pubDate>Sat, 24 May 2025 03:53:50 +0800</pubDate>
         
-        <guid>https://Gzmomo001.github.io/public/p/daliy_blog2025-05-24/</guid>
-        <description>&lt;img src="https://Gzmomo001.github.io/public/default.jpeg" alt="Featured image of post Daliy_blog2025 05 24" /&gt;&lt;h1 id=&#34;不知好歹的博主&#34;&gt;不知好歹的博主
+        <guid>http://localhost:1313/p/daliy_blog2025-05-24/</guid>
+        <description>&lt;img src="http://localhost:1313/default.jpeg" alt="Featured image of post Daliy_blog2025 05 24" /&gt;&lt;h1 id=&#34;不知好歹的博主&#34;&gt;不知好歹的博主
 &lt;/h1&gt;&lt;p&gt;博主第二天要考高数, 现在还熬到快四点钟真的很有生活了.&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;input checked=&#34;&#34; disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 添加网页个性化鼠标指针&lt;/li&gt;
@@ -62,6 +62,36 @@
 &lt;/h3&gt;&lt;p&gt;2&lt;/p&gt;
 &lt;h3 id=&#34;3-4&#34;&gt;3
 &lt;/h3&gt;&lt;p&gt;3&lt;/p&gt;
+</description>
+        </item>
+        <item>
+        <title>Daliy_blog2025 05 22</title>
+        <link>http://localhost:1313/p/daliy_blog2025-05-22/</link>
+        <pubDate>Thu, 22 May 2025 23:40:31 +0800</pubDate>
+        
+        <guid>http://localhost:1313/p/daliy_blog2025-05-22/</guid>
+        <description>&lt;img src="http://localhost:1313/default.gif" alt="Featured image of post Daliy_blog2025 05 22" /&gt;&lt;h1 id=&#34;日常记录&#34;&gt;日常记录
+&lt;/h1&gt;&lt;h2 id=&#34;关于自己&#34;&gt;关于自己
+&lt;/h2&gt;&lt;p&gt;昨天晚上搞博客搞的太上头, 一不小心又熬到 4.多 🥹. 然后今天睡到下午才起床, 真是得不偿失啊啊啊啊. 但我这种性格就是, 很多时候如果不把一件事做完就是不会停下来. 直到我把这件事做到某一个我想对满意的阶段的时候我可能才会开始休息. 简直就是先天牛马圣体.下周大大小小的考试就基本都考完了, 所以, 这几天再撑一下吧 🫠.&lt;/p&gt;
+&lt;h2 id=&#34;关于考试&#34;&gt;关于考试
+&lt;/h2&gt;&lt;p&gt;距离高数的期末考还有两天, 今天已经看了一整天的高数视频了. 也不知道自己学没学进去, 但聊胜于无嘛. &lt;a class=&#34;link&#34; href=&#34;https://www.bilibili.com/video/BV1zr421F7UN?spm_id_from=333.788.videopod.episodes&amp;amp;vd_source=fbc2a846bae010cde7c33a4fbe6c2e57&amp;amp;p=4&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;Kari&lt;/a&gt;老师的视频确实感觉已经比国内大部分大学教授讲的都要好了. 逻辑比较清晰, 也都是按照思维导图来复习. 很适合我这种 visual memory 的人.&lt;/p&gt;
+&lt;p&gt;目前为止的复习进度也还是比较紧张, 2231 专业课 java 我已经很久都没有看, 也没有 coding 了. 不过大部分的内容其实也都是记忆的东西. 这种一般花个半天时间就搞定了. 其实比较担心的还是我的两门数学考试, 和 2920 计算机系统架构. 数学考试的备考感觉是没有尽头的. 因为总会有更难的题型给你做, 你的熟练度也基本没有上线. 所以数学的复习还是不能太上头, 不然就像是时间黑洞一样吞噬你的时间.😇 很容易把其他事情耽误了.&lt;/p&gt;
+&lt;h2 id=&#34;final-project&#34;&gt;Final project
+&lt;/h2&gt;&lt;p&gt;期末的那个论文到目前的情况确实是差强人意了, 一开始我就低估了这个领域的强度和我们小组的执行能力. 布置出去的任务基本都要延迟几天才能完成, 这还是挺扰乱原本的计划的. 这个项目原本要做的实验也是时间的原因没有做成, 而且小组里似乎也只有我有这个代码能力. 本来的设想是我来完成我们项目的代码部分, 然后我的小组成员能帮我完成论文. 但我也没有提前了解他们对这领域的了解, 最后出于他们的执行力, 和了解程度. 我打算论文还是我自己来执手. 所以, 项目的代码部分就只能学期结束之后再继续推进了.&lt;/p&gt;
+&lt;h2 id=&#34;今天最后的一点任务&#34;&gt;今天最后的一点任务
+&lt;/h2&gt;&lt;p&gt;当我开始写这个博客的时候已经快 12.了. 但事情总是做不完的. 今晚也不能再熬怎么晚了. 所以今晚就最后再完成两个任务吧.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;input checked=&#34;&#34; disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 完善我的博客内容, 由于博客是昨天才匆忙搭建完的. 对这个项目的熟悉程度也不够. 希望今天能在完善博客的时候, 顺便也能熟悉一下这个项目的使用.
+&lt;ul&gt;
+&lt;li&gt;&lt;input checked=&#34;&#34; disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 换头像&lt;/li&gt;
+&lt;li&gt;&lt;input checked=&#34;&#34; disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 配置文件的配置过一遍&lt;/li&gt;
+&lt;li&gt;&lt;input checked=&#34;&#34; disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 添加博客默认图片&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;input checked=&#34;&#34; disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 完成我们论文的初稿, 即使论文目前还有很多漏洞. 但是船大难掉头, 目前先考虑论文写完, 先是一个完整的论文再说. 毕竟明晚就是 ddl 了, 也没有办法再去做论文的重构了.(发现 ddl 是第二天 12. 明天起来交作业)&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;好的又要吧论文拖到明天了 😅&lt;/p&gt;
 </description>
         </item>
         

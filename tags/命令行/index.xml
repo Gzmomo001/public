@@ -1,0 +1,1284 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+    <channel>
+        <title>命令行 on Henry Zhang</title>
+        <link>https://Gzmomo001.github.io/public/tags/%E5%91%BD%E4%BB%A4%E8%A1%8C/</link>
+        <description>Recent content in 命令行 on Henry Zhang</description>
+        <generator>Hugo -- gohugo.io</generator>
+        <language>zh-cn</language>
+        <copyright>blog@mail.henry070.org</copyright>
+        <lastBuildDate>Sun, 11 Jan 2026 16:57:00 +0000</lastBuildDate><atom:link href="https://Gzmomo001.github.io/public/tags/%E5%91%BD%E4%BB%A4%E8%A1%8C/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>Shell 和命令行：Linux 的控制台</title>
+        <link>https://Gzmomo001.github.io/public/p/shell-%E5%92%8C%E5%91%BD%E4%BB%A4%E8%A1%8Clinux-%E7%9A%84%E6%8E%A7%E5%88%B6%E5%8F%B0/</link>
+        <pubDate>Sat, 10 Jan 2026 23:00:00 +0800</pubDate>
+        
+        <guid>https://Gzmomo001.github.io/public/p/shell-%E5%92%8C%E5%91%BD%E4%BB%A4%E8%A1%8Clinux-%E7%9A%84%E6%8E%A7%E5%88%B6%E5%8F%B0/</guid>
+        <description>&lt;img src="https://Gzmomo001.github.io/public/default.jpeg" alt="Featured image of post Shell 和命令行：Linux 的控制台" /&gt;&lt;h1 id=&#34;shell-和命令行linux-的控制台&#34;&gt;Shell 和命令行：Linux 的控制台
+&lt;/h1&gt;&lt;h2 id=&#34;引言&#34;&gt;引言
+&lt;/h2&gt;&lt;p&gt;如果说 Linux 内核是汽车的发动机，那么 &lt;strong&gt;Shell&lt;/strong&gt; 就是方向盘和仪表盘。它是用户与操作系统交互的主要界面，是每个 Linux 用户必须掌握的核心技能。在这篇文章中，我们将系统学习 Shell 的方方面面。&lt;/p&gt;
+&lt;h2 id=&#34;什么是-shell&#34;&gt;什么是 Shell？
+&lt;/h2&gt;&lt;h3 id=&#34;shell-的定义&#34;&gt;Shell 的定义
+&lt;/h3&gt;&lt;p&gt;&lt;strong&gt;Shell&lt;/strong&gt; 是一个命令解释器，它：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;读取用户输入的命令&lt;/li&gt;
+&lt;li&gt;解释并执行命令&lt;/li&gt;
+&lt;li&gt;将结果返回给用户&lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre class=&#34;mermaid&#34;&gt;
+  flowchart LR
+    U[用户] --&amp;gt;|输入命令| S[Shell]
+    S --&amp;gt;|系统调用| K[内核]
+    K --&amp;gt;|执行操作| H[硬件]
+    H --&amp;gt;|返回结果| K
+    K --&amp;gt;|返回数据| S
+    S --&amp;gt;|显示输出| U
+
+    style S fill:#fff3e0
+    style K fill:#e3f2fd
+&lt;/pre&gt;
+
+&lt;h3 id=&#34;shell-的种类&#34;&gt;Shell 的种类
+&lt;/h3&gt;&lt;p&gt;Linux 系统中有多种 Shell：&lt;/p&gt;
+&lt;table&gt;
+  &lt;thead&gt;
+      &lt;tr&gt;
+          &lt;th&gt;Shell&lt;/th&gt;
+          &lt;th&gt;全称&lt;/th&gt;
+          &lt;th&gt;特点&lt;/th&gt;
+      &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+      &lt;tr&gt;
+          &lt;td&gt;&lt;strong&gt;sh&lt;/strong&gt;&lt;/td&gt;
+          &lt;td&gt;Bourne Shell&lt;/td&gt;
+          &lt;td&gt;最初的 Unix Shell，POSIX 标准&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;&lt;strong&gt;bash&lt;/strong&gt;&lt;/td&gt;
+          &lt;td&gt;Bourne Again Shell&lt;/td&gt;
+          &lt;td&gt;最常用，sh 的增强版&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;&lt;strong&gt;zsh&lt;/strong&gt;&lt;/td&gt;
+          &lt;td&gt;Z Shell&lt;/td&gt;
+          &lt;td&gt;功能强大，高度可定制&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;&lt;strong&gt;fish&lt;/strong&gt;&lt;/td&gt;
+          &lt;td&gt;Friendly Interactive Shell&lt;/td&gt;
+          &lt;td&gt;用户友好，自动补全强大&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;&lt;strong&gt;csh/tcsh&lt;/strong&gt;&lt;/td&gt;
+          &lt;td&gt;C Shell&lt;/td&gt;
+          &lt;td&gt;语法类似 C 语言&lt;/td&gt;
+      &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+
+
+
+
+&lt;div class=&#34;highlight highlight-bash&#34;&gt;
+  &lt;pre&gt;
+    &lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;# 查看系统支持的 Shell
+cat /etc/shells
+
+# 查看当前使用的 Shell
+echo $SHELL
+
+# 查看 Shell 版本
+bash --version&lt;/code&gt;
+  &lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h3 id=&#34;为什么选择-bash&#34;&gt;为什么选择 Bash？
+&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;✅ &lt;strong&gt;默认安装&lt;/strong&gt;：几乎所有 Linux 发行版默认 Shell&lt;/li&gt;
+&lt;li&gt;✅ &lt;strong&gt;兼容性好&lt;/strong&gt;：符合 POSIX 标准&lt;/li&gt;
+&lt;li&gt;✅ &lt;strong&gt;功能强大&lt;/strong&gt;：命令历史、自动补全、脚本编程&lt;/li&gt;
+&lt;li&gt;✅ &lt;strong&gt;社区支持&lt;/strong&gt;：大量教程和脚本资源&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;bash-基础&#34;&gt;Bash 基础
+&lt;/h2&gt;&lt;h3 id=&#34;命令的基本结构&#34;&gt;命令的基本结构
+&lt;/h3&gt;
+
+
+
+
+&lt;div class=&#34;highlight highlight-bash&#34;&gt;
+  &lt;pre&gt;
+    &lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;command [-options] [arguments]
+#  命令      选项        参数&lt;/code&gt;
+  &lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;示例：&lt;/p&gt;
+
+
+
+
+
+&lt;div class=&#34;highlight highlight-bash&#34;&gt;
+  &lt;pre&gt;
+    &lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;ls -l /home/user
+#  ↑  ↑    └─ 参数：操作对象
+#  │  └────── 选项：改变命令行为
+#  └─────────── 命令：要执行的程序&lt;/code&gt;
+  &lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h3 id=&#34;常用命令速查&#34;&gt;常用命令速查
+&lt;/h3&gt;&lt;h4 id=&#34;文件和目录操作&#34;&gt;文件和目录操作
+&lt;/h4&gt;
+
+
+
+
+&lt;div class=&#34;highlight highlight-bash&#34;&gt;
+  &lt;pre&gt;
+    &lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;# 列出文件
+ls              # 简单列出
+ls -la          # 详细列表，包括隐藏文件
+ls -lh          # 人类可读的文件大小
+
+# 目录切换
+cd /home/user   # 绝对路径
+cd Documents    # 相对路径
+cd ~            # 回到家目录
+cd ..           # 返回上级目录
+cd -            # 返回上一个目录
+
+# 显示当前目录
+pwd
+
+# 创建目录
+mkdir dir_name              # 创建单个目录
+mkdir -p /a/b/c             # 递归创建多级目录
+mkdir -p dir1 dir2 dir3     # 同时创建多个目录
+
+# 删除目录
+rmdir empty_dir             # 删除空目录
+rm -r dir_name              # 递归删除目录及内容
+rm -rf dir_name             # 强制删除，不询问&lt;/code&gt;
+  &lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h4 id=&#34;文件操作&#34;&gt;文件操作
+&lt;/h4&gt;
+
+
+
+
+&lt;div class=&#34;highlight highlight-bash&#34;&gt;
+  &lt;pre&gt;
+    &lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;# 创建文件
+touch file.txt              # 创建空文件
+touch file1.txt file2.txt   # 同时创建多个文件
+
+# 复制文件
+cp file1.txt file2.txt      # 复制并重命名
+cp -r dir1 dir2             # 递归复制目录
+cp -p file1.txt file2.txt   # 保留属性
+
+# 移动/重命名
+mv old_name new_name        # 重命名
+mv file.txt /tmp/           # 移动文件
+
+# 删除文件
+rm file.txt                 # 删除文件
+rm -i file.txt              # 删除前确认
+rm -f file.txt              # 强制删除
+
+# 查看文件内容
+cat file.txt                # 显示全部内容
+less file.txt               # 分页查看（推荐）
+head -n 10 file.txt         # 查看前10行
+tail -n 10 file.txt         # 查看后10行
+tail -f /var/log/syslog     # 实时查看日志
+
+# 编辑文件
+nano file.txt               # 简单编辑器
+vim file.txt                # 强大的编辑器&lt;/code&gt;
+  &lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h4 id=&#34;文件查找&#34;&gt;文件查找
+&lt;/h4&gt;
+
+
+
+
+&lt;div class=&#34;highlight highlight-bash&#34;&gt;
+  &lt;pre&gt;
+    &lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;# find：按条件查找文件
+find /home -name &amp;#34;*.txt&amp;#34;              # 按名称查找
+find /home -type f -name &amp;#34;*.conf&amp;#34;     # 查找文件
+find /home -type d -name &amp;#34;log&amp;#34;        # 查找目录
+find /home -size &amp;#43;100M                # 查找大于100MB的文件
+find /home -mtime -7                  # 查找7天内修改的文件
+
+# locate：快速查找（使用数据库）
+locate nginx.conf                     # 查找文件
+sudo updatedb                         # 更新数据库
+
+# which：查找命令位置
+which python3
+which ls
+
+# grep：搜索文件内容
+grep &amp;#34;error&amp;#34; /var/log/syslog          # 搜索包含error的行
+grep -r &amp;#34;TODO&amp;#34; ./                     # 递归搜索目录
+grep -i &amp;#34;hello&amp;#34; file.txt              # 忽略大小写
+grep -n &amp;#34;pattern&amp;#34; file.txt            # 显示行号
+grep -v &amp;#34;comment&amp;#34; file.txt            # 反向匹配&lt;/code&gt;
+  &lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h2 id=&#34;环境变量&#34;&gt;环境变量
+&lt;/h2&gt;&lt;h3 id=&#34;什么是环境变量&#34;&gt;什么是环境变量
+&lt;/h3&gt;&lt;p&gt;环境变量是存储在 Shell 中的键值对，用于控制系统行为和存储配置信息。&lt;/p&gt;
+&lt;h3 id=&#34;常见环境变量&#34;&gt;常见环境变量
+&lt;/h3&gt;
+
+
+
+
+&lt;div class=&#34;highlight highlight-bash&#34;&gt;
+  &lt;pre&gt;
+    &lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;$HOME          # 当前用户家目录
+$USER          # 当前用户名
+$PATH          # 命令搜索路径
+$PWD           # 当前工作目录
+$SHELL         # 当前使用的 Shell
+$HOSTNAME      # 主机名
+$LANG          # 语言和本地化设置
+$DISPLAY       # X 显示服务器
+$EDITOR        # 默认编辑器&lt;/code&gt;
+  &lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h3 id=&#34;环境变量操作&#34;&gt;环境变量操作
+&lt;/h3&gt;
+
+
+
+
+&lt;div class=&#34;highlight highlight-bash&#34;&gt;
+  &lt;pre&gt;
+    &lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;# 查看所有环境变量
+env
+printenv
+export
+
+# 查看特定变量
+echo $PATH
+echo $HOME
+
+# 设置临时变量（当前 Shell 会话有效）
+MY_VAR=&amp;#34;hello&amp;#34;
+export MY_VAR                    # 导出为环境变量
+
+# 设置永久变量（写入配置文件）
+echo &amp;#39;export MY_VAR=&amp;#34;hello&amp;#34;&amp;#39; &amp;gt;&amp;gt; ~/.bashrc
+source ~/.bashrc                 # 重新加载配置
+
+# 删除变量
+unset MY_VAR&lt;/code&gt;
+  &lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h3 id=&#34;path-变量详解&#34;&gt;PATH 变量详解
+&lt;/h3&gt;
+
+
+
+
+&lt;div class=&#34;highlight highlight-bash&#34;&gt;
+  &lt;pre&gt;
+    &lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;# 查看 PATH
+echo $PATH
+# 输出：/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+
+# 添加新路径到 PATH（临时）
+export PATH=$PATH:/opt/myapp/bin
+
+# 添加新路径到 PATH（永久）
+echo &amp;#39;export PATH=$PATH:/opt/myapp/bin&amp;#39; &amp;gt;&amp;gt; ~/.bashrc
+
+# 命令查找顺序
+# 1. 别名（alias）
+# 2. 内置命令（builtin）
+# 3. PATH 中的可执行文件&lt;/code&gt;
+  &lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;blockquote class=&#34;alert alert-note&#34;&gt;
+    &lt;p&gt;修改 PATH 时注意安全，不要在前面添加不可信的路径，以免被恶意程序替换系统命令。&lt;/p&gt;&lt;/blockquote&gt;
+&lt;h2 id=&#34;管道和重定向&#34;&gt;管道和重定向
+&lt;/h2&gt;&lt;h3 id=&#34;标准流&#34;&gt;标准流
+&lt;/h3&gt;&lt;p&gt;每个进程默认打开三个流：&lt;/p&gt;
+&lt;pre class=&#34;mermaid&#34;&gt;
+  flowchart LR
+    F[文件] --&amp;gt;|0 stdin| P[进程]
+    P --&amp;gt;|1 stdout| T[终端]
+    P --&amp;gt;|2 stderr| T
+
+    style F fill:#e3f2fd
+    style P fill:#fff3e0
+    style T fill:#f3e5f5
+&lt;/pre&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;stdin（0）&lt;/strong&gt;：标准输入，默认来自键盘&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;stdout（1）&lt;/strong&gt;：标准输出，默认输出到终端&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;stderr（2）&lt;/strong&gt;：标准错误，默认输出到终端&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;输出重定向&#34;&gt;输出重定向
+&lt;/h3&gt;
+
+
+
+
+&lt;div class=&#34;highlight highlight-bash&#34;&gt;
+  &lt;pre&gt;
+    &lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;# 覆盖重定向（&amp;gt;）
+echo &amp;#34;Hello&amp;#34; &amp;gt; file.txt          # 覆盖文件内容
+
+# 追加重定向（&amp;gt;&amp;gt;）
+echo &amp;#34;World&amp;#34; &amp;gt;&amp;gt; file.txt         # 追加到文件末尾
+
+# 重定向标准错误（2&amp;gt;）
+command 2&amp;gt; error.log             # 错误输出到文件
+command 2&amp;gt;&amp;gt; error.log            # 追加错误
+
+# 同时重定向
+command &amp;gt; output.log 2&amp;gt;&amp;amp;1        # 标准输出和错误都重定向
+command &amp;amp;&amp;gt; log.txt               # 同上（Bash 简写）
+command &amp;gt; /dev/null 2&amp;gt;&amp;amp;1         # 丢弃所有输出
+
+# 只保留错误
+command 2&amp;gt;&amp;amp;1 &amp;gt; /dev/null         # 只显示错误&lt;/code&gt;
+  &lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h3 id=&#34;输入重定向&#34;&gt;输入重定向
+&lt;/h3&gt;
+
+
+
+
+&lt;div class=&#34;highlight highlight-bash&#34;&gt;
+  &lt;pre&gt;
+    &lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;# 从文件读取输入
+mysql -u root -p &amp;lt; backup.sql
+
+# Here Document
+cat &amp;lt;&amp;lt; EOF
+Hello
+This is a
+multi-line text
+EOF
+
+# Here String（Bash 特有）
+grep &amp;#34;pattern&amp;#34; &amp;lt;&amp;lt;&amp;lt; &amp;#34;Hello World&amp;#34;&lt;/code&gt;
+  &lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h3 id=&#34;管道&#34;&gt;管道
+&lt;/h3&gt;&lt;p&gt;管道将一个命令的输出作为另一个命令的输入：&lt;/p&gt;
+
+
+
+
+
+&lt;div class=&#34;highlight highlight-bash&#34;&gt;
+  &lt;pre&gt;
+    &lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;command1 | command2 | command3
+
+# 示例
+ps aux | grep nginx | grep -v grep
+cat /var/log/syslog | grep &amp;#34;error&amp;#34; | tail -20
+
+# 常用管道组合
+ps aux | sort -k4 -nr | head -10      # CPU 使用率最高的进程
+du -h /home | sort -hr | head -10     # 占用空间最大的目录
+history | awk &amp;#39;{print $2}&amp;#39; | sort | uniq -c | sort -nr | head&lt;/code&gt;
+  &lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;pre class=&#34;mermaid&#34;&gt;
+  flowchart LR
+    A[命令1] --&amp;gt;|stdout| B[管道]
+    B --&amp;gt;|stdin| C[命令2]
+    C --&amp;gt;|stdout| D[命令3]
+    D --&amp;gt;|stdout| T[终端]
+
+    style B fill:#fff3e0
+&lt;/pre&gt;
+
+&lt;h2 id=&#34;命令别名和函数&#34;&gt;命令别名和函数
+&lt;/h2&gt;&lt;h3 id=&#34;别名alias&#34;&gt;别名（alias）
+&lt;/h3&gt;
+
+
+
+
+&lt;div class=&#34;highlight highlight-bash&#34;&gt;
+  &lt;pre&gt;
+    &lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;# 创建别名
+alias ll=&amp;#39;ls -laF&amp;#39;
+alias grep=&amp;#39;grep --color=auto&amp;#39;
+alias c=&amp;#39;clear&amp;#39;
+
+# 查看所有别名
+alias
+
+# 删除别名
+unalias ll
+
+# 永久保存（写入 ~/.bashrc）
+echo &amp;#34;alias ll=&amp;#39;ls -laF&amp;#39;&amp;#34; &amp;gt;&amp;gt; ~/.bashrc&lt;/code&gt;
+  &lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h3 id=&#34;常用别名推荐&#34;&gt;常用别名推荐
+&lt;/h3&gt;
+
+
+
+
+&lt;div class=&#34;highlight highlight-bash&#34;&gt;
+  &lt;pre&gt;
+    &lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;# 在 ~/.bashrc 中添加
+alias ll=&amp;#39;ls -alF&amp;#39;
+alias la=&amp;#39;ls -A&amp;#39;
+alias l=&amp;#39;ls -CF&amp;#39;
+alias ..=&amp;#39;cd ..&amp;#39;
+alias ...=&amp;#39;cd ../..&amp;#39;
+alias grep=&amp;#39;grep --color=auto&amp;#39;
+alias fgrep=&amp;#39;fgrep --color=auto&amp;#39;
+alias egrep=&amp;#39;egrep --color=auto&amp;#39;
+alias df=&amp;#39;df -h&amp;#39;
+alias du=&amp;#39;du -h&amp;#39;
+alias free=&amp;#39;free -h&amp;#39;
+alias tree=&amp;#39;tree -C&amp;#39;
+alias mkdir=&amp;#39;mkdir -pv&amp;#39;
+alias wget=&amp;#39;wget -c&amp;#39;
+alias histg=&amp;#39;history | grep&amp;#39;
+alias myip=&amp;#39;curl http://ipecho.net/plain; echo&amp;#39;&lt;/code&gt;
+  &lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h3 id=&#34;函数&#34;&gt;函数
+&lt;/h3&gt;
+
+
+
+
+&lt;div class=&#34;highlight highlight-bash&#34;&gt;
+  &lt;pre&gt;
+    &lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;# 定义函数
+function mkcd() {
+    mkdir -p &amp;#34;$1&amp;#34; &amp;amp;&amp;amp; cd &amp;#34;$1&amp;#34;
+}
+
+# 或简化写法
+mkcd() {
+    mkdir -p &amp;#34;$1&amp;#34; &amp;amp;&amp;amp; cd &amp;#34;$1&amp;#34;
+}
+
+# 使用函数
+mkcd newproject
+
+# 查看函数定义
+declare -f mkcd
+
+# 删除函数
+unset -f mkcd&lt;/code&gt;
+  &lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h3 id=&#34;实用函数示例&#34;&gt;实用函数示例
+&lt;/h3&gt;
+
+
+
+
+&lt;div class=&#34;highlight highlight-bash&#34;&gt;
+  &lt;pre&gt;
+    &lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;# 提取压缩文件
+extract() {
+    if [ -f $1 ]; then
+        case $1 in
+            *.tar.bz2)   tar xjf $1   ;;
+            *.tar.gz)    tar xzf $1   ;;
+            *.bz2)       bunzip2 $1   ;;
+            *.rar)       unrar x $1   ;;
+            *.gz)        gunzip $1    ;;
+            *.tar)       tar xf $1    ;;
+            *.tbz2)      tar xjf $1   ;;
+            *.tgz)       tar xzf $1   ;;
+            *.zip)       unzip $1     ;;
+            *.Z)         uncompress $1;;
+            *.7z)        7z x $1      ;;
+            *)     echo &amp;#34;&amp;#39;$1&amp;#39; cannot be extracted via extract()&amp;#34; ;;
+        esac
+    else
+        echo &amp;#34;&amp;#39;$1&amp;#39; is not a valid file&amp;#34;
+    fi
+}
+
+# 创建备份
+backup() {
+    tar -czvf &amp;#34;backup_$(date &amp;#43;%Y%m%d_%H%M%S).tar.gz&amp;#34; &amp;#34;$@&amp;#34;
+}
+
+# 查找并杀死进程
+killport() {
+    lsof -ti:$1 | xargs kill -9
+}
+
+# 快速搜索文件内容
+search() {
+    grep -r &amp;#34;$1&amp;#34; . --include=&amp;#34;*.py&amp;#34; --include=&amp;#34;*.js&amp;#34; --include=&amp;#34;*.html&amp;#34;
+}&lt;/code&gt;
+  &lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h2 id=&#34;bash-脚本编程&#34;&gt;Bash 脚本编程
+&lt;/h2&gt;&lt;h3 id=&#34;脚本基础&#34;&gt;脚本基础
+&lt;/h3&gt;&lt;h4 id=&#34;第一个脚本&#34;&gt;第一个脚本
+&lt;/h4&gt;
+
+
+
+
+&lt;div class=&#34;highlight highlight-bash&#34;&gt;
+  &lt;pre&gt;
+    &lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;#!/bin/bash
+# Shebang: 指定解释器
+
+# 这是一个注释
+
+echo &amp;#34;Hello, World!&amp;#34;&lt;/code&gt;
+  &lt;/pre&gt;
+&lt;/div&gt;
+
+
+
+
+
+
+&lt;div class=&#34;highlight highlight-bash&#34;&gt;
+  &lt;pre&gt;
+    &lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;# 赋予执行权限
+chmod &amp;#43;x script.sh
+
+# 执行脚本
+./script.sh
+
+# 或使用 bash 解释
+bash script.sh&lt;/code&gt;
+  &lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h3 id=&#34;变量&#34;&gt;变量
+&lt;/h3&gt;
+
+
+
+
+&lt;div class=&#34;highlight highlight-bash&#34;&gt;
+  &lt;pre&gt;
+    &lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;#!/bin/bash
+
+# 变量定义（注意：等号两边不能有空格）
+name=&amp;#34;Zhang San&amp;#34;
+age=25
+
+# 变量使用
+echo &amp;#34;My name is $name&amp;#34;
+echo &amp;#34;I am $age years old&amp;#34;
+
+# 只读变量
+readonly PI=3.14159
+
+# 删除变量
+unset age
+
+# 特殊变量
+echo &amp;#34;Script name: $0&amp;#34;           # 脚本名称
+echo &amp;#34;First arg: $1&amp;#34;             # 第一个参数
+echo &amp;#34;Second arg: $2&amp;#34;            # 第二个参数
+echo &amp;#34;All args: $@&amp;#34;              # 所有参数
+echo &amp;#34;Number of args: $#&amp;#34;        # 参数个数
+echo &amp;#34;Process ID: $$&amp;#34;            # 当前进程PID
+echo &amp;#34;Exit status: $?&amp;#34;           # 上一条命令的退出状态&lt;/code&gt;
+  &lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h3 id=&#34;数组&#34;&gt;数组
+&lt;/h3&gt;
+
+
+
+
+&lt;div class=&#34;highlight highlight-bash&#34;&gt;
+  &lt;pre&gt;
+    &lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;#!/bin/bash
+
+# 定义数组
+fruits=(&amp;#34;Apple&amp;#34; &amp;#34;Banana&amp;#34; &amp;#34;Orange&amp;#34;)
+
+# 访问数组元素
+echo ${fruits[0]}      # 第一个元素
+echo ${fruits[@]}      # 所有元素
+echo ${#fruits[@]}     # 数组长度
+echo ${!fruits[@]}     # 所有索引
+
+# 添加元素
+fruits&amp;#43;=(&amp;#34;Grape&amp;#34;)
+
+# 遍历数组
+for fruit in &amp;#34;${fruits[@]}&amp;#34;; do
+    echo &amp;#34;I like $fruit&amp;#34;
+done&lt;/code&gt;
+  &lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h3 id=&#34;条件判断&#34;&gt;条件判断
+&lt;/h3&gt;
+
+
+
+
+&lt;div class=&#34;highlight highlight-bash&#34;&gt;
+  &lt;pre&gt;
+    &lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;#!/bin/bash
+
+# if 语句
+age=18
+
+if [ $age -ge 18 ]; then
+    echo &amp;#34;You are an adult&amp;#34;
+elif [ $age -ge 13 ]; then
+    echo &amp;#34;You are a teenager&amp;#34;
+else
+    echo &amp;#34;You are a child&amp;#34;
+fi
+
+# 文件测试
+filename=&amp;#34;test.txt&amp;#34;
+
+if [ -f &amp;#34;$filename&amp;#34; ]; then
+    echo &amp;#34;File exists&amp;#34;
+elif [ -d &amp;#34;$filename&amp;#34; ]; then
+    echo &amp;#34;Directory exists&amp;#34;
+else
+    echo &amp;#34;Not found&amp;#34;
+fi
+
+# 字符串比较
+str1=&amp;#34;hello&amp;#34;
+str2=&amp;#34;world&amp;#34;
+
+if [ &amp;#34;$str1&amp;#34; = &amp;#34;$str2&amp;#34; ]; then
+    echo &amp;#34;Strings are equal&amp;#34;
+elif [ &amp;#34;$str1&amp;#34; != &amp;#34;$str2&amp;#34; ]; then
+    echo &amp;#34;Strings are different&amp;#34;
+fi
+
+# 逻辑运算
+if [ $age -ge 18 ] &amp;amp;&amp;amp; [ $age -le 65 ]; then
+    echo &amp;#34;Working age&amp;#34;
+fi&lt;/code&gt;
+  &lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;&lt;strong&gt;常用测试操作符&lt;/strong&gt;：&lt;/p&gt;
+
+
+
+
+
+&lt;div class=&#34;highlight highlight-bash&#34;&gt;
+  &lt;pre&gt;
+    &lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;# 文件测试
+-f file    # 文件存在且是普通文件
+-d dir     # 目录存在
+-r file    # 文件可读
+-w file    # 文件可写
+-x file    # 文件可执行
+-s file    # 文件大小非零
+
+# 字符串测试
+-z str     # 字符串为空
+-n str     # 字符串非空
+str1 = str2    # 字符串相等
+str1 != str2   # 字符串不等
+
+# 数值比较
+num1 -eq num2  # 等于
+num1 -ne num2  # 不等于
+num1 -gt num2  # 大于
+num1 -lt num2  # 小于
+num1 -ge num2  # 大于等于
+num1 -le num2  # 小于等于&lt;/code&gt;
+  &lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h3 id=&#34;循环&#34;&gt;循环
+&lt;/h3&gt;
+
+
+
+
+&lt;div class=&#34;highlight highlight-bash&#34;&gt;
+  &lt;pre&gt;
+    &lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;#!/bin/bash
+
+# for 循环
+for i in {1..10}; do
+    echo &amp;#34;Number: $i&amp;#34;
+done
+
+# 遍历文件
+for file in *.txt; do
+    echo &amp;#34;Processing: $file&amp;#34;
+done
+
+# C 风格 for 循环
+for ((i=0; i&amp;lt;10; i&amp;#43;&amp;#43;)); do
+    echo $i
+done
+
+# while 循环
+count=0
+while [ $count -lt 10 ]; do
+    echo &amp;#34;Count: $count&amp;#34;
+    ((count&amp;#43;&amp;#43;))
+done
+
+# 读取文件行
+while IFS= read -r line; do
+    echo &amp;#34;$line&amp;#34;
+done &amp;lt; input.txt
+
+# until 循环
+count=0
+until [ $count -ge 10 ]; do
+    echo &amp;#34;Count: $count&amp;#34;
+    ((count&amp;#43;&amp;#43;))
+done&lt;/code&gt;
+  &lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h3 id=&#34;函数-1&#34;&gt;函数
+&lt;/h3&gt;
+
+
+
+
+&lt;div class=&#34;highlight highlight-bash&#34;&gt;
+  &lt;pre&gt;
+    &lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;#!/bin/bash
+
+# 定义函数
+greet() {
+    local name=$1
+    echo &amp;#34;Hello, $name!&amp;#34;
+}
+
+# 调用函数
+greet &amp;#34;Zhang San&amp;#34;
+
+# 返回值
+add() {
+    local num1=$1
+    local num2=$2
+    return $((num1 &amp;#43; num2))
+}
+
+add 5 3
+echo &amp;#34;Sum: $?&amp;#34;   # 获取返回值
+
+# 返回字符串（使用 echo）
+get_info() {
+    echo &amp;#34;Name: $1&amp;#34;
+    echo &amp;#34;Age: $2&amp;#34;
+}
+
+result=$(get_info &amp;#34;Zhang San&amp;#34; 25)
+echo &amp;#34;$result&amp;#34;&lt;/code&gt;
+  &lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h3 id=&#34;实战示例&#34;&gt;实战示例
+&lt;/h3&gt;&lt;h4 id=&#34;系统监控脚本&#34;&gt;系统监控脚本
+&lt;/h4&gt;
+
+
+
+
+&lt;div class=&#34;highlight highlight-bash&#34;&gt;
+  &lt;pre&gt;
+    &lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;#!/bin/bash
+
+# system_monitor.sh - 简单系统监控脚本
+
+echo &amp;#34;=== System Monitor ===&amp;#34;
+echo &amp;#34;Time: $(date)&amp;#34;
+echo &amp;#34;&amp;#34;
+
+# CPU 使用率
+echo &amp;#34;--- CPU Usage ---&amp;#34;
+top -bn1 | grep &amp;#34;Cpu(s)&amp;#34; | sed &amp;#34;s/.*, *\([0-9.]*\)%* id.*/\1/&amp;#34; \
+    | awk &amp;#39;{print &amp;#34;CPU Usage: &amp;#34; 100 - $1&amp;#34;%&amp;#34;}&amp;#39;
+
+# 内存使用
+echo &amp;#34;&amp;#34;
+echo &amp;#34;--- Memory Usage ---&amp;#34;
+free -h | awk &amp;#39;NR==2{printf &amp;#34;Total: %s\nUsed: %s\nFree: %s\nUsage: %.2f%%\n&amp;#34;,
+    $2,$3,$4,$3*100/($3&amp;#43;$4)}&amp;#39;
+
+# 磁盘使用
+echo &amp;#34;&amp;#34;
+echo &amp;#34;--- Disk Usage ---&amp;#34;
+df -h | awk &amp;#39;NR&amp;gt;1 &amp;amp;&amp;amp; $5&amp;#43;0 &amp;gt; 80 {printf &amp;#34;⚠️  %s is %s full\n&amp;#34;,$5,$6}&amp;#39;
+
+# 前5个进程
+echo &amp;#34;&amp;#34;
+echo &amp;#34;--- Top 5 Processes ---&amp;#34;
+ps aux --sort=-%cpu | head -6 | awk &amp;#39;{printf &amp;#34;%-10s %-10s %-10s %s\n&amp;#34;,$1,$2,$3,$11}&amp;#39;&lt;/code&gt;
+  &lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h4 id=&#34;日志备份脚本&#34;&gt;日志备份脚本
+&lt;/h4&gt;
+
+
+
+
+&lt;div class=&#34;highlight highlight-bash&#34;&gt;
+  &lt;pre&gt;
+    &lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;#!/bin/bash
+
+# backup_logs.sh - 备份并压缩日志文件
+
+LOG_DIR=&amp;#34;/var/log&amp;#34;
+BACKUP_DIR=&amp;#34;/backup/logs&amp;#34;
+DATE=$(date &amp;#43;%Y%m%d_%H%M%S)
+BACKUP_FILE=&amp;#34;logs_backup_${DATE}.tar.gz&amp;#34;
+
+# 检查并创建备份目录
+[ ! -d &amp;#34;$BACKUP_DIR&amp;#34; ] &amp;amp;&amp;amp; mkdir -p &amp;#34;$BACKUP_DIR&amp;#34;
+
+# 查找7天内的日志文件并备份
+find &amp;#34;$LOG_DIR&amp;#34; -name &amp;#34;*.log&amp;#34; -mtime -7 -print0 | \
+    tar -czvf &amp;#34;${BACKUP_DIR}/${BACKUP_FILE}&amp;#34; --null -T -
+
+if [ $? -eq 0 ]; then
+    echo &amp;#34;✅ Backup successful: ${BACKUP_DIR}/${BACKUP_FILE}&amp;#34;
+
+    # 只保留最近30天的备份
+    find &amp;#34;$BACKUP_DIR&amp;#34; -name &amp;#34;logs_backup_*.tar.gz&amp;#34; -mtime &amp;#43;30 -delete
+    echo &amp;#34;🗑️  Old backups cleaned up&amp;#34;
+else
+    echo &amp;#34;❌ Backup failed!&amp;#34;
+    exit 1
+fi&lt;/code&gt;
+  &lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h2 id=&#34;命令行技巧&#34;&gt;命令行技巧
+&lt;/h2&gt;&lt;h3 id=&#34;命令历史&#34;&gt;命令历史
+&lt;/h3&gt;
+
+
+
+
+&lt;div class=&#34;highlight highlight-bash&#34;&gt;
+  &lt;pre&gt;
+    &lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;# 查看历史
+history
+
+# 执行历史中的第 n 条命令
+!100
+
+# 执行上一条命令
+!!
+
+# 执行上一条命令的参数
+!$:   # 上一个命令的最后一个参数
+!*:   # 上一个命令的所有参数
+
+# 搜索历史（Ctrl&amp;#43;R 反向搜索）
+# (type) Ctrl&amp;#43;R
+# (reverse-i-search)`ssh&amp;#39;: ssh user@192.168.1.100
+
+# 清空历史
+history -c
+
+# 设置历史大小
+echo &amp;#39;HISTSIZE=10000&amp;#39; &amp;gt;&amp;gt; ~/.bashrc
+echo &amp;#39;HISTFILESIZE=20000&amp;#39; &amp;gt;&amp;gt; ~/.bashrc&lt;/code&gt;
+  &lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h3 id=&#34;命令补全&#34;&gt;命令补全
+&lt;/h3&gt;
+
+
+
+
+&lt;div class=&#34;highlight highlight-bash&#34;&gt;
+  &lt;pre&gt;
+    &lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;# Tab 键补全
+# 1. 命令补全
+# (type) git &amp;lt;Tab&amp;gt;
+# 显示：git  git-receive-pack  git-shell  git-upload-pack  git-upload-archive
+
+# 2. 路径补全
+# (type) cd /ho&amp;lt;Tab&amp;gt;
+# 自动补全为 cd /home/
+
+# 3. 参数补全
+# (type) systemctl s&amp;lt;Tab&amp;gt;&amp;lt;Tab&amp;gt;
+# 显示可能的参数：start  stop  status  restart
+
+# Bash 补全配置
+# 安装 bash-completion
+sudo apt install bash-completion
+
+# 启用补全（在 ~/.bashrc 中）
+if ! shopt -oq posix; then
+  source /etc/bash_completion
+fi&lt;/code&gt;
+  &lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h3 id=&#34;快捷键&#34;&gt;快捷键
+&lt;/h3&gt;&lt;table&gt;
+  &lt;thead&gt;
+      &lt;tr&gt;
+          &lt;th&gt;快捷键&lt;/th&gt;
+          &lt;th&gt;功能&lt;/th&gt;
+      &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+      &lt;tr&gt;
+          &lt;td&gt;&lt;strong&gt;Ctrl+C&lt;/strong&gt;&lt;/td&gt;
+          &lt;td&gt;中断当前命令&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;&lt;strong&gt;Ctrl+D&lt;/strong&gt;&lt;/td&gt;
+          &lt;td&gt;退出 Shell&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;&lt;strong&gt;Ctrl+Z&lt;/strong&gt;&lt;/td&gt;
+          &lt;td&gt;暂停当前命令（fg 恢复）&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;&lt;strong&gt;Ctrl+L&lt;/strong&gt;&lt;/td&gt;
+          &lt;td&gt;清屏&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;&lt;strong&gt;Ctrl+A&lt;/strong&gt;&lt;/td&gt;
+          &lt;td&gt;移到命令行首&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;&lt;strong&gt;Ctrl+E&lt;/strong&gt;&lt;/td&gt;
+          &lt;td&gt;移到命令行尾&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;&lt;strong&gt;Ctrl+U&lt;/strong&gt;&lt;/td&gt;
+          &lt;td&gt;删除到行首&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;&lt;strong&gt;Ctrl+K&lt;/strong&gt;&lt;/td&gt;
+          &lt;td&gt;删除到行尾&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;&lt;strong&gt;Ctrl+W&lt;/strong&gt;&lt;/td&gt;
+          &lt;td&gt;删除前一个单词&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;&lt;strong&gt;Ctrl+Y&lt;/strong&gt;&lt;/td&gt;
+          &lt;td&gt;粘贴删除的内容&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;&lt;strong&gt;Ctrl+R&lt;/strong&gt;&lt;/td&gt;
+          &lt;td&gt;搜索历史命令&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;&lt;strong&gt;!!&lt;/strong&gt;&lt;/td&gt;
+          &lt;td&gt;执行上一条命令&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;&lt;strong&gt;!$&lt;/strong&gt;&lt;/td&gt;
+          &lt;td&gt;上一条命令的最后一个参数&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;&lt;strong&gt;Esc+.&lt;/strong&gt;&lt;/td&gt;
+          &lt;td&gt;上一条命令的最后一个参数（另一种方式）&lt;/td&gt;
+      &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+&lt;h3 id=&#34;作业控制&#34;&gt;作业控制
+&lt;/h3&gt;
+
+
+
+
+&lt;div class=&#34;highlight highlight-bash&#34;&gt;
+  &lt;pre&gt;
+    &lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;# 前台和后台
+command &amp;amp;           # 后台运行
+Ctrl&amp;#43;Z              # 暂停前台命令
+bg                  # 将暂停的命令放到后台
+fg                  # 将后台命令提到前台
+
+# 查看作业
+jobs
+
+# 结束作业
+kill %1             # 结束作业号1&lt;/code&gt;
+  &lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h3 id=&#34;screentmux-会话管理&#34;&gt;Screen/Tmux 会话管理
+&lt;/h3&gt;&lt;p&gt;详见 &lt;a class=&#34;link&#34; href=&#34;https://Gzmomo001.github.io/public/post/tmux/&#34; &gt;Tmux 博客文章&lt;/a&gt;，这里简要介绍：&lt;/p&gt;
+
+
+
+
+
+&lt;div class=&#34;highlight highlight-bash&#34;&gt;
+  &lt;pre&gt;
+    &lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;# Tmux
+tmux new -s session_name       # 创建会话
+tmux ls                        # 列出会话
+tmux attach -t session_name    # 连接会话
+Ctrl&amp;#43;b d                       # 分离会话
+
+# Screen
+screen -S session_name         # 创建会话
+screen -ls                     # 列出会话
+screen -r session_name         # 连接会话
+Ctrl&amp;#43;a d                       # 分离会话&lt;/code&gt;
+  &lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h2 id=&#34;最佳实践&#34;&gt;最佳实践
+&lt;/h2&gt;&lt;h3 id=&#34;1-代码风格&#34;&gt;1. 代码风格
+&lt;/h3&gt;
+
+
+
+
+&lt;div class=&#34;highlight highlight-bash&#34;&gt;
+  &lt;pre&gt;
+    &lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;#!/bin/bash
+# 脚本描述
+# 作者：Your Name
+# 日期：YYYY-MM-DD
+
+set -euo pipefail  # 严格模式
+
+# 使用变量而非硬编码
+LOG_DIR=&amp;#34;/var/log&amp;#34;
+CONFIG_FILE=&amp;#34;/etc/myapp/config.conf&amp;#34;
+
+# 使用引号包裹变量
+if [ -f &amp;#34;$CONFIG_FILE&amp;#34; ]; then
+    source &amp;#34;$CONFIG_FILE&amp;#34;
+fi
+
+# 注释复杂逻辑
+# 计算平均值
+average=$((total / count))
+
+# 函数命名使用动词
+check_status() { :; }
+start_service() { :; }
+stop_service() { :; }&lt;/code&gt;
+  &lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h3 id=&#34;2-错误处理&#34;&gt;2. 错误处理
+&lt;/h3&gt;
+
+
+
+
+&lt;div class=&#34;highlight highlight-bash&#34;&gt;
+  &lt;pre&gt;
+    &lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;#!/bin/bash
+
+# 严格模式
+set -e   # 遇到错误立即退出
+set -u   # 使用未定义变量时报错
+set -o pipefail  # 管道中任何命令失败都返回错误
+
+# 或组合使用
+set -euo pipefail
+
+# 捕获退出信号
+trap &amp;#39;echo &amp;#34;Script interrupted&amp;#34;; exit 1&amp;#39; INT
+
+# 检查命令是否存在
+command -v docker &amp;gt;/dev/null 2&amp;gt;&amp;amp;1 || {
+    echo &amp;#34;Docker is not installed!&amp;#34;
+    exit 1
+}
+
+# 检查文件是否存在
+[ -f &amp;#34;$CONFIG_FILE&amp;#34; ] || {
+    echo &amp;#34;Config file not found!&amp;#34;
+    exit 1
+}&lt;/code&gt;
+  &lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h3 id=&#34;3-日志记录&#34;&gt;3. 日志记录
+&lt;/h3&gt;
+
+
+
+
+&lt;div class=&#34;highlight highlight-bash&#34;&gt;
+  &lt;pre&gt;
+    &lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;#!/bin/bash
+
+# 日志函数
+log() {
+    local level=$1
+    shift
+    echo &amp;#34;[$(date &amp;#39;&amp;#43;%Y-%m-%d %H:%M:%S&amp;#39;)] [$level] $*&amp;#34; | tee -a app.log
+}
+
+log_info() { log &amp;#34;INFO&amp;#34; &amp;#34;$@&amp;#34;; }
+log_warn() { log &amp;#34;WARN&amp;#34; &amp;#34;$@&amp;#34;; }
+log_error() { log &amp;#34;ERROR&amp;#34; &amp;#34;$@&amp;#34;; }
+
+# 使用
+log_info &amp;#34;Starting application...&amp;#34;
+log_warn &amp;#34;Configuration file not found, using defaults&amp;#34;
+log_error &amp;#34;Failed to connect to database&amp;#34;&lt;/code&gt;
+  &lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h3 id=&#34;4-参数解析&#34;&gt;4. 参数解析
+&lt;/h3&gt;
+
+
+
+
+&lt;div class=&#34;highlight highlight-bash&#34;&gt;
+  &lt;pre&gt;
+    &lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;#!/bin/bash
+
+# 显示帮助信息
+usage() {
+    echo &amp;#34;Usage: $0 [OPTIONS]&amp;#34;
+    echo &amp;#34;Options:&amp;#34;
+    echo &amp;#34;  -h, --help     Show this help message&amp;#34;
+    echo &amp;#34;  -v, --verbose  Verbose mode&amp;#34;
+    echo &amp;#34;  -f FILE        Input file&amp;#34;
+    exit 0
+}
+
+# 解析参数
+VERBOSE=false
+INPUT_FILE=&amp;#34;&amp;#34;
+
+while [[ $# -gt 0 ]]; do
+    case $1 in
+        -h|--help)
+            usage
+            ;;
+        -v|--verbose)
+            VERBOSE=true
+            shift
+            ;;
+        -f|--file)
+            INPUT_FILE=&amp;#34;$2&amp;#34;
+            shift 2
+            ;;
+        *)
+            echo &amp;#34;Unknown option: $1&amp;#34;
+            usage
+            ;;
+    esac
+done
+
+# 使用参数
+if [ &amp;#34;$VERBOSE&amp;#34; = true ]; then
+    echo &amp;#34;Verbose mode enabled&amp;#34;
+fi
+
+if [ -n &amp;#34;$INPUT_FILE&amp;#34; ]; then
+    echo &amp;#34;Processing file: $INPUT_FILE&amp;#34;
+fi&lt;/code&gt;
+  &lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h2 id=&#34;总结&#34;&gt;总结
+&lt;/h2&gt;&lt;p&gt;Shell 和命令行是 Linux 世界的瑞士军刀。掌握 Shell 让你能够：&lt;/p&gt;
+&lt;h3 id=&#34;核心能力&#34;&gt;核心能力
+&lt;/h3&gt;&lt;ol&gt;
+&lt;li&gt;&lt;strong&gt;高效操作&lt;/strong&gt;：命令行比 GUI 快得多&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;自动化&lt;/strong&gt;：脚本自动化重复任务&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;系统管理&lt;/strong&gt;：深入控制和监控&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;远程工作&lt;/strong&gt;：SSH 管理远程服务器&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h3 id=&#34;学习路径&#34;&gt;学习路径
+&lt;/h3&gt;&lt;pre class=&#34;mermaid&#34;&gt;
+  flowchart LR
+    A[基础命令] --&amp;gt; B[管道重定向]
+    B --&amp;gt; C[脚本编程]
+    C --&amp;gt; D[高级技巧]
+    D --&amp;gt; E[效率提升]
+
+    style A fill:#e8f5e9
+    style B fill:#c8e6c9
+    style C fill:#a5d6a7
+    style D fill:#81c784
+    style E fill:#4caf50
+&lt;/pre&gt;
+
+&lt;h3 id=&#34;实践建议&#34;&gt;实践建议
+&lt;/h3&gt;&lt;ol&gt;
+&lt;li&gt;&lt;strong&gt;每日使用&lt;/strong&gt;：让 Shell 成为日常工作的一部分&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;阅读代码&lt;/strong&gt;：学习开源项目的 Shell 脚本&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;编写脚本&lt;/strong&gt;：自动化日常任务&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;探索工具&lt;/strong&gt;：发现新的命令和技巧&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;参考文档&lt;/strong&gt;：&lt;code&gt;man&lt;/code&gt; 和 &lt;code&gt;--help&lt;/code&gt; 是好朋友&lt;/li&gt;
+&lt;/ol&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&amp;ldquo;The shell is the way power users talk to the operating system.&amp;rdquo; — Unix Philosophy&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;在下一篇文章中，我们将深入学习 &lt;strong&gt;进程管理&lt;/strong&gt;，了解 Linux 如何管理和调度进程。&lt;/p&gt;
+&lt;hr&gt;
+&lt;p&gt;&lt;strong&gt;← 返回系列概述&lt;/strong&gt;: &lt;a class=&#34;link&#34; href=&#34;https://Gzmomo001.github.io/public/p/linux-%E6%A6%82%E8%BF%B0%E4%BB%8E-unix-%E5%88%B0%E5%BC%80%E6%BA%90%E9%9D%A9%E5%91%BD/&#34; &gt;Linux 概述：从 Unix 到开源革命&lt;/a&gt;&lt;/p&gt;
+&lt;hr&gt;
+&lt;p&gt;&lt;strong&gt;参考资源&lt;/strong&gt;：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;https://www.gnu.org/software/bash/manual/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;Bash 官方文档&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;https://tldp.org/LDP/abs/html/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;Advanced Bash-Scripting Guide&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;https://www.shellcheck.net/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;ShellCheck - Shell 脚本静态分析工具&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;https://explainshell.com/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;explainshell.com - 命令解释器&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;https://devhints.io/bash&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;devhints.io/bash&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+        </item>
+        
+    </channel>
+</rss>

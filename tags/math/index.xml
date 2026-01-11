@@ -2,18 +2,18 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
     <channel>
         <title>Math on Henry Zhang</title>
-        <link>https://Gzmomo001.github.io/tags/math/</link>
+        <link>https://Gzmomo001.github.io/public/tags/math/</link>
         <description>Recent content in Math on Henry Zhang</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>zh-cn</language>
         <copyright>blog@mail.henry070.org</copyright>
-        <lastBuildDate>Wed, 17 Dec 2025 10:39:24 +0800</lastBuildDate><atom:link href="https://Gzmomo001.github.io/tags/math/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Wed, 17 Dec 2025 10:39:24 +0800</lastBuildDate><atom:link href="https://Gzmomo001.github.io/public/tags/math/index.xml" rel="self" type="application/rss+xml" /><item>
         <title>Chi-Square Distribution</title>
-        <link>https://Gzmomo001.github.io/p/chi-square-distribution/</link>
+        <link>https://Gzmomo001.github.io/public/p/chi-square-distribution/</link>
         <pubDate>Fri, 12 Dec 2025 22:00:52 +0800</pubDate>
         
-        <guid>https://Gzmomo001.github.io/p/chi-square-distribution/</guid>
-        <description>&lt;img src="https://Gzmomo001.github.io/default.jpeg" alt="Featured image of post Chi-Square Distribution" /&gt;&lt;blockquote&gt;
+        <guid>https://Gzmomo001.github.io/public/p/chi-square-distribution/</guid>
+        <description>&lt;img src="https://Gzmomo001.github.io/public/default.jpeg" alt="Featured image of post Chi-Square Distribution" /&gt;&lt;blockquote&gt;
 &lt;p&gt;本文是基于 YouTube 频道 &lt;strong&gt;jbstatistics&lt;/strong&gt; 的视频 &lt;a class=&#34;link&#34; href=&#34;https://www.youtube.com/watch?v=hcDb12fsbBU&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;An Introduction to the Chi-Square Distribution&lt;/a&gt; 整理的学习笔记。&lt;/p&gt;
 &lt;/blockquote&gt;

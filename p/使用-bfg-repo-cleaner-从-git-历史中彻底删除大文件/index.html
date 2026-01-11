@@ -1,0 +1,1625 @@
+<!DOCTYPE html>
+<html lang="zh-cn" dir="ltr">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="介绍如何使用 BFG Repo Cleaner 这个强大的工具来清理 Git 仓库历史中的大文件和敏感信息">
+<title>使用 BFG Repo Cleaner 从 Git 历史中彻底删除大文件</title>
+
+<link rel='canonical' href='https://Gzmomo001.github.io/public/p/%E4%BD%BF%E7%94%A8-bfg-repo-cleaner-%E4%BB%8E-git-%E5%8E%86%E5%8F%B2%E4%B8%AD%E5%BD%BB%E5%BA%95%E5%88%A0%E9%99%A4%E5%A4%A7%E6%96%87%E4%BB%B6/'>
+
+<link rel="stylesheet" href="/public/scss/style.min.69ed452c4f70aa0bd98aa7f62758389d29493390c2f090e74cf1c607d4445e3e.css"><meta property='og:title' content="使用 BFG Repo Cleaner 从 Git 历史中彻底删除大文件">
+<meta property='og:description' content="介绍如何使用 BFG Repo Cleaner 这个强大的工具来清理 Git 仓库历史中的大文件和敏感信息">
+<meta property='og:url' content='https://Gzmomo001.github.io/public/p/%E4%BD%BF%E7%94%A8-bfg-repo-cleaner-%E4%BB%8E-git-%E5%8E%86%E5%8F%B2%E4%B8%AD%E5%BD%BB%E5%BA%95%E5%88%A0%E9%99%A4%E5%A4%A7%E6%96%87%E4%BB%B6/'>
+<meta property='og:site_name' content='Henry Zhang'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='git' /><meta property='article:tag' content='bfg' /><meta property='article:tag' content='version-control' /><meta property='article:published_time' content='2026-01-09T22:06:31&#43;08:00'/><meta property='article:modified_time' content='2026-01-09T14:31:03&#43;00:00'/><meta property='og:image' content='https://Gzmomo001.github.io/public/default.jpeg' />
+<meta name="twitter:title" content="使用 BFG Repo Cleaner 从 Git 历史中彻底删除大文件">
+<meta name="twitter:description" content="介绍如何使用 BFG Repo Cleaner 这个强大的工具来清理 Git 仓库历史中的大文件和敏感信息"><meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content='https://Gzmomo001.github.io/public/default.jpeg' />
+    <link rel="shortcut icon" href="/favicon.ico" />
+
+
+<script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+<script>
+  
+  function getCurrentTheme() {
+    const colorSchemeKey = 'StackColorScheme';
+    const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+    const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+    
+    if (colorSchemeItem === 'dark' || (colorSchemeItem === 'auto' && supportDarkMode)) {
+      return 'dark';
+    } else {
+      return 'light';
+    }
+  }
+
+  
+  function logThemeInfo() {
+    const colorSchemeKey = 'StackColorScheme';
+    const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+    const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+    const documentScheme = document.documentElement.dataset.scheme;
+    
+    console.log('[Mermaid] Theme Detection:', {
+      localStorage: colorSchemeItem,
+      systemDark: supportDarkMode,
+      documentScheme: documentScheme,
+      calculatedTheme: getCurrentTheme()
+    });
+  }
+
+  
+  function initializeMermaid() {
+    const currentTheme = getCurrentTheme();
+    
+    if (currentTheme === 'dark') {
+      
+      mermaid.initialize({
+        startOnLoad: false,
+        theme: 'dark',
+        themeVariables: {
+          
+          primaryColor: '#4a5568',
+          primaryTextColor: '#f7fafc',
+          primaryBorderColor: '#63b3ed',
+          lineColor: '#e2e8f0',
+          secondaryColor: '#2d3748',
+          tertiaryColor: '#1a202c',
+          background: '#1a202c',
+          
+          
+          fillType0: '#2d3748',
+          fillType1: '#4a5568',
+          fillType2: '#4299e1',
+          clusterBkg: '#2d3748',
+          clusterBorder: '#4a5568',
+          nodeBorder: '#e2e8f0',
+          mainBkg: '#4a5568',
+          altBkg: '#2d3748',
+          
+          
+          labelBackground: '#2d3748',
+          edgeLabelBackground: '#2d3748',
+          titleColor: '#f7fafc',
+          
+          
+          actorBkg: '#2d3748',
+          actorBorder: '#4a5568',
+          actorTextColor: '#e2e8f0',
+          actorLine: '#4a5568',
+          signalColor: '#e2e8f0',
+          signalTextColor: '#e2e8f0',
+          noteBkgColor: '#4a5568',
+          noteBorderColor: '#4a5568',
+          noteTextColor: '#e2e8f0',
+          activationBorderColor: '#4299e1',
+          activationBkgColor: '#2d3748',
+          
+          
+          sectionBkgColor: '#2d3748',
+          altSectionBkgColor: '#4a5568',
+          sectionBorderColor: '#4a5568',
+          taskBkgColor: '#4299e1',
+          taskBorderColor: '#63b3ed',
+          taskTextColor: '#ffffff',
+          activeTaskBkgColor: '#48bb78',
+          activeTaskBorderColor: '#38a169',
+          doneTaskBkgColor: '#2d3748',
+          doneTaskBorderColor: '#4a5568',
+          critBkgColor: '#f56565',
+          critBorderColor: '#e53e3e',
+          critTextColor: '#ffffff',
+          
+          
+          pie1: '#4299e1',
+          pie2: '#48bb78',
+          pie3: '#ed8936',
+          pie4: '#9f7aea',
+          pie5: '#ed64a6',
+          pie6: '#38b2ac',
+          pie7: '#f6ad55',
+          pie8: '#68d391',
+          pie9: '#63b3ed',
+          pie10: '#b794f4',
+          pieTitleTextSize: '24px',
+          pieSectionTextSize: '16px',
+          pieOuterStrokeWidth: '2px',
+          pieStroke: '#1a202c',
+          pieOpacity: '1',
+          
+          
+          classText: '#f7fafc',
+          classTitle: '#f7fafc',
+          
+          
+          stateBkg: '#2d3748',
+          stateBorder: '#4a5568',
+          labelColor: '#f7fafc',
+          stateLabel: '#f7fafc',
+          stateText: '#f7fafc',
+          transitionLabel: '#f7fafc',
+          
+          
+          entityBkg: '#2d3748',
+          entityBorder: '#4a5568',
+          attributeBkg: '#2d3748',
+          attributeBorder: '#4a5568',
+          relationshipText: '#f7fafc',
+          
+          
+          gridColor: '#4a5568',
+          scaleBarColor: '#4a5568',
+          barColor: '#4299e1',
+          barBorderColor: '#63b3ed',
+          todayLineColor: '#f6ad55',
+          
+          
+          git0: '#4299e1',
+          git1: '#48bb78',
+          git2: '#ed8936',
+          git3: '#9f7aea',
+          git4: '#ed64a6',
+          git5: '#38b2ac',
+          git6: '#f6ad55',
+          git7: '#68d391',
+          gitInv0: '#2d3748',
+          gitInv1: '#2d3748',
+          gitInv2: '#2d3748',
+          gitInv3: '#2d3748',
+          gitInv4: '#2d3748',
+          gitInv5: '#2d3748',
+          gitInv6: '#2d3748',
+          gitInv7: '#2d3748',
+          
+          
+          mindmapPrimary: '#4299e1',
+          mindmapSecondary: '#48bb78',
+          mindmapTertiary: '#ed8936',
+          
+          
+          errorTextColor: '#fc8181',
+          warningTextColor: '#f6ad55',
+          infoTextColor: '#63b3ed',
+          
+          
+          edgeLabelBackground: '#1a202c',
+          
+          
+          edgeLabelBackground: '#2d3748',
+          
+          
+          classLabel: '#f7fafc',
+          dividerColor: '#4a5568',
+          
+          
+          dividerColor: '#4a5568',
+          
+          
+          dividerColor: '#4a5568',
+          
+          
+          fontFamily: '"Douyin Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
+          fontSize: '16px'
+        },
+        fontFamily: '"Douyin Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
+        fontSize: 16,
+        flowchart: {
+          useMaxWidth: true,
+          htmlLabels: true,
+          curve: 'basis'
+        },
+        sequence: {
+          useMaxWidth: true
+        },
+        journey: {
+          useMaxWidth: true
+        },
+        pie: {
+          useMaxWidth: true
+        },
+        gantt: {
+          useMaxWidth: true
+        },
+        git: {
+          useMaxWidth: true
+        },
+        mindmap: {
+          useMaxWidth: true
+        }
+      });
+    } else {
+      
+      mermaid.initialize({
+        startOnLoad: false,
+        theme: 'default',
+        themeVariables: {
+          primaryColor: '#007bff',
+          primaryTextColor: '#333',
+          primaryBorderColor: '#007bff',
+          lineColor: '#666',
+          secondaryColor: '#f8f9fa',
+          tertiaryColor: '#e9ecef'
+        },
+        fontFamily: '"Douyin Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
+        fontSize: 16,
+        flowchart: {
+          useMaxWidth: true,
+          htmlLabels: true,
+          curve: 'basis'
+        }
+      });
+    }
+    
+    
+    document.querySelectorAll('.mermaid').forEach(function(element) {
+      if (!element.dataset.original) {
+        element.dataset.original = element.textContent.trim();
+      }
+    });
+    
+    
+    return mermaid.run();
+  }
+
+  
+  document.addEventListener('DOMContentLoaded', function() {
+    
+    initializeMermaid();
+    
+    
+    logThemeInfo();
+    
+    
+    const darkModeToggle = document.getElementById('dark-mode-toggle');
+    if (darkModeToggle) {
+      darkModeToggle.addEventListener('click', function() {
+        
+        document.querySelectorAll('.mermaid').forEach(function(element) {
+          element.classList.add('reloading');
+        });
+        
+        
+        setTimeout(function() {
+          
+          document.querySelectorAll('.mermaid').forEach(function(element) {
+            
+            if (!element.dataset.original) {
+              element.dataset.original = element.textContent.trim();
+            }
+            
+            
+            element.innerHTML = '';
+            
+            
+            element.textContent = element.dataset.original;
+            
+            
+            element.removeAttribute('data-processed');
+          });
+          
+          
+          console.log('[Mermaid] Theme changed, reinitializing...');
+          
+          
+          initializeMermaid().then(function() {
+            
+            document.querySelectorAll('.mermaid').forEach(function(element) {
+              element.classList.remove('reloading');
+            });
+          });
+        }, 250);
+      });
+    }
+  });
+</script>
+<link rel='stylesheet' href='https://chinese-fonts-cdn.deno.dev/packages/dymh/dist/DouyinSansBold/result.css' />
+
+
+    </head>
+    <body class="
+    article-page
+    ">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky ">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="切换菜单">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header>
+        
+            
+            <figure class="site-avatar">
+                <a href="/public/">
+                
+                    
+                    
+                    
+                        
+                        <img src="/public/img/avatar_hu_9c50848f93c56cbf.jpeg" width="300"
+                            height="296" class="site-logo" loading="lazy" alt="Avatar">
+                    
+                
+                </a>
+                
+                    <span class="emoji">🤓</span>
+                
+            </figure>
+            
+        
+        
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/public">Henry Zhang</a></h1>
+            <h2 class="site-description">Driven by Wonder, Powered by Knowledge.🤓</h2>
+        </div>
+    </header><ol class="menu-social">
+            
+                <li>
+                    <a 
+                        href='https://github.com/Gzmomo001'
+                        target="_blank"
+                        title="GitHub"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+        </ol><ol class="menu" id="main-menu">
+        
+        
+        
+        <li >
+            <a href='/public/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="5 12 3 12 12 3 21 12 19 12" />
+  <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
+  <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
+</svg>
+
+
+
+                
+                <span>Home</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/public/about-me/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="7" r="4" />
+  <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
+</svg>
+
+
+
+                
+                <span>About me</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/public/archives/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <rect x="3" y="4" width="18" height="4" rx="2" />
+  <path d="M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-10" />
+  <line x1="10" y1="12" x2="14" y2="12" />
+</svg>
+
+
+
+                
+                <span>Archives</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/public/search/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="10" cy="10" r="7" />
+  <line x1="21" y1="21" x2="15" y2="15" />
+</svg>
+
+
+
+                
+                <span>Search</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/public/some-useful-links/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-link" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5" />
+  <path d="M14 10a3.5 3.5 0 0 0 -5 0l-4 4a3.5 3.5 0 0 0 5 5l.5 -.5" />
+</svg>
+
+
+
+                
+                <span>Some Useful Links</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/public/update-logs/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                
+                <span>Update Logs</span>
+            </a>
+        </li>
+        
+        <li class="menu-bottom-section">
+            <ol class="menu">
+
+                
+                    <li id="dark-mode-toggle">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <span>暗色模式</span>
+                    </li>
+                
+            </ol>
+        </li>
+    </ol>
+</aside>
+
+    <aside class="sidebar right-sidebar sticky">
+        
+        
+            
+        
+
+        
+        
+            
+                
+                    
+    <section class="widget archives">
+        <div class="widget-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+        </div>
+        <h2 class="widget-title section-title">目录</h2>
+        
+        <div class="widget--toc">
+            <nav id="TableOfContents">
+  <ol>
+    <li>
+      <ol>
+        <li><a href="#前言">前言</a></li>
+        <li><a href="#什么是-bfg-repo-cleaner">什么是 BFG Repo Cleaner？</a>
+          <ol>
+            <li><a href="#bfg-vs-git-filter-branch">BFG vs git-filter-branch</a></li>
+          </ol>
+        </li>
+        <li><a href="#安装-bfg">安装 BFG</a>
+          <ol>
+            <li><a href="#前置要求">前置要求</a></li>
+            <li><a href="#下载安装">下载安装</a></li>
+          </ol>
+        </li>
+        <li><a href="#使用步骤">使用步骤</a>
+          <ol>
+            <li><a href="#-重要提醒">⚠️ 重要提醒</a></li>
+            <li><a href="#基本流程">基本流程</a>
+              <ol>
+                <li><a href="#1-镜像克隆仓库">1. 镜像克隆仓库</a></li>
+                <li><a href="#2-运行-bfg-清理">2. 运行 BFG 清理</a></li>
+                <li><a href="#3-清理-git-数据库">3. 清理 Git 数据库</a></li>
+                <li><a href="#4-推送更改">4. 推送更改</a></li>
+                <li><a href="#5-团队协作">5. 团队协作</a></li>
+              </ol>
+            </li>
+          </ol>
+        </li>
+        <li><a href="#常用示例">常用示例</a>
+          <ol>
+            <li><a href="#示例-1删除超过-50mb-的大文件">示例 1：删除超过 50MB 的大文件</a></li>
+            <li><a href="#示例-2删除特定文件">示例 2：删除特定文件</a></li>
+            <li><a href="#示例-3删除最大的-100-个文件">示例 3：删除最大的 100 个文件</a></li>
+            <li><a href="#示例-4替换敏感文本">示例 4：替换敏感文本</a></li>
+            <li><a href="#示例-5组合使用">示例 5：组合使用</a></li>
+          </ol>
+        </li>
+        <li><a href="#重要特性说明">重要特性说明</a>
+          <ol>
+            <li><a href="#当前提交保护机制">当前提交保护机制</a></li>
+            <li><a href="#清理原则">清理原则</a></li>
+          </ol>
+        </li>
+        <li><a href="#性能对比">性能对比</a></li>
+        <li><a href="#实战案例">实战案例</a></li>
+        <li><a href="#注意事项">注意事项</a>
+          <ol>
+            <li><a href="#-强制推送会改变历史">⚠️ 强制推送会改变历史</a></li>
+            <li><a href="#-检查依赖">⚠️ 检查依赖</a></li>
+            <li><a href="#-cicd-配置">⚠️ CI/CD 配置</a></li>
+          </ol>
+        </li>
+        <li><a href="#替代方案">替代方案</a>
+          <ol>
+            <li><a href="#git-filter-branch">git-filter-branch</a></li>
+            <li><a href="#git-filter-repo推荐">git filter-repo（推荐）</a></li>
+          </ol>
+        </li>
+        <li><a href="#总结">总结</a></li>
+        <li><a href="#参考资源">参考资源</a></li>
+      </ol>
+    </li>
+  </ol>
+</nav>
+        </div>
+    </section>
+
+                
+            
+        
+    </aside>
+
+
+
+            <main class="main full-width">
+    <article class="has-image main-article">
+    <header class="article-header">
+        <div class="article-image">
+            <a href="/public/p/%E4%BD%BF%E7%94%A8-bfg-repo-cleaner-%E4%BB%8E-git-%E5%8E%86%E5%8F%B2%E4%B8%AD%E5%BD%BB%E5%BA%95%E5%88%A0%E9%99%A4%E5%A4%A7%E6%96%87%E4%BB%B6/">
+                
+                    <img src="/public/default.jpeg" loading="lazy" alt="Featured image of post 使用 BFG Repo Cleaner 从 Git 历史中彻底删除大文件" />
+                
+            </a>
+        </div>
+    
+
+    <div class="article-details">
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/public/p/%E4%BD%BF%E7%94%A8-bfg-repo-cleaner-%E4%BB%8E-git-%E5%8E%86%E5%8F%B2%E4%B8%AD%E5%BD%BB%E5%BA%95%E5%88%A0%E9%99%A4%E5%A4%A7%E6%96%87%E4%BB%B6/">使用 BFG Repo Cleaner 从 Git 历史中彻底删除大文件</a>
+        </h2>
+    
+        
+        <h3 class="article-subtitle">
+            介绍如何使用 BFG Repo Cleaner 这个强大的工具来清理 Git 仓库历史中的大文件和敏感信息
+        </h3>
+        
+    </div>
+
+    
+    
+    
+    
+    <footer class="article-time">
+        <div class="article-metadata">
+            
+            <div class="article-category">
+                
+                    
+                    
+                    <a href="/public/categories/git/" class="category-link" style="background-color: #581977; color: #ffffff;">
+                        Git
+                    </a>
+                
+                    
+                    
+                    <a href="/public/categories/tool/" class="category-link" style="background-color: #9a830c; color: #ffffff;">
+                        Tool
+                    </a>
+                
+            </div>
+            
+
+            
+            <div class="article-tags">
+                
+                    
+                    
+                    <a href="/public/tags/git/" class="tag-link" style="color: #ffffff; border: 1px solid #581977; background-color: #58197720;">
+                        #Git
+                    </a>
+                
+                    
+                    
+                    <a href="/public/tags/bfg/" class="tag-link" style="color: #ffffff; border: 1px solid #a25288; background-color: #a2528820;">
+                        #Bfg
+                    </a>
+                
+                    
+                    
+                    <a href="/public/tags/version-control/" class="tag-link" style="color: #ffffff; border: 1px solid #ab60e9; background-color: #ab60e920;">
+                        #Version-Control
+                    </a>
+                
+            </div>
+            
+        </div>
+
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">2026-01-09</time>
+            </div>
+        <div class="article-lastmod">
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+                <time>
+                    Jan 09, 2026 14:31 UTC
+                </time>
+            </div>
+    </footer>
+    
+
+    
+</div>
+
+</header>
+
+    <section class="article-content">
+    
+    
+    <h2 id="前言">前言
+</h2><p>在使用 Git 进行版本控制时，我们可能会不小心将一些大文件（如编译产物、数据集、安装包等）提交到仓库中。即使后来删除了这些文件，它们仍然存在于 Git 的历史记录中，导致仓库体积臃肿，克隆和拉取变得缓慢。</p>
+<p>本文将介绍 <strong>BFG Repo Cleaner</strong> —— 一个比 <code>git-filter-branch</code> 更简单、更快的工具，用于清理 Git 仓库历史中的大文件和敏感信息。</p>
+<h2 id="什么是-bfg-repo-cleaner">什么是 BFG Repo Cleaner？
+</h2><p><a class="link" href="https://rtyley.github.io/bfg-repo-cleaner/"  target="_blank" rel="noopener"
+    >BFG Repo Cleaner</a> 是一个专门用于清理 Git 仓库历史的工具，它可以：</p>
+<ul>
+<li><strong>删除大文件</strong>：移除历史记录中超过指定大小的文件</li>
+<li><strong>删除敏感信息</strong>：移除密码、凭证等私人数据</li>
+<li><strong>删除特定文件</strong>：按文件名模式删除文件或文件夹</li>
+</ul>
+<h3 id="bfg-vs-git-filter-branch">BFG vs git-filter-branch
+</h3><p>相比 Git 原生的 <code>git-filter-branch</code> 命令，BFG 有以下优势：</p>
+<div class="table-wrapper"><table>
+  <thead>
+      <tr>
+          <th>特性</th>
+          <th>BFG Repo Cleaner</th>
+          <th>git-filter-branch</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td><strong>速度</strong></td>
+          <td><strong>10-720 倍更快</strong></td>
+          <td>较慢</td>
+      </tr>
+      <tr>
+          <td><strong>易用性</strong></td>
+          <td>专注特定任务，简单直观</td>
+          <td>功能强大但复杂</td>
+      </tr>
+      <tr>
+          <td><strong>性能</strong></td>
+          <td>多核并行处理</td>
+          <td>单线程处理</td>
+      </tr>
+      <tr>
+          <td><strong>语言</strong></td>
+          <td>Scala + JVM</td>
+          <td>Bash + C</td>
+      </tr>
+  </tbody>
+</table></div>
+<p>根据实际用户反馈：</p>
+<ul>
+<li>Elliot Glaysher（Google Chrome 工程师）：BFG 在 10 分钟内将仓库缩减到 ~500MB，而他手工脚本需要 3 天才能处理到 615MB</li>
+<li>Jason Frey（Red Hat 工程师）：对 BFG 的性能感到惊叹</li>
+</ul>
+<h2 id="安装-bfg">安装 BFG
+</h2><h3 id="前置要求">前置要求
+</h3><p>BFG 需要 <strong>Java 11 或更高版本</strong>（BFG v1.14.0 是最后一个支持 Java 8 的版本）。</p>
+<h3 id="下载安装">下载安装
+</h3><ol>
+<li>从 <a class="link" href="https://github.com/rtyley/bfg-repo-cleaner/releases"  target="_blank" rel="noopener"
+    >GitHub Releases</a> 下载最新版本的 JAR 文件</li>
+<li>下载后得到类似 <code>bfg-1.14.0.jar</code> 的文件</li>
+</ol>
+
+
+
+
+
+<div class="highlight highlight-bash">
+  <pre>
+    <code class="language-bash" data-lang="bash"># 创建一个便捷的别名（可选）
+alias bfg=&#39;java -jar /path/to/bfg-1.14.0.jar&#39;
+
+# 或者将 bfg.jar 移动到 PATH 中
+sudo mv bfg-1.14.0.jar /usr/local/bin/bfg.jar
+alias bfg=&#39;java -jar /usr/local/bin/bfg.jar&#39;</code>
+  </pre>
+</div>
+
+<h2 id="使用步骤">使用步骤
+</h2><h3 id="-重要提醒">⚠️ 重要提醒
+</h3><p><strong>在开始之前，请务必备份你的仓库！</strong> 重写 Git 历史是不可逆的操作。</p>
+<h3 id="基本流程">基本流程
+</h3><h4 id="1-镜像克隆仓库">1. 镜像克隆仓库
+</h4><p>使用 <code>--mirror</code> 标志克隆一个完整的仓库副本：</p>
+
+
+
+
+
+<div class="highlight highlight-bash">
+  <pre>
+    <code class="language-bash" data-lang="bash">git clone --mirror git://example.com/some-big-repo.git</code>
+  </pre>
+</div>
+
+<p>这会创建一个<strong>裸仓库</strong>（bare repo），虽然看不到正常文件，但包含了完整的 Git 数据库。</p>
+<p><strong>务必在此阶段备份整个文件夹！</strong></p>
+<h4 id="2-运行-bfg-清理">2. 运行 BFG 清理
+</h4>
+
+
+
+
+<div class="highlight highlight-bash">
+  <pre>
+    <code class="language-bash" data-lang="bash"># 删除所有大于 100M 的文件
+bfg --strip-blobs-bigger-than 100M some-big-repo.git
+
+# 删除特定文件
+bfg --delete-files id_{dsa,rsa} my-repo.git
+
+# 替换敏感文本（需要先创建一个包含敏感词的文件）
+bfg --replace-text passwords.txt my-repo.git</code>
+  </pre>
+</div>
+
+<p>BFG 会更新所有提交、分支和标签，但不会物理删除数据。</p>
+<h4 id="3-清理-git-数据库">3. 清理 Git 数据库
+</h4><p>进入仓库目录，使用 <code>git gc</code> 清理垃圾数据：</p>
+
+
+
+
+
+<div class="highlight highlight-bash">
+  <pre>
+    <code class="language-bash" data-lang="bash">cd some-big-repo.git
+git reflog expire --expire=now --all &amp;&amp; git gc --prune=now --aggressive</code>
+  </pre>
+</div>
+
+<h4 id="4-推送更改">4. 推送更改
+</h4>
+
+
+
+
+<div class="highlight highlight-bash">
+  <pre>
+    <code class="language-bash" data-lang="bash">git push</code>
+  </pre>
+</div>
+
+<p><strong>注意</strong>：由于使用了 <code>--mirror</code> 标志，这会更新远程服务器上的所有引用。</p>
+<h4 id="5-团队协作">5. 团队协作
+</h4><p>告诉所有协作者：</p>
+<ul>
+<li><strong>删除旧的本地克隆</strong></li>
+<li><strong>重新克隆清理后的仓库</strong></li>
+</ul>
+<p>如果保留旧克隆并推送，可能会将脏历史重新引入！</p>
+<h2 id="常用示例">常用示例
+</h2><h3 id="示例-1删除超过-50mb-的大文件">示例 1：删除超过 50MB 的大文件
+</h3>
+
+
+
+
+<div class="highlight highlight-bash">
+  <pre>
+    <code class="language-bash" data-lang="bash"># 删除所有大于 50MB 的文件
+bfg --strip-blobs-bigger-than 50M my-repo.git</code>
+  </pre>
+</div>
+
+<h3 id="示例-2删除特定文件">示例 2：删除特定文件
+</h3>
+
+
+
+
+<div class="highlight highlight-bash">
+  <pre>
+    <code class="language-bash" data-lang="bash"># 删除所有名为 id_rsa 或 id_dsa 的文件
+bfg --delete-files id_{dsa,rsa} my-repo.git
+
+# 删除 .git 文件夹/文件（从其他版本控制系统迁移时常见）
+bfg --delete-folders .git --delete-files .git --no-blob-protection my-repo.git</code>
+  </pre>
+</div>
+
+<h3 id="示例-3删除最大的-100-个文件">示例 3：删除最大的 100 个文件
+</h3>
+
+
+
+
+<div class="highlight highlight-bash">
+  <pre>
+    <code class="language-bash" data-lang="bash"># 删除仓库中最大的 100 个文件
+bfg --strip-biggest-blobs 100 my-repo.git</code>
+  </pre>
+</div>
+
+<h3 id="示例-4替换敏感文本">示例 4：替换敏感文本
+</h3><p>创建 <code>passwords.txt</code> 文件，每行一个要替换的内容：</p>
+
+
+
+
+  
+
+
+<div class="highlight highlight-text">
+  <pre>
+    <code class="language-text" data-lang="text">password=secret123
+regex:api[_-]key=\w&#43;
+glob:*config.yml</code>
+  </pre>
+</div>
+
+<p>然后运行：</p>
+
+
+
+
+
+<div class="highlight highlight-bash">
+  <pre>
+    <code class="language-bash" data-lang="bash">bfg --replace-text passwords.txt my-repo.git</code>
+  </pre>
+</div>
+
+<p>BFG 会将这些内容替换为 <code>***REMOVED***</code>。</p>
+<h3 id="示例-5组合使用">示例 5：组合使用
+</h3>
+
+
+
+
+<div class="highlight highlight-bash">
+  <pre>
+    <code class="language-bash" data-lang="bash"># 同时删除大文件和敏感文本
+bfg --strip-blobs-bigger-than 100M --replace-text banned.txt repo.git</code>
+  </pre>
+</div>
+
+<h2 id="重要特性说明">重要特性说明
+</h2><h3 id="当前提交保护机制">当前提交保护机制
+</h3><p><strong>默认情况下，BFG 不会修改你最新提交的内容</strong>（通常是 <code>master</code> 或 <code>HEAD</code> 分支）。</p>
+<p>这是一个保护机制，因为：</p>
+<ul>
+<li>最新提交通常是部署到生产环境的代码</li>
+<li>简单删除可能导致代码损坏（例如删除了仍在使用的密码或大文件）</li>
+<li>你需要先手动清理当前提交，BFG 再处理历史提交</li>
+</ul>
+<p><strong>如何禁用保护（不推荐）</strong>：</p>
+
+
+
+
+
+<div class="highlight highlight-bash">
+  <pre>
+    <code class="language-bash" data-lang="bash">bfg --strip-biggest-blobs 100 --no-blob-protection repo.git</code>
+  </pre>
+</div>
+
+<h3 id="清理原则">清理原则
+</h3><ul>
+<li>如果&quot;坏东西&quot;（如超过大小限制的文件）在受保护的提交中，它<strong>不会被删除</strong></li>
+<li>即使文件在受保护提交中未被修改，这些提交的 ID 也会改变（因为历史改变了）</li>
+<li>如果想让 BFG 删除某些内容，<strong>确保当前提交是干净的</strong></li>
+</ul>
+<h2 id="性能对比">性能对比
+</h2><p>根据 BFG 官方文档和用户反馈：</p>
+<div class="table-wrapper"><table>
+  <thead>
+      <tr>
+          <th>场景</th>
+          <th>git-filter-branch</th>
+          <th>BFG Repo Cleaner</th>
+          <th>性能提升</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>大型仓库清理</td>
+          <td>3 天</td>
+          <td>10 分钟</td>
+          <td><strong>432x</strong></td>
+      </tr>
+      <tr>
+          <td>标准清理任务</td>
+          <td>过夜作业</td>
+          <td>&lt; 10 分钟</td>
+          <td><strong>10-720x</strong></td>
+      </tr>
+  </tbody>
+</table></div>
+<p>BFG 的性能优势来自：</p>
+<ol>
+<li><strong>智能处理</strong>：不需要检查每个提交的完整文件层次结构</li>
+<li><strong>多核并行</strong>：利用 Scala 和 JVM 的并行处理能力</li>
+<li><strong>单进程</strong>：不需要频繁的 fork 和 exec 操作</li>
+</ol>
+<h2 id="实战案例">实战案例
+</h2><p>假设你的仓库不小心提交了一个 200MB 的数据集文件 <code>dataset.csv</code>：</p>
+
+
+
+
+
+<div class="highlight highlight-bash">
+  <pre>
+    <code class="language-bash" data-lang="bash"># 1. 镜像克隆
+git clone --mirror https://github.com/username/repo.git
+cd repo.git
+
+# 2. 运行 BFG 删除大文件
+bfg --strip-blobs-bigger-than 50M repo.git
+
+# 查看清理报告
+# BFG 会显示类似：
+# Scanning git repo... found 1 dirty commits
+# Cleaning commits:   100% done
+# Found 1 dirty blobs (that needed cleaning)
+
+# 3. 清理 Git 数据库
+git reflog expire --expire=now --all &amp;&amp; git gc --prune=now --aggressive
+
+# 4. 推送
+git push
+
+# 输出可能显示：
+# To https://github.com/username/repo.git
+#  &#43; abc1234..def5678 master -&gt; master (forced update)</code>
+  </pre>
+</div>
+
+<h2 id="注意事项">注意事项
+</h2><h3 id="-强制推送会改变历史">⚠️ 强制推送会改变历史
+</h3><p>清理后需要强制推送，这会改写 Git 历史。确保：</p>
+<ul>
+<li>通知所有协作者</li>
+<li>他们需要重新克隆仓库</li>
+<li>备份重要数据</li>
+</ul>
+<h3 id="-检查依赖">⚠️ 检查依赖
+</h3><p>如果仓库被其他项目引用为 submodule 或依赖，清理后需要更新引用。</p>
+<h3 id="-cicd-配置">⚠️ CI/CD 配置
+</h3><p>检查 CI/CD 系统是否依赖特定的提交 SHA，清理后可能需要更新配置。</p>
+<h2 id="替代方案">替代方案
+</h2><h3 id="git-filter-branch">git-filter-branch
+</h3><p>虽然 BFG 更快更简单，但 <code>git-filter-branch</code> 功能更强大，可以处理更复杂的场景：</p>
+
+
+
+
+
+<div class="highlight highlight-bash">
+  <pre>
+    <code class="language-bash" data-lang="bash"># 删除特定文件的所有历史记录
+git filter-branch --force --index-filter \
+  &#34;git rm --cached --ignore-unmatch path/to/file&#34; \
+  --prune-empty --tag-name-filter cat -- --all</code>
+  </pre>
+</div>
+
+<h3 id="git-filter-repo推荐">git filter-repo（推荐）
+</h3><p><a class="link" href="https://github.com/newren/git-filter-repo"  target="_blank" rel="noopener"
+    >git filter-repo</a> 是新一代的 Git 历史重写工具，Python 编写，性能优异且更安全：</p>
+
+
+
+
+
+<div class="highlight highlight-bash">
+  <pre>
+    <code class="language-bash" data-lang="bash">pip install git-filter-repo
+
+# 删除大于 100M 的文件
+git filter-repo --strip-blobs-bigger-than 100M</code>
+  </pre>
+</div>
+
+<h2 id="总结">总结
+</h2><p>BFG Repo Cleaner 是清理 Git 仓库历史的优秀工具：</p>
+<p>✅ <strong>速度快</strong>：比 git-filter-branch 快 10-720 倍
+✅ <strong>简单易用</strong>：专注特定任务，命令直观
+✅ <strong>安全可靠</strong>：保护当前提交，有备份机制
+✅ <strong>功能全面</strong>：支持删除大文件、敏感信息和特定文件</p>
+<p><strong>推荐工作流程</strong>：</p>
+<ol>
+<li>定期检查仓库大小</li>
+<li>发现大文件后立即使用 BFG 清理</li>
+<li>通知团队重新克隆</li>
+<li>在 <code>.gitignore</code> 中添加防止误提交</li>
+</ol>
+<h2 id="参考资源">参考资源
+</h2><ul>
+<li><a class="link" href="https://rtyley.github.io/bfg-repo-cleaner/"  target="_blank" rel="noopener"
+    >BFG Repo Cleaner 官网</a></li>
+<li><a class="link" href="https://github.com/rtyley/bfg-repo-cleaner"  target="_blank" rel="noopener"
+    >BFG GitHub 仓库</a></li>
+<li><a class="link" href="https://git-scm.com/docs/git-filter-branch"  target="_blank" rel="noopener"
+    >Git SCM - git-filter-branch 文档</a></li>
+<li><a class="link" href="https://github.com/newren/git-filter-repo"  target="_blank" rel="noopener"
+    >git filter-repo 项目</a></li>
+</ul>
+<hr>
+<p><strong>Happy Coding! 🚀</strong></p>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+
+    
+    <section class="article-copyright">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <path d="M14.5 9a3.5 4 0 1 0 0 6" />
+</svg>
+
+
+
+        <span>A winner is just a loser who tried one more time.</span>
+    </section>
+    
+
+    
+</footer>
+
+
+    
+        <link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css"integrity="sha384-n8MVd4RsNIU0tAv4ct0nTaAbDJwPJzDEaqSD1odI&#43;WdtXRGWt2kTvGFasHpSy3SV"crossorigin="anonymous"
+            ><script 
+                src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"integrity="sha384-XjKyOOlGwcjNTAIQHIpgOno0Hl1YQqzUOEleOLALmuqehneUG&#43;vnGctmUb0ZY0l8"crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"integrity="sha384-&#43;VBxd3r6XgURycqtZ117nYw44OOcIax56Z4dCRWbxyPt0Koah1uHoK0o4&#43;/RRE05"crossorigin="anonymous"
+                defer
+                >
+            </script><script>
+    window.addEventListener("DOMContentLoaded", () => {
+	const mainArticleElement = document.querySelector(".main-article");
+        renderMathInElement(mainArticleElement, {
+            delimiters: [
+                { left: "$$", right: "$$", display: true },
+                { left: "$", right: "$", display: false },
+                { left: "\\(", right: "\\)", display: false },
+                { left: "\\[", right: "\\]", display: true }
+            ],
+            ignoredClasses: ["gist"]
+        });})
+</script>
+
+    
+</article>
+
+    
+
+    
+
+<aside class="related-content--wrapper">
+    <h2 class="section-title">相关文章</h2>
+    <div class="related-content">
+        <div class="flex article-list--tile">
+            
+                
+<article class="has-image">
+    <a href="/public/p/git-worktree/">
+        
+        
+            <div class="article-image">
+                
+                    <img src="/public/git.png" loading="lazy" data-key="git-worktree" data-hash="/public/git.png"/>
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Git Worktree：并行开发的利器</h2>
+        </div>
+    </a>
+</article>
+
+            
+        </div>
+    </div>
+</aside>
+
+     
+    
+        
+    <script
+    src="https://giscus.app/client.js"
+    data-repo="Gzmomo001/Gzmomo001.github.io"
+    data-repo-id="R_kgDOOuLpRA"
+    data-category="General"
+    data-category-id="DIC_kwDOOuLpRM4Cr0Pz"
+    data-mapping="pathname"
+    data-strict="0"
+    data-reactions-enabled="1"
+    data-emit-metadata="0"
+    data-input-position="top"
+    data-theme="light"
+    data-lang="en"
+    data-loading=""
+    crossorigin="anonymous"
+    async
+></script>
+<script>
+    function setGiscusTheme(theme) {
+        let giscus = document.querySelector("iframe.giscus-frame");
+        if (giscus) {
+            giscus.contentWindow.postMessage(
+                {
+                    giscus: {
+                        setConfig: {
+                            theme: theme,
+                        },
+                    },
+                },
+                "https://giscus.app"
+            );
+        }
+    }
+
+    (function () {
+        addEventListener("message", (e) => {
+            if (event.origin !== "https://giscus.app") return;
+            handler();
+        });
+        window.addEventListener("onColorSchemeChange", handler);
+
+        function handler() {
+            if (document.documentElement.dataset.scheme === "light") {
+                setGiscusTheme('light');
+            } else {
+                setGiscusTheme('dark_dimmed');
+            }
+        }
+    })();
+</script>
+
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+            2025 - 
+        
+        2026 blog@mail.henry070.org
+    </section>
+    
+    <section class="powerby">
+        
+            Robust AI <br/>
+        使用 <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> 构建 <br />
+        主题 <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.30.0">Stack</a></b> 由 <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a> 设计
+    </section>
+</footer>
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css"crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css"crossorigin="anonymous"
+            >
+
+            </main>
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
+                
+                >
+            </script><script type="text/javascript" src="/public/ts/main.c922af694cc257bf1ecc41c0dd7b0430f9114ec280ccf67cd2c6ad55f5316c4e.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+<style>
+    #TableOfContents > ul, ol {
+        ul, ol {
+            display: none;
+        }
+        .open {
+            display: block;
+        }
+    }
+</style>
+
+<script>
+    function initTocHide() {
+        
+        let toc = document.querySelector(".widget--toc");
+        if (!toc) {
+            return;
+        }
+        
+        window.addEventListener('scroll', function() {
+            
+            let openUl = document.querySelectorAll(".open");
+            if (openUl.length > 0) {
+              openUl.forEach((ul) => {
+                ul.classList.remove("open")
+              })
+            }
+            
+            let currentLi = document.querySelector(".active-class");
+            if (!currentLi) {
+                return
+            }
+            
+            if (currentLi.children.length > 1) {
+                currentLi.children[1].classList.add("open")
+            }
+            
+            let ul = currentLi.parentElement;
+            do {
+                ul.classList.add("open");
+                ul = ul.parentElement.parentElement
+            } while (ul !== undefined && (ul.localName === 'ul' || ul.localName === 'ol'))
+        });
+    }
+    initTocHide()
+</script>
+
+<style>
+    #backTopBtn {
+        display: none;
+        position: fixed;
+        bottom: 30px;
+         
+        z-index: 99;
+        cursor: pointer;
+        width: 40px;
+        height: 40px;
+        background-color: #666;
+        border-radius: 50%;
+        text-align: center;
+        line-height: 40px;
+        font-size: 25px;
+        color: white;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+        transition: background-color 0.3s;
+    }
+    
+    #backTopBtn:hover {
+        background-color: #333;
+    }
+    
+    #backTopBtn .arrow-icon {
+        display: none;
+    }
+    
+    #backTopBtn .backtop-svg {
+        width: 24px;
+        height: 24px;
+        margin: 8px;
+        fill: white;
+    }
+</style>
+
+
+<script>
+    
+
+    function initScrollTop() {
+        let rightSideBar = document.querySelector(".right-sidebar");
+        if (!rightSideBar) {
+            return;
+        }
+        
+        let btn = document.createElement("div");
+        btn.id = "backTopBtn";
+        btn.innerHTML = '<span class="arrow-icon"></span>' +
+                        '<svg class="backtop-svg" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="15764">' +
+                        '<path d="M512 938.666667c-59.733333 0-123.733333-2.133333-185.6-4.266667l-32-2.133333c-108.8-6.4-194.133333-91.733333-200.533333-200.533334C87.466667 648.533333 85.333333 576 85.333333 512c0-59.733333 2.133333-125.866667 6.4-202.666667v-17.066666c6.4-108.8 91.733333-194.133333 200.533334-200.533334 76.8-4.266667 149.333333-6.4 219.733333-6.4 59.733333 0 123.733333 2.133333 185.6 4.266667l32 2.133333c108.8 6.4 194.133333 91.733333 200.533333 200.533334 6.4 83.2 8.533333 155.733333 8.533334 219.733333 0 59.733333-2.133333 125.866667-6.4 202.666667v17.066666c-6.4 108.8-91.733333 194.133333-200.533334 200.533334-76.8 4.266667-149.333333 6.4-219.733333 6.4z m0-224c17.066667 0 32-14.933333 32-32V430.933333l96 96c12.8 12.8 32 12.8 44.8 0 12.8-12.8 12.8-32 0-44.8l-153.6-153.6c-6.4-6.4-8.533333-8.533333-12.8-8.533333-4.266667-2.133333-8.533333-2.133333-10.666667 0-4.266667 0-6.4 2.133333-10.666666 6.4l-2.133334 2.133333-153.6 153.6c-12.8 12.8-12.8 32 0 44.8 12.8 12.8 32 12.8 44.8 0l96-96V682.666667c-2.133333 17.066667 12.8 32 29.866667 32z" fill="#ffffff" p-id="15765"></path>' +
+                        '</svg>';
+        btn.onclick = backToTop;
+        rightSideBar.appendChild(btn);
+        
+        window.onscroll = function() {
+            
+            if (document.body.scrollTop > 700 || document.documentElement.scrollTop > 700) {
+                btn.style.display = "block";
+            } else {
+                btn.style.display = "none";
+            }
+        };
+    }
+
+    
+
+    function backToTop(){
+        window.scrollTo({ top: 0, behavior: "smooth" })
+    }
+
+    initScrollTop();
+</script>
+
+<style>
+    .highlight {
+         
+        max-height: 1000px;
+        overflow: hidden;
+    }
+
+    .code-show {
+        max-height: none !important;
+    }
+
+    .code-more-box {
+        width: 100%;
+        padding-top: 120px;  
+        background-image: linear-gradient(
+            to bottom,
+            rgba(4, 6, 5, 0) 0%,
+            rgba(4, 6, 5, 0.4) 40%,
+            rgba(4, 6, 5, 0.8) 100%
+        );
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        z-index: 1;
+    }
+
+    .code-more-btn {
+        display: block;
+        margin: auto;
+        width: 44px;
+        height: 22px;
+        background: #5f5f5f;
+        border-top-left-radius: 8px;
+        border-top-right-radius: 8px;
+        padding-top: 6px;
+        cursor: pointer;
+    }
+
+    .code-more-img {
+        cursor: pointer !important;
+        display: block;
+        margin: auto;
+        width: 22px;
+        height: 16px;
+    }
+</style>
+
+<script>
+  function initCodeMoreBox() {
+    let codeBlocks = document.querySelectorAll(".highlight");
+    if (!codeBlocks) {
+      return;
+    }
+    codeBlocks.forEach(codeBlock => {
+      
+      if (codeBlock.scrollHeight <= codeBlock.clientHeight) {
+        return;
+      }
+      
+      
+      let codeMoreBox = document.createElement('div');
+      codeMoreBox.classList.add('code-more-box');
+      
+      let codeMoreBtn = document.createElement('span');
+      codeMoreBtn.classList.add('code-more-btn');
+      codeMoreBtn.addEventListener('click', () => {
+        codeBlock.classList.add('code-show');
+        codeMoreBox.style.display = 'none';
+        
+        window.dispatchEvent(new Event('resize'))
+      })
+      
+      let img = document.createElement('img');
+      img.classList.add('code-more-img');
+      img.src = "https://Gzmomo001.github.io/public/icons/down.png"
+      
+      codeMoreBtn.appendChild(img);
+      codeMoreBox.appendChild(codeMoreBtn);
+      codeBlock.appendChild(codeMoreBox)
+    })
+  }
+  
+  initCodeMoreBox();
+</script>
+
+
+
+    </body>
+</html>

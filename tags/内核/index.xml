@@ -1,0 +1,1238 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+    <channel>
+        <title>内核 on Henry Zhang</title>
+        <link>https://Gzmomo001.github.io/public/tags/%E5%86%85%E6%A0%B8/</link>
+        <description>Recent content in 内核 on Henry Zhang</description>
+        <generator>Hugo -- gohugo.io</generator>
+        <language>zh-cn</language>
+        <copyright>blog@mail.henry070.org</copyright>
+        <lastBuildDate>Sun, 11 Jan 2026 16:57:00 +0000</lastBuildDate><atom:link href="https://Gzmomo001.github.io/public/tags/%E5%86%85%E6%A0%B8/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>Linux 内核架构：操作系统的核心</title>
+        <link>https://Gzmomo001.github.io/public/p/linux-%E5%86%85%E6%A0%B8%E6%9E%B6%E6%9E%84%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E7%9A%84%E6%A0%B8%E5%BF%83/</link>
+        <pubDate>Sat, 10 Jan 2026 22:00:00 +0800</pubDate>
+        
+        <guid>https://Gzmomo001.github.io/public/p/linux-%E5%86%85%E6%A0%B8%E6%9E%B6%E6%9E%84%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E7%9A%84%E6%A0%B8%E5%BF%83/</guid>
+        <description>&lt;img src="https://Gzmomo001.github.io/public/default.jpeg" alt="Featured image of post Linux 内核架构：操作系统的核心" /&gt;&lt;h1 id=&#34;linux-内核架构操作系统的核心&#34;&gt;Linux 内核架构：操作系统的核心
+&lt;/h1&gt;&lt;h2 id=&#34;引言&#34;&gt;引言
+&lt;/h2&gt;&lt;p&gt;如果说 Linux 操作系统是一辆车，那么**内核（Kernel）**就是这辆车的发动机。它是操作系统的核心，负责管理硬件资源，并为用户程序提供服务。在这篇文章中，我们将深入探讨 Linux 内核的架构和各个子系统。&lt;/p&gt;
+&lt;h2 id=&#34;什么是内核&#34;&gt;什么是内核？
+&lt;/h2&gt;&lt;h3 id=&#34;内核的定位&#34;&gt;内核的定位
+&lt;/h3&gt;&lt;p&gt;内核是操作系统的核心组件，它是硬件和软件之间的桥梁：&lt;/p&gt;
+
+
+
+
+  
+
+
+&lt;div class=&#34;highlight highlight-text&#34;&gt;
+  &lt;pre&gt;
+    &lt;code class=&#34;language-text&#34; data-lang=&#34;text&#34;&gt;┌─────────────────────────────────────────────────┐
+│                  应用程序                        │
+│         (Browser, Text Editor, Server)          │
+├─────────────────────────────────────────────────┤
+│              系统调用接口 (SCI)                  │
+├─────────────────────────────────────────────────┤
+│                 内核空间                         │
+│  ┌───────────────────────────────────────────┐  │
+│  │  进程管理  │  内存管理  │  VFS  │  网络   │  │
+│  └───────────────────────────────────────────┘  │
+├─────────────────────────────────────────────────┤
+│                  硬件层                          │
+│     CPU  │  RAM  │  磁盘  │  网卡  │  设备      │
+└─────────────────────────────────────────────────┘&lt;/code&gt;
+  &lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h3 id=&#34;内核的主要职责&#34;&gt;内核的主要职责
+&lt;/h3&gt;&lt;ol&gt;
+&lt;li&gt;&lt;strong&gt;进程管理&lt;/strong&gt;：创建、调度、终止进程&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;内存管理&lt;/strong&gt;：虚拟内存、页面置换、内存分配&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;文件系统&lt;/strong&gt;：文件存储、检索、权限管理&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;设备控制&lt;/strong&gt;：硬件设备驱动和通信&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;网络功能&lt;/strong&gt;：网络协议栈、数据包路由&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2 id=&#34;用户空间-vs-内核空间&#34;&gt;用户空间 vs 内核空间
+&lt;/h2&gt;&lt;h3 id=&#34;为什么需要分离&#34;&gt;为什么需要分离？
+&lt;/h3&gt;&lt;p&gt;现代 CPU 提供了不同的特权级别（Ring 0-3），Linux 使用其中的两个：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;内核空间（Ring 0）&lt;/strong&gt;：最高权限，可直接访问硬件&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;用户空间（Ring 3）&lt;/strong&gt;：受限权限，通过系统调用访问内核&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;这种分离带来的好处：&lt;/p&gt;
+&lt;p&gt;✅ &lt;strong&gt;安全性&lt;/strong&gt;：防止用户程序直接操作硬件导致系统崩溃
+✅ &lt;strong&gt;稳定性&lt;/strong&gt;：进程之间相互隔离，一个崩溃不影响其他进程
+✅ &lt;strong&gt;抽象性&lt;/strong&gt;：提供统一的接口，隐藏硬件复杂性&lt;/p&gt;
+&lt;h3 id=&#34;地址空间布局&#34;&gt;地址空间布局
+&lt;/h3&gt;&lt;p&gt;在 x86-64 架构的 Linux 系统中：&lt;/p&gt;
+&lt;pre class=&#34;mermaid&#34;&gt;
+  flowchart TB
+    subgraph 用户地址空间 [用户空间 - 128TB]
+        A1[代码段&amp;lt;br/&amp;gt;Text Segment]
+        A2[数据段&amp;lt;br/&amp;gt;Data Segment]
+        A3[堆&amp;lt;br/&amp;gt;Heap - 向上增长]
+        A4[内存映射段&amp;lt;br/&amp;gt;Memory Mapping]
+        A5[栈&amp;lt;br/&amp;gt;Stack - 向下增长]
+    end
+
+    subgraph 内核地址空间 [内核空间 - 128TB]
+        B1[内核代码]
+        B2[内核数据]
+        B3[内核映射]
+    end
+
+    A5 -.-&amp;gt;|128TB边界| B1
+    A5 -.-&amp;gt;|0x0000...FFFF| B1
+
+    style A1 fill:#e3f2fd
+    style A2 fill:#e3f2fd
+    style A3 fill:#bbdefb
+    style A4 fill:#90caf9
+    style A5 fill:#64b5f6
+    style B1 fill:#ffccbc
+    style B2 fill:#ffab91
+    style B3 fill:#ff8a65
+&lt;/pre&gt;
+
+&lt;p&gt;&lt;strong&gt;用户空间（0x0000000000000000 - 0x00007FFFFFFFFFFF）&lt;/strong&gt;：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;每个进程都有独立的用户空间&lt;/li&gt;
+&lt;li&gt;通过 &lt;code&gt;malloc()&lt;/code&gt; 分配的内存来自堆&lt;/li&gt;
+&lt;li&gt;栈用于函数调用和局部变量&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;内核空间（0xFFFF800000000000 - 0xFFFFFFFFFFFFFFFF）&lt;/strong&gt;：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;所有进程共享同一个内核空间&lt;/li&gt;
+&lt;li&gt;只有内核代码能访问&lt;/li&gt;
+&lt;li&gt;用户程序通过系统调用进入内核空间&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;系统调用桥梁&#34;&gt;系统调用：桥梁
+&lt;/h3&gt;&lt;p&gt;系统调用是用户程序请求内核服务的唯一合法方式。&lt;/p&gt;
+
+
+
+
+
+&lt;div class=&#34;highlight highlight-c&#34;&gt;
+  &lt;pre&gt;
+    &lt;code class=&#34;language-c&#34; data-lang=&#34;c&#34;&gt;// 示例：使用 write 系统调用
+#include &amp;lt;unistd.h&amp;gt;
+#include &amp;lt;string.h&amp;gt;
+
+int main() {
+    const char *msg = &amp;#34;Hello, Kernel!\n&amp;#34;;
+    // write() 是系统调用的包装函数
+    write(STDOUT_FILENO, msg, strlen(msg));
+    return 0;
+}&lt;/code&gt;
+  &lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;&lt;strong&gt;系统调用流程&lt;/strong&gt;：&lt;/p&gt;
+&lt;pre class=&#34;mermaid&#34;&gt;
+  sequenceDiagram
+    participant U as 用户程序
+    participant L as 标准库(glibc)
+    participant K as 内核
+
+    U-&amp;gt;&amp;gt;L: 调用 write()
+    L-&amp;gt;&amp;gt;L: 设置系统调用号
+    L-&amp;gt;&amp;gt;K: 软中断(int 0x80/syscall)
+    Note over K: 内核态执行
+    K-&amp;gt;&amp;gt;K: 检查参数
+    K-&amp;gt;&amp;gt;K: 执行写入操作
+    K-&amp;gt;&amp;gt;L: 返回结果
+    L-&amp;gt;&amp;gt;U: 返回给用户程序
+&lt;/pre&gt;
+
+&lt;blockquote class=&#34;alert alert-tip&#34;&gt;
+    &lt;p&gt;可以使用 &lt;code&gt;strace&lt;/code&gt; 命令查看程序使用的所有系统调用：&lt;/p&gt;
+
+
+
+
+
+&lt;div class=&#34;highlight highlight-bash&#34;&gt;
+  &lt;pre&gt;
+    &lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;strace ls /tmp&lt;/code&gt;
+  &lt;/pre&gt;
+&lt;/div&gt;&lt;/blockquote&gt;
+&lt;h2 id=&#34;单内核-vs-微内核&#34;&gt;单内核 vs 微内核
+&lt;/h2&gt;&lt;h3 id=&#34;单内核monolithic-kernel&#34;&gt;单内核（Monolithic Kernel）
+&lt;/h3&gt;&lt;p&gt;&lt;strong&gt;Linux 采用单内核架构&lt;/strong&gt;，所有核心服务都在内核空间运行。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;优点&lt;/strong&gt;：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;✅ &lt;strong&gt;高性能&lt;/strong&gt;：组件间通信开销小&lt;/li&gt;
+&lt;li&gt;✅ &lt;strong&gt;简单&lt;/strong&gt;：代码组织直观&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;缺点&lt;/strong&gt;：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;❌ &lt;strong&gt;稳定性风险&lt;/strong&gt;：一个组件崩溃可能影响整个系统&lt;/li&gt;
+&lt;li&gt;❌ &lt;strong&gt;扩展性差&lt;/strong&gt;：添加新功能需要重新编译内核&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;微内核microkernel&#34;&gt;微内核（Microkernel）
+&lt;/h3&gt;&lt;p&gt;只保留最基本的机能（进程间通信、调度、低级内存管理）在内核，其他服务作为用户空间进程运行。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;代表系统&lt;/strong&gt;：Minix, QNX, GNU Hurd&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;优点&lt;/strong&gt;：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;✅ &lt;strong&gt;稳定性高&lt;/strong&gt;：服务崩溃不致命&lt;/li&gt;
+&lt;li&gt;✅ &lt;strong&gt;灵活性强&lt;/strong&gt;：可以动态替换服务&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;缺点&lt;/strong&gt;：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;❌ &lt;strong&gt;性能开销&lt;/strong&gt;：频繁的用户态-内核态切换&lt;/li&gt;
+&lt;li&gt;❌ &lt;strong&gt;复杂度高&lt;/strong&gt;：IPC 机制设计复杂&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;linux-的混合方案&#34;&gt;Linux 的混合方案
+&lt;/h3&gt;&lt;p&gt;Linux 通过 &lt;strong&gt;可加载内核模块（LKM）&lt;/strong&gt; 在单内核中实现了类似微内核的灵活性：&lt;/p&gt;
+
+
+
+
+
+&lt;div class=&#34;highlight highlight-bash&#34;&gt;
+  &lt;pre&gt;
+    &lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;# 查看已加载的内核模块
+lsmod
+
+# 加载模块
+sudo modprobe nfs
+
+# 卸载模块
+sudo modprobe -r nfs
+
+# 查看模块信息
+modinfo nfs&lt;/code&gt;
+  &lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;&lt;strong&gt;内核模块的优势&lt;/strong&gt;：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;📦 动态加载，无需重启系统&lt;/li&gt;
+&lt;li&gt;🔌 扩展内核功能&lt;/li&gt;
+&lt;li&gt;🐛 便于调试和开发&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;linux-内核的五大子系统&#34;&gt;Linux 内核的五大子系统
+&lt;/h2&gt;&lt;pre class=&#34;mermaid&#34;&gt;
+  mindmap
+  root((Linux 内核))
+    进程调度 SCHED
+      CFS调度器
+      实时调度
+      CPU亲和性
+      负载均衡
+    内存管理 MM
+      虚拟内存
+      页表管理
+      交换空间
+      内存分配器
+    虚拟文件系统 VFS
+      统一接口
+      文件系统抽象
+      缓存管理
+      dentry/inode
+    网络协议栈 NET
+      TCP/IP
+      Socket接口
+      路由和过滤
+      Netfilter
+    进程间通信 IPC
+      管道
+      消息队列
+      共享内存
+      信号量
+&lt;/pre&gt;
+
+&lt;h3 id=&#34;1-进程调度sched&#34;&gt;1. 进程调度（SCHED）
+&lt;/h3&gt;&lt;p&gt;&lt;strong&gt;职责&lt;/strong&gt;：决定哪个进程在什么时候使用 CPU&lt;/p&gt;
+&lt;h4 id=&#34;调度器演进&#34;&gt;调度器演进
+&lt;/h4&gt;&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Linux 2.4&lt;/strong&gt;：O(1) 调度器&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Linux 2.6&lt;/strong&gt;：完全公平调度器（CFS）&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Linux 3.x+&lt;/strong&gt;：改进的 CFS，支持实时任务&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&#34;cfs完全公平调度器&#34;&gt;CFS（完全公平调度器）
+&lt;/h4&gt;&lt;p&gt;CFS 的设计理念：&lt;strong&gt;理想情况下，每个进程应该获得公平的 CPU 时间&lt;/strong&gt;&lt;/p&gt;
+
+
+
+
+
+&lt;div class=&#34;highlight highlight-c&#34;&gt;
+  &lt;pre&gt;
+    &lt;code class=&#34;language-c&#34; data-lang=&#34;c&#34;&gt;// 伪代码：CFS 调度逻辑
+struct cfs_rq {
+    struct load_weight load;
+    u64 exec_clock;
+    u64 min_vruntime;
+    struct rb_root tasks_timeline;  // 红黑树
+    struct rb_node *rb_leftmost;
+};
+
+// 选择下一个运行的进程
+struct task_struct *pick_next_task_fair(struct rq *rq) {
+    struct cfs_rq *cfs_rq = &amp;amp;rq-&amp;gt;cfs;
+    struct rb_node *left = cfs_rq-&amp;gt;rb_leftmost;
+    // 返回红黑树最左边的节点（vruntime 最小的任务）
+    return rb_entry(left, struct task_struct, run_node);
+}&lt;/code&gt;
+  &lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;&lt;strong&gt;关键概念&lt;/strong&gt;：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;vruntime&lt;/strong&gt;：虚拟运行时间，值越小表示越需要运行&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;nice 值&lt;/strong&gt;：进程优先级，范围 -20（最高）到 19（最低）&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;红黑树&lt;/strong&gt;：高效管理可运行进程&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&#34;调度策略&#34;&gt;调度策略
+&lt;/h4&gt;
+
+
+
+
+&lt;div class=&#34;highlight highlight-bash&#34;&gt;
+  &lt;pre&gt;
+    &lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;# 查看进程调度策略
+ps -eo pid,cmd,policy,rtprio,ni | head -10
+
+# POLICY 列含义：
+# FF - FIFO 实时调度
+# RR - 轮转实时调度
+# TS - 分时调度（普通进程）
+# IDL - 空闲进程&lt;/code&gt;
+  &lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h3 id=&#34;2-内存管理mm&#34;&gt;2. 内存管理（MM）
+&lt;/h3&gt;&lt;p&gt;&lt;strong&gt;职责&lt;/strong&gt;：管理虚拟内存、物理内存的映射和分配&lt;/p&gt;
+&lt;h4 id=&#34;虚拟内存概念&#34;&gt;虚拟内存概念
+&lt;/h4&gt;&lt;p&gt;每个进程都认为自己拥有独立的、连续的地址空间，但实际上：&lt;/p&gt;
+&lt;pre class=&#34;mermaid&#34;&gt;
+  flowchart LR
+    A[虚拟地址 0x1000] --&amp;gt;|MMU| B[物理地址 0x8000]
+    A2[虚拟地址 0x2000] --&amp;gt;|MMU| B2[物理地址 0x9000]
+    A3[虚拟地址 0x3000] --&amp;gt;|MMU| B3[未分配&amp;lt;br/&amp;gt;触发缺页中断]
+
+    style A fill:#e3f2fd
+    style B fill:#fff3e0
+    style A3 fill:#ffebee
+&lt;/pre&gt;
+
+&lt;h4 id=&#34;页表结构&#34;&gt;页表结构
+&lt;/h4&gt;&lt;p&gt;x86-64 使用四级页表：&lt;/p&gt;
+
+
+
+
+  
+
+
+&lt;div class=&#34;highlight highlight-text&#34;&gt;
+  &lt;pre&gt;
+    &lt;code class=&#34;language-text&#34; data-lang=&#34;text&#34;&gt;虚拟地址: 48 位
+┌─────┬─────┬─────┬─────┬─────┬─────────┐
+│ PML4│ PDP │ PD  │ PT  │ 页内偏移  │
+│ 9bit│ 9bit│ 9bit│ 9bit│   12bit  │
+└─────┴─────┴─────┴─────┴─────────┘
+   ↓     ↓     ↓     ↓      ↓
+  查表  查表  查表  查表   最终物理地址&lt;/code&gt;
+  &lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h4 id=&#34;伙伴系统和-slab-分配器&#34;&gt;伙伴系统和 Slab 分配器
+&lt;/h4&gt;&lt;p&gt;&lt;strong&gt;伙伴系统&lt;/strong&gt;：管理物理页面，避免外部碎片&lt;/p&gt;
+
+
+
+
+  
+
+
+&lt;div class=&#34;highlight highlight-text&#34;&gt;
+  &lt;pre&gt;
+    &lt;code class=&#34;language-text&#34; data-lang=&#34;text&#34;&gt;order 0: 4KB 页面
+order 1: 8KB (2个连续4KB页面)
+order 2: 16KB (4个连续4KB页面)
+...
+order 10: 4MB (1024个连续4KB页面)&lt;/code&gt;
+  &lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;&lt;strong&gt;Slab 分配器&lt;/strong&gt;：为内核小对象分配内存，减少内部碎片&lt;/p&gt;
+
+
+
+
+
+&lt;div class=&#34;highlight highlight-c&#34;&gt;
+  &lt;pre&gt;
+    &lt;code class=&#34;language-c&#34; data-lang=&#34;c&#34;&gt;// 内核对象缓存示例
+struct kmem_cache *task_struct_cachep;
+
+task_struct_cachep = kmem_cache_create(&amp;#34;task_struct&amp;#34;,
+    sizeof(struct task_struct), 0,
+    SLAB_HWCACHE_ALIGN|SLAB_PANIC, NULL);
+
+// 从缓存中分配
+struct task_struct *tsk = kmem_cache_alloc(task_struct_cachep, GFP_KERNEL);&lt;/code&gt;
+  &lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h3 id=&#34;3-虚拟文件系统vfs&#34;&gt;3. 虚拟文件系统（VFS）
+&lt;/h3&gt;&lt;p&gt;&lt;strong&gt;职责&lt;/strong&gt;：为不同文件系统提供统一接口&lt;/p&gt;
+&lt;h4 id=&#34;vfs-架构&#34;&gt;VFS 架构
+&lt;/h4&gt;&lt;pre class=&#34;mermaid&#34;&gt;
+  flowchart TB
+    A[用户程序] --&amp;gt;|open, read, write| B[VFS 层]
+
+    B --&amp;gt; C[Ext4]
+    B --&amp;gt; D[XFS]
+    B --&amp;gt; E[Btrfs]
+    B --&amp;gt; F[NFS]
+    B --&amp;gt; G[ProcFS]
+
+    C --&amp;gt; H[块设备层]
+    D --&amp;gt; H
+    E --&amp;gt; H
+
+    F --&amp;gt; I[网络层]
+    G --&amp;gt; J[内核数据结构]
+
+    style B fill:#fff3e0
+    style C fill:#e3f2fd
+    style D fill:#e3f2fd
+    style E fill:#e3f2fd
+&lt;/pre&gt;
+
+&lt;h4 id=&#34;四个核心对象&#34;&gt;四个核心对象
+&lt;/h4&gt;
+
+
+
+
+&lt;div class=&#34;highlight highlight-c&#34;&gt;
+  &lt;pre&gt;
+    &lt;code class=&#34;language-c&#34; data-lang=&#34;c&#34;&gt;// 1. super_block：整个文件系统的信息
+struct super_block {
+    struct list_head s_list;      // 所有超级块链表
+    struct file_system_type *s_type;
+    const struct super_operations *s_op;
+    unsigned long s_magic;        // 文件系统魔数
+    // ...
+};
+
+// 2. inode：文件的元数据
+struct inode {
+    umode_t i_mode;               // 文件类型和权限
+    uid_t i_uid;
+    gid_t i_gid;
+    loff_t i_size;                // 文件大小
+    struct inode_operations *i_op;
+    // ...
+};
+
+// 3. dentry：目录项，连接路径名和 inode
+struct dentry {
+    struct dentry *d_parent;      // 父目录
+    struct qstr d_name;           // 文件名
+    struct inode *d_inode;        // 关联的 inode
+    // ...
+};
+
+// 4. file：打开的文件
+struct file {
+    struct path f_path;
+    struct file_operations *f_op;
+    loff_t f_pos;                 // 当前读写位置
+    // ...
+};&lt;/code&gt;
+  &lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h4 id=&#34;文件系统类型&#34;&gt;文件系统类型
+&lt;/h4&gt;
+
+
+
+
+&lt;div class=&#34;highlight highlight-bash&#34;&gt;
+  &lt;pre&gt;
+    &lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;# 查看支持的文件系统
+cat /proc/filesystems
+
+# 查看已挂载的文件系统
+mount | column -t
+
+# 常见文件系统：
+# ext4 - 扩展文件系统第4版
+# xfs - 高性能日志文件系统
+# btrfs - 写时复制(Copy-on-Write)文件系统
+# nfs - 网络文件系统
+# proc, sysfs - 虚拟文件系统&lt;/code&gt;
+  &lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h3 id=&#34;4-网络协议栈net&#34;&gt;4. 网络协议栈（NET）
+&lt;/h3&gt;&lt;p&gt;&lt;strong&gt;职责&lt;/strong&gt;：实现 TCP/IP 协议栈&lt;/p&gt;
+&lt;h4 id=&#34;网络分层模型&#34;&gt;网络分层模型
+&lt;/h4&gt;&lt;pre class=&#34;mermaid&#34;&gt;
+  flowchart TD
+    A[应用层&amp;lt;br/&amp;gt;HTTP/FTP/SSH] --&amp;gt;|Socket API| B[传输层&amp;lt;br/&amp;gt;TCP/UDP]
+    B --&amp;gt;|Segment| C[网络层&amp;lt;br/&amp;gt;IP]
+    C --&amp;gt;|Packet| D[数据链路层&amp;lt;br/&amp;gt;Ethernet]
+    D --&amp;gt;|Frame| E[物理层&amp;lt;br/&amp;gt;网卡驱动]
+
+    style B fill:#e3f2fd
+    style C fill:#fff3e0
+    style D fill:#f3e5f5
+&lt;/pre&gt;
+
+&lt;h4 id=&#34;socket-缓冲区sk_buff&#34;&gt;Socket 缓冲区（sk_buff）
+&lt;/h4&gt;&lt;p&gt;网络数据包在内核中的表示：&lt;/p&gt;
+
+
+
+
+
+&lt;div class=&#34;highlight highlight-c&#34;&gt;
+  &lt;pre&gt;
+    &lt;code class=&#34;language-c&#34; data-lang=&#34;c&#34;&gt;struct sk_buff {
+    // 这些指针管理数据区域
+    char *head, *data;
+    unsigned int len, truesize;
+
+    // 协议层特定信息
+    union {
+        struct tcphdr *th;
+        struct udphdr *uh;
+        struct icmphdr *icmph;
+    } h;
+
+    union {
+        struct iphdr *iph;
+        struct ipv6hdr *ipv6h;
+    } nh;
+
+    union {
+        struct ethhdr *eth;
+    } mac;
+
+    struct net_device *dev;  // 发送/接收的网卡
+    // ...
+};&lt;/code&gt;
+  &lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h4 id=&#34;数据包接收流程&#34;&gt;数据包接收流程
+&lt;/h4&gt;&lt;pre class=&#34;mermaid&#34;&gt;
+  sequenceDiagram
+    participant N as 网卡
+    participant D as 驱动
+    participant S as 协议栈
+    participant U as 用户程序
+
+    N-&amp;gt;&amp;gt;D: 硬件中断
+    D-&amp;gt;&amp;gt;D: 分配 sk_buff
+    D-&amp;gt;&amp;gt;S: netif_rx()
+    Note over S: 软中断下半部&amp;lt;br/&amp;gt;处理数据包
+    S-&amp;gt;&amp;gt;S: IP 层处理
+    S-&amp;gt;&amp;gt;S: TCP/UDP 层处理
+    S-&amp;gt;&amp;gt;U: 放入接收队列
+    U-&amp;gt;&amp;gt;U: read() 读取数据
+&lt;/pre&gt;
+
+&lt;h3 id=&#34;5-进程间通信ipc&#34;&gt;5. 进程间通信（IPC）
+&lt;/h3&gt;&lt;p&gt;&lt;strong&gt;职责&lt;/strong&gt;：提供进程间数据交换和同步机制&lt;/p&gt;
+&lt;h4 id=&#34;ipc-机制对比&#34;&gt;IPC 机制对比
+&lt;/h4&gt;&lt;table&gt;
+  &lt;thead&gt;
+      &lt;tr&gt;
+          &lt;th&gt;机制&lt;/th&gt;
+          &lt;th&gt;特点&lt;/th&gt;
+          &lt;th&gt;速度&lt;/th&gt;
+          &lt;th&gt;复杂度&lt;/th&gt;
+          &lt;th&gt;适用场景&lt;/th&gt;
+      &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+      &lt;tr&gt;
+          &lt;td&gt;&lt;strong&gt;管道&lt;/strong&gt;&lt;/td&gt;
+          &lt;td&gt;单向数据流&lt;/td&gt;
+          &lt;td&gt;中&lt;/td&gt;
+          &lt;td&gt;低&lt;/td&gt;
+          &lt;td&gt;简单父子进程通信&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;&lt;strong&gt;命名管道&lt;/strong&gt;&lt;/td&gt;
+          &lt;td&gt;无亲缘关系进程&lt;/td&gt;
+          &lt;td&gt;中&lt;/td&gt;
+          &lt;td&gt;低&lt;/td&gt;
+          &lt;td&gt;进程间简单通信&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;&lt;strong&gt;消息队列&lt;/strong&gt;&lt;/td&gt;
+          &lt;td&gt;带类型的数据&lt;/td&gt;
+          &lt;td&gt;中&lt;/td&gt;
+          &lt;td&gt;中&lt;/td&gt;
+          &lt;td&gt;需要格式化的消息&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;&lt;strong&gt;共享内存&lt;/strong&gt;&lt;/td&gt;
+          &lt;td&gt;直接内存访问&lt;/td&gt;
+          &lt;td&gt;快&lt;/td&gt;
+          &lt;td&gt;高&lt;/td&gt;
+          &lt;td&gt;大数据量交换&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;&lt;strong&gt;信号量&lt;/strong&gt;&lt;/td&gt;
+          &lt;td&gt;同步原语&lt;/td&gt;
+          &lt;td&gt;-&lt;/td&gt;
+          &lt;td&gt;高&lt;/td&gt;
+          &lt;td&gt;进程同步&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;&lt;strong&gt;Socket&lt;/strong&gt;&lt;/td&gt;
+          &lt;td&gt;网络通信&lt;/td&gt;
+          &lt;td&gt;慢&lt;/td&gt;
+          &lt;td&gt;高&lt;/td&gt;
+          &lt;td&gt;跨主机通信&lt;/td&gt;
+      &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+&lt;h4 id=&#34;管道示例&#34;&gt;管道示例
+&lt;/h4&gt;
+
+
+
+
+&lt;div class=&#34;highlight highlight-c&#34;&gt;
+  &lt;pre&gt;
+    &lt;code class=&#34;language-c&#34; data-lang=&#34;c&#34;&gt;#include &amp;lt;unistd.h&amp;gt;
+#include &amp;lt;stdio.h&amp;gt;
+
+int main() {
+    int pipefd[2];
+    pid_t pid;
+    char buf[32];
+
+    // 创建管道
+    pipe(pipefd);
+
+    pid = fork();
+    if (pid == 0) {
+        // 子进程：写入数据
+        write(pipefd[1], &amp;#34;Hello from child&amp;#34;, 16);
+        close(pipefd[1]);
+    } else {
+        // 父进程：读取数据
+        read(pipefd[0], buf, 32);
+        printf(&amp;#34;Parent received: %s\n&amp;#34;, buf);
+        close(pipefd[0]);
+    }
+    return 0;
+}&lt;/code&gt;
+  &lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h2 id=&#34;内核源代码结构&#34;&gt;内核源代码结构
+&lt;/h2&gt;&lt;h3 id=&#34;获取源代码&#34;&gt;获取源代码
+&lt;/h3&gt;
+
+
+
+
+&lt;div class=&#34;highlight highlight-bash&#34;&gt;
+  &lt;pre&gt;
+    &lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;# 从 kernel.org 下载
+wget https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.6.1.tar.xz
+tar -xf linux-6.6.1.tar.xz
+cd linux-6.6.1
+
+# 或使用 git
+git clone https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git
+cd linux&lt;/code&gt;
+  &lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h3 id=&#34;目录结构&#34;&gt;目录结构
+&lt;/h3&gt;
+
+
+
+  
+
+
+&lt;div class=&#34;highlight highlight-text&#34;&gt;
+  &lt;pre&gt;
+    &lt;code class=&#34;language-text&#34; data-lang=&#34;text&#34;&gt;linux/
+├── arch/           # 特定 CPU 架构代码（x86, ARM, RISC-V 等）
+├── block/          # 块设备层（磁盘 I/O 调度）
+├── crypto/         # 加密算法
+├── Documentation/  # 内核文档
+├── drivers/        # 设备驱动程序
+│   ├── net/        # 网络设备驱动
+│   ├── gpu/        # GPU 驱动
+│   └── char/       # 字符设备驱动
+├── fs/             # 文件系统（ext4, xfs, nfs 等）
+├── include/        # 头文件
+├── init/           # 内核初始化代码
+├── ipc/            # 进程间通信
+├── kernel/         # 核心子系统（调度器、信号、能力）
+├── lib/            # 通用库函数
+├── mm/             # 内存管理
+├── net/            # 网络协议栈
+├── scripts/        # 构建和配置脚本
+├── security/       # 安全框架（SELinux, AppArmor）
+├── sound/          # 声音子系统（ALSA）
+└── virt/           # 虚拟化支持（KVM）&lt;/code&gt;
+  &lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h3 id=&#34;配置和编译&#34;&gt;配置和编译
+&lt;/h3&gt;
+
+
+
+
+&lt;div class=&#34;highlight highlight-bash&#34;&gt;
+  &lt;pre&gt;
+    &lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;# 安装依赖
+sudo apt install build-essential libncurses-dev bison flex libssl-dev
+
+# 配置内核
+make menuconfig    # 文本界面配置
+# 或
+make defconfig     # 使用默认配置
+
+# 编译（根据 CPU 核心数并行编译）
+make -j$(nproc)
+
+# 安装模块
+sudo make modules_install
+
+# 安装内核
+sudo make install&lt;/code&gt;
+  &lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h2 id=&#34;实用工具和命令&#34;&gt;实用工具和命令
+&lt;/h2&gt;&lt;h3 id=&#34;内核信息查看&#34;&gt;内核信息查看
+&lt;/h3&gt;
+
+
+
+
+&lt;div class=&#34;highlight highlight-bash&#34;&gt;
+  &lt;pre&gt;
+    &lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;# 查看内核版本
+uname -r
+
+# 查看内核参数
+cat /proc/cmdline
+
+# 查看内核统计信息
+cat /proc/stat
+
+# 查看内存信息
+cat /proc/meminfo
+
+# 查看中断信息
+cat /proc/interrupts
+
+# 动态查看内核日志
+dmesg | tail -f&lt;/code&gt;
+  &lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h3 id=&#34;性能分析工具&#34;&gt;性能分析工具
+&lt;/h3&gt;
+
+
+
+
+&lt;div class=&#34;highlight highlight-bash&#34;&gt;
+  &lt;pre&gt;
+    &lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;# 系统调用追踪
+strace -c ls           # 统计系统调用次数
+strace -e trace=open,read,write ls  # 追踪特定系统调用
+
+# 内核活动追踪
+perf top              # 实时性能分析
+perf record -g ./myapp    # 记录性能数据
+perf report               # 查看报告
+
+# 网络统计
+ss -s                 # 套接字统计
+netstat -s            # 网络协议统计
+
+# 进程监控
+top                   # 实时进程信息
+htop                  # 增强版 top&lt;/code&gt;
+  &lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h2 id=&#34;总结&#34;&gt;总结
+&lt;/h2&gt;&lt;p&gt;Linux 内核是现代技术世界中最复杂、最重要的软件项目之一。通过这篇文章，我们了解了：&lt;/p&gt;
+&lt;h3 id=&#34;核心概念&#34;&gt;核心概念
+&lt;/h3&gt;&lt;ol&gt;
+&lt;li&gt;&lt;strong&gt;用户空间和内核空间&lt;/strong&gt;：隔离和保护&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;系统调用&lt;/strong&gt;：用户程序和内核之间的桥梁&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;单内核 + 模块化&lt;/strong&gt;：性能和灵活性的平衡&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;五大子系统&lt;/strong&gt;：进程、内存、VFS、网络、IPC&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h3 id=&#34;内核设计哲学&#34;&gt;内核设计哲学
+&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;KISS 原则&lt;/strong&gt;：Keep It Simple, Stupid&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;性能优先&lt;/strong&gt;：关键路径优化&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;可移植性&lt;/strong&gt;：支持多种硬件架构&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;开源协作&lt;/strong&gt;：全球开发者共同维护&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;下一步&#34;&gt;下一步
+&lt;/h3&gt;&lt;p&gt;在后续的文章中，我们将深入探讨：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;进程管理&lt;/strong&gt;：CFS 调度器、进程生命周期&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;内存管理&lt;/strong&gt;：分页机制、内存分配器&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;文件系统&lt;/strong&gt;：Ext4 原理、VFS 实现&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;网络栈&lt;/strong&gt;：TCP/IP、Socket 编程&lt;/li&gt;
+&lt;/ul&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&amp;ldquo;Read the fucking source code.&amp;rdquo; — Linus Torvalds&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;理解内核最好的方式就是阅读源代码。推荐从 &lt;code&gt;kernel/&lt;/code&gt; 目录开始，逐步深入各个子系统。&lt;/p&gt;
+&lt;hr&gt;
+&lt;p&gt;&lt;strong&gt;← 返回系列概述&lt;/strong&gt;: &lt;a class=&#34;link&#34; href=&#34;https://Gzmomo001.github.io/public/p/linux-%E6%A6%82%E8%BF%B0%E4%BB%8E-unix-%E5%88%B0%E5%BC%80%E6%BA%90%E9%9D%A9%E5%91%BD/&#34; &gt;Linux 概述：从 Unix 到开源革命&lt;/a&gt;&lt;/p&gt;
+&lt;hr&gt;
+&lt;p&gt;&lt;strong&gt;参考资源&lt;/strong&gt;：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;https://www.kernel.org/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;Linux 内核官网&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;https://www.kernel.org/doc/html/latest/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;Linux 内核文档&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;https://www.oreilly.com/library/view/understanding-the-linux/0596005652/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;Understanding the Linux Kernel&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;https://www.oreilly.com/library/view/linux-kernel-development/0672327201/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;Linux Kernel Development&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;https://medium.com/@ankur_kothari/linux-kernel-architecture-d831cf0135b5&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;Linux Kernel Architecture 图解&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+        </item>
+        <item>
+        <title>Linux 概述：从 Unix 到开源革命</title>
+        <link>https://Gzmomo001.github.io/public/p/linux-%E6%A6%82%E8%BF%B0%E4%BB%8E-unix-%E5%88%B0%E5%BC%80%E6%BA%90%E9%9D%A9%E5%91%BD/</link>
+        <pubDate>Sat, 10 Jan 2026 21:00:48 +0800</pubDate>
+        
+        <guid>https://Gzmomo001.github.io/public/p/linux-%E6%A6%82%E8%BF%B0%E4%BB%8E-unix-%E5%88%B0%E5%BC%80%E6%BA%90%E9%9D%A9%E5%91%BD/</guid>
+        <description>&lt;img src="https://Gzmomo001.github.io/public/default.jpeg" alt="Featured image of post Linux 概述：从 Unix 到开源革命" /&gt;&lt;h1 id=&#34;linux-概述从-unix-到开源革命&#34;&gt;Linux 概述：从 Unix 到开源革命
+&lt;/h1&gt;&lt;h2 id=&#34;引言&#34;&gt;引言
+&lt;/h2&gt;&lt;p&gt;Linux 是现代技术世界中最重要的操作系统之一。从你手中的 Android 手机到运行互联网的服务器，从超级计算机到嵌入式设备，Linux 无处不在。这篇文章将带你深入了解 Linux 的前世今生。&lt;/p&gt;
+&lt;h2 id=&#34;unix-的诞生1969-1970s&#34;&gt;Unix 的诞生（1969-1970s）
+&lt;/h2&gt;&lt;h3 id=&#34;背景&#34;&gt;背景
+&lt;/h3&gt;&lt;p&gt;在 1969 年，AT&amp;amp;T 贝尔实验室的 Ken Thompson、Dennis Ritchie 和其他研究人员开发出了一个名为 &lt;strong&gt;Unix&lt;/strong&gt; 的操作系统。这个系统后来成为了现代操作系统的基石。&lt;/p&gt;
+&lt;h3 id=&#34;unix-的核心设计哲学&#34;&gt;Unix 的核心设计哲学
+&lt;/h3&gt;&lt;ol&gt;
+&lt;li&gt;&lt;strong&gt;&amp;ldquo;一切皆文件&amp;rdquo;&lt;/strong&gt;：文件、设备、进程间通信等都以文件形式表示&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;小而精的工具&lt;/strong&gt;：每个程序只做一件事，并且做到极致&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;文本流&lt;/strong&gt;：使用文本作为程序间的通用接口&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;可移植性&lt;/strong&gt;：用 C 语言重写内核，实现了跨平台能力&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h3 id=&#34;unix-的影响&#34;&gt;Unix 的影响
+&lt;/h3&gt;&lt;pre class=&#34;mermaid&#34;&gt;
+  timeline
+    title Unix/Linux 发展简史
+    1969 : Unix 诞生于贝尔实验室
+    1971 : Unix 用 C 语言重写
+    1973 : Unix 开始商业化
+    1983 : Richard Stallman 发起 GNU 项目
+    1984 : AT&amp;amp;T 发布 System V
+    1987 : Andrew Tanenbaum 开发 Minix
+    1991 : Linus Torvalds 发布 Linux 0.01
+    1992 : GNU GPL 许可证发布
+    1998 : IBM、Oracle 等支持 Linux
+    2000s : 服务器市场 Linux 成为主流
+    2008 : Android 基于 Linux 发布
+    2020s : Linux 统治云计算和容器时代
+&lt;/pre&gt;
+
+&lt;h2 id=&#34;gnu-计划和自由软件运动1983&#34;&gt;GNU 计划和自由软件运动（1983）
+&lt;/h2&gt;&lt;h3 id=&#34;richard-stallman-的愿景&#34;&gt;Richard Stallman 的愿景
+&lt;/h3&gt;&lt;p&gt;1983 年，Richard Stallman（RMS）发起了 &lt;strong&gt;GNU（GNU&amp;rsquo;s Not Unix）&lt;/strong&gt; 项目，目标是创建一个完全自由的 Unix-like 操作系统。&lt;/p&gt;
+&lt;h3 id=&#34;四大自由&#34;&gt;四大自由
+&lt;/h3&gt;&lt;p&gt;自由软件运动定义了软件使用者的四大基本自由：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;strong&gt;自由度 0&lt;/strong&gt;：出于任何目的运行程序的自由&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;自由度 1&lt;/strong&gt;：研究并修改程序的自由&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;自由度 2&lt;/strong&gt;：重新分发副本的自由&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;自由度 3&lt;/strong&gt;：改进程序并向公众发布的自由&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h3 id=&#34;copyleft-和-gpl&#34;&gt;Copyleft 和 GPL
+&lt;/h3&gt;&lt;p&gt;Stallman 创建了 &lt;strong&gt;GPL（GNU General Public License）&lt;/strong&gt; 许可证，引入了 &lt;strong&gt;Copyleft&lt;/strong&gt; 概念：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Copyright&lt;/strong&gt;：保留所有权利&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Copyleft&lt;/strong&gt;：保留所有权利，但要求衍生作品也以相同条款发布&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;这确保了自由软件始终保持自由。&lt;/p&gt;
+&lt;h2 id=&#34;linus-torvalds-和-linux-的诞生1991&#34;&gt;Linus Torvalds 和 Linux 的诞生（1991）
+&lt;/h2&gt;&lt;h3 id=&#34;背景故事&#34;&gt;背景故事
+&lt;/h3&gt;&lt;p&gt;1991 年，芬兰赫尔辛基大学的学生 &lt;strong&gt;Linus Torvalds&lt;/strong&gt; 对当时的教学操作系统 Minix 不满意。他想要一个能在他的 80386 计算机上运行的 Unix-like 系统。&lt;/p&gt;
+&lt;h3 id=&#34;历史性的-usenet-帖子&#34;&gt;历史性的 Usenet 帖子
+&lt;/h3&gt;&lt;p&gt;1991 年 8 月 25 日，Linus 在 comp.os.minix 新闻组发布了这个著名的帖子：&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&amp;ldquo;我正在做一个（免费的）操作系统（只是个爱好，不会像 GNU 那样大而专业）&amp;rdquo;&lt;/p&gt;
+&lt;p&gt;&amp;ldquo;I&amp;rsquo;m doing a (free) operating system (just a hobby, won&amp;rsquo;t be big and professional like gnu)&amp;rdquo;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;事实证明，他严重低估了自己的项目。😄&lt;/p&gt;
+&lt;h3 id=&#34;linux-001-版本&#34;&gt;Linux 0.01 版本
+&lt;/h3&gt;&lt;p&gt;1991 年 9 月，Linux 0.01 版本发布，包含约 10,000 行代码。虽然功能有限，但它可以运行 bash shell 和 gcc 编译器。&lt;/p&gt;
+&lt;pre class=&#34;mermaid&#34;&gt;
+  mindmap
+  root((Linux 生态系统))
+    内核
+      Linus Torvalds维护
+      开源社区贡献
+      硬件抽象层
+    GNU工具
+      GCC编译器
+      Bash shell
+      Coreutils
+      C库(glibc)
+    桌面环境
+      GNOME
+      KDE
+      XFCE
+    发行版
+      Debian系
+      RedHat系
+      Arch系
+      独立发行版
+&lt;/pre&gt;
+
+&lt;h2 id=&#34;linux-vs-gnulinux&#34;&gt;Linux vs GNU/Linux
+&lt;/h2&gt;&lt;h3 id=&#34;名称争议&#34;&gt;名称争议
+&lt;/h3&gt;&lt;p&gt;严格来说，&lt;strong&gt;Linux&lt;/strong&gt; 只是内核，而完整的操作系统应该称为 &lt;strong&gt;GNU/Linux&lt;/strong&gt;，因为：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Linus 创造了 Linux &lt;strong&gt;内核&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;GNU 项目提供了大部分用户空间工具&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;但在实际使用中，人们普遍使用 &amp;ldquo;Linux&amp;rdquo; 来指代整个操作系统。这也是可以理解的，因为 &amp;ldquo;GNU/Linux&amp;rdquo; 读起来确实比较拗口。&lt;/p&gt;
+&lt;h3 id=&#34;各司其职&#34;&gt;各司其职
+&lt;/h3&gt;
+
+
+
+  
+
+
+&lt;div class=&#34;highlight highlight-text&#34;&gt;
+  &lt;pre&gt;
+    &lt;code class=&#34;language-text&#34; data-lang=&#34;text&#34;&gt;┌─────────────────────────────────────┐
+│         应用程序层                   │
+│    (Firefox, Vim, Git, etc.)        │
+├─────────────────────────────────────┤
+│         用户空间                     │
+│   (GNU工具, Desktop Environment)    │
+├─────────────────────────────────────┤
+│      Linux 内核 (系统调用接口)       │
+├─────────────────────────────────────┤
+│            硬件                      │
+└─────────────────────────────────────┘&lt;/code&gt;
+  &lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h2 id=&#34;linux-内核的特点&#34;&gt;Linux 内核的特点
+&lt;/h2&gt;&lt;h3 id=&#34;单内核架构monolithic-kernel&#34;&gt;单内核架构（Monolithic Kernel）
+&lt;/h3&gt;&lt;p&gt;Linux 采用单内核架构，整个内核运行在一个单一的地址空间中：&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;优点&lt;/strong&gt;：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;✅ 高性能：系统调用和模块间通信开销小&lt;/li&gt;
+&lt;li&gt;✅ 简单直观：代码组织清晰&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;缺点&lt;/strong&gt;：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;❌ 稳定性风险：一个模块崩溃可能导致整个系统崩溃&lt;/li&gt;
+&lt;li&gt;❌ 难以扩展：添加新功能需要重新编译内核&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;但是！&lt;/strong&gt; Linux 通过 &lt;strong&gt;可加载内核模块（LKM）&lt;/strong&gt; 机制在保持单内核性能优势的同时，获得了微内核的灵活性。&lt;/p&gt;
+&lt;h3 id=&#34;内核子系统&#34;&gt;内核子系统
+&lt;/h3&gt;&lt;p&gt;Linux 内核包含以下主要子系统：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;strong&gt;进程调度（SCHED）&lt;/strong&gt;：管理 CPU 时间片分配&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;内存管理（MM）&lt;/strong&gt;：虚拟内存、分页、交换&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;虚拟文件系统（VFS）&lt;/strong&gt;：统一的文件系统接口&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;网络协议栈（NET）&lt;/strong&gt;：TCP/IP 网络协议实现&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;进程间通信（IPC）&lt;/strong&gt;：管道、消息队列、共享内存等&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2 id=&#34;linux-发行版生态&#34;&gt;Linux 发行版生态
+&lt;/h2&gt;&lt;p&gt;Linux 内核 + GNU 工具 + 桌面环境 + 软件包管理器 = &lt;strong&gt;Linux 发行版&lt;/strong&gt;&lt;/p&gt;
+&lt;h3 id=&#34;debian-系&#34;&gt;Debian 系
+&lt;/h3&gt;&lt;p&gt;&lt;strong&gt;特点&lt;/strong&gt;：稳定、社区驱动、APT 包管理器&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Debian&lt;/strong&gt;：最古老的社区发行版之一，以稳定性著称&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Ubuntu&lt;/strong&gt;：基于 Debian，用户友好，适合新手和桌面使用&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Linux Mint&lt;/strong&gt;：基于 Ubuntu，提供传统桌面体验&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Kali Linux&lt;/strong&gt;：专为渗透测试和安全审计设计&lt;/li&gt;
+&lt;/ul&gt;
+
+
+
+
+
+&lt;div class=&#34;highlight highlight-bash&#34;&gt;
+  &lt;pre&gt;
+    &lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;# Debian/Ubuntu 包管理示例
+sudo apt update           # 更新软件包列表
+sudo apt upgrade          # 升级已安装的包
+sudo apt install nginx    # 安装软件
+sudo apt remove nginx     # 删除软件&lt;/code&gt;
+  &lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h3 id=&#34;red-hat-系&#34;&gt;Red Hat 系
+&lt;/h3&gt;&lt;p&gt;&lt;strong&gt;特点&lt;/strong&gt;：企业级、RPM 包管理器、商业支持&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Red Hat Enterprise Linux (RHEL)&lt;/strong&gt;：企业级 Linux，提供商业支持&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Fedora&lt;/strong&gt;：RHEL 的上游，新技术试验场&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;CentOS&lt;/strong&gt;：RHEL 的免费重建版（已被 Stream 替代）&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Oracle Linux&lt;/strong&gt;：Oracle 的 RHEL 兼容发行版&lt;/li&gt;
+&lt;/ul&gt;
+
+
+
+
+
+&lt;div class=&#34;highlight highlight-bash&#34;&gt;
+  &lt;pre&gt;
+    &lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;# RHEL/Fedora 包管理示例
+sudo dnf update           # 更新软件包
+sudo dnf install nginx    # 安装软件
+sudo dnf remove nginx     # 删除软件&lt;/code&gt;
+  &lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h3 id=&#34;arch-系&#34;&gt;Arch 系
+&lt;/h3&gt;&lt;p&gt;&lt;strong&gt;特点&lt;/strong&gt;：滚动更新、KISS 哲学、文档优秀&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Arch Linux&lt;/strong&gt;：轻量、灵活、滚动更新&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Manjaro&lt;/strong&gt;：基于 Arch，更友好的安装过程&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;EndeavourOS&lt;/strong&gt;：Arch 的另一个友好分支&lt;/li&gt;
+&lt;/ul&gt;
+
+
+
+
+
+&lt;div class=&#34;highlight highlight-bash&#34;&gt;
+  &lt;pre&gt;
+    &lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;# Arch 包管理示例
+sudo pacman -Syu          # 同步并升级系统
+sudo pacman -S nginx      # 安装软件
+sudo pacman -R nginx      # 删除软件&lt;/code&gt;
+  &lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h3 id=&#34;独立发行版&#34;&gt;独立发行版
+&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Gentoo&lt;/strong&gt;：源码发行版，高度可定制&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;openSUSE&lt;/strong&gt;：SUSE 公司的社区发行版&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Slackware&lt;/strong&gt;：最古老的存活发行版，保持 Unix 传统&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;选择合适的发行版&#34;&gt;选择合适的发行版
+&lt;/h2&gt;&lt;pre class=&#34;mermaid&#34;&gt;
+  flowchart TD
+    A[选择 Linux 发行版] --&amp;gt; B{使用目的?}
+
+    B --&amp;gt;|服务器| C{稳定性 vs 新特性}
+    B --&amp;gt;|桌面日常| D{新手 vs 老手}
+    B --&amp;gt;|学习原理| E[Arch Linux]
+    B --&amp;gt;|渗透测试| F[Kali Linux]
+
+    C --&amp;gt;|企业生产| G[RHEL/CentOS]
+    C --&amp;gt;|最新技术| H[Fedora]
+
+    D --&amp;gt;|完全新手| I[Ubuntu/Linux Mint]
+    D --&amp;gt;|有一定经验| J[Fedora/openSUSE]
+    D --&amp;gt;|高级用户| K[Arch]
+
+    style A fill:#e1f5ff
+    style E fill:#fff3e0
+    style F fill:#ffebee
+&lt;/pre&gt;
+
+&lt;h2 id=&#34;为什么学习-linux&#34;&gt;为什么学习 Linux？
+&lt;/h2&gt;&lt;h3 id=&#34;1-服务器领域的绝对统治&#34;&gt;1. 服务器领域的绝对统治
+&lt;/h3&gt;&lt;p&gt;根据 StatCounter 和 W3Techs 的统计：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;超级计算机&lt;/strong&gt;：96%+ 运行 Linux&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;公共云&lt;/strong&gt;：90%+ 的云实例运行 Linux&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Web 服务器&lt;/strong&gt;：超过 70% 的网站使用 Linux&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;移动设备&lt;/strong&gt;：Android（基于 Linux）占据 70%+ 市场份额&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;2-开源社区的优势&#34;&gt;2. 开源社区的优势
+&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;透明性&lt;/strong&gt;：代码公开，可审计&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;安全性&lt;/strong&gt;：全球安全专家持续审查&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;创新性&lt;/strong&gt;：社区驱动，快速迭代&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;免费性&lt;/strong&gt;：大多数发行版免费使用&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;3-开发者必备技能&#34;&gt;3. 开发者必备技能
+&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;云计算&lt;/strong&gt;：AWS、GCP、Azure 等平台主要使用 Linux&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;容器技术&lt;/strong&gt;：Docker、Kubernetes 基于 Linux&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;DevOps&lt;/strong&gt;：CI/CD 工具链主要运行在 Linux 上&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;后端开发&lt;/strong&gt;：大多数生产环境是 Linux&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;4-深入理解计算机科学&#34;&gt;4. 深入理解计算机科学
+&lt;/h3&gt;&lt;p&gt;学习 Linux 让你能够：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;🧠 理解操作系统原理&lt;/li&gt;
+&lt;li&gt;🔧 掌握系统级编程&lt;/li&gt;
+&lt;li&gt;🚀 优化应用性能&lt;/li&gt;
+&lt;li&gt;🐛 高效调试问题&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;5-职业发展&#34;&gt;5. 职业发展
+&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;系统管理员&lt;/strong&gt;：Linux/Unix 系统管理&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;DevOps 工程师&lt;/strong&gt;：自动化和部署&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;后端工程师&lt;/strong&gt;：服务器端开发&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;嵌入式开发&lt;/strong&gt;：Linux 嵌入式系统&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;安全研究员&lt;/strong&gt;：系统安全和渗透测试&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;linux-的学习路径&#34;&gt;Linux 的学习路径
+&lt;/h2&gt;&lt;pre class=&#34;mermaid&#34;&gt;
+  flowchart LR
+    A[基础命令行] --&amp;gt; B[Shell 脚本编程]
+    B --&amp;gt; C[系统管理]
+    C --&amp;gt; D[网络基础]
+    D --&amp;gt; E[服务部署]
+    E --&amp;gt; F[性能优化]
+
+    style A fill:#e8f5e9
+    style B fill:#c8e6c9
+    style C fill:#a5d6a7
+    style D fill:#81c784
+    style E fill:#66bb6a
+    style F fill:#4caf50
+&lt;/pre&gt;
+
+&lt;h3 id=&#34;推荐学习顺序&#34;&gt;推荐学习顺序
+&lt;/h3&gt;&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;第一阶段：基础命令&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;文件和目录操作&lt;/li&gt;
+&lt;li&gt;权限管理&lt;/li&gt;
+&lt;li&gt;文本处理工具&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;第二阶段：Shell 脚本&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Bash 基础&lt;/li&gt;
+&lt;li&gt;变量和函数&lt;/li&gt;
+&lt;li&gt;流程控制&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;第三阶段：系统管理&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;进程管理&lt;/li&gt;
+&lt;li&gt;软件包管理&lt;/li&gt;
+&lt;li&gt;系统服务&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;第四阶段：高级主题&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;网络配置&lt;/li&gt;
+&lt;li&gt;安全设置&lt;/li&gt;
+&lt;li&gt;性能调优&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2 id=&#34;实践建议&#34;&gt;实践建议
+&lt;/h2&gt;&lt;h3 id=&#34;1-虚拟机实践&#34;&gt;1. 虚拟机实践
+&lt;/h3&gt;
+
+
+
+
+&lt;div class=&#34;highlight highlight-bash&#34;&gt;
+  &lt;pre&gt;
+    &lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;# 推荐使用 VirtualBox 或 VMware
+# 初学者推荐发行版：
+- Ubuntu Desktop（图形界面，易上手）
+- Ubuntu Server（命令行，更接近生产环境）&lt;/code&gt;
+  &lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h3 id=&#34;2-在线练习平台&#34;&gt;2. 在线练习平台
+&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;OverTheWire&lt;/strong&gt;：https://overthewire.org/wargames/&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Linux Journey&lt;/strong&gt;：https://linuxjourney.com/&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;实验楼&lt;/strong&gt;：https://www.lanqiao.cn/&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;3-阅读资料&#34;&gt;3. 阅读资料
+&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;《鸟哥的Linux私房菜》&lt;/strong&gt;：经典入门教材&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;《Linux就该这么学》&lt;/strong&gt;：适合初学者&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;《UNIX环境高级编程》（APUE）&lt;/strong&gt;：进阶必读&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;《深入理解Linux内核》&lt;/strong&gt;：内核开发参考&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;总结&#34;&gt;总结
+&lt;/h2&gt;&lt;p&gt;Linux 不仅仅是一个操作系统，它代表了一种开放、协作、共享的精神。从 Linus 的个人项目到统治现代计算世界的操作系统，Linux 的成功证明了开源模式的力量。&lt;/p&gt;
+&lt;h3 id=&#34;核心要点&#34;&gt;核心要点
+&lt;/h3&gt;&lt;ol&gt;
+&lt;li&gt;&lt;strong&gt;历史传承&lt;/strong&gt;：Linux 继承了 Unix 的设计哲学&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;社区力量&lt;/strong&gt;：GNU 项目和全球开发者共同构建了生态系统&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;技术优势&lt;/strong&gt;：单内核 + 模块化设计 = 高性能 + 灵活性&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;广泛应用&lt;/strong&gt;：从嵌入式到超级计算机，无处不在&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;学习价值&lt;/strong&gt;：理解 Linux = 理解现代计算基础&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h3 id=&#34;下一步&#34;&gt;下一步
+&lt;/h3&gt;&lt;p&gt;在这个系列中，我们将深入探索：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Linux 内核架构&lt;/li&gt;
+&lt;li&gt;进程和内存管理&lt;/li&gt;
+&lt;li&gt;文件系统&lt;/li&gt;
+&lt;li&gt;设备驱动&lt;/li&gt;
+&lt;li&gt;网络栈&lt;/li&gt;
+&lt;li&gt;Shell 编程&lt;/li&gt;
+&lt;li&gt;系统管理&lt;/li&gt;
+&lt;li&gt;性能优化&lt;/li&gt;
+&lt;/ul&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&amp;ldquo;Talk is cheap. Show me the code.&amp;rdquo; — Linus Torvalds&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;让我们一起深入 Linux 的世界，探索它的奥秘！🚀&lt;/p&gt;
+&lt;h2 id=&#34;系列文章导航&#34;&gt;系列文章导航
+&lt;/h2&gt;&lt;p&gt;本系列深入探讨 Linux 操作系统的各个方面：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;strong&gt;&lt;a class=&#34;link&#34; href=&#34;https://Gzmomo001.github.io/public/p/linux-%E6%A6%82%E8%BF%B0%E4%BB%8E-unix-%E5%88%B0%E5%BC%80%E6%BA%90%E9%9D%A9%E5%91%BD/&#34; &gt;Linux 概述：从 Unix 到开源革命&lt;/a&gt;&lt;/strong&gt; （当前文章）&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;&lt;a class=&#34;link&#34; href=&#34;https://Gzmomo001.github.io/public/p/linux-%E5%86%85%E6%A0%B8%E6%9E%B6%E6%9E%84%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E7%9A%84%E6%A0%B8%E5%BF%83/&#34; &gt;Linux 内核架构：操作系统的核心&lt;/a&gt;&lt;/strong&gt; - 用户空间与内核空间、系统调用、五大子系统&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;&lt;a class=&#34;link&#34; href=&#34;https://Gzmomo001.github.io/public/p/%E8%BF%9B%E7%A8%8B%E7%AE%A1%E7%90%86linux-%E7%9A%84%E7%94%9F%E5%91%BD%E7%BA%BF/&#34; &gt;进程管理：Linux 的生命线&lt;/a&gt;&lt;/strong&gt; - 进程生命周期、CFS 调度器、进程监控&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;&lt;a class=&#34;link&#34; href=&#34;https://Gzmomo001.github.io/public/p/%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9Flinux-%E7%9A%84%E6%95%B0%E6%8D%AE%E5%AE%AB%E6%AE%BF/&#34; &gt;文件系统：数据的管理者&lt;/a&gt;&lt;/strong&gt; - VFS、Ext4、文件权限与管理&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;&lt;a class=&#34;link&#34; href=&#34;https://Gzmomo001.github.io/public/p/shell-%E5%92%8C%E5%91%BD%E4%BB%A4%E8%A1%8Clinux-%E7%9A%84%E6%8E%A7%E5%88%B6%E5%8F%B0/&#34; &gt;Shell 和命令行：Linux 的控制台&lt;/a&gt;&lt;/strong&gt; - Bash 基础、管道重定向、脚本编程&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;&lt;a class=&#34;link&#34; href=&#34;https://Gzmomo001.github.io/public/p/%E6%97%A5%E5%BF%97%E5%92%8C%E7%9B%91%E6%8E%A7linux-%E7%9A%84%E4%BD%93%E6%A3%80%E5%8C%BB%E7%94%9F/&#34; &gt;日志与监控：系统的体检报告&lt;/a&gt;&lt;/strong&gt; - 系统日志、性能监控、故障排查&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;&lt;a class=&#34;link&#34; href=&#34;https://Gzmomo001.github.io/public/p/%E8%BD%AF%E4%BB%B6%E5%8C%85%E7%AE%A1%E7%90%86linux-%E7%9A%84%E5%BA%94%E7%94%A8%E5%95%86%E5%BA%97/&#34; &gt;软件包管理：应用的生态圈&lt;/a&gt;&lt;/strong&gt; - APT/DNF/Pacman、软件源、依赖管理&lt;/li&gt;
+&lt;/ol&gt;
+&lt;hr&gt;
+&lt;p&gt;&lt;strong&gt;参考资源&lt;/strong&gt;：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;https://www.kernel.org/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;Linux 内核官网&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;https://www.gnu.org/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;GNU 项目官网&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;https://tldp.org/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;Linux Documentation Project&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;https://wiki.archlinux.org/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;Arch Linux Wiki&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;https://linuxjourney.com/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;Linux Journey 在线教程&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+        </item>
+        
+    </channel>
+</rss>

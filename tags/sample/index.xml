@@ -1,0 +1,2076 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+    <channel>
+        <title>Sample on Henry Zhang</title>
+        <link>https://Gzmomo001.github.io/public/tags/sample/</link>
+        <description>Recent content in Sample on Henry Zhang</description>
+        <generator>Hugo -- gohugo.io</generator>
+        <language>zh-cn</language>
+        <copyright>blog@mail.henry070.org</copyright>
+        <lastBuildDate>Wed, 24 Dec 2025 13:36:01 -0500</lastBuildDate><atom:link href="https://Gzmomo001.github.io/public/tags/sample/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>ApexCharts Shortcode Test</title>
+        <link>https://Gzmomo001.github.io/public/p/apexcharts-shortcode-test/</link>
+        <pubDate>Tue, 23 Dec 2025 09:30:46 -0500</pubDate>
+        
+        <guid>https://Gzmomo001.github.io/public/p/apexcharts-shortcode-test/</guid>
+        <description>&lt;h1 id=&#34;apexcharts-shortcode-测试页面&#34;&gt;ApexCharts Shortcode 测试页面
+&lt;/h1&gt;&lt;p&gt;这是一个测试页面，用于验证修复后的 apexchart shortcode。&lt;/p&gt;
+&lt;h2 id=&#34;基础折线图&#34;&gt;基础折线图
+&lt;/h2&gt;&lt;script src=&#34;https://cdn.jsdelivr.net/npm/apexcharts&#34;&gt;&lt;/script&gt;
+
+
+
+
+
+
+&lt;div class=&#34;apexchart-container&#34; style=&#34;margin: 1.5rem 0;&#34;&gt;
+  &lt;div id=&#34;chart-line-test&#34;&gt;&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;script&gt;
+(function() {
+  
+  function initChart() {
+    const chartElement = document.querySelector(&#34;#chart-line-test&#34;);
+    if (!chartElement) {
+      console.error(&#39;Chart element not found: #chart-line-test&#39;);
+      return;
+    }
+
+    
+    const chartId = &#34;line-test&#34;;
+    const chartType = &#34;line&#34;;
+    const chartWidth = &#34;100%&#34;;
+    const chartHeight = &#34;350&#34;;
+    
+    
+    let chartData;
+    
+      try {
+        chartData = 
+{
+  &#34;series&#34;: [{
+    &#34;name&#34;: &#34;访问量&#34;,
+    &#34;data&#34;: [30, 40, 35, 50, 49, 60, 70, 91, 125]
+  }],
+  &#34;xaxis&#34;: {
+    &#34;categories&#34;: [&#34;1月&#34;, &#34;2月&#34;, &#34;3月&#34;, &#34;4月&#34;, &#34;5月&#34;, &#34;6月&#34;, &#34;7月&#34;, &#34;8月&#34;, &#34;9月&#34;]
+  },
+  &#34;title&#34;: {
+    &#34;text&#34;: &#34;网站访问量趋势&#34;,
+    &#34;align&#34;: &#34;center&#34;
+  }
+}
+;
+      } catch (e) {
+        console.error(&#39;Error parsing .Inner content:&#39;, e);
+        chartData = {};
+      }
+    
+
+    
+    function getThemeMode() {
+      
+      if (document.body.classList.contains(&#39;dark&#39;)) return &#39;dark&#39;;
+      if (document.documentElement.classList.contains(&#39;dark&#39;)) return &#39;dark&#39;;
+      if (window.matchMedia &amp;&amp; window.matchMedia(&#39;(prefers-color-scheme: dark)&#39;).matches) return &#39;dark&#39;;
+      return &#39;light&#39;;
+    }
+
+    
+    const options = {
+      series: chartData.series || [{
+        name: &#34;Sample Data&#34;,
+        data: [30, 40, 35, 50, 49, 60, 70, 91, 125]
+      }],
+      chart: {
+        type: chartType,
+        width: chartWidth === &#34;100%&#34; ? &#39;100%&#39; : chartWidth,
+        height: chartHeight,
+        toolbar: {
+          show: true,
+          tools: {
+            download: true,
+            selection: true,
+            zoom: true,
+            zoomin: true,
+            zoomout: true,
+            pan: true,
+            reset: true
+          }
+        },
+        zoom: {
+          enabled: true
+        },
+        animations: {
+          enabled: true,
+          easing: &#39;easeinout&#39;,
+          speed: 800,
+          animateGradually: {
+            enabled: true,
+            delay: 150
+          },
+          dynamicAnimation: {
+            enabled: true,
+            speed: 350
+          }
+        }
+      },
+      theme: {
+        mode: getThemeMode(),
+        palette: &#39;palette1&#39;
+      },
+      responsive: [{
+        breakpoint: 768,
+        options: {
+          chart: {
+            width: &#39;100%&#39;
+          },
+          legend: {
+            position: &#39;bottom&#39;
+          },
+          xaxis: {
+            labels: {
+              rotate: -45,
+              rotateAlways: false
+            }
+          }
+        }
+      }]
+    };
+
+    
+    if (chartData.xaxis) {
+      options.xaxis = chartData.xaxis;
+    }
+    if (chartData.yaxis) {
+      options.yaxis = chartData.yaxis;
+    }
+    if (chartData.title) {
+      options.title = chartData.title;
+    }
+    if (chartData.subtitle) {
+      options.subtitle = chartData.subtitle;
+    }
+    if (chartData.legend) {
+      options.legend = chartData.legend;
+    }
+    if (chartData.dataLabels) {
+      options.dataLabels = chartData.dataLabels;
+    }
+    if (chartData.stroke) {
+      options.stroke = chartData.stroke;
+    }
+    if (chartData.fill) {
+      options.fill = chartData.fill;
+    }
+    if (chartData.grid) {
+      options.grid = chartData.grid;
+    }
+    if (chartData.tooltip) {
+      options.tooltip = chartData.tooltip;
+    }
+    if (chartData.plotOptions) {
+      options.plotOptions = chartData.plotOptions;
+    }
+
+    
+    if (chartType === &#39;pie&#39; || chartType === &#39;donut&#39;) {
+      if (chartData.labels) {
+        options.labels = chartData.labels;
+      }
+      if (chartData.colors) {
+        options.colors = chartData.colors;
+      }
+      
+      
+      if (!options.plotOptions) {
+        options.plotOptions = {};
+      }
+      if (!options.plotOptions.pie) {
+        options.plotOptions.pie = {};
+      }
+      
+      
+      if (!options.plotOptions.pie.dataLabels) {
+        options.plotOptions.pie.dataLabels = {
+          enabled: true
+        };
+      }
+      
+      if (chartType === &#39;donut&#39;) {
+        
+        if (!options.plotOptions.pie.donut) {
+          options.plotOptions.pie.donut = {
+            labels: {
+              show: true,
+              name: {
+                show: true,
+                fontSize: &#39;16px&#39;,
+                fontFamily: &#39;Helvetica, Arial, sans-serif&#39;,
+                fontWeight: 600,
+                color: undefined,
+                offsetY: -10
+              },
+              value: {
+                show: true,
+                fontSize: &#39;14px&#39;,
+                fontFamily: &#39;Helvetica, Arial, sans-serif&#39;,
+                fontWeight: 400,
+                color: undefined,
+                offsetY: 16,
+                formatter: function (val) {
+                  return val;
+                }
+              },
+              total: {
+                show: false,
+                showAlways: false,
+                label: &#39;Total&#39;,
+                fontSize: &#39;16px&#39;,
+                fontFamily: &#39;Helvetica, Arial, sans-serif&#39;,
+                fontWeight: 600,
+                color: &#39;#373d3f&#39;
+              }
+            }
+          };
+        }
+      } else {
+        
+        if (!options.plotOptions.pie.labels) {
+          options.plotOptions.pie.labels = {
+            show: true,
+            offset: -25
+          };
+        }
+      }
+      
+      
+      delete options.xaxis;
+      delete options.grid;
+      delete options.yaxis;
+    }
+
+    try {
+      
+      const chart = new ApexCharts(chartElement, options);
+      chart.render();
+      
+      
+      if (window.matchMedia) {
+        const darkModeQuery = window.matchMedia(&#39;(prefers-color-scheme: dark)&#39;);
+        darkModeQuery.addEventListener(&#39;change&#39;, function(e) {
+          chart.updateOptions({
+            theme: {
+              mode: e.matches ? &#39;dark&#39; : &#39;light&#39;
+            }
+          });
+        });
+      }
+
+      
+      const observer = new MutationObserver(function(mutations) {
+        mutations.forEach(function(mutation) {
+          if (mutation.attributeName === &#39;class&#39;) {
+            const newMode = getThemeMode();
+            chart.updateOptions({
+              theme: {
+                mode: newMode
+              }
+            });
+          }
+        });
+      });
+      
+      observer.observe(document.body, { attributes: true });
+      observer.observe(document.documentElement, { attributes: true });
+      
+      console.log(&#39;ApexChart rendered successfully:&#39;, chartId);
+    } catch (error) {
+      console.error(&#39;Error rendering chart:&#39;, error);
+      chartElement.innerHTML = &#39;&lt;div style=&#34;color: red; padding: 20px; text-align: center;&#34;&gt;图表加载失败: &#39; + error.message + &#39;&lt;/div&gt;&#39;;
+    }
+  }
+
+  
+  if (document.readyState === &#39;loading&#39;) {
+    document.addEventListener(&#39;DOMContentLoaded&#39;, initChart);
+  } else {
+    
+    setTimeout(initChart, 100);
+  }
+})();
+&lt;/script&gt;
+
+&lt;h2 id=&#34;柱状图&#34;&gt;柱状图
+&lt;/h2&gt;&lt;script src=&#34;https://cdn.jsdelivr.net/npm/apexcharts&#34;&gt;&lt;/script&gt;
+
+
+
+
+
+
+&lt;div class=&#34;apexchart-container&#34; style=&#34;margin: 1.5rem 0;&#34;&gt;
+  &lt;div id=&#34;chart-bar-test&#34;&gt;&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;script&gt;
+(function() {
+  
+  function initChart() {
+    const chartElement = document.querySelector(&#34;#chart-bar-test&#34;);
+    if (!chartElement) {
+      console.error(&#39;Chart element not found: #chart-bar-test&#39;);
+      return;
+    }
+
+    
+    const chartId = &#34;bar-test&#34;;
+    const chartType = &#34;bar&#34;;
+    const chartWidth = &#34;100%&#34;;
+    const chartHeight = &#34;300&#34;;
+    
+    
+    let chartData;
+    
+      try {
+        chartData = 
+{
+  &#34;series&#34;: [{
+    &#34;name&#34;: &#34;A&#34;,
+    &#34;data&#34;: [44, 55, 57, 56, 61, 58, 63, 60, 66]
+  }, {
+    &#34;name&#34;: &#34;B&#34;, 
+    &#34;data&#34;: [35, 41, 36, 26, 45, 48, 52, 53, 41]
+  }],
+  &#34;xaxis&#34;: {
+    &#34;categories&#34;: [&#34;1&#34;, &#34;2&#34;, &#34;3&#34;, &#34;4&#34;, &#34;5&#34;, &#34;6&#34;, &#34;7&#34;, &#34;8&#34;, &#34;10&#34;]
+  },
+  &#34;title&#34;: {
+    &#34;text&#34;: &#34;compare&#34;,
+    &#34;align&#34;: &#34;center&#34;
+  }
+}
+;
+      } catch (e) {
+        console.error(&#39;Error parsing .Inner content:&#39;, e);
+        chartData = {};
+      }
+    
+
+    
+    function getThemeMode() {
+      
+      if (document.body.classList.contains(&#39;dark&#39;)) return &#39;dark&#39;;
+      if (document.documentElement.classList.contains(&#39;dark&#39;)) return &#39;dark&#39;;
+      if (window.matchMedia &amp;&amp; window.matchMedia(&#39;(prefers-color-scheme: dark)&#39;).matches) return &#39;dark&#39;;
+      return &#39;light&#39;;
+    }
+
+    
+    const options = {
+      series: chartData.series || [{
+        name: &#34;Sample Data&#34;,
+        data: [30, 40, 35, 50, 49, 60, 70, 91, 125]
+      }],
+      chart: {
+        type: chartType,
+        width: chartWidth === &#34;100%&#34; ? &#39;100%&#39; : chartWidth,
+        height: chartHeight,
+        toolbar: {
+          show: true,
+          tools: {
+            download: true,
+            selection: true,
+            zoom: true,
+            zoomin: true,
+            zoomout: true,
+            pan: true,
+            reset: true
+          }
+        },
+        zoom: {
+          enabled: true
+        },
+        animations: {
+          enabled: true,
+          easing: &#39;easeinout&#39;,
+          speed: 800,
+          animateGradually: {
+            enabled: true,
+            delay: 150
+          },
+          dynamicAnimation: {
+            enabled: true,
+            speed: 350
+          }
+        }
+      },
+      theme: {
+        mode: getThemeMode(),
+        palette: &#39;palette1&#39;
+      },
+      responsive: [{
+        breakpoint: 768,
+        options: {
+          chart: {
+            width: &#39;100%&#39;
+          },
+          legend: {
+            position: &#39;bottom&#39;
+          },
+          xaxis: {
+            labels: {
+              rotate: -45,
+              rotateAlways: false
+            }
+          }
+        }
+      }]
+    };
+
+    
+    if (chartData.xaxis) {
+      options.xaxis = chartData.xaxis;
+    }
+    if (chartData.yaxis) {
+      options.yaxis = chartData.yaxis;
+    }
+    if (chartData.title) {
+      options.title = chartData.title;
+    }
+    if (chartData.subtitle) {
+      options.subtitle = chartData.subtitle;
+    }
+    if (chartData.legend) {
+      options.legend = chartData.legend;
+    }
+    if (chartData.dataLabels) {
+      options.dataLabels = chartData.dataLabels;
+    }
+    if (chartData.stroke) {
+      options.stroke = chartData.stroke;
+    }
+    if (chartData.fill) {
+      options.fill = chartData.fill;
+    }
+    if (chartData.grid) {
+      options.grid = chartData.grid;
+    }
+    if (chartData.tooltip) {
+      options.tooltip = chartData.tooltip;
+    }
+    if (chartData.plotOptions) {
+      options.plotOptions = chartData.plotOptions;
+    }
+
+    
+    if (chartType === &#39;pie&#39; || chartType === &#39;donut&#39;) {
+      if (chartData.labels) {
+        options.labels = chartData.labels;
+      }
+      if (chartData.colors) {
+        options.colors = chartData.colors;
+      }
+      
+      
+      if (!options.plotOptions) {
+        options.plotOptions = {};
+      }
+      if (!options.plotOptions.pie) {
+        options.plotOptions.pie = {};
+      }
+      
+      
+      if (!options.plotOptions.pie.dataLabels) {
+        options.plotOptions.pie.dataLabels = {
+          enabled: true
+        };
+      }
+      
+      if (chartType === &#39;donut&#39;) {
+        
+        if (!options.plotOptions.pie.donut) {
+          options.plotOptions.pie.donut = {
+            labels: {
+              show: true,
+              name: {
+                show: true,
+                fontSize: &#39;16px&#39;,
+                fontFamily: &#39;Helvetica, Arial, sans-serif&#39;,
+                fontWeight: 600,
+                color: undefined,
+                offsetY: -10
+              },
+              value: {
+                show: true,
+                fontSize: &#39;14px&#39;,
+                fontFamily: &#39;Helvetica, Arial, sans-serif&#39;,
+                fontWeight: 400,
+                color: undefined,
+                offsetY: 16,
+                formatter: function (val) {
+                  return val;
+                }
+              },
+              total: {
+                show: false,
+                showAlways: false,
+                label: &#39;Total&#39;,
+                fontSize: &#39;16px&#39;,
+                fontFamily: &#39;Helvetica, Arial, sans-serif&#39;,
+                fontWeight: 600,
+                color: &#39;#373d3f&#39;
+              }
+            }
+          };
+        }
+      } else {
+        
+        if (!options.plotOptions.pie.labels) {
+          options.plotOptions.pie.labels = {
+            show: true,
+            offset: -25
+          };
+        }
+      }
+      
+      
+      delete options.xaxis;
+      delete options.grid;
+      delete options.yaxis;
+    }
+
+    try {
+      
+      const chart = new ApexCharts(chartElement, options);
+      chart.render();
+      
+      
+      if (window.matchMedia) {
+        const darkModeQuery = window.matchMedia(&#39;(prefers-color-scheme: dark)&#39;);
+        darkModeQuery.addEventListener(&#39;change&#39;, function(e) {
+          chart.updateOptions({
+            theme: {
+              mode: e.matches ? &#39;dark&#39; : &#39;light&#39;
+            }
+          });
+        });
+      }
+
+      
+      const observer = new MutationObserver(function(mutations) {
+        mutations.forEach(function(mutation) {
+          if (mutation.attributeName === &#39;class&#39;) {
+            const newMode = getThemeMode();
+            chart.updateOptions({
+              theme: {
+                mode: newMode
+              }
+            });
+          }
+        });
+      });
+      
+      observer.observe(document.body, { attributes: true });
+      observer.observe(document.documentElement, { attributes: true });
+      
+      console.log(&#39;ApexChart rendered successfully:&#39;, chartId);
+    } catch (error) {
+      console.error(&#39;Error rendering chart:&#39;, error);
+      chartElement.innerHTML = &#39;&lt;div style=&#34;color: red; padding: 20px; text-align: center;&#34;&gt;图表加载失败: &#39; + error.message + &#39;&lt;/div&gt;&#39;;
+    }
+  }
+
+  
+  if (document.readyState === &#39;loading&#39;) {
+    document.addEventListener(&#39;DOMContentLoaded&#39;, initChart);
+  } else {
+    
+    setTimeout(initChart, 100);
+  }
+})();
+&lt;/script&gt;
+
+&lt;h2 id=&#34;饼图&#34;&gt;饼图
+&lt;/h2&gt;&lt;script src=&#34;https://cdn.jsdelivr.net/npm/apexcharts&#34;&gt;&lt;/script&gt;
+
+
+
+
+
+
+&lt;div class=&#34;apexchart-container&#34; style=&#34;margin: 1.5rem 0;&#34;&gt;
+  &lt;div id=&#34;chart-pie-test&#34;&gt;&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;script&gt;
+(function() {
+  
+  function initChart() {
+    const chartElement = document.querySelector(&#34;#chart-pie-test&#34;);
+    if (!chartElement) {
+      console.error(&#39;Chart element not found: #chart-pie-test&#39;);
+      return;
+    }
+
+    
+    const chartId = &#34;pie-test&#34;;
+    const chartType = &#34;pie&#34;;
+    const chartWidth = &#34;100%&#34;;
+    const chartHeight = &#34;300&#34;;
+    
+    
+    let chartData;
+    
+      try {
+        chartData = 
+{
+  &#34;series&#34;: [44, 55, 13, 43, 22],
+  &#34;labels&#34;: [&#34;A&#34;, &#34;B&#34;, &#34;C&#34;, &#34;D&#34;, &#34;E&#34;],
+  &#34;title&#34;: {
+    &#34;text&#34;: &#34;distribution&#34;,
+    &#34;align&#34;: &#34;center&#34;
+  }
+}
+;
+      } catch (e) {
+        console.error(&#39;Error parsing .Inner content:&#39;, e);
+        chartData = {};
+      }
+    
+
+    
+    function getThemeMode() {
+      
+      if (document.body.classList.contains(&#39;dark&#39;)) return &#39;dark&#39;;
+      if (document.documentElement.classList.contains(&#39;dark&#39;)) return &#39;dark&#39;;
+      if (window.matchMedia &amp;&amp; window.matchMedia(&#39;(prefers-color-scheme: dark)&#39;).matches) return &#39;dark&#39;;
+      return &#39;light&#39;;
+    }
+
+    
+    const options = {
+      series: chartData.series || [{
+        name: &#34;Sample Data&#34;,
+        data: [30, 40, 35, 50, 49, 60, 70, 91, 125]
+      }],
+      chart: {
+        type: chartType,
+        width: chartWidth === &#34;100%&#34; ? &#39;100%&#39; : chartWidth,
+        height: chartHeight,
+        toolbar: {
+          show: true,
+          tools: {
+            download: true,
+            selection: true,
+            zoom: true,
+            zoomin: true,
+            zoomout: true,
+            pan: true,
+            reset: true
+          }
+        },
+        zoom: {
+          enabled: true
+        },
+        animations: {
+          enabled: true,
+          easing: &#39;easeinout&#39;,
+          speed: 800,
+          animateGradually: {
+            enabled: true,
+            delay: 150
+          },
+          dynamicAnimation: {
+            enabled: true,
+            speed: 350
+          }
+        }
+      },
+      theme: {
+        mode: getThemeMode(),
+        palette: &#39;palette1&#39;
+      },
+      responsive: [{
+        breakpoint: 768,
+        options: {
+          chart: {
+            width: &#39;100%&#39;
+          },
+          legend: {
+            position: &#39;bottom&#39;
+          },
+          xaxis: {
+            labels: {
+              rotate: -45,
+              rotateAlways: false
+            }
+          }
+        }
+      }]
+    };
+
+    
+    if (chartData.xaxis) {
+      options.xaxis = chartData.xaxis;
+    }
+    if (chartData.yaxis) {
+      options.yaxis = chartData.yaxis;
+    }
+    if (chartData.title) {
+      options.title = chartData.title;
+    }
+    if (chartData.subtitle) {
+      options.subtitle = chartData.subtitle;
+    }
+    if (chartData.legend) {
+      options.legend = chartData.legend;
+    }
+    if (chartData.dataLabels) {
+      options.dataLabels = chartData.dataLabels;
+    }
+    if (chartData.stroke) {
+      options.stroke = chartData.stroke;
+    }
+    if (chartData.fill) {
+      options.fill = chartData.fill;
+    }
+    if (chartData.grid) {
+      options.grid = chartData.grid;
+    }
+    if (chartData.tooltip) {
+      options.tooltip = chartData.tooltip;
+    }
+    if (chartData.plotOptions) {
+      options.plotOptions = chartData.plotOptions;
+    }
+
+    
+    if (chartType === &#39;pie&#39; || chartType === &#39;donut&#39;) {
+      if (chartData.labels) {
+        options.labels = chartData.labels;
+      }
+      if (chartData.colors) {
+        options.colors = chartData.colors;
+      }
+      
+      
+      if (!options.plotOptions) {
+        options.plotOptions = {};
+      }
+      if (!options.plotOptions.pie) {
+        options.plotOptions.pie = {};
+      }
+      
+      
+      if (!options.plotOptions.pie.dataLabels) {
+        options.plotOptions.pie.dataLabels = {
+          enabled: true
+        };
+      }
+      
+      if (chartType === &#39;donut&#39;) {
+        
+        if (!options.plotOptions.pie.donut) {
+          options.plotOptions.pie.donut = {
+            labels: {
+              show: true,
+              name: {
+                show: true,
+                fontSize: &#39;16px&#39;,
+                fontFamily: &#39;Helvetica, Arial, sans-serif&#39;,
+                fontWeight: 600,
+                color: undefined,
+                offsetY: -10
+              },
+              value: {
+                show: true,
+                fontSize: &#39;14px&#39;,
+                fontFamily: &#39;Helvetica, Arial, sans-serif&#39;,
+                fontWeight: 400,
+                color: undefined,
+                offsetY: 16,
+                formatter: function (val) {
+                  return val;
+                }
+              },
+              total: {
+                show: false,
+                showAlways: false,
+                label: &#39;Total&#39;,
+                fontSize: &#39;16px&#39;,
+                fontFamily: &#39;Helvetica, Arial, sans-serif&#39;,
+                fontWeight: 600,
+                color: &#39;#373d3f&#39;
+              }
+            }
+          };
+        }
+      } else {
+        
+        if (!options.plotOptions.pie.labels) {
+          options.plotOptions.pie.labels = {
+            show: true,
+            offset: -25
+          };
+        }
+      }
+      
+      
+      delete options.xaxis;
+      delete options.grid;
+      delete options.yaxis;
+    }
+
+    try {
+      
+      const chart = new ApexCharts(chartElement, options);
+      chart.render();
+      
+      
+      if (window.matchMedia) {
+        const darkModeQuery = window.matchMedia(&#39;(prefers-color-scheme: dark)&#39;);
+        darkModeQuery.addEventListener(&#39;change&#39;, function(e) {
+          chart.updateOptions({
+            theme: {
+              mode: e.matches ? &#39;dark&#39; : &#39;light&#39;
+            }
+          });
+        });
+      }
+
+      
+      const observer = new MutationObserver(function(mutations) {
+        mutations.forEach(function(mutation) {
+          if (mutation.attributeName === &#39;class&#39;) {
+            const newMode = getThemeMode();
+            chart.updateOptions({
+              theme: {
+                mode: newMode
+              }
+            });
+          }
+        });
+      });
+      
+      observer.observe(document.body, { attributes: true });
+      observer.observe(document.documentElement, { attributes: true });
+      
+      console.log(&#39;ApexChart rendered successfully:&#39;, chartId);
+    } catch (error) {
+      console.error(&#39;Error rendering chart:&#39;, error);
+      chartElement.innerHTML = &#39;&lt;div style=&#34;color: red; padding: 20px; text-align: center;&#34;&gt;图表加载失败: &#39; + error.message + &#39;&lt;/div&gt;&#39;;
+    }
+  }
+
+  
+  if (document.readyState === &#39;loading&#39;) {
+    document.addEventListener(&#39;DOMContentLoaded&#39;, initChart);
+  } else {
+    
+    setTimeout(initChart, 100);
+  }
+})();
+&lt;/script&gt;
+
+&lt;h2 id=&#34;圆环图&#34;&gt;圆环图
+&lt;/h2&gt;&lt;script src=&#34;https://cdn.jsdelivr.net/npm/apexcharts&#34;&gt;&lt;/script&gt;
+
+
+
+
+
+
+&lt;div class=&#34;apexchart-container&#34; style=&#34;margin: 1.5rem 0;&#34;&gt;
+  &lt;div id=&#34;chart-donut-test&#34;&gt;&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;script&gt;
+(function() {
+  
+  function initChart() {
+    const chartElement = document.querySelector(&#34;#chart-donut-test&#34;);
+    if (!chartElement) {
+      console.error(&#39;Chart element not found: #chart-donut-test&#39;);
+      return;
+    }
+
+    
+    const chartId = &#34;donut-test&#34;;
+    const chartType = &#34;donut&#34;;
+    const chartWidth = &#34;100%&#34;;
+    const chartHeight = &#34;300&#34;;
+    
+    
+    let chartData;
+    
+      try {
+        chartData = 
+{
+  &#34;series&#34;: [44, 55, 13, 43, 22],
+  &#34;labels&#34;: [&#34;前端开发&#34;, &#34;后端开发&#34;, &#34;设计&#34;, &#34;测试&#34;, &#34;运维&#34;],
+  &#34;title&#34;: {
+    &#34;text&#34;: &#34;团队技能分布&#34;,
+    &#34;align&#34;: &#34;center&#34;
+  }
+}
+;
+      } catch (e) {
+        console.error(&#39;Error parsing .Inner content:&#39;, e);
+        chartData = {};
+      }
+    
+
+    
+    function getThemeMode() {
+      
+      if (document.body.classList.contains(&#39;dark&#39;)) return &#39;dark&#39;;
+      if (document.documentElement.classList.contains(&#39;dark&#39;)) return &#39;dark&#39;;
+      if (window.matchMedia &amp;&amp; window.matchMedia(&#39;(prefers-color-scheme: dark)&#39;).matches) return &#39;dark&#39;;
+      return &#39;light&#39;;
+    }
+
+    
+    const options = {
+      series: chartData.series || [{
+        name: &#34;Sample Data&#34;,
+        data: [30, 40, 35, 50, 49, 60, 70, 91, 125]
+      }],
+      chart: {
+        type: chartType,
+        width: chartWidth === &#34;100%&#34; ? &#39;100%&#39; : chartWidth,
+        height: chartHeight,
+        toolbar: {
+          show: true,
+          tools: {
+            download: true,
+            selection: true,
+            zoom: true,
+            zoomin: true,
+            zoomout: true,
+            pan: true,
+            reset: true
+          }
+        },
+        zoom: {
+          enabled: true
+        },
+        animations: {
+          enabled: true,
+          easing: &#39;easeinout&#39;,
+          speed: 800,
+          animateGradually: {
+            enabled: true,
+            delay: 150
+          },
+          dynamicAnimation: {
+            enabled: true,
+            speed: 350
+          }
+        }
+      },
+      theme: {
+        mode: getThemeMode(),
+        palette: &#39;palette1&#39;
+      },
+      responsive: [{
+        breakpoint: 768,
+        options: {
+          chart: {
+            width: &#39;100%&#39;
+          },
+          legend: {
+            position: &#39;bottom&#39;
+          },
+          xaxis: {
+            labels: {
+              rotate: -45,
+              rotateAlways: false
+            }
+          }
+        }
+      }]
+    };
+
+    
+    if (chartData.xaxis) {
+      options.xaxis = chartData.xaxis;
+    }
+    if (chartData.yaxis) {
+      options.yaxis = chartData.yaxis;
+    }
+    if (chartData.title) {
+      options.title = chartData.title;
+    }
+    if (chartData.subtitle) {
+      options.subtitle = chartData.subtitle;
+    }
+    if (chartData.legend) {
+      options.legend = chartData.legend;
+    }
+    if (chartData.dataLabels) {
+      options.dataLabels = chartData.dataLabels;
+    }
+    if (chartData.stroke) {
+      options.stroke = chartData.stroke;
+    }
+    if (chartData.fill) {
+      options.fill = chartData.fill;
+    }
+    if (chartData.grid) {
+      options.grid = chartData.grid;
+    }
+    if (chartData.tooltip) {
+      options.tooltip = chartData.tooltip;
+    }
+    if (chartData.plotOptions) {
+      options.plotOptions = chartData.plotOptions;
+    }
+
+    
+    if (chartType === &#39;pie&#39; || chartType === &#39;donut&#39;) {
+      if (chartData.labels) {
+        options.labels = chartData.labels;
+      }
+      if (chartData.colors) {
+        options.colors = chartData.colors;
+      }
+      
+      
+      if (!options.plotOptions) {
+        options.plotOptions = {};
+      }
+      if (!options.plotOptions.pie) {
+        options.plotOptions.pie = {};
+      }
+      
+      
+      if (!options.plotOptions.pie.dataLabels) {
+        options.plotOptions.pie.dataLabels = {
+          enabled: true
+        };
+      }
+      
+      if (chartType === &#39;donut&#39;) {
+        
+        if (!options.plotOptions.pie.donut) {
+          options.plotOptions.pie.donut = {
+            labels: {
+              show: true,
+              name: {
+                show: true,
+                fontSize: &#39;16px&#39;,
+                fontFamily: &#39;Helvetica, Arial, sans-serif&#39;,
+                fontWeight: 600,
+                color: undefined,
+                offsetY: -10
+              },
+              value: {
+                show: true,
+                fontSize: &#39;14px&#39;,
+                fontFamily: &#39;Helvetica, Arial, sans-serif&#39;,
+                fontWeight: 400,
+                color: undefined,
+                offsetY: 16,
+                formatter: function (val) {
+                  return val;
+                }
+              },
+              total: {
+                show: false,
+                showAlways: false,
+                label: &#39;Total&#39;,
+                fontSize: &#39;16px&#39;,
+                fontFamily: &#39;Helvetica, Arial, sans-serif&#39;,
+                fontWeight: 600,
+                color: &#39;#373d3f&#39;
+              }
+            }
+          };
+        }
+      } else {
+        
+        if (!options.plotOptions.pie.labels) {
+          options.plotOptions.pie.labels = {
+            show: true,
+            offset: -25
+          };
+        }
+      }
+      
+      
+      delete options.xaxis;
+      delete options.grid;
+      delete options.yaxis;
+    }
+
+    try {
+      
+      const chart = new ApexCharts(chartElement, options);
+      chart.render();
+      
+      
+      if (window.matchMedia) {
+        const darkModeQuery = window.matchMedia(&#39;(prefers-color-scheme: dark)&#39;);
+        darkModeQuery.addEventListener(&#39;change&#39;, function(e) {
+          chart.updateOptions({
+            theme: {
+              mode: e.matches ? &#39;dark&#39; : &#39;light&#39;
+            }
+          });
+        });
+      }
+
+      
+      const observer = new MutationObserver(function(mutations) {
+        mutations.forEach(function(mutation) {
+          if (mutation.attributeName === &#39;class&#39;) {
+            const newMode = getThemeMode();
+            chart.updateOptions({
+              theme: {
+                mode: newMode
+              }
+            });
+          }
+        });
+      });
+      
+      observer.observe(document.body, { attributes: true });
+      observer.observe(document.documentElement, { attributes: true });
+      
+      console.log(&#39;ApexChart rendered successfully:&#39;, chartId);
+    } catch (error) {
+      console.error(&#39;Error rendering chart:&#39;, error);
+      chartElement.innerHTML = &#39;&lt;div style=&#34;color: red; padding: 20px; text-align: center;&#34;&gt;图表加载失败: &#39; + error.message + &#39;&lt;/div&gt;&#39;;
+    }
+  }
+
+  
+  if (document.readyState === &#39;loading&#39;) {
+    document.addEventListener(&#39;DOMContentLoaded&#39;, initChart);
+  } else {
+    
+    setTimeout(initChart, 100);
+  }
+})();
+&lt;/script&gt;
+
+&lt;h2 id=&#34;面积图&#34;&gt;面积图
+&lt;/h2&gt;&lt;script src=&#34;https://cdn.jsdelivr.net/npm/apexcharts&#34;&gt;&lt;/script&gt;
+
+
+
+
+
+
+&lt;div class=&#34;apexchart-container&#34; style=&#34;margin: 1.5rem 0;&#34;&gt;
+  &lt;div id=&#34;chart-area-test&#34;&gt;&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;script&gt;
+(function() {
+  
+  function initChart() {
+    const chartElement = document.querySelector(&#34;#chart-area-test&#34;);
+    if (!chartElement) {
+      console.error(&#39;Chart element not found: #chart-area-test&#39;);
+      return;
+    }
+
+    
+    const chartId = &#34;area-test&#34;;
+    const chartType = &#34;area&#34;;
+    const chartWidth = &#34;100%&#34;;
+    const chartHeight = &#34;300&#34;;
+    
+    
+    let chartData;
+    
+      try {
+        chartData = 
+{
+  &#34;series&#34;: [{
+    &#34;name&#34;: &#34;用户增长&#34;,
+    &#34;data&#34;: [31, 40, 28, 51, 42, 109, 100, 120, 140]
+  }, {
+    &#34;name&#34;: &#34;收益增长&#34;,
+    &#34;data&#34;: [11, 32, 45, 32, 34, 52, 41, 61, 85]
+  }],
+  &#34;xaxis&#34;: {
+    &#34;categories&#34;: [&#34;1月&#34;, &#34;2月&#34;, &#34;3月&#34;, &#34;4月&#34;, &#34;5月&#34;, &#34;6月&#34;, &#34;7月&#34;, &#34;8月&#34;, &#34;9月&#34;]
+  },
+  &#34;title&#34;: {
+    &#34;text&#34;: &#34;业务增长趋势&#34;,
+    &#34;align&#34;: &#34;center&#34;
+  },
+  &#34;dataLabels&#34;: {
+    &#34;enabled&#34;: false
+  },
+  &#34;stroke&#34;: {
+    &#34;curve&#34;: &#34;smooth&#34;,
+    &#34;width&#34;: 2
+  },
+  &#34;fill&#34;: {
+    &#34;type&#34;: &#34;gradient&#34;,
+    &#34;gradient&#34;: {
+      &#34;shadeIntensity&#34;: 1,
+      &#34;opacityFrom&#34;: 0.7,
+      &#34;opacityTo&#34;: 0.9,
+      &#34;stops&#34;: [0, 90, 100]
+    }
+  }
+}
+;
+      } catch (e) {
+        console.error(&#39;Error parsing .Inner content:&#39;, e);
+        chartData = {};
+      }
+    
+
+    
+    function getThemeMode() {
+      
+      if (document.body.classList.contains(&#39;dark&#39;)) return &#39;dark&#39;;
+      if (document.documentElement.classList.contains(&#39;dark&#39;)) return &#39;dark&#39;;
+      if (window.matchMedia &amp;&amp; window.matchMedia(&#39;(prefers-color-scheme: dark)&#39;).matches) return &#39;dark&#39;;
+      return &#39;light&#39;;
+    }
+
+    
+    const options = {
+      series: chartData.series || [{
+        name: &#34;Sample Data&#34;,
+        data: [30, 40, 35, 50, 49, 60, 70, 91, 125]
+      }],
+      chart: {
+        type: chartType,
+        width: chartWidth === &#34;100%&#34; ? &#39;100%&#39; : chartWidth,
+        height: chartHeight,
+        toolbar: {
+          show: true,
+          tools: {
+            download: true,
+            selection: true,
+            zoom: true,
+            zoomin: true,
+            zoomout: true,
+            pan: true,
+            reset: true
+          }
+        },
+        zoom: {
+          enabled: true
+        },
+        animations: {
+          enabled: true,
+          easing: &#39;easeinout&#39;,
+          speed: 800,
+          animateGradually: {
+            enabled: true,
+            delay: 150
+          },
+          dynamicAnimation: {
+            enabled: true,
+            speed: 350
+          }
+        }
+      },
+      theme: {
+        mode: getThemeMode(),
+        palette: &#39;palette1&#39;
+      },
+      responsive: [{
+        breakpoint: 768,
+        options: {
+          chart: {
+            width: &#39;100%&#39;
+          },
+          legend: {
+            position: &#39;bottom&#39;
+          },
+          xaxis: {
+            labels: {
+              rotate: -45,
+              rotateAlways: false
+            }
+          }
+        }
+      }]
+    };
+
+    
+    if (chartData.xaxis) {
+      options.xaxis = chartData.xaxis;
+    }
+    if (chartData.yaxis) {
+      options.yaxis = chartData.yaxis;
+    }
+    if (chartData.title) {
+      options.title = chartData.title;
+    }
+    if (chartData.subtitle) {
+      options.subtitle = chartData.subtitle;
+    }
+    if (chartData.legend) {
+      options.legend = chartData.legend;
+    }
+    if (chartData.dataLabels) {
+      options.dataLabels = chartData.dataLabels;
+    }
+    if (chartData.stroke) {
+      options.stroke = chartData.stroke;
+    }
+    if (chartData.fill) {
+      options.fill = chartData.fill;
+    }
+    if (chartData.grid) {
+      options.grid = chartData.grid;
+    }
+    if (chartData.tooltip) {
+      options.tooltip = chartData.tooltip;
+    }
+    if (chartData.plotOptions) {
+      options.plotOptions = chartData.plotOptions;
+    }
+
+    
+    if (chartType === &#39;pie&#39; || chartType === &#39;donut&#39;) {
+      if (chartData.labels) {
+        options.labels = chartData.labels;
+      }
+      if (chartData.colors) {
+        options.colors = chartData.colors;
+      }
+      
+      
+      if (!options.plotOptions) {
+        options.plotOptions = {};
+      }
+      if (!options.plotOptions.pie) {
+        options.plotOptions.pie = {};
+      }
+      
+      
+      if (!options.plotOptions.pie.dataLabels) {
+        options.plotOptions.pie.dataLabels = {
+          enabled: true
+        };
+      }
+      
+      if (chartType === &#39;donut&#39;) {
+        
+        if (!options.plotOptions.pie.donut) {
+          options.plotOptions.pie.donut = {
+            labels: {
+              show: true,
+              name: {
+                show: true,
+                fontSize: &#39;16px&#39;,
+                fontFamily: &#39;Helvetica, Arial, sans-serif&#39;,
+                fontWeight: 600,
+                color: undefined,
+                offsetY: -10
+              },
+              value: {
+                show: true,
+                fontSize: &#39;14px&#39;,
+                fontFamily: &#39;Helvetica, Arial, sans-serif&#39;,
+                fontWeight: 400,
+                color: undefined,
+                offsetY: 16,
+                formatter: function (val) {
+                  return val;
+                }
+              },
+              total: {
+                show: false,
+                showAlways: false,
+                label: &#39;Total&#39;,
+                fontSize: &#39;16px&#39;,
+                fontFamily: &#39;Helvetica, Arial, sans-serif&#39;,
+                fontWeight: 600,
+                color: &#39;#373d3f&#39;
+              }
+            }
+          };
+        }
+      } else {
+        
+        if (!options.plotOptions.pie.labels) {
+          options.plotOptions.pie.labels = {
+            show: true,
+            offset: -25
+          };
+        }
+      }
+      
+      
+      delete options.xaxis;
+      delete options.grid;
+      delete options.yaxis;
+    }
+
+    try {
+      
+      const chart = new ApexCharts(chartElement, options);
+      chart.render();
+      
+      
+      if (window.matchMedia) {
+        const darkModeQuery = window.matchMedia(&#39;(prefers-color-scheme: dark)&#39;);
+        darkModeQuery.addEventListener(&#39;change&#39;, function(e) {
+          chart.updateOptions({
+            theme: {
+              mode: e.matches ? &#39;dark&#39; : &#39;light&#39;
+            }
+          });
+        });
+      }
+
+      
+      const observer = new MutationObserver(function(mutations) {
+        mutations.forEach(function(mutation) {
+          if (mutation.attributeName === &#39;class&#39;) {
+            const newMode = getThemeMode();
+            chart.updateOptions({
+              theme: {
+                mode: newMode
+              }
+            });
+          }
+        });
+      });
+      
+      observer.observe(document.body, { attributes: true });
+      observer.observe(document.documentElement, { attributes: true });
+      
+      console.log(&#39;ApexChart rendered successfully:&#39;, chartId);
+    } catch (error) {
+      console.error(&#39;Error rendering chart:&#39;, error);
+      chartElement.innerHTML = &#39;&lt;div style=&#34;color: red; padding: 20px; text-align: center;&#34;&gt;图表加载失败: &#39; + error.message + &#39;&lt;/div&gt;&#39;;
+    }
+  }
+
+  
+  if (document.readyState === &#39;loading&#39;) {
+    document.addEventListener(&#39;DOMContentLoaded&#39;, initChart);
+  } else {
+    
+    setTimeout(initChart, 100);
+  }
+})();
+&lt;/script&gt;
+
+&lt;h2 id=&#34;散点图&#34;&gt;散点图
+&lt;/h2&gt;&lt;script src=&#34;https://cdn.jsdelivr.net/npm/apexcharts&#34;&gt;&lt;/script&gt;
+
+
+
+
+
+
+&lt;div class=&#34;apexchart-container&#34; style=&#34;margin: 1.5rem 0;&#34;&gt;
+  &lt;div id=&#34;chart-scatter-test&#34;&gt;&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;script&gt;
+(function() {
+  
+  function initChart() {
+    const chartElement = document.querySelector(&#34;#chart-scatter-test&#34;);
+    if (!chartElement) {
+      console.error(&#39;Chart element not found: #chart-scatter-test&#39;);
+      return;
+    }
+
+    
+    const chartId = &#34;scatter-test&#34;;
+    const chartType = &#34;scatter&#34;;
+    const chartWidth = &#34;100%&#34;;
+    const chartHeight = &#34;300&#34;;
+    
+    
+    let chartData;
+    
+      try {
+        chartData = 
+{
+  &#34;series&#34;: [{
+    &#34;name&#34;: &#34;样本A&#34;,
+    &#34;data&#34;: [
+      [16.4, 5.4], [21.7, 2], [25.4, 3], [19, 2], [10.9, 1],
+      [13.6, 3.2], [10.9, 7.4], [10.9, 0], [10.9, 8.2], [16.4, 0]
+    ]
+  }, {
+    &#34;name&#34;: &#34;样本B&#34;,
+    &#34;data&#34;: [
+      [6.4, 13.4], [1.7, 11], [5.4, 9], [9, 11.2], [10.9, 7],
+      [13.6, 4.2], [10.9, 0.4], [10.9, 8.2], [16.4, 3.9], [14.4, 4]
+    ]
+  }],
+  &#34;title&#34;: {
+    &#34;text&#34;: &#34;散点图示例&#34;,
+    &#34;align&#34;: &#34;center&#34;
+  },
+  &#34;xaxis&#34;: {
+    &#34;title&#34;: {
+      &#34;text&#34;: &#34;X轴&#34;
+    }
+  },
+  &#34;yaxis&#34;: {
+    &#34;title&#34;: {
+      &#34;text&#34;: &#34;Y轴&#34;
+    }
+  }
+}
+;
+      } catch (e) {
+        console.error(&#39;Error parsing .Inner content:&#39;, e);
+        chartData = {};
+      }
+    
+
+    
+    function getThemeMode() {
+      
+      if (document.body.classList.contains(&#39;dark&#39;)) return &#39;dark&#39;;
+      if (document.documentElement.classList.contains(&#39;dark&#39;)) return &#39;dark&#39;;
+      if (window.matchMedia &amp;&amp; window.matchMedia(&#39;(prefers-color-scheme: dark)&#39;).matches) return &#39;dark&#39;;
+      return &#39;light&#39;;
+    }
+
+    
+    const options = {
+      series: chartData.series || [{
+        name: &#34;Sample Data&#34;,
+        data: [30, 40, 35, 50, 49, 60, 70, 91, 125]
+      }],
+      chart: {
+        type: chartType,
+        width: chartWidth === &#34;100%&#34; ? &#39;100%&#39; : chartWidth,
+        height: chartHeight,
+        toolbar: {
+          show: true,
+          tools: {
+            download: true,
+            selection: true,
+            zoom: true,
+            zoomin: true,
+            zoomout: true,
+            pan: true,
+            reset: true
+          }
+        },
+        zoom: {
+          enabled: true
+        },
+        animations: {
+          enabled: true,
+          easing: &#39;easeinout&#39;,
+          speed: 800,
+          animateGradually: {
+            enabled: true,
+            delay: 150
+          },
+          dynamicAnimation: {
+            enabled: true,
+            speed: 350
+          }
+        }
+      },
+      theme: {
+        mode: getThemeMode(),
+        palette: &#39;palette1&#39;
+      },
+      responsive: [{
+        breakpoint: 768,
+        options: {
+          chart: {
+            width: &#39;100%&#39;
+          },
+          legend: {
+            position: &#39;bottom&#39;
+          },
+          xaxis: {
+            labels: {
+              rotate: -45,
+              rotateAlways: false
+            }
+          }
+        }
+      }]
+    };
+
+    
+    if (chartData.xaxis) {
+      options.xaxis = chartData.xaxis;
+    }
+    if (chartData.yaxis) {
+      options.yaxis = chartData.yaxis;
+    }
+    if (chartData.title) {
+      options.title = chartData.title;
+    }
+    if (chartData.subtitle) {
+      options.subtitle = chartData.subtitle;
+    }
+    if (chartData.legend) {
+      options.legend = chartData.legend;
+    }
+    if (chartData.dataLabels) {
+      options.dataLabels = chartData.dataLabels;
+    }
+    if (chartData.stroke) {
+      options.stroke = chartData.stroke;
+    }
+    if (chartData.fill) {
+      options.fill = chartData.fill;
+    }
+    if (chartData.grid) {
+      options.grid = chartData.grid;
+    }
+    if (chartData.tooltip) {
+      options.tooltip = chartData.tooltip;
+    }
+    if (chartData.plotOptions) {
+      options.plotOptions = chartData.plotOptions;
+    }
+
+    
+    if (chartType === &#39;pie&#39; || chartType === &#39;donut&#39;) {
+      if (chartData.labels) {
+        options.labels = chartData.labels;
+      }
+      if (chartData.colors) {
+        options.colors = chartData.colors;
+      }
+      
+      
+      if (!options.plotOptions) {
+        options.plotOptions = {};
+      }
+      if (!options.plotOptions.pie) {
+        options.plotOptions.pie = {};
+      }
+      
+      
+      if (!options.plotOptions.pie.dataLabels) {
+        options.plotOptions.pie.dataLabels = {
+          enabled: true
+        };
+      }
+      
+      if (chartType === &#39;donut&#39;) {
+        
+        if (!options.plotOptions.pie.donut) {
+          options.plotOptions.pie.donut = {
+            labels: {
+              show: true,
+              name: {
+                show: true,
+                fontSize: &#39;16px&#39;,
+                fontFamily: &#39;Helvetica, Arial, sans-serif&#39;,
+                fontWeight: 600,
+                color: undefined,
+                offsetY: -10
+              },
+              value: {
+                show: true,
+                fontSize: &#39;14px&#39;,
+                fontFamily: &#39;Helvetica, Arial, sans-serif&#39;,
+                fontWeight: 400,
+                color: undefined,
+                offsetY: 16,
+                formatter: function (val) {
+                  return val;
+                }
+              },
+              total: {
+                show: false,
+                showAlways: false,
+                label: &#39;Total&#39;,
+                fontSize: &#39;16px&#39;,
+                fontFamily: &#39;Helvetica, Arial, sans-serif&#39;,
+                fontWeight: 600,
+                color: &#39;#373d3f&#39;
+              }
+            }
+          };
+        }
+      } else {
+        
+        if (!options.plotOptions.pie.labels) {
+          options.plotOptions.pie.labels = {
+            show: true,
+            offset: -25
+          };
+        }
+      }
+      
+      
+      delete options.xaxis;
+      delete options.grid;
+      delete options.yaxis;
+    }
+
+    try {
+      
+      const chart = new ApexCharts(chartElement, options);
+      chart.render();
+      
+      
+      if (window.matchMedia) {
+        const darkModeQuery = window.matchMedia(&#39;(prefers-color-scheme: dark)&#39;);
+        darkModeQuery.addEventListener(&#39;change&#39;, function(e) {
+          chart.updateOptions({
+            theme: {
+              mode: e.matches ? &#39;dark&#39; : &#39;light&#39;
+            }
+          });
+        });
+      }
+
+      
+      const observer = new MutationObserver(function(mutations) {
+        mutations.forEach(function(mutation) {
+          if (mutation.attributeName === &#39;class&#39;) {
+            const newMode = getThemeMode();
+            chart.updateOptions({
+              theme: {
+                mode: newMode
+              }
+            });
+          }
+        });
+      });
+      
+      observer.observe(document.body, { attributes: true });
+      observer.observe(document.documentElement, { attributes: true });
+      
+      console.log(&#39;ApexChart rendered successfully:&#39;, chartId);
+    } catch (error) {
+      console.error(&#39;Error rendering chart:&#39;, error);
+      chartElement.innerHTML = &#39;&lt;div style=&#34;color: red; padding: 20px; text-align: center;&#34;&gt;图表加载失败: &#39; + error.message + &#39;&lt;/div&gt;&#39;;
+    }
+  }
+
+  
+  if (document.readyState === &#39;loading&#39;) {
+    document.addEventListener(&#39;DOMContentLoaded&#39;, initChart);
+  } else {
+    
+    setTimeout(initChart, 100);
+  }
+})();
+&lt;/script&gt;
+
+&lt;h2 id=&#34;雷达图&#34;&gt;雷达图
+&lt;/h2&gt;&lt;script src=&#34;https://cdn.jsdelivr.net/npm/apexcharts&#34;&gt;&lt;/script&gt;
+
+
+
+
+
+
+&lt;div class=&#34;apexchart-container&#34; style=&#34;margin: 1.5rem 0;&#34;&gt;
+  &lt;div id=&#34;chart-radar-test&#34;&gt;&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;script&gt;
+(function() {
+  
+  function initChart() {
+    const chartElement = document.querySelector(&#34;#chart-radar-test&#34;);
+    if (!chartElement) {
+      console.error(&#39;Chart element not found: #chart-radar-test&#39;);
+      return;
+    }
+
+    
+    const chartId = &#34;radar-test&#34;;
+    const chartType = &#34;radar&#34;;
+    const chartWidth = &#34;100%&#34;;
+    const chartHeight = &#34;350&#34;;
+    
+    
+    let chartData;
+    
+      try {
+        chartData = 
+{
+  &#34;series&#34;: [{
+    &#34;name&#34;: &#34;产品A&#34;,
+    &#34;data&#34;: [80, 50, 30, 40, 100, 20]
+  }, {
+    &#34;name&#34;: &#34;产品B&#34;,
+    &#34;data&#34;: [20, 30, 40, 80, 70, 80]
+  }, {
+    &#34;name&#34;: &#34;产品C&#34;,
+    &#34;data&#34;: [44, 76, 22, 44, 88, 33]
+  }],
+  &#34;xaxis&#34;: {
+    &#34;categories&#34;: [&#34;性能&#34;, &#34;易用性&#34;, &#34;价格&#34;, &#34;兼容性&#34;, &#34;功能&#34;, &#34;设计&#34;]
+  },
+  &#34;title&#34;: {
+    &#34;text&#34;: &#34;产品对比雷达图&#34;,
+    &#34;align&#34;: &#34;center&#34;
+  },
+  &#34;stroke&#34;: {
+    &#34;show&#34;: true,
+    &#34;width&#34;: 2,
+    &#34;colors&#34;: [&#34;#111&#34;]
+  },
+  &#34;fill&#34;: {
+    &#34;opacity&#34;: 0.5
+  },
+  &#34;markers&#34;: {
+    &#34;size&#34;: 4
+  }
+}
+;
+      } catch (e) {
+        console.error(&#39;Error parsing .Inner content:&#39;, e);
+        chartData = {};
+      }
+    
+
+    
+    function getThemeMode() {
+      
+      if (document.body.classList.contains(&#39;dark&#39;)) return &#39;dark&#39;;
+      if (document.documentElement.classList.contains(&#39;dark&#39;)) return &#39;dark&#39;;
+      if (window.matchMedia &amp;&amp; window.matchMedia(&#39;(prefers-color-scheme: dark)&#39;).matches) return &#39;dark&#39;;
+      return &#39;light&#39;;
+    }
+
+    
+    const options = {
+      series: chartData.series || [{
+        name: &#34;Sample Data&#34;,
+        data: [30, 40, 35, 50, 49, 60, 70, 91, 125]
+      }],
+      chart: {
+        type: chartType,
+        width: chartWidth === &#34;100%&#34; ? &#39;100%&#39; : chartWidth,
+        height: chartHeight,
+        toolbar: {
+          show: true,
+          tools: {
+            download: true,
+            selection: true,
+            zoom: true,
+            zoomin: true,
+            zoomout: true,
+            pan: true,
+            reset: true
+          }
+        },
+        zoom: {
+          enabled: true
+        },
+        animations: {
+          enabled: true,
+          easing: &#39;easeinout&#39;,
+          speed: 800,
+          animateGradually: {
+            enabled: true,
+            delay: 150
+          },
+          dynamicAnimation: {
+            enabled: true,
+            speed: 350
+          }
+        }
+      },
+      theme: {
+        mode: getThemeMode(),
+        palette: &#39;palette1&#39;
+      },
+      responsive: [{
+        breakpoint: 768,
+        options: {
+          chart: {
+            width: &#39;100%&#39;
+          },
+          legend: {
+            position: &#39;bottom&#39;
+          },
+          xaxis: {
+            labels: {
+              rotate: -45,
+              rotateAlways: false
+            }
+          }
+        }
+      }]
+    };
+
+    
+    if (chartData.xaxis) {
+      options.xaxis = chartData.xaxis;
+    }
+    if (chartData.yaxis) {
+      options.yaxis = chartData.yaxis;
+    }
+    if (chartData.title) {
+      options.title = chartData.title;
+    }
+    if (chartData.subtitle) {
+      options.subtitle = chartData.subtitle;
+    }
+    if (chartData.legend) {
+      options.legend = chartData.legend;
+    }
+    if (chartData.dataLabels) {
+      options.dataLabels = chartData.dataLabels;
+    }
+    if (chartData.stroke) {
+      options.stroke = chartData.stroke;
+    }
+    if (chartData.fill) {
+      options.fill = chartData.fill;
+    }
+    if (chartData.grid) {
+      options.grid = chartData.grid;
+    }
+    if (chartData.tooltip) {
+      options.tooltip = chartData.tooltip;
+    }
+    if (chartData.plotOptions) {
+      options.plotOptions = chartData.plotOptions;
+    }
+
+    
+    if (chartType === &#39;pie&#39; || chartType === &#39;donut&#39;) {
+      if (chartData.labels) {
+        options.labels = chartData.labels;
+      }
+      if (chartData.colors) {
+        options.colors = chartData.colors;
+      }
+      
+      
+      if (!options.plotOptions) {
+        options.plotOptions = {};
+      }
+      if (!options.plotOptions.pie) {
+        options.plotOptions.pie = {};
+      }
+      
+      
+      if (!options.plotOptions.pie.dataLabels) {
+        options.plotOptions.pie.dataLabels = {
+          enabled: true
+        };
+      }
+      
+      if (chartType === &#39;donut&#39;) {
+        
+        if (!options.plotOptions.pie.donut) {
+          options.plotOptions.pie.donut = {
+            labels: {
+              show: true,
+              name: {
+                show: true,
+                fontSize: &#39;16px&#39;,
+                fontFamily: &#39;Helvetica, Arial, sans-serif&#39;,
+                fontWeight: 600,
+                color: undefined,
+                offsetY: -10
+              },
+              value: {
+                show: true,
+                fontSize: &#39;14px&#39;,
+                fontFamily: &#39;Helvetica, Arial, sans-serif&#39;,
+                fontWeight: 400,
+                color: undefined,
+                offsetY: 16,
+                formatter: function (val) {
+                  return val;
+                }
+              },
+              total: {
+                show: false,
+                showAlways: false,
+                label: &#39;Total&#39;,
+                fontSize: &#39;16px&#39;,
+                fontFamily: &#39;Helvetica, Arial, sans-serif&#39;,
+                fontWeight: 600,
+                color: &#39;#373d3f&#39;
+              }
+            }
+          };
+        }
+      } else {
+        
+        if (!options.plotOptions.pie.labels) {
+          options.plotOptions.pie.labels = {
+            show: true,
+            offset: -25
+          };
+        }
+      }
+      
+      
+      delete options.xaxis;
+      delete options.grid;
+      delete options.yaxis;
+    }
+
+    try {
+      
+      const chart = new ApexCharts(chartElement, options);
+      chart.render();
+      
+      
+      if (window.matchMedia) {
+        const darkModeQuery = window.matchMedia(&#39;(prefers-color-scheme: dark)&#39;);
+        darkModeQuery.addEventListener(&#39;change&#39;, function(e) {
+          chart.updateOptions({
+            theme: {
+              mode: e.matches ? &#39;dark&#39; : &#39;light&#39;
+            }
+          });
+        });
+      }
+
+      
+      const observer = new MutationObserver(function(mutations) {
+        mutations.forEach(function(mutation) {
+          if (mutation.attributeName === &#39;class&#39;) {
+            const newMode = getThemeMode();
+            chart.updateOptions({
+              theme: {
+                mode: newMode
+              }
+            });
+          }
+        });
+      });
+      
+      observer.observe(document.body, { attributes: true });
+      observer.observe(document.documentElement, { attributes: true });
+      
+      console.log(&#39;ApexChart rendered successfully:&#39;, chartId);
+    } catch (error) {
+      console.error(&#39;Error rendering chart:&#39;, error);
+      chartElement.innerHTML = &#39;&lt;div style=&#34;color: red; padding: 20px; text-align: center;&#34;&gt;图表加载失败: &#39; + error.message + &#39;&lt;/div&gt;&#39;;
+    }
+  }
+
+  
+  if (document.readyState === &#39;loading&#39;) {
+    document.addEventListener(&#39;DOMContentLoaded&#39;, initChart);
+  } else {
+    
+    setTimeout(initChart, 100);
+  }
+})();
+&lt;/script&gt;
+
+</description>
+        </item>
+        
+    </channel>
+</rss>

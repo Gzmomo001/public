@@ -1,0 +1,617 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+    <channel>
+        <title>系统监控 on Henry Zhang</title>
+        <link>https://Gzmomo001.github.io/public/tags/%E7%B3%BB%E7%BB%9F%E7%9B%91%E6%8E%A7/</link>
+        <description>Recent content in 系统监控 on Henry Zhang</description>
+        <generator>Hugo -- gohugo.io</generator>
+        <language>zh-cn</language>
+        <copyright>blog@mail.henry070.org</copyright>
+        <lastBuildDate>Sun, 11 Jan 2026 16:57:00 +0000</lastBuildDate><atom:link href="https://Gzmomo001.github.io/public/tags/%E7%B3%BB%E7%BB%9F%E7%9B%91%E6%8E%A7/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>日志和监控：Linux 的体检医生</title>
+        <link>https://Gzmomo001.github.io/public/p/%E6%97%A5%E5%BF%97%E5%92%8C%E7%9B%91%E6%8E%A7linux-%E7%9A%84%E4%BD%93%E6%A3%80%E5%8C%BB%E7%94%9F/</link>
+        <pubDate>Sun, 11 Jan 2026 02:00:00 +0800</pubDate>
+        
+        <guid>https://Gzmomo001.github.io/public/p/%E6%97%A5%E5%BF%97%E5%92%8C%E7%9B%91%E6%8E%A7linux-%E7%9A%84%E4%BD%93%E6%A3%80%E5%8C%BB%E7%94%9F/</guid>
+        <description>&lt;img src="https://Gzmomo001.github.io/public/default.jpeg" alt="Featured image of post 日志和监控：Linux 的体检医生" /&gt;&lt;h1 id=&#34;日志和监控linux-的体检医生&#34;&gt;日志和监控：Linux 的体检医生
+&lt;/h1&gt;&lt;h2 id=&#34;引言&#34;&gt;引言
+&lt;/h2&gt;&lt;p&gt;日志和监控是 Linux 系统管理的眼睛和耳朵。通过日志，我们可以了解系统发生了什么；通过监控，我们可以知道系统正在做什么。在这篇文章中，我们将系统学习 Linux 的日志管理和系统监控。&lt;/p&gt;
+&lt;h2 id=&#34;系统日志概述&#34;&gt;系统日志概述
+&lt;/h2&gt;&lt;h3 id=&#34;日志的重要性&#34;&gt;日志的重要性
+&lt;/h3&gt;&lt;pre class=&#34;mermaid&#34;&gt;
+  flowchart TD
+    A[系统事件] --&amp;gt; B[记录日志]
+    B --&amp;gt; C[故障排查]
+    B --&amp;gt; D[性能分析]
+    B --&amp;gt; E[安全审计]
+    B --&amp;gt; F[合规要求]
+
+    style B fill:#fff3e0
+    style C fill:#ffebee
+    style D fill:#e8f5e9
+    style E fill:#fff3e0
+    style F fill:#e3f2fd
+&lt;/pre&gt;
+
+&lt;h3 id=&#34;日志位置&#34;&gt;日志位置
+&lt;/h3&gt;
+
+
+
+
+&lt;div class=&#34;highlight highlight-bash&#34;&gt;
+  &lt;pre&gt;
+    &lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;# 传统 syslog 日志位置
+/var/log/syslog          # 系统日志（Debian/Ubuntu）
+/var/log/messages        # 系统日志（RHEL/CentOS）
+/var/log/auth.log        # 认证日志
+/var/log/kern.log        # 内核日志
+/var/log/boot.log        # 启动日志
+/var/log/dmesg           # 启动时的内核消息
+
+# 应用日志
+/var/log/nginx/          # Nginx 日志
+/var/log/apache2/        # Apache 日志
+/var/log/mysql/          # MySQL 日志&lt;/code&gt;
+  &lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h3 id=&#34;日志级别&#34;&gt;日志级别
+&lt;/h3&gt;
+
+
+
+
+&lt;div class=&#34;highlight highlight-bash&#34;&gt;
+  &lt;pre&gt;
+    &lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;# 严重程度从高到低：
+0 - emerg   # 紧急，系统不可用
+1 - alert   # 必须立即采取措施
+2 - crit    # 严重情况
+3 - err     # 错误
+4 - warning # 警告
+5 - notice  # 正常但重要
+6 - info    # 信息性消息
+7 - debug   # 调试信息&lt;/code&gt;
+  &lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h2 id=&#34;journald&#34;&gt;journald
+&lt;/h2&gt;&lt;h3 id=&#34;journald-简介&#34;&gt;journald 简介
+&lt;/h3&gt;&lt;p&gt;journald 是 systemd 提供的日志服务，替代了传统的 syslog：&lt;/p&gt;
+&lt;pre class=&#34;mermaid&#34;&gt;
+  flowchart LR
+    A[应用] --&amp;gt;|日志| B[journald]
+    B --&amp;gt;|存储| C[二进制日志]
+    B --&amp;gt;|转发| D[rsyslog]
+    D --&amp;gt;|存储| E[文本日志]
+
+    style B fill:#fff3e0
+    style C fill:#e3f2fd
+    style E fill:#c8e6c9
+&lt;/pre&gt;
+
+&lt;h3 id=&#34;journalctl-命令&#34;&gt;journalctl 命令
+&lt;/h3&gt;
+
+
+
+
+&lt;div class=&#34;highlight highlight-bash&#34;&gt;
+  &lt;pre&gt;
+    &lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;# 查看所有日志
+sudo journalctl
+
+# 查看最新日志
+sudo journalctl -e
+
+# 实时跟踪日志
+sudo journalctl -f
+
+# 查看内核日志
+sudo journalctl -k
+
+# 查看特定单元的日志
+sudo journalctl -u nginx
+sudo journalctl -u sshd
+
+# 查看最近1小时的日志
+sudo journalctl --since &amp;#34;1 hour ago&amp;#34;
+
+# 查看特定时间段的日志
+sudo journalctl --since &amp;#34;2026-01-10 00:00:00&amp;#34; --until &amp;#34;2026-01-11 00:00:00&amp;#34;
+
+# 按优先级过滤
+sudo journalctl -p err        # 错误级别
+sudo journalctl -p notice     # 通知及以上级别
+
+# 显示详细的可读格式
+sudo journalctl -o verbose
+sudo journalctl -o json       # JSON 格式
+
+# 限制输出行数
+sudo journalctl -n 50         # 最近50行
+sudo journalctl --since today | tail -n 100&lt;/code&gt;
+  &lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h3 id=&#34;持久化日志&#34;&gt;持久化日志
+&lt;/h3&gt;
+
+
+
+
+&lt;div class=&#34;highlight highlight-bash&#34;&gt;
+  &lt;pre&gt;
+    &lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;# 检查日志存储方式
+sudo journalctl --header | grep Storage
+# Storage: auto（默认，有 /var/log/journal 则持久化）
+
+# 创建持久化存储
+sudo mkdir -p /var/log/journal
+sudo systemd-tmpfiles --create --prefix /var/log/journal
+sudo systemctl restart systemd-journald
+
+# 设置日志大小限制
+sudo nano /etc/systemd/journald.conf
+# SystemMaxUse=500M
+# RuntimeMaxUse=100M&lt;/code&gt;
+  &lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h2 id=&#34;rsyslog&#34;&gt;rsyslog
+&lt;/h2&gt;&lt;h3 id=&#34;rsyslog-简介&#34;&gt;rsyslog 简介
+&lt;/h3&gt;&lt;p&gt;rsyslog 是传统的 syslog 守护进程，功能强大：&lt;/p&gt;
+
+
+
+
+
+&lt;div class=&#34;highlight highlight-bash&#34;&gt;
+  &lt;pre&gt;
+    &lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;# 检查 rsyslog 状态
+sudo systemctl status rsyslog
+
+# 配置文件
+/etc/rsyslog.conf           # 主配置文件
+/etc/rsyslog.d/*.conf       # 额外配置&lt;/code&gt;
+  &lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h3 id=&#34;配置示例&#34;&gt;配置示例
+&lt;/h3&gt;
+
+
+
+
+&lt;div class=&#34;highlight highlight-bash&#34;&gt;
+  &lt;pre&gt;
+    &lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;# /etc/rsyslog.d/myapp.conf
+
+# 记录特定应用的日志
+if $programname == &amp;#39;myapp&amp;#39; then /var/log/myapp.log
+&amp;amp; stop
+
+# 记录到远程服务器
+*.* @@192.168.1.100:514
+
+# 根据严重程度记录
+*.err /var/log/errors.log
+*.warn /var/log/warnings.log&lt;/code&gt;
+  &lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h3 id=&#34;日志轮转logrotate&#34;&gt;日志轮转（logrotate）
+&lt;/h3&gt;
+
+
+
+
+&lt;div class=&#34;highlight highlight-bash&#34;&gt;
+  &lt;pre&gt;
+    &lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;# 配置文件
+/etc/logrotate.conf          # 全局配置
+/etc/logrotate.d/*           # 应用配置
+
+# 查看特定配置
+cat /etc/logrotate.d/nginx
+
+# 示例配置
+/var/log/nginx/*.log {
+    daily                   # 每天轮转
+    missingok               # 文件不存在不报错
+    rotate 14               # 保留14天
+    compress                # 压缩旧日志
+    delaycompress           # 延迟一天压缩
+    notifempty              # 空文件不轮转
+    create 0640 www-data adm
+    sharedscripts
+    postrotate
+        [ -f /var/run/nginx.pid ] &amp;amp;&amp;amp; kill -USR1 `cat /var/run/nginx.pid`
+    endscript
+}
+
+# 手动执行
+sudo logrotate -f /etc/logrotate.conf
+
+# 调试模式
+sudo logrotate -d /etc/logrotate.conf&lt;/code&gt;
+  &lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h2 id=&#34;系统监控工具&#34;&gt;系统监控工具
+&lt;/h2&gt;&lt;h3 id=&#34;tophtop&#34;&gt;top/htop
+&lt;/h3&gt;
+
+
+
+
+&lt;div class=&#34;highlight highlight-bash&#34;&gt;
+  &lt;pre&gt;
+    &lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;# top
+top
+# 按 P：按 CPU 排序
+# 按 M：按内存排序
+# 按 T：按时间排序
+# 按 k：杀死进程
+# 按 r：renice
+
+# htop（更友好）
+htop
+# F1-F10：功能键
+# /：搜索进程
+# F9：调整优先级
+# F6：排序方式&lt;/code&gt;
+  &lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h3 id=&#34;vmstat&#34;&gt;vmstat
+&lt;/h3&gt;
+
+
+
+
+&lt;div class=&#34;highlight highlight-bash&#34;&gt;
+  &lt;pre&gt;
+    &lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;# 虚拟内存统计
+vmstat 2 5                 # 每2秒输出一次，共5次
+
+# 输出解释：
+# procs -----------memory---------- ---swap-- -----io---- -system-- ------cpu-----
+# r  b   swpd   free   buff  cache   si   so    bi    bo   in   cs us sy id wa st
+# 1  0      0 123456  12345 234567    0    0     2     3   10   20  5  2 92  1  0
+
+# r: 等待运行的进程数
+# b: 不可中断睡眠的进程数
+# swpd: 使用的交换空间
+# free: 空闲内存
+# buff: 缓冲区
+# cache: 缓存
+# si/so: 换入/换出
+# bi/bo: 块输入/输出
+# cs: 上下文切换
+# us/sy/id/wa: 用户/系统/空闲/等待 CPU 时间&lt;/code&gt;
+  &lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h3 id=&#34;iostat&#34;&gt;iostat
+&lt;/h3&gt;
+
+
+
+
+&lt;div class=&#34;highlight highlight-bash&#34;&gt;
+  &lt;pre&gt;
+    &lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;# 安装
+sudo apt install sysstat
+
+# I/O 统计
+iostat -x 2 3
+
+# 输出解释：
+# avg-cpu:  %user   %nice %system %iowait  %steal   %idle
+#            5.23    0.00    2.15    1.05    0.00   91.57
+
+# Device:         rrqm/s   wrqm/s     r/s     w/s    rMB/s    wMB/s avgrq-sz avgqu-sz   await r_await w_await  svctm  %util
+# sda               0.10     5.20   10.50   20.30     0.50     1.20    80.00     0.50   15.20   10.50   16.30   2.50   7.75
+
+# rrqm/s: 每秒合并的读请求数
+# wrqm/s: 每秒合并的写请求数
+# r/s: 每秒读请求数
+# w/s: 每秒写请求数
+# await: 平均 I/O 等待时间
+# %util: 设备利用率&lt;/code&gt;
+  &lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h3 id=&#34;pidstat&#34;&gt;pidstat
+&lt;/h3&gt;
+
+
+
+
+&lt;div class=&#34;highlight highlight-bash&#34;&gt;
+  &lt;pre&gt;
+    &lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;# 进程统计
+pidstat 2 5                 # 每2秒输出一次，共5次
+
+# CPU 使用
+pidstat -u -p 1234 1
+
+# 内存使用
+pidstat -r -p 1234 1
+
+# 上下文切换
+pidstat -w -p 1234 1
+
+# 线程统计
+pidstat -t -p 1234 1&lt;/code&gt;
+  &lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h3 id=&#34;ssnetstat&#34;&gt;ss/netstat
+&lt;/h3&gt;
+
+
+
+
+&lt;div class=&#34;highlight highlight-bash&#34;&gt;
+  &lt;pre&gt;
+    &lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;# 网络统计
+ss -s                      # 套接字摘要
+ss -tunlp                  # 所有监听端口
+ss -tunlp | grep :80       # 查找特定端口
+
+# netstat（旧工具）
+netstat -tunlp             # 所有监听端口
+netstat -an                # 所有连接
+netstat -s                 # 统计信息&lt;/code&gt;
+  &lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h2 id=&#34;性能分析&#34;&gt;性能分析
+&lt;/h2&gt;&lt;h3 id=&#34;cpu-性能&#34;&gt;CPU 性能
+&lt;/h3&gt;
+
+
+
+
+&lt;div class=&#34;highlight highlight-bash&#34;&gt;
+  &lt;pre&gt;
+    &lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;# 检查 CPU 数量
+nproc
+lscpu
+
+# 查看 CPU 使用率
+top -bn1 | grep &amp;#34;Cpu(s)&amp;#34;
+mpstat -P ALL 1
+
+# 找出 CPU 消耗高的进程
+ps aux --sort=-%cpu | head -10
+
+# 查看每个 CPU 的负载
+mpstat -P ALL 1 5
+
+# 检查 CPU 亲和性
+taskset -c -p 1234&lt;/code&gt;
+  &lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h3 id=&#34;内存性能&#34;&gt;内存性能
+&lt;/h3&gt;
+
+
+
+
+&lt;div class=&#34;highlight highlight-bash&#34;&gt;
+  &lt;pre&gt;
+    &lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;# 查看内存使用
+free -h
+cat /proc/meminfo
+
+# 查看进程内存使用
+ps aux --sort=-%mem | head -10
+smem -s memory             # 更准确的内存统计
+
+# 检查内存泄漏
+valgrind --leak-check=full ./myapp
+
+# 交换空间使用
+swapon -s
+vmstat 1 5 | grep si&lt;/code&gt;
+  &lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h3 id=&#34;磁盘-io&#34;&gt;磁盘 I/O
+&lt;/h3&gt;
+
+
+
+
+&lt;div class=&#34;highlight highlight-bash&#34;&gt;
+  &lt;pre&gt;
+    &lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;# 查看磁盘使用
+df -h
+du -sh * | sort -hr | head -10
+
+# 磁盘 I/O 性能
+iostat -x 1 5
+
+# 查找 I/O 密集的进程
+iotop
+pidstat -d 1
+
+# 磁盘速度测试
+dd if=/dev/zero of=testfile bs=1G count=1 oflag=direct&lt;/code&gt;
+  &lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h3 id=&#34;网络性能&#34;&gt;网络性能
+&lt;/h3&gt;
+
+
+
+
+&lt;div class=&#34;highlight highlight-bash&#34;&gt;
+  &lt;pre&gt;
+    &lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;# 网络带宽
+iftop                     # 实时带宽使用
+nethogs                   # 按进程显示
+speedtest-cli             # 网速测试
+
+# 网络连接统计
+ss -s
+netstat -an | wc -l
+
+# 抓包分析
+tcpdump -i eth0 -w capture.pcap
+wireshark capture.pcap&lt;/code&gt;
+  &lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h2 id=&#34;实战脚本&#34;&gt;实战脚本
+&lt;/h2&gt;&lt;h3 id=&#34;系统健康检查&#34;&gt;系统健康检查
+&lt;/h3&gt;
+
+
+
+
+&lt;div class=&#34;highlight highlight-bash&#34;&gt;
+  &lt;pre&gt;
+    &lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;#!/bin/bash
+# health_check.sh
+
+echo &amp;#34;=== System Health Check ===&amp;#34;
+echo &amp;#34;Time: $(date)&amp;#34;
+echo &amp;#34;&amp;#34;
+
+# CPU 使用率
+echo &amp;#34;--- CPU Usage ---&amp;#34;
+CPU_IDLE=$(top -bn1 | grep &amp;#34;Cpu(s)&amp;#34; | awk &amp;#39;{print $8}&amp;#39; | cut -d&amp;#39;%&amp;#39; -f1)
+CPU_USED=$(echo &amp;#34;100 - $CPU_IDLE&amp;#34; | bc)
+echo &amp;#34;CPU Used: ${CPU_USED}%&amp;#34;
+
+if (( $(echo &amp;#34;$CPU_USED &amp;gt; 80&amp;#34; | bc -l) )); then
+    echo &amp;#34;⚠️  WARNING: High CPU usage!&amp;#34;
+fi
+
+# 内存使用
+echo &amp;#34;&amp;#34;
+echo &amp;#34;--- Memory Usage ---&amp;#34;
+MEM_INFO=$(free -m | awk &amp;#39;NR==2{printf &amp;#34;%.2f&amp;#34;, $3*100/$2}&amp;#39;)
+echo &amp;#34;Memory Used: ${MEM_INFO}%&amp;#34;
+
+if (( $(echo &amp;#34;$MEM_INFO &amp;gt; 80&amp;#34; | bc -l) )); then
+    echo &amp;#34;⚠️  WARNING: High memory usage!&amp;#34;
+fi
+
+# 磁盘使用
+echo &amp;#34;&amp;#34;
+echo &amp;#34;--- Disk Usage ---&amp;#34;
+df -h | grep -E &amp;#39;^/dev/&amp;#39; | while read line; do
+    USAGE=$(echo $line | awk &amp;#39;{print $5}&amp;#39; | cut -d&amp;#39;%&amp;#39; -f1)
+    MOUNT=$(echo $line | awk &amp;#39;{print $6}&amp;#39;)
+
+    echo &amp;#34;$MOUNT: ${USAGE}%&amp;#34;
+
+    if [ $USAGE -gt 80 ]; then
+        echo &amp;#34;⚠️  WARNING: $MOUNT is ${USAGE}% full!&amp;#34;
+    fi
+done
+
+# 系统负载
+echo &amp;#34;&amp;#34;
+echo &amp;#34;--- System Load ---&amp;#34;
+UPTIME=$(uptime | awk -F&amp;#39;load average:&amp;#39; &amp;#39;{print $2}&amp;#39;)
+echo &amp;#34;Load Average:$UPTIME&amp;#34;
+
+# 错误日志
+echo &amp;#34;&amp;#34;
+echo &amp;#34;--- Recent Errors ---&amp;#34;
+journalctl -p err -n 5 --no-pager&lt;/code&gt;
+  &lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h3 id=&#34;性能监控脚本&#34;&gt;性能监控脚本
+&lt;/h3&gt;
+
+
+
+
+&lt;div class=&#34;highlight highlight-bash&#34;&gt;
+  &lt;pre&gt;
+    &lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;#!/bin/bash
+# performance_monitor.sh
+
+OUTPUT_FILE=&amp;#34;performance_$(date &amp;#43;%Y%m%d_%H%M%S).log&amp;#34;
+
+echo &amp;#34;Timestamp,CPU%,Memory%,Disk%,Network_RX,Network_TX&amp;#34; &amp;gt; $OUTPUT_FILE
+
+while true; do
+    # CPU
+    CPU=$(top -bn1 | grep &amp;#34;Cpu(s)&amp;#34; | awk &amp;#39;{print $2}&amp;#39; | cut -d&amp;#39;%&amp;#39; -f1)
+
+    # Memory
+    MEM=$(free | awk &amp;#39;NR==2{printf &amp;#34;%.2f&amp;#34;, $3*100/$2}&amp;#39;)
+
+    # Disk (根分区)
+    DISK=$(df / | awk &amp;#39;NR==2{print $5}&amp;#39; | cut -d&amp;#39;%&amp;#39; -f1)
+
+    # Network
+    NET_RX=$(cat /sys/class/net/eth0/statistics/rx_bytes)
+    NET_TX=$(cat /sys/class/net/eth0/statistics/tx_bytes)
+
+    echo &amp;#34;$(date &amp;#43;%s),$CPU,$MEM,$DISK,$NET_RX,$NET_TX&amp;#34; &amp;gt;&amp;gt; $OUTPUT_FILE
+
+    sleep 1
+done&lt;/code&gt;
+  &lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h2 id=&#34;总结&#34;&gt;总结
+&lt;/h2&gt;&lt;p&gt;日志和监控是系统管理的关键技能。通过这篇文章，我们学习了：&lt;/p&gt;
+&lt;h3 id=&#34;核心工具&#34;&gt;核心工具
+&lt;/h3&gt;&lt;ol&gt;
+&lt;li&gt;&lt;strong&gt;journald&lt;/strong&gt;：systemd 日志服务&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;rsyslog&lt;/strong&gt;：传统日志守护进程&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;logrotate&lt;/strong&gt;：日志轮转&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;top/htop&lt;/strong&gt;：进程监控&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;vmstat/iostat&lt;/strong&gt;：性能统计&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h3 id=&#34;实践技能&#34;&gt;实践技能
+&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;使用 &lt;code&gt;journalctl&lt;/code&gt; 查询系统日志&lt;/li&gt;
+&lt;li&gt;配置日志轮转策略&lt;/li&gt;
+&lt;li&gt;分析 CPU、内存、磁盘、网络性能&lt;/li&gt;
+&lt;li&gt;编写监控脚本&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;最佳实践&#34;&gt;最佳实践
+&lt;/h3&gt;&lt;ol&gt;
+&lt;li&gt;&lt;strong&gt;定期检查日志&lt;/strong&gt;：建立日志审查习惯&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;设置告警&lt;/strong&gt;：异常情况及时通知&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;保留历史数据&lt;/strong&gt;：便于趋势分析&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;自动化监控&lt;/strong&gt;：减少人工干预&lt;/li&gt;
+&lt;/ol&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&amp;ldquo;You can&amp;rsquo;t improve what you don&amp;rsquo;t measure.&amp;rdquo; — Peter Drucker&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;监控和日志管理是系统稳定运行的保障。掌握这些工具，让你的 Linux 系统管理更上一层楼！&lt;/p&gt;
+&lt;hr&gt;
+&lt;p&gt;&lt;strong&gt;← 返回系列概述&lt;/strong&gt;: &lt;a class=&#34;link&#34; href=&#34;https://Gzmomo001.github.io/public/p/linux-%E6%A6%82%E8%BF%B0%E4%BB%8E-unix-%E5%88%B0%E5%BC%80%E6%BA%90%E9%9D%A9%E5%91%BD/&#34; &gt;Linux 概述：从 Unix 到开源革命&lt;/a&gt;&lt;/p&gt;
+&lt;hr&gt;
+&lt;p&gt;&lt;strong&gt;参考资源&lt;/strong&gt;：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;https://man7.org/linux/man-pages/man1/journalctl.1.html&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;journalctl 手册&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;https://www.rsyslog.com/doc/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;rsyslog 官方文档&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;http://www.brendangregg.com/linuxperf.html&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;Linux Performance Tools&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;https://github.com/sysstat/sysstat&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;sysstat 官方文档&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+        </item>
+        
+    </channel>
+</rss>

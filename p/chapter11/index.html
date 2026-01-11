@@ -4,574 +4,313 @@
 <meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="继承 和 多态(java)">
 <title>Chapter11</title>
 
-<link rel='canonical' href='https://Gzmomo001.github.io/p/chapter11/'>
+<link rel='canonical' href='https://Gzmomo001.github.io/public/p/chapter11/'>
 
-<link rel="stylesheet" href="/scss/style.min.f0d856d8a5610b3c0c2069a79146122abf2acb30a6b00e2bbb69c2113678b2e3.css"><meta property='og:title' content="Chapter11">
+<link rel="stylesheet" href="/public/scss/style.min.69ed452c4f70aa0bd98aa7f62758389d29493390c2f090e74cf1c607d4445e3e.css"><meta property='og:title' content="Chapter11">
 <meta property='og:description' content="继承 和 多态(java)">
-<meta property='og:url' content='https://Gzmomo001.github.io/p/chapter11/'>
+<meta property='og:url' content='https://Gzmomo001.github.io/public/p/chapter11/'>
 <meta property='og:site_name' content='Henry Zhang'>
-<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='java' /><meta property='article:published_time' content='2025-05-24T21:05:41&#43;08:00'/><meta property='article:modified_time' content='2025-05-26T03:12:25&#43;08:00'/><meta property='og:image' content='https://Gzmomo001.github.io/java.png' />
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='java' /><meta property='article:published_time' content='2025-05-24T21:05:41&#43;08:00'/><meta property='article:modified_time' content='2025-05-26T03:12:25&#43;08:00'/><meta property='og:image' content='https://Gzmomo001.github.io/public/java.png' />
 <meta name="twitter:title" content="Chapter11">
 <meta name="twitter:description" content="继承 和 多态(java)"><meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:image" content='https://Gzmomo001.github.io/java.png' />
+    <meta name="twitter:image" content='https://Gzmomo001.github.io/public/java.png' />
     <link rel="shortcut icon" href="/favicon.ico" />
-<link rel='stylesheet' href='https://chinese-fonts-cdn.deno.dev/packages/dymh/dist/DouyinSansBold/result.css' />
 
-<div class="loading">
-     
-    <div class="banter-loader">
-        <div class="banter-loader__box"></div>
-        <div class="banter-loader__box"></div>
-        <div class="banter-loader__box"></div>
-        <div class="banter-loader__box"></div>
-        <div class="banter-loader__box"></div>
-        <div class="banter-loader__box"></div>
-        <div class="banter-loader__box"></div>
-        <div class="banter-loader__box"></div>
-        <div class="banter-loader__box"></div>
-    </div>
-</div>
 
-<style>
-    .loading {
-        position: fixed;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        z-index: 99;
-        zoom: 3.0;
-        background-color: #5b5b5b;
-        display: none;
-        transition: opacity 1s ease-out; 
+<script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+<script>
+  
+  function getCurrentTheme() {
+    const colorSchemeKey = 'StackColorScheme';
+    const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+    const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+    
+    if (colorSchemeItem === 'dark' || (colorSchemeItem === 'auto' && supportDarkMode)) {
+      return 'dark';
+    } else {
+      return 'light';
     }
+  }
 
-    .loading.fade-out {
-        opacity: 0;
-    }
-	
+  
+  function logThemeInfo() {
+    const colorSchemeKey = 'StackColorScheme';
+    const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+    const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+    const documentScheme = document.documentElement.dataset.scheme;
+    
+    console.log('[Mermaid] Theme Detection:', {
+      localStorage: colorSchemeItem,
+      systemDark: supportDarkMode,
+      documentScheme: documentScheme,
+      calculatedTheme: getCurrentTheme()
+    });
+  }
+
+  
+  function initializeMermaid() {
+    const currentTheme = getCurrentTheme();
+    
+    if (currentTheme === 'dark') {
+      
+      mermaid.initialize({
+        startOnLoad: false,
+        theme: 'dark',
+        themeVariables: {
           
-    .banter-loader {
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    width: 72px;
-    height: 72px;
-    margin-left: -36px;
-    margin-top: -36px;
-    }
-
-    .banter-loader__box {
-    float: left;
-    position: relative;
-    width: 20px;
-    height: 20px;
-    margin-right: 6px;
-    }
-
-    .banter-loader__box:before {
-    content: "";
-    position: absolute;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    background: #fff;
-    }
-
-    .banter-loader__box:nth-child(3n) {
-    margin-right: 0;
-    margin-bottom: 6px;
-    }
-
-    .banter-loader__box:nth-child(1):before, .banter-loader__box:nth-child(4):before {
-    margin-left: 26px;
-    }
-
-    .banter-loader__box:nth-child(3):before {
-    margin-top: 52px;
-    }
-
-    .banter-loader__box:last-child {
-    margin-bottom: 0;
-    }
-
-    @keyframes moveBox-1 {
-    9.0909090909% {
-        transform: translate(-26px, 0);
-    }
-
-    18.1818181818% {
-        transform: translate(0px, 0);
-    }
-
-    27.2727272727% {
-        transform: translate(0px, 0);
-    }
-
-    36.3636363636% {
-        transform: translate(26px, 0);
-    }
-
-    45.4545454545% {
-        transform: translate(26px, 26px);
-    }
-
-    54.5454545455% {
-        transform: translate(26px, 26px);
-    }
-
-    63.6363636364% {
-        transform: translate(26px, 26px);
-    }
-
-    72.7272727273% {
-        transform: translate(26px, 0px);
-    }
-
-    81.8181818182% {
-        transform: translate(0px, 0px);
-    }
-
-    90.9090909091% {
-        transform: translate(-26px, 0px);
-    }
-
-    100% {
-        transform: translate(0px, 0px);
-    }
-    }
-
-    .banter-loader__box:nth-child(1) {
-    animation: moveBox-1 4s infinite;
-    }
-
-    @keyframes moveBox-2 {
-    9.0909090909% {
-        transform: translate(0, 0);
-    }
-
-    18.1818181818% {
-        transform: translate(26px, 0);
-    }
-
-    27.2727272727% {
-        transform: translate(0px, 0);
-    }
-
-    36.3636363636% {
-        transform: translate(26px, 0);
-    }
-
-    45.4545454545% {
-        transform: translate(26px, 26px);
-    }
-
-    54.5454545455% {
-        transform: translate(26px, 26px);
-    }
-
-    63.6363636364% {
-        transform: translate(26px, 26px);
-    }
-
-    72.7272727273% {
-        transform: translate(26px, 26px);
-    }
-
-    81.8181818182% {
-        transform: translate(0px, 26px);
-    }
-
-    90.9090909091% {
-        transform: translate(0px, 26px);
-    }
-
-    100% {
-        transform: translate(0px, 0px);
-    }
-    }
-
-    .banter-loader__box:nth-child(2) {
-    animation: moveBox-2 4s infinite;
-    }
-
-    @keyframes moveBox-3 {
-    9.0909090909% {
-        transform: translate(-26px, 0);
-    }
-
-    18.1818181818% {
-        transform: translate(-26px, 0);
-    }
-
-    27.2727272727% {
-        transform: translate(0px, 0);
-    }
-
-    36.3636363636% {
-        transform: translate(-26px, 0);
-    }
-
-    45.4545454545% {
-        transform: translate(-26px, 0);
-    }
-
-    54.5454545455% {
-        transform: translate(-26px, 0);
-    }
-
-    63.6363636364% {
-        transform: translate(-26px, 0);
-    }
-
-    72.7272727273% {
-        transform: translate(-26px, 0);
-    }
-
-    81.8181818182% {
-        transform: translate(-26px, -26px);
-    }
-
-    90.9090909091% {
-        transform: translate(0px, -26px);
-    }
-
-    100% {
-        transform: translate(0px, 0px);
-    }
-    }
-
-    .banter-loader__box:nth-child(3) {
-    animation: moveBox-3 4s infinite;
-    }
-
-    @keyframes moveBox-4 {
-    9.0909090909% {
-        transform: translate(-26px, 0);
-    }
-
-    18.1818181818% {
-        transform: translate(-26px, 0);
-    }
-
-    27.2727272727% {
-        transform: translate(-26px, -26px);
-    }
-
-    36.3636363636% {
-        transform: translate(0px, -26px);
-    }
-
-    45.4545454545% {
-        transform: translate(0px, 0px);
-    }
-
-    54.5454545455% {
-        transform: translate(0px, -26px);
-    }
-
-    63.6363636364% {
-        transform: translate(0px, -26px);
-    }
-
-    72.7272727273% {
-        transform: translate(0px, -26px);
-    }
-
-    81.8181818182% {
-        transform: translate(-26px, -26px);
-    }
-
-    90.9090909091% {
-        transform: translate(-26px, 0px);
-    }
-
-    100% {
-        transform: translate(0px, 0px);
-    }
-    }
-
-    .banter-loader__box:nth-child(4) {
-    animation: moveBox-4 4s infinite;
-    }
-
-    @keyframes moveBox-5 {
-    9.0909090909% {
-        transform: translate(0, 0);
-    }
-
-    18.1818181818% {
-        transform: translate(0, 0);
-    }
-
-    27.2727272727% {
-        transform: translate(0, 0);
-    }
-
-    36.3636363636% {
-        transform: translate(26px, 0);
-    }
-
-    45.4545454545% {
-        transform: translate(26px, 0);
-    }
-
-    54.5454545455% {
-        transform: translate(26px, 0);
-    }
-
-    63.6363636364% {
-        transform: translate(26px, 0);
-    }
-
-    72.7272727273% {
-        transform: translate(26px, 0);
-    }
-
-    81.8181818182% {
-        transform: translate(26px, -26px);
-    }
-
-    90.9090909091% {
-        transform: translate(0px, -26px);
-    }
-
-    100% {
-        transform: translate(0px, 0px);
-    }
-    }
-
-    .banter-loader__box:nth-child(5) {
-    animation: moveBox-5 4s infinite;
-    }
-
-    @keyframes moveBox-6 {
-    9.0909090909% {
-        transform: translate(0, 0);
-    }
-
-    18.1818181818% {
-        transform: translate(-26px, 0);
-    }
-
-    27.2727272727% {
-        transform: translate(-26px, 0);
-    }
-
-    36.3636363636% {
-        transform: translate(0px, 0);
-    }
-
-    45.4545454545% {
-        transform: translate(0px, 0);
-    }
-
-    54.5454545455% {
-        transform: translate(0px, 0);
-    }
-
-    63.6363636364% {
-        transform: translate(0px, 0);
-    }
-
-    72.7272727273% {
-        transform: translate(0px, 26px);
-    }
-
-    81.8181818182% {
-        transform: translate(-26px, 26px);
-    }
-
-    90.9090909091% {
-        transform: translate(-26px, 0px);
-    }
-
-    100% {
-        transform: translate(0px, 0px);
-    }
-    }
-
-    .banter-loader__box:nth-child(6) {
-    animation: moveBox-6 4s infinite;
-    }
-
-    @keyframes moveBox-7 {
-    9.0909090909% {
-        transform: translate(26px, 0);
-    }
-
-    18.1818181818% {
-        transform: translate(26px, 0);
-    }
-
-    27.2727272727% {
-        transform: translate(26px, 0);
-    }
-
-    36.3636363636% {
-        transform: translate(0px, 0);
-    }
-
-    45.4545454545% {
-        transform: translate(0px, -26px);
-    }
-
-    54.5454545455% {
-        transform: translate(26px, -26px);
-    }
-
-    63.6363636364% {
-        transform: translate(0px, -26px);
-    }
-
-    72.7272727273% {
-        transform: translate(0px, -26px);
-    }
-
-    81.8181818182% {
-        transform: translate(0px, 0px);
-    }
-
-    90.9090909091% {
-        transform: translate(26px, 0px);
-    }
-
-    100% {
-        transform: translate(0px, 0px);
-    }
-    }
-
-    .banter-loader__box:nth-child(7) {
-    animation: moveBox-7 4s infinite;
-    }
-
-    @keyframes moveBox-8 {
-    9.0909090909% {
-        transform: translate(0, 0);
-    }
-
-    18.1818181818% {
-        transform: translate(-26px, 0);
-    }
-
-    27.2727272727% {
-        transform: translate(-26px, -26px);
-    }
-
-    36.3636363636% {
-        transform: translate(0px, -26px);
-    }
-
-    45.4545454545% {
-        transform: translate(0px, -26px);
-    }
-
-    54.5454545455% {
-        transform: translate(0px, -26px);
-    }
-
-    63.6363636364% {
-        transform: translate(0px, -26px);
-    }
-
-    72.7272727273% {
-        transform: translate(0px, -26px);
-    }
-
-    81.8181818182% {
-        transform: translate(26px, -26px);
-    }
-
-    90.9090909091% {
-        transform: translate(26px, 0px);
-    }
-
-    100% {
-        transform: translate(0px, 0px);
-    }
-    }
-
-    .banter-loader__box:nth-child(8) {
-    animation: moveBox-8 4s infinite;
-    }
-
-    @keyframes moveBox-9 {
-    9.0909090909% {
-        transform: translate(-26px, 0);
-    }
-
-    18.1818181818% {
-        transform: translate(-26px, 0);
-    }
-
-    27.2727272727% {
-        transform: translate(0px, 0);
-    }
-
-    36.3636363636% {
-        transform: translate(-26px, 0);
-    }
-
-    45.4545454545% {
-        transform: translate(0px, 0);
-    }
-
-    54.5454545455% {
-        transform: translate(0px, 0);
-    }
-
-    63.6363636364% {
-        transform: translate(-26px, 0);
-    }
-
-    72.7272727273% {
-        transform: translate(-26px, 0);
-    }
-
-    81.8181818182% {
-        transform: translate(-52px, 0);
-    }
-
-    90.9090909091% {
-        transform: translate(-26px, 0);
-    }
-
-    100% {
-        transform: translate(0px, 0);
-    }
-    }
-
-    .banter-loader__box:nth-child(9) {
-    animation: moveBox-9 4s infinite;
-    }
-</style>
-
-<script>	
-    function initLoading() {
-        const isFirstVisit = !sessionStorage.getItem('visited');
-        if (isFirstVisit) {
-            let loading = document.querySelector('.loading');
-            loading.style.display = 'flex';
-            document.addEventListener('DOMContentLoaded', function() {
-                setTimeout(() => {
-                    loading.classList.add('fade-out'); 
-                    setTimeout(() => {
-                        loading.style.display = 'none';
-                    }, 1000); 
-                }, 1000); 
-                sessionStorage.setItem('visited', 'true');
-            });   
-        }    
-    }
-
-    initLoading();
+          primaryColor: '#4a5568',
+          primaryTextColor: '#f7fafc',
+          primaryBorderColor: '#63b3ed',
+          lineColor: '#e2e8f0',
+          secondaryColor: '#2d3748',
+          tertiaryColor: '#1a202c',
+          background: '#1a202c',
+          
+          
+          fillType0: '#2d3748',
+          fillType1: '#4a5568',
+          fillType2: '#4299e1',
+          clusterBkg: '#2d3748',
+          clusterBorder: '#4a5568',
+          nodeBorder: '#e2e8f0',
+          mainBkg: '#4a5568',
+          altBkg: '#2d3748',
+          
+          
+          labelBackground: '#2d3748',
+          edgeLabelBackground: '#2d3748',
+          titleColor: '#f7fafc',
+          
+          
+          actorBkg: '#2d3748',
+          actorBorder: '#4a5568',
+          actorTextColor: '#e2e8f0',
+          actorLine: '#4a5568',
+          signalColor: '#e2e8f0',
+          signalTextColor: '#e2e8f0',
+          noteBkgColor: '#4a5568',
+          noteBorderColor: '#4a5568',
+          noteTextColor: '#e2e8f0',
+          activationBorderColor: '#4299e1',
+          activationBkgColor: '#2d3748',
+          
+          
+          sectionBkgColor: '#2d3748',
+          altSectionBkgColor: '#4a5568',
+          sectionBorderColor: '#4a5568',
+          taskBkgColor: '#4299e1',
+          taskBorderColor: '#63b3ed',
+          taskTextColor: '#ffffff',
+          activeTaskBkgColor: '#48bb78',
+          activeTaskBorderColor: '#38a169',
+          doneTaskBkgColor: '#2d3748',
+          doneTaskBorderColor: '#4a5568',
+          critBkgColor: '#f56565',
+          critBorderColor: '#e53e3e',
+          critTextColor: '#ffffff',
+          
+          
+          pie1: '#4299e1',
+          pie2: '#48bb78',
+          pie3: '#ed8936',
+          pie4: '#9f7aea',
+          pie5: '#ed64a6',
+          pie6: '#38b2ac',
+          pie7: '#f6ad55',
+          pie8: '#68d391',
+          pie9: '#63b3ed',
+          pie10: '#b794f4',
+          pieTitleTextSize: '24px',
+          pieSectionTextSize: '16px',
+          pieOuterStrokeWidth: '2px',
+          pieStroke: '#1a202c',
+          pieOpacity: '1',
+          
+          
+          classText: '#f7fafc',
+          classTitle: '#f7fafc',
+          
+          
+          stateBkg: '#2d3748',
+          stateBorder: '#4a5568',
+          labelColor: '#f7fafc',
+          stateLabel: '#f7fafc',
+          stateText: '#f7fafc',
+          transitionLabel: '#f7fafc',
+          
+          
+          entityBkg: '#2d3748',
+          entityBorder: '#4a5568',
+          attributeBkg: '#2d3748',
+          attributeBorder: '#4a5568',
+          relationshipText: '#f7fafc',
+          
+          
+          gridColor: '#4a5568',
+          scaleBarColor: '#4a5568',
+          barColor: '#4299e1',
+          barBorderColor: '#63b3ed',
+          todayLineColor: '#f6ad55',
+          
+          
+          git0: '#4299e1',
+          git1: '#48bb78',
+          git2: '#ed8936',
+          git3: '#9f7aea',
+          git4: '#ed64a6',
+          git5: '#38b2ac',
+          git6: '#f6ad55',
+          git7: '#68d391',
+          gitInv0: '#2d3748',
+          gitInv1: '#2d3748',
+          gitInv2: '#2d3748',
+          gitInv3: '#2d3748',
+          gitInv4: '#2d3748',
+          gitInv5: '#2d3748',
+          gitInv6: '#2d3748',
+          gitInv7: '#2d3748',
+          
+          
+          mindmapPrimary: '#4299e1',
+          mindmapSecondary: '#48bb78',
+          mindmapTertiary: '#ed8936',
+          
+          
+          errorTextColor: '#fc8181',
+          warningTextColor: '#f6ad55',
+          infoTextColor: '#63b3ed',
+          
+          
+          edgeLabelBackground: '#1a202c',
+          
+          
+          edgeLabelBackground: '#2d3748',
+          
+          
+          classLabel: '#f7fafc',
+          dividerColor: '#4a5568',
+          
+          
+          dividerColor: '#4a5568',
+          
+          
+          dividerColor: '#4a5568',
+          
+          
+          fontFamily: '"Douyin Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
+          fontSize: '16px'
+        },
+        fontFamily: '"Douyin Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
+        fontSize: 16,
+        flowchart: {
+          useMaxWidth: true,
+          htmlLabels: true,
+          curve: 'basis'
+        },
+        sequence: {
+          useMaxWidth: true
+        },
+        journey: {
+          useMaxWidth: true
+        },
+        pie: {
+          useMaxWidth: true
+        },
+        gantt: {
+          useMaxWidth: true
+        },
+        git: {
+          useMaxWidth: true
+        },
+        mindmap: {
+          useMaxWidth: true
+        }
+      });
+    } else {
+      
+      mermaid.initialize({
+        startOnLoad: false,
+        theme: 'default',
+        themeVariables: {
+          primaryColor: '#007bff',
+          primaryTextColor: '#333',
+          primaryBorderColor: '#007bff',
+          lineColor: '#666',
+          secondaryColor: '#f8f9fa',
+          tertiaryColor: '#e9ecef'
+        },
+        fontFamily: '"Douyin Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
+        fontSize: 16,
+        flowchart: {
+          useMaxWidth: true,
+          htmlLabels: true,
+          curve: 'basis'
+        }
+      });
+    }
+    
+    
+    document.querySelectorAll('.mermaid').forEach(function(element) {
+      if (!element.dataset.original) {
+        element.dataset.original = element.textContent.trim();
+      }
+    });
+    
+    
+    return mermaid.run();
+  }
+
+  
+  document.addEventListener('DOMContentLoaded', function() {
+    
+    initializeMermaid();
+    
+    
+    logThemeInfo();
+    
+    
+    const darkModeToggle = document.getElementById('dark-mode-toggle');
+    if (darkModeToggle) {
+      darkModeToggle.addEventListener('click', function() {
+        
+        document.querySelectorAll('.mermaid').forEach(function(element) {
+          element.classList.add('reloading');
+        });
+        
+        
+        setTimeout(function() {
+          
+          document.querySelectorAll('.mermaid').forEach(function(element) {
+            
+            if (!element.dataset.original) {
+              element.dataset.original = element.textContent.trim();
+            }
+            
+            
+            element.innerHTML = '';
+            
+            
+            element.textContent = element.dataset.original;
+            
+            
+            element.removeAttribute('data-processed');
+          });
+          
+          
+          console.log('[Mermaid] Theme changed, reinitializing...');
+          
+          
+          initializeMermaid().then(function() {
+            
+            document.querySelectorAll('.mermaid').forEach(function(element) {
+              element.classList.remove('reloading');
+            });
+          });
+        }, 250);
+      });
+    }
+  });
 </script>
-
-
 <link rel='stylesheet' href='https://chinese-fonts-cdn.deno.dev/packages/dymh/dist/DouyinSansBold/result.css' />
 
 
@@ -612,13 +351,13 @@
         
             
             <figure class="site-avatar">
-                <a href="/">
+                <a href="/public/">
                 
                     
                     
                     
                         
-                        <img src="/img/avatar_hu_9c50848f93c56cbf.jpeg" width="300"
+                        <img src="/public/img/avatar_hu_9c50848f93c56cbf.jpeg" width="300"
                             height="296" class="site-logo" loading="lazy" alt="Avatar">
                     
                 
@@ -631,7 +370,7 @@
         
         
         <div class="site-meta">
-            <h1 class="site-name"><a href="/">Henry Zhang</a></h1>
+            <h1 class="site-name"><a href="/public">Henry Zhang</a></h1>
             <h2 class="site-description">Driven by Wonder, Powered by Knowledge.🤓</h2>
         </div>
     </header><ol class="menu-social">
@@ -661,7 +400,7 @@
         
         
         <li >
-            <a href='/' >
+            <a href='/public/' >
                 
                 
                 
@@ -681,7 +420,7 @@
         
         
         <li >
-            <a href='/about-me/' >
+            <a href='/public/about-me/' >
                 
                 
                 
@@ -700,7 +439,7 @@
         
         
         <li >
-            <a href='/archives/' >
+            <a href='/public/archives/' >
                 
                 
                 
@@ -720,7 +459,7 @@
         
         
         <li >
-            <a href='/search/' >
+            <a href='/public/search/' >
                 
                 
                 
@@ -739,7 +478,7 @@
         
         
         <li >
-            <a href='/some-useful-links/' >
+            <a href='/public/some-useful-links/' >
                 
                 
                 
@@ -758,7 +497,7 @@
         
         
         <li >
-            <a href='/update-logs/' >
+            <a href='/public/update-logs/' >
                 
                 
                 
@@ -834,67 +573,71 @@
         <div class="widget--toc">
             <nav id="TableOfContents">
   <ol>
-    <li><a href="#子类和父类">子类和父类</a>
+    <li><a href="#继承-和-多态java">继承 和 多态(java)</a>
       <ol>
-        <li><a href="#这样定义有什么好处吗">这样定义有什么好处吗?</a></li>
-        <li><a href="#具体实现">具体实现</a></li>
-      </ol>
-    </li>
-    <li><a href="#转型">转型</a>
-      <ol>
-        <li><a href="#向上转型upcasting">向上转型（Upcasting）</a>
+        <li><a href="#子类和父类">子类和父类</a>
           <ol>
-            <li><a href="#应用场景">应用场景</a></li>
+            <li><a href="#这样定义有什么好处吗">这样定义有什么好处吗?</a></li>
+            <li><a href="#具体实现">具体实现</a></li>
           </ol>
         </li>
-        <li><a href="#向下转型downcasting">向下转型（Downcasting）</a></li>
-      </ol>
-    </li>
-    <li><a href="#nest-class--嵌套类非大纲">Nest class | 嵌套类(非大纲)</a>
-      <ol>
-        <li><a href="#作用">作用</a></li>
-        <li><a href="#内部类-inner-class">内部类 (Inner Class)</a></li>
-        <li><a href="#静态嵌套类-static-nested-class">静态嵌套类 (Static Nested Class)</a></li>
-      </ol>
-    </li>
-    <li><a href="#overriding-methods--方法重写">Overriding Methods | 方法重写</a>
-      <ol>
-        <li><a href="#overriding-vs-overloading">Overriding vs. Overloading</a></li>
-        <li><a href="#方法重写">方法重写</a></li>
-        <li><a href="#方法重载">方法重载</a></li>
-      </ol>
-    </li>
-    <li><a href="#object-class--对象类">Object Class | 对象类</a>
-      <ol>
-        <li><a href="#tostring-method">toString method</a></li>
-      </ol>
-    </li>
-    <li><a href="#多态">多态</a>
-      <ol>
-        <li><a href="#dynamic-binding--动态绑定">Dynamic Binding | 动态绑定</a></li>
-      </ol>
-    </li>
-    <li><a href="#equals-method">equals method</a>
-      <ol>
-        <li>
+        <li><a href="#转型">转型</a>
           <ol>
-            <li><a href="#实际中的作用">实际中的作用</a></li>
-            <li><a href="#-vs-equals">== vs. equals</a></li>
-            <li><a href="#重写规范">重写规范</a></li>
+            <li><a href="#向上转型upcasting">向上转型（Upcasting）</a>
+              <ol>
+                <li><a href="#应用场景">应用场景</a></li>
+              </ol>
+            </li>
+            <li><a href="#向下转型downcasting">向下转型（Downcasting）</a></li>
           </ol>
         </li>
-      </ol>
-    </li>
-    <li><a href="#the-arraylist-class">The ArrayList Class</a>
-      <ol>
-        <li><a href="#创建">创建</a></li>
-        <li><a href="#add">add</a></li>
-        <li><a href="#visit">visit</a></li>
-        <li><a href="#modify">modify</a></li>
-        <li><a href="#delete">delete</a></li>
-        <li><a href="#query">query</a></li>
-        <li><a href="#transfer">transfer</a></li>
-        <li><a href="#sort">sort</a></li>
+        <li><a href="#nest-class--嵌套类非大纲">Nest class | 嵌套类(非大纲)</a>
+          <ol>
+            <li><a href="#作用">作用</a></li>
+            <li><a href="#内部类-inner-class">内部类 (Inner Class)</a></li>
+            <li><a href="#静态嵌套类-static-nested-class">静态嵌套类 (Static Nested Class)</a></li>
+          </ol>
+        </li>
+        <li><a href="#overriding-methods--方法重写">Overriding Methods | 方法重写</a>
+          <ol>
+            <li><a href="#overriding-vs-overloading">Overriding vs. Overloading</a></li>
+            <li><a href="#方法重写">方法重写</a></li>
+            <li><a href="#方法重载">方法重载</a></li>
+          </ol>
+        </li>
+        <li><a href="#object-class--对象类">Object Class | 对象类</a>
+          <ol>
+            <li><a href="#tostring-method">toString method</a></li>
+          </ol>
+        </li>
+        <li><a href="#多态">多态</a>
+          <ol>
+            <li><a href="#dynamic-binding--动态绑定">Dynamic Binding | 动态绑定</a></li>
+          </ol>
+        </li>
+        <li><a href="#equals-method">equals method</a>
+          <ol>
+            <li>
+              <ol>
+                <li><a href="#实际中的作用">实际中的作用</a></li>
+                <li><a href="#-vs-equals">== vs. equals</a></li>
+                <li><a href="#重写规范">重写规范</a></li>
+              </ol>
+            </li>
+          </ol>
+        </li>
+        <li><a href="#the-arraylist-class">The ArrayList Class</a>
+          <ol>
+            <li><a href="#创建">创建</a></li>
+            <li><a href="#add">add</a></li>
+            <li><a href="#visit">visit</a></li>
+            <li><a href="#modify">modify</a></li>
+            <li><a href="#delete">delete</a></li>
+            <li><a href="#query">query</a></li>
+            <li><a href="#transfer">transfer</a></li>
+            <li><a href="#sort">sort</a></li>
+          </ol>
+        </li>
       </ol>
     </li>
   </ol>
@@ -913,9 +656,9 @@
     <article class="has-image main-article">
     <header class="article-header">
         <div class="article-image">
-            <a href="/p/chapter11/">
+            <a href="/public/p/chapter11/">
                 
-                    <img src="/java.png" loading="lazy" alt="Featured image of post Chapter11" />
+                    <img src="/public/java.png" loading="lazy" alt="Featured image of post Chapter11" />
                 
             </a>
         </div>
@@ -924,7 +667,7 @@
     <div class="article-details">
     <div class="article-title-wrapper">
         <h2 class="article-title">
-            <a href="/p/chapter11/">Chapter11</a>
+            <a href="/public/p/chapter11/">Chapter11</a>
         </h2>
     
         
@@ -945,7 +688,7 @@
                 
                     
                     
-                    <a href="/categories/notes/" class="category-link" style="background-color: #704400; color: #ffffff;">
+                    <a href="/public/categories/notes/" class="category-link" style="background-color: #704400; color: #ffffff;">
                         Notes
                     </a>
                 
@@ -957,7 +700,7 @@
                 
                     
                     
-                    <a href="/tags/java/" class="tag-link" style="color: #ffffff; border: 1px solid #e027e5; background-color: #e027e520;">
+                    <a href="/public/tags/java/" class="tag-link" style="color: #ffffff; border: 1px solid #e027e5; background-color: #e027e520;">
                         #Java
                     </a>
                 
@@ -988,7 +731,7 @@
 
 
                 <time>
-                    May 26, 2025 03:12 CST
+                    May 26, 2025 03:12 &#43;0800
                 </time>
             </div>
     </footer>
@@ -1016,27 +759,37 @@
 <li>通过这样的方法可以大大减少代码的冗余.提高代码的复用性.</li>
 </ol>
 <h3 id="具体实现">具体实现
-</h3><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">Person</span><span class="w"> </span><span class="p">{</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="n">name</span><span class="p">;</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">age</span><span class="p">;</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="n">gender</span><span class="p">;</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="nf">Person</span><span class="p">(</span><span class="n">String</span><span class="w"> </span><span class="n">name</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">age</span><span class="p">,</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="n">gender</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="k">this</span><span class="p">.</span><span class="na">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">name</span><span class="p">;</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="k">this</span><span class="p">.</span><span class="na">age</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">age</span><span class="p">;</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="k">this</span><span class="p">.</span><span class="na">gender</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">gender</span><span class="p">;</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">Student</span><span class="w"> </span><span class="kd">extends</span><span class="w"> </span><span class="n">Person</span><span class="w"> </span><span class="p">{</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="n">major</span><span class="p">;</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="nf">Student</span><span class="p">(</span><span class="n">String</span><span class="w"> </span><span class="n">name</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">age</span><span class="p">,</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="n">gender</span><span class="p">,</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="n">major</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="kd">super</span><span class="p">(</span><span class="n">name</span><span class="p">,</span><span class="w"> </span><span class="n">age</span><span class="p">,</span><span class="w"> </span><span class="n">gender</span><span class="p">);</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="c1">// 在这里, 我们的super keyword 的作用就是调用父类的构造器.</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="k">this</span><span class="p">.</span><span class="na">major</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">major</span><span class="p">;</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
-</span></span></span></code></pre></div><blockquote class="alert alert-tip">
+</h3>
+
+
+
+
+<div class="highlight highlight-java">
+  <pre>
+    <code class="language-java" data-lang="java">public class Person {
+    private String name;
+    private int age;
+    private String gender;
+
+    public Person(String name, int age, String gender) {
+        this.name = name;
+        this.age = age;
+        this.gender = gender;
+    }
+}
+
+public class Student extends Person {
+    private String major;
+    public Student(String name, int age, String gender, String major) {
+        super(name, age, gender);
+        // 在这里, 我们的super keyword 的作用就是调用父类的构造器.
+        this.major = major;
+    }
+}</code>
+  </pre>
+</div>
+
+<blockquote class="alert alert-tip">
     <ol>
 <li>如果这里的构造器没有调用父类的构造器, 那么编译器会会在编译的时候在该构造器的最前面先调用父类的无参构造器.</li>
 <li>当父类使用 final 关键字的时候, 则无法定义其子类</li>
@@ -1054,12 +807,22 @@
 </h4><ol>
 <li>当你需要子类的方法的时候但是却不需要子类的变量的时候.</li>
 </ol>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="c1">// 向上转型示例</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">Student</span><span class="w"> </span><span class="n">student</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">Student</span><span class="p">(</span><span class="s">&#34;张三&#34;</span><span class="p">,</span><span class="w"> </span><span class="n">20</span><span class="p">,</span><span class="w"> </span><span class="s">&#34;男&#34;</span><span class="p">,</span><span class="w"> </span><span class="s">&#34;计算机科学&#34;</span><span class="p">);</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">Person</span><span class="w"> </span><span class="n">person</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">student</span><span class="p">;</span><span class="w"> </span><span class="c1">// 自动向上转型</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c1">// 或者显式写法</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">Person</span><span class="w"> </span><span class="n">person2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">Person</span><span class="p">)</span><span class="n">student</span><span class="p">;</span><span class="w"> </span><span class="c1">// 效果相同</span><span class="w">
-</span></span></span></code></pre></div><blockquote class="alert alert-tip">
+
+
+
+
+
+<div class="highlight highlight-java">
+  <pre>
+    <code class="language-java" data-lang="java">// 向上转型示例
+Student student = new Student(&#34;张三&#34;, 20, &#34;男&#34;, &#34;计算机科学&#34;);
+Person person = student; // 自动向上转型
+// 或者显式写法
+Person person2 = (Person)student; // 效果相同</code>
+  </pre>
+</div>
+
+<blockquote class="alert alert-tip">
     <p>当<code>子类</code>想临时使用<code>父类</code>的某个方法的时候可以仿照这个例子调用: &ldquo;((father)child).method();&rdquo;</p></blockquote>
 <h3 id="向下转型downcasting">向下转型（Downcasting）
 </h3><p>能够向下转型的几种情况.</p>
@@ -1067,23 +830,33 @@
 <li>new 类的时候使用的是子类, 但是当作了父类来使用.</li>
 <li>或者在继承类上转换, 例如: person -&gt; faculty -&gt; teacher 这三个类. 当 new 的类是 teacher, 但是被当作 person 使用的时候, 那 person 类就能转型为 faculty.</li>
 </ol>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="c1">// 向下转型示例</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">Person</span><span class="w"> </span><span class="n">person</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">Student</span><span class="p">(</span><span class="s">&#34;李四&#34;</span><span class="p">,</span><span class="w"> </span><span class="n">19</span><span class="p">,</span><span class="w"> </span><span class="s">&#34;女&#34;</span><span class="p">,</span><span class="w"> </span><span class="s">&#34;数学&#34;</span><span class="p">);</span><span class="w"> </span><span class="c1">// 首先向上转型</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">Student</span><span class="w"> </span><span class="n">student</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">Student</span><span class="p">)</span><span class="n">person</span><span class="p">;</span><span class="w"> </span><span class="c1">// 向下转型</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c1">// 错误的向下转型示例</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">Person</span><span class="w"> </span><span class="n">person2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">Person</span><span class="p">(</span><span class="s">&#34;王五&#34;</span><span class="p">,</span><span class="w"> </span><span class="n">25</span><span class="p">,</span><span class="w"> </span><span class="s">&#34;男&#34;</span><span class="p">);</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">Student</span><span class="w"> </span><span class="n">student2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">Student</span><span class="p">)</span><span class="n">person2</span><span class="p">;</span><span class="w"> </span><span class="c1">// 运行时会抛出 ClassCastException</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c1">// 转型前错误检查能有效避免运行错误</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">person</span><span class="w"> </span><span class="k">instanceof</span><span class="w"> </span><span class="n">Student</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="c1">// instanceof这个关键字能检查实例是否属于某个指定的类.</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">Student</span><span class="w"> </span><span class="n">student</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">Student</span><span class="p">)</span><span class="n">person</span><span class="p">;</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&#34;专业：&#34;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">student</span><span class="p">.</span><span class="na">getMajor</span><span class="p">());</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&#34;这个人不是学生&#34;</span><span class="p">);</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
-</span></span></span></code></pre></div><blockquote>
+
+
+
+
+
+<div class="highlight highlight-java">
+  <pre>
+    <code class="language-java" data-lang="java">// 向下转型示例
+Person person = new Student(&#34;李四&#34;, 19, &#34;女&#34;, &#34;数学&#34;); // 首先向上转型
+Student student = (Student)person; // 向下转型
+
+// 错误的向下转型示例
+Person person2 = new Person(&#34;王五&#34;, 25, &#34;男&#34;);
+Student student2 = (Student)person2; // 运行时会抛出 ClassCastException
+
+// 转型前错误检查能有效避免运行错误
+if (person instanceof Student) {
+    // instanceof这个关键字能检查实例是否属于某个指定的类.
+    Student student = (Student)person;
+    System.out.println(&#34;专业：&#34; &#43; student.getMajor());
+} else {
+    System.out.println(&#34;这个人不是学生&#34;);
+}</code>
+  </pre>
+</div>
+
+<blockquote>
 <p>关于 &ldquo;instanceof&rdquo; 关键字: 检查的是该类在创建时的 new 的类是否属于某个类链条上.</p>
 </blockquote>
 <h2 id="nest-class--嵌套类非大纲">Nest class | 嵌套类(非大纲)
@@ -1096,36 +869,56 @@
 </h3><ol>
 <li>能够访问外部类的所有成员.</li>
 </ol>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">OuterClass</span><span class="w"> </span><span class="p">{</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="n">msg</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#34;Hello&#34;</span><span class="p">;</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="c1">// 非静态内部类</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">class</span> <span class="nc">InnerClass</span><span class="w"> </span><span class="p">{</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="kd">public</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">display</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="c1">// 可以访问外部类的所有成员</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="n">msg</span><span class="p">);</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="p">}</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
-</span></span></span></code></pre></div><h3 id="静态嵌套类-static-nested-class">静态嵌套类 (Static Nested Class)
+
+
+
+
+
+<div class="highlight highlight-java">
+  <pre>
+    <code class="language-java" data-lang="java">public class OuterClass {
+    private String msg = &#34;Hello&#34;;
+
+    // 非静态内部类
+    class InnerClass {
+        public void display() {
+            // 可以访问外部类的所有成员
+            System.out.println(msg);
+        }
+    }
+}</code>
+  </pre>
+</div>
+
+<h3 id="静态嵌套类-static-nested-class">静态嵌套类 (Static Nested Class)
 </h3><ol>
 <li>静态嵌套类不能直接访问内部的静态成员. 当前示例代码中的静态子类就无法访问<code>num</code>这个变量.</li>
 <li>静态嵌套类虽然无法访问外部类的非静态成员, 但是可以访问该类内部的成员. 比如示例代码中的<code>a</code>.</li>
 </ol>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">OuterClass</span><span class="w"> </span><span class="p">{</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="kd">static</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="n">msg</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#34;Hello&#34;</span><span class="p">;</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">num</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">10</span><span class="p">;</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="c1">// 静态嵌套类</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">static</span><span class="w"> </span><span class="kd">class</span> <span class="nc">StaticNestedClass</span><span class="w"> </span><span class="p">{</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="kt">int</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">10</span><span class="p">;</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="kd">public</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">display</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="c1">// 可以访问外部类的静态成员</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="n">msg</span><span class="p">);</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="p">}</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
-</span></span></span></code></pre></div><h2 id="overriding-methods--方法重写">Overriding Methods | 方法重写
+
+
+
+
+
+<div class="highlight highlight-java">
+  <pre>
+    <code class="language-java" data-lang="java">public class OuterClass {
+    private static String msg = &#34;Hello&#34;;
+    private int num = 10;
+
+    // 静态嵌套类
+    static class StaticNestedClass {
+        int a = 10;
+        public void display() {
+            // 可以访问外部类的静态成员
+            System.out.println(msg);
+        }
+    }
+}</code>
+  </pre>
+</div>
+
+<h2 id="overriding-methods--方法重写">Overriding Methods | 方法重写
 </h2><p>当一个学生类想要调用<code>toString</code>方法输出自己的信息的时候, <code>person</code>类的<code>toString</code>方法可能并没有涉及到学生类新<code>data field</code>, 比如年纪, 学号等. 这个时候就是方法重写大展拳脚的时候了.</p>
 <ol>
 <li>在子类中, 我们可以使用<code>@Override</code>签名来重写父类的方法.</li>
@@ -1136,20 +929,30 @@
 </ul>
 </li>
 </ol>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kd">class</span> <span class="nc">father</span><span class="p">{</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="n">methodA</span><span class="p">{</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&#34;This is A&#34;</span><span class="p">)</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kd">class</span> <span class="nc">children</span><span class="p">{</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nd">@override</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="c1">// 其实这里不使用这个签名方法也能顺利重写, 但为了代码规范还是建议在重写的方法前添加这个签名</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="n">methodA</span><span class="p">{</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&#34;This is also A&#34;</span><span class="p">)</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
-</span></span></span></code></pre></div><p>比如之前章节学的, 当我们使用<code>wrapper class</code>的时候, 不管是什么类型的类, 我们都可以使用相同的<code>compareTo</code>方法.</p>
+
+
+
+
+
+<div class="highlight highlight-java">
+  <pre>
+    <code class="language-java" data-lang="java">class father{
+    void methodA{
+        System.out.println(&#34;This is A&#34;)
+    }
+}
+
+class children{
+    @override
+    // 其实这里不使用这个签名方法也能顺利重写, 但为了代码规范还是建议在重写的方法前添加这个签名
+    void methodA{
+        System.out.println(&#34;This is also A&#34;)
+    }
+}</code>
+  </pre>
+</div>
+
+<p>比如之前章节学的, 当我们使用<code>wrapper class</code>的时候, 不管是什么类型的类, 我们都可以使用相同的<code>compareTo</code>方法.</p>
 <blockquote class="alert alert-tip">
     <p>方法重写的前提是父类的方法没有使用 final 关键字. 使用 final 关键字的方法无法被子类重写, 这样做可以防止一些关键的方法被错误的重写, 能让子类的代码更加规范.</p></blockquote>
 <h3 id="overriding-vs-overloading">Overriding vs. Overloading
@@ -1189,82 +992,172 @@
 <h4 id="重写规范">重写规范
 </h4><p>当你重写这个方法的时候传入的参数一定是 object 类.
 示例:</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="nd">@override</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kd">public</span><span class="w"> </span><span class="kt">boolean</span><span class="w"> </span><span class="nf">equals</span><span class="p">(</span><span class="n">Object</span><span class="w"> </span><span class="n">circle</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="k">this</span><span class="p">.</span><span class="na">radius</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="p">((</span><span class="n">Circle</span><span class="p">)</span><span class="n">circle</span><span class="p">).</span><span class="na">radius</span><span class="p">;</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
-</span></span></span></code></pre></div><h2 id="the-arraylist-class">The ArrayList Class
+
+
+
+
+
+<div class="highlight highlight-java">
+  <pre>
+    <code class="language-java" data-lang="java">@override
+public boolean equals(Object circle) {
+    return this.radius == ((Circle)circle).radius;
+    }</code>
+  </pre>
+</div>
+
+<h2 id="the-arraylist-class">The ArrayList Class
 </h2><ol>
 <li>容量是动态的</li>
 </ol>
 <h3 id="创建">创建
-</h3><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="c1">// 创建一个空的 ArrayList</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">ArrayList</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span><span class="w"> </span><span class="n">list1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">ArrayList</span><span class="o">&lt;&gt;</span><span class="p">();</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c1">// 创建一个指定初始容量的 ArrayList</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">ArrayList</span><span class="o">&lt;</span><span class="n">Integer</span><span class="o">&gt;</span><span class="w"> </span><span class="n">list2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">ArrayList</span><span class="o">&lt;&gt;</span><span class="p">(</span><span class="n">10</span><span class="p">);</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c1">// 从其他集合创建 ArrayList</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">ArrayList</span><span class="o">&lt;</span><span class="n">Double</span><span class="o">&gt;</span><span class="w"> </span><span class="n">list3</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">ArrayList</span><span class="o">&lt;&gt;</span><span class="p">(</span><span class="n">Arrays</span><span class="p">.</span><span class="na">asList</span><span class="p">(</span><span class="n">1</span><span class="p">.</span><span class="na">1</span><span class="p">,</span><span class="w"> </span><span class="n">2</span><span class="p">.</span><span class="na">2</span><span class="p">,</span><span class="w"> </span><span class="n">3</span><span class="p">.</span><span class="na">3</span><span class="p">));</span><span class="w">
-</span></span></span></code></pre></div><blockquote class="alert alert-tip">
+</h3>
+
+
+
+
+<div class="highlight highlight-java">
+  <pre>
+    <code class="language-java" data-lang="java">// 创建一个空的 ArrayList
+ArrayList&lt;String&gt; list1 = new ArrayList&lt;&gt;();
+
+// 创建一个指定初始容量的 ArrayList
+ArrayList&lt;Integer&gt; list2 = new ArrayList&lt;&gt;(10);
+
+// 从其他集合创建 ArrayList
+ArrayList&lt;Double&gt; list3 = new ArrayList&lt;&gt;(Arrays.asList(1.1, 2.2, 3.3));</code>
+  </pre>
+</div>
+
+<blockquote class="alert alert-tip">
     <p>&lsquo;&lt;&gt;&lsquo;是泛型, 目前知道知道括号里填什么类型的 wrapper 类, 这个数组就会存储什么类型的变量.</p></blockquote>
 <h3 id="add">add
-</h3><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="c1">// 在列表末尾添加元素</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">list</span><span class="p">.</span><span class="na">add</span><span class="p">(</span><span class="n">element</span><span class="p">);</span><span class="w">           </span><span class="c1">// 返回 boolean</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c1">// 在指定位置插入元素</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">list</span><span class="p">.</span><span class="na">add</span><span class="p">(</span><span class="n">index</span><span class="p">,</span><span class="w"> </span><span class="n">element</span><span class="p">);</span><span class="w">    </span><span class="c1">// void 返回</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c1">// 添加多个元素</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">list</span><span class="p">.</span><span class="na">addAll</span><span class="p">(</span><span class="n">collection</span><span class="p">);</span><span class="w">     </span><span class="c1">// 返回 boolean</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">list</span><span class="p">.</span><span class="na">addAll</span><span class="p">(</span><span class="n">index</span><span class="p">,</span><span class="w"> </span><span class="n">collection</span><span class="p">);</span><span class="w"> </span><span class="c1">// 返回 boolean</span><span class="w">
-</span></span></span></code></pre></div><h3 id="visit">visit
-</h3><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="c1">// 获取指定位置的元素</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">Element</span><span class="w"> </span><span class="n">element</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">list</span><span class="p">.</span><span class="na">get</span><span class="p">(</span><span class="n">index</span><span class="p">);</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c1">// 获取第一次出现的位置</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kt">int</span><span class="w"> </span><span class="n">index</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">list</span><span class="p">.</span><span class="na">indexOf</span><span class="p">(</span><span class="n">element</span><span class="p">);</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c1">// 获取最后一次出现的位置</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kt">int</span><span class="w"> </span><span class="n">lastIndex</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">list</span><span class="p">.</span><span class="na">lastIndexOf</span><span class="p">(</span><span class="n">element</span><span class="p">);</span><span class="w">
-</span></span></span></code></pre></div><h3 id="modify">modify
-</h3><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="c1">// 替换指定位置的元素</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">Element</span><span class="w"> </span><span class="n">oldElement</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">list</span><span class="p">.</span><span class="na">set</span><span class="p">(</span><span class="n">index</span><span class="p">,</span><span class="w"> </span><span class="n">newElement</span><span class="p">);</span><span class="w">
-</span></span></span></code></pre></div><h3 id="delete">delete
-</h3><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="c1">// 删除指定位置的元素</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">Element</span><span class="w"> </span><span class="n">removedElement</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">list</span><span class="p">.</span><span class="na">remove</span><span class="p">(</span><span class="n">index</span><span class="p">);</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c1">// 删除第一次出现的指定元素</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kt">boolean</span><span class="w"> </span><span class="n">isRemoved</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">list</span><span class="p">.</span><span class="na">remove</span><span class="p">(</span><span class="n">element</span><span class="p">);</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c1">// 删除所有元素</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">list</span><span class="p">.</span><span class="na">clear</span><span class="p">();</span><span class="w">
-</span></span></span></code></pre></div><h3 id="query">query
-</h3><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="c1">// 检查是否包含某个元素</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kt">boolean</span><span class="w"> </span><span class="n">contains</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">list</span><span class="p">.</span><span class="na">contains</span><span class="p">(</span><span class="n">element</span><span class="p">);</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c1">// 检查是否为空</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kt">boolean</span><span class="w"> </span><span class="n">isEmpty</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">list</span><span class="p">.</span><span class="na">isEmpty</span><span class="p">();</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c1">// 获取列表大小</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kt">int</span><span class="w"> </span><span class="n">size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">list</span><span class="p">.</span><span class="na">size</span><span class="p">();</span><span class="w">
-</span></span></span></code></pre></div><h3 id="transfer">transfer
-</h3><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="c1">// 转换为数组</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">Object</span><span class="o">[]</span><span class="w"> </span><span class="n">array</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">list</span><span class="p">.</span><span class="na">toArray</span><span class="p">();</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">String</span><span class="o">[]</span><span class="w"> </span><span class="n">stringArray</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">list</span><span class="p">.</span><span class="na">toArray</span><span class="p">(</span><span class="k">new</span><span class="w"> </span><span class="n">String</span><span class="o">[</span><span class="n">0</span><span class="o">]</span><span class="p">);</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c1">// 获取子列表（视图）</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">List</span><span class="o">&lt;</span><span class="n">E</span><span class="o">&gt;</span><span class="w"> </span><span class="n">subList</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">list</span><span class="p">.</span><span class="na">subList</span><span class="p">(</span><span class="n">fromIndex</span><span class="p">,</span><span class="w"> </span><span class="n">toIndex</span><span class="p">);</span><span class="w">
-</span></span></span></code></pre></div><h3 id="sort">sort
-</h3><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="c1">// 排序（使用自然顺序）</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">Collections</span><span class="p">.</span><span class="na">sort</span><span class="p">(</span><span class="n">list</span><span class="p">);</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c1">// 使用自定义比较器排序</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">Collections</span><span class="p">.</span><span class="na">sort</span><span class="p">(</span><span class="n">list</span><span class="p">,</span><span class="w"> </span><span class="n">comparator</span><span class="p">);</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c1">// 反转列表</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">Collections</span><span class="p">.</span><span class="na">reverse</span><span class="p">(</span><span class="n">list</span><span class="p">);</span><span class="w">
-</span></span></span></code></pre></div><blockquote class="alert alert-tip">
+</h3>
+
+
+
+
+<div class="highlight highlight-java">
+  <pre>
+    <code class="language-java" data-lang="java">// 在列表末尾添加元素
+list.add(element);           // 返回 boolean
+
+// 在指定位置插入元素
+list.add(index, element);    // void 返回
+
+// 添加多个元素
+list.addAll(collection);     // 返回 boolean
+list.addAll(index, collection); // 返回 boolean</code>
+  </pre>
+</div>
+
+<h3 id="visit">visit
+</h3>
+
+
+
+
+<div class="highlight highlight-java">
+  <pre>
+    <code class="language-java" data-lang="java">// 获取指定位置的元素
+Element element = list.get(index);
+
+// 获取第一次出现的位置
+int index = list.indexOf(element);
+
+// 获取最后一次出现的位置
+int lastIndex = list.lastIndexOf(element);</code>
+  </pre>
+</div>
+
+<h3 id="modify">modify
+</h3>
+
+
+
+
+<div class="highlight highlight-java">
+  <pre>
+    <code class="language-java" data-lang="java">// 替换指定位置的元素
+Element oldElement = list.set(index, newElement);</code>
+  </pre>
+</div>
+
+<h3 id="delete">delete
+</h3>
+
+
+
+
+<div class="highlight highlight-java">
+  <pre>
+    <code class="language-java" data-lang="java">// 删除指定位置的元素
+Element removedElement = list.remove(index);
+
+// 删除第一次出现的指定元素
+boolean isRemoved = list.remove(element);
+
+// 删除所有元素
+list.clear();</code>
+  </pre>
+</div>
+
+<h3 id="query">query
+</h3>
+
+
+
+
+<div class="highlight highlight-java">
+  <pre>
+    <code class="language-java" data-lang="java">// 检查是否包含某个元素
+boolean contains = list.contains(element);
+
+// 检查是否为空
+boolean isEmpty = list.isEmpty();
+
+// 获取列表大小
+int size = list.size();</code>
+  </pre>
+</div>
+
+<h3 id="transfer">transfer
+</h3>
+
+
+
+
+<div class="highlight highlight-java">
+  <pre>
+    <code class="language-java" data-lang="java">// 转换为数组
+Object[] array = list.toArray();
+String[] stringArray = list.toArray(new String[0]);
+
+// 获取子列表（视图）
+List&lt;E&gt; subList = list.subList(fromIndex, toIndex);</code>
+  </pre>
+</div>
+
+<h3 id="sort">sort
+</h3>
+
+
+
+
+<div class="highlight highlight-java">
+  <pre>
+    <code class="language-java" data-lang="java">// 排序（使用自然顺序）
+Collections.sort(list);
+
+// 使用自定义比较器排序
+Collections.sort(list, comparator);
+
+// 反转列表
+Collections.reverse(list);</code>
+  </pre>
+</div>
+
+<blockquote class="alert alert-tip">
     <p>这个类并不线程安全, 这意味着当多个线程同时操作这个类的时候可能会出现一些问题. 另外虽然这个类的容量的可变的, 但还是尽量在一开始就把容量定义好. 因为当类需要自己扩增容量的时候会影响性能.</p></blockquote>
 
 </section>
@@ -1331,18 +1224,18 @@
             
                 
 <article class="has-image">
-    <a href="/p/chi-square-distribution/">
+    <a href="/public/p/%E8%BD%AF%E4%BB%B6%E5%8C%85%E7%AE%A1%E7%90%86linux-%E7%9A%84%E5%BA%94%E7%94%A8%E5%95%86%E5%BA%97/">
         
         
             <div class="article-image">
                 
-                    <img src="/default.jpeg" loading="lazy" data-key="" data-hash="/default.jpeg"/>
+                    <img src="/public/default.jpeg" loading="lazy" data-key="" data-hash="/public/default.jpeg"/>
                 
             </div>
         
 
         <div class="article-details">
-            <h2 class="article-title">Chi-Square Distribution</h2>
+            <h2 class="article-title">软件包管理：Linux 的应用商店</h2>
         </div>
     </a>
 </article>
@@ -1350,18 +1243,18 @@
             
                 
 <article class="has-image">
-    <a href="/p/apt/">
+    <a href="/public/p/%E6%97%A5%E5%BF%97%E5%92%8C%E7%9B%91%E6%8E%A7linux-%E7%9A%84%E4%BD%93%E6%A3%80%E5%8C%BB%E7%94%9F/">
         
         
             <div class="article-image">
                 
-                    <img src="/default.jpeg" loading="lazy" data-key="" data-hash="/default.jpeg"/>
+                    <img src="/public/default.jpeg" loading="lazy" data-key="" data-hash="/public/default.jpeg"/>
                 
             </div>
         
 
         <div class="article-details">
-            <h2 class="article-title">Apt</h2>
+            <h2 class="article-title">日志和监控：Linux 的体检医生</h2>
         </div>
     </a>
 </article>
@@ -1369,23 +1262,18 @@
             
                 
 <article class="has-image">
-    <a href="/p/git/">
+    <a href="/public/p/%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9Flinux-%E7%9A%84%E6%95%B0%E6%8D%AE%E5%AE%AB%E6%AE%BF/">
         
         
             <div class="article-image">
-                <img src="/p/git/git.15ec746a9c4d697d225e45e5e01ec1ae_hu_7f8f8f2193143e06.png" 
-                        width="250" 
-                        height="150" 
-                        loading="lazy"
-                        alt="Featured image of post Git"
-                        
-                        data-hash="md5-Fex0apxNaX0iXkXl4B7Brg==">
+                
+                    <img src="/public/default.jpeg" loading="lazy" data-key="" data-hash="/public/default.jpeg"/>
                 
             </div>
         
 
         <div class="article-details">
-            <h2 class="article-title">Git</h2>
+            <h2 class="article-title">文件系统：Linux 的数据宫殿</h2>
         </div>
     </a>
 </article>
@@ -1393,18 +1281,18 @@
             
                 
 <article class="has-image">
-    <a href="/p/javascript/">
+    <a href="/public/p/%E8%BF%9B%E7%A8%8B%E7%AE%A1%E7%90%86linux-%E7%9A%84%E7%94%9F%E5%91%BD%E7%BA%BF/">
         
         
             <div class="article-image">
                 
-                    <img src="/default.jpeg" loading="lazy" data-key="" data-hash="/default.jpeg"/>
+                    <img src="/public/default.jpeg" loading="lazy" data-key="" data-hash="/public/default.jpeg"/>
                 
             </div>
         
 
         <div class="article-details">
-            <h2 class="article-title">JavaScript</h2>
+            <h2 class="article-title">进程管理：Linux 的生命线</h2>
         </div>
     </a>
 </article>
@@ -1412,23 +1300,18 @@
             
                 
 <article class="has-image">
-    <a href="/p/css/">
+    <a href="/public/p/shell-%E5%92%8C%E5%91%BD%E4%BB%A4%E8%A1%8Clinux-%E7%9A%84%E6%8E%A7%E5%88%B6%E5%8F%B0/">
         
         
             <div class="article-image">
-                <img src="/p/css/css.b848d5d9bb221592064de0f356f61676_hu_b7c3baf7be297be1.png" 
-                        width="250" 
-                        height="150" 
-                        loading="lazy"
-                        alt="Featured image of post CSS"
-                        
-                        data-hash="md5-uEjV2bsiFZIGTeDzVvYWdg==">
+                
+                    <img src="/public/default.jpeg" loading="lazy" data-key="" data-hash="/public/default.jpeg"/>
                 
             </div>
         
 
         <div class="article-details">
-            <h2 class="article-title">CSS</h2>
+            <h2 class="article-title">Shell 和命令行：Linux 的控制台</h2>
         </div>
     </a>
 </article>
@@ -1498,7 +1381,9 @@
     <section class="copyright">
         &copy; 
         
-        2025 blog@mail.henry070.org
+            2025 - 
+        
+        2026 blog@mail.henry070.org
     </section>
     
     <section class="powerby">
@@ -1594,7 +1479,7 @@
                 src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
                 
                 >
-            </script><script type="text/javascript" src="/ts/main.1e9a3bafd846ced4c345d084b355fb8c7bae75701c338f8a1f8a82c780137826.js" defer></script>
+            </script><script type="text/javascript" src="/public/ts/main.c922af694cc257bf1ecc41c0dd7b0430f9114ec280ccf67cd2c6ad55f5316c4e.js" defer></script>
 <script>
     (function () {
         const customFont = document.createElement('link');
@@ -1802,7 +1687,7 @@
       
       let img = document.createElement('img');
       img.classList.add('code-more-img');
-      img.src = "https://Gzmomo001.github.io/icons/down.png"
+      img.src = "https://Gzmomo001.github.io/public/icons/down.png"
       
       codeMoreBtn.appendChild(img);
       codeMoreBox.appendChild(codeMoreBtn);

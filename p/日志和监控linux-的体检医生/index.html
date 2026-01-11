@@ -1,0 +1,1894 @@
+<!DOCTYPE html>
+<html lang="zh-cn" dir="ltr">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="掌握 Linux 系统日志、journald、rsyslog、系统监控工具以及性能分析方法">
+<title>日志和监控：Linux 的体检医生</title>
+
+<link rel='canonical' href='https://Gzmomo001.github.io/public/p/%E6%97%A5%E5%BF%97%E5%92%8C%E7%9B%91%E6%8E%A7linux-%E7%9A%84%E4%BD%93%E6%A3%80%E5%8C%BB%E7%94%9F/'>
+
+<link rel="stylesheet" href="/public/scss/style.min.69ed452c4f70aa0bd98aa7f62758389d29493390c2f090e74cf1c607d4445e3e.css"><meta property='og:title' content="日志和监控：Linux 的体检医生">
+<meta property='og:description' content="掌握 Linux 系统日志、journald、rsyslog、系统监控工具以及性能分析方法">
+<meta property='og:url' content='https://Gzmomo001.github.io/public/p/%E6%97%A5%E5%BF%97%E5%92%8C%E7%9B%91%E6%8E%A7linux-%E7%9A%84%E4%BD%93%E6%A3%80%E5%8C%BB%E7%94%9F/'>
+<meta property='og:site_name' content='Henry Zhang'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='linux' /><meta property='article:tag' content='日志管理' /><meta property='article:tag' content='系统监控' /><meta property='article:tag' content='性能分析' /><meta property='article:published_time' content='2026-01-11T02:00:00&#43;08:00'/><meta property='article:modified_time' content='2026-01-11T16:57:00&#43;00:00'/><meta property='og:image' content='https://Gzmomo001.github.io/public/default.jpeg' />
+<meta name="twitter:title" content="日志和监控：Linux 的体检医生">
+<meta name="twitter:description" content="掌握 Linux 系统日志、journald、rsyslog、系统监控工具以及性能分析方法"><meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content='https://Gzmomo001.github.io/public/default.jpeg' />
+    <link rel="shortcut icon" href="/favicon.ico" />
+
+
+<script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+<script>
+  
+  function getCurrentTheme() {
+    const colorSchemeKey = 'StackColorScheme';
+    const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+    const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+    
+    if (colorSchemeItem === 'dark' || (colorSchemeItem === 'auto' && supportDarkMode)) {
+      return 'dark';
+    } else {
+      return 'light';
+    }
+  }
+
+  
+  function logThemeInfo() {
+    const colorSchemeKey = 'StackColorScheme';
+    const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+    const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+    const documentScheme = document.documentElement.dataset.scheme;
+    
+    console.log('[Mermaid] Theme Detection:', {
+      localStorage: colorSchemeItem,
+      systemDark: supportDarkMode,
+      documentScheme: documentScheme,
+      calculatedTheme: getCurrentTheme()
+    });
+  }
+
+  
+  function initializeMermaid() {
+    const currentTheme = getCurrentTheme();
+    
+    if (currentTheme === 'dark') {
+      
+      mermaid.initialize({
+        startOnLoad: false,
+        theme: 'dark',
+        themeVariables: {
+          
+          primaryColor: '#4a5568',
+          primaryTextColor: '#f7fafc',
+          primaryBorderColor: '#63b3ed',
+          lineColor: '#e2e8f0',
+          secondaryColor: '#2d3748',
+          tertiaryColor: '#1a202c',
+          background: '#1a202c',
+          
+          
+          fillType0: '#2d3748',
+          fillType1: '#4a5568',
+          fillType2: '#4299e1',
+          clusterBkg: '#2d3748',
+          clusterBorder: '#4a5568',
+          nodeBorder: '#e2e8f0',
+          mainBkg: '#4a5568',
+          altBkg: '#2d3748',
+          
+          
+          labelBackground: '#2d3748',
+          edgeLabelBackground: '#2d3748',
+          titleColor: '#f7fafc',
+          
+          
+          actorBkg: '#2d3748',
+          actorBorder: '#4a5568',
+          actorTextColor: '#e2e8f0',
+          actorLine: '#4a5568',
+          signalColor: '#e2e8f0',
+          signalTextColor: '#e2e8f0',
+          noteBkgColor: '#4a5568',
+          noteBorderColor: '#4a5568',
+          noteTextColor: '#e2e8f0',
+          activationBorderColor: '#4299e1',
+          activationBkgColor: '#2d3748',
+          
+          
+          sectionBkgColor: '#2d3748',
+          altSectionBkgColor: '#4a5568',
+          sectionBorderColor: '#4a5568',
+          taskBkgColor: '#4299e1',
+          taskBorderColor: '#63b3ed',
+          taskTextColor: '#ffffff',
+          activeTaskBkgColor: '#48bb78',
+          activeTaskBorderColor: '#38a169',
+          doneTaskBkgColor: '#2d3748',
+          doneTaskBorderColor: '#4a5568',
+          critBkgColor: '#f56565',
+          critBorderColor: '#e53e3e',
+          critTextColor: '#ffffff',
+          
+          
+          pie1: '#4299e1',
+          pie2: '#48bb78',
+          pie3: '#ed8936',
+          pie4: '#9f7aea',
+          pie5: '#ed64a6',
+          pie6: '#38b2ac',
+          pie7: '#f6ad55',
+          pie8: '#68d391',
+          pie9: '#63b3ed',
+          pie10: '#b794f4',
+          pieTitleTextSize: '24px',
+          pieSectionTextSize: '16px',
+          pieOuterStrokeWidth: '2px',
+          pieStroke: '#1a202c',
+          pieOpacity: '1',
+          
+          
+          classText: '#f7fafc',
+          classTitle: '#f7fafc',
+          
+          
+          stateBkg: '#2d3748',
+          stateBorder: '#4a5568',
+          labelColor: '#f7fafc',
+          stateLabel: '#f7fafc',
+          stateText: '#f7fafc',
+          transitionLabel: '#f7fafc',
+          
+          
+          entityBkg: '#2d3748',
+          entityBorder: '#4a5568',
+          attributeBkg: '#2d3748',
+          attributeBorder: '#4a5568',
+          relationshipText: '#f7fafc',
+          
+          
+          gridColor: '#4a5568',
+          scaleBarColor: '#4a5568',
+          barColor: '#4299e1',
+          barBorderColor: '#63b3ed',
+          todayLineColor: '#f6ad55',
+          
+          
+          git0: '#4299e1',
+          git1: '#48bb78',
+          git2: '#ed8936',
+          git3: '#9f7aea',
+          git4: '#ed64a6',
+          git5: '#38b2ac',
+          git6: '#f6ad55',
+          git7: '#68d391',
+          gitInv0: '#2d3748',
+          gitInv1: '#2d3748',
+          gitInv2: '#2d3748',
+          gitInv3: '#2d3748',
+          gitInv4: '#2d3748',
+          gitInv5: '#2d3748',
+          gitInv6: '#2d3748',
+          gitInv7: '#2d3748',
+          
+          
+          mindmapPrimary: '#4299e1',
+          mindmapSecondary: '#48bb78',
+          mindmapTertiary: '#ed8936',
+          
+          
+          errorTextColor: '#fc8181',
+          warningTextColor: '#f6ad55',
+          infoTextColor: '#63b3ed',
+          
+          
+          edgeLabelBackground: '#1a202c',
+          
+          
+          edgeLabelBackground: '#2d3748',
+          
+          
+          classLabel: '#f7fafc',
+          dividerColor: '#4a5568',
+          
+          
+          dividerColor: '#4a5568',
+          
+          
+          dividerColor: '#4a5568',
+          
+          
+          fontFamily: '"Douyin Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
+          fontSize: '16px'
+        },
+        fontFamily: '"Douyin Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
+        fontSize: 16,
+        flowchart: {
+          useMaxWidth: true,
+          htmlLabels: true,
+          curve: 'basis'
+        },
+        sequence: {
+          useMaxWidth: true
+        },
+        journey: {
+          useMaxWidth: true
+        },
+        pie: {
+          useMaxWidth: true
+        },
+        gantt: {
+          useMaxWidth: true
+        },
+        git: {
+          useMaxWidth: true
+        },
+        mindmap: {
+          useMaxWidth: true
+        }
+      });
+    } else {
+      
+      mermaid.initialize({
+        startOnLoad: false,
+        theme: 'default',
+        themeVariables: {
+          primaryColor: '#007bff',
+          primaryTextColor: '#333',
+          primaryBorderColor: '#007bff',
+          lineColor: '#666',
+          secondaryColor: '#f8f9fa',
+          tertiaryColor: '#e9ecef'
+        },
+        fontFamily: '"Douyin Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
+        fontSize: 16,
+        flowchart: {
+          useMaxWidth: true,
+          htmlLabels: true,
+          curve: 'basis'
+        }
+      });
+    }
+    
+    
+    document.querySelectorAll('.mermaid').forEach(function(element) {
+      if (!element.dataset.original) {
+        element.dataset.original = element.textContent.trim();
+      }
+    });
+    
+    
+    return mermaid.run();
+  }
+
+  
+  document.addEventListener('DOMContentLoaded', function() {
+    
+    initializeMermaid();
+    
+    
+    logThemeInfo();
+    
+    
+    const darkModeToggle = document.getElementById('dark-mode-toggle');
+    if (darkModeToggle) {
+      darkModeToggle.addEventListener('click', function() {
+        
+        document.querySelectorAll('.mermaid').forEach(function(element) {
+          element.classList.add('reloading');
+        });
+        
+        
+        setTimeout(function() {
+          
+          document.querySelectorAll('.mermaid').forEach(function(element) {
+            
+            if (!element.dataset.original) {
+              element.dataset.original = element.textContent.trim();
+            }
+            
+            
+            element.innerHTML = '';
+            
+            
+            element.textContent = element.dataset.original;
+            
+            
+            element.removeAttribute('data-processed');
+          });
+          
+          
+          console.log('[Mermaid] Theme changed, reinitializing...');
+          
+          
+          initializeMermaid().then(function() {
+            
+            document.querySelectorAll('.mermaid').forEach(function(element) {
+              element.classList.remove('reloading');
+            });
+          });
+        }, 250);
+      });
+    }
+  });
+</script>
+<link rel='stylesheet' href='https://chinese-fonts-cdn.deno.dev/packages/dymh/dist/DouyinSansBold/result.css' />
+
+
+    </head>
+    <body class="
+    article-page
+    ">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky ">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="切换菜单">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header>
+        
+            
+            <figure class="site-avatar">
+                <a href="/public/">
+                
+                    
+                    
+                    
+                        
+                        <img src="/public/img/avatar_hu_9c50848f93c56cbf.jpeg" width="300"
+                            height="296" class="site-logo" loading="lazy" alt="Avatar">
+                    
+                
+                </a>
+                
+                    <span class="emoji">🤓</span>
+                
+            </figure>
+            
+        
+        
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/public">Henry Zhang</a></h1>
+            <h2 class="site-description">Driven by Wonder, Powered by Knowledge.🤓</h2>
+        </div>
+    </header><ol class="menu-social">
+            
+                <li>
+                    <a 
+                        href='https://github.com/Gzmomo001'
+                        target="_blank"
+                        title="GitHub"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+        </ol><ol class="menu" id="main-menu">
+        
+        
+        
+        <li >
+            <a href='/public/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="5 12 3 12 12 3 21 12 19 12" />
+  <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
+  <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
+</svg>
+
+
+
+                
+                <span>Home</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/public/about-me/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="7" r="4" />
+  <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
+</svg>
+
+
+
+                
+                <span>About me</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/public/archives/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <rect x="3" y="4" width="18" height="4" rx="2" />
+  <path d="M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-10" />
+  <line x1="10" y1="12" x2="14" y2="12" />
+</svg>
+
+
+
+                
+                <span>Archives</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/public/search/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="10" cy="10" r="7" />
+  <line x1="21" y1="21" x2="15" y2="15" />
+</svg>
+
+
+
+                
+                <span>Search</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/public/some-useful-links/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-link" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5" />
+  <path d="M14 10a3.5 3.5 0 0 0 -5 0l-4 4a3.5 3.5 0 0 0 5 5l.5 -.5" />
+</svg>
+
+
+
+                
+                <span>Some Useful Links</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/public/update-logs/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                
+                <span>Update Logs</span>
+            </a>
+        </li>
+        
+        <li class="menu-bottom-section">
+            <ol class="menu">
+
+                
+                    <li id="dark-mode-toggle">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <span>暗色模式</span>
+                    </li>
+                
+            </ol>
+        </li>
+    </ol>
+</aside>
+
+    <aside class="sidebar right-sidebar sticky">
+        
+        
+            
+        
+
+        
+        
+            
+                
+                    
+    <section class="widget archives">
+        <div class="widget-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+        </div>
+        <h2 class="widget-title section-title">目录</h2>
+        
+        <div class="widget--toc">
+            <nav id="TableOfContents">
+  <ol>
+    <li><a href="#日志和监控linux-的体检医生">日志和监控：Linux 的体检医生</a>
+      <ol>
+        <li><a href="#引言">引言</a></li>
+        <li><a href="#系统日志概述">系统日志概述</a>
+          <ol>
+            <li><a href="#日志的重要性">日志的重要性</a></li>
+            <li><a href="#日志位置">日志位置</a></li>
+            <li><a href="#日志级别">日志级别</a></li>
+          </ol>
+        </li>
+        <li><a href="#journald">journald</a>
+          <ol>
+            <li><a href="#journald-简介">journald 简介</a></li>
+            <li><a href="#journalctl-命令">journalctl 命令</a></li>
+            <li><a href="#持久化日志">持久化日志</a></li>
+          </ol>
+        </li>
+        <li><a href="#rsyslog">rsyslog</a>
+          <ol>
+            <li><a href="#rsyslog-简介">rsyslog 简介</a></li>
+            <li><a href="#配置示例">配置示例</a></li>
+            <li><a href="#日志轮转logrotate">日志轮转（logrotate）</a></li>
+          </ol>
+        </li>
+        <li><a href="#系统监控工具">系统监控工具</a>
+          <ol>
+            <li><a href="#tophtop">top/htop</a></li>
+            <li><a href="#vmstat">vmstat</a></li>
+            <li><a href="#iostat">iostat</a></li>
+            <li><a href="#pidstat">pidstat</a></li>
+            <li><a href="#ssnetstat">ss/netstat</a></li>
+          </ol>
+        </li>
+        <li><a href="#性能分析">性能分析</a>
+          <ol>
+            <li><a href="#cpu-性能">CPU 性能</a></li>
+            <li><a href="#内存性能">内存性能</a></li>
+            <li><a href="#磁盘-io">磁盘 I/O</a></li>
+            <li><a href="#网络性能">网络性能</a></li>
+          </ol>
+        </li>
+        <li><a href="#实战脚本">实战脚本</a>
+          <ol>
+            <li><a href="#系统健康检查">系统健康检查</a></li>
+            <li><a href="#性能监控脚本">性能监控脚本</a></li>
+          </ol>
+        </li>
+        <li><a href="#总结">总结</a>
+          <ol>
+            <li><a href="#核心工具">核心工具</a></li>
+            <li><a href="#实践技能">实践技能</a></li>
+            <li><a href="#最佳实践">最佳实践</a></li>
+          </ol>
+        </li>
+      </ol>
+    </li>
+  </ol>
+</nav>
+        </div>
+    </section>
+
+                
+            
+        
+    </aside>
+
+
+
+            <main class="main full-width">
+    <article class="has-image main-article">
+    <header class="article-header">
+        <div class="article-image">
+            <a href="/public/p/%E6%97%A5%E5%BF%97%E5%92%8C%E7%9B%91%E6%8E%A7linux-%E7%9A%84%E4%BD%93%E6%A3%80%E5%8C%BB%E7%94%9F/">
+                
+                    <img src="/public/default.jpeg" loading="lazy" alt="Featured image of post 日志和监控：Linux 的体检医生" />
+                
+            </a>
+        </div>
+    
+
+    <div class="article-details">
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/public/p/%E6%97%A5%E5%BF%97%E5%92%8C%E7%9B%91%E6%8E%A7linux-%E7%9A%84%E4%BD%93%E6%A3%80%E5%8C%BB%E7%94%9F/">日志和监控：Linux 的体检医生</a>
+        </h2>
+    
+        
+        <h3 class="article-subtitle">
+            掌握 Linux 系统日志、journald、rsyslog、系统监控工具以及性能分析方法
+        </h3>
+        
+    </div>
+
+    
+    
+    
+    
+    <footer class="article-time">
+        <div class="article-metadata">
+            
+            <div class="article-category">
+                
+                    
+                    
+                    <a href="/public/categories/notes/" class="category-link" style="background-color: #704400; color: #ffffff;">
+                        Notes
+                    </a>
+                
+            </div>
+            
+
+            
+            <div class="article-tags">
+                
+                    
+                    
+                    <a href="/public/tags/linux/" class="tag-link" style="color: #ffffff; border: 1px solid #83ad85; background-color: #83ad8520;">
+                        #Linux
+                    </a>
+                
+                    
+                    
+                    <a href="/public/tags/%E6%97%A5%E5%BF%97%E7%AE%A1%E7%90%86/" class="tag-link" style="color: #ffffff; border: 1px solid #981b55; background-color: #981b5520;">
+                        #日志管理
+                    </a>
+                
+                    
+                    
+                    <a href="/public/tags/%E7%B3%BB%E7%BB%9F%E7%9B%91%E6%8E%A7/" class="tag-link" style="color: #ffffff; border: 1px solid #2a1009; background-color: #2a100920;">
+                        #系统监控
+                    </a>
+                
+                    
+                    
+                    <a href="/public/tags/%E6%80%A7%E8%83%BD%E5%88%86%E6%9E%90/" class="tag-link" style="color: #ffffff; border: 1px solid #16ed62; background-color: #16ed6220;">
+                        #性能分析
+                    </a>
+                
+            </div>
+            
+        </div>
+
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">2026-01-11</time>
+            </div>
+        <div class="article-lastmod">
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+                <time>
+                    Jan 11, 2026 16:57 UTC
+                </time>
+            </div>
+    </footer>
+    
+
+    
+</div>
+
+</header>
+
+    <section class="article-content">
+    
+    
+    <h1 id="日志和监控linux-的体检医生">日志和监控：Linux 的体检医生
+</h1><h2 id="引言">引言
+</h2><p>日志和监控是 Linux 系统管理的眼睛和耳朵。通过日志，我们可以了解系统发生了什么；通过监控，我们可以知道系统正在做什么。在这篇文章中，我们将系统学习 Linux 的日志管理和系统监控。</p>
+<h2 id="系统日志概述">系统日志概述
+</h2><h3 id="日志的重要性">日志的重要性
+</h3><pre class="mermaid">
+  flowchart TD
+    A[系统事件] --&gt; B[记录日志]
+    B --&gt; C[故障排查]
+    B --&gt; D[性能分析]
+    B --&gt; E[安全审计]
+    B --&gt; F[合规要求]
+
+    style B fill:#fff3e0
+    style C fill:#ffebee
+    style D fill:#e8f5e9
+    style E fill:#fff3e0
+    style F fill:#e3f2fd
+</pre>
+
+<h3 id="日志位置">日志位置
+</h3>
+
+
+
+
+<div class="highlight highlight-bash">
+  <pre>
+    <code class="language-bash" data-lang="bash"># 传统 syslog 日志位置
+/var/log/syslog          # 系统日志（Debian/Ubuntu）
+/var/log/messages        # 系统日志（RHEL/CentOS）
+/var/log/auth.log        # 认证日志
+/var/log/kern.log        # 内核日志
+/var/log/boot.log        # 启动日志
+/var/log/dmesg           # 启动时的内核消息
+
+# 应用日志
+/var/log/nginx/          # Nginx 日志
+/var/log/apache2/        # Apache 日志
+/var/log/mysql/          # MySQL 日志</code>
+  </pre>
+</div>
+
+<h3 id="日志级别">日志级别
+</h3>
+
+
+
+
+<div class="highlight highlight-bash">
+  <pre>
+    <code class="language-bash" data-lang="bash"># 严重程度从高到低：
+0 - emerg   # 紧急，系统不可用
+1 - alert   # 必须立即采取措施
+2 - crit    # 严重情况
+3 - err     # 错误
+4 - warning # 警告
+5 - notice  # 正常但重要
+6 - info    # 信息性消息
+7 - debug   # 调试信息</code>
+  </pre>
+</div>
+
+<h2 id="journald">journald
+</h2><h3 id="journald-简介">journald 简介
+</h3><p>journald 是 systemd 提供的日志服务，替代了传统的 syslog：</p>
+<pre class="mermaid">
+  flowchart LR
+    A[应用] --&gt;|日志| B[journald]
+    B --&gt;|存储| C[二进制日志]
+    B --&gt;|转发| D[rsyslog]
+    D --&gt;|存储| E[文本日志]
+
+    style B fill:#fff3e0
+    style C fill:#e3f2fd
+    style E fill:#c8e6c9
+</pre>
+
+<h3 id="journalctl-命令">journalctl 命令
+</h3>
+
+
+
+
+<div class="highlight highlight-bash">
+  <pre>
+    <code class="language-bash" data-lang="bash"># 查看所有日志
+sudo journalctl
+
+# 查看最新日志
+sudo journalctl -e
+
+# 实时跟踪日志
+sudo journalctl -f
+
+# 查看内核日志
+sudo journalctl -k
+
+# 查看特定单元的日志
+sudo journalctl -u nginx
+sudo journalctl -u sshd
+
+# 查看最近1小时的日志
+sudo journalctl --since &#34;1 hour ago&#34;
+
+# 查看特定时间段的日志
+sudo journalctl --since &#34;2026-01-10 00:00:00&#34; --until &#34;2026-01-11 00:00:00&#34;
+
+# 按优先级过滤
+sudo journalctl -p err        # 错误级别
+sudo journalctl -p notice     # 通知及以上级别
+
+# 显示详细的可读格式
+sudo journalctl -o verbose
+sudo journalctl -o json       # JSON 格式
+
+# 限制输出行数
+sudo journalctl -n 50         # 最近50行
+sudo journalctl --since today | tail -n 100</code>
+  </pre>
+</div>
+
+<h3 id="持久化日志">持久化日志
+</h3>
+
+
+
+
+<div class="highlight highlight-bash">
+  <pre>
+    <code class="language-bash" data-lang="bash"># 检查日志存储方式
+sudo journalctl --header | grep Storage
+# Storage: auto（默认，有 /var/log/journal 则持久化）
+
+# 创建持久化存储
+sudo mkdir -p /var/log/journal
+sudo systemd-tmpfiles --create --prefix /var/log/journal
+sudo systemctl restart systemd-journald
+
+# 设置日志大小限制
+sudo nano /etc/systemd/journald.conf
+# SystemMaxUse=500M
+# RuntimeMaxUse=100M</code>
+  </pre>
+</div>
+
+<h2 id="rsyslog">rsyslog
+</h2><h3 id="rsyslog-简介">rsyslog 简介
+</h3><p>rsyslog 是传统的 syslog 守护进程，功能强大：</p>
+
+
+
+
+
+<div class="highlight highlight-bash">
+  <pre>
+    <code class="language-bash" data-lang="bash"># 检查 rsyslog 状态
+sudo systemctl status rsyslog
+
+# 配置文件
+/etc/rsyslog.conf           # 主配置文件
+/etc/rsyslog.d/*.conf       # 额外配置</code>
+  </pre>
+</div>
+
+<h3 id="配置示例">配置示例
+</h3>
+
+
+
+
+<div class="highlight highlight-bash">
+  <pre>
+    <code class="language-bash" data-lang="bash"># /etc/rsyslog.d/myapp.conf
+
+# 记录特定应用的日志
+if $programname == &#39;myapp&#39; then /var/log/myapp.log
+&amp; stop
+
+# 记录到远程服务器
+*.* @@192.168.1.100:514
+
+# 根据严重程度记录
+*.err /var/log/errors.log
+*.warn /var/log/warnings.log</code>
+  </pre>
+</div>
+
+<h3 id="日志轮转logrotate">日志轮转（logrotate）
+</h3>
+
+
+
+
+<div class="highlight highlight-bash">
+  <pre>
+    <code class="language-bash" data-lang="bash"># 配置文件
+/etc/logrotate.conf          # 全局配置
+/etc/logrotate.d/*           # 应用配置
+
+# 查看特定配置
+cat /etc/logrotate.d/nginx
+
+# 示例配置
+/var/log/nginx/*.log {
+    daily                   # 每天轮转
+    missingok               # 文件不存在不报错
+    rotate 14               # 保留14天
+    compress                # 压缩旧日志
+    delaycompress           # 延迟一天压缩
+    notifempty              # 空文件不轮转
+    create 0640 www-data adm
+    sharedscripts
+    postrotate
+        [ -f /var/run/nginx.pid ] &amp;&amp; kill -USR1 `cat /var/run/nginx.pid`
+    endscript
+}
+
+# 手动执行
+sudo logrotate -f /etc/logrotate.conf
+
+# 调试模式
+sudo logrotate -d /etc/logrotate.conf</code>
+  </pre>
+</div>
+
+<h2 id="系统监控工具">系统监控工具
+</h2><h3 id="tophtop">top/htop
+</h3>
+
+
+
+
+<div class="highlight highlight-bash">
+  <pre>
+    <code class="language-bash" data-lang="bash"># top
+top
+# 按 P：按 CPU 排序
+# 按 M：按内存排序
+# 按 T：按时间排序
+# 按 k：杀死进程
+# 按 r：renice
+
+# htop（更友好）
+htop
+# F1-F10：功能键
+# /：搜索进程
+# F9：调整优先级
+# F6：排序方式</code>
+  </pre>
+</div>
+
+<h3 id="vmstat">vmstat
+</h3>
+
+
+
+
+<div class="highlight highlight-bash">
+  <pre>
+    <code class="language-bash" data-lang="bash"># 虚拟内存统计
+vmstat 2 5                 # 每2秒输出一次，共5次
+
+# 输出解释：
+# procs -----------memory---------- ---swap-- -----io---- -system-- ------cpu-----
+# r  b   swpd   free   buff  cache   si   so    bi    bo   in   cs us sy id wa st
+# 1  0      0 123456  12345 234567    0    0     2     3   10   20  5  2 92  1  0
+
+# r: 等待运行的进程数
+# b: 不可中断睡眠的进程数
+# swpd: 使用的交换空间
+# free: 空闲内存
+# buff: 缓冲区
+# cache: 缓存
+# si/so: 换入/换出
+# bi/bo: 块输入/输出
+# cs: 上下文切换
+# us/sy/id/wa: 用户/系统/空闲/等待 CPU 时间</code>
+  </pre>
+</div>
+
+<h3 id="iostat">iostat
+</h3>
+
+
+
+
+<div class="highlight highlight-bash">
+  <pre>
+    <code class="language-bash" data-lang="bash"># 安装
+sudo apt install sysstat
+
+# I/O 统计
+iostat -x 2 3
+
+# 输出解释：
+# avg-cpu:  %user   %nice %system %iowait  %steal   %idle
+#            5.23    0.00    2.15    1.05    0.00   91.57
+
+# Device:         rrqm/s   wrqm/s     r/s     w/s    rMB/s    wMB/s avgrq-sz avgqu-sz   await r_await w_await  svctm  %util
+# sda               0.10     5.20   10.50   20.30     0.50     1.20    80.00     0.50   15.20   10.50   16.30   2.50   7.75
+
+# rrqm/s: 每秒合并的读请求数
+# wrqm/s: 每秒合并的写请求数
+# r/s: 每秒读请求数
+# w/s: 每秒写请求数
+# await: 平均 I/O 等待时间
+# %util: 设备利用率</code>
+  </pre>
+</div>
+
+<h3 id="pidstat">pidstat
+</h3>
+
+
+
+
+<div class="highlight highlight-bash">
+  <pre>
+    <code class="language-bash" data-lang="bash"># 进程统计
+pidstat 2 5                 # 每2秒输出一次，共5次
+
+# CPU 使用
+pidstat -u -p 1234 1
+
+# 内存使用
+pidstat -r -p 1234 1
+
+# 上下文切换
+pidstat -w -p 1234 1
+
+# 线程统计
+pidstat -t -p 1234 1</code>
+  </pre>
+</div>
+
+<h3 id="ssnetstat">ss/netstat
+</h3>
+
+
+
+
+<div class="highlight highlight-bash">
+  <pre>
+    <code class="language-bash" data-lang="bash"># 网络统计
+ss -s                      # 套接字摘要
+ss -tunlp                  # 所有监听端口
+ss -tunlp | grep :80       # 查找特定端口
+
+# netstat（旧工具）
+netstat -tunlp             # 所有监听端口
+netstat -an                # 所有连接
+netstat -s                 # 统计信息</code>
+  </pre>
+</div>
+
+<h2 id="性能分析">性能分析
+</h2><h3 id="cpu-性能">CPU 性能
+</h3>
+
+
+
+
+<div class="highlight highlight-bash">
+  <pre>
+    <code class="language-bash" data-lang="bash"># 检查 CPU 数量
+nproc
+lscpu
+
+# 查看 CPU 使用率
+top -bn1 | grep &#34;Cpu(s)&#34;
+mpstat -P ALL 1
+
+# 找出 CPU 消耗高的进程
+ps aux --sort=-%cpu | head -10
+
+# 查看每个 CPU 的负载
+mpstat -P ALL 1 5
+
+# 检查 CPU 亲和性
+taskset -c -p 1234</code>
+  </pre>
+</div>
+
+<h3 id="内存性能">内存性能
+</h3>
+
+
+
+
+<div class="highlight highlight-bash">
+  <pre>
+    <code class="language-bash" data-lang="bash"># 查看内存使用
+free -h
+cat /proc/meminfo
+
+# 查看进程内存使用
+ps aux --sort=-%mem | head -10
+smem -s memory             # 更准确的内存统计
+
+# 检查内存泄漏
+valgrind --leak-check=full ./myapp
+
+# 交换空间使用
+swapon -s
+vmstat 1 5 | grep si</code>
+  </pre>
+</div>
+
+<h3 id="磁盘-io">磁盘 I/O
+</h3>
+
+
+
+
+<div class="highlight highlight-bash">
+  <pre>
+    <code class="language-bash" data-lang="bash"># 查看磁盘使用
+df -h
+du -sh * | sort -hr | head -10
+
+# 磁盘 I/O 性能
+iostat -x 1 5
+
+# 查找 I/O 密集的进程
+iotop
+pidstat -d 1
+
+# 磁盘速度测试
+dd if=/dev/zero of=testfile bs=1G count=1 oflag=direct</code>
+  </pre>
+</div>
+
+<h3 id="网络性能">网络性能
+</h3>
+
+
+
+
+<div class="highlight highlight-bash">
+  <pre>
+    <code class="language-bash" data-lang="bash"># 网络带宽
+iftop                     # 实时带宽使用
+nethogs                   # 按进程显示
+speedtest-cli             # 网速测试
+
+# 网络连接统计
+ss -s
+netstat -an | wc -l
+
+# 抓包分析
+tcpdump -i eth0 -w capture.pcap
+wireshark capture.pcap</code>
+  </pre>
+</div>
+
+<h2 id="实战脚本">实战脚本
+</h2><h3 id="系统健康检查">系统健康检查
+</h3>
+
+
+
+
+<div class="highlight highlight-bash">
+  <pre>
+    <code class="language-bash" data-lang="bash">#!/bin/bash
+# health_check.sh
+
+echo &#34;=== System Health Check ===&#34;
+echo &#34;Time: $(date)&#34;
+echo &#34;&#34;
+
+# CPU 使用率
+echo &#34;--- CPU Usage ---&#34;
+CPU_IDLE=$(top -bn1 | grep &#34;Cpu(s)&#34; | awk &#39;{print $8}&#39; | cut -d&#39;%&#39; -f1)
+CPU_USED=$(echo &#34;100 - $CPU_IDLE&#34; | bc)
+echo &#34;CPU Used: ${CPU_USED}%&#34;
+
+if (( $(echo &#34;$CPU_USED &gt; 80&#34; | bc -l) )); then
+    echo &#34;⚠️  WARNING: High CPU usage!&#34;
+fi
+
+# 内存使用
+echo &#34;&#34;
+echo &#34;--- Memory Usage ---&#34;
+MEM_INFO=$(free -m | awk &#39;NR==2{printf &#34;%.2f&#34;, $3*100/$2}&#39;)
+echo &#34;Memory Used: ${MEM_INFO}%&#34;
+
+if (( $(echo &#34;$MEM_INFO &gt; 80&#34; | bc -l) )); then
+    echo &#34;⚠️  WARNING: High memory usage!&#34;
+fi
+
+# 磁盘使用
+echo &#34;&#34;
+echo &#34;--- Disk Usage ---&#34;
+df -h | grep -E &#39;^/dev/&#39; | while read line; do
+    USAGE=$(echo $line | awk &#39;{print $5}&#39; | cut -d&#39;%&#39; -f1)
+    MOUNT=$(echo $line | awk &#39;{print $6}&#39;)
+
+    echo &#34;$MOUNT: ${USAGE}%&#34;
+
+    if [ $USAGE -gt 80 ]; then
+        echo &#34;⚠️  WARNING: $MOUNT is ${USAGE}% full!&#34;
+    fi
+done
+
+# 系统负载
+echo &#34;&#34;
+echo &#34;--- System Load ---&#34;
+UPTIME=$(uptime | awk -F&#39;load average:&#39; &#39;{print $2}&#39;)
+echo &#34;Load Average:$UPTIME&#34;
+
+# 错误日志
+echo &#34;&#34;
+echo &#34;--- Recent Errors ---&#34;
+journalctl -p err -n 5 --no-pager</code>
+  </pre>
+</div>
+
+<h3 id="性能监控脚本">性能监控脚本
+</h3>
+
+
+
+
+<div class="highlight highlight-bash">
+  <pre>
+    <code class="language-bash" data-lang="bash">#!/bin/bash
+# performance_monitor.sh
+
+OUTPUT_FILE=&#34;performance_$(date &#43;%Y%m%d_%H%M%S).log&#34;
+
+echo &#34;Timestamp,CPU%,Memory%,Disk%,Network_RX,Network_TX&#34; &gt; $OUTPUT_FILE
+
+while true; do
+    # CPU
+    CPU=$(top -bn1 | grep &#34;Cpu(s)&#34; | awk &#39;{print $2}&#39; | cut -d&#39;%&#39; -f1)
+
+    # Memory
+    MEM=$(free | awk &#39;NR==2{printf &#34;%.2f&#34;, $3*100/$2}&#39;)
+
+    # Disk (根分区)
+    DISK=$(df / | awk &#39;NR==2{print $5}&#39; | cut -d&#39;%&#39; -f1)
+
+    # Network
+    NET_RX=$(cat /sys/class/net/eth0/statistics/rx_bytes)
+    NET_TX=$(cat /sys/class/net/eth0/statistics/tx_bytes)
+
+    echo &#34;$(date &#43;%s),$CPU,$MEM,$DISK,$NET_RX,$NET_TX&#34; &gt;&gt; $OUTPUT_FILE
+
+    sleep 1
+done</code>
+  </pre>
+</div>
+
+<h2 id="总结">总结
+</h2><p>日志和监控是系统管理的关键技能。通过这篇文章，我们学习了：</p>
+<h3 id="核心工具">核心工具
+</h3><ol>
+<li><strong>journald</strong>：systemd 日志服务</li>
+<li><strong>rsyslog</strong>：传统日志守护进程</li>
+<li><strong>logrotate</strong>：日志轮转</li>
+<li><strong>top/htop</strong>：进程监控</li>
+<li><strong>vmstat/iostat</strong>：性能统计</li>
+</ol>
+<h3 id="实践技能">实践技能
+</h3><ul>
+<li>使用 <code>journalctl</code> 查询系统日志</li>
+<li>配置日志轮转策略</li>
+<li>分析 CPU、内存、磁盘、网络性能</li>
+<li>编写监控脚本</li>
+</ul>
+<h3 id="最佳实践">最佳实践
+</h3><ol>
+<li><strong>定期检查日志</strong>：建立日志审查习惯</li>
+<li><strong>设置告警</strong>：异常情况及时通知</li>
+<li><strong>保留历史数据</strong>：便于趋势分析</li>
+<li><strong>自动化监控</strong>：减少人工干预</li>
+</ol>
+<blockquote>
+<p>&ldquo;You can&rsquo;t improve what you don&rsquo;t measure.&rdquo; — Peter Drucker</p>
+</blockquote>
+<p>监控和日志管理是系统稳定运行的保障。掌握这些工具，让你的 Linux 系统管理更上一层楼！</p>
+<hr>
+<p><strong>← 返回系列概述</strong>: <a class="link" href="/public/p/linux-%E6%A6%82%E8%BF%B0%E4%BB%8E-unix-%E5%88%B0%E5%BC%80%E6%BA%90%E9%9D%A9%E5%91%BD/" >Linux 概述：从 Unix 到开源革命</a></p>
+<hr>
+<p><strong>参考资源</strong>：</p>
+<ul>
+<li><a class="link" href="https://man7.org/linux/man-pages/man1/journalctl.1.html"  target="_blank" rel="noopener"
+    >journalctl 手册</a></li>
+<li><a class="link" href="https://www.rsyslog.com/doc/"  target="_blank" rel="noopener"
+    >rsyslog 官方文档</a></li>
+<li><a class="link" href="http://www.brendangregg.com/linuxperf.html"  target="_blank" rel="noopener"
+    >Linux Performance Tools</a></li>
+<li><a class="link" href="https://github.com/sysstat/sysstat"  target="_blank" rel="noopener"
+    >sysstat 官方文档</a></li>
+</ul>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+
+    
+    <section class="article-copyright">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <path d="M14.5 9a3.5 4 0 1 0 0 6" />
+</svg>
+
+
+
+        <span>A winner is just a loser who tried one more time.</span>
+    </section>
+    
+
+    
+</footer>
+
+
+    
+        <link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css"integrity="sha384-n8MVd4RsNIU0tAv4ct0nTaAbDJwPJzDEaqSD1odI&#43;WdtXRGWt2kTvGFasHpSy3SV"crossorigin="anonymous"
+            ><script 
+                src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"integrity="sha384-XjKyOOlGwcjNTAIQHIpgOno0Hl1YQqzUOEleOLALmuqehneUG&#43;vnGctmUb0ZY0l8"crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"integrity="sha384-&#43;VBxd3r6XgURycqtZ117nYw44OOcIax56Z4dCRWbxyPt0Koah1uHoK0o4&#43;/RRE05"crossorigin="anonymous"
+                defer
+                >
+            </script><script>
+    window.addEventListener("DOMContentLoaded", () => {
+	const mainArticleElement = document.querySelector(".main-article");
+        renderMathInElement(mainArticleElement, {
+            delimiters: [
+                { left: "$$", right: "$$", display: true },
+                { left: "$", right: "$", display: false },
+                { left: "\\(", right: "\\)", display: false },
+                { left: "\\[", right: "\\]", display: true }
+            ],
+            ignoredClasses: ["gist"]
+        });})
+</script>
+
+    
+</article>
+
+    
+
+    
+
+<aside class="related-content--wrapper">
+    <h2 class="section-title">相关文章</h2>
+    <div class="related-content">
+        <div class="flex article-list--tile">
+            
+                
+<article class="has-image">
+    <a href="/public/p/%E8%BD%AF%E4%BB%B6%E5%8C%85%E7%AE%A1%E7%90%86linux-%E7%9A%84%E5%BA%94%E7%94%A8%E5%95%86%E5%BA%97/">
+        
+        
+            <div class="article-image">
+                
+                    <img src="/public/default.jpeg" loading="lazy" data-key="" data-hash="/public/default.jpeg"/>
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">软件包管理：Linux 的应用商店</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="/public/p/%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9Flinux-%E7%9A%84%E6%95%B0%E6%8D%AE%E5%AE%AB%E6%AE%BF/">
+        
+        
+            <div class="article-image">
+                
+                    <img src="/public/default.jpeg" loading="lazy" data-key="" data-hash="/public/default.jpeg"/>
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">文件系统：Linux 的数据宫殿</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="/public/p/%E8%BF%9B%E7%A8%8B%E7%AE%A1%E7%90%86linux-%E7%9A%84%E7%94%9F%E5%91%BD%E7%BA%BF/">
+        
+        
+            <div class="article-image">
+                
+                    <img src="/public/default.jpeg" loading="lazy" data-key="" data-hash="/public/default.jpeg"/>
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">进程管理：Linux 的生命线</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="/public/p/shell-%E5%92%8C%E5%91%BD%E4%BB%A4%E8%A1%8Clinux-%E7%9A%84%E6%8E%A7%E5%88%B6%E5%8F%B0/">
+        
+        
+            <div class="article-image">
+                
+                    <img src="/public/default.jpeg" loading="lazy" data-key="" data-hash="/public/default.jpeg"/>
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Shell 和命令行：Linux 的控制台</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="/public/p/linux-%E5%86%85%E6%A0%B8%E6%9E%B6%E6%9E%84%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E7%9A%84%E6%A0%B8%E5%BF%83/">
+        
+        
+            <div class="article-image">
+                
+                    <img src="/public/default.jpeg" loading="lazy" data-key="" data-hash="/public/default.jpeg"/>
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Linux 内核架构：操作系统的核心</h2>
+        </div>
+    </a>
+</article>
+
+            
+        </div>
+    </div>
+</aside>
+
+     
+    
+        
+    <script
+    src="https://giscus.app/client.js"
+    data-repo="Gzmomo001/Gzmomo001.github.io"
+    data-repo-id="R_kgDOOuLpRA"
+    data-category="General"
+    data-category-id="DIC_kwDOOuLpRM4Cr0Pz"
+    data-mapping="pathname"
+    data-strict="0"
+    data-reactions-enabled="1"
+    data-emit-metadata="0"
+    data-input-position="top"
+    data-theme="light"
+    data-lang="en"
+    data-loading=""
+    crossorigin="anonymous"
+    async
+></script>
+<script>
+    function setGiscusTheme(theme) {
+        let giscus = document.querySelector("iframe.giscus-frame");
+        if (giscus) {
+            giscus.contentWindow.postMessage(
+                {
+                    giscus: {
+                        setConfig: {
+                            theme: theme,
+                        },
+                    },
+                },
+                "https://giscus.app"
+            );
+        }
+    }
+
+    (function () {
+        addEventListener("message", (e) => {
+            if (event.origin !== "https://giscus.app") return;
+            handler();
+        });
+        window.addEventListener("onColorSchemeChange", handler);
+
+        function handler() {
+            if (document.documentElement.dataset.scheme === "light") {
+                setGiscusTheme('light');
+            } else {
+                setGiscusTheme('dark_dimmed');
+            }
+        }
+    })();
+</script>
+
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+            2025 - 
+        
+        2026 blog@mail.henry070.org
+    </section>
+    
+    <section class="powerby">
+        
+            Robust AI <br/>
+        使用 <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> 构建 <br />
+        主题 <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.30.0">Stack</a></b> 由 <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a> 设计
+    </section>
+</footer>
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css"crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css"crossorigin="anonymous"
+            >
+
+            </main>
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
+                
+                >
+            </script><script type="text/javascript" src="/public/ts/main.c922af694cc257bf1ecc41c0dd7b0430f9114ec280ccf67cd2c6ad55f5316c4e.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+<style>
+    #TableOfContents > ul, ol {
+        ul, ol {
+            display: none;
+        }
+        .open {
+            display: block;
+        }
+    }
+</style>
+
+<script>
+    function initTocHide() {
+        
+        let toc = document.querySelector(".widget--toc");
+        if (!toc) {
+            return;
+        }
+        
+        window.addEventListener('scroll', function() {
+            
+            let openUl = document.querySelectorAll(".open");
+            if (openUl.length > 0) {
+              openUl.forEach((ul) => {
+                ul.classList.remove("open")
+              })
+            }
+            
+            let currentLi = document.querySelector(".active-class");
+            if (!currentLi) {
+                return
+            }
+            
+            if (currentLi.children.length > 1) {
+                currentLi.children[1].classList.add("open")
+            }
+            
+            let ul = currentLi.parentElement;
+            do {
+                ul.classList.add("open");
+                ul = ul.parentElement.parentElement
+            } while (ul !== undefined && (ul.localName === 'ul' || ul.localName === 'ol'))
+        });
+    }
+    initTocHide()
+</script>
+
+<style>
+    #backTopBtn {
+        display: none;
+        position: fixed;
+        bottom: 30px;
+         
+        z-index: 99;
+        cursor: pointer;
+        width: 40px;
+        height: 40px;
+        background-color: #666;
+        border-radius: 50%;
+        text-align: center;
+        line-height: 40px;
+        font-size: 25px;
+        color: white;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+        transition: background-color 0.3s;
+    }
+    
+    #backTopBtn:hover {
+        background-color: #333;
+    }
+    
+    #backTopBtn .arrow-icon {
+        display: none;
+    }
+    
+    #backTopBtn .backtop-svg {
+        width: 24px;
+        height: 24px;
+        margin: 8px;
+        fill: white;
+    }
+</style>
+
+
+<script>
+    
+
+    function initScrollTop() {
+        let rightSideBar = document.querySelector(".right-sidebar");
+        if (!rightSideBar) {
+            return;
+        }
+        
+        let btn = document.createElement("div");
+        btn.id = "backTopBtn";
+        btn.innerHTML = '<span class="arrow-icon"></span>' +
+                        '<svg class="backtop-svg" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="15764">' +
+                        '<path d="M512 938.666667c-59.733333 0-123.733333-2.133333-185.6-4.266667l-32-2.133333c-108.8-6.4-194.133333-91.733333-200.533333-200.533334C87.466667 648.533333 85.333333 576 85.333333 512c0-59.733333 2.133333-125.866667 6.4-202.666667v-17.066666c6.4-108.8 91.733333-194.133333 200.533334-200.533334 76.8-4.266667 149.333333-6.4 219.733333-6.4 59.733333 0 123.733333 2.133333 185.6 4.266667l32 2.133333c108.8 6.4 194.133333 91.733333 200.533333 200.533334 6.4 83.2 8.533333 155.733333 8.533334 219.733333 0 59.733333-2.133333 125.866667-6.4 202.666667v17.066666c-6.4 108.8-91.733333 194.133333-200.533334 200.533334-76.8 4.266667-149.333333 6.4-219.733333 6.4z m0-224c17.066667 0 32-14.933333 32-32V430.933333l96 96c12.8 12.8 32 12.8 44.8 0 12.8-12.8 12.8-32 0-44.8l-153.6-153.6c-6.4-6.4-8.533333-8.533333-12.8-8.533333-4.266667-2.133333-8.533333-2.133333-10.666667 0-4.266667 0-6.4 2.133333-10.666666 6.4l-2.133334 2.133333-153.6 153.6c-12.8 12.8-12.8 32 0 44.8 12.8 12.8 32 12.8 44.8 0l96-96V682.666667c-2.133333 17.066667 12.8 32 29.866667 32z" fill="#ffffff" p-id="15765"></path>' +
+                        '</svg>';
+        btn.onclick = backToTop;
+        rightSideBar.appendChild(btn);
+        
+        window.onscroll = function() {
+            
+            if (document.body.scrollTop > 700 || document.documentElement.scrollTop > 700) {
+                btn.style.display = "block";
+            } else {
+                btn.style.display = "none";
+            }
+        };
+    }
+
+    
+
+    function backToTop(){
+        window.scrollTo({ top: 0, behavior: "smooth" })
+    }
+
+    initScrollTop();
+</script>
+
+<style>
+    .highlight {
+         
+        max-height: 1000px;
+        overflow: hidden;
+    }
+
+    .code-show {
+        max-height: none !important;
+    }
+
+    .code-more-box {
+        width: 100%;
+        padding-top: 120px;  
+        background-image: linear-gradient(
+            to bottom,
+            rgba(4, 6, 5, 0) 0%,
+            rgba(4, 6, 5, 0.4) 40%,
+            rgba(4, 6, 5, 0.8) 100%
+        );
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        z-index: 1;
+    }
+
+    .code-more-btn {
+        display: block;
+        margin: auto;
+        width: 44px;
+        height: 22px;
+        background: #5f5f5f;
+        border-top-left-radius: 8px;
+        border-top-right-radius: 8px;
+        padding-top: 6px;
+        cursor: pointer;
+    }
+
+    .code-more-img {
+        cursor: pointer !important;
+        display: block;
+        margin: auto;
+        width: 22px;
+        height: 16px;
+    }
+</style>
+
+<script>
+  function initCodeMoreBox() {
+    let codeBlocks = document.querySelectorAll(".highlight");
+    if (!codeBlocks) {
+      return;
+    }
+    codeBlocks.forEach(codeBlock => {
+      
+      if (codeBlock.scrollHeight <= codeBlock.clientHeight) {
+        return;
+      }
+      
+      
+      let codeMoreBox = document.createElement('div');
+      codeMoreBox.classList.add('code-more-box');
+      
+      let codeMoreBtn = document.createElement('span');
+      codeMoreBtn.classList.add('code-more-btn');
+      codeMoreBtn.addEventListener('click', () => {
+        codeBlock.classList.add('code-show');
+        codeMoreBox.style.display = 'none';
+        
+        window.dispatchEvent(new Event('resize'))
+      })
+      
+      let img = document.createElement('img');
+      img.classList.add('code-more-img');
+      img.src = "https://Gzmomo001.github.io/public/icons/down.png"
+      
+      codeMoreBtn.appendChild(img);
+      codeMoreBox.appendChild(codeMoreBtn);
+      codeBlock.appendChild(codeMoreBox)
+    })
+  }
+  
+  initCodeMoreBox();
+</script>
+
+
+
+    </body>
+</html>

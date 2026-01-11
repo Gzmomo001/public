@@ -4,574 +4,313 @@
 <meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="本博客主要教的是如何加入我的个人服务器. 但如果你想加入别人的服务器也可以参考本博客后面的内容">
 <title>MC服务器搭建 &amp; 加入</title>
 
-<link rel='canonical' href='https://Gzmomo001.github.io/p/mc%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%90%AD%E5%BB%BA-%E5%8A%A0%E5%85%A5/'>
+<link rel='canonical' href='https://Gzmomo001.github.io/public/p/mc%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%90%AD%E5%BB%BA-%E5%8A%A0%E5%85%A5/'>
 
-<link rel="stylesheet" href="/scss/style.min.f0d856d8a5610b3c0c2069a79146122abf2acb30a6b00e2bbb69c2113678b2e3.css"><meta property='og:title' content="MC服务器搭建 & 加入">
+<link rel="stylesheet" href="/public/scss/style.min.69ed452c4f70aa0bd98aa7f62758389d29493390c2f090e74cf1c607d4445e3e.css"><meta property='og:title' content="MC服务器搭建 & 加入">
 <meta property='og:description' content="本博客主要教的是如何加入我的个人服务器. 但如果你想加入别人的服务器也可以参考本博客后面的内容">
-<meta property='og:url' content='https://Gzmomo001.github.io/p/mc%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%90%AD%E5%BB%BA-%E5%8A%A0%E5%85%A5/'>
+<meta property='og:url' content='https://Gzmomo001.github.io/public/p/mc%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%90%AD%E5%BB%BA-%E5%8A%A0%E5%85%A5/'>
 <meta property='og:site_name' content='Henry Zhang'>
-<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='mc' /><meta property='article:published_time' content='2025-06-09T14:01:06&#43;08:00'/><meta property='article:modified_time' content='2025-11-25T22:17:34&#43;08:00'/><meta property='og:image' content='https://Gzmomo001.github.io/p/mc%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%90%AD%E5%BB%BA-%E5%8A%A0%E5%85%A5/image.png' />
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='mc' /><meta property='article:published_time' content='2025-06-09T14:01:06&#43;08:00'/><meta property='article:modified_time' content='2025-11-25T22:17:34&#43;08:00'/><meta property='og:image' content='https://Gzmomo001.github.io/public/p/mc%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%90%AD%E5%BB%BA-%E5%8A%A0%E5%85%A5/image.png' />
 <meta name="twitter:title" content="MC服务器搭建 & 加入">
 <meta name="twitter:description" content="本博客主要教的是如何加入我的个人服务器. 但如果你想加入别人的服务器也可以参考本博客后面的内容"><meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:image" content='https://Gzmomo001.github.io/p/mc%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%90%AD%E5%BB%BA-%E5%8A%A0%E5%85%A5/image.png' />
+    <meta name="twitter:image" content='https://Gzmomo001.github.io/public/p/mc%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%90%AD%E5%BB%BA-%E5%8A%A0%E5%85%A5/image.png' />
     <link rel="shortcut icon" href="/favicon.ico" />
-<link rel='stylesheet' href='https://chinese-fonts-cdn.deno.dev/packages/dymh/dist/DouyinSansBold/result.css' />
 
-<div class="loading">
-     
-    <div class="banter-loader">
-        <div class="banter-loader__box"></div>
-        <div class="banter-loader__box"></div>
-        <div class="banter-loader__box"></div>
-        <div class="banter-loader__box"></div>
-        <div class="banter-loader__box"></div>
-        <div class="banter-loader__box"></div>
-        <div class="banter-loader__box"></div>
-        <div class="banter-loader__box"></div>
-        <div class="banter-loader__box"></div>
-    </div>
-</div>
 
-<style>
-    .loading {
-        position: fixed;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        z-index: 99;
-        zoom: 3.0;
-        background-color: #5b5b5b;
-        display: none;
-        transition: opacity 1s ease-out; 
+<script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+<script>
+  
+  function getCurrentTheme() {
+    const colorSchemeKey = 'StackColorScheme';
+    const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+    const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+    
+    if (colorSchemeItem === 'dark' || (colorSchemeItem === 'auto' && supportDarkMode)) {
+      return 'dark';
+    } else {
+      return 'light';
     }
+  }
 
-    .loading.fade-out {
-        opacity: 0;
-    }
-	
+  
+  function logThemeInfo() {
+    const colorSchemeKey = 'StackColorScheme';
+    const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+    const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+    const documentScheme = document.documentElement.dataset.scheme;
+    
+    console.log('[Mermaid] Theme Detection:', {
+      localStorage: colorSchemeItem,
+      systemDark: supportDarkMode,
+      documentScheme: documentScheme,
+      calculatedTheme: getCurrentTheme()
+    });
+  }
+
+  
+  function initializeMermaid() {
+    const currentTheme = getCurrentTheme();
+    
+    if (currentTheme === 'dark') {
+      
+      mermaid.initialize({
+        startOnLoad: false,
+        theme: 'dark',
+        themeVariables: {
           
-    .banter-loader {
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    width: 72px;
-    height: 72px;
-    margin-left: -36px;
-    margin-top: -36px;
-    }
-
-    .banter-loader__box {
-    float: left;
-    position: relative;
-    width: 20px;
-    height: 20px;
-    margin-right: 6px;
-    }
-
-    .banter-loader__box:before {
-    content: "";
-    position: absolute;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    background: #fff;
-    }
-
-    .banter-loader__box:nth-child(3n) {
-    margin-right: 0;
-    margin-bottom: 6px;
-    }
-
-    .banter-loader__box:nth-child(1):before, .banter-loader__box:nth-child(4):before {
-    margin-left: 26px;
-    }
-
-    .banter-loader__box:nth-child(3):before {
-    margin-top: 52px;
-    }
-
-    .banter-loader__box:last-child {
-    margin-bottom: 0;
-    }
-
-    @keyframes moveBox-1 {
-    9.0909090909% {
-        transform: translate(-26px, 0);
-    }
-
-    18.1818181818% {
-        transform: translate(0px, 0);
-    }
-
-    27.2727272727% {
-        transform: translate(0px, 0);
-    }
-
-    36.3636363636% {
-        transform: translate(26px, 0);
-    }
-
-    45.4545454545% {
-        transform: translate(26px, 26px);
-    }
-
-    54.5454545455% {
-        transform: translate(26px, 26px);
-    }
-
-    63.6363636364% {
-        transform: translate(26px, 26px);
-    }
-
-    72.7272727273% {
-        transform: translate(26px, 0px);
-    }
-
-    81.8181818182% {
-        transform: translate(0px, 0px);
-    }
-
-    90.9090909091% {
-        transform: translate(-26px, 0px);
-    }
-
-    100% {
-        transform: translate(0px, 0px);
-    }
-    }
-
-    .banter-loader__box:nth-child(1) {
-    animation: moveBox-1 4s infinite;
-    }
-
-    @keyframes moveBox-2 {
-    9.0909090909% {
-        transform: translate(0, 0);
-    }
-
-    18.1818181818% {
-        transform: translate(26px, 0);
-    }
-
-    27.2727272727% {
-        transform: translate(0px, 0);
-    }
-
-    36.3636363636% {
-        transform: translate(26px, 0);
-    }
-
-    45.4545454545% {
-        transform: translate(26px, 26px);
-    }
-
-    54.5454545455% {
-        transform: translate(26px, 26px);
-    }
-
-    63.6363636364% {
-        transform: translate(26px, 26px);
-    }
-
-    72.7272727273% {
-        transform: translate(26px, 26px);
-    }
-
-    81.8181818182% {
-        transform: translate(0px, 26px);
-    }
-
-    90.9090909091% {
-        transform: translate(0px, 26px);
-    }
-
-    100% {
-        transform: translate(0px, 0px);
-    }
-    }
-
-    .banter-loader__box:nth-child(2) {
-    animation: moveBox-2 4s infinite;
-    }
-
-    @keyframes moveBox-3 {
-    9.0909090909% {
-        transform: translate(-26px, 0);
-    }
-
-    18.1818181818% {
-        transform: translate(-26px, 0);
-    }
-
-    27.2727272727% {
-        transform: translate(0px, 0);
-    }
-
-    36.3636363636% {
-        transform: translate(-26px, 0);
-    }
-
-    45.4545454545% {
-        transform: translate(-26px, 0);
-    }
-
-    54.5454545455% {
-        transform: translate(-26px, 0);
-    }
-
-    63.6363636364% {
-        transform: translate(-26px, 0);
-    }
-
-    72.7272727273% {
-        transform: translate(-26px, 0);
-    }
-
-    81.8181818182% {
-        transform: translate(-26px, -26px);
-    }
-
-    90.9090909091% {
-        transform: translate(0px, -26px);
-    }
-
-    100% {
-        transform: translate(0px, 0px);
-    }
-    }
-
-    .banter-loader__box:nth-child(3) {
-    animation: moveBox-3 4s infinite;
-    }
-
-    @keyframes moveBox-4 {
-    9.0909090909% {
-        transform: translate(-26px, 0);
-    }
-
-    18.1818181818% {
-        transform: translate(-26px, 0);
-    }
-
-    27.2727272727% {
-        transform: translate(-26px, -26px);
-    }
-
-    36.3636363636% {
-        transform: translate(0px, -26px);
-    }
-
-    45.4545454545% {
-        transform: translate(0px, 0px);
-    }
-
-    54.5454545455% {
-        transform: translate(0px, -26px);
-    }
-
-    63.6363636364% {
-        transform: translate(0px, -26px);
-    }
-
-    72.7272727273% {
-        transform: translate(0px, -26px);
-    }
-
-    81.8181818182% {
-        transform: translate(-26px, -26px);
-    }
-
-    90.9090909091% {
-        transform: translate(-26px, 0px);
-    }
-
-    100% {
-        transform: translate(0px, 0px);
-    }
-    }
-
-    .banter-loader__box:nth-child(4) {
-    animation: moveBox-4 4s infinite;
-    }
-
-    @keyframes moveBox-5 {
-    9.0909090909% {
-        transform: translate(0, 0);
-    }
-
-    18.1818181818% {
-        transform: translate(0, 0);
-    }
-
-    27.2727272727% {
-        transform: translate(0, 0);
-    }
-
-    36.3636363636% {
-        transform: translate(26px, 0);
-    }
-
-    45.4545454545% {
-        transform: translate(26px, 0);
-    }
-
-    54.5454545455% {
-        transform: translate(26px, 0);
-    }
-
-    63.6363636364% {
-        transform: translate(26px, 0);
-    }
-
-    72.7272727273% {
-        transform: translate(26px, 0);
-    }
-
-    81.8181818182% {
-        transform: translate(26px, -26px);
-    }
-
-    90.9090909091% {
-        transform: translate(0px, -26px);
-    }
-
-    100% {
-        transform: translate(0px, 0px);
-    }
-    }
-
-    .banter-loader__box:nth-child(5) {
-    animation: moveBox-5 4s infinite;
-    }
-
-    @keyframes moveBox-6 {
-    9.0909090909% {
-        transform: translate(0, 0);
-    }
-
-    18.1818181818% {
-        transform: translate(-26px, 0);
-    }
-
-    27.2727272727% {
-        transform: translate(-26px, 0);
-    }
-
-    36.3636363636% {
-        transform: translate(0px, 0);
-    }
-
-    45.4545454545% {
-        transform: translate(0px, 0);
-    }
-
-    54.5454545455% {
-        transform: translate(0px, 0);
-    }
-
-    63.6363636364% {
-        transform: translate(0px, 0);
-    }
-
-    72.7272727273% {
-        transform: translate(0px, 26px);
-    }
-
-    81.8181818182% {
-        transform: translate(-26px, 26px);
-    }
-
-    90.9090909091% {
-        transform: translate(-26px, 0px);
-    }
-
-    100% {
-        transform: translate(0px, 0px);
-    }
-    }
-
-    .banter-loader__box:nth-child(6) {
-    animation: moveBox-6 4s infinite;
-    }
-
-    @keyframes moveBox-7 {
-    9.0909090909% {
-        transform: translate(26px, 0);
-    }
-
-    18.1818181818% {
-        transform: translate(26px, 0);
-    }
-
-    27.2727272727% {
-        transform: translate(26px, 0);
-    }
-
-    36.3636363636% {
-        transform: translate(0px, 0);
-    }
-
-    45.4545454545% {
-        transform: translate(0px, -26px);
-    }
-
-    54.5454545455% {
-        transform: translate(26px, -26px);
-    }
-
-    63.6363636364% {
-        transform: translate(0px, -26px);
-    }
-
-    72.7272727273% {
-        transform: translate(0px, -26px);
-    }
-
-    81.8181818182% {
-        transform: translate(0px, 0px);
-    }
-
-    90.9090909091% {
-        transform: translate(26px, 0px);
-    }
-
-    100% {
-        transform: translate(0px, 0px);
-    }
-    }
-
-    .banter-loader__box:nth-child(7) {
-    animation: moveBox-7 4s infinite;
-    }
-
-    @keyframes moveBox-8 {
-    9.0909090909% {
-        transform: translate(0, 0);
-    }
-
-    18.1818181818% {
-        transform: translate(-26px, 0);
-    }
-
-    27.2727272727% {
-        transform: translate(-26px, -26px);
-    }
-
-    36.3636363636% {
-        transform: translate(0px, -26px);
-    }
-
-    45.4545454545% {
-        transform: translate(0px, -26px);
-    }
-
-    54.5454545455% {
-        transform: translate(0px, -26px);
-    }
-
-    63.6363636364% {
-        transform: translate(0px, -26px);
-    }
-
-    72.7272727273% {
-        transform: translate(0px, -26px);
-    }
-
-    81.8181818182% {
-        transform: translate(26px, -26px);
-    }
-
-    90.9090909091% {
-        transform: translate(26px, 0px);
-    }
-
-    100% {
-        transform: translate(0px, 0px);
-    }
-    }
-
-    .banter-loader__box:nth-child(8) {
-    animation: moveBox-8 4s infinite;
-    }
-
-    @keyframes moveBox-9 {
-    9.0909090909% {
-        transform: translate(-26px, 0);
-    }
-
-    18.1818181818% {
-        transform: translate(-26px, 0);
-    }
-
-    27.2727272727% {
-        transform: translate(0px, 0);
-    }
-
-    36.3636363636% {
-        transform: translate(-26px, 0);
-    }
-
-    45.4545454545% {
-        transform: translate(0px, 0);
-    }
-
-    54.5454545455% {
-        transform: translate(0px, 0);
-    }
-
-    63.6363636364% {
-        transform: translate(-26px, 0);
-    }
-
-    72.7272727273% {
-        transform: translate(-26px, 0);
-    }
-
-    81.8181818182% {
-        transform: translate(-52px, 0);
-    }
-
-    90.9090909091% {
-        transform: translate(-26px, 0);
-    }
-
-    100% {
-        transform: translate(0px, 0);
-    }
-    }
-
-    .banter-loader__box:nth-child(9) {
-    animation: moveBox-9 4s infinite;
-    }
-</style>
-
-<script>	
-    function initLoading() {
-        const isFirstVisit = !sessionStorage.getItem('visited');
-        if (isFirstVisit) {
-            let loading = document.querySelector('.loading');
-            loading.style.display = 'flex';
-            document.addEventListener('DOMContentLoaded', function() {
-                setTimeout(() => {
-                    loading.classList.add('fade-out'); 
-                    setTimeout(() => {
-                        loading.style.display = 'none';
-                    }, 1000); 
-                }, 1000); 
-                sessionStorage.setItem('visited', 'true');
-            });   
-        }    
-    }
-
-    initLoading();
+          primaryColor: '#4a5568',
+          primaryTextColor: '#f7fafc',
+          primaryBorderColor: '#63b3ed',
+          lineColor: '#e2e8f0',
+          secondaryColor: '#2d3748',
+          tertiaryColor: '#1a202c',
+          background: '#1a202c',
+          
+          
+          fillType0: '#2d3748',
+          fillType1: '#4a5568',
+          fillType2: '#4299e1',
+          clusterBkg: '#2d3748',
+          clusterBorder: '#4a5568',
+          nodeBorder: '#e2e8f0',
+          mainBkg: '#4a5568',
+          altBkg: '#2d3748',
+          
+          
+          labelBackground: '#2d3748',
+          edgeLabelBackground: '#2d3748',
+          titleColor: '#f7fafc',
+          
+          
+          actorBkg: '#2d3748',
+          actorBorder: '#4a5568',
+          actorTextColor: '#e2e8f0',
+          actorLine: '#4a5568',
+          signalColor: '#e2e8f0',
+          signalTextColor: '#e2e8f0',
+          noteBkgColor: '#4a5568',
+          noteBorderColor: '#4a5568',
+          noteTextColor: '#e2e8f0',
+          activationBorderColor: '#4299e1',
+          activationBkgColor: '#2d3748',
+          
+          
+          sectionBkgColor: '#2d3748',
+          altSectionBkgColor: '#4a5568',
+          sectionBorderColor: '#4a5568',
+          taskBkgColor: '#4299e1',
+          taskBorderColor: '#63b3ed',
+          taskTextColor: '#ffffff',
+          activeTaskBkgColor: '#48bb78',
+          activeTaskBorderColor: '#38a169',
+          doneTaskBkgColor: '#2d3748',
+          doneTaskBorderColor: '#4a5568',
+          critBkgColor: '#f56565',
+          critBorderColor: '#e53e3e',
+          critTextColor: '#ffffff',
+          
+          
+          pie1: '#4299e1',
+          pie2: '#48bb78',
+          pie3: '#ed8936',
+          pie4: '#9f7aea',
+          pie5: '#ed64a6',
+          pie6: '#38b2ac',
+          pie7: '#f6ad55',
+          pie8: '#68d391',
+          pie9: '#63b3ed',
+          pie10: '#b794f4',
+          pieTitleTextSize: '24px',
+          pieSectionTextSize: '16px',
+          pieOuterStrokeWidth: '2px',
+          pieStroke: '#1a202c',
+          pieOpacity: '1',
+          
+          
+          classText: '#f7fafc',
+          classTitle: '#f7fafc',
+          
+          
+          stateBkg: '#2d3748',
+          stateBorder: '#4a5568',
+          labelColor: '#f7fafc',
+          stateLabel: '#f7fafc',
+          stateText: '#f7fafc',
+          transitionLabel: '#f7fafc',
+          
+          
+          entityBkg: '#2d3748',
+          entityBorder: '#4a5568',
+          attributeBkg: '#2d3748',
+          attributeBorder: '#4a5568',
+          relationshipText: '#f7fafc',
+          
+          
+          gridColor: '#4a5568',
+          scaleBarColor: '#4a5568',
+          barColor: '#4299e1',
+          barBorderColor: '#63b3ed',
+          todayLineColor: '#f6ad55',
+          
+          
+          git0: '#4299e1',
+          git1: '#48bb78',
+          git2: '#ed8936',
+          git3: '#9f7aea',
+          git4: '#ed64a6',
+          git5: '#38b2ac',
+          git6: '#f6ad55',
+          git7: '#68d391',
+          gitInv0: '#2d3748',
+          gitInv1: '#2d3748',
+          gitInv2: '#2d3748',
+          gitInv3: '#2d3748',
+          gitInv4: '#2d3748',
+          gitInv5: '#2d3748',
+          gitInv6: '#2d3748',
+          gitInv7: '#2d3748',
+          
+          
+          mindmapPrimary: '#4299e1',
+          mindmapSecondary: '#48bb78',
+          mindmapTertiary: '#ed8936',
+          
+          
+          errorTextColor: '#fc8181',
+          warningTextColor: '#f6ad55',
+          infoTextColor: '#63b3ed',
+          
+          
+          edgeLabelBackground: '#1a202c',
+          
+          
+          edgeLabelBackground: '#2d3748',
+          
+          
+          classLabel: '#f7fafc',
+          dividerColor: '#4a5568',
+          
+          
+          dividerColor: '#4a5568',
+          
+          
+          dividerColor: '#4a5568',
+          
+          
+          fontFamily: '"Douyin Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
+          fontSize: '16px'
+        },
+        fontFamily: '"Douyin Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
+        fontSize: 16,
+        flowchart: {
+          useMaxWidth: true,
+          htmlLabels: true,
+          curve: 'basis'
+        },
+        sequence: {
+          useMaxWidth: true
+        },
+        journey: {
+          useMaxWidth: true
+        },
+        pie: {
+          useMaxWidth: true
+        },
+        gantt: {
+          useMaxWidth: true
+        },
+        git: {
+          useMaxWidth: true
+        },
+        mindmap: {
+          useMaxWidth: true
+        }
+      });
+    } else {
+      
+      mermaid.initialize({
+        startOnLoad: false,
+        theme: 'default',
+        themeVariables: {
+          primaryColor: '#007bff',
+          primaryTextColor: '#333',
+          primaryBorderColor: '#007bff',
+          lineColor: '#666',
+          secondaryColor: '#f8f9fa',
+          tertiaryColor: '#e9ecef'
+        },
+        fontFamily: '"Douyin Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
+        fontSize: 16,
+        flowchart: {
+          useMaxWidth: true,
+          htmlLabels: true,
+          curve: 'basis'
+        }
+      });
+    }
+    
+    
+    document.querySelectorAll('.mermaid').forEach(function(element) {
+      if (!element.dataset.original) {
+        element.dataset.original = element.textContent.trim();
+      }
+    });
+    
+    
+    return mermaid.run();
+  }
+
+  
+  document.addEventListener('DOMContentLoaded', function() {
+    
+    initializeMermaid();
+    
+    
+    logThemeInfo();
+    
+    
+    const darkModeToggle = document.getElementById('dark-mode-toggle');
+    if (darkModeToggle) {
+      darkModeToggle.addEventListener('click', function() {
+        
+        document.querySelectorAll('.mermaid').forEach(function(element) {
+          element.classList.add('reloading');
+        });
+        
+        
+        setTimeout(function() {
+          
+          document.querySelectorAll('.mermaid').forEach(function(element) {
+            
+            if (!element.dataset.original) {
+              element.dataset.original = element.textContent.trim();
+            }
+            
+            
+            element.innerHTML = '';
+            
+            
+            element.textContent = element.dataset.original;
+            
+            
+            element.removeAttribute('data-processed');
+          });
+          
+          
+          console.log('[Mermaid] Theme changed, reinitializing...');
+          
+          
+          initializeMermaid().then(function() {
+            
+            document.querySelectorAll('.mermaid').forEach(function(element) {
+              element.classList.remove('reloading');
+            });
+          });
+        }, 250);
+      });
+    }
+  });
 </script>
-
-
 <link rel='stylesheet' href='https://chinese-fonts-cdn.deno.dev/packages/dymh/dist/DouyinSansBold/result.css' />
 
 
@@ -612,13 +351,13 @@
         
             
             <figure class="site-avatar">
-                <a href="/">
+                <a href="/public/">
                 
                     
                     
                     
                         
-                        <img src="/img/avatar_hu_9c50848f93c56cbf.jpeg" width="300"
+                        <img src="/public/img/avatar_hu_9c50848f93c56cbf.jpeg" width="300"
                             height="296" class="site-logo" loading="lazy" alt="Avatar">
                     
                 
@@ -631,7 +370,7 @@
         
         
         <div class="site-meta">
-            <h1 class="site-name"><a href="/">Henry Zhang</a></h1>
+            <h1 class="site-name"><a href="/public">Henry Zhang</a></h1>
             <h2 class="site-description">Driven by Wonder, Powered by Knowledge.🤓</h2>
         </div>
     </header><ol class="menu-social">
@@ -661,7 +400,7 @@
         
         
         <li >
-            <a href='/' >
+            <a href='/public/' >
                 
                 
                 
@@ -681,7 +420,7 @@
         
         
         <li >
-            <a href='/about-me/' >
+            <a href='/public/about-me/' >
                 
                 
                 
@@ -700,7 +439,7 @@
         
         
         <li >
-            <a href='/archives/' >
+            <a href='/public/archives/' >
                 
                 
                 
@@ -720,7 +459,7 @@
         
         
         <li >
-            <a href='/search/' >
+            <a href='/public/search/' >
                 
                 
                 
@@ -739,7 +478,7 @@
         
         
         <li >
-            <a href='/some-useful-links/' >
+            <a href='/public/some-useful-links/' >
                 
                 
                 
@@ -758,7 +497,7 @@
         
         
         <li >
-            <a href='/update-logs/' >
+            <a href='/public/update-logs/' >
                 
                 
                 
@@ -836,40 +575,44 @@
   <ol>
     <li>
       <ol>
-        <li><a href="#java-环境-">java 环境 ✅</a></li>
-        <li><a href="#2-如何加入我的模组服务器傻瓜版">2. 如何加入我的模组服务器(傻瓜版)‼️</a>
+        <li>
           <ol>
-            <li><a href="#首先最好先确认系统安装了-java21-点击这里查看如何确认">首先最好先确认系统安装了 Java21, 点击这里查看如何确认.</a></li>
-            <li><a href="#下载整合包">下载整合包</a></li>
-            <li><a href="#安装新">安装(新)</a></li>
-            <li><a href="#加入">加入</a></li>
+            <li><a href="#java-环境-">java 环境 ✅</a></li>
+            <li><a href="#2-如何加入我的模组服务器傻瓜版">2. 如何加入我的模组服务器(傻瓜版)‼️</a>
+              <ol>
+                <li><a href="#首先最好先确认系统安装了-java21-点击这里查看如何确认">首先最好先确认系统安装了 Java21, 点击这里查看如何确认.</a></li>
+                <li><a href="#下载整合包">下载整合包</a></li>
+                <li><a href="#安装新">安装(新)</a></li>
+                <li><a href="#加入">加入</a></li>
+              </ol>
+            </li>
           </ol>
         </li>
-      </ol>
-    </li>
-    <li><a href="#如何加入远程-mc-服务器">如何加入远程 MC 服务器</a>
-      <ol>
-        <li><a href="#1-如何加入我的模组服务器-建议直接使用后面的整合包安装-更稳定也更方便"><del>1. 如何加入我的模组服务器</del> 建议直接使用后面的整合包安装, 更稳定也更方便.</a>
+        <li><a href="#如何加入远程-mc-服务器">如何加入远程 MC 服务器</a>
           <ol>
-            <li><a href="#安装-1182forge-4030-版本">安装 1.18.2+forge 40.3.0 版本</a></li>
-            <li><a href="#安装模组">安装模组</a></li>
-            <li><a href="#安装光影">安装光影</a></li>
-            <li><a href="#整合包安装游戏不带启动器版本">整合包安装游戏(不带启动器版本)</a></li>
+            <li><a href="#1-如何加入我的模组服务器-建议直接使用后面的整合包安装-更稳定也更方便"><del>1. 如何加入我的模组服务器</del> 建议直接使用后面的整合包安装, 更稳定也更方便.</a>
+              <ol>
+                <li><a href="#安装-1182forge-4030-版本">安装 1.18.2+forge 40.3.0 版本</a></li>
+                <li><a href="#安装模组">安装模组</a></li>
+                <li><a href="#安装光影">安装光影</a></li>
+                <li><a href="#整合包安装游戏不带启动器版本">整合包安装游戏(不带启动器版本)</a></li>
+              </ol>
+            </li>
           </ol>
         </li>
-      </ol>
-    </li>
-    <li><a href="#如何搭建基于-forge-的-mc-服务器">如何搭建基于 forge 的 MC 服务器</a>
-      <ol>
-        <li><a href="#为什么使用-forge-搭建">为什么使用 forge 搭建</a></li>
-        <li><a href="#下载-forge-服务器安装包">下载 forge 服务器安装包</a></li>
-        <li><a href="#安装服务器">安装服务器</a></li>
-        <li><a href="#初始化服务器">初始化服务器</a></li>
-        <li><a href="#配置服务器">配置服务器</a></li>
-        <li><a href="#局域网外远程联机内网穿透">局域网外远程联机(内网穿透)</a>
+        <li><a href="#如何搭建基于-forge-的-mc-服务器">如何搭建基于 forge 的 MC 服务器</a>
           <ol>
-            <li><a href="#安装-cploar-服务">安装 cploar 服务</a></li>
-            <li><a href="#内网穿透映射">内网穿透映射</a></li>
+            <li><a href="#为什么使用-forge-搭建">为什么使用 forge 搭建</a></li>
+            <li><a href="#下载-forge-服务器安装包">下载 forge 服务器安装包</a></li>
+            <li><a href="#安装服务器">安装服务器</a></li>
+            <li><a href="#初始化服务器">初始化服务器</a></li>
+            <li><a href="#配置服务器">配置服务器</a></li>
+            <li><a href="#局域网外远程联机内网穿透">局域网外远程联机(内网穿透)</a>
+              <ol>
+                <li><a href="#安装-cploar-服务">安装 cploar 服务</a></li>
+                <li><a href="#内网穿透映射">内网穿透映射</a></li>
+              </ol>
+            </li>
           </ol>
         </li>
       </ol>
@@ -890,9 +633,9 @@
     <article class="has-image main-article">
     <header class="article-header">
         <div class="article-image">
-            <a href="/p/mc%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%90%AD%E5%BB%BA-%E5%8A%A0%E5%85%A5/">
-                <img src="/p/mc%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%90%AD%E5%BB%BA-%E5%8A%A0%E5%85%A5/image_hu_fda0ea6d96a449e2.png"
-                        srcset="/p/mc%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%90%AD%E5%BB%BA-%E5%8A%A0%E5%85%A5/image_hu_fda0ea6d96a449e2.png 800w, /p/mc%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%90%AD%E5%BB%BA-%E5%8A%A0%E5%85%A5/image_hu_c4f71b7df5822764.png 1600w"
+            <a href="/public/p/mc%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%90%AD%E5%BB%BA-%E5%8A%A0%E5%85%A5/">
+                <img src="/public/p/mc%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%90%AD%E5%BB%BA-%E5%8A%A0%E5%85%A5/image_hu_fda0ea6d96a449e2.png"
+                        srcset="/public/p/mc%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%90%AD%E5%BB%BA-%E5%8A%A0%E5%85%A5/image_hu_fda0ea6d96a449e2.png 800w, /public/p/mc%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%90%AD%E5%BB%BA-%E5%8A%A0%E5%85%A5/image_hu_c4f71b7df5822764.png 1600w"
                         width="800" 
                         height="500" 
                         loading="lazy"
@@ -905,7 +648,7 @@
     <div class="article-details">
     <div class="article-title-wrapper">
         <h2 class="article-title">
-            <a href="/p/mc%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%90%AD%E5%BB%BA-%E5%8A%A0%E5%85%A5/">MC服务器搭建 &amp; 加入</a>
+            <a href="/public/p/mc%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%90%AD%E5%BB%BA-%E5%8A%A0%E5%85%A5/">MC服务器搭建 &amp; 加入</a>
         </h2>
     
         
@@ -926,7 +669,7 @@
                 
                     
                     
-                    <a href="/categories/notes/" class="category-link" style="background-color: #704400; color: #ffffff;">
+                    <a href="/public/categories/notes/" class="category-link" style="background-color: #704400; color: #ffffff;">
                         Notes
                     </a>
                 
@@ -938,7 +681,7 @@
                 
                     
                     
-                    <a href="/tags/mc/" class="tag-link" style="color: #ffffff; border: 1px solid #4cf2cc; background-color: #4cf2cc20;">
+                    <a href="/public/tags/mc/" class="tag-link" style="color: #ffffff; border: 1px solid #4cf2cc; background-color: #4cf2cc20;">
                         #Mc
                     </a>
                 
@@ -969,7 +712,7 @@
 
 
                 <time>
-                    Nov 25, 2025 22:17 CST
+                    Nov 25, 2025 22:17 &#43;0800
                 </time>
             </div>
     </footer>
@@ -995,8 +738,18 @@
     <p>如果没有特殊需求安装 JRE 版本即可.</p></blockquote>
 <div id="confirm"></div>
 2. 安装好之后验证 java 是否成功安装并设置好了环境变量.
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">java --version
-</span></span></code></pre></div><div id="join"></div>
+
+
+
+
+
+<div class="highlight highlight-bash">
+  <pre>
+    <code class="language-bash" data-lang="bash">java --version</code>
+  </pre>
+</div>
+
+<div id="join"></div>
 <h3 id="2-如何加入我的模组服务器傻瓜版">2. 如何加入我的模组服务器(傻瓜版)‼️
 </h3><h4 id="首先最好先确认系统安装了-java21-点击这里查看如何确认">首先最好先确认系统安装了 Java21, <a class="link" href="#confirm" >点击这里查看如何确认</a>.
 </h4><h4 id="下载整合包">下载整合包
@@ -1024,8 +777,18 @@
 <li>win: <code>双击</code>整合包中我的世界图标的文件即可.</li>
 <li>mac: 打开<code>终端</code>, 在终端中进入<code>整合包文件夹</code>, 输入下面的指令.</li>
 </ul>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">java -jar HMCL-3.6.12.jar
-</span></span></code></pre></div><h4 id="加入">加入
+
+
+
+
+
+<div class="highlight highlight-bash">
+  <pre>
+    <code class="language-bash" data-lang="bash">java -jar HMCL-3.6.12.jar</code>
+  </pre>
+</div>
+
+<h4 id="加入">加入
 </h4><ol>
 <li>等待游戏安装完成后登陆自己的账号</li>
 <li>启动游戏, 在多人游戏中添加服务器地址后就能加入我的服务器啦 🥰:</li>
@@ -1075,11 +838,11 @@
 <h3 id="1-如何加入我的模组服务器-建议直接使用后面的整合包安装-更稳定也更方便"><del>1. 如何加入我的模组服务器</del> 建议直接使用后面的整合包安装, 更稳定也更方便.
 </h3><h4 id="安装-1182forge-4030-版本">安装 1.18.2+forge 40.3.0 版本
 </h4><p><code>点击下载</code>
-<img src="/p/mc%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%90%AD%E5%BB%BA-%E5%8A%A0%E5%85%A5/v1_hu_736a98c9bbf842a4.png" width="1200" height="898" alt="exception types"></p>
+<img src="/public/p/mc%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%90%AD%E5%BB%BA-%E5%8A%A0%E5%85%A5/v1_hu_736a98c9bbf842a4.png" width="1200" height="898" alt="exception types"></p>
 <p><code>选择18.2+forge 40.3.0版本</code></p>
-<img src="/p/mc%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%90%AD%E5%BB%BA-%E5%8A%A0%E5%85%A5/v2_hu_276dd84c915b4521.png" width="1200" height="905" alt="exception types">
-<img src="/p/mc%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%90%AD%E5%BB%BA-%E5%8A%A0%E5%85%A5/v3_hu_2f591b8eca54f1be.png" width="1200" height="904" alt="exception types">
-<img src="/p/mc%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%90%AD%E5%BB%BA-%E5%8A%A0%E5%85%A5/v4_hu_a75a7d96e3be6c51.png" width="1200" height="899" alt="exception types">
+<img src="/public/p/mc%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%90%AD%E5%BB%BA-%E5%8A%A0%E5%85%A5/v2_hu_276dd84c915b4521.png" width="1200" height="905" alt="exception types">
+<img src="/public/p/mc%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%90%AD%E5%BB%BA-%E5%8A%A0%E5%85%A5/v3_hu_2f591b8eca54f1be.png" width="1200" height="904" alt="exception types">
+<img src="/public/p/mc%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%90%AD%E5%BB%BA-%E5%8A%A0%E5%85%A5/v4_hu_a75a7d96e3be6c51.png" width="1200" height="899" alt="exception types">
 <h4 id="安装模组">安装模组
 </h4><ol>
 <li>下载我的模组和材质包.</li>
@@ -1092,14 +855,14 @@
 <li>压缩包下载后解压, 会有两种文件: zip, jar. zip 对应的是材质包, jar 是模组.
 点击版本管理</li>
 </ol>
-<img src="/p/mc%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%90%AD%E5%BB%BA-%E5%8A%A0%E5%85%A5/main_hu_cd62cbf18f0f3bf5.png" width="1200" height="913" alt="exception types">
+<img src="/public/p/mc%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%90%AD%E5%BB%BA-%E5%8A%A0%E5%85%A5/main_hu_cd62cbf18f0f3bf5.png" width="1200" height="913" alt="exception types">
 <ol start="3">
 <li>在模组拦选择添加模组, 选择刚刚下载的包里的<code>jar</code>文件.</li>
 </ol>
-<img src="/p/mc%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%90%AD%E5%BB%BA-%E5%8A%A0%E5%85%A5/v5_hu_41c2e29e2930d7df.png" width="1200" height="911" alt="exception types">
+<img src="/public/p/mc%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%90%AD%E5%BB%BA-%E5%8A%A0%E5%85%A5/v5_hu_41c2e29e2930d7df.png" width="1200" height="911" alt="exception types">
 <h4 id="安装光影">安装光影
 </h4><p>在浏览中选择打开资源包文件夹, 然后添加下载文件夹中的<code>zip</code>文件.
-<img src="/p/mc%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%90%AD%E5%BB%BA-%E5%8A%A0%E5%85%A5/v6_hu_a6b4669caa9893f7.png" width="1200" height="909" alt="exception types"></p>
+<img src="/public/p/mc%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%90%AD%E5%BB%BA-%E5%8A%A0%E5%85%A5/v6_hu_a6b4669caa9893f7.png" width="1200" height="909" alt="exception types"></p>
 <h4 id="整合包安装游戏不带启动器版本">整合包安装游戏(不带启动器版本)
 </h4><p><code>该方法已淘汰, 请勿使用该方法</code></p>
 <p>使用 HMCL 的整合包安装功能, 直接一次性安装好所有模组和材质包.</p>
@@ -1108,7 +871,7 @@
 <ol start="2">
 <li>
 <p>点击安装整合包
-<img src="/p/mc%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%90%AD%E5%BB%BA-%E5%8A%A0%E5%85%A5/p1_hu_a3107bb23487123e.png" width="1200" height="901" alt="exception types"></p>
+<img src="/public/p/mc%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%90%AD%E5%BB%BA-%E5%8A%A0%E5%85%A5/p1_hu_a3107bb23487123e.png" width="1200" height="901" alt="exception types"></p>
 </li>
 <li>
 <p>从本地安装整合包, 并选择下载好的 zip 整合包.</p>
@@ -1127,7 +890,7 @@
 <li>选择版本.</li>
 <li>点击 Installer 安装稳定版</li>
 </ol>
-<img src="/p/mc%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%90%AD%E5%BB%BA-%E5%8A%A0%E5%85%A5/d_hu_7c67ad27a83df608.png" width="1200" height="916" alt="exception types">
+<img src="/public/p/mc%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%90%AD%E5%BB%BA-%E5%8A%A0%E5%85%A5/d_hu_7c67ad27a83df608.png" width="1200" height="916" alt="exception types">
 <ol start="4">
 <li>下载完成之后看到 jar 结尾的文件说明成功下载.</li>
 </ol>
@@ -1137,19 +900,39 @@
 <li>打开 bash 并进入到你的服务器安装目录下.</li>
 <li>通过 java 安装服务器</li>
 </ol>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">java -jar &lt;下载好的jar安装器文件名&gt; --installServer
-</span></span><span class="line"><span class="cl"><span class="c1"># example</span>
-</span></span><span class="line"><span class="cl">java -jar forge-1.18.2-40.3.0-installer.jar --installServer
-</span></span></code></pre></div><blockquote class="alert alert-tip">
+
+
+
+
+
+<div class="highlight highlight-bash">
+  <pre>
+    <code class="language-bash" data-lang="bash">java -jar &lt;下载好的jar安装器文件名&gt; --installServer
+# example
+java -jar forge-1.18.2-40.3.0-installer.jar --installServer</code>
+  </pre>
+</div>
+
+<blockquote class="alert alert-tip">
     <p>在<code>终端</code>输入文件名的时候需要加上<code>后缀</code></p></blockquote>
 <p>安装的过程会收到网络的影响, 请耐心等待</p>
 <h3 id="初始化服务器">初始化服务器
 </h3><ol>
 <li>安装好之后在安装目录下会出现 run 启动脚本, 我们需要先运行一次脚本.</li>
 </ol>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">./run.sh
-</span></span><span class="line"><span class="cl"><span class="c1"># 如果是windows, 就运行 run.bat</span>
-</span></span></code></pre></div><ol start="2">
+
+
+
+
+
+<div class="highlight highlight-bash">
+  <pre>
+    <code class="language-bash" data-lang="bash">./run.sh
+# 如果是windows, 就运行 run.bat</code>
+  </pre>
+</div>
+
+<ol start="2">
 <li>
 <p>初始化完成之后我们需要同意服务器的协议.</p>
 <ul>
@@ -1227,7 +1010,7 @@
 <li>在 cploar 服务启动之后在网页中打开服务器的<code>9200</code>端口.</li>
 <li>设置映射.</li>
 </ol>
-<p><img src="/p/mc%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%90%AD%E5%BB%BA-%E5%8A%A0%E5%85%A5/port_hu_6ba287f842e76ffa.png" width="1200" height="472" alt="exception types">
+<p><img src="/public/p/mc%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%90%AD%E5%BB%BA-%E5%8A%A0%E5%85%A5/port_hu_6ba287f842e76ffa.png" width="1200" height="472" alt="exception types">
 仿照图片中的设置配置映射.</p>
 <blockquote class="alert alert-note">
     <p>对于 forge, 服务器开启后默认端口为 25565, 如果想修改监听端口可以修改 properties 里的端口设置.</p></blockquote>
@@ -1303,18 +1086,18 @@
             
                 
 <article class="has-image">
-    <a href="/p/%E7%A7%91%E5%AD%A6%E4%B8%8A%E7%BD%91%E9%85%8D%E7%BD%AE%E6%95%99%E7%A8%8B/">
+    <a href="/public/p/%E7%A7%91%E5%AD%A6%E4%B8%8A%E7%BD%91%E9%85%8D%E7%BD%AE%E6%95%99%E7%A8%8B-%E8%8A%82%E7%82%B9%E6%90%AD%E5%BB%BA/">
         
         
             <div class="article-image">
                 
-                    <img src="/default.jpeg" loading="lazy" data-key="" data-hash="/default.jpeg"/>
+                    <img src="/public/default.jpeg" loading="lazy" data-key="" data-hash="/public/default.jpeg"/>
                 
             </div>
         
 
         <div class="article-details">
-            <h2 class="article-title">科学上网配置教程</h2>
+            <h2 class="article-title">科学上网配置教程 &amp; 节点搭建</h2>
         </div>
     </a>
 </article>
@@ -1322,11 +1105,11 @@
             
                 
 <article class="has-image">
-    <a href="/p/linux_system_service-linux-%E4%B9%8B-%E7%B3%BB%E7%BB%9F%E6%9C%8D%E5%8A%A1/">
+    <a href="/public/p/linux_system_service-linux-%E4%B9%8B-%E7%B3%BB%E7%BB%9F%E6%9C%8D%E5%8A%A1/">
         
         
             <div class="article-image">
-                <img src="/p/linux_system_service-linux-%E4%B9%8B-%E7%B3%BB%E7%BB%9F%E6%9C%8D%E5%8A%A1/image.a0523778934542ff44b5192a799567da_hu_120e934acdd88e76.png" 
+                <img src="/public/p/linux_system_service-linux-%E4%B9%8B-%E7%B3%BB%E7%BB%9F%E6%9C%8D%E5%8A%A1/image.a0523778934542ff44b5192a799567da_hu_120e934acdd88e76.png" 
                         width="250" 
                         height="150" 
                         loading="lazy"
@@ -1346,12 +1129,12 @@
             
                 
 <article class="has-image">
-    <a href="/p/chapter13/">
+    <a href="/public/p/chapter13/">
         
         
             <div class="article-image">
                 
-                    <img src="/java.png" loading="lazy" data-key="" data-hash="/java.png"/>
+                    <img src="/public/java.png" loading="lazy" data-key="" data-hash="/public/java.png"/>
                 
             </div>
         
@@ -1365,12 +1148,12 @@
             
                 
 <article class="has-image">
-    <a href="/p/chapter12/">
+    <a href="/public/p/chapter12/">
         
         
             <div class="article-image">
                 
-                    <img src="/java.png" loading="lazy" data-key="" data-hash="/java.png"/>
+                    <img src="/public/java.png" loading="lazy" data-key="" data-hash="/public/java.png"/>
                 
             </div>
         
@@ -1384,11 +1167,11 @@
             
                 
 <article class="has-image">
-    <a href="/p/hugo_notes/">
+    <a href="/public/p/hugo_notes/">
         
         
             <div class="article-image">
-                <img src="/p/hugo_notes/1.8e7fe11288f3247c5acac91e5854cb03_hu_7e558d0f1d225d98.jpeg" 
+                <img src="/public/p/hugo_notes/1.8e7fe11288f3247c5acac91e5854cb03_hu_7e558d0f1d225d98.jpeg" 
                         width="250" 
                         height="150" 
                         loading="lazy"
@@ -1470,7 +1253,9 @@
     <section class="copyright">
         &copy; 
         
-        2025 blog@mail.henry070.org
+            2025 - 
+        
+        2026 blog@mail.henry070.org
     </section>
     
     <section class="powerby">
@@ -1566,7 +1351,7 @@
                 src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
                 
                 >
-            </script><script type="text/javascript" src="/ts/main.1e9a3bafd846ced4c345d084b355fb8c7bae75701c338f8a1f8a82c780137826.js" defer></script>
+            </script><script type="text/javascript" src="/public/ts/main.c922af694cc257bf1ecc41c0dd7b0430f9114ec280ccf67cd2c6ad55f5316c4e.js" defer></script>
 <script>
     (function () {
         const customFont = document.createElement('link');
@@ -1774,7 +1559,7 @@
       
       let img = document.createElement('img');
       img.classList.add('code-more-img');
-      img.src = "https://Gzmomo001.github.io/icons/down.png"
+      img.src = "https://Gzmomo001.github.io/public/icons/down.png"
       
       codeMoreBtn.appendChild(img);
       codeMoreBox.appendChild(codeMoreBtn);

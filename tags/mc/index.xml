@@ -2,18 +2,18 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
     <channel>
         <title>Mc on Henry Zhang</title>
-        <link>https://Gzmomo001.github.io/tags/mc/</link>
+        <link>https://Gzmomo001.github.io/public/tags/mc/</link>
         <description>Recent content in Mc on Henry Zhang</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>zh-cn</language>
         <copyright>blog@mail.henry070.org</copyright>
-        <lastBuildDate>Tue, 25 Nov 2025 22:17:34 +0800</lastBuildDate><atom:link href="https://Gzmomo001.github.io/tags/mc/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Tue, 25 Nov 2025 22:17:34 +0800</lastBuildDate><atom:link href="https://Gzmomo001.github.io/public/tags/mc/index.xml" rel="self" type="application/rss+xml" /><item>
         <title>MC服务器搭建 &amp; 加入</title>
-        <link>https://Gzmomo001.github.io/p/mc%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%90%AD%E5%BB%BA-%E5%8A%A0%E5%85%A5/</link>
+        <link>https://Gzmomo001.github.io/public/p/mc%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%90%AD%E5%BB%BA-%E5%8A%A0%E5%85%A5/</link>
         <pubDate>Mon, 09 Jun 2025 14:01:06 +0800</pubDate>
         
-        <guid>https://Gzmomo001.github.io/p/mc%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%90%AD%E5%BB%BA-%E5%8A%A0%E5%85%A5/</guid>
-        <description>&lt;img src="https://Gzmomo001.github.io/p/mc%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%90%AD%E5%BB%BA-%E5%8A%A0%E5%85%A5/image.png" alt="Featured image of post MC服务器搭建 &amp; 加入" /&gt;&lt;h3 id=&#34;java-环境-&#34;&gt;java 环境 ✅
+        <guid>https://Gzmomo001.github.io/public/p/mc%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%90%AD%E5%BB%BA-%E5%8A%A0%E5%85%A5/</guid>
+        <description>&lt;img src="https://Gzmomo001.github.io/public/p/mc%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%90%AD%E5%BB%BA-%E5%8A%A0%E5%85%A5/image.png" alt="Featured image of post MC服务器搭建 &amp; 加入" /&gt;&lt;h3 id=&#34;java-环境-&#34;&gt;java 环境 ✅
 &lt;/h3&gt;&lt;ul&gt;
 &lt;li&gt;本教程的所有内容都是基于 java 环境已经安装好的前提下.&lt;/li&gt;
 &lt;li&gt;具体的教程可以去网上搜索.&lt;/li&gt;
@@ -25,8 +25,18 @@
     &lt;p&gt;如果没有特殊需求安装 JRE 版本即可.&lt;/p&gt;&lt;/blockquote&gt;
 &lt;div id=&#34;confirm&#34;&gt;&lt;/div&gt;
 2. 安装好之后验证 java 是否成功安装并设置好了环境变量.
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;java --version
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div id=&#34;join&#34;&gt;&lt;/div&gt;
+
+
+
+
+
+&lt;div class=&#34;highlight highlight-bash&#34;&gt;
+  &lt;pre&gt;
+    &lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;java --version&lt;/code&gt;
+  &lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;div id=&#34;join&#34;&gt;&lt;/div&gt;
 &lt;h3 id=&#34;2-如何加入我的模组服务器傻瓜版&#34;&gt;2. 如何加入我的模组服务器(傻瓜版)‼️
 &lt;/h3&gt;&lt;h4 id=&#34;首先最好先确认系统安装了-java21-点击这里查看如何确认&#34;&gt;首先最好先确认系统安装了 Java21, &lt;a class=&#34;link&#34; href=&#34;#confirm&#34; &gt;点击这里查看如何确认&lt;/a&gt;.
 &lt;/h4&gt;&lt;h4 id=&#34;下载整合包&#34;&gt;下载整合包
@@ -54,8 +64,18 @@
 &lt;li&gt;win: &lt;code&gt;双击&lt;/code&gt;整合包中我的世界图标的文件即可.&lt;/li&gt;
 &lt;li&gt;mac: 打开&lt;code&gt;终端&lt;/code&gt;, 在终端中进入&lt;code&gt;整合包文件夹&lt;/code&gt;, 输入下面的指令.&lt;/li&gt;
 &lt;/ul&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;java -jar HMCL-3.6.12.jar
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h4 id=&#34;加入&#34;&gt;加入
+
+
+
+
+
+&lt;div class=&#34;highlight highlight-bash&#34;&gt;
+  &lt;pre&gt;
+    &lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;java -jar HMCL-3.6.12.jar&lt;/code&gt;
+  &lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h4 id=&#34;加入&#34;&gt;加入
 &lt;/h4&gt;&lt;ol&gt;
 &lt;li&gt;等待游戏安装完成后登陆自己的账号&lt;/li&gt;
 &lt;li&gt;启动游戏, 在多人游戏中添加服务器地址后就能加入我的服务器啦 🥰:&lt;/li&gt;
@@ -105,11 +125,11 @@
 &lt;h3 id=&#34;1-如何加入我的模组服务器-建议直接使用后面的整合包安装-更稳定也更方便&#34;&gt;&lt;del&gt;1. 如何加入我的模组服务器&lt;/del&gt; 建议直接使用后面的整合包安装, 更稳定也更方便.
 &lt;/h3&gt;&lt;h4 id=&#34;安装-1182forge-4030-版本&#34;&gt;安装 1.18.2+forge 40.3.0 版本
 &lt;/h4&gt;&lt;p&gt;&lt;code&gt;点击下载&lt;/code&gt;
-&lt;img src=&#34;https://Gzmomo001.github.io/p/mc%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%90%AD%E5%BB%BA-%E5%8A%A0%E5%85%A5/v1_hu_736a98c9bbf842a4.png&#34; width=&#34;1200&#34; height=&#34;898&#34; alt=&#34;exception types&#34;&gt;&lt;/p&gt;
+&lt;img src=&#34;https://Gzmomo001.github.io/public/p/mc%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%90%AD%E5%BB%BA-%E5%8A%A0%E5%85%A5/v1_hu_736a98c9bbf842a4.png&#34; width=&#34;1200&#34; height=&#34;898&#34; alt=&#34;exception types&#34;&gt;&lt;/p&gt;
 &lt;p&gt;&lt;code&gt;选择18.2+forge 40.3.0版本&lt;/code&gt;&lt;/p&gt;
-&lt;img src=&#34;https://Gzmomo001.github.io/p/mc%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%90%AD%E5%BB%BA-%E5%8A%A0%E5%85%A5/v2_hu_276dd84c915b4521.png&#34; width=&#34;1200&#34; height=&#34;905&#34; alt=&#34;exception types&#34;&gt;
-&lt;img src=&#34;https://Gzmomo001.github.io/p/mc%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%90%AD%E5%BB%BA-%E5%8A%A0%E5%85%A5/v3_hu_2f591b8eca54f1be.png&#34; width=&#34;1200&#34; height=&#34;904&#34; alt=&#34;exception types&#34;&gt;
-&lt;img src=&#34;https://Gzmomo001.github.io/p/mc%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%90%AD%E5%BB%BA-%E5%8A%A0%E5%85%A5/v4_hu_a75a7d96e3be6c51.png&#34; width=&#34;1200&#34; height=&#34;899&#34; alt=&#34;exception types&#34;&gt;
+&lt;img src=&#34;https://Gzmomo001.github.io/public/p/mc%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%90%AD%E5%BB%BA-%E5%8A%A0%E5%85%A5/v2_hu_276dd84c915b4521.png&#34; width=&#34;1200&#34; height=&#34;905&#34; alt=&#34;exception types&#34;&gt;
+&lt;img src=&#34;https://Gzmomo001.github.io/public/p/mc%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%90%AD%E5%BB%BA-%E5%8A%A0%E5%85%A5/v3_hu_2f591b8eca54f1be.png&#34; width=&#34;1200&#34; height=&#34;904&#34; alt=&#34;exception types&#34;&gt;
+&lt;img src=&#34;https://Gzmomo001.github.io/public/p/mc%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%90%AD%E5%BB%BA-%E5%8A%A0%E5%85%A5/v4_hu_a75a7d96e3be6c51.png&#34; width=&#34;1200&#34; height=&#34;899&#34; alt=&#34;exception types&#34;&gt;
 &lt;h4 id=&#34;安装模组&#34;&gt;安装模组
 &lt;/h4&gt;&lt;ol&gt;
 &lt;li&gt;下载我的模组和材质包.&lt;/li&gt;
@@ -122,14 +142,14 @@
 &lt;li&gt;压缩包下载后解压, 会有两种文件: zip, jar. zip 对应的是材质包, jar 是模组.
 点击版本管理&lt;/li&gt;
 &lt;/ol&gt;
-&lt;img src=&#34;https://Gzmomo001.github.io/p/mc%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%90%AD%E5%BB%BA-%E5%8A%A0%E5%85%A5/main_hu_cd62cbf18f0f3bf5.png&#34; width=&#34;1200&#34; height=&#34;913&#34; alt=&#34;exception types&#34;&gt;
+&lt;img src=&#34;https://Gzmomo001.github.io/public/p/mc%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%90%AD%E5%BB%BA-%E5%8A%A0%E5%85%A5/main_hu_cd62cbf18f0f3bf5.png&#34; width=&#34;1200&#34; height=&#34;913&#34; alt=&#34;exception types&#34;&gt;
 &lt;ol start=&#34;3&#34;&gt;
 &lt;li&gt;在模组拦选择添加模组, 选择刚刚下载的包里的&lt;code&gt;jar&lt;/code&gt;文件.&lt;/li&gt;
 &lt;/ol&gt;
-&lt;img src=&#34;https://Gzmomo001.github.io/p/mc%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%90%AD%E5%BB%BA-%E5%8A%A0%E5%85%A5/v5_hu_41c2e29e2930d7df.png&#34; width=&#34;1200&#34; height=&#34;911&#34; alt=&#34;exception types&#34;&gt;
+&lt;img src=&#34;https://Gzmomo001.github.io/public/p/mc%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%90%AD%E5%BB%BA-%E5%8A%A0%E5%85%A5/v5_hu_41c2e29e2930d7df.png&#34; width=&#34;1200&#34; height=&#34;911&#34; alt=&#34;exception types&#34;&gt;
 &lt;h4 id=&#34;安装光影&#34;&gt;安装光影
 &lt;/h4&gt;&lt;p&gt;在浏览中选择打开资源包文件夹, 然后添加下载文件夹中的&lt;code&gt;zip&lt;/code&gt;文件.
-&lt;img src=&#34;https://Gzmomo001.github.io/p/mc%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%90%AD%E5%BB%BA-%E5%8A%A0%E5%85%A5/v6_hu_a6b4669caa9893f7.png&#34; width=&#34;1200&#34; height=&#34;909&#34; alt=&#34;exception types&#34;&gt;&lt;/p&gt;
+&lt;img src=&#34;https://Gzmomo001.github.io/public/p/mc%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%90%AD%E5%BB%BA-%E5%8A%A0%E5%85%A5/v6_hu_a6b4669caa9893f7.png&#34; width=&#34;1200&#34; height=&#34;909&#34; alt=&#34;exception types&#34;&gt;&lt;/p&gt;
 &lt;h4 id=&#34;整合包安装游戏不带启动器版本&#34;&gt;整合包安装游戏(不带启动器版本)
 &lt;/h4&gt;&lt;p&gt;&lt;code&gt;该方法已淘汰, 请勿使用该方法&lt;/code&gt;&lt;/p&gt;
 &lt;p&gt;使用 HMCL 的整合包安装功能, 直接一次性安装好所有模组和材质包.&lt;/p&gt;
@@ -138,7 +158,7 @@
 &lt;ol start=&#34;2&#34;&gt;
 &lt;li&gt;
 &lt;p&gt;点击安装整合包
-&lt;img src=&#34;https://Gzmomo001.github.io/p/mc%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%90%AD%E5%BB%BA-%E5%8A%A0%E5%85%A5/p1_hu_a3107bb23487123e.png&#34; width=&#34;1200&#34; height=&#34;901&#34; alt=&#34;exception types&#34;&gt;&lt;/p&gt;
+&lt;img src=&#34;https://Gzmomo001.github.io/public/p/mc%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%90%AD%E5%BB%BA-%E5%8A%A0%E5%85%A5/p1_hu_a3107bb23487123e.png&#34; width=&#34;1200&#34; height=&#34;901&#34; alt=&#34;exception types&#34;&gt;&lt;/p&gt;
 &lt;/li&gt;
 &lt;li&gt;
 &lt;p&gt;从本地安装整合包, 并选择下载好的 zip 整合包.&lt;/p&gt;
@@ -157,7 +177,7 @@
 &lt;li&gt;选择版本.&lt;/li&gt;
 &lt;li&gt;点击 Installer 安装稳定版&lt;/li&gt;
 &lt;/ol&gt;
-&lt;img src=&#34;https://Gzmomo001.github.io/p/mc%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%90%AD%E5%BB%BA-%E5%8A%A0%E5%85%A5/d_hu_7c67ad27a83df608.png&#34; width=&#34;1200&#34; height=&#34;916&#34; alt=&#34;exception types&#34;&gt;
+&lt;img src=&#34;https://Gzmomo001.github.io/public/p/mc%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%90%AD%E5%BB%BA-%E5%8A%A0%E5%85%A5/d_hu_7c67ad27a83df608.png&#34; width=&#34;1200&#34; height=&#34;916&#34; alt=&#34;exception types&#34;&gt;
 &lt;ol start=&#34;4&#34;&gt;
 &lt;li&gt;下载完成之后看到 jar 结尾的文件说明成功下载.&lt;/li&gt;
 &lt;/ol&gt;
@@ -167,19 +187,39 @@
 &lt;li&gt;打开 bash 并进入到你的服务器安装目录下.&lt;/li&gt;
 &lt;li&gt;通过 java 安装服务器&lt;/li&gt;
 &lt;/ol&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;java -jar &amp;lt;下载好的jar安装器文件名&amp;gt; --installServer
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# example&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;java -jar forge-1.18.2-40.3.0-installer.jar --installServer
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;blockquote class=&#34;alert alert-tip&#34;&gt;
+
+
+
+
+
+&lt;div class=&#34;highlight highlight-bash&#34;&gt;
+  &lt;pre&gt;
+    &lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;java -jar &amp;lt;下载好的jar安装器文件名&amp;gt; --installServer
+# example
+java -jar forge-1.18.2-40.3.0-installer.jar --installServer&lt;/code&gt;
+  &lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;blockquote class=&#34;alert alert-tip&#34;&gt;
     &lt;p&gt;在&lt;code&gt;终端&lt;/code&gt;输入文件名的时候需要加上&lt;code&gt;后缀&lt;/code&gt;&lt;/p&gt;&lt;/blockquote&gt;
 &lt;p&gt;安装的过程会收到网络的影响, 请耐心等待&lt;/p&gt;
 &lt;h3 id=&#34;初始化服务器&#34;&gt;初始化服务器
 &lt;/h3&gt;&lt;ol&gt;
 &lt;li&gt;安装好之后在安装目录下会出现 run 启动脚本, 我们需要先运行一次脚本.&lt;/li&gt;
 &lt;/ol&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;./run.sh
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# 如果是windows, 就运行 run.bat&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;ol start=&#34;2&#34;&gt;
+
+
+
+
+
+&lt;div class=&#34;highlight highlight-bash&#34;&gt;
+  &lt;pre&gt;
+    &lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;./run.sh
+# 如果是windows, 就运行 run.bat&lt;/code&gt;
+  &lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;ol start=&#34;2&#34;&gt;
 &lt;li&gt;
 &lt;p&gt;初始化完成之后我们需要同意服务器的协议.&lt;/p&gt;
 &lt;ul&gt;
@@ -257,7 +297,7 @@
 &lt;li&gt;在 cploar 服务启动之后在网页中打开服务器的&lt;code&gt;9200&lt;/code&gt;端口.&lt;/li&gt;
 &lt;li&gt;设置映射.&lt;/li&gt;
 &lt;/ol&gt;
-&lt;p&gt;&lt;img src=&#34;https://Gzmomo001.github.io/p/mc%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%90%AD%E5%BB%BA-%E5%8A%A0%E5%85%A5/port_hu_6ba287f842e76ffa.png&#34; width=&#34;1200&#34; height=&#34;472&#34; alt=&#34;exception types&#34;&gt;
+&lt;p&gt;&lt;img src=&#34;https://Gzmomo001.github.io/public/p/mc%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%90%AD%E5%BB%BA-%E5%8A%A0%E5%85%A5/port_hu_6ba287f842e76ffa.png&#34; width=&#34;1200&#34; height=&#34;472&#34; alt=&#34;exception types&#34;&gt;
 仿照图片中的设置配置映射.&lt;/p&gt;
 &lt;blockquote class=&#34;alert alert-note&#34;&gt;
     &lt;p&gt;对于 forge, 服务器开启后默认端口为 25565, 如果想修改监听端口可以修改 properties 里的端口设置.&lt;/p&gt;&lt;/blockquote&gt;

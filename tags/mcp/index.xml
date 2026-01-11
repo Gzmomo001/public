@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+    <channel>
+        <title>Mcp on Henry Zhang</title>
+        <link>https://Gzmomo001.github.io/public/tags/mcp/</link>
+        <description>Recent content in Mcp on Henry Zhang</description>
+        <generator>Hugo -- gohugo.io</generator>
+        <language>zh-cn</language>
+        <copyright>blog@mail.henry070.org</copyright>
+        <lastBuildDate>Wed, 24 Dec 2025 13:36:01 -0500</lastBuildDate><atom:link href="https://Gzmomo001.github.io/public/tags/mcp/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>Mcp</title>
+        <link>https://Gzmomo001.github.io/public/p/mcp/</link>
+        <pubDate>Tue, 23 Dec 2025 09:30:47 -0500</pubDate>
+        
+        <guid>https://Gzmomo001.github.io/public/p/mcp/</guid>
+        <description>&lt;img src="https://Gzmomo001.github.io/public/p/mcp/mcp-blog-cover.png" alt="Featured image of post Mcp" /&gt;&lt;h1 id=&#34;what-is-the-model-context-protocol-mcp--why&#34;&gt;What is the Model Context Protocol (MCP)? | why
+&lt;/h1&gt;&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;https://modelcontextprotocol.io/docs/getting-started/intro&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;参考文档&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;mcp 作为llm的一个重要工具现在基本已经成为了agent中不可或缺的一环. 它连接了语言模型和外部的世界, 就像把人脑通过眼睛耳朵来获取信息, 通过手脚和世界交互一样.&lt;/p&gt;
+&lt;p&gt;现在很多agent解决方案都能使用命令行完成大多数的操作如读取文件信息, 爬取网页内容等, 为什么我们还需要mcp呢?
+首先我们命令行确实已经能解决百分之八十的agent与外界交互的需求了, 但是在使用命令行的过程中很难保证agent不会执行一些危险的命令对项目仓库以至于服务器造成不可挽回的影响, 虽然现在很多agent工具都会在执行一些指令的时候需要用户确认. 但mcp的出现就让权限的管理更加的透明而不是只是由agent自行决定. 用户可以通过mcp自行决定哪些指令不需要确认, 哪些需要. 访问哪些目录的时候需要确认. 再者, mcp返回的内容通常都专门为llm优化过, 逻辑结构清晰. 而不是像cli大部分时候返回plaintext. 最后mcp是用户自行定义使用哪些工具. 而且也可以自行根据仓库需求制作自己的工具来给llm使用.&lt;/p&gt;
+&lt;h1 id=&#34;mcp-三种核心分类&#34;&gt;MCP 三种核心分类
+&lt;/h1&gt;&lt;ol&gt;
+&lt;li&gt;Resources: 模型从外界获取信息的工具&lt;/li&gt;
+&lt;li&gt;Tools: 模型与外界交互&lt;/li&gt;
+&lt;li&gt;Prompts: 模型提示词工程&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h1 id=&#34;当你使用前端交互工具和带有mcp的模型对话的时候发生了什么&#34;&gt;当你使用前端交互工具和带有mcp的模型对话的时候发生了什么?
+&lt;/h1&gt;&lt;ol&gt;
+&lt;li&gt;客户端会把你的问题(request)发送给llm&lt;/li&gt;
+&lt;li&gt;llm 会分析当前可用的工具, 并判断是否需要和选择什么mcp服务&lt;/li&gt;
+&lt;li&gt;客户端会通过mcp服务执行mcp&lt;/li&gt;
+&lt;li&gt;客户端获取到mcp返回的结果之后便会把结果返还给llm&lt;/li&gt;
+&lt;li&gt;根据mcp结果llm在给客户端返还一个自然语言的回复&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h1 id=&#34;当前常用的mcp服务&#34;&gt;当前常用的mcp服务
+&lt;/h1&gt;&lt;p&gt;在github上有一个专门的mcp仓库: &lt;a class=&#34;link&#34; href=&#34;https://github.com/modelcontextprotocol/servers&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;点击这里导航&lt;/a&gt;&lt;/p&gt;
+&lt;h1 id=&#34;分享几个在开发过程中常用mcp&#34;&gt;分享几个在开发过程中常用mcp
+&lt;/h1&gt;&lt;h2 id=&#34;git&#34;&gt;git
+&lt;/h2&gt;&lt;p&gt;模型通过这个mcp 查询仓库的git信息, 并且可以完成提交和修改分支等功能.&lt;/p&gt;
+&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;https://github.com/modelcontextprotocol/servers/tree/main/src/git&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;仓库链接&lt;/a&gt;&lt;/p&gt;
+&lt;h2 id=&#34;filesystem&#34;&gt;filesystem
+&lt;/h2&gt;&lt;p&gt;这是最常用的MCP服务之一, 提供了完整的文件系统操作能力. 通过这个服务, 模型可以:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;读取和写入文件内容&lt;/li&gt;
+&lt;li&gt;创建和管理目录结构&lt;/li&gt;
+&lt;li&gt;搜索文件和目录&lt;/li&gt;
+&lt;li&gt;获取文件元数据(大小、修改时间等)&lt;/li&gt;
+&lt;li&gt;移动和重命名文件&lt;/li&gt;
+&lt;/ul&gt;
+
+
+
+
+
+&lt;div class=&#34;highlight highlight-bash&#34;&gt;
+  &lt;pre&gt;
+    &lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;# 示例配置文件
+{
+  &amp;#34;mcpServers&amp;#34;: {
+    &amp;#34;filesystem&amp;#34;: {
+      &amp;#34;command&amp;#34;: &amp;#34;npx&amp;#34;,
+      &amp;#34;args&amp;#34;: [&amp;#34;-y&amp;#34;, &amp;#34;@modelcontextprotocol/server-filesystem&amp;#34;, &amp;#34;/path/to/allowed/directory&amp;#34;]
+    }
+  }
+}&lt;/code&gt;
+  &lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h2 id=&#34;google&#34;&gt;google
+&lt;/h2&gt;&lt;p&gt;这里包含了谷歌官方提供的mcp服务. 包括google workspace, cloud storage 等&lt;/p&gt;
+&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;https://github.com/google/mcp&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;仓库链接&lt;/a&gt;&lt;/p&gt;
+&lt;h3 id=&#34;配置google-mcp服务&#34;&gt;配置Google MCP服务
+&lt;/h3&gt;
+
+
+
+
+&lt;div class=&#34;highlight highlight-json&#34;&gt;
+  &lt;pre&gt;
+    &lt;code class=&#34;language-json&#34; data-lang=&#34;json&#34;&gt;{
+  &amp;#34;mcpServers&amp;#34;: {
+    &amp;#34;google-workspace&amp;#34;: {
+      &amp;#34;command&amp;#34;: &amp;#34;npx&amp;#34;,
+      &amp;#34;args&amp;#34;: [&amp;#34;-y&amp;#34;, &amp;#34;@google/mcp-server-workspace&amp;#34;],
+      &amp;#34;env&amp;#34;: {
+        &amp;#34;GOOGLE_APPLICATION_CREDENTIALS&amp;#34;: &amp;#34;/path/to/credentials.json&amp;#34;
+      }
+    }
+  }
+}&lt;/code&gt;
+  &lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h3 id=&#34;google-workspace&#34;&gt;&lt;a class=&#34;link&#34; href=&#34;https://github.com/gemini-cli-extensions/workspace&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;google workspace&lt;/a&gt;
+&lt;/h3&gt;&lt;p&gt;包括slide, docs, sheets, Calendar 和 Gmail.&lt;/p&gt;
+&lt;p&gt;通过这个mcp你可以访问你谷歌账户中的文档, 日历和邮箱等. 包括查询某个具体的文档, 新增文档, 查询当天的计划, 查看邮箱等.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;主要功能:&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;📄 文档管理: 创建、读取、更新Google Docs&lt;/li&gt;
+&lt;li&gt;📊 表格操作: 处理Google Sheets数据&lt;/li&gt;
+&lt;li&gt;📅 日历集成: 查看和管理Google Calendar事件&lt;/li&gt;
+&lt;li&gt;📧 邮件管理: 读取和发送Gmail邮件&lt;/li&gt;
+&lt;li&gt;🎨 演示文稿: 操作Google Slides&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;cloud-storage&#34;&gt;&lt;a class=&#34;link&#34; href=&#34;https://github.com/googleapis/gcloud-mcp/tree/main/packages/storage-mcp&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;cloud storage&lt;/a&gt;
+&lt;/h3&gt;&lt;p&gt;提供与Google Cloud Storage的集成能力:&lt;/p&gt;
+
+
+
+
+
+&lt;div class=&#34;highlight highlight-bash&#34;&gt;
+  &lt;pre&gt;
+    &lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;# 安装Cloud Storage MCP
+npm install -g @google/gcloud-mcp-storage&lt;/code&gt;
+  &lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;&lt;strong&gt;核心功能:&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;📦 存储桶管理: 创建、删除、列出存储桶&lt;/li&gt;
+&lt;li&gt;📁 文件操作: 上传、下载、删除对象&lt;/li&gt;
+&lt;li&gt;🔍 权限控制: 管理ACL和IAM权限&lt;/li&gt;
+&lt;li&gt;📈 元数据访问: 获取对象信息和存储统计&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;实际应用场景&#34;&gt;实际应用场景
+&lt;/h2&gt;&lt;h3 id=&#34;场景1-自动化项目文档生成&#34;&gt;场景1: 自动化项目文档生成
+&lt;/h3&gt;&lt;p&gt;使用filesystem MCP读取项目代码, 结合git MCP获取提交历史, 自动生成项目文档.&lt;/p&gt;
+&lt;h3 id=&#34;场景2-数据分析工作流&#34;&gt;场景2: 数据分析工作流
+&lt;/h3&gt;&lt;p&gt;通过Google Sheets MCP读取数据, 使用模型分析后, 将结果写入Google Docs生成报告.&lt;/p&gt;
+&lt;h3 id=&#34;场景3-个人助理&#34;&gt;场景3: 个人助理
+&lt;/h3&gt;&lt;p&gt;整合Google Calendar MCP和Gmail MCP, 创建智能日程管理和邮件处理助手.&lt;/p&gt;
+&lt;h2 id=&#34;最佳实践&#34;&gt;最佳实践
+&lt;/h2&gt;&lt;ol&gt;
+&lt;li&gt;&lt;code&gt;权限最小化原则&lt;/code&gt;: 只授予必要的目录和操作权限&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;定期更新MCP服务&lt;/code&gt;: 保持MCP服务器为最新版本&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;监控使用情况&lt;/code&gt;: 记录MCP调用日志以便审计&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;备份配置文件&lt;/code&gt;: 定期备份MCP配置以防丢失&lt;/li&gt;
+&lt;/ol&gt;
+</description>
+        </item>
+        
+    </channel>
+</rss>

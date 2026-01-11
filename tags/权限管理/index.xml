@@ -1,0 +1,870 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+    <channel>
+        <title>权限管理 on Henry Zhang</title>
+        <link>https://Gzmomo001.github.io/public/tags/%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86/</link>
+        <description>Recent content in 权限管理 on Henry Zhang</description>
+        <generator>Hugo -- gohugo.io</generator>
+        <language>zh-cn</language>
+        <copyright>blog@mail.henry070.org</copyright>
+        <lastBuildDate>Sun, 11 Jan 2026 16:57:00 +0000</lastBuildDate><atom:link href="https://Gzmomo001.github.io/public/tags/%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>文件系统：Linux 的数据宫殿</title>
+        <link>https://Gzmomo001.github.io/public/p/%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9Flinux-%E7%9A%84%E6%95%B0%E6%8D%AE%E5%AE%AB%E6%AE%BF/</link>
+        <pubDate>Sun, 11 Jan 2026 01:00:00 +0800</pubDate>
+        
+        <guid>https://Gzmomo001.github.io/public/p/%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9Flinux-%E7%9A%84%E6%95%B0%E6%8D%AE%E5%AE%AB%E6%AE%BF/</guid>
+        <description>&lt;img src="https://Gzmomo001.github.io/public/default.jpeg" alt="Featured image of post 文件系统：Linux 的数据宫殿" /&gt;&lt;h1 id=&#34;文件系统linux-的数据宫殿&#34;&gt;文件系统：Linux 的数据宫殿
+&lt;/h1&gt;&lt;h2 id=&#34;引言&#34;&gt;引言
+&lt;/h2&gt;&lt;p&gt;文件系统是操作系统中最重要的组成部分之一。在 Linux 中，一切皆文件——普通文件、目录、设备、套接字等都通过文件系统接口访问。在这篇文章中，我们将深入探讨 Linux 文件系统的奥秘。&lt;/p&gt;
+&lt;h2 id=&#34;一切皆文件&#34;&gt;一切皆文件
+&lt;/h2&gt;&lt;h3 id=&#34;unix-哲学&#34;&gt;Unix 哲学
+&lt;/h3&gt;&lt;p&gt;Linux 继承了 Unix 的设计哲学：&lt;strong&gt;一切皆文件&lt;/strong&gt;&lt;/p&gt;
+&lt;pre class=&#34;mermaid&#34;&gt;
+  mindmap
+  root((一切皆文件))
+    普通文件
+      文本文件
+      二进制文件
+      数据文件
+    目录
+      文件夹
+      路径
+    设备文件
+      块设备/dev/sda
+      字符设备/dev/tty
+    进程文件
+      /proc
+    网络文件
+      /dev/tcp
+      Socket
+    其他
+      管道
+      符号链接
+&lt;/pre&gt;
+
+&lt;h3 id=&#34;文件类型&#34;&gt;文件类型
+&lt;/h3&gt;
+
+
+
+
+&lt;div class=&#34;highlight highlight-bash&#34;&gt;
+  &lt;pre&gt;
+    &lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;# 查看文件类型
+ls -la /etc/passwd /dev/sda /dev/tty /bin/bash
+
+# 输出示例：
+# -rw-r--r--  1 root root  2941 Feb  10 10:00 /etc/passwd
+# brw-rw----  1 root disk   8, 0 Feb  10 10:00 /dev/sda
+# crw-rw-rw-  1 root tty   5, 0 Feb  10 10:00 /dev/tty
+# -rwxr-xr-x  1 root root  1.2M Feb  10 10:00 /bin/bash
+
+# 第一个字符表示文件类型：
+# - : 普通文件
+# d : 目录
+# b : 块设备（块设备驱动）
+# c : 字符设备（字符设备驱动）
+# l : 符号链接
+# p : 命名管道（FIFO）
+# s : 套接字&lt;/code&gt;
+  &lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h2 id=&#34;虚拟文件系统vfs&#34;&gt;虚拟文件系统（VFS）
+&lt;/h2&gt;&lt;h3 id=&#34;vfs-的作用&#34;&gt;VFS 的作用
+&lt;/h3&gt;&lt;p&gt;VFS 提供了一个统一的文件系统接口，使得 Linux 可以支持多种文件系统：&lt;/p&gt;
+&lt;pre class=&#34;mermaid&#34;&gt;
+  flowchart TB
+    A[用户程序] --&amp;gt;|open, read, write| B[VFS 层]
+
+    B --&amp;gt; C[Ext4]
+    B --&amp;gt; D[XFS]
+    B --&amp;gt; E[Btrfs]
+    B --&amp;gt; F[NFS]
+    B --&amp;gt; G[ProcFS]
+    B --&amp;gt; H[SysFS]
+
+    C --&amp;gt; I[块设备层]
+    D --&amp;gt; I
+    E --&amp;gt; I
+
+    F --&amp;gt; J[网络层]
+
+    G --&amp;gt; K[内核数据结构]
+    H --&amp;gt; K
+
+    style B fill:#fff3e0
+    style C fill:#e3f2fd
+    style D fill:#e3f2fd
+    style E fill:#e3f2fd
+&lt;/pre&gt;
+
+&lt;h3 id=&#34;vfs-的四大对象&#34;&gt;VFS 的四大对象
+&lt;/h3&gt;&lt;h4 id=&#34;1-超级块super_block&#34;&gt;1. 超级块（super_block）
+&lt;/h4&gt;&lt;p&gt;超级块表示整个文件系统：&lt;/p&gt;
+
+
+
+
+
+&lt;div class=&#34;highlight highlight-c&#34;&gt;
+  &lt;pre&gt;
+    &lt;code class=&#34;language-c&#34; data-lang=&#34;c&#34;&gt;struct super_block {
+    struct list_head s_list;      // 所有超级块的链表
+    dev_t s_dev;                  // 设备标识符
+    unsigned long s_magic;        // 文件系统魔数
+
+    const struct super_operations *s_op;
+    struct file_system_type *s_type;
+
+    struct inode *s_root;         // 根目录 inode
+    // ...
+};&lt;/code&gt;
+  &lt;/pre&gt;
+&lt;/div&gt;
+
+
+
+
+
+
+&lt;div class=&#34;highlight highlight-bash&#34;&gt;
+  &lt;pre&gt;
+    &lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;# 查看文件系统超级块信息
+tune2fs -l /dev/sda1
+
+# 查看文件系统魔数
+blkid /dev/sda1&lt;/code&gt;
+  &lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h4 id=&#34;2-索引节点inode&#34;&gt;2. 索引节点（inode）
+&lt;/h4&gt;&lt;p&gt;inode 存储文件的元数据（&lt;strong&gt;不包含文件名&lt;/strong&gt;）：&lt;/p&gt;
+
+
+
+
+
+&lt;div class=&#34;highlight highlight-c&#34;&gt;
+  &lt;pre&gt;
+    &lt;code class=&#34;language-c&#34; data-lang=&#34;c&#34;&gt;struct inode {
+    umode_t i_mode;               // 文件类型和权限
+    uid_t i_uid;                  // 所有者 UID
+    gid_t i_gid;                  // 所属组 GID
+    loff_t i_size;                // 文件大小（字节）
+    struct timespec i_atime;      // 最后访问时间
+    struct timespec i_mtime;      // 最后修改时间
+    struct timespec i_ctime;      // 最后状态改变时间
+
+    struct inode_operations *i_op;
+    struct file_operations *i_fop;
+
+    struct address_space *i_mapping;
+    // ...
+};&lt;/code&gt;
+  &lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;&lt;strong&gt;inode 包含的信息&lt;/strong&gt;：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;文件类型&lt;/li&gt;
+&lt;li&gt;权限&lt;/li&gt;
+&lt;li&gt;所有者&lt;/li&gt;
+&lt;li&gt;文件大小&lt;/li&gt;
+&lt;li&gt;时间戳&lt;/li&gt;
+&lt;li&gt;数据块位置指针&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;inode 不包含&lt;/strong&gt;：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;文件名（文件名存储在目录项中）&lt;/li&gt;
+&lt;/ul&gt;
+
+
+
+
+
+&lt;div class=&#34;highlight highlight-bash&#34;&gt;
+  &lt;pre&gt;
+    &lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;# 查看 inode 编号
+ls -i file.txt
+
+# 查看文件 inode 信息
+stat file.txt
+
+# 输出示例：
+#   File: file.txt
+#   Size: 1234       Blocks: 8         IO Block: 4096   regular file
+# Access: (0644/-rw-r--r--)  Uid: ( 1000/   user)   Gid: ( 1000/   user)
+# Access: 2026-01-11 00:00:00.000000000 &amp;#43;0800
+# Modify: 2026-01-10 23:59:59.000000000 &amp;#43;0800
+# Change: 2026-01-10 23:59:59.000000000 &amp;#43;0800
+# Birth: 2026-01-10 00:00:00.000000000 &amp;#43;0800&lt;/code&gt;
+  &lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h4 id=&#34;3-目录项dentry&#34;&gt;3. 目录项（dentry）
+&lt;/h4&gt;&lt;p&gt;dentry 将路径名连接到 inode：&lt;/p&gt;
+
+
+
+
+
+&lt;div class=&#34;highlight highlight-c&#34;&gt;
+  &lt;pre&gt;
+    &lt;code class=&#34;language-c&#34; data-lang=&#34;c&#34;&gt;struct dentry {
+    struct dentry *d_parent;      // 父目录
+    struct qstr d_name;           // 文件名
+    struct inode *d_inode;        // 关联的 inode
+
+    unsigned int d_flags;         // 目录项标志
+    struct dentry_operations *d_op;
+    // ...
+};&lt;/code&gt;
+  &lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;&lt;strong&gt;dentry 缓存（dcache）&lt;/strong&gt;：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;加速路径查找&lt;/li&gt;
+&lt;li&gt;最近使用的目录项保持在内存中&lt;/li&gt;
+&lt;/ul&gt;
+
+
+
+
+
+&lt;div class=&#34;highlight highlight-bash&#34;&gt;
+  &lt;pre&gt;
+    &lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;# 清理 dentry 缓存
+sync &amp;amp;&amp;amp; echo 3 &amp;gt; /proc/sys/vm/drop_caches&lt;/code&gt;
+  &lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h4 id=&#34;4-文件file&#34;&gt;4. 文件（file）
+&lt;/h4&gt;&lt;p&gt;file 表示打开的文件：&lt;/p&gt;
+
+
+
+
+
+&lt;div class=&#34;highlight highlight-c&#34;&gt;
+  &lt;pre&gt;
+    &lt;code class=&#34;language-c&#34; data-lang=&#34;c&#34;&gt;struct file {
+    struct path f_path;
+    struct inode *f_inode;        // 关联的 inode
+    const struct file_operations *f_op;
+
+    loff_t f_pos;                 // 当前读写位置
+    struct fown_struct f_owner;
+    // ...
+};&lt;/code&gt;
+  &lt;/pre&gt;
+&lt;/div&gt;
+
+
+
+
+
+
+&lt;div class=&#34;highlight highlight-bash&#34;&gt;
+  &lt;pre&gt;
+    &lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;# 查看进程打开的文件
+lsof -p 1234
+
+# 查看某个文件被哪些进程打开
+lsof /var/log/syslog
+
+# /proc 文件系统也提供这些信息
+ls -la /proc/1234/fd/&lt;/code&gt;
+  &lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h2 id=&#34;文件系统布局&#34;&gt;文件系统布局
+&lt;/h2&gt;&lt;h3 id=&#34;ext4-文件系统结构&#34;&gt;Ext4 文件系统结构
+&lt;/h3&gt;
+
+
+
+  
+
+
+&lt;div class=&#34;highlight highlight-text&#34;&gt;
+  &lt;pre&gt;
+    &lt;code class=&#34;language-text&#34; data-lang=&#34;text&#34;&gt;┌────────────────────────────────────────────────┐
+│              Boot Sector (引导扇区)            │
+├────────────────────────────────────────────────┤
+│              超级块（Superblock）               │
+│  - 文件系统大小、块数、inode数                 │
+│  - 每1024个块有一个超级块备份                  │
+├────────────────────────────────────────────────┤
+│              组描述符（Group Descriptors）      │
+│  - 块位图、inode位图、inode表的位置            │
+├────────────────────────────────────────────────┤
+│  数据块组 1  │ 数据块组 2  │ ... │ 数据块组 N  │
+│ ┌──────────┐ │ ┌──────────┐ │    │ ┌──────────┐│
+│ │超级块备份│ │ │超级块备份│ │    │ │超级块备份││
+│ ├──────────┤ │ ├──────────┤ │    │ ├──────────┤│
+│ │块位图    │ │ │块位图    │ │    │ │块位图    ││
+│ ├──────────┤ │ ├──────────┤ │    │ ├──────────┤│
+│ │inode位图 │ │ │inode位图 │ │    │ │inode位图 ││
+│ ├──────────┤ │ ├──────────┤ │    │ ├──────────┤│
+│ │inode表   │ │ │inode表   │ │    │ │inode表   ││
+│ ├──────────┤ │ ├──────────┤ │    │ ├──────────┤│
+│ │数据块    │ │ │数据块    │ │    │ │数据块    ││
+│ └──────────┘ │ └──────────┘ │    │ └──────────┘│
+└────────────────────────────────────────────────┘&lt;/code&gt;
+  &lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h3 id=&#34;inode-结构详解&#34;&gt;inode 结构详解
+&lt;/h3&gt;&lt;p&gt;inode 包含指向数据块的指针：&lt;/p&gt;
+
+
+
+
+  
+
+
+&lt;div class=&#34;highlight highlight-text&#34;&gt;
+  &lt;pre&gt;
+    &lt;code class=&#34;language-text&#34; data-lang=&#34;text&#34;&gt;┌────────────────────────────────────┐
+│         inode 结构                 │
+├────────────────────────────────────┤
+│  文件元数据（大小、权限、时间等）  │
+├────────────────────────────────────┤
+│  直接指针 (12个)                   │
+│    - 指向数据块 0-11               │
+├────────────────────────────────────┤
+│  单级间接指针                      │
+│    - 指向一个索引块                │
+│    - 该索引块包含数据块指针        │
+├────────────────────────────────────┤
+│  双级间接指针                      │
+│    - 指向一个索引块                │
+│    - 该索引块指向二级索引块        │
+│    - 二级索引块包含数据块指针      │
+├────────────────────────────────────┤
+│  三级间接指针                      │
+│    - 类似双级，但多一层            │
+└────────────────────────────────────┘
+
+文件大小计算（假设块大小为 4KB）：
+- 直接指针：12 × 4KB = 48KB
+- 单级间接：256 × 4KB = 1MB
+- 双级间接：256 × 256 × 4KB = 256MB
+- 三级间接：256³ × 4KB = 64GB&lt;/code&gt;
+  &lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h2 id=&#34;文件权限&#34;&gt;文件权限
+&lt;/h2&gt;&lt;h3 id=&#34;权限模型&#34;&gt;权限模型
+&lt;/h3&gt;&lt;p&gt;Linux 使用传统的 Unix 权限模型：&lt;/p&gt;
+
+
+
+
+
+&lt;div class=&#34;highlight highlight-bash&#34;&gt;
+  &lt;pre&gt;
+    &lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;-rw-r--r--  1 user group 1234 Jan 10 10:00 file.txt
+││││││││││
+│││││││││└─ 其他用户权限（r--）
+│││││││└──── 组用户权限（r--）
+│││││└─────── 所有者权限（rw-）
+│││└───────── 文件类型（- = 普通文件）
+│└────────── 特殊权限位
+└─────────── ACL 或 SELinux 上下文&lt;/code&gt;
+  &lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;&lt;strong&gt;权限类型&lt;/strong&gt;：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;r（read）&lt;/strong&gt;：读取&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;w（write）&lt;/strong&gt;：写入&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;x（execute）&lt;/strong&gt;：执行&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;权限对象&lt;/strong&gt;：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;所有者（user）&lt;/strong&gt;：文件创建者&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;组（group）&lt;/strong&gt;：文件所属组&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;其他（others）&lt;/strong&gt;：其他所有用户&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;权限表示&#34;&gt;权限表示
+&lt;/h3&gt;&lt;h4 id=&#34;符号模式&#34;&gt;符号模式
+&lt;/h4&gt;
+
+
+
+
+&lt;div class=&#34;highlight highlight-bash&#34;&gt;
+  &lt;pre&gt;
+    &lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;# 查看权限
+ls -l file.txt
+
+# 修改权限
+chmod u&amp;#43;x file.txt      # 所有者添加执行权限
+chmod go-w file.txt     # 组和其他移除写入权限
+chmod a=r file.txt      # 所有用户设置为只读
+
+# 常用组合
+chmod 755 script.sh     # rwxr-xr-x
+chmod 644 file.txt      # rw-r--r--
+chmod 600 secret.key    # rw-------（私密文件）&lt;/code&gt;
+  &lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h4 id=&#34;数字模式&#34;&gt;数字模式
+&lt;/h4&gt;
+
+
+
+
+&lt;div class=&#34;highlight highlight-bash&#34;&gt;
+  &lt;pre&gt;
+    &lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;# 权限位计算
+r = 4
+w = 2
+x = 1
+- = 0
+
+# 示例
+rwxr-xr-- = 754
+│││││││││
+││││││││└─ 其他：4 (r--)
+││││││└──── 组：5 (r-x)
+││││└─────── 所有者：7 (rwx)
+
+# 常用权限值
+644 (rw-r--r--)  # 普通文件
+755 (rwxr-xr-x)  # 可执行文件/目录
+600 (rw-------)  # 私密文件
+640 (rw-r-----)  # 组共享文件&lt;/code&gt;
+  &lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h3 id=&#34;目录权限&#34;&gt;目录权限
+&lt;/h3&gt;
+
+
+
+
+&lt;div class=&#34;highlight highlight-bash&#34;&gt;
+  &lt;pre&gt;
+    &lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;# 目录权限含义
+r (read)    # 可以列出目录内容
+w (write)   # 可以创建/删除文件（需要 x 权限）
+x (execute) # 可以进入目录（cd）
+
+# 示例
+drwxr-xr-x  2 user group 4096 Jan 10 10:00 documents
+│││││││││
+││││││││└─ 其他：r-x（可以进入，但不能写入）
+││││││└──── 组：r-x（可以进入，但不能写入）
+││││└─────── 所有者：rwx（完全控制）&lt;/code&gt;
+  &lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;blockquote class=&#34;alert alert-warning&#34;&gt;
+    &lt;p&gt;删除文件需要&lt;strong&gt;父目录的写权限&lt;/strong&gt;，而不是文件本身的权限！&lt;/p&gt;&lt;/blockquote&gt;
+&lt;h3 id=&#34;特殊权限&#34;&gt;特殊权限
+&lt;/h3&gt;&lt;h4 id=&#34;suidset-user-id&#34;&gt;SUID（Set User ID）
+&lt;/h4&gt;
+
+
+
+
+&lt;div class=&#34;highlight highlight-bash&#34;&gt;
+  &lt;pre&gt;
+    &lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;# 以文件所有者身份运行
+chmod u&amp;#43;s /usr/bin/passwd
+# 或
+chmod 4755 /usr/bin/passwd
+
+# 示例：passwd 命令
+-rwsr-xr-x  1 root root  68K Jan 10 10:00 /usr/bin/passwd
+#           ^
+#           s 代替了 x，表示设置了 SUID
+
+# 作用：普通用户运行 passwd 时，临时获得 root 权限
+# 从而可以修改 /etc/shadow 文件&lt;/code&gt;
+  &lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h4 id=&#34;sgidset-group-id&#34;&gt;SGID（Set Group ID）
+&lt;/h4&gt;
+
+
+
+
+&lt;div class=&#34;highlight highlight-bash&#34;&gt;
+  &lt;pre&gt;
+    &lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;# 在目录中创建的文件继承目录的组
+chmod g&amp;#43;s /shared/project
+# 或
+chmod 2755 /shared/project
+
+# 示例
+drwxrwsr-x  2 user project 4096 Jan 10 10:00 /shared/project
+#           ^
+#           s 表示设置了 SGID&lt;/code&gt;
+  &lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h4 id=&#34;sticky-bit&#34;&gt;Sticky Bit
+&lt;/h4&gt;
+
+
+
+
+&lt;div class=&#34;highlight highlight-bash&#34;&gt;
+  &lt;pre&gt;
+    &lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;# 只有文件所有者才能删除文件
+chmod &amp;#43;t /tmp
+# 或
+chmod 1777 /tmp
+
+# 示例
+drwxrwxrwt  10 root root 4096 Jan 10 10:00 /tmp
+#            ^
+#            t 表示设置了 sticky bit
+
+# 作用：在 /tmp 中，用户只能删除自己的文件&lt;/code&gt;
+  &lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h3 id=&#34;默认权限umask&#34;&gt;默认权限（umask）
+&lt;/h3&gt;
+
+
+
+
+&lt;div class=&#34;highlight highlight-bash&#34;&gt;
+  &lt;pre&gt;
+    &lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;# 查看当前 umask
+umask
+# 输出：0002
+
+# umask 从权限中&amp;#34;减去&amp;#34;这些位
+# 文件默认权限：666 - umask = 664 (rw-rw-r--)
+# 目录默认权限：777 - umask = 775 (rwxrwxr-x)
+
+# 设置 umask
+umask 022              # 新文件权限 644 (rw-r--r--)
+umask 077              # 新文件权限 600 (rw-------)
+
+# 永久设置（在 ~/.bashrc 中）
+echo &amp;#39;umask 027&amp;#39; &amp;gt;&amp;gt; ~/.bashrc&lt;/code&gt;
+  &lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h2 id=&#34;文件操作命令&#34;&gt;文件操作命令
+&lt;/h2&gt;&lt;h3 id=&#34;基础操作&#34;&gt;基础操作
+&lt;/h3&gt;
+
+
+
+
+&lt;div class=&#34;highlight highlight-bash&#34;&gt;
+  &lt;pre&gt;
+    &lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;# 创建文件
+touch file.txt                 # 创建空文件
+echo &amp;#34;Hello&amp;#34; &amp;gt; file.txt        # 创建并写入内容
+cat &amp;gt; file.txt &amp;lt;&amp;lt; EOF         # 多行输入
+Line 1
+Line 2
+EOF
+
+# 复制文件
+cp file1.txt file2.txt         # 复制
+cp -r dir1 dir2                # 递归复制目录
+cp -p file.txt backup.txt      # 保留属性
+cp -i file.txt target.txt      # 覆盖前确认
+
+# 移动/重命名
+mv old.txt new.txt             # 重命名
+mv file.txt /tmp/              # 移动
+
+# 删除文件
+rm file.txt                    # 删除
+rm -r dir/                     # 递归删除目录
+rm -i file.txt                 # 确认删除
+rm -f file.txt                 # 强制删除&lt;/code&gt;
+  &lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h3 id=&#34;查找文件&#34;&gt;查找文件
+&lt;/h3&gt;
+
+
+
+
+&lt;div class=&#34;highlight highlight-bash&#34;&gt;
+  &lt;pre&gt;
+    &lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;# find：按条件查找
+find /home -name &amp;#34;*.txt&amp;#34;                    # 按名称查找
+find /home -type f -name &amp;#34;*.conf&amp;#34;          # 查找文件
+find /home -type d -name &amp;#34;log&amp;#34;             # 查找目录
+find /home -size &amp;#43;100M                     # 查找大于100MB的文件
+find /home -mtime -7                       # 查找7天内修改的文件
+find /home -user john                      # 查找john拥有的文件
+find /home -perm 777                       # 查找777权限的文件
+
+# locate：快速查找（使用数据库）
+locate nginx.conf
+sudo updatedb                              # 更新数据库
+
+# which：查找命令位置
+which python3
+whereis python3                            # 查找二进制、源码、手册页&lt;/code&gt;
+  &lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h3 id=&#34;文件内容查看&#34;&gt;文件内容查看
+&lt;/h3&gt;
+
+
+
+
+&lt;div class=&#34;highlight highlight-bash&#34;&gt;
+  &lt;pre&gt;
+    &lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;# 查看文件
+cat file.txt                  # 显示全部
+less file.txt                 # 分页查看（推荐）
+more file.txt                 # 简单分页
+
+# 查看部分
+head -n 10 file.txt           # 前10行
+tail -n 10 file.txt           # 后10行
+tail -f /var/log/syslog       # 实时查看日志
+
+# 查看特定行
+sed -n &amp;#39;10,20p&amp;#39; file.txt      # 第10-20行
+
+# 查找内容
+grep &amp;#34;error&amp;#34; file.txt
+grep -r &amp;#34;TODO&amp;#34; ./             # 递归搜索目录
+grep -i &amp;#34;hello&amp;#34; file.txt      # 忽略大小写
+grep -n &amp;#34;pattern&amp;#34; file.txt    # 显示行号
+grep -v &amp;#34;comment&amp;#34; file.txt    # 反向匹配&lt;/code&gt;
+  &lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h2 id=&#34;文件系统操作&#34;&gt;文件系统操作
+&lt;/h2&gt;&lt;h3 id=&#34;挂载mount&#34;&gt;挂载（mount）
+&lt;/h3&gt;
+
+
+
+
+&lt;div class=&#34;highlight highlight-bash&#34;&gt;
+  &lt;pre&gt;
+    &lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;# 查看挂载情况
+mount                          # 列出所有挂载点
+df -h                          # 显示磁盘使用情况
+
+# 挂载文件系统
+sudo mount /dev/sdb1 /mnt/data
+sudo mount -t ext4 /dev/sdb1 /mnt/data
+
+# 挂载 ISO 镜像
+sudo mount -o loop image.iso /mnt
+
+# 挂载 NFS
+sudo mount -t nfs server:/share /mnt/nfs
+
+# 卸载
+sudo umount /mnt/data
+
+# /etc/fstab：开机自动挂载
+# &amp;lt;设备&amp;gt;      &amp;lt;挂载点&amp;gt;   &amp;lt;类型&amp;gt;  &amp;lt;选项&amp;gt;              &amp;lt;dump&amp;gt; &amp;lt;pass&amp;gt;
+UUID=xxx    /           ext4    errors=remount-ro   0      1
+/dev/sdb1   /mnt/data   ext4    defaults           0      2&lt;/code&gt;
+  &lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h3 id=&#34;磁盘空间管理&#34;&gt;磁盘空间管理
+&lt;/h3&gt;
+
+
+
+
+&lt;div class=&#34;highlight highlight-bash&#34;&gt;
+  &lt;pre&gt;
+    &lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;# 查看磁盘使用
+df -h                          # 人类可读格式
+df -i                          # 查看 inode 使用情况
+
+# 查看目录大小
+du -sh /home/user              # 目录总大小
+du -h --max-depth=1 /home/user  # 一级子目录大小
+du -sh * | sort -hr             # 按大小排序
+
+# 查找大文件
+find /home -type f -size &amp;#43;100M -exec ls -lh {} \;
+
+# 清理空间
+sudo apt clean                 # 清理 apt 缓存
+sudo journalctl --vacuum-time=7d  # 保留7天日志&lt;/code&gt;
+  &lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h2 id=&#34;符号链接和硬链接&#34;&gt;符号链接和硬链接
+&lt;/h2&gt;&lt;h3 id=&#34;硬链接&#34;&gt;硬链接
+&lt;/h3&gt;
+
+
+
+
+&lt;div class=&#34;highlight highlight-bash&#34;&gt;
+  &lt;pre&gt;
+    &lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;# 创建硬链接
+ln original.txt link.txt
+
+# 特点：
+# 1. 指向同一个 inode
+# 2. 同一个文件的不同名字
+# 3. 不能跨文件系统
+# 4. 不能链接目录
+# 5. 删除原文件，链接仍然有效
+
+# 查看
+ls -li original.txt link.txt
+# 123456 -rw-r--r-- 2 user user ... original.txt
+# 123456 -rw-r--r-- 2 user user ... link.txt
+#        ↑                  ↑
+#      相同 inode        硬链接计数&lt;/code&gt;
+  &lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h3 id=&#34;符号链接软链接&#34;&gt;符号链接（软链接）
+&lt;/h3&gt;
+
+
+
+
+&lt;div class=&#34;highlight highlight-bash&#34;&gt;
+  &lt;pre&gt;
+    &lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;# 创建符号链接
+ln -s /path/to/original symlink
+
+# 特点：
+# 1. 指向路径，不是 inode
+# 2. 有自己的 inode
+# 3. 可以跨文件系统
+# 4. 可以链接目录
+# 5. 删除原文件，链接失效
+
+# 查看
+ls -la symlink
+# lrwxrwxrwx 1 user user 13 Jan 10 10:00 symlink -&amp;gt; /path/to/original
+#          ↑
+#      l 表示符号链接&lt;/code&gt;
+  &lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h2 id=&#34;实战技巧&#34;&gt;实战技巧
+&lt;/h2&gt;&lt;h3 id=&#34;批量重命名&#34;&gt;批量重命名
+&lt;/h3&gt;
+
+
+
+
+&lt;div class=&#34;highlight highlight-bash&#34;&gt;
+  &lt;pre&gt;
+    &lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;# 使用 rename 命令
+rename &amp;#39;s/old/new/&amp;#39; *.txt      # 将所有 old 替换为 new
+rename &amp;#39;y/a-z/A-Z/&amp;#39; *.txt      # 转换为大写
+
+# 使用 bash 循环
+for f in *.jpg; do
+    mv &amp;#34;$f&amp;#34; &amp;#34;prefix_${f}&amp;#34;
+done&lt;/code&gt;
+  &lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h3 id=&#34;查找并删除&#34;&gt;查找并删除
+&lt;/h3&gt;
+
+
+
+
+&lt;div class=&#34;highlight highlight-bash&#34;&gt;
+  &lt;pre&gt;
+    &lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;# 查找并删除空文件
+find . -type f -empty -delete
+
+# 查找并删除旧文件
+find /tmp -type f -mtime &amp;#43;30 -delete
+
+# 查找并删除大于100MB的文件
+find . -type f -size &amp;#43;100M -exec rm {} \;&lt;/code&gt;
+  &lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h3 id=&#34;文件备份&#34;&gt;文件备份
+&lt;/h3&gt;
+
+
+
+
+&lt;div class=&#34;highlight highlight-bash&#34;&gt;
+  &lt;pre&gt;
+    &lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;# 创建带时间戳的备份
+cp file.txt file_$(date &amp;#43;%Y%m%d_%H%M%S).txt
+
+# 使用 rsync 同步
+rsync -av --progress /src/ /dst/
+
+# 保留权限、时间戳、所有者
+cp -p source.txt backup.txt&lt;/code&gt;
+  &lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h2 id=&#34;总结&#34;&gt;总结
+&lt;/h2&gt;&lt;p&gt;文件系统是 Linux 的核心概念。通过这篇文章，我们学习了：&lt;/p&gt;
+&lt;h3 id=&#34;核心概念&#34;&gt;核心概念
+&lt;/h3&gt;&lt;ol&gt;
+&lt;li&gt;&lt;strong&gt;一切皆文件&lt;/strong&gt;：Unix 的设计哲学&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;VFS&lt;/strong&gt;：统一多种文件系统的接口&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;inode&lt;/strong&gt;：文件的核心数据结构&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;权限模型&lt;/strong&gt;：用户/组/其他的 rwx 权限&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;文件系统布局&lt;/strong&gt;：超级块、位图、inode表、数据块&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h3 id=&#34;实践技能&#34;&gt;实践技能
+&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;使用 &lt;code&gt;chmod&lt;/code&gt;、&lt;code&gt;chown&lt;/code&gt; 管理权限&lt;/li&gt;
+&lt;li&gt;理解并设置特殊权限（SUID、SGID、Sticky Bit）&lt;/li&gt;
+&lt;li&gt;使用 &lt;code&gt;mount&lt;/code&gt;、&lt;code&gt;umount&lt;/code&gt; 管理文件系统&lt;/li&gt;
+&lt;li&gt;创建硬链接和符号链接&lt;/li&gt;
+&lt;li&gt;高效查找和管理文件&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;下一步&#34;&gt;下一步
+&lt;/h3&gt;&lt;p&gt;在后续文章中，我们将学习：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;设备驱动&lt;/strong&gt;：字符设备和块设备&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;网络编程&lt;/strong&gt;：TCP/IP 和 Socket&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;系统调用&lt;/strong&gt;：深入内核接口&lt;/li&gt;
+&lt;/ul&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&amp;ldquo;In Unix, everything is a file. If it&amp;rsquo;s not a file, it&amp;rsquo;s a process.&amp;rdquo; — Unix Philosophy&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;理解文件系统是理解 Linux 的关键一步。继续探索，你会发现更多精彩！&lt;/p&gt;
+&lt;hr&gt;
+&lt;p&gt;&lt;strong&gt;← 返回系列概述&lt;/strong&gt;: &lt;a class=&#34;link&#34; href=&#34;https://Gzmomo001.github.io/public/p/linux-%E6%A6%82%E8%BF%B0%E4%BB%8E-unix-%E5%88%B0%E5%BC%80%E6%BA%90%E9%9D%A9%E5%91%BD/&#34; &gt;Linux 概述：从 Unix 到开源革命&lt;/a&gt;&lt;/p&gt;
+&lt;hr&gt;
+&lt;p&gt;&lt;strong&gt;参考资源&lt;/strong&gt;：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;https://www.oreilly.com/library/view/understanding-the-linux/0596005652/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;Understanding the Linux Kernel - Chapter 12&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;https://www.kernel.org/doc/html/latest/filesystems/vfs.html&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;The Linux VFS&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;https://ext4.wiki.kernel.org/index.php/Main_Page&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;Ext4 Wiki&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;https://tldp.org/LDP/Linux-Filesystem-Hierarchy/html/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;Linux Filesystem Hierarchy&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+        </item>
+        
+    </channel>
+</rss>

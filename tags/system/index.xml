@@ -2,18 +2,18 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
     <channel>
         <title>System on Henry Zhang</title>
-        <link>https://Gzmomo001.github.io/tags/system/</link>
+        <link>https://Gzmomo001.github.io/public/tags/system/</link>
         <description>Recent content in System on Henry Zhang</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>zh-cn</language>
         <copyright>blog@mail.henry070.org</copyright>
-        <lastBuildDate>Wed, 06 Aug 2025 03:39:15 +0800</lastBuildDate><atom:link href="https://Gzmomo001.github.io/tags/system/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Wed, 06 Aug 2025 03:39:15 +0800</lastBuildDate><atom:link href="https://Gzmomo001.github.io/public/tags/system/index.xml" rel="self" type="application/rss+xml" /><item>
         <title>Soft_links</title>
-        <link>https://Gzmomo001.github.io/p/soft_links/</link>
+        <link>https://Gzmomo001.github.io/public/p/soft_links/</link>
         <pubDate>Thu, 31 Jul 2025 15:38:14 +0800</pubDate>
         
-        <guid>https://Gzmomo001.github.io/p/soft_links/</guid>
-        <description>&lt;img src="https://Gzmomo001.github.io/p/soft_links/link.png" alt="Featured image of post Soft_links" /&gt;&lt;h2 id=&#34;软连接&#34;&gt;软连接
+        <guid>https://Gzmomo001.github.io/public/p/soft_links/</guid>
+        <description>&lt;img src="https://Gzmomo001.github.io/public/p/soft_links/link.png" alt="Featured image of post Soft_links" /&gt;&lt;h2 id=&#34;软连接&#34;&gt;软连接
 &lt;/h2&gt;&lt;p&gt;在系统中我们往往可能需要在一个项目中使用项目之外的一些文件，但是这个文件又不在这项目的根目录在。大部分人往往都选择直接将需要的文件拷贝到项目的路目中。但是这样既浪费时间又浪费系统的存储空间。尔软连接的出现就是为了解决这一问题。我们可以直接通过命令创建一个软连接。让目标文件或者文件夹的替身出现在我们的项目目录下。这样我们就可以在不使用绝对路径的情况下使用该路径了。&lt;/p&gt;
 &lt;h3 id=&#34;如何使用软连接ln&#34;&gt;如何使用软连接（ln
 &lt;/h3&gt;&lt;p&gt;在 linux 中软连接的是由&amp;rsquo;ln&amp;rsquo;这一指令完成的。&lt;/p&gt;
@@ -21,19 +21,29 @@
 &lt;li&gt;在 linux 我们可以使用&amp;rsquo;man ln&amp;rsquo;就能查看 ln 的使用手册&lt;/li&gt;
 &lt;/ol&gt;
 &lt;p&gt;这里列举一些常用的&amp;rsquo;ln&amp;rsquo; 命令&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# Create a symbolic link to a file or directory:&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# 会在路标路径下创建一个原路径同名的文件或者文件夹&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;ln --symbolic /path/to/file_or_directory path/to/symlink
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;#Overwrite an existing symbolic link to point to a different file:&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;ln --symbolic --force /path/to/new_file path/to/symlink
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# Create a hard link to a file:&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;ln /path/to/file path/to/hardlink
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# Delete a symbolic link:&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;rm path/to/symlink
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;blockquote class=&#34;alert alert-tips&#34;&gt;
+
+
+
+
+
+&lt;div class=&#34;highlight highlight-bash&#34;&gt;
+  &lt;pre&gt;
+    &lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;# Create a symbolic link to a file or directory:
+# 会在路标路径下创建一个原路径同名的文件或者文件夹
+ln --symbolic /path/to/file_or_directory path/to/symlink
+
+#Overwrite an existing symbolic link to point to a different file:
+ln --symbolic --force /path/to/new_file path/to/symlink
+
+# Create a hard link to a file:
+ln /path/to/file path/to/hardlink
+
+# Delete a symbolic link:
+rm path/to/symlink&lt;/code&gt;
+  &lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;blockquote class=&#34;alert alert-tips&#34;&gt;
     &lt;p&gt;如果链接是相对路径，那这个相对是路径应该是相对于软连接目标目录的路径
 ###&lt;a class=&#34;link&#34; href=&#34;https://www.gnu.org/software/coreutils/manual/html_node/ln-invocation.html&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;官方文档链接&lt;/a&gt;&lt;/p&gt;&lt;/blockquote&gt;

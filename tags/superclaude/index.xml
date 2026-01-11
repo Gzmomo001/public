@@ -1,0 +1,2556 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+    <channel>
+        <title>SuperClaude on Henry Zhang</title>
+        <link>https://Gzmomo001.github.io/public/tags/superclaude/</link>
+        <description>Recent content in SuperClaude on Henry Zhang</description>
+        <generator>Hugo -- gohugo.io</generator>
+        <language>zh-cn</language>
+        <copyright>blog@mail.henry070.org</copyright>
+        <lastBuildDate>Sun, 11 Jan 2026 17:48:07 +0000</lastBuildDate><atom:link href="https://Gzmomo001.github.io/public/tags/superclaude/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>SuperClaude 入门到精进：从零掌握 AI 辅助开发框架</title>
+        <link>https://Gzmomo001.github.io/public/p/superclaude-%E5%85%A5%E9%97%A8%E5%88%B0%E7%B2%BE%E8%BF%9B%E4%BB%8E%E9%9B%B6%E6%8E%8C%E6%8F%A1-ai-%E8%BE%85%E5%8A%A9%E5%BC%80%E5%8F%91%E6%A1%86%E6%9E%B6/</link>
+        <pubDate>Mon, 12 Jan 2026 01:30:46 +0800</pubDate>
+        
+        <guid>https://Gzmomo001.github.io/public/p/superclaude-%E5%85%A5%E9%97%A8%E5%88%B0%E7%B2%BE%E8%BF%9B%E4%BB%8E%E9%9B%B6%E6%8E%8C%E6%8F%A1-ai-%E8%BE%85%E5%8A%A9%E5%BC%80%E5%8F%91%E6%A1%86%E6%9E%B6/</guid>
+        <description>&lt;img src="https://Gzmomo001.github.io/public/default.jpeg" alt="Featured image of post SuperClaude 入门到精进：从零掌握 AI 辅助开发框架" /&gt;&lt;p&gt;version = &amp;ldquo;1.0.0&amp;rdquo;
+sc_version = &amp;ldquo;4.1.5&amp;rdquo;&lt;/p&gt;
+&lt;h1 id=&#34;superclaude-入门到精进从零掌握-ai-辅助开发框架&#34;&gt;SuperClaude 入门到精进：从零掌握 AI 辅助开发框架
+&lt;/h1&gt;&lt;blockquote&gt;
+&lt;p&gt;&lt;strong&gt;💡 核心洞察&lt;/strong&gt;：SuperClaude 不是替代 Claude Code，而是通过行为上下文注入 &lt;strong&gt;配置和增强&lt;/strong&gt; 它，将 AI 辅助开发提升到全新的系统化水平。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;本文将带你从零开始，逐步掌握 SuperClaude 框架，通过丰富的实战示例和完整的待办事项应用项目，真正理解和运用这个强大的 AI 辅助开发工具。&lt;/p&gt;
+&lt;hr&gt;
+&lt;h2 id=&#34;-目录&#34;&gt;📚 目录
+&lt;/h2&gt;&lt;ol&gt;
+&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;#%e7%ac%ac%e4%b8%80%e9%83%a8%e5%88%86superclaude-%e6%98%af%e4%bb%80%e4%b9%88%e6%a6%82%e5%bf%b5%e7%90%86%e8%a7%a3&#34; &gt;SuperClaude 是什么？&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;#%e7%ac%ac%e4%ba%8c%e9%83%a8%e5%88%86%e5%bf%ab%e9%80%9f%e5%bc%80%e5%a7%8b5-%e5%88%86%e9%92%9f%e4%b8%8a%e6%89%8b&#34; &gt;快速开始（5分钟上手）&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;#%e7%ac%ac%e4%b8%89%e9%83%a8%e5%88%86%e6%a0%b8%e5%bf%83%e5%91%bd%e4%bb%a4%e8%af%a6%e8%a7%a321-%e4%b8%aa%e5%91%bd%e4%bb%a4&#34; &gt;核心命令详解&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;#%e7%ac%ac%e5%9b%9b%e9%83%a8%e5%88%86ai-%e4%b8%93%e5%ae%b6%e8%a7%92%e8%89%b2%e7%b3%bb%e7%bb%9f&#34; &gt;AI 专家角色系统&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;#%e7%ac%ac%e4%ba%94%e9%83%a8%e5%88%86mcp-%e6%9c%8d%e5%8a%a1%e5%99%a8%e9%9b%86%e6%88%90&#34; &gt;MCP 服务器集成&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;#%e7%ac%ac%e5%85%ad%e9%83%a8%e5%88%86%e5%ae%8c%e6%95%b4%e5%ae%9e%e6%88%98%e9%a1%b9%e7%9b%ae%e5%be%85%e5%8a%9e%e4%ba%8b%e9%a1%b9%e5%ba%94%e7%94%a8&#34; &gt;完整实战项目：待办事项应用&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;#%e7%ac%ac%e4%b8%83%e9%83%a8%e5%88%86%e5%ae%9e%e6%88%98%e5%9c%ba%e6%99%af%e4%b8%8e%e5%b7%a5%e4%bd%9c%e6%b5%81&#34; &gt;实战场景与工作流&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;#%e7%ac%ac%e5%85%ab%e9%83%a8%e5%88%86%e5%ad%a6%e4%b9%a0%e8%b7%af%e7%ba%bf%e5%9b%be4-%e5%91%a8%e7%b2%be%e8%bf%9b%e8%ae%a1%e5%88%92&#34; &gt;学习路线图（4周精进计划）&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;#%e7%ac%ac%e4%b9%9d%e9%83%a8%e5%88%86%e6%9c%80%e4%bd%b3%e5%ae%9e%e8%b7%b5%e4%b8%8e%e6%8a%80%e5%b7%a7&#34; &gt;最佳实践与技巧&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;#%e7%ac%ac%e5%8d%81%e9%83%a8%e5%88%86%e8%bf%9b%e9%98%b6%e4%b8%bb%e9%a2%98&#34; &gt;进阶主题&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;#%e7%ac%ac%e5%8d%81%e4%b8%80%e9%83%a8%e5%88%86%e8%b5%84%e6%ba%90%e4%b8%8e%e5%8f%82%e8%80%83&#34; &gt;资源与参考&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;#%e7%89%88%e6%9c%ac%e6%8e%a7%e5%88%b6%e4%b8%8e%e6%9b%b4%e6%96%b0%e7%ad%96%e7%95%a5&#34; &gt;更新日志与维护&lt;/a&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;hr&gt;
+&lt;h2 id=&#34;第一部分superclaude-是什么概念理解&#34;&gt;第一部分：SuperClaude 是什么？（概念理解）
+&lt;/h2&gt;&lt;h3 id=&#34;11-核心概念&#34;&gt;1.1 核心概念
+&lt;/h3&gt;&lt;p&gt;首先，让我们明确 SuperClaude &lt;strong&gt;不是什么&lt;/strong&gt;：&lt;/p&gt;
+&lt;p&gt;❌ &lt;strong&gt;不是独立软件&lt;/strong&gt; - 它不需要单独安装和运行
+❌ &lt;strong&gt;不替代 Claude Code&lt;/strong&gt; - 它是构建在 Claude Code 之上的增强层
+❌ &lt;strong&gt;不需要额外的 AI 模型&lt;/strong&gt; - 使用的是你已有的 Claude API&lt;/p&gt;
+&lt;p&gt;那么，&lt;strong&gt;SuperClaude 是什么&lt;/strong&gt;？&lt;/p&gt;
+&lt;p&gt;✅ &lt;strong&gt;配置框架（Configuration Framework）&lt;/strong&gt; - 通过结构化的行为配置，让 Claude Code 按照特定模式工作
+✅ &lt;strong&gt;行为上下文注入（Behavioral Context Injection）&lt;/strong&gt; - 在运行时将专家级行为模式注入到 Claude 的响应中
+✅ &lt;strong&gt;能力增强层&lt;/strong&gt; - 将 Claude Code 从通用助手转变为专业开发平台&lt;/p&gt;
+&lt;h3 id=&#34;12-框架能力概览&#34;&gt;1.2 框架能力概览
+&lt;/h3&gt;&lt;p&gt;SuperClaude 提供了四大核心能力：&lt;/p&gt;
+&lt;table&gt;
+  &lt;thead&gt;
+      &lt;tr&gt;
+          &lt;th&gt;能力类型&lt;/th&gt;
+          &lt;th&gt;数量&lt;/th&gt;
+          &lt;th&gt;说明&lt;/th&gt;
+      &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+      &lt;tr&gt;
+          &lt;td&gt;&lt;strong&gt;📝 命令&lt;/strong&gt;&lt;/td&gt;
+          &lt;td&gt;21&lt;/td&gt;
+          &lt;td&gt;&lt;code&gt;/sc:&lt;/code&gt; 触发的专用命令，覆盖开发全流程&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;&lt;strong&gt;🤖 专家&lt;/strong&gt;&lt;/td&gt;
+          &lt;td&gt;14&lt;/td&gt;
+          &lt;td&gt;领域专精的 AI 专家角色&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;&lt;strong&gt;🎯 模式&lt;/strong&gt;&lt;/td&gt;
+          &lt;td&gt;6&lt;/td&gt;
+          &lt;td&gt;上下文适应的行为模式&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;&lt;strong&gt;🔌 MCP&lt;/strong&gt;&lt;/td&gt;
+          &lt;td&gt;6&lt;/td&gt;
+          &lt;td&gt;外部工具集成服务器&lt;/td&gt;
+      &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+&lt;h3 id=&#34;13-工作原理图解&#34;&gt;1.3 工作原理图解
+&lt;/h3&gt;&lt;pre class=&#34;mermaid&#34;&gt;
+  flowchart LR
+    A[用户输入 /sc:command] --&amp;gt; B[Claude Code]
+    B --&amp;gt; C[读取上下文文件]
+    C --&amp;gt; D[行为激活]
+    D --&amp;gt; E{需要外部工具?}
+    E --&amp;gt;|是| F[MCP 服务器集成]
+    E --&amp;gt;|否| G[增强响应输出]
+    F --&amp;gt; G
+
+    style A fill:#e1f5ff
+    style G fill:#c8e6c9
+    style F fill:#fff9c4
+&lt;/pre&gt;
+
+&lt;p&gt;&lt;strong&gt;魔法是如何发生的&lt;/strong&gt;：当你输入 &lt;code&gt;/sc:brainstorm&lt;/code&gt; 时，Claude Code 会：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;识别 &lt;code&gt;/sc:&lt;/code&gt; 触发器&lt;/li&gt;
+&lt;li&gt;读取对应的行为配置文件（&lt;code&gt;.md&lt;/code&gt; 格式）&lt;/li&gt;
+&lt;li&gt;激活特定的专家角色和行为模式&lt;/li&gt;
+&lt;li&gt;根据需要调用 MCP 服务器&lt;/li&gt;
+&lt;li&gt;按照框架模式生成全面、系统的响应&lt;/li&gt;
+&lt;/ol&gt;
+&lt;hr&gt;
+&lt;h2 id=&#34;第二部分快速开始5-分钟上手&#34;&gt;第二部分：快速开始（5 分钟上手）
+&lt;/h2&gt;&lt;h3 id=&#34;21-安装方法&#34;&gt;2.1 安装方法
+&lt;/h3&gt;&lt;p&gt;SuperClaude 支持三种安装方式，选择最适合你的：&lt;/p&gt;
+&lt;h4 id=&#34;方法一pipx推荐&#34;&gt;方法一：pipx（推荐）
+&lt;/h4&gt;
+
+
+
+
+&lt;div class=&#34;highlight highlight-bash&#34;&gt;
+  &lt;pre&gt;
+    &lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;pipx install SuperClaude &amp;amp;&amp;amp; SuperClaude install&lt;/code&gt;
+  &lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;&lt;strong&gt;优势&lt;/strong&gt;：隔离环境，不污染系统 Python&lt;/p&gt;
+&lt;h4 id=&#34;方法二pip&#34;&gt;方法二：pip
+&lt;/h4&gt;
+
+
+
+
+&lt;div class=&#34;highlight highlight-bash&#34;&gt;
+  &lt;pre&gt;
+    &lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;pip install SuperClaude &amp;amp;&amp;amp; SuperClaude install&lt;/code&gt;
+  &lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;&lt;strong&gt;适用&lt;/strong&gt;：已熟悉 Python 包管理的开发者&lt;/p&gt;
+&lt;h4 id=&#34;方法三npm&#34;&gt;方法三：npm
+&lt;/h4&gt;
+
+
+
+
+&lt;div class=&#34;highlight highlight-bash&#34;&gt;
+  &lt;pre&gt;
+    &lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;npm install -g @bifrost_inc/superclaude &amp;amp;&amp;amp; superclaude install&lt;/code&gt;
+  &lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;&lt;strong&gt;适用&lt;/strong&gt;：前端开发者或 Node.js 生态系统用户&lt;/p&gt;
+&lt;h3 id=&#34;22-验证安装&#34;&gt;2.2 验证安装
+&lt;/h3&gt;&lt;p&gt;安装完成后，在 Claude Code 中测试以下命令：&lt;/p&gt;
+
+
+
+
+
+&lt;div class=&#34;highlight highlight-bash&#34;&gt;
+  &lt;pre&gt;
+    &lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;# 交互式需求发现
+/sc:brainstorm &amp;#34;我想开发一个任务管理 Web 应用&amp;#34;
+
+# 分析现有代码
+/sc:analyze src/
+
+# 生成实现方案
+/sc:implement &amp;#34;用户认证系统&amp;#34;&lt;/code&gt;
+  &lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;如果这些命令能够正常工作并产生预期响应，说明安装成功！&lt;/p&gt;
+&lt;h3 id=&#34;23-第一个项目体验&#34;&gt;2.3 第一个项目体验
+&lt;/h3&gt;&lt;p&gt;让我们通过一个完整的开发流程体验 SuperClaude 的强大能力：&lt;/p&gt;
+
+
+
+
+
+&lt;div class=&#34;highlight highlight-bash&#34;&gt;
+  &lt;pre&gt;
+    &lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;# 1️⃣ 需求探索
+/sc:brainstorm &amp;#34;电商网站&amp;#34;
+
+# 2️⃣ 加载项目上下文（如果已有代码）
+/sc:load src/
+
+# 3️⃣ 架构分析
+/sc:analyze --focus architecture
+
+# 4️⃣ 生成实施路线图
+/sc:workflow &amp;#34;支付集成&amp;#34;
+
+# 5️⃣ 构建功能
+/sc:implement &amp;#34;Stripe 结账&amp;#34;
+
+# 6️⃣ 测试验证
+/sc:test --coverage
+
+# 7️⃣ 保存会话进度
+/sc:save &amp;#34;支付功能完成&amp;#34;&lt;/code&gt;
+  &lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;&lt;strong&gt;预期效果&lt;/strong&gt;：每个命令都会触发对应的专家角色，生成结构化、专业化的响应，完全不同于简单的问答模式。&lt;/p&gt;
+&lt;hr&gt;
+&lt;h2 id=&#34;第三部分核心命令详解21-个命令&#34;&gt;第三部分：核心命令详解（21 个命令）
+&lt;/h2&gt;&lt;p&gt;SuperClaude 的 21 个核心命令覆盖了软件开发的完整生命周期。让我们按功能类别深入了解它们。&lt;/p&gt;
+&lt;h3 id=&#34;31-开发类命令&#34;&gt;3.1 开发类命令
+&lt;/h3&gt;&lt;h4 id=&#34;-scbuild---智能项目构建&#34;&gt;🎯 &lt;code&gt;/sc:build&lt;/code&gt; - 智能项目构建
+&lt;/h4&gt;&lt;p&gt;&lt;strong&gt;功能&lt;/strong&gt;：自动检测框架并优化构建过程&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;基础用法&lt;/strong&gt;：&lt;/p&gt;
+
+
+
+
+
+&lt;div class=&#34;highlight highlight-bash&#34;&gt;
+  &lt;pre&gt;
+    &lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;/sc:build my-project/&lt;/code&gt;
+  &lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;&lt;strong&gt;高级用法&lt;/strong&gt;：&lt;/p&gt;
+
+
+
+
+
+&lt;div class=&#34;highlight highlight-bash&#34;&gt;
+  &lt;pre&gt;
+    &lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;# 自动检测框架并验证配置
+/sc:build react-app/ --validate
+
+# 生产构建（优化、压缩）
+/sc:build --prod --optimize
+
+# 指定框架类型
+/sc:build vue-app/ --framework vue&lt;/code&gt;
+  &lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;&lt;strong&gt;使用场景&lt;/strong&gt;：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;🆕 新项目初始化&lt;/li&gt;
+&lt;li&gt;🔧 自动检测框架（React, Vue, Next.js, Svelte 等）&lt;/li&gt;
+&lt;li&gt;⚡ 优化构建配置（Vite, Webpack, Turbopack）&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;实际效果&lt;/strong&gt;：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;生成符合最佳实践的项目结构&lt;/li&gt;
+&lt;li&gt;自动配置 TypeScript、ESLint、Prettier&lt;/li&gt;
+&lt;li&gt;集成测试框架（Vitest, Jest）&lt;/li&gt;
+&lt;/ul&gt;
+&lt;hr&gt;
+&lt;h4 id=&#34;-scimplement---特性实现&#34;&gt;🎯 &lt;code&gt;/sc:implement&lt;/code&gt; - 特性实现
+&lt;/h4&gt;&lt;p&gt;&lt;strong&gt;功能&lt;/strong&gt;：从需求到代码的完整实现，自动选择专家角色&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;基础用法&lt;/strong&gt;：&lt;/p&gt;
+
+
+
+
+
+&lt;div class=&#34;highlight highlight-bash&#34;&gt;
+  &lt;pre&gt;
+    &lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;/sc:implement &amp;#34;用户登录功能&amp;#34;&lt;/code&gt;
+  &lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;&lt;strong&gt;高级用法&lt;/strong&gt;：&lt;/p&gt;
+
+
+
+
+
+&lt;div class=&#34;highlight highlight-bash&#34;&gt;
+  &lt;pre&gt;
+    &lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;# 指定专家角色
+/sc:implement &amp;#34;REST API&amp;#34; --persona backend
+
+# 带测试实现
+/sc:implement &amp;#34;数据验证&amp;#34; --with-tests
+
+# 指定技术栈
+/sc:implement &amp;#34;用户认证&amp;#34; --stack nextjs --with-tests&lt;/code&gt;
+  &lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;&lt;strong&gt;使用场景&lt;/strong&gt;：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;✨ 从用户故事到代码实现&lt;/li&gt;
+&lt;li&gt;🎨 自动选择合适的架构模式&lt;/li&gt;
+&lt;li&gt;📝 生成符合规范的代码和文档&lt;/li&gt;
+&lt;li&gt;🧪 包含单元测试和集成测试&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;代码示例&lt;/strong&gt;：&lt;/p&gt;
+
+
+
+
+
+&lt;div class=&#34;highlight highlight-typescript&#34;&gt;
+  &lt;pre&gt;
+    &lt;code class=&#34;language-typescript&#34; data-lang=&#34;typescript&#34;&gt;// 输入: /sc:implement &amp;#34;用户登录&amp;#34; --with-tests
+
+// SuperClaude 会生成：
+// 1. 类型定义
+interface LoginCredentials {
+  email: string;
+  password: string;
+}
+
+interface AuthResponse {
+  token: string;
+  user: User;
+}
+
+// 2. API 函数
+export async function login(credentials: LoginCredentials): Promise&amp;lt;AuthResponse&amp;gt; {
+  const response = await fetch(&amp;#39;/api/auth/login&amp;#39;, {
+    method: &amp;#39;POST&amp;#39;,
+    headers: { &amp;#39;Content-Type&amp;#39;: &amp;#39;application/json&amp;#39; },
+    body: JSON.stringify(credentials),
+  });
+
+  if (!response.ok) {
+    throw new Error(&amp;#39;登录失败&amp;#39;);
+  }
+
+  return response.json();
+}
+
+// 3. 测试用例
+describe(&amp;#39;login&amp;#39;, () =&amp;gt; {
+  it(&amp;#39;should authenticate user with valid credentials&amp;#39;, async () =&amp;gt; {
+    const result = await login({
+      email: &amp;#39;user@example.com&amp;#39;,
+      password: &amp;#39;password123&amp;#39;,
+    });
+
+    expect(result).toHaveProperty(&amp;#39;token&amp;#39;);
+    expect(result).toHaveProperty(&amp;#39;user&amp;#39;);
+  });
+});&lt;/code&gt;
+  &lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;hr&gt;
+&lt;h4 id=&#34;-scdesign---系统设计&#34;&gt;🎯 &lt;code&gt;/sc:design&lt;/code&gt; - 系统设计
+&lt;/h4&gt;&lt;p&gt;&lt;strong&gt;功能&lt;/strong&gt;：创建架构图和设计规范&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;基础用法&lt;/strong&gt;：&lt;/p&gt;
+
+
+
+
+
+&lt;div class=&#34;highlight highlight-bash&#34;&gt;
+  &lt;pre&gt;
+    &lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;/sc:design &amp;#34;微服务架构&amp;#34;&lt;/code&gt;
+  &lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;&lt;strong&gt;高级用法&lt;/strong&gt;：&lt;/p&gt;
+
+
+
+
+
+&lt;div class=&#34;highlight highlight-bash&#34;&gt;
+  &lt;pre&gt;
+    &lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;# 架构设计
+/sc:design &amp;#34;系统架构&amp;#34; --type architecture
+
+# 组件设计
+/sc:design &amp;#34;用户管理组件&amp;#34; --type component
+
+# API 设计（生成 OpenAPI 规范）
+/sc:design &amp;#34;GraphQL API&amp;#34; --format openapi&lt;/code&gt;
+  &lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;&lt;strong&gt;输出内容&lt;/strong&gt;：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;📊 架构图（Mermaid 格式）&lt;/li&gt;
+&lt;li&gt;📋 设计文档&lt;/li&gt;
+&lt;li&gt;🔄 数据流图&lt;/li&gt;
+&lt;li&gt;🎨 UI/UX 建议（针对组件设计）&lt;/li&gt;
+&lt;/ul&gt;
+&lt;hr&gt;
+&lt;h3 id=&#34;32-分析类命令&#34;&gt;3.2 分析类命令
+&lt;/h3&gt;&lt;h4 id=&#34;-scanalyze---全面代码分析&#34;&gt;🔍 &lt;code&gt;/sc:analyze&lt;/code&gt; - 全面代码分析
+&lt;/h4&gt;&lt;p&gt;这是 SuperClaude 最强大的命令之一，支持多维度、多深度的代码分析。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;基础用法&lt;/strong&gt;：&lt;/p&gt;
+
+
+
+
+
+&lt;div class=&#34;highlight highlight-bash&#34;&gt;
+  &lt;pre&gt;
+    &lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;/sc:analyze auth.js&lt;/code&gt;
+  &lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;&lt;strong&gt;思考深度梯度&lt;/strong&gt;：&lt;/p&gt;
+
+
+
+
+
+&lt;div class=&#34;highlight highlight-bash&#34;&gt;
+  &lt;pre&gt;
+    &lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;/sc:analyze codebase/ --think           # ~4K tokens，多文件分析
+/sc:analyze codebase/ --think-hard      # ~10K tokens，深度架构分析
+/sc:analyze codebase/ --ultrathink      # ~32K tokens，最大深度分析&lt;/code&gt;
+  &lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;&lt;strong&gt;专注特定方面&lt;/strong&gt;：&lt;/p&gt;
+
+
+
+
+
+&lt;div class=&#34;highlight highlight-bash&#34;&gt;
+  &lt;pre&gt;
+    &lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;# 安全分析
+/sc:analyze api/ --focus security
+
+# 性能分析
+/sc:analyze component/ --focus performance
+
+# 代码质量
+/sc:analyze code/ --focus quality
+
+# 可维护性
+/sc:analyze legacy/ --focus maintainability&lt;/code&gt;
+  &lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;&lt;strong&gt;多角色视角&lt;/strong&gt;：&lt;/p&gt;
+
+
+
+
+
+&lt;div class=&#34;highlight highlight-bash&#34;&gt;
+  &lt;pre&gt;
+    &lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;# 架构师视角
+/sc:analyze design/ --persona-architect
+
+# 安全专家视角
+/sc:analyze auth/ --persona-security
+
+# 性能专家视角
+/sc:analyze db/ --persona-performance
+
+# QA 视角
+/sc:analyze code/ --persona-qa&lt;/code&gt;
+  &lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;&lt;strong&gt;实际案例&lt;/strong&gt;：&lt;/p&gt;
+
+
+
+
+
+&lt;div class=&#34;highlight highlight-bash&#34;&gt;
+  &lt;pre&gt;
+    &lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;# 输入
+/sc:analyze api/auth.js --focus security --think-hard
+
+# 输出包括：
+# 1. 安全漏洞识别（SQL 注入、XSS、CSRF）
+# 2. 依赖项安全审计
+# 3. 敏感数据处理检查
+# 4. 认证/授权机制评估
+# 5. 安全改进建议（带优先级）&lt;/code&gt;
+  &lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;hr&gt;
+&lt;h4 id=&#34;-sctroubleshoot---问题排查&#34;&gt;🔍 &lt;code&gt;/sc:troubleshoot&lt;/code&gt; - 问题排查
+&lt;/h4&gt;&lt;p&gt;&lt;strong&gt;功能&lt;/strong&gt;：系统化诊断，为错误提供逐步解决方案&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;基础用法&lt;/strong&gt;：&lt;/p&gt;
+
+
+
+
+
+&lt;div class=&#34;highlight highlight-bash&#34;&gt;
+  &lt;pre&gt;
+    &lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;/sc:troubleshoot &amp;#34;登录失败&amp;#34;&lt;/code&gt;
+  &lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;&lt;strong&gt;高级用法&lt;/strong&gt;：&lt;/p&gt;
+
+
+
+
+
+&lt;div class=&#34;highlight highlight-bash&#34;&gt;
+  &lt;pre&gt;
+    &lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;# 带日志分析
+/sc:troubleshoot &amp;#34;500 错误&amp;#34; --logs logs/error.log
+
+# 系统化诊断
+/sc:troubleshoot &amp;#34;内存泄漏&amp;#34; --diagnose
+
+# 指定环境
+/sc:troubleshoot &amp;#34;生产环境崩溃&amp;#34; --env production&lt;/code&gt;
+  &lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;&lt;strong&gt;诊断流程&lt;/strong&gt;：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;📊 收集错误信息和上下文&lt;/li&gt;
+&lt;li&gt;🔍 分析根本原因&lt;/li&gt;
+&lt;li&gt;💡 提供多个可能的解决方案&lt;/li&gt;
+&lt;li&gt;⚠️ 评估每个方案的优缺点&lt;/li&gt;
+&lt;li&gt;✅ 推荐最佳解决方案&lt;/li&gt;
+&lt;/ol&gt;
+&lt;hr&gt;
+&lt;h4 id=&#34;-scexplain---教学式解释&#34;&gt;🔍 &lt;code&gt;/sc:explain&lt;/code&gt; - 教学式解释
+&lt;/h4&gt;&lt;p&gt;&lt;strong&gt;功能&lt;/strong&gt;：帮助理解复杂代码或概念，导师模式&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;基础用法&lt;/strong&gt;：&lt;/p&gt;
+
+
+
+
+
+&lt;div class=&#34;highlight highlight-bash&#34;&gt;
+  &lt;pre&gt;
+    &lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;/sc:explain complex-function.js&lt;/code&gt;
+  &lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;&lt;strong&gt;高级用法&lt;/strong&gt;：&lt;/p&gt;
+
+
+
+
+
+&lt;div class=&#34;highlight highlight-bash&#34;&gt;
+  &lt;pre&gt;
+    &lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;# 概念讲解
+/sc:explain &amp;#34;GraphQL vs REST&amp;#34;
+
+# 导师模式（详细、互动式）
+/sc:explain React Hooks --persona-mentor --verbose
+
+# 深度技术讲解
+/sc:explain &amp;#34;JavaScript 事件循环&amp;#34; --depth advanced&lt;/code&gt;
+  &lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;&lt;strong&gt;解释风格&lt;/strong&gt;：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;📚 从基础概念开始&lt;/li&gt;
+&lt;li&gt;🎨 使用图表和类比&lt;/li&gt;
+&lt;li&gt;💻 提供实际代码示例&lt;/li&gt;
+&lt;li&gt;❓ 互动式提问和验证&lt;/li&gt;
+&lt;li&gt;🔗 提供进一步学习资源&lt;/li&gt;
+&lt;/ul&gt;
+&lt;hr&gt;
+&lt;h3 id=&#34;33-质量类命令&#34;&gt;3.3 质量类命令
+&lt;/h3&gt;&lt;h4 id=&#34;-scimprove---代码优化&#34;&gt;✨ &lt;code&gt;/sc:improve&lt;/code&gt; - 代码优化
+&lt;/h4&gt;&lt;p&gt;&lt;strong&gt;功能&lt;/strong&gt;：自动应用最佳实践，优化代码质量&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;基础用法&lt;/strong&gt;：&lt;/p&gt;
+
+
+
+
+
+&lt;div class=&#34;highlight highlight-bash&#34;&gt;
+  &lt;pre&gt;
+    &lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;/sc:improve code.js&lt;/code&gt;
+  &lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;&lt;strong&gt;安全模式（推荐用于生产代码）&lt;/strong&gt;：&lt;/p&gt;
+
+
+
+
+
+&lt;div class=&#34;highlight highlight-bash&#34;&gt;
+  &lt;pre&gt;
+    &lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;# 预览模式（先看会发生什么）
+/sc:improve code.js --preview
+
+# 安全模式（只应用安全更改）
+/sc:improve production-auth/ --safe-mode --validate
+
+# 性能优化
+/sc:improve app.js --type performance --benchmark&lt;/code&gt;
+  &lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;&lt;strong&gt;优化类型&lt;/strong&gt;：&lt;/p&gt;
+
+
+
+
+
+&lt;div class=&#34;highlight highlight-bash&#34;&gt;
+  &lt;pre&gt;
+    &lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;# 性能优化
+/sc:improve --type performance
+
+# 代码质量
+/sc:improve --type quality
+
+# 可读性
+/sc:improve --type readability
+
+# 安全性
+/sc:improve --type security&lt;/code&gt;
+  &lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;&lt;strong&gt;优化示例&lt;/strong&gt;：&lt;/p&gt;
+
+
+
+
+
+&lt;div class=&#34;highlight highlight-javascript&#34;&gt;
+  &lt;pre&gt;
+    &lt;code class=&#34;language-javascript&#34; data-lang=&#34;javascript&#34;&gt;// 优化前
+const getUserData = async (id) =&amp;gt; {
+  const user = await db.query(&amp;#39;SELECT * FROM users WHERE id = &amp;#39; &amp;#43; id);
+  const posts = await db.query(&amp;#39;SELECT * FROM posts WHERE userId = &amp;#39; &amp;#43; id);
+  const comments = await db.query(&amp;#39;SELECT * FROM comments WHERE userId = &amp;#39; &amp;#43; id);
+  return { user, posts, comments };
+};
+
+// 优化后（使用 /sc:improve --type performance）
+const getUserData = async (id: number) =&amp;gt; {
+  // 使用参数化查询防止 SQL 注入
+  const [user, posts, comments] = await Promise.all([
+    db.query(&amp;#39;SELECT * FROM users WHERE id = $1&amp;#39;, [id]),
+    db.query(&amp;#39;SELECT * FROM posts WHERE userId = $1&amp;#39;, [id]),
+    db.query(&amp;#39;SELECT * FROM comments WHERE userId = $1&amp;#39;, [id]),
+  ]);
+
+  // 只返回必要的字段
+  return {
+    user: sanitizeUser(user),
+    posts: posts.map(sanitizePost),
+    comments: comments.map(sanitizeComment),
+  };
+};&lt;/code&gt;
+  &lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;hr&gt;
+&lt;h4 id=&#34;-sccleanup---技术债务清理&#34;&gt;✨ &lt;code&gt;/sc:cleanup&lt;/code&gt; - 技术债务清理
+&lt;/h4&gt;&lt;p&gt;&lt;strong&gt;功能&lt;/strong&gt;：清理冗余代码、未使用的依赖、过时的模式&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;基础用法&lt;/strong&gt;：&lt;/p&gt;
+
+
+
+
+
+&lt;div class=&#34;highlight highlight-bash&#34;&gt;
+  &lt;pre&gt;
+    &lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;/sc:cleanup legacy/&lt;/code&gt;
+  &lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;&lt;strong&gt;波模式（系统性改进）&lt;/strong&gt;：&lt;/p&gt;
+
+
+
+
+
+&lt;div class=&#34;highlight highlight-bash&#34;&gt;
+  &lt;pre&gt;
+    &lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;# 自动模式（分析后自动清理）
+/sc:cleanup old-code/ --wave-mode auto
+
+# 系统模式（分阶段、可回滚）
+/sc:cleanup old-code/ --wave-mode systematic
+
+# 交互模式（每个更改前询问）
+/sc:cleanup old-code/ --wave-mode interactive&lt;/code&gt;
+  &lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;&lt;strong&gt;清理内容&lt;/strong&gt;：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;🗑️ 未使用的变量和函数&lt;/li&gt;
+&lt;li&gt;📦 未使用的依赖包&lt;/li&gt;
+&lt;li&gt;🔄 过时的 API 调用&lt;/li&gt;
+&lt;li&gt;📝 注释掉的代码&lt;/li&gt;
+&lt;li&gt;🎨 重复的代码片段&lt;/li&gt;
+&lt;/ul&gt;
+&lt;hr&gt;
+&lt;h4 id=&#34;-sctest---测试执行&#34;&gt;✨ &lt;code&gt;/sc:test&lt;/code&gt; - 测试执行
+&lt;/h4&gt;&lt;p&gt;&lt;strong&gt;功能&lt;/strong&gt;：全面的测试策略和执行&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;测试类型&lt;/strong&gt;：&lt;/p&gt;
+
+
+
+
+
+&lt;div class=&#34;highlight highlight-bash&#34;&gt;
+  &lt;pre&gt;
+    &lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;# 单元测试
+/sc:test --type unit
+
+# 集成测试
+/sc:test --type integration
+
+# E2E 测试（使用 Playwright）
+/sc:test e2e --playwright
+
+# 安全测试
+/sc:test --type security
+
+# 性能测试
+/sc:test --type performance&lt;/code&gt;
+  &lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;&lt;strong&gt;覆盖率&lt;/strong&gt;：&lt;/p&gt;
+
+
+
+
+
+&lt;div class=&#34;highlight highlight-bash&#34;&gt;
+  &lt;pre&gt;
+    &lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;# 带覆盖率报告
+/sc:test --coverage
+
+# 设置覆盖率目标
+/sc:test --coverage --threshold 80&lt;/code&gt;
+  &lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;&lt;strong&gt;测试框架集成&lt;/strong&gt;：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Vitest / Jest&lt;/li&gt;
+&lt;li&gt;Playwright / Cypress&lt;/li&gt;
+&lt;li&gt;React Testing Library&lt;/li&gt;
+&lt;li&gt;Supertest（API 测试）&lt;/li&gt;
+&lt;/ul&gt;
+&lt;hr&gt;
+&lt;h3 id=&#34;34-项目管理类命令&#34;&gt;3.4 项目管理类命令
+&lt;/h3&gt;&lt;h4 id=&#34;-scworkflow---工作流生成&#34;&gt;📋 &lt;code&gt;/sc:workflow&lt;/code&gt; - 工作流生成
+&lt;/h4&gt;&lt;p&gt;&lt;strong&gt;功能&lt;/strong&gt;：从 PRD 或需求生成结构化实施步骤&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;基础用法&lt;/strong&gt;：&lt;/p&gt;
+
+
+
+
+
+&lt;div class=&#34;highlight highlight-bash&#34;&gt;
+  &lt;pre&gt;
+    &lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;/sc:workflow &amp;#34;用户注册功能&amp;#34;&lt;/code&gt;
+  &lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;&lt;strong&gt;高级用法&lt;/strong&gt;：&lt;/p&gt;
+
+
+
+
+
+&lt;div class=&#34;highlight highlight-bash&#34;&gt;
+  &lt;pre&gt;
+    &lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;# 从 PRD 文件生成
+/sc:workflow --from prd.md
+
+# 指定开发方法论
+/sc:workflow &amp;#34;支付集成&amp;#34; --methodology scrum
+
+# 生成甘特图
+/sc:workflow &amp;#34;项目启动&amp;#34; --gantt&lt;/code&gt;
+  &lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;&lt;strong&gt;输出内容&lt;/strong&gt;：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;📝 任务分解（WBS）&lt;/li&gt;
+&lt;li&gt;⏱️ 时间估算&lt;/li&gt;
+&lt;li&gt;🎯 依赖关系&lt;/li&gt;
+&lt;li&gt;📊 风险评估&lt;/li&gt;
+&lt;li&gt;✅ 验收标准&lt;/li&gt;
+&lt;/ul&gt;
+&lt;hr&gt;
+&lt;h4 id=&#34;-sctask---任务执行&#34;&gt;📋 &lt;code&gt;/sc:task&lt;/code&gt; - 任务执行
+&lt;/h4&gt;&lt;p&gt;&lt;strong&gt;功能&lt;/strong&gt;：执行复杂任务，支持委托模式&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;基础用法&lt;/strong&gt;：&lt;/p&gt;
+
+
+
+
+
+&lt;div class=&#34;highlight highlight-bash&#34;&gt;
+  &lt;pre&gt;
+    &lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;/sc:task &amp;#34;重构认证系统&amp;#34;&lt;/code&gt;
+  &lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;&lt;strong&gt;委托模式&lt;/strong&gt;：&lt;/p&gt;
+
+
+
+
+
+&lt;div class=&#34;highlight highlight-bash&#34;&gt;
+  &lt;pre&gt;
+    &lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;# 自动委托（并行处理）
+/sc:task &amp;#34;代码审查&amp;#34; --delegate auto
+
+# 手动委托
+/sc:task &amp;#34;性能优化&amp;#34; --delegate parallel&lt;/code&gt;
+  &lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;hr&gt;
+&lt;h4 id=&#34;-scgit---git-操作&#34;&gt;📋 &lt;code&gt;/sc:git&lt;/code&gt; - Git 操作
+&lt;/h4&gt;&lt;p&gt;&lt;strong&gt;功能&lt;/strong&gt;：智能提交和分支策略&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;智能提交&lt;/strong&gt;：&lt;/p&gt;
+
+
+
+
+
+&lt;div class=&#34;highlight highlight-bash&#34;&gt;
+  &lt;pre&gt;
+    &lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;/sc:git --smart-commit&lt;/code&gt;
+  &lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;&lt;strong&gt;分支策略&lt;/strong&gt;：&lt;/p&gt;
+
+
+
+
+
+&lt;div class=&#34;highlight highlight-bash&#34;&gt;
+  &lt;pre&gt;
+    &lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;/sc:git --branch-strategy gitflow&lt;/code&gt;
+  &lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;&lt;strong&gt;生成的提交信息&lt;/strong&gt;：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;遵循 Conventional Commits 规范&lt;/li&gt;
+&lt;li&gt;自动分析更改内容&lt;/li&gt;
+&lt;li&gt;生成详细的提交描述&lt;/li&gt;
+&lt;/ul&gt;
+&lt;hr&gt;
+&lt;h3 id=&#34;35-学习类命令&#34;&gt;3.5 学习类命令
+&lt;/h3&gt;&lt;h4 id=&#34;-scbrainstorm---需求发现&#34;&gt;🧠 &lt;code&gt;/sc:brainstorm&lt;/code&gt; - 需求发现
+&lt;/h4&gt;&lt;p&gt;&lt;strong&gt;功能&lt;/strong&gt;：交互式需求探索，Socratic 对话&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;基础用法&lt;/strong&gt;：&lt;/p&gt;
+
+
+
+
+
+&lt;div class=&#34;highlight highlight-bash&#34;&gt;
+  &lt;pre&gt;
+    &lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;/sc:brainstorm &amp;#34;项目管理应用&amp;#34;&lt;/code&gt;
+  &lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;&lt;strong&gt;深度探索&lt;/strong&gt;：&lt;/p&gt;
+
+
+
+
+
+&lt;div class=&#34;highlight highlight-bash&#34;&gt;
+  &lt;pre&gt;
+    &lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;/sc:brainstorm &amp;#34;SaaS 平台&amp;#34; --depth deep&lt;/code&gt;
+  &lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;&lt;strong&gt;探索维度&lt;/strong&gt;：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;💡 功能需求&lt;/li&gt;
+&lt;li&gt;🎯 用户场景&lt;/li&gt;
+&lt;li&gt;⚠️ 技术挑战&lt;/li&gt;
+&lt;li&gt;💰 商业价值&lt;/li&gt;
+&lt;li&gt;🔄 竞争分析&lt;/li&gt;
+&lt;/ul&gt;
+&lt;hr&gt;
+&lt;h4 id=&#34;-scexplain---代码讲解&#34;&gt;🧠 &lt;code&gt;/sc:explain&lt;/code&gt; - 代码讲解
+&lt;/h4&gt;&lt;p&gt;已在分析类命令中详细说明。&lt;/p&gt;
+&lt;hr&gt;
+&lt;h4 id=&#34;-sclearn---学习资源&#34;&gt;🧠 &lt;code&gt;/sc:learn&lt;/code&gt; - 学习资源
+&lt;/h4&gt;&lt;p&gt;&lt;strong&gt;功能&lt;/strong&gt;：获取学习路径和官方文档参考&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;基础用法&lt;/strong&gt;：&lt;/p&gt;
+
+
+
+
+
+&lt;div class=&#34;highlight highlight-bash&#34;&gt;
+  &lt;pre&gt;
+    &lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;/sc:learn &amp;#34;React Server Components&amp;#34;&lt;/code&gt;
+  &lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;&lt;strong&gt;高级用法&lt;/strong&gt;：&lt;/p&gt;
+
+
+
+
+
+&lt;div class=&#34;highlight highlight-bash&#34;&gt;
+  &lt;pre&gt;
+    &lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;# 获取官方文档
+/sc:learn --docs
+
+# 生成学习路径
+/sc:learn &amp;#34;TypeScript&amp;#34; --roadmap
+
+# 获取最佳实践
+/sc:learn &amp;#34;Next.js&amp;#34; --best-practices&lt;/code&gt;
+  &lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;hr&gt;
+&lt;h3 id=&#34;36-其他重要命令&#34;&gt;3.6 其他重要命令
+&lt;/h3&gt;&lt;h4 id=&#34;-scload---加载项目上下文&#34;&gt;📂 &lt;code&gt;/sc:load&lt;/code&gt; - 加载项目上下文
+&lt;/h4&gt;&lt;p&gt;&lt;strong&gt;功能&lt;/strong&gt;：导入项目结构，生成上下文摘要&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;基础用法&lt;/strong&gt;：&lt;/p&gt;
+
+
+
+
+
+&lt;div class=&#34;highlight highlight-bash&#34;&gt;
+  &lt;pre&gt;
+    &lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;/sc:load src/&lt;/code&gt;
+  &lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;&lt;strong&gt;深度加载&lt;/strong&gt;：&lt;/p&gt;
+
+
+
+
+
+&lt;div class=&#34;highlight highlight-bash&#34;&gt;
+  &lt;pre&gt;
+    &lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;# 深度加载（生成摘要）
+/sc:load --deep --summary
+
+# 指定范围
+/sc:load components/ --scope module
+
+# 排除目录
+/sc:load src/ --exclude node_modules,dist&lt;/code&gt;
+  &lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;hr&gt;
+&lt;h4 id=&#34;-scsave---保存会话&#34;&gt;💾 &lt;code&gt;/sc:save&lt;/code&gt; - 保存会话
+&lt;/h4&gt;&lt;p&gt;&lt;strong&gt;功能&lt;/strong&gt;：持久化会话上下文，便于后续恢复&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;基础用法&lt;/strong&gt;：&lt;/p&gt;
+
+
+
+
+
+&lt;div class=&#34;highlight highlight-bash&#34;&gt;
+  &lt;pre&gt;
+    &lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;/sc:save &amp;#34;功能开发完成&amp;#34;&lt;/code&gt;
+  &lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;&lt;strong&gt;带标签保存&lt;/strong&gt;：&lt;/p&gt;
+
+
+
+
+
+&lt;div class=&#34;highlight highlight-bash&#34;&gt;
+  &lt;pre&gt;
+    &lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;/sc:save &amp;#34;bug 修复&amp;#34; --tags fix,auth,critical&lt;/code&gt;
+  &lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;&lt;strong&gt;会话管理&lt;/strong&gt;：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;自动保存对话历史&lt;/li&gt;
+&lt;li&gt;保存项目上下文&lt;/li&gt;
+&lt;li&gt;保存未完成任务&lt;/li&gt;
+&lt;li&gt;生成会话报告&lt;/li&gt;
+&lt;/ul&gt;
+&lt;hr&gt;
+&lt;h4 id=&#34;-scindex---项目文档生成&#34;&gt;📑 &lt;code&gt;/sc:index&lt;/code&gt; - 项目文档生成
+&lt;/h4&gt;&lt;p&gt;&lt;strong&gt;功能&lt;/strong&gt;：生成项目索引和知识库&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;基础用法&lt;/strong&gt;：&lt;/p&gt;
+
+
+
+
+
+&lt;div class=&#34;highlight highlight-bash&#34;&gt;
+  &lt;pre&gt;
+    &lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;/sc:index&lt;/code&gt;
+  &lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;&lt;strong&gt;生成类型&lt;/strong&gt;：&lt;/p&gt;
+
+
+
+
+
+&lt;div class=&#34;highlight highlight-bash&#34;&gt;
+  &lt;pre&gt;
+    &lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;# 项目索引
+/sc:index --type project
+
+# 知识库
+/sc:index --type knowledge-base
+
+# API 文档
+/sc:index --type api&lt;/code&gt;
+  &lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;hr&gt;
+&lt;h4 id=&#34;-scdocument---文档生成&#34;&gt;📄 &lt;code&gt;/sc:document&lt;/code&gt; - 文档生成
+&lt;/h4&gt;&lt;p&gt;&lt;strong&gt;功能&lt;/strong&gt;：为代码生成各类文档&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;基础用法&lt;/strong&gt;：&lt;/p&gt;
+
+
+
+
+
+&lt;div class=&#34;highlight highlight-bash&#34;&gt;
+  &lt;pre&gt;
+    &lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;/sc:document Button.jsx&lt;/code&gt;
+  &lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;&lt;strong&gt;文档类型&lt;/strong&gt;：&lt;/p&gt;
+
+
+
+
+
+&lt;div class=&#34;highlight highlight-bash&#34;&gt;
+  &lt;pre&gt;
+    &lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;# 组件文档
+/sc:document Button.jsx --type component
+
+# API 文档（OpenAPI）
+/sc:document api/ --type openapi
+
+# 指南文档
+/sc:document features/ --type guide
+
+# README
+/sc:document --type readme&lt;/code&gt;
+  &lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;hr&gt;
+&lt;h4 id=&#34;-screcommend---命令推荐&#34;&gt;🎯 &lt;code&gt;/sc:recommend&lt;/code&gt; - 命令推荐
+&lt;/h4&gt;&lt;p&gt;&lt;strong&gt;功能&lt;/strong&gt;：获取最适合当前任务的命令建议&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;基础用法&lt;/strong&gt;：&lt;/p&gt;
+
+
+
+
+
+&lt;div class=&#34;highlight highlight-bash&#34;&gt;
+  &lt;pre&gt;
+    &lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;/sc:recommend &amp;#34;重构代码&amp;#34;&lt;/code&gt;
+  &lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;&lt;strong&gt;列出所有推荐命令&lt;/strong&gt;：&lt;/p&gt;
+
+
+
+
+
+&lt;div class=&#34;highlight highlight-bash&#34;&gt;
+  &lt;pre&gt;
+    &lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;/sc:recommend --list&lt;/code&gt;
+  &lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;hr&gt;
+&lt;h4 id=&#34;-schelp---帮助信息&#34;&gt;❓ &lt;code&gt;/sc:help&lt;/code&gt; - 帮助信息
+&lt;/h4&gt;&lt;p&gt;&lt;strong&gt;功能&lt;/strong&gt;：查看命令详情和使用方法&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;基础用法&lt;/strong&gt;：&lt;/p&gt;
+
+
+
+
+
+&lt;div class=&#34;highlight highlight-bash&#34;&gt;
+  &lt;pre&gt;
+    &lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;/sc:help
+
+# 查看特定命令
+/sc:help /sc:implement
+
+# 按类别查看
+/sc:help --category analysis
+/sc:help --category development&lt;/code&gt;
+  &lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;hr&gt;
+&lt;h2 id=&#34;第四部分ai-专家角色系统&#34;&gt;第四部分：AI 专家角色系统
+&lt;/h2&gt;&lt;p&gt;SuperClaude 的 14 个 AI 专家角色是其核心优势之一，每个专家都在特定领域具有深度专精。&lt;/p&gt;
+&lt;h3 id=&#34;41-专家角色列表&#34;&gt;4.1 专家角色列表
+&lt;/h3&gt;&lt;h4 id=&#34;-架构类&#34;&gt;🏗️ 架构类
+&lt;/h4&gt;&lt;table&gt;
+  &lt;thead&gt;
+      &lt;tr&gt;
+          &lt;th&gt;角色&lt;/th&gt;
+          &lt;th&gt;专精领域&lt;/th&gt;
+          &lt;th&gt;自动触发场景&lt;/th&gt;
+      &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+      &lt;tr&gt;
+          &lt;td&gt;&lt;code&gt;@agent-architect&lt;/code&gt;&lt;/td&gt;
+          &lt;td&gt;系统架构设计、技术栈选择&lt;/td&gt;
+          &lt;td&gt;&lt;code&gt;/sc:design --type architecture&lt;/code&gt;&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;&lt;code&gt;@agent-design&lt;/code&gt;&lt;/td&gt;
+          &lt;td&gt;设计系统、UI/UX、组件设计&lt;/td&gt;
+          &lt;td&gt;&lt;code&gt;/sc:design --type component&lt;/code&gt;&lt;/td&gt;
+      &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+&lt;h4 id=&#34;-开发类&#34;&gt;💻 开发类
+&lt;/h4&gt;&lt;table&gt;
+  &lt;thead&gt;
+      &lt;tr&gt;
+          &lt;th&gt;角色&lt;/th&gt;
+          &lt;th&gt;专精领域&lt;/th&gt;
+          &lt;th&gt;自动触发场景&lt;/th&gt;
+      &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+      &lt;tr&gt;
+          &lt;td&gt;&lt;code&gt;@agent-frontend&lt;/code&gt;&lt;/td&gt;
+          &lt;td&gt;React, Vue, 前端性能优化&lt;/td&gt;
+          &lt;td&gt;分析 &lt;code&gt;.jsx&lt;/code&gt;, &lt;code&gt;.vue&lt;/code&gt;, &lt;code&gt;.tsx&lt;/code&gt; 文件&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;&lt;code&gt;@agent-backend&lt;/code&gt;&lt;/td&gt;
+          &lt;td&gt;Node.js, Python, API 设计&lt;/td&gt;
+          &lt;td&gt;分析 &lt;code&gt;.js&lt;/code&gt;（后端）, &lt;code&gt;.py&lt;/code&gt; 文件&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;&lt;code&gt;@agent-devops&lt;/code&gt;&lt;/td&gt;
+          &lt;td&gt;CI/CD, Docker, K8s, 部署&lt;/td&gt;
+          &lt;td&gt;&lt;code&gt;/sc:build --prod&lt;/code&gt;, DevOps 相关任务&lt;/td&gt;
+      &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+&lt;h4 id=&#34;-质量类&#34;&gt;🔒 质量类
+&lt;/h4&gt;&lt;table&gt;
+  &lt;thead&gt;
+      &lt;tr&gt;
+          &lt;th&gt;角色&lt;/th&gt;
+          &lt;th&gt;专精领域&lt;/th&gt;
+          &lt;th&gt;自动触发场景&lt;/th&gt;
+      &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+      &lt;tr&gt;
+          &lt;td&gt;&lt;code&gt;@agent-security&lt;/code&gt;&lt;/td&gt;
+          &lt;td&gt;安全审计、漏洞检测&lt;/td&gt;
+          &lt;td&gt;&lt;code&gt;/sc:analyze --focus security&lt;/code&gt;&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;&lt;code&gt;@agent-qa&lt;/code&gt;&lt;/td&gt;
+          &lt;td&gt;测试策略、质量保证&lt;/td&gt;
+          &lt;td&gt;&lt;code&gt;/sc:test&lt;/code&gt;, &lt;code&gt;/sc:analyze --focus quality&lt;/code&gt;&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;&lt;code&gt;@agent-performance&lt;/code&gt;&lt;/td&gt;
+          &lt;td&gt;性能优化、瓶颈分析&lt;/td&gt;
+          &lt;td&gt;&lt;code&gt;/sc:analyze --focus performance&lt;/code&gt;&lt;/td&gt;
+      &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+&lt;h4 id=&#34;-管理类&#34;&gt;📊 管理类
+&lt;/h4&gt;&lt;table&gt;
+  &lt;thead&gt;
+      &lt;tr&gt;
+          &lt;th&gt;角色&lt;/th&gt;
+          &lt;th&gt;专精领域&lt;/th&gt;
+          &lt;th&gt;自动触发场景&lt;/th&gt;
+      &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+      &lt;tr&gt;
+          &lt;td&gt;&lt;code&gt;@agent-project-manager&lt;/code&gt;&lt;/td&gt;
+          &lt;td&gt;项目协调、需求管理&lt;/td&gt;
+          &lt;td&gt;默认协调者，&lt;code&gt;/sc:workflow&lt;/code&gt;&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;&lt;code&gt;@agent-scribe&lt;/code&gt;&lt;/td&gt;
+          &lt;td&gt;文档撰写、技术写作&lt;/td&gt;
+          &lt;td&gt;&lt;code&gt;/sc:document&lt;/code&gt;&lt;/td&gt;
+      &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+&lt;h4 id=&#34;-分析类&#34;&gt;🔬 分析类
+&lt;/h4&gt;&lt;table&gt;
+  &lt;thead&gt;
+      &lt;tr&gt;
+          &lt;th&gt;角色&lt;/th&gt;
+          &lt;th&gt;专精领域&lt;/th&gt;
+          &lt;th&gt;自动触发场景&lt;/th&gt;
+      &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+      &lt;tr&gt;
+          &lt;td&gt;&lt;code&gt;@agent-analyst&lt;/code&gt;&lt;/td&gt;
+          &lt;td&gt;数据分析、指标追踪&lt;/td&gt;
+          &lt;td&gt;数据相关任务&lt;/td&gt;
+      &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+&lt;h4 id=&#34;-其他&#34;&gt;🎓 其他
+&lt;/h4&gt;&lt;table&gt;
+  &lt;thead&gt;
+      &lt;tr&gt;
+          &lt;th&gt;角色&lt;/th&gt;
+          &lt;th&gt;专精领域&lt;/th&gt;
+          &lt;th&gt;自动触发场景&lt;/th&gt;
+      &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+      &lt;tr&gt;
+          &lt;td&gt;&lt;code&gt;@agent-mentor&lt;/code&gt;&lt;/td&gt;
+          &lt;td&gt;教学解释、概念讲解&lt;/td&gt;
+          &lt;td&gt;&lt;code&gt;/sc:explain --persona-mentor&lt;/code&gt;&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;&lt;code&gt;@agent-researcher&lt;/code&gt;&lt;/td&gt;
+          &lt;td&gt;技术研究、方案调研&lt;/td&gt;
+          &lt;td&gt;&lt;code&gt;/sc:brainstorm&lt;/code&gt; 深度模式&lt;/td&gt;
+      &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+&lt;h3 id=&#34;42-自动激活-vs-手动指定&#34;&gt;4.2 自动激活 vs 手动指定
+&lt;/h3&gt;&lt;p&gt;&lt;strong&gt;自动激活（推荐）&lt;/strong&gt;：&lt;/p&gt;
+
+
+
+
+
+&lt;div class=&#34;highlight highlight-bash&#34;&gt;
+  &lt;pre&gt;
+    &lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;# 分析认证代码 → 自动激活安全专家
+/sc:analyze auth.js
+
+# 分析 React 组件 → 自动激活前端专家
+/sc:analyze Button.jsx
+
+# 分析 API 端点 → 自动激活后端专家
+/sc:analyze api/users.js&lt;/code&gt;
+  &lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;&lt;strong&gt;手动指定&lt;/strong&gt;：&lt;/p&gt;
+
+
+
+
+
+&lt;div class=&#34;highlight highlight-bash&#34;&gt;
+  &lt;pre&gt;
+    &lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;# 强制使用架构师视角
+/sc:analyze design/ --persona-architect
+
+# 强制使用安全专家视角
+/sc:analyze code/ --persona-security
+
+# 强制使用性能专家视角
+/sc:analyze api/ --persona-performance&lt;/code&gt;
+  &lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h3 id=&#34;43-多角色协作&#34;&gt;4.3 多角色协作
+&lt;/h3&gt;&lt;p&gt;通过组合不同专家角色，可以获得多维度的分析：&lt;/p&gt;
+
+
+
+
+
+&lt;div class=&#34;highlight highlight-bash&#34;&gt;
+  &lt;pre&gt;
+    &lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;# API 设计的多维度评估
+/sc:analyze api/ --persona-architect     # 架构可行性
+/sc:analyze api/ --persona-security      # 安全性
+/sc:analyze api/ --persona-performance   # 性能
+/sc:analyze api/ --persona-qa            # 可测试性&lt;/code&gt;
+  &lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;hr&gt;
+&lt;h2 id=&#34;第五部分mcp-服务器集成&#34;&gt;第五部分：MCP 服务器集成
+&lt;/h2&gt;&lt;p&gt;MCP（Model Context Protocol）服务器为 SuperClaude 提供了强大的外部工具集成能力。&lt;/p&gt;
+&lt;h3 id=&#34;51-可用的-mcp-服务器&#34;&gt;5.1 可用的 MCP 服务器
+&lt;/h3&gt;&lt;table&gt;
+  &lt;thead&gt;
+      &lt;tr&gt;
+          &lt;th&gt;服务器&lt;/th&gt;
+          &lt;th&gt;用途&lt;/th&gt;
+          &lt;th&gt;自动触发场景&lt;/th&gt;
+      &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+      &lt;tr&gt;
+          &lt;td&gt;&lt;strong&gt;Context7&lt;/strong&gt;&lt;/td&gt;
+          &lt;td&gt;文档和最佳实践查询&lt;/td&gt;
+          &lt;td&gt;&lt;code&gt;/sc:build&lt;/code&gt;, 框架相关问题&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;&lt;strong&gt;Sequential&lt;/strong&gt;&lt;/td&gt;
+          &lt;td&gt;复杂推理和分析&lt;/td&gt;
+          &lt;td&gt;&lt;code&gt;/sc:troubleshoot&lt;/code&gt;, 深度分析&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;&lt;strong&gt;Magic&lt;/strong&gt;&lt;/td&gt;
+          &lt;td&gt;UI 组件生成&lt;/td&gt;
+          &lt;td&gt;&lt;code&gt;/sc:build&lt;/code&gt;（前端项目）&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;&lt;strong&gt;Playwright&lt;/strong&gt;&lt;/td&gt;
+          &lt;td&gt;E2E 测试&lt;/td&gt;
+          &lt;td&gt;&lt;code&gt;/sc:test e2e&lt;/code&gt;&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;&lt;strong&gt;Morphllm&lt;/strong&gt;&lt;/td&gt;
+          &lt;td&gt;大规模内容处理&lt;/td&gt;
+          &lt;td&gt;大型代码库分析&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;&lt;strong&gt;Serena&lt;/strong&gt;&lt;/td&gt;
+          &lt;td&gt;跨会话持久化&lt;/td&gt;
+          &lt;td&gt;&lt;code&gt;/sc:load&lt;/code&gt;, &lt;code&gt;/sc:save&lt;/code&gt;&lt;/td&gt;
+      &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+&lt;h3 id=&#34;52-自动集成示例&#34;&gt;5.2 自动集成示例
+&lt;/h3&gt;&lt;p&gt;&lt;strong&gt;Context7 集成&lt;/strong&gt;：&lt;/p&gt;
+
+
+
+
+
+&lt;div class=&#34;highlight highlight-bash&#34;&gt;
+  &lt;pre&gt;
+    &lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;# 自动查询 React 最佳实践
+/sc:build react-app/
+
+# Context7 会：
+# 1. 查询 React 官方文档
+# 2. 获取最新最佳实践
+# 3. 应用推荐的项目结构
+# 4. 配置推荐的工具链&lt;/code&gt;
+  &lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;&lt;strong&gt;Sequential 集成&lt;/strong&gt;：&lt;/p&gt;
+
+
+
+
+
+&lt;div class=&#34;highlight highlight-bash&#34;&gt;
+  &lt;pre&gt;
+    &lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;# 自动使用复杂推理
+/sc:troubleshoot &amp;#34;登录失败但无错误日志&amp;#34;
+
+# Sequential 会：
+# 1. 分析可能的错误原因
+# 2. 生成诊断假设
+# 3. 提供验证步骤
+# 4. 逐步排除可能性&lt;/code&gt;
+  &lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;&lt;strong&gt;Magic 集成&lt;/strong&gt;：&lt;/p&gt;
+
+
+
+
+
+&lt;div class=&#34;highlight highlight-bash&#34;&gt;
+  &lt;pre&gt;
+    &lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;# 自动生成 UI 组件
+/sc:build dashboard
+
+# Magic 会：
+# 1. 分析设计需求
+# 2. 生成组件代码
+# 3. 创建响应式样式
+# 4. 集成到项目中&lt;/code&gt;
+  &lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h3 id=&#34;53-配置-mcp-服务器&#34;&gt;5.3 配置 MCP 服务器
+&lt;/h3&gt;&lt;p&gt;详细的 MCP 服务器配置请参考官方文档：&lt;a class=&#34;link&#34; href=&#34;https://github.com/SuperClaude-Org/SuperClaude_Framework/blob/master/docs/mcp-setup.md&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;SuperClaude MCP 配置指南&lt;/a&gt;&lt;/p&gt;
+&lt;hr&gt;
+&lt;h2 id=&#34;第六部分完整实战项目待办事项应用&#34;&gt;第六部分：完整实战项目：待办事项应用
+&lt;/h2&gt;&lt;p&gt;让我们通过一个完整的待办事项应用项目，演示 SuperClaude 的全部能力。&lt;/p&gt;
+&lt;h3 id=&#34;61-项目概览&#34;&gt;6.1 项目概览
+&lt;/h3&gt;&lt;p&gt;&lt;strong&gt;项目目标&lt;/strong&gt;：构建一个功能完整的待办事项 Web 应用&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;技术栈&lt;/strong&gt;：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;🎨 &lt;strong&gt;前端&lt;/strong&gt;：React 18 + TypeScript + Vite&lt;/li&gt;
+&lt;li&gt;🗃️ &lt;strong&gt;状态管理&lt;/strong&gt;：Zustand&lt;/li&gt;
+&lt;li&gt;💅 &lt;strong&gt;样式&lt;/strong&gt;：Tailwind CSS&lt;/li&gt;
+&lt;li&gt;🧪 &lt;strong&gt;测试&lt;/strong&gt;：Vitest + React Testing Library&lt;/li&gt;
+&lt;li&gt;📦 &lt;strong&gt;构建工具&lt;/strong&gt;：Vite&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;核心功能&lt;/strong&gt;：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;✅ 添加/删除/编辑任务&lt;/li&gt;
+&lt;li&gt;🔄 任务状态切换（待办/完成）&lt;/li&gt;
+&lt;li&gt;🏷️ 任务分类和标签&lt;/li&gt;
+&lt;li&gt;🔍 搜索和过滤&lt;/li&gt;
+&lt;li&gt;💾 本地存储持久化&lt;/li&gt;
+&lt;li&gt;🌙 深色模式切换&lt;/li&gt;
+&lt;li&gt;📱 响应式设计&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h3 id=&#34;62-完整开发流程&#34;&gt;6.2 完整开发流程
+&lt;/h3&gt;&lt;h4 id=&#34;步骤-1需求发现&#34;&gt;步骤 1：需求发现
+&lt;/h4&gt;
+
+
+
+
+&lt;div class=&#34;highlight highlight-bash&#34;&gt;
+  &lt;pre&gt;
+    &lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;/sc:brainstorm &amp;#34;待办事项应用&amp;#34;&lt;/code&gt;
+  &lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;&lt;strong&gt;SuperClaude 会引导你探索&lt;/strong&gt;：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;核心功能需求&lt;/li&gt;
+&lt;li&gt;用户体验设计&lt;/li&gt;
+&lt;li&gt;技术栈选择&lt;/li&gt;
+&lt;li&gt;潜在技术挑战&lt;/li&gt;
+&lt;li&gt;扩展性考虑&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;输出示例&lt;/strong&gt;：&lt;/p&gt;
+
+
+
+
+
+&lt;div class=&#34;highlight highlight-markdown&#34;&gt;
+  &lt;pre&gt;
+    &lt;code class=&#34;language-markdown&#34; data-lang=&#34;markdown&#34;&gt;## 需求探索结果
+
+### 核心功能
+- ✅ 任务 CRUD 操作
+- 🏷️ 分类和标签系统
+- 🔍 搜索和过滤
+- 💾 数据持久化
+
+### 用户体验
+- 🎯 简洁直观的界面
+- ⚡ 快速响应
+- 📱 移动端友好
+- 🌙 深色模式支持
+
+### 技术建议
+- React 18（现代特性）
+- TypeScript（类型安全）
+- Zustand（轻量状态管理）
+- Tailwind CSS（快速开发）
+
+### 技术挑战
+- ⚠️ 状态同步
+- ⚠️ 性能优化（大数据量）
+- ⚠️ 离线支持&lt;/code&gt;
+  &lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;hr&gt;
+&lt;h4 id=&#34;步骤-2系统设计&#34;&gt;步骤 2：系统设计
+&lt;/h4&gt;
+
+
+
+
+&lt;div class=&#34;highlight highlight-bash&#34;&gt;
+  &lt;pre&gt;
+    &lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;/sc:design &amp;#34;待办应用架构&amp;#34; --type architecture&lt;/code&gt;
+  &lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;&lt;strong&gt;设计输出&lt;/strong&gt;：&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;组件层次结构&lt;/strong&gt;：&lt;/p&gt;
+&lt;pre class=&#34;mermaid&#34;&gt;
+  graph TD
+    A[App] --&amp;gt; B[TodoProvider]
+    B --&amp;gt; C[TodoHeader]
+    B --&amp;gt; D[TodoInput]
+    B --&amp;gt; E[TodoList]
+    B --&amp;gt; F[TodoFilter]
+    E --&amp;gt; G[TodoItem]
+    G --&amp;gt; H[TodoContent]
+    G --&amp;gt; I[TodoActions]
+&lt;/pre&gt;
+
+&lt;p&gt;&lt;strong&gt;数据流设计&lt;/strong&gt;：&lt;/p&gt;
+&lt;pre class=&#34;mermaid&#34;&gt;
+  flowchart LR
+    A[User Action] --&amp;gt; B[Event Handler]
+    B --&amp;gt; C[Zustand Store]
+    C --&amp;gt; D[State Update]
+    D --&amp;gt; E[React Re-render]
+    E --&amp;gt; F[localStorage Sync]
+&lt;/pre&gt;
+
+&lt;hr&gt;
+&lt;h4 id=&#34;步骤-3项目初始化&#34;&gt;步骤 3：项目初始化
+&lt;/h4&gt;
+
+
+
+
+&lt;div class=&#34;highlight highlight-bash&#34;&gt;
+  &lt;pre&gt;
+    &lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;/sc:build todo-app/ --framework react --with-typescript&lt;/code&gt;
+  &lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;&lt;strong&gt;生成的项目结构&lt;/strong&gt;：&lt;/p&gt;
+
+
+
+
+  
+
+
+&lt;div class=&#34;highlight highlight-text&#34;&gt;
+  &lt;pre&gt;
+    &lt;code class=&#34;language-text&#34; data-lang=&#34;text&#34;&gt;todo-app/
+├── src/
+│   ├── components/          # UI 组件
+│   │   ├── TodoHeader.tsx
+│   │   ├── TodoInput.tsx
+│   │   ├── TodoList.tsx
+│   │   ├── TodoItem.tsx
+│   │   └── TodoFilter.tsx
+│   ├── stores/              # Zustand 状态管理
+│   │   └── todoStore.ts
+│   ├── hooks/               # 自定义 Hooks
+│   │   └── useTodos.ts
+│   ├── utils/               # 工具函数
+│   │   └── storage.ts
+│   ├── types/               # TypeScript 类型
+│   │   └── todo.ts
+│   ├── App.tsx
+│   └── main.tsx
+├── public/
+├── tests/
+│   ├── components/
+│   └── utils/
+├── package.json
+├── tsconfig.json
+├── vite.config.ts
+└── tailwind.config.js&lt;/code&gt;
+  &lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;hr&gt;
+&lt;h4 id=&#34;步骤-4核心功能实现&#34;&gt;步骤 4：核心功能实现
+&lt;/h4&gt;&lt;h5 id=&#34;41-任务数据模型&#34;&gt;4.1 任务数据模型
+&lt;/h5&gt;
+
+
+
+
+&lt;div class=&#34;highlight highlight-bash&#34;&gt;
+  &lt;pre&gt;
+    &lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;/sc:implement &amp;#34;Todo 类型定义和接口&amp;#34; --with-tests&lt;/code&gt;
+  &lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;&lt;strong&gt;生成的代码&lt;/strong&gt;：&lt;/p&gt;
+
+
+
+
+
+&lt;div class=&#34;highlight highlight-typescript&#34;&gt;
+  &lt;pre&gt;
+    &lt;code class=&#34;language-typescript&#34; data-lang=&#34;typescript&#34;&gt;// src/types/todo.ts
+export interface Todo {
+  id: string;
+  title: string;
+  description?: string;
+  completed: boolean;
+  category: string;
+  tags: string[];
+  priority: &amp;#39;low&amp;#39; | &amp;#39;medium&amp;#39; | &amp;#39;high&amp;#39;;
+  createdAt: Date;
+  completedAt?: Date;
+  dueDate?: Date;
+}
+
+export interface TodoFilter {
+  search: string;
+  category: string;
+  tags: string[];
+  status: &amp;#39;all&amp;#39; | &amp;#39;active&amp;#39; | &amp;#39;completed&amp;#39;;
+}
+
+export interface TodoStore {
+  todos: Todo[];
+  filter: TodoFilter;
+  // Actions
+  addTodo: (todo: Omit&amp;lt;Todo, &amp;#39;id&amp;#39; | &amp;#39;createdAt&amp;#39;&amp;gt;) =&amp;gt; void;
+  updateTodo: (id: string, updates: Partial&amp;lt;Todo&amp;gt;) =&amp;gt; void;
+  deleteTodo: (id: string) =&amp;gt; void;
+  toggleTodo: (id: string) =&amp;gt; void;
+  setFilter: (filter: Partial&amp;lt;TodoFilter&amp;gt;) =&amp;gt; void;
+  clearCompleted: () =&amp;gt; void;
+}&lt;/code&gt;
+  &lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h5 id=&#34;42-状态管理&#34;&gt;4.2 状态管理
+&lt;/h5&gt;
+
+
+
+
+&lt;div class=&#34;highlight highlight-bash&#34;&gt;
+  &lt;pre&gt;
+    &lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;/sc:implement &amp;#34;Zustand todo store&amp;#34; --persona-frontend&lt;/code&gt;
+  &lt;/pre&gt;
+&lt;/div&gt;
+
+
+
+
+
+
+&lt;div class=&#34;highlight highlight-typescript&#34;&gt;
+  &lt;pre&gt;
+    &lt;code class=&#34;language-typescript&#34; data-lang=&#34;typescript&#34;&gt;// src/stores/todoStore.ts
+import { create } from &amp;#39;zustand&amp;#39;;
+import { persist } from &amp;#39;zustand/middleware&amp;#39;;
+import type { Todo, TodoStore } from &amp;#39;../types/todo&amp;#39;;
+
+export const useTodoStore = create&amp;lt;TodoStore&amp;gt;()(
+  persist(
+    (set, get) =&amp;gt; ({
+      todos: [],
+      filter: {
+        search: &amp;#39;&amp;#39;,
+        category: &amp;#39;&amp;#39;,
+        tags: [],
+        status: &amp;#39;all&amp;#39;,
+      },
+
+      addTodo: (todo) =&amp;gt; {
+        const newTodo: Todo = {
+          ...todo,
+          id: crypto.randomUUID(),
+          createdAt: new Date(),
+        };
+        set((state) =&amp;gt; ({ todos: [...state.todos, newTodo] }));
+      },
+
+      updateTodo: (id, updates) =&amp;gt;
+        set((state) =&amp;gt; ({
+          todos: state.todos.map((todo) =&amp;gt;
+            todo.id === id ? { ...todo, ...updates } : todo
+          ),
+        })),
+
+      deleteTodo: (id) =&amp;gt;
+        set((state) =&amp;gt; ({
+          todos: state.todos.filter((todo) =&amp;gt; todo.id !== id),
+        })),
+
+      toggleTodo: (id) =&amp;gt;
+        set((state) =&amp;gt; ({
+          todos: state.todos.map((todo) =&amp;gt;
+            todo.id === id
+              ? {
+                  ...todo,
+                  completed: !todo.completed,
+                  completedAt: !todo.completed ? new Date() : undefined,
+                }
+              : todo
+          ),
+        })),
+
+      setFilter: (filter) =&amp;gt;
+        set((state) =&amp;gt; ({
+          filter: { ...state.filter, ...filter },
+        })),
+
+      clearCompleted: () =&amp;gt;
+        set((state) =&amp;gt; ({
+          todos: state.todos.filter((todo) =&amp;gt; !todo.completed),
+        })),
+    }),
+    {
+      name: &amp;#39;todo-storage&amp;#39;,
+    }
+  )
+);&lt;/code&gt;
+  &lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h5 id=&#34;43-ui-组件&#34;&gt;4.3 UI 组件
+&lt;/h5&gt;
+
+
+
+
+&lt;div class=&#34;highlight highlight-bash&#34;&gt;
+  &lt;pre&gt;
+    &lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;/sc:implement &amp;#34;TodoList 组件&amp;#34; --persona-frontend
+/sc:implement &amp;#34;TodoItem 组件&amp;#34; --persona-frontend
+/sc:implement &amp;#34;AddTodoForm 组件&amp;#34; --persona-frontend&lt;/code&gt;
+  &lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;&lt;strong&gt;TodoList 组件示例&lt;/strong&gt;：&lt;/p&gt;
+
+
+
+
+
+&lt;div class=&#34;highlight highlight-typescript&#34;&gt;
+  &lt;pre&gt;
+    &lt;code class=&#34;language-typescript&#34; data-lang=&#34;typescript&#34;&gt;// src/components/TodoList.tsx
+import { useTodoStore } from &amp;#39;../stores/todoStore&amp;#39;;
+import { TodoItem } from &amp;#39;./TodoItem&amp;#39;;
+import { useMemo } from &amp;#39;react&amp;#39;;
+
+export function TodoList() {
+  const { todos, filter } = useTodoStore();
+
+  const filteredTodos = useMemo(() =&amp;gt; {
+    return todos.filter((todo) =&amp;gt; {
+      // 搜索过滤
+      if (filter.search &amp;amp;&amp;amp; !todo.title.toLowerCase().includes(filter.search.toLowerCase())) {
+        return false;
+      }
+
+      // 分类过滤
+      if (filter.category &amp;amp;&amp;amp; todo.category !== filter.category) {
+        return false;
+      }
+
+      // 状态过滤
+      if (filter.status === &amp;#39;active&amp;#39; &amp;amp;&amp;amp; todo.completed) return false;
+      if (filter.status === &amp;#39;completed&amp;#39; &amp;amp;&amp;amp; !todo.completed) return false;
+
+      return true;
+    });
+  }, [todos, filter]);
+
+  return (
+    &amp;lt;ul className=&amp;#34;space-y-2&amp;#34;&amp;gt;
+      {filteredTodos.map((todo) =&amp;gt; (
+        &amp;lt;TodoItem key={todo.id} todo={todo} /&amp;gt;
+      ))}
+    &amp;lt;/ul&amp;gt;
+  );
+}&lt;/code&gt;
+  &lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h5 id=&#34;44-样式系统&#34;&gt;4.4 样式系统
+&lt;/h5&gt;
+
+
+
+
+&lt;div class=&#34;highlight highlight-bash&#34;&gt;
+  &lt;pre&gt;
+    &lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;/sc:implement &amp;#34;Tailwind 配置和深色模式&amp;#34; --persona-frontend&lt;/code&gt;
+  &lt;/pre&gt;
+&lt;/div&gt;
+
+
+
+
+
+
+&lt;div class=&#34;highlight highlight-javascript&#34;&gt;
+  &lt;pre&gt;
+    &lt;code class=&#34;language-javascript&#34; data-lang=&#34;javascript&#34;&gt;// tailwind.config.js
+/** @type {import(&amp;#39;tailwindcss&amp;#39;).Config} */
+export default {
+  content: [
+    &amp;#34;./index.html&amp;#34;,
+    &amp;#34;./src/**/*.{js,ts,jsx,tsx}&amp;#34;,
+  ],
+  darkMode: &amp;#39;class&amp;#39;,
+  theme: {
+    extend: {
+      colors: {
+        primary: {
+          50: &amp;#39;#f0f9ff&amp;#39;,
+          100: &amp;#39;#e0f2fe&amp;#39;,
+          500: &amp;#39;#0ea5e9&amp;#39;,
+          600: &amp;#39;#0284c7&amp;#39;,
+          700: &amp;#39;#0369a1&amp;#39;,
+        },
+      },
+    },
+  },
+  plugins: [],
+};&lt;/code&gt;
+  &lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;hr&gt;
+&lt;h4 id=&#34;步骤-5功能完善&#34;&gt;步骤 5：功能完善
+&lt;/h4&gt;&lt;h5 id=&#34;51-搜索和过滤&#34;&gt;5.1 搜索和过滤
+&lt;/h5&gt;
+
+
+
+
+&lt;div class=&#34;highlight highlight-bash&#34;&gt;
+  &lt;pre&gt;
+    &lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;/sc:implement &amp;#34;搜索过滤功能&amp;#34; --with-tests&lt;/code&gt;
+  &lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h5 id=&#34;52-本地持久化&#34;&gt;5.2 本地持久化
+&lt;/h5&gt;
+
+
+
+
+&lt;div class=&#34;highlight highlight-bash&#34;&gt;
+  &lt;pre&gt;
+    &lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;/sc:implement &amp;#34;localStorage 持久化&amp;#34; --focus performance&lt;/code&gt;
+  &lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h5 id=&#34;53-响应式设计&#34;&gt;5.3 响应式设计
+&lt;/h5&gt;
+
+
+
+
+&lt;div class=&#34;highlight highlight-bash&#34;&gt;
+  &lt;pre&gt;
+    &lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;/sc:implement &amp;#34;移动端适配&amp;#34; --persona-frontend&lt;/code&gt;
+  &lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;hr&gt;
+&lt;h4 id=&#34;步骤-6测试&#34;&gt;步骤 6：测试
+&lt;/h4&gt;
+
+
+
+
+&lt;div class=&#34;highlight highlight-bash&#34;&gt;
+  &lt;pre&gt;
+    &lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;/sc:test --coverage
+/sc:test e2e --playwright&lt;/code&gt;
+  &lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;&lt;strong&gt;生成的测试示例&lt;/strong&gt;：&lt;/p&gt;
+
+
+
+
+
+&lt;div class=&#34;highlight highlight-typescript&#34;&gt;
+  &lt;pre&gt;
+    &lt;code class=&#34;language-typescript&#34; data-lang=&#34;typescript&#34;&gt;// tests/components/TodoItem.test.tsx
+import { describe, it, expect } from &amp;#39;vitest&amp;#39;;
+import { render, screen, fireEvent } from &amp;#39;@testing-library/react&amp;#39;;
+import { TodoItem } from &amp;#39;@/components/TodoItem&amp;#39;;
+import { useTodoStore } from &amp;#39;@/stores/todoStore&amp;#39;;
+
+describe(&amp;#39;TodoItem&amp;#39;, () =&amp;gt; {
+  it(&amp;#39;should render todo title&amp;#39;, () =&amp;gt; {
+    const todo = {
+      id: &amp;#39;1&amp;#39;,
+      title: &amp;#39;Test Todo&amp;#39;,
+      completed: false,
+      category: &amp;#39;personal&amp;#39;,
+      tags: [],
+      priority: &amp;#39;medium&amp;#39; as const,
+      createdAt: new Date(),
+    };
+
+    render(&amp;lt;TodoItem todo={todo} /&amp;gt;);
+    expect(screen.getByText(&amp;#39;Test Todo&amp;#39;)).toBeInTheDocument();
+  });
+
+  it(&amp;#39;should toggle todo completion&amp;#39;, () =&amp;gt; {
+    const todo = {
+      id: &amp;#39;1&amp;#39;,
+      title: &amp;#39;Test Todo&amp;#39;,
+      completed: false,
+      category: &amp;#39;personal&amp;#39;,
+      tags: [],
+      priority: &amp;#39;medium&amp;#39; as const,
+      createdAt: new Date(),
+    };
+
+    render(&amp;lt;TodoItem todo={todo} /&amp;gt;);
+
+    const checkbox = screen.getByRole(&amp;#39;checkbox&amp;#39;);
+    fireEvent.click(checkbox);
+
+    const store = useTodoStore.getState();
+    expect(store.todos.find((t) =&amp;gt; t.id === &amp;#39;1&amp;#39;)?.completed).toBe(true);
+  });
+});&lt;/code&gt;
+  &lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;hr&gt;
+&lt;h4 id=&#34;步骤-7代码质量检查&#34;&gt;步骤 7：代码质量检查
+&lt;/h4&gt;
+
+
+
+
+&lt;div class=&#34;highlight highlight-bash&#34;&gt;
+  &lt;pre&gt;
+    &lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;/sc:analyze --focus quality
+/sc:analyze --focus security
+/sc:analyze --focus performance --persona-performance&lt;/code&gt;
+  &lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;hr&gt;
+&lt;h4 id=&#34;步骤-8代码优化&#34;&gt;步骤 8：代码优化
+&lt;/h4&gt;
+
+
+
+
+&lt;div class=&#34;highlight highlight-bash&#34;&gt;
+  &lt;pre&gt;
+    &lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;/sc:improve src/ --type performance --benchmark
+/sc:improve src/ --type quality --validate&lt;/code&gt;
+  &lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;hr&gt;
+&lt;h4 id=&#34;步骤-9生产构建&#34;&gt;步骤 9：生产构建
+&lt;/h4&gt;
+
+
+
+
+&lt;div class=&#34;highlight highlight-bash&#34;&gt;
+  &lt;pre&gt;
+    &lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;/sc:build --prod --optimize
+/sc:test --type security&lt;/code&gt;
+  &lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;hr&gt;
+&lt;h4 id=&#34;步骤-10文档生成&#34;&gt;步骤 10：文档生成
+&lt;/h4&gt;
+
+
+
+
+&lt;div class=&#34;highlight highlight-bash&#34;&gt;
+  &lt;pre&gt;
+    &lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;/sc:document components/ --type guide
+/sc:document --type readme
+/sc:index&lt;/code&gt;
+  &lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;hr&gt;
+&lt;h4 id=&#34;步骤-11部署准备&#34;&gt;步骤 11：部署准备
+&lt;/h4&gt;
+
+
+
+
+&lt;div class=&#34;highlight highlight-bash&#34;&gt;
+  &lt;pre&gt;
+    &lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;/sc:build --static --analyze-bundle
+/sc:git --smart-commit&lt;/code&gt;
+  &lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h3 id=&#34;63-项目时间线&#34;&gt;6.3 项目时间线
+&lt;/h3&gt;&lt;table&gt;
+  &lt;thead&gt;
+      &lt;tr&gt;
+          &lt;th&gt;阶段&lt;/th&gt;
+          &lt;th&gt;时间&lt;/th&gt;
+          &lt;th&gt;主要命令&lt;/th&gt;
+          &lt;th&gt;产出&lt;/th&gt;
+      &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+      &lt;tr&gt;
+          &lt;td&gt;需求分析&lt;/td&gt;
+          &lt;td&gt;30分钟&lt;/td&gt;
+          &lt;td&gt;&lt;code&gt;/sc:brainstorm&lt;/code&gt;, &lt;code&gt;/sc:design&lt;/code&gt;&lt;/td&gt;
+          &lt;td&gt;需求文档、架构设计&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;项目初始化&lt;/td&gt;
+          &lt;td&gt;15分钟&lt;/td&gt;
+          &lt;td&gt;&lt;code&gt;/sc:build&lt;/code&gt;&lt;/td&gt;
+          &lt;td&gt;项目骨架&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;核心开发&lt;/td&gt;
+          &lt;td&gt;2-3小时&lt;/td&gt;
+          &lt;td&gt;&lt;code&gt;/sc:implement&lt;/code&gt; × 8&lt;/td&gt;
+          &lt;td&gt;完整功能实现&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;测试&lt;/td&gt;
+          &lt;td&gt;1小时&lt;/td&gt;
+          &lt;td&gt;&lt;code&gt;/sc:test&lt;/code&gt;, &lt;code&gt;/sc:analyze&lt;/code&gt;&lt;/td&gt;
+          &lt;td&gt;测试报告、质量分析&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;优化&lt;/td&gt;
+          &lt;td&gt;1小时&lt;/td&gt;
+          &lt;td&gt;&lt;code&gt;/sc:improve&lt;/code&gt;&lt;/td&gt;
+          &lt;td&gt;性能优化、代码改进&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;文档&lt;/td&gt;
+          &lt;td&gt;30分钟&lt;/td&gt;
+          &lt;td&gt;&lt;code&gt;/sc:document&lt;/code&gt;, &lt;code&gt;/sc:index&lt;/code&gt;&lt;/td&gt;
+          &lt;td&gt;项目文档&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;部署&lt;/td&gt;
+          &lt;td&gt;15分钟&lt;/td&gt;
+          &lt;td&gt;&lt;code&gt;/sc:build --prod&lt;/code&gt;&lt;/td&gt;
+          &lt;td&gt;生产构建&lt;/td&gt;
+      &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;&lt;strong&gt;总计&lt;/strong&gt;：约 5-6 小时完成完整项目&lt;/p&gt;
+&lt;hr&gt;
+&lt;h2 id=&#34;第七部分实战场景与工作流&#34;&gt;第七部分：实战场景与工作流
+&lt;/h2&gt;&lt;h3 id=&#34;71-新项目启动工作流&#34;&gt;7.1 新项目启动工作流
+&lt;/h3&gt;
+
+
+
+
+&lt;div class=&#34;highlight highlight-bash&#34;&gt;
+  &lt;pre&gt;
+    &lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;# 1. 需求发现
+/sc:brainstorm &amp;#34;任务管理 SaaS 应用&amp;#34;
+
+# 2. 架构设计
+/sc:design &amp;#34;系统架构&amp;#34; --type architecture
+
+# 3. 项目初始化
+/sc:build task-manager/ --framework nextjs
+
+# 4. 核心功能实现
+/sc:implement &amp;#34;用户认证&amp;#34;
+/sc:implement &amp;#34;任务 CRUD&amp;#34;
+/sc:implement &amp;#34;团队协作&amp;#34;
+
+# 5. 测试
+/sc:test --coverage
+
+# 6. 保存进度
+/sc:save &amp;#34;MVP 完成&amp;#34;&lt;/code&gt;
+  &lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;hr&gt;
+&lt;h3 id=&#34;72-代码审查工作流&#34;&gt;7.2 代码审查工作流
+&lt;/h3&gt;
+
+
+
+
+&lt;div class=&#34;highlight highlight-bash&#34;&gt;
+  &lt;pre&gt;
+    &lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;# 1. 质量分析
+/sc:analyze pr/ --persona-qa --focus quality
+
+# 2. 安全审查
+/sc:analyze pr/ --persona-security --focus security
+
+# 3. 性能检查
+/sc:analyze pr/ --persona-performance --focus performance
+
+# 4. 文档生成
+/sc:document pr/ --type changelog
+
+# 5. 智能提交
+/sc:git --smart-commit&lt;/code&gt;
+  &lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;hr&gt;
+&lt;h3 id=&#34;73-bug-修复工作流&#34;&gt;7.3 Bug 修复工作流
+&lt;/h3&gt;
+
+
+
+
+&lt;div class=&#34;highlight highlight-bash&#34;&gt;
+  &lt;pre&gt;
+    &lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;# 1. 问题诊断
+/sc:troubleshoot &amp;#34;登录失败&amp;#34; --logs
+
+# 2. 深度分析
+/sc:analyze auth/ --think-hard --focus debugging
+
+# 3. 修复实施
+/sc:implement &amp;#34;修复登录 bug&amp;#34; --safe-mode --validate
+
+# 4. 回归测试
+/sc:test --type unit auth/
+/sc:test e2e --playwright
+
+# 5. 保存
+/sc:save &amp;#34;bug-fix-login&amp;#34;&lt;/code&gt;
+  &lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;hr&gt;
+&lt;h3 id=&#34;74-遗留系统现代化&#34;&gt;7.4 遗留系统现代化
+&lt;/h3&gt;
+
+
+
+
+&lt;div class=&#34;highlight highlight-bash&#34;&gt;
+  &lt;pre&gt;
+    &lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;# 1. 深度架构分析
+/sc:analyze legacy/ --persona-architect --ultrathink
+
+# 2. 现代化规划
+/sc:design modernization-strategy --type architecture
+
+# 3. 迭代改进（波模式）
+/sc:improve legacy/ --wave-mode systematic --safe-mode --loop
+
+# 4. 文档更新
+/sc:index
+/sc:document legacy/ --type guide&lt;/code&gt;
+  &lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;hr&gt;
+&lt;h3 id=&#34;75-安全优先开发&#34;&gt;7.5 安全优先开发
+&lt;/h3&gt;
+
+
+
+
+&lt;div class=&#34;highlight highlight-bash&#34;&gt;
+  &lt;pre&gt;
+    &lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;# 1. 安全设计
+/sc:design &amp;#34;认证系统&amp;#34; --focus security
+
+# 2. 安全实现
+/sc:implement &amp;#34;JWT 认证&amp;#34; --persona-security
+
+# 3. 安全审查
+/sc:analyze auth/ --persona-security --focus security
+
+# 4. 安全测试
+/sc:test --type security
+
+# 5. 合规检查
+/sc:analyze --persona-security --compliance gdpr&lt;/code&gt;
+  &lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;hr&gt;
+&lt;h2 id=&#34;第八部分学习路线图4-周精进计划&#34;&gt;第八部分：学习路线图（4 周精进计划）
+&lt;/h2&gt;&lt;h3 id=&#34;第-1-周核心命令掌握&#34;&gt;第 1 周：核心命令掌握
+&lt;/h3&gt;&lt;p&gt;&lt;strong&gt;学习重点&lt;/strong&gt;：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;/sc:brainstorm&lt;/code&gt; - 需求探索&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;/sc:analyze&lt;/code&gt; - 代码分析&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;/sc:implement&lt;/code&gt; - 功能实现&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;练习任务&lt;/strong&gt;：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;完成待办事项应用项目&lt;/li&gt;
+&lt;li&gt;使用基础命令完成开发周期&lt;/li&gt;
+&lt;li&gt;熟悉命令参数和标志&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;学习目标&lt;/strong&gt;：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;✅ 独立完成第一个项目&lt;/li&gt;
+&lt;li&gt;✅ 理解 SuperClaude 工作原理&lt;/li&gt;
+&lt;li&gt;✅ 掌握核心命令的基本用法&lt;/li&gt;
+&lt;/ul&gt;
+&lt;hr&gt;
+&lt;h3 id=&#34;第-2-周行为模式和标志&#34;&gt;第 2 周：行为模式和标志
+&lt;/h3&gt;&lt;p&gt;&lt;strong&gt;学习重点&lt;/strong&gt;：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;思考深度标志（&lt;code&gt;--think&lt;/code&gt;, &lt;code&gt;--think-hard&lt;/code&gt;, &lt;code&gt;--ultrathink&lt;/code&gt;）&lt;/li&gt;
+&lt;li&gt;专注标志（&lt;code&gt;--focus security&lt;/code&gt;, &lt;code&gt;--focus performance&lt;/code&gt;）&lt;/li&gt;
+&lt;li&gt;预览和安全模式（&lt;code&gt;--preview&lt;/code&gt;, &lt;code&gt;--safe-mode&lt;/code&gt;）&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;练习任务&lt;/strong&gt;：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;使用不同深度分析同一代码库&lt;/li&gt;
+&lt;li&gt;组合多个专注标志&lt;/li&gt;
+&lt;li&gt;使用预览模式测试改进&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;学习目标&lt;/strong&gt;：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;✅ 优化个人工作流&lt;/li&gt;
+&lt;li&gt;✅ 理解不同标志的使用场景&lt;/li&gt;
+&lt;li&gt;✅ 掌握高级参数组合&lt;/li&gt;
+&lt;/ul&gt;
+&lt;hr&gt;
+&lt;h3 id=&#34;第-3-周mcp-服务器集成&#34;&gt;第 3 周：MCP 服务器集成
+&lt;/h3&gt;&lt;p&gt;&lt;strong&gt;学习重点&lt;/strong&gt;：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;配置和使用 MCP 服务器&lt;/li&gt;
+&lt;li&gt;理解自动集成机制&lt;/li&gt;
+&lt;li&gt;工具选择和组合&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;练习任务&lt;/strong&gt;：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;配置 Context7 获取框架文档&lt;/li&gt;
+&lt;li&gt;使用 Playwright 进行 E2E 测试&lt;/li&gt;
+&lt;li&gt;使用 Magic 生成 UI 组件&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;学习目标&lt;/strong&gt;：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;✅ 充分利用外部工具&lt;/li&gt;
+&lt;li&gt;✅ 理解 MCP 工作原理&lt;/li&gt;
+&lt;li&gt;✅ 配置自定义 MCP 服务器&lt;/li&gt;
+&lt;/ul&gt;
+&lt;hr&gt;
+&lt;h3 id=&#34;第-4-周高级模式和精通&#34;&gt;第 4 周：高级模式和精通
+&lt;/h3&gt;&lt;p&gt;&lt;strong&gt;学习重点&lt;/strong&gt;：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;自定义工作流&lt;/li&gt;
+&lt;li&gt;会话管理（&lt;code&gt;/sc:load&lt;/code&gt;, &lt;code&gt;/sc:save&lt;/code&gt;）&lt;/li&gt;
+&lt;li&gt;团队协作模式&lt;/li&gt;
+&lt;li&gt;波模式系统改进&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;练习任务&lt;/strong&gt;：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;创建个人专属工作流&lt;/li&gt;
+&lt;li&gt;管理多个项目会话&lt;/li&gt;
+&lt;li&gt;设计团队协作规范&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;学习目标&lt;/strong&gt;：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;✅ 框架精通&lt;/li&gt;
+&lt;li&gt;✅ 可以指导他人使用&lt;/li&gt;
+&lt;li&gt;✅ 设计团队工作流程&lt;/li&gt;
+&lt;/ul&gt;
+&lt;hr&gt;
+&lt;h2 id=&#34;第九部分最佳实践与技巧&#34;&gt;第九部分：最佳实践与技巧
+&lt;/h2&gt;&lt;h3 id=&#34;91-命令使用习惯&#34;&gt;9.1 命令使用习惯
+&lt;/h3&gt;&lt;h4 id=&#34;从简单开始按需添加复杂度&#34;&gt;从简单开始，按需添加复杂度
+&lt;/h4&gt;
+
+
+
+
+&lt;div class=&#34;highlight highlight-bash&#34;&gt;
+  &lt;pre&gt;
+    &lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;# 基础
+/sc:analyze code.js
+
+# 添加深度
+/sc:analyze code.js --think
+
+# 添加文档参考
+/sc:analyze code.js --think --c7&lt;/code&gt;
+  &lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h4 id=&#34;使用安全模式&#34;&gt;使用安全模式
+&lt;/h4&gt;
+
+
+
+
+&lt;div class=&#34;highlight highlight-bash&#34;&gt;
+  &lt;pre&gt;
+    &lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;# 生产代码总是先预览
+/sc:improve production-auth/ --safe-mode --validate --preview&lt;/code&gt;
+  &lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h4 id=&#34;选择适当的作用域&#34;&gt;选择适当的作用域
+&lt;/h4&gt;
+
+
+
+
+&lt;div class=&#34;highlight highlight-bash&#34;&gt;
+  &lt;pre&gt;
+    &lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;# 文件级
+/sc:analyze single-component.js
+
+# 模块级
+/sc:analyze user-auth/
+
+# 项目级
+/sc:analyze --scope project&lt;/code&gt;
+  &lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;hr&gt;
+&lt;h3 id=&#34;92-效率最大化技巧&#34;&gt;9.2 效率最大化技巧
+&lt;/h3&gt;&lt;h4 id=&#34;让自动激活先工作&#34;&gt;让自动激活先工作
+&lt;/h4&gt;&lt;p&gt;先使用基本命令，观察 SuperClaude 如何自动选择工具和专家。只在需要特定视角时才手动覆盖。&lt;/p&gt;
+&lt;h4 id=&#34;使用预览和安全模式&#34;&gt;使用预览和安全模式
+&lt;/h4&gt;
+
+
+
+
+&lt;div class=&#34;highlight highlight-bash&#34;&gt;
+  &lt;pre&gt;
+    &lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;# 先查看会发生什么
+/sc:improve code.js --preview
+
+# 确认后再应用安全更改
+/sc:improve code.js --safe-mode&lt;/code&gt;
+  &lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h4 id=&#34;大型操作的令牌管理&#34;&gt;大型操作的令牌管理
+&lt;/h4&gt;
+
+
+
+
+&lt;div class=&#34;highlight highlight-bash&#34;&gt;
+  &lt;pre&gt;
+    &lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;# 压缩输出并并行处理
+/sc:analyze huge-codebase/ --uc --delegate auto&lt;/code&gt;
+  &lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h4 id=&#34;使用导师角色学习&#34;&gt;使用导师角色学习
+&lt;/h4&gt;
+
+
+
+
+&lt;div class=&#34;highlight highlight-bash&#34;&gt;
+  &lt;pre&gt;
+    &lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;# 学习新概念时使用导师模式
+/sc:explain GraphQL --persona-mentor --verbose&lt;/code&gt;
+  &lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;hr&gt;
+&lt;h3 id=&#34;93-避免常见错误&#34;&gt;9.3 避免常见错误
+&lt;/h3&gt;&lt;ol&gt;
+&lt;li&gt;&lt;strong&gt;过度使用高级标志&lt;/strong&gt; - 不是所有任务都需要 &lt;code&gt;--ultrathink&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;忽略预览模式&lt;/strong&gt; - 在生产代码上总是先使用 &lt;code&gt;--preview&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;手动指定专家&lt;/strong&gt; - 让系统自动激活，除非有特殊需求&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;跳过会话保存&lt;/strong&gt; - 使用 &lt;code&gt;/sc:save&lt;/code&gt; 保持上下文连续性&lt;/li&gt;
+&lt;/ol&gt;
+&lt;hr&gt;
+&lt;h2 id=&#34;第十部分进阶主题&#34;&gt;第十部分：进阶主题
+&lt;/h2&gt;&lt;h3 id=&#34;101-superclaude-vs-标准-claude-code&#34;&gt;10.1 SuperClaude vs 标准 Claude Code
+&lt;/h3&gt;&lt;table&gt;
+  &lt;thead&gt;
+      &lt;tr&gt;
+          &lt;th&gt;使用 SuperClaude ✅&lt;/th&gt;
+          &lt;th&gt;使用标准 Claude 💭&lt;/th&gt;
+      &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+      &lt;tr&gt;
+          &lt;td&gt;构建完整软件项目&lt;/td&gt;
+          &lt;td&gt;简单问题或解释&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;系统化工作流和质量门控&lt;/td&gt;
+          &lt;td&gt;一次性编码任务&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;复杂、多组件系统&lt;/td&gt;
+          &lt;td&gt;学习编程概念&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;长期项目需要持久化&lt;/td&gt;
+          &lt;td&gt;快速原型或实验&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;团队协作和标准&lt;/td&gt;
+          &lt;td&gt;代码片段生成&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;领域专精需求&lt;/td&gt;
+          &lt;td&gt;通用编程帮助&lt;/td&gt;
+      &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+&lt;hr&gt;
+&lt;h3 id=&#34;102-理解行为上下文注入&#34;&gt;10.2 理解行为上下文注入
+&lt;/h3&gt;&lt;p&gt;SuperClaude 通过 &lt;code&gt;.md&lt;/code&gt; 文件注入行为：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;strong&gt;触发器&lt;/strong&gt;：&lt;code&gt;/sc:&lt;/code&gt; 和 &lt;code&gt;@agent-&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;激活&lt;/strong&gt;：读取对应的 &lt;code&gt;.md&lt;/code&gt; 上下文文件&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;响应&lt;/strong&gt;：按照框架模式生成全面响应&lt;/li&gt;
+&lt;/ol&gt;
+&lt;hr&gt;
+&lt;h3 id=&#34;103-自定义和扩展&#34;&gt;10.3 自定义和扩展
+&lt;/h3&gt;&lt;p&gt;详细的自定义配置请参考官方文档。&lt;/p&gt;
+&lt;hr&gt;
+&lt;h2 id=&#34;第十一部分资源与参考&#34;&gt;第十一部分：资源与参考
+&lt;/h2&gt;&lt;h3 id=&#34;111-官方资源&#34;&gt;11.1 官方资源
+&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;GitHub 仓库&lt;/strong&gt;：&lt;a class=&#34;link&#34; href=&#34;https://github.com/SuperClaude-Org/SuperClaude_Framework&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;SuperClaude-Org/SuperClaude_Framework&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;快速开始&lt;/strong&gt;：&lt;a class=&#34;link&#34; href=&#34;https://github.com/SuperClaude-Org/SuperClaude_Framework/blob/master/docs/getting-started/quick-start.md&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;Quick Start Guide&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;命令参考&lt;/strong&gt;：&lt;a class=&#34;link&#34; href=&#34;https://github.com/SuperClaude-Org/SuperClaude_Framework/blob/master/docs/user-guide/commands.md&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;Commands Guide&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;PyPI&lt;/strong&gt;：&lt;a class=&#34;link&#34; href=&#34;https://pypi.org/project/superclaude/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;pypi.org/project/superclaude/&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;NPM&lt;/strong&gt;：&lt;a class=&#34;link&#34; href=&#34;https://www.npmjs.com/package/@bifrost_inc/superclaude&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;@bifrost_inc/superclaude&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;hr&gt;
+&lt;h3 id=&#34;112-社区资源&#34;&gt;11.2 社区资源
+&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;中文指南&lt;/strong&gt;：&lt;a class=&#34;link&#34; href=&#34;https://dev.to/dragon72463399/superclaude-he-xin-ming-ling-kuai-jie-jian-zhi-nan-4ckj&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;SuperClaude 核心命令快捷键指南&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;YouTube&lt;/strong&gt;：&lt;a class=&#34;link&#34; href=&#34;https://www.youtube.com/watch?v=Ph_Pbaqn2EM&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;Claude Code Done Right | The SuperClaude Method&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Medium&lt;/strong&gt;：&lt;a class=&#34;link&#34; href=&#34;https://medium.com/@maxslashwang/a-tool-to-supercharge-claude-codes-power-many-times-over-7a43b149d704&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;A Tool to Supercharge Claude Code&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Reddit&lt;/strong&gt;：&lt;a class=&#34;link&#34; href=&#34;https://www.reddit.com/r/ClaudeAI/comments/1m6rncg/superclaude_and_claude_code_example_flow_when/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;SuperClaude and claude code discussion&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;hr&gt;
+&lt;h3 id=&#34;113-相关工具&#34;&gt;11.3 相关工具
+&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Claude Code&lt;/strong&gt;：&lt;a class=&#34;link&#34; href=&#34;https://github.com/anthropics/claude-code&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;anthropics/claude-code&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Claude Code Best Practices&lt;/strong&gt;：&lt;a class=&#34;link&#34; href=&#34;https://www.anthropic.com/engineering/claude-code-best-practices&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;Official Guide&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Claude Code Cheat Sheet&lt;/strong&gt;：&lt;a class=&#34;link&#34; href=&#34;https://github.com/Njengah/claude-code-cheat-sheet&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;GitHub&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;hr&gt;
+&lt;h2 id=&#34;版本控制与更新策略&#34;&gt;版本控制与更新策略
+&lt;/h2&gt;&lt;h3 id=&#34;-更新日志&#34;&gt;📝 更新日志
+&lt;/h3&gt;&lt;h4 id=&#34;v100-2026-01-12&#34;&gt;v1.0.0 (2026-01-12)
+&lt;/h4&gt;&lt;ul&gt;
+&lt;li&gt;✨ 初始版本发布&lt;/li&gt;
+&lt;li&gt;📚 完整的 11 部分教程&lt;/li&gt;
+&lt;li&gt;🎯 包含完整实战项目（待办事项应用）&lt;/li&gt;
+&lt;li&gt;💡 最佳实践和技巧&lt;/li&gt;
+&lt;li&gt;🔄 版本管理和更新策略&lt;/li&gt;
+&lt;/ul&gt;
+&lt;hr&gt;
+&lt;p&gt;&lt;strong&gt;最近重大更新&lt;/strong&gt;：2026-01-12
+&lt;strong&gt;下次计划更新&lt;/strong&gt;：2026-Q2（跟随 SuperClaude 新版本）
+&lt;strong&gt;SuperClaude 版本&lt;/strong&gt;：4.1.5
+&lt;strong&gt;教程版本&lt;/strong&gt;：1.0.0&lt;/p&gt;
+&lt;hr&gt;
+&lt;h2 id=&#34;-贡献指南&#34;&gt;🤝 贡献指南
+&lt;/h2&gt;&lt;p&gt;发现错误或有改进建议？欢迎贡献！&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;🐛 &lt;strong&gt;报告问题&lt;/strong&gt;：&lt;a class=&#34;link&#34; href=&#34;https://github.com/Gzmomo001/Gzmomo001.github.io/issues&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;GitHub Issues&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;💡 &lt;strong&gt;提出建议&lt;/strong&gt;：在文章下方评论&lt;/li&gt;
+&lt;li&gt;✍️ &lt;strong&gt;改进文档&lt;/strong&gt;：提交 Pull Request&lt;/li&gt;
+&lt;/ul&gt;
+&lt;hr&gt;
+&lt;h2 id=&#34;-注意事项&#34;&gt;⚠️ 注意事项
+&lt;/h2&gt;&lt;ol&gt;
+&lt;li&gt;&lt;strong&gt;保持更新&lt;/strong&gt; - SuperClaude 版本更新快，需定期检查新功能&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;实践为主&lt;/strong&gt; - 鼓励读者边学边做&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;社区贡献&lt;/strong&gt; - 欢迎反馈和补充&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;官方为准&lt;/strong&gt; - 最终以官方文档为准&lt;/li&gt;
+&lt;/ol&gt;
+&lt;hr&gt;
+&lt;h2 id=&#34;-总结&#34;&gt;🎯 总结
+&lt;/h2&gt;&lt;p&gt;SuperClaude 是一个强大的 AI 辅助开发框架，通过系统化的命令、专家角色和 MCP 集成，将 Claude Code 提升到了全新的水平。&lt;/p&gt;
+&lt;p&gt;通过本教程，你学会了：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;✅ SuperClaude 的核心概念和工作原理&lt;/li&gt;
+&lt;li&gt;✅ 21 个核心命令的使用方法&lt;/li&gt;
+&lt;li&gt;✅ 14 个 AI 专家角色的应用场景&lt;/li&gt;
+&lt;li&gt;✅ MCP 服务器的集成能力&lt;/li&gt;
+&lt;li&gt;✅ 完整项目的开发流程&lt;/li&gt;
+&lt;li&gt;✅ 实战场景的工作流组合&lt;/li&gt;
+&lt;li&gt;✅ 4 周循序渐进的学习路线&lt;/li&gt;
+&lt;li&gt;✅ 最佳实践和效率技巧&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;下一步行动&lt;/strong&gt;：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;安装 SuperClaude：&lt;code&gt;pipx install SuperClaude &amp;amp;&amp;amp; SuperClaude install&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;完成待办事项应用项目&lt;/li&gt;
+&lt;li&gt;按照 4 周学习路线逐步精进&lt;/li&gt;
+&lt;li&gt;加入社区，分享你的经验&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;祝你在 AI 辅助开发的旅程中一帆风顺！🚀&lt;/p&gt;
+&lt;hr&gt;
+&lt;p&gt;&lt;strong&gt;Sources&lt;/strong&gt;:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;https://github.com/SuperClaude-Org/SuperClaude_Framework&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;SuperClaude Framework - GitHub&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;https://github.com/SuperClaude-Org/SuperClaude_Framework/blob/master/docs/getting-started/quick-start.md&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;Quick Start Guide&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;https://github.com/SuperClaude-Org/SuperClaude_Framework/blob/master/docs/user-guide/commands.md&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;Commands Reference&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;https://dev.to/dragon72463399/superclaude-he-xin-ming-ling-kuai-jie-jian-zhi-nan-4ckj&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;SuperClaude 核心命令快捷键指南 (中文)&lt;/a&gt; by drake&lt;/li&gt;
+&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;https://www.anthropic.com/engineering/claude-code-best-practices&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;Claude Code Best Practices&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+        </item>
+        
+    </channel>
+</rss>

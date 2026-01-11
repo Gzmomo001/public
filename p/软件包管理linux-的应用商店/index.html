@@ -1,0 +1,1951 @@
+<!DOCTYPE html>
+<html lang="zh-cn" dir="ltr">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="深入理解 Linux 软件包管理系统，掌握 APT、DNF、Pacman 等包管理器的使用技巧">
+<title>软件包管理：Linux 的应用商店</title>
+
+<link rel='canonical' href='https://Gzmomo001.github.io/public/p/%E8%BD%AF%E4%BB%B6%E5%8C%85%E7%AE%A1%E7%90%86linux-%E7%9A%84%E5%BA%94%E7%94%A8%E5%95%86%E5%BA%97/'>
+
+<link rel="stylesheet" href="/public/scss/style.min.69ed452c4f70aa0bd98aa7f62758389d29493390c2f090e74cf1c607d4445e3e.css"><meta property='og:title' content="软件包管理：Linux 的应用商店">
+<meta property='og:description' content="深入理解 Linux 软件包管理系统，掌握 APT、DNF、Pacman 等包管理器的使用技巧">
+<meta property='og:url' content='https://Gzmomo001.github.io/public/p/%E8%BD%AF%E4%BB%B6%E5%8C%85%E7%AE%A1%E7%90%86linux-%E7%9A%84%E5%BA%94%E7%94%A8%E5%95%86%E5%BA%97/'>
+<meta property='og:site_name' content='Henry Zhang'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='linux' /><meta property='article:tag' content='包管理' /><meta property='article:tag' content='apt' /><meta property='article:tag' content='dnf' /><meta property='article:tag' content='pacman' /><meta property='article:published_time' content='2026-01-11T03:00:00&#43;08:00'/><meta property='article:modified_time' content='2026-01-11T16:57:00&#43;00:00'/><meta property='og:image' content='https://Gzmomo001.github.io/public/default.jpeg' />
+<meta name="twitter:title" content="软件包管理：Linux 的应用商店">
+<meta name="twitter:description" content="深入理解 Linux 软件包管理系统，掌握 APT、DNF、Pacman 等包管理器的使用技巧"><meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content='https://Gzmomo001.github.io/public/default.jpeg' />
+    <link rel="shortcut icon" href="/favicon.ico" />
+
+
+<script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+<script>
+  
+  function getCurrentTheme() {
+    const colorSchemeKey = 'StackColorScheme';
+    const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+    const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+    
+    if (colorSchemeItem === 'dark' || (colorSchemeItem === 'auto' && supportDarkMode)) {
+      return 'dark';
+    } else {
+      return 'light';
+    }
+  }
+
+  
+  function logThemeInfo() {
+    const colorSchemeKey = 'StackColorScheme';
+    const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+    const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+    const documentScheme = document.documentElement.dataset.scheme;
+    
+    console.log('[Mermaid] Theme Detection:', {
+      localStorage: colorSchemeItem,
+      systemDark: supportDarkMode,
+      documentScheme: documentScheme,
+      calculatedTheme: getCurrentTheme()
+    });
+  }
+
+  
+  function initializeMermaid() {
+    const currentTheme = getCurrentTheme();
+    
+    if (currentTheme === 'dark') {
+      
+      mermaid.initialize({
+        startOnLoad: false,
+        theme: 'dark',
+        themeVariables: {
+          
+          primaryColor: '#4a5568',
+          primaryTextColor: '#f7fafc',
+          primaryBorderColor: '#63b3ed',
+          lineColor: '#e2e8f0',
+          secondaryColor: '#2d3748',
+          tertiaryColor: '#1a202c',
+          background: '#1a202c',
+          
+          
+          fillType0: '#2d3748',
+          fillType1: '#4a5568',
+          fillType2: '#4299e1',
+          clusterBkg: '#2d3748',
+          clusterBorder: '#4a5568',
+          nodeBorder: '#e2e8f0',
+          mainBkg: '#4a5568',
+          altBkg: '#2d3748',
+          
+          
+          labelBackground: '#2d3748',
+          edgeLabelBackground: '#2d3748',
+          titleColor: '#f7fafc',
+          
+          
+          actorBkg: '#2d3748',
+          actorBorder: '#4a5568',
+          actorTextColor: '#e2e8f0',
+          actorLine: '#4a5568',
+          signalColor: '#e2e8f0',
+          signalTextColor: '#e2e8f0',
+          noteBkgColor: '#4a5568',
+          noteBorderColor: '#4a5568',
+          noteTextColor: '#e2e8f0',
+          activationBorderColor: '#4299e1',
+          activationBkgColor: '#2d3748',
+          
+          
+          sectionBkgColor: '#2d3748',
+          altSectionBkgColor: '#4a5568',
+          sectionBorderColor: '#4a5568',
+          taskBkgColor: '#4299e1',
+          taskBorderColor: '#63b3ed',
+          taskTextColor: '#ffffff',
+          activeTaskBkgColor: '#48bb78',
+          activeTaskBorderColor: '#38a169',
+          doneTaskBkgColor: '#2d3748',
+          doneTaskBorderColor: '#4a5568',
+          critBkgColor: '#f56565',
+          critBorderColor: '#e53e3e',
+          critTextColor: '#ffffff',
+          
+          
+          pie1: '#4299e1',
+          pie2: '#48bb78',
+          pie3: '#ed8936',
+          pie4: '#9f7aea',
+          pie5: '#ed64a6',
+          pie6: '#38b2ac',
+          pie7: '#f6ad55',
+          pie8: '#68d391',
+          pie9: '#63b3ed',
+          pie10: '#b794f4',
+          pieTitleTextSize: '24px',
+          pieSectionTextSize: '16px',
+          pieOuterStrokeWidth: '2px',
+          pieStroke: '#1a202c',
+          pieOpacity: '1',
+          
+          
+          classText: '#f7fafc',
+          classTitle: '#f7fafc',
+          
+          
+          stateBkg: '#2d3748',
+          stateBorder: '#4a5568',
+          labelColor: '#f7fafc',
+          stateLabel: '#f7fafc',
+          stateText: '#f7fafc',
+          transitionLabel: '#f7fafc',
+          
+          
+          entityBkg: '#2d3748',
+          entityBorder: '#4a5568',
+          attributeBkg: '#2d3748',
+          attributeBorder: '#4a5568',
+          relationshipText: '#f7fafc',
+          
+          
+          gridColor: '#4a5568',
+          scaleBarColor: '#4a5568',
+          barColor: '#4299e1',
+          barBorderColor: '#63b3ed',
+          todayLineColor: '#f6ad55',
+          
+          
+          git0: '#4299e1',
+          git1: '#48bb78',
+          git2: '#ed8936',
+          git3: '#9f7aea',
+          git4: '#ed64a6',
+          git5: '#38b2ac',
+          git6: '#f6ad55',
+          git7: '#68d391',
+          gitInv0: '#2d3748',
+          gitInv1: '#2d3748',
+          gitInv2: '#2d3748',
+          gitInv3: '#2d3748',
+          gitInv4: '#2d3748',
+          gitInv5: '#2d3748',
+          gitInv6: '#2d3748',
+          gitInv7: '#2d3748',
+          
+          
+          mindmapPrimary: '#4299e1',
+          mindmapSecondary: '#48bb78',
+          mindmapTertiary: '#ed8936',
+          
+          
+          errorTextColor: '#fc8181',
+          warningTextColor: '#f6ad55',
+          infoTextColor: '#63b3ed',
+          
+          
+          edgeLabelBackground: '#1a202c',
+          
+          
+          edgeLabelBackground: '#2d3748',
+          
+          
+          classLabel: '#f7fafc',
+          dividerColor: '#4a5568',
+          
+          
+          dividerColor: '#4a5568',
+          
+          
+          dividerColor: '#4a5568',
+          
+          
+          fontFamily: '"Douyin Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
+          fontSize: '16px'
+        },
+        fontFamily: '"Douyin Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
+        fontSize: 16,
+        flowchart: {
+          useMaxWidth: true,
+          htmlLabels: true,
+          curve: 'basis'
+        },
+        sequence: {
+          useMaxWidth: true
+        },
+        journey: {
+          useMaxWidth: true
+        },
+        pie: {
+          useMaxWidth: true
+        },
+        gantt: {
+          useMaxWidth: true
+        },
+        git: {
+          useMaxWidth: true
+        },
+        mindmap: {
+          useMaxWidth: true
+        }
+      });
+    } else {
+      
+      mermaid.initialize({
+        startOnLoad: false,
+        theme: 'default',
+        themeVariables: {
+          primaryColor: '#007bff',
+          primaryTextColor: '#333',
+          primaryBorderColor: '#007bff',
+          lineColor: '#666',
+          secondaryColor: '#f8f9fa',
+          tertiaryColor: '#e9ecef'
+        },
+        fontFamily: '"Douyin Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
+        fontSize: 16,
+        flowchart: {
+          useMaxWidth: true,
+          htmlLabels: true,
+          curve: 'basis'
+        }
+      });
+    }
+    
+    
+    document.querySelectorAll('.mermaid').forEach(function(element) {
+      if (!element.dataset.original) {
+        element.dataset.original = element.textContent.trim();
+      }
+    });
+    
+    
+    return mermaid.run();
+  }
+
+  
+  document.addEventListener('DOMContentLoaded', function() {
+    
+    initializeMermaid();
+    
+    
+    logThemeInfo();
+    
+    
+    const darkModeToggle = document.getElementById('dark-mode-toggle');
+    if (darkModeToggle) {
+      darkModeToggle.addEventListener('click', function() {
+        
+        document.querySelectorAll('.mermaid').forEach(function(element) {
+          element.classList.add('reloading');
+        });
+        
+        
+        setTimeout(function() {
+          
+          document.querySelectorAll('.mermaid').forEach(function(element) {
+            
+            if (!element.dataset.original) {
+              element.dataset.original = element.textContent.trim();
+            }
+            
+            
+            element.innerHTML = '';
+            
+            
+            element.textContent = element.dataset.original;
+            
+            
+            element.removeAttribute('data-processed');
+          });
+          
+          
+          console.log('[Mermaid] Theme changed, reinitializing...');
+          
+          
+          initializeMermaid().then(function() {
+            
+            document.querySelectorAll('.mermaid').forEach(function(element) {
+              element.classList.remove('reloading');
+            });
+          });
+        }, 250);
+      });
+    }
+  });
+</script>
+<link rel='stylesheet' href='https://chinese-fonts-cdn.deno.dev/packages/dymh/dist/DouyinSansBold/result.css' />
+
+
+    </head>
+    <body class="
+    article-page
+    ">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky ">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="切换菜单">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header>
+        
+            
+            <figure class="site-avatar">
+                <a href="/public/">
+                
+                    
+                    
+                    
+                        
+                        <img src="/public/img/avatar_hu_9c50848f93c56cbf.jpeg" width="300"
+                            height="296" class="site-logo" loading="lazy" alt="Avatar">
+                    
+                
+                </a>
+                
+                    <span class="emoji">🤓</span>
+                
+            </figure>
+            
+        
+        
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/public">Henry Zhang</a></h1>
+            <h2 class="site-description">Driven by Wonder, Powered by Knowledge.🤓</h2>
+        </div>
+    </header><ol class="menu-social">
+            
+                <li>
+                    <a 
+                        href='https://github.com/Gzmomo001'
+                        target="_blank"
+                        title="GitHub"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+        </ol><ol class="menu" id="main-menu">
+        
+        
+        
+        <li >
+            <a href='/public/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="5 12 3 12 12 3 21 12 19 12" />
+  <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
+  <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
+</svg>
+
+
+
+                
+                <span>Home</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/public/about-me/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="7" r="4" />
+  <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
+</svg>
+
+
+
+                
+                <span>About me</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/public/archives/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <rect x="3" y="4" width="18" height="4" rx="2" />
+  <path d="M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-10" />
+  <line x1="10" y1="12" x2="14" y2="12" />
+</svg>
+
+
+
+                
+                <span>Archives</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/public/search/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="10" cy="10" r="7" />
+  <line x1="21" y1="21" x2="15" y2="15" />
+</svg>
+
+
+
+                
+                <span>Search</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/public/some-useful-links/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-link" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5" />
+  <path d="M14 10a3.5 3.5 0 0 0 -5 0l-4 4a3.5 3.5 0 0 0 5 5l.5 -.5" />
+</svg>
+
+
+
+                
+                <span>Some Useful Links</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/public/update-logs/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                
+                <span>Update Logs</span>
+            </a>
+        </li>
+        
+        <li class="menu-bottom-section">
+            <ol class="menu">
+
+                
+                    <li id="dark-mode-toggle">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <span>暗色模式</span>
+                    </li>
+                
+            </ol>
+        </li>
+    </ol>
+</aside>
+
+    <aside class="sidebar right-sidebar sticky">
+        
+        
+            
+        
+
+        
+        
+            
+                
+                    
+    <section class="widget archives">
+        <div class="widget-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+        </div>
+        <h2 class="widget-title section-title">目录</h2>
+        
+        <div class="widget--toc">
+            <nav id="TableOfContents">
+  <ol>
+    <li><a href="#软件包管理linux-的应用商店">软件包管理：Linux 的应用商店</a>
+      <ol>
+        <li><a href="#引言">引言</a></li>
+        <li><a href="#包管理器概述">包管理器概述</a>
+          <ol>
+            <li><a href="#什么是软件包">什么是软件包</a></li>
+            <li><a href="#包管理器的功能">包管理器的功能</a></li>
+          </ol>
+        </li>
+        <li><a href="#debian-系apt">Debian 系：APT</a>
+          <ol>
+            <li><a href="#apt-基础">APT 基础</a></li>
+            <li><a href="#软件源配置">软件源配置</a></li>
+            <li><a href="#deb-文件">.deb 文件</a></li>
+            <li><a href="#常用操作">常用操作</a></li>
+          </ol>
+        </li>
+        <li><a href="#red-hat-系dnf">Red Hat 系：DNF</a>
+          <ol>
+            <li><a href="#dnf-基础">DNF 基础</a></li>
+            <li><a href="#仓库配置">仓库配置</a></li>
+            <li><a href="#rpm-文件">.rpm 文件</a></li>
+          </ol>
+        </li>
+        <li><a href="#arch-系pacman">Arch 系：Pacman</a>
+          <ol>
+            <li><a href="#pacman-基础">Pacman 基础</a></li>
+            <li><a href="#仓库和-aur">仓库和 AUR</a></li>
+            <li><a href="#pkgtarzst-文件">.pkg.tar.zst 文件</a></li>
+          </ol>
+        </li>
+        <li><a href="#依赖管理">依赖管理</a>
+          <ol>
+            <li><a href="#依赖类型">依赖类型</a></li>
+            <li><a href="#查看依赖关系">查看依赖关系</a></li>
+            <li><a href="#解决依赖冲突">解决依赖冲突</a></li>
+          </ol>
+        </li>
+        <li><a href="#snap-和-flatpak">Snap 和 Flatpak</a>
+          <ol>
+            <li><a href="#snapcanonical">Snap（Canonical）</a></li>
+            <li><a href="#flatpak通用">Flatpak（通用）</a></li>
+          </ol>
+        </li>
+        <li><a href="#appimage">AppImage</a></li>
+        <li><a href="#源码编译">源码编译</a>
+          <ol>
+            <li><a href="#基本流程">基本流程</a></li>
+            <li><a href="#checkinstall创建包">checkinstall（创建包）</a></li>
+          </ol>
+        </li>
+        <li><a href="#实用技巧">实用技巧</a>
+          <ol>
+            <li><a href="#查找命令对应的包">查找命令对应的包</a></li>
+            <li><a href="#包管理器快捷方式">包管理器快捷方式</a></li>
+            <li><a href="#清理系统">清理系统</a></li>
+          </ol>
+        </li>
+        <li><a href="#总结">总结</a>
+          <ol>
+            <li><a href="#核心技能">核心技能</a></li>
+            <li><a href="#最佳实践">最佳实践</a></li>
+          </ol>
+        </li>
+      </ol>
+    </li>
+  </ol>
+</nav>
+        </div>
+    </section>
+
+                
+            
+        
+    </aside>
+
+
+
+            <main class="main full-width">
+    <article class="has-image main-article">
+    <header class="article-header">
+        <div class="article-image">
+            <a href="/public/p/%E8%BD%AF%E4%BB%B6%E5%8C%85%E7%AE%A1%E7%90%86linux-%E7%9A%84%E5%BA%94%E7%94%A8%E5%95%86%E5%BA%97/">
+                
+                    <img src="/public/default.jpeg" loading="lazy" alt="Featured image of post 软件包管理：Linux 的应用商店" />
+                
+            </a>
+        </div>
+    
+
+    <div class="article-details">
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/public/p/%E8%BD%AF%E4%BB%B6%E5%8C%85%E7%AE%A1%E7%90%86linux-%E7%9A%84%E5%BA%94%E7%94%A8%E5%95%86%E5%BA%97/">软件包管理：Linux 的应用商店</a>
+        </h2>
+    
+        
+        <h3 class="article-subtitle">
+            深入理解 Linux 软件包管理系统，掌握 APT、DNF、Pacman 等包管理器的使用技巧
+        </h3>
+        
+    </div>
+
+    
+    
+    
+    
+    <footer class="article-time">
+        <div class="article-metadata">
+            
+            <div class="article-category">
+                
+                    
+                    
+                    <a href="/public/categories/notes/" class="category-link" style="background-color: #704400; color: #ffffff;">
+                        Notes
+                    </a>
+                
+            </div>
+            
+
+            
+            <div class="article-tags">
+                
+                    
+                    
+                    <a href="/public/tags/linux/" class="tag-link" style="color: #ffffff; border: 1px solid #83ad85; background-color: #83ad8520;">
+                        #Linux
+                    </a>
+                
+                    
+                    
+                    <a href="/public/tags/%E5%8C%85%E7%AE%A1%E7%90%86/" class="tag-link" style="color: #ffffff; border: 1px solid #6f7c26; background-color: #6f7c2620;">
+                        #包管理
+                    </a>
+                
+                    
+                    
+                    <a href="/public/tags/apt/" class="tag-link" style="color: #ffffff; border: 1px solid #dba76b; background-color: #dba76b20;">
+                        #Apt
+                    </a>
+                
+                    
+                    
+                    <a href="/public/tags/dnf/" class="tag-link" style="color: #ffffff; border: 1px solid #a06dda; background-color: #a06dda20;">
+                        #Dnf
+                    </a>
+                
+                    
+                    
+                    <a href="/public/tags/pacman/" class="tag-link" style="color: #ffffff; border: 1px solid #4b529b; background-color: #4b529b20;">
+                        #Pacman
+                    </a>
+                
+            </div>
+            
+        </div>
+
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">2026-01-11</time>
+            </div>
+        <div class="article-lastmod">
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+                <time>
+                    Jan 11, 2026 16:57 UTC
+                </time>
+            </div>
+    </footer>
+    
+
+    
+</div>
+
+</header>
+
+    <section class="article-content">
+    
+    
+    <h1 id="软件包管理linux-的应用商店">软件包管理：Linux 的应用商店
+</h1><h2 id="引言">引言
+</h2><p>软件包管理是 Linux 系统中最日常的任务之一。不同的发行版使用不同的包管理器，但核心概念是相通的。在这篇文章中，我们将系统学习 Linux 的软件包管理系统。</p>
+<h2 id="包管理器概述">包管理器概述
+</h2><h3 id="什么是软件包">什么是软件包
+</h3><p>软件包是预编译的应用程序及其元数据的打包格式：</p>
+<pre class="mermaid">
+  flowchart TD
+    A[源代码] --&gt; B[编译]
+    B --&gt; C[打包]
+    C --&gt; D[软件包]
+
+    D --&gt; E[Debian 包&lt;br/&gt;.deb]
+    D --&gt; F[Red Hat 包&lt;br/&gt;.rpm]
+    D --&gt; G[Arch 包&lt;br/&gt;.pkg.tar.zst]
+
+    E --&gt; H[APT]
+    F --&gt; I[DNF/YUM]
+    G --&gt; J[Pacman]
+
+    style H fill:#e3f2fd
+    style I fill:#fff3e0
+    style J fill:#f3e5f5
+</pre>
+
+<h3 id="包管理器的功能">包管理器的功能
+</h3><ul>
+<li><strong>安装软件</strong>：从仓库或本地文件安装</li>
+<li><strong>卸载软件</strong>：删除软件及其配置</li>
+<li><strong>更新软件</strong>：升级到最新版本</li>
+<li><strong>依赖管理</strong>：自动处理依赖关系</li>
+<li><strong>仓库管理</strong>：添加、删除、更新软件源</li>
+</ul>
+<h2 id="debian-系apt">Debian 系：APT
+</h2><h3 id="apt-基础">APT 基础
+</h3>
+
+
+
+
+<div class="highlight highlight-bash">
+  <pre>
+    <code class="language-bash" data-lang="bash"># 更新软件包列表
+sudo apt update
+
+# 升级所有已安装的软件包
+sudo apt upgrade
+
+# 完整系统升级（包括依赖关系变化）
+sudo apt full-upgrade
+
+# 安装软件
+sudo apt install nginx
+sudo apt install vim git curl
+
+# 删除软件（保留配置）
+sudo apt remove nginx
+
+# 删除软件和配置
+sudo apt purge nginx
+
+# 删除不需要的依赖
+sudo apt autoremove
+
+# 清理下载的包文件
+sudo apt clean
+sudo apt autoclean</code>
+  </pre>
+</div>
+
+<h3 id="软件源配置">软件源配置
+</h3>
+
+
+
+
+<div class="highlight highlight-bash">
+  <pre>
+    <code class="language-bash" data-lang="bash"># 软件源文件
+/etc/apt/sources.list
+/etc/apt/sources.list.d/*.conf
+
+# 查看当前源
+cat /etc/apt/sources.list
+
+# 添加 PPA（Personal Package Archive）
+sudo add-apt-repository ppa:deadsnakes/ppa
+sudo apt update
+
+# 手动添加源
+echo &#39;deb https://example.com/ubuntu jammy main&#39; | sudo tee /etc/apt/sources.list.d/custom.list
+
+# 添加 GPG 密钥
+wget -qO - https://example.com/key.gpg | sudo apt-key add -
+
+# 更新系统后清理旧包
+sudo apt autoremove
+sudo apt autoclean</code>
+  </pre>
+</div>
+
+<h3 id="deb-文件">.deb 文件
+</h3>
+
+
+
+
+<div class="highlight highlight-bash">
+  <pre>
+    <code class="language-bash" data-lang="bash"># 安装 .deb 文件
+sudo dpkg -i package.deb
+
+# 修复依赖问题
+sudo apt install -f
+
+# 查看已安装的包
+dpkg -l | grep nginx
+
+# 查看包信息
+dpkg -I package.deb
+
+# 查看包内容
+dpkg -c package.deb
+
+# 卸载 .deb 包
+sudo dpkg -r package_name
+sudo dpkg -P package_name  # 包括配置文件</code>
+  </pre>
+</div>
+
+<h3 id="常用操作">常用操作
+</h3>
+
+
+
+
+<div class="highlight highlight-bash">
+  <pre>
+    <code class="language-bash" data-lang="bash"># 搜索软件包
+apt search nginx
+apt show nginx           # 查看包详情
+
+# 查看已安装的包
+apt list --installed
+
+# 查看可升级的包
+apt list --upgradable
+
+# 查看包依赖关系
+apt depends nginx
+apt rdepends nginx       # 反向依赖
+
+# 下载但不安装
+apt download nginx
+apt source nginx         # 下载源代码
+
+# 固定软件版本
+sudo apt mark hold nginx     # 禁止升级
+sudo apt mark unhold nginx   # 允许升级</code>
+  </pre>
+</div>
+
+<h2 id="red-hat-系dnf">Red Hat 系：DNF
+</h2><h3 id="dnf-基础">DNF 基础
+</h3>
+
+
+
+
+<div class="highlight highlight-bash">
+  <pre>
+    <code class="language-bash" data-lang="bash"># 安装软件
+sudo dnf install nginx
+
+# 更新软件
+sudo dnf update nginx
+sudo dnf upgrade              # 升级所有软件
+
+# 删除软件
+sudo dnf remove nginx
+sudo dnf erase nginx
+
+# 查找软件
+dnf search nginx
+
+# 查看包信息
+dnf info nginx</code>
+  </pre>
+</div>
+
+<h3 id="仓库配置">仓库配置
+</h3>
+
+
+
+
+<div class="highlight highlight-bash">
+  <pre>
+    <code class="language-bash" data-lang="bash"># 仓库配置目录
+/etc/yum.repos.d/*.repo
+
+# 查看已启用的仓库
+dnf repolist
+
+# 查看所有仓库
+dnf repolist all
+
+# 启用/禁用仓库
+sudo dnf config-manager --set-enabled epel
+sudo dnf config-manager --set-disabled epel
+
+# 添加仓库
+sudo dnf config-manager --add-repo https://download.example.com/repo.rpm
+
+# EPEL（Extra Packages for Enterprise Linux）
+sudo dnf install epel-release</code>
+  </pre>
+</div>
+
+<h3 id="rpm-文件">.rpm 文件
+</h3>
+
+
+
+
+<div class="highlight highlight-bash">
+  <pre>
+    <code class="language-bash" data-lang="bash"># 安装 .rpm 文件
+sudo rpm -ivh package.rpm
+# 或
+sudo dnf localinstall package.rpm
+
+# 查询已安装的包
+rpm -qa | grep nginx
+rpm -qi nginx             # 包信息
+rpm -ql nginx             # 包文件列表
+rpm -qf /bin/nginx        # 查看文件属于哪个包
+
+# 卸载 .rpm 包
+sudo rpm -e nginx
+
+# 验证包
+rpm -V nginx</code>
+  </pre>
+</div>
+
+<h2 id="arch-系pacman">Arch 系：Pacman
+</h2><h3 id="pacman-基础">Pacman 基础
+</h3>
+
+
+
+
+<div class="highlight highlight-bash">
+  <pre>
+    <code class="language-bash" data-lang="bash"># 同步包数据库
+sudo pacman -Sy
+
+# 升级系统
+sudo pacman -Syu
+
+# 安装软件
+sudo pacman -S nginx
+
+# 删除软件
+sudo pacman -R nginx          # 保留依赖和配置
+sudo pacman -Rs nginx         # 删除依赖
+sudo pacman -Rns nginx        # 删除依赖和配置
+
+# 搜索软件
+pacman -Ss nginx
+
+# 查看包信息
+pacman -Si nginx
+pacman -Qii nginx             # 已安装包的详细信息</code>
+  </pre>
+</div>
+
+<h3 id="仓库和-aur">仓库和 AUR
+</h3>
+
+
+
+
+<div class="highlight highlight-bash">
+  <pre>
+    <code class="language-bash" data-lang="bash"># 官方仓库
+core - 核心软件
+extra - 额外软件
+community - 社区软件
+
+# 查看包在哪个仓库
+pacman -Ss nginx
+
+# AUR（Arch User Repository）
+# 需要使用 yay 或 paru 等 AUR 助手
+
+# 安装 yay
+sudo pacman -S base-devel git
+git clone https://aur.archlinux.org/yay.git
+cd yay
+makepkg -si
+
+# 使用 yay
+yay -S google-chrome         # 从 AUR 安装
+yay -Syu                     # 升级系统（包括 AUR）
+yay -Ss package             # 搜索包</code>
+  </pre>
+</div>
+
+<h3 id="pkgtarzst-文件">.pkg.tar.zst 文件
+</h3>
+
+
+
+
+<div class="highlight highlight-bash">
+  <pre>
+    <code class="language-bash" data-lang="bash"># 安装本地包文件
+sudo pacman -U package.pkg.tar.zst
+
+# 查看包内容
+pacman -Ql package
+pacman -Qo /path/to/file    # 文件属于哪个包</code>
+  </pre>
+</div>
+
+<h2 id="依赖管理">依赖管理
+</h2><h3 id="依赖类型">依赖类型
+</h3><pre class="mermaid">
+  flowchart TD
+    A[软件包] --&gt; B[依赖]
+    B --&gt; C[硬依赖&lt;br/&gt;requires]
+    B --&gt; D[软依赖&lt;br/&gt;suggests]
+    B --&gt; E[构建依赖&lt;br/&gt;build-dep]
+
+    C --&gt; F[必须安装]
+    D --&gt; G[推荐安装]
+    E --&gt; H[编译时需要]
+
+    style C fill:#ffcdd2
+    style D fill:#fff3e0
+    style E fill:#e3f2fd
+</pre>
+
+<h3 id="查看依赖关系">查看依赖关系
+</h3>
+
+
+
+
+<div class="highlight highlight-bash">
+  <pre>
+    <code class="language-bash" data-lang="bash"># Debian/Ubuntu
+apt depends nginx           # 正向依赖
+apt rdepends nginx          # 反向依赖（被依赖）
+
+# Red Hat/CentOS
+dnf repoquery --requires nginx
+dnf repoquery --whatrequires nginx
+
+# Arch
+pactree nginx               # 依赖树
+pactree -r nginx            # 反向依赖树</code>
+  </pre>
+</div>
+
+<h3 id="解决依赖冲突">解决依赖冲突
+</h3>
+
+
+
+
+<div class="highlight highlight-bash">
+  <pre>
+    <code class="language-bash" data-lang="bash"># 查看冲突的包
+apt show package | grep Conflicts
+
+# 强制安装（不推荐）
+sudo apt install -f
+
+# 使用特定版本
+sudo apt install package=1.0.0
+
+# 锁定版本
+sudo apt-mark hold package</code>
+  </pre>
+</div>
+
+<h2 id="snap-和-flatpak">Snap 和 Flatpak
+</h2><h3 id="snapcanonical">Snap（Canonical）
+</h3>
+
+
+
+
+<div class="highlight highlight-bash">
+  <pre>
+    <code class="language-bash" data-lang="bash"># 安装 snapd
+sudo apt install snapd
+
+# 查找 snap 应用
+snap find chrome
+
+# 安装 snap
+sudo snap install chromium
+sudo snap install chromium --classic  # 经典模式
+
+# 列出已安装的 snap
+snap list
+
+# 更新 snap
+sudo snap refresh chromium
+
+# 删除 snap
+sudo snap remove chromium
+
+# 查看 snap 信息
+snap info chromium</code>
+  </pre>
+</div>
+
+<h3 id="flatpak通用">Flatpak（通用）
+</h3>
+
+
+
+
+<div class="highlight highlight-bash">
+  <pre>
+    <code class="language-bash" data-lang="bash"># 安装 flatpak
+sudo apt install flatpak
+
+# 添加 Flathub 仓库
+flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
+
+# 查找应用
+flatpak search spotify
+
+# 安装应用
+flatpak install flathub com.spotify.Client
+
+# 列出已安装的应用
+flatpak list
+
+# 更新应用
+flatpak update com.spotify.Client
+
+# 删除应用
+flatpak uninstall com.spotify.Client
+
+# 运行应用
+flatpak run com.spotify.Client</code>
+  </pre>
+</div>
+
+<h2 id="appimage">AppImage
+</h2>
+
+
+
+
+<div class="highlight highlight-bash">
+  <pre>
+    <code class="language-bash" data-lang="bash"># 下载 AppImage 文件
+wget https://example.com/app.AppImage
+
+# 赋予执行权限
+chmod &#43;x app.AppImage
+
+# 运行
+./app.AppImage
+
+# 集成到系统（可选）
+./app.AppImage --appimage-extract
+./squashfs-root/AppRun
+
+# 或使用 AppImageLauncher
+sudo apt install appimagelauncher</code>
+  </pre>
+</div>
+
+<h2 id="源码编译">源码编译
+</h2><h3 id="基本流程">基本流程
+</h3>
+
+
+
+
+<div class="highlight highlight-bash">
+  <pre>
+    <code class="language-bash" data-lang="bash"># 1. 安装编译工具
+sudo apt install build-essential
+
+# 2. 下载源代码
+wget https://example.com/source.tar.gz
+tar -xf source.tar.gz
+cd source
+
+# 3. 配置
+./configure --prefix=/usr/local
+
+# 4. 编译
+make
+
+# 5. 安装
+sudo make install
+
+# 6. 卸载
+sudo make uninstall</code>
+  </pre>
+</div>
+
+<h3 id="checkinstall创建包">checkinstall（创建包）
+</h3>
+
+
+
+
+<div class="highlight highlight-bash">
+  <pre>
+    <code class="language-bash" data-lang="bash"># 安装 checkinstall
+sudo apt install checkinstall
+
+# 使用 checkinstall 替代 make install
+make
+sudo checkinstall
+
+# 这会创建一个 .deb 包，便于管理</code>
+  </pre>
+</div>
+
+<h2 id="实用技巧">实用技巧
+</h2><h3 id="查找命令对应的包">查找命令对应的包
+</h3>
+
+
+
+
+<div class="highlight highlight-bash">
+  <pre>
+    <code class="language-bash" data-lang="bash"># Debian/Ubuntu
+apt search command_name
+apt-file search command_name     # 需要更新数据库：sudo apt update
+
+# Red Hat/CentOS
+dnf provides command_name
+yum whatprovides &#34;*bin/command&#34;
+
+# Arch
+pacman -Fy /usr/bin/command      # 需要更新数据库：sudo pacman -Fy
+pacman -F command</code>
+  </pre>
+</div>
+
+<h3 id="包管理器快捷方式">包管理器快捷方式
+</h3>
+
+
+
+
+<div class="highlight highlight-bash">
+  <pre>
+    <code class="language-bash" data-lang="bash"># APT
+alias apt-upgrade=&#39;sudo apt update &amp;&amp; sudo apt upgrade -y&#39;
+alias apt-install=&#39;sudo apt install -y&#39;
+alias apt-search=&#39;apt search&#39;
+
+# DNF
+alias dnf-upgrade=&#39;sudo dnf upgrade -y&#39;
+alias dnf-install=&#39;sudo dnf install -y&#39;
+
+# Pacman
+alias pac-upgrade=&#39;sudo pacman -Syu&#39;
+alias pac-install=&#39;sudo pacman -S&#39;
+alias pac-remove=&#39;sudo pacman -Rns&#39;</code>
+  </pre>
+</div>
+
+<h3 id="清理系统">清理系统
+</h3>
+
+
+
+
+<div class="highlight highlight-bash">
+  <pre>
+    <code class="language-bash" data-lang="bash"># Debian/Ubuntu
+sudo apt autoremove      # 删除不需要的依赖
+sudo apt autoclean       # 清理旧包文件
+sudo apt clean           # 清理所有包文件
+
+# Red Hat/CentOS
+sudo dnf autoremove
+sudo dnf clean all
+
+# Arch
+sudo pacman -Sc          # 清理未安装的包文件
+sudo pacman -Scc         # 清理所有缓存</code>
+  </pre>
+</div>
+
+<h2 id="总结">总结
+</h2><p>软件包管理是 Linux 系统管理的日常任务。通过这篇文章，我们学习了：</p>
+<h3 id="核心技能">核心技能
+</h3><ol>
+<li><strong>APT</strong>：Debian/Ubuntu 系统的包管理</li>
+<li><strong>DNF</strong>：Red Hat/Fedora 系统的包管理</li>
+<li><strong>Pacman</strong>：Arch Linux 的包管理</li>
+<li><strong>通用格式</strong>：Snap、Flatpak、AppImage</li>
+<li><strong>源码编译</strong>：终极灵活性</li>
+</ol>
+<h3 id="最佳实践">最佳实践
+</h3><ol>
+<li><strong>定期更新</strong>：保持系统和软件最新</li>
+<li><strong>使用官方源</strong>：安全可靠</li>
+<li><strong>理解依赖</strong>：避免冲突</li>
+<li><strong>清理无用包</strong>：节省空间</li>
+<li><strong>备份配置</strong>：升级前备份重要配置</li>
+</ol>
+<blockquote>
+<p>&ldquo;包管理器是 Linux 最大的优势之一，它让软件安装变得简单。&rdquo; — Linus Torvalds</p>
+</blockquote>
+<p>掌握包管理器，让你的 Linux 之旅更加顺畅！</p>
+<hr>
+<p><strong>← 返回系列概述</strong>: <a class="link" href="/public/p/linux-%E6%A6%82%E8%BF%B0%E4%BB%8E-unix-%E5%88%B0%E5%BC%80%E6%BA%90%E9%9D%A9%E5%91%BD/" >Linux 概述：从 Unix 到开源革命</a></p>
+<hr>
+<p><strong>参考资源</strong>：</p>
+<ul>
+<li><a class="link" href="https://wiki.debian.org/APT"  target="_blank" rel="noopener"
+    >APT 用户指南</a></li>
+<li><a class="link" href="https://dnf.readthedocs.io/"  target="_blank" rel="noopener"
+    >DNF 文档</a></li>
+<li><a class="link" href="https://wiki.archlinux.org/title/pacman"  target="_blank" rel="noopener"
+    >Pacman 手册</a></li>
+<li><a class="link" href="https://docs.flatpak.org/"  target="_blank" rel="noopener"
+    >Flatpak 文档</a></li>
+</ul>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+
+    
+    <section class="article-copyright">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <path d="M14.5 9a3.5 4 0 1 0 0 6" />
+</svg>
+
+
+
+        <span>A winner is just a loser who tried one more time.</span>
+    </section>
+    
+
+    
+</footer>
+
+
+    
+        <link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css"integrity="sha384-n8MVd4RsNIU0tAv4ct0nTaAbDJwPJzDEaqSD1odI&#43;WdtXRGWt2kTvGFasHpSy3SV"crossorigin="anonymous"
+            ><script 
+                src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"integrity="sha384-XjKyOOlGwcjNTAIQHIpgOno0Hl1YQqzUOEleOLALmuqehneUG&#43;vnGctmUb0ZY0l8"crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"integrity="sha384-&#43;VBxd3r6XgURycqtZ117nYw44OOcIax56Z4dCRWbxyPt0Koah1uHoK0o4&#43;/RRE05"crossorigin="anonymous"
+                defer
+                >
+            </script><script>
+    window.addEventListener("DOMContentLoaded", () => {
+	const mainArticleElement = document.querySelector(".main-article");
+        renderMathInElement(mainArticleElement, {
+            delimiters: [
+                { left: "$$", right: "$$", display: true },
+                { left: "$", right: "$", display: false },
+                { left: "\\(", right: "\\)", display: false },
+                { left: "\\[", right: "\\]", display: true }
+            ],
+            ignoredClasses: ["gist"]
+        });})
+</script>
+
+    
+</article>
+
+    
+
+    
+
+<aside class="related-content--wrapper">
+    <h2 class="section-title">相关文章</h2>
+    <div class="related-content">
+        <div class="flex article-list--tile">
+            
+                
+<article class="has-image">
+    <a href="/public/p/apt/">
+        
+        
+            <div class="article-image">
+                
+                    <img src="/public/default.jpeg" loading="lazy" data-key="" data-hash="/public/default.jpeg"/>
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Apt</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="/public/p/%E6%97%A5%E5%BF%97%E5%92%8C%E7%9B%91%E6%8E%A7linux-%E7%9A%84%E4%BD%93%E6%A3%80%E5%8C%BB%E7%94%9F/">
+        
+        
+            <div class="article-image">
+                
+                    <img src="/public/default.jpeg" loading="lazy" data-key="" data-hash="/public/default.jpeg"/>
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">日志和监控：Linux 的体检医生</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="/public/p/%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9Flinux-%E7%9A%84%E6%95%B0%E6%8D%AE%E5%AE%AB%E6%AE%BF/">
+        
+        
+            <div class="article-image">
+                
+                    <img src="/public/default.jpeg" loading="lazy" data-key="" data-hash="/public/default.jpeg"/>
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">文件系统：Linux 的数据宫殿</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="/public/p/%E8%BF%9B%E7%A8%8B%E7%AE%A1%E7%90%86linux-%E7%9A%84%E7%94%9F%E5%91%BD%E7%BA%BF/">
+        
+        
+            <div class="article-image">
+                
+                    <img src="/public/default.jpeg" loading="lazy" data-key="" data-hash="/public/default.jpeg"/>
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">进程管理：Linux 的生命线</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="/public/p/shell-%E5%92%8C%E5%91%BD%E4%BB%A4%E8%A1%8Clinux-%E7%9A%84%E6%8E%A7%E5%88%B6%E5%8F%B0/">
+        
+        
+            <div class="article-image">
+                
+                    <img src="/public/default.jpeg" loading="lazy" data-key="" data-hash="/public/default.jpeg"/>
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Shell 和命令行：Linux 的控制台</h2>
+        </div>
+    </a>
+</article>
+
+            
+        </div>
+    </div>
+</aside>
+
+     
+    
+        
+    <script
+    src="https://giscus.app/client.js"
+    data-repo="Gzmomo001/Gzmomo001.github.io"
+    data-repo-id="R_kgDOOuLpRA"
+    data-category="General"
+    data-category-id="DIC_kwDOOuLpRM4Cr0Pz"
+    data-mapping="pathname"
+    data-strict="0"
+    data-reactions-enabled="1"
+    data-emit-metadata="0"
+    data-input-position="top"
+    data-theme="light"
+    data-lang="en"
+    data-loading=""
+    crossorigin="anonymous"
+    async
+></script>
+<script>
+    function setGiscusTheme(theme) {
+        let giscus = document.querySelector("iframe.giscus-frame");
+        if (giscus) {
+            giscus.contentWindow.postMessage(
+                {
+                    giscus: {
+                        setConfig: {
+                            theme: theme,
+                        },
+                    },
+                },
+                "https://giscus.app"
+            );
+        }
+    }
+
+    (function () {
+        addEventListener("message", (e) => {
+            if (event.origin !== "https://giscus.app") return;
+            handler();
+        });
+        window.addEventListener("onColorSchemeChange", handler);
+
+        function handler() {
+            if (document.documentElement.dataset.scheme === "light") {
+                setGiscusTheme('light');
+            } else {
+                setGiscusTheme('dark_dimmed');
+            }
+        }
+    })();
+</script>
+
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+            2025 - 
+        
+        2026 blog@mail.henry070.org
+    </section>
+    
+    <section class="powerby">
+        
+            Robust AI <br/>
+        使用 <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> 构建 <br />
+        主题 <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.30.0">Stack</a></b> 由 <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a> 设计
+    </section>
+</footer>
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css"crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css"crossorigin="anonymous"
+            >
+
+            </main>
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
+                
+                >
+            </script><script type="text/javascript" src="/public/ts/main.c922af694cc257bf1ecc41c0dd7b0430f9114ec280ccf67cd2c6ad55f5316c4e.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+<style>
+    #TableOfContents > ul, ol {
+        ul, ol {
+            display: none;
+        }
+        .open {
+            display: block;
+        }
+    }
+</style>
+
+<script>
+    function initTocHide() {
+        
+        let toc = document.querySelector(".widget--toc");
+        if (!toc) {
+            return;
+        }
+        
+        window.addEventListener('scroll', function() {
+            
+            let openUl = document.querySelectorAll(".open");
+            if (openUl.length > 0) {
+              openUl.forEach((ul) => {
+                ul.classList.remove("open")
+              })
+            }
+            
+            let currentLi = document.querySelector(".active-class");
+            if (!currentLi) {
+                return
+            }
+            
+            if (currentLi.children.length > 1) {
+                currentLi.children[1].classList.add("open")
+            }
+            
+            let ul = currentLi.parentElement;
+            do {
+                ul.classList.add("open");
+                ul = ul.parentElement.parentElement
+            } while (ul !== undefined && (ul.localName === 'ul' || ul.localName === 'ol'))
+        });
+    }
+    initTocHide()
+</script>
+
+<style>
+    #backTopBtn {
+        display: none;
+        position: fixed;
+        bottom: 30px;
+         
+        z-index: 99;
+        cursor: pointer;
+        width: 40px;
+        height: 40px;
+        background-color: #666;
+        border-radius: 50%;
+        text-align: center;
+        line-height: 40px;
+        font-size: 25px;
+        color: white;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+        transition: background-color 0.3s;
+    }
+    
+    #backTopBtn:hover {
+        background-color: #333;
+    }
+    
+    #backTopBtn .arrow-icon {
+        display: none;
+    }
+    
+    #backTopBtn .backtop-svg {
+        width: 24px;
+        height: 24px;
+        margin: 8px;
+        fill: white;
+    }
+</style>
+
+
+<script>
+    
+
+    function initScrollTop() {
+        let rightSideBar = document.querySelector(".right-sidebar");
+        if (!rightSideBar) {
+            return;
+        }
+        
+        let btn = document.createElement("div");
+        btn.id = "backTopBtn";
+        btn.innerHTML = '<span class="arrow-icon"></span>' +
+                        '<svg class="backtop-svg" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="15764">' +
+                        '<path d="M512 938.666667c-59.733333 0-123.733333-2.133333-185.6-4.266667l-32-2.133333c-108.8-6.4-194.133333-91.733333-200.533333-200.533334C87.466667 648.533333 85.333333 576 85.333333 512c0-59.733333 2.133333-125.866667 6.4-202.666667v-17.066666c6.4-108.8 91.733333-194.133333 200.533334-200.533334 76.8-4.266667 149.333333-6.4 219.733333-6.4 59.733333 0 123.733333 2.133333 185.6 4.266667l32 2.133333c108.8 6.4 194.133333 91.733333 200.533333 200.533334 6.4 83.2 8.533333 155.733333 8.533334 219.733333 0 59.733333-2.133333 125.866667-6.4 202.666667v17.066666c-6.4 108.8-91.733333 194.133333-200.533334 200.533334-76.8 4.266667-149.333333 6.4-219.733333 6.4z m0-224c17.066667 0 32-14.933333 32-32V430.933333l96 96c12.8 12.8 32 12.8 44.8 0 12.8-12.8 12.8-32 0-44.8l-153.6-153.6c-6.4-6.4-8.533333-8.533333-12.8-8.533333-4.266667-2.133333-8.533333-2.133333-10.666667 0-4.266667 0-6.4 2.133333-10.666666 6.4l-2.133334 2.133333-153.6 153.6c-12.8 12.8-12.8 32 0 44.8 12.8 12.8 32 12.8 44.8 0l96-96V682.666667c-2.133333 17.066667 12.8 32 29.866667 32z" fill="#ffffff" p-id="15765"></path>' +
+                        '</svg>';
+        btn.onclick = backToTop;
+        rightSideBar.appendChild(btn);
+        
+        window.onscroll = function() {
+            
+            if (document.body.scrollTop > 700 || document.documentElement.scrollTop > 700) {
+                btn.style.display = "block";
+            } else {
+                btn.style.display = "none";
+            }
+        };
+    }
+
+    
+
+    function backToTop(){
+        window.scrollTo({ top: 0, behavior: "smooth" })
+    }
+
+    initScrollTop();
+</script>
+
+<style>
+    .highlight {
+         
+        max-height: 1000px;
+        overflow: hidden;
+    }
+
+    .code-show {
+        max-height: none !important;
+    }
+
+    .code-more-box {
+        width: 100%;
+        padding-top: 120px;  
+        background-image: linear-gradient(
+            to bottom,
+            rgba(4, 6, 5, 0) 0%,
+            rgba(4, 6, 5, 0.4) 40%,
+            rgba(4, 6, 5, 0.8) 100%
+        );
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        z-index: 1;
+    }
+
+    .code-more-btn {
+        display: block;
+        margin: auto;
+        width: 44px;
+        height: 22px;
+        background: #5f5f5f;
+        border-top-left-radius: 8px;
+        border-top-right-radius: 8px;
+        padding-top: 6px;
+        cursor: pointer;
+    }
+
+    .code-more-img {
+        cursor: pointer !important;
+        display: block;
+        margin: auto;
+        width: 22px;
+        height: 16px;
+    }
+</style>
+
+<script>
+  function initCodeMoreBox() {
+    let codeBlocks = document.querySelectorAll(".highlight");
+    if (!codeBlocks) {
+      return;
+    }
+    codeBlocks.forEach(codeBlock => {
+      
+      if (codeBlock.scrollHeight <= codeBlock.clientHeight) {
+        return;
+      }
+      
+      
+      let codeMoreBox = document.createElement('div');
+      codeMoreBox.classList.add('code-more-box');
+      
+      let codeMoreBtn = document.createElement('span');
+      codeMoreBtn.classList.add('code-more-btn');
+      codeMoreBtn.addEventListener('click', () => {
+        codeBlock.classList.add('code-show');
+        codeMoreBox.style.display = 'none';
+        
+        window.dispatchEvent(new Event('resize'))
+      })
+      
+      let img = document.createElement('img');
+      img.classList.add('code-more-img');
+      img.src = "https://Gzmomo001.github.io/public/icons/down.png"
+      
+      codeMoreBtn.appendChild(img);
+      codeMoreBox.appendChild(codeMoreBtn);
+      codeBlock.appendChild(codeMoreBox)
+    })
+  }
+  
+  initCodeMoreBox();
+</script>
+
+
+
+    </body>
+</html>

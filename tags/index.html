@@ -4,573 +4,312 @@
 <meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="Driven by Wonder, Powered by Knowledge.🤓">
 <title>Tags</title>
 
-<link rel='canonical' href='https://Gzmomo001.github.io/tags/'>
+<link rel='canonical' href='https://Gzmomo001.github.io/public/tags/'>
 
-<link rel="stylesheet" href="/scss/style.min.f0d856d8a5610b3c0c2069a79146122abf2acb30a6b00e2bbb69c2113678b2e3.css"><meta property='og:title' content="Tags">
+<link rel="stylesheet" href="/public/scss/style.min.69ed452c4f70aa0bd98aa7f62758389d29493390c2f090e74cf1c607d4445e3e.css"><meta property='og:title' content="Tags">
 <meta property='og:description' content="Driven by Wonder, Powered by Knowledge.🤓">
-<meta property='og:url' content='https://Gzmomo001.github.io/tags/'>
+<meta property='og:url' content='https://Gzmomo001.github.io/public/tags/'>
 <meta property='og:site_name' content='Henry Zhang'>
-<meta property='og:type' content='website'><meta property='og:updated_time' content=' 2025-12-20T13:58:06-05:00 '/>
+<meta property='og:type' content='website'><meta property='og:updated_time' content=' 2026-01-11T18:44:44&#43;00:00 '/>
 <meta name="twitter:title" content="Tags">
-<meta name="twitter:description" content="Driven by Wonder, Powered by Knowledge.🤓"><link rel="alternate" type="application/rss&#43;xml" href="https://Gzmomo001.github.io/tags/index.xml">
+<meta name="twitter:description" content="Driven by Wonder, Powered by Knowledge.🤓"><link rel="alternate" type="application/rss&#43;xml" href="https://Gzmomo001.github.io/public/tags/index.xml">
     <link rel="shortcut icon" href="/favicon.ico" />
-<link rel='stylesheet' href='https://chinese-fonts-cdn.deno.dev/packages/dymh/dist/DouyinSansBold/result.css' />
 
-<div class="loading">
-     
-    <div class="banter-loader">
-        <div class="banter-loader__box"></div>
-        <div class="banter-loader__box"></div>
-        <div class="banter-loader__box"></div>
-        <div class="banter-loader__box"></div>
-        <div class="banter-loader__box"></div>
-        <div class="banter-loader__box"></div>
-        <div class="banter-loader__box"></div>
-        <div class="banter-loader__box"></div>
-        <div class="banter-loader__box"></div>
-    </div>
-</div>
 
-<style>
-    .loading {
-        position: fixed;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        z-index: 99;
-        zoom: 3.0;
-        background-color: #5b5b5b;
-        display: none;
-        transition: opacity 1s ease-out; 
+<script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+<script>
+  
+  function getCurrentTheme() {
+    const colorSchemeKey = 'StackColorScheme';
+    const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+    const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+    
+    if (colorSchemeItem === 'dark' || (colorSchemeItem === 'auto' && supportDarkMode)) {
+      return 'dark';
+    } else {
+      return 'light';
     }
+  }
 
-    .loading.fade-out {
-        opacity: 0;
-    }
-	
+  
+  function logThemeInfo() {
+    const colorSchemeKey = 'StackColorScheme';
+    const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+    const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+    const documentScheme = document.documentElement.dataset.scheme;
+    
+    console.log('[Mermaid] Theme Detection:', {
+      localStorage: colorSchemeItem,
+      systemDark: supportDarkMode,
+      documentScheme: documentScheme,
+      calculatedTheme: getCurrentTheme()
+    });
+  }
+
+  
+  function initializeMermaid() {
+    const currentTheme = getCurrentTheme();
+    
+    if (currentTheme === 'dark') {
+      
+      mermaid.initialize({
+        startOnLoad: false,
+        theme: 'dark',
+        themeVariables: {
           
-    .banter-loader {
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    width: 72px;
-    height: 72px;
-    margin-left: -36px;
-    margin-top: -36px;
-    }
-
-    .banter-loader__box {
-    float: left;
-    position: relative;
-    width: 20px;
-    height: 20px;
-    margin-right: 6px;
-    }
-
-    .banter-loader__box:before {
-    content: "";
-    position: absolute;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    background: #fff;
-    }
-
-    .banter-loader__box:nth-child(3n) {
-    margin-right: 0;
-    margin-bottom: 6px;
-    }
-
-    .banter-loader__box:nth-child(1):before, .banter-loader__box:nth-child(4):before {
-    margin-left: 26px;
-    }
-
-    .banter-loader__box:nth-child(3):before {
-    margin-top: 52px;
-    }
-
-    .banter-loader__box:last-child {
-    margin-bottom: 0;
-    }
-
-    @keyframes moveBox-1 {
-    9.0909090909% {
-        transform: translate(-26px, 0);
-    }
-
-    18.1818181818% {
-        transform: translate(0px, 0);
-    }
-
-    27.2727272727% {
-        transform: translate(0px, 0);
-    }
-
-    36.3636363636% {
-        transform: translate(26px, 0);
-    }
-
-    45.4545454545% {
-        transform: translate(26px, 26px);
-    }
-
-    54.5454545455% {
-        transform: translate(26px, 26px);
-    }
-
-    63.6363636364% {
-        transform: translate(26px, 26px);
-    }
-
-    72.7272727273% {
-        transform: translate(26px, 0px);
-    }
-
-    81.8181818182% {
-        transform: translate(0px, 0px);
-    }
-
-    90.9090909091% {
-        transform: translate(-26px, 0px);
-    }
-
-    100% {
-        transform: translate(0px, 0px);
-    }
-    }
-
-    .banter-loader__box:nth-child(1) {
-    animation: moveBox-1 4s infinite;
-    }
-
-    @keyframes moveBox-2 {
-    9.0909090909% {
-        transform: translate(0, 0);
-    }
-
-    18.1818181818% {
-        transform: translate(26px, 0);
-    }
-
-    27.2727272727% {
-        transform: translate(0px, 0);
-    }
-
-    36.3636363636% {
-        transform: translate(26px, 0);
-    }
-
-    45.4545454545% {
-        transform: translate(26px, 26px);
-    }
-
-    54.5454545455% {
-        transform: translate(26px, 26px);
-    }
-
-    63.6363636364% {
-        transform: translate(26px, 26px);
-    }
-
-    72.7272727273% {
-        transform: translate(26px, 26px);
-    }
-
-    81.8181818182% {
-        transform: translate(0px, 26px);
-    }
-
-    90.9090909091% {
-        transform: translate(0px, 26px);
-    }
-
-    100% {
-        transform: translate(0px, 0px);
-    }
-    }
-
-    .banter-loader__box:nth-child(2) {
-    animation: moveBox-2 4s infinite;
-    }
-
-    @keyframes moveBox-3 {
-    9.0909090909% {
-        transform: translate(-26px, 0);
-    }
-
-    18.1818181818% {
-        transform: translate(-26px, 0);
-    }
-
-    27.2727272727% {
-        transform: translate(0px, 0);
-    }
-
-    36.3636363636% {
-        transform: translate(-26px, 0);
-    }
-
-    45.4545454545% {
-        transform: translate(-26px, 0);
-    }
-
-    54.5454545455% {
-        transform: translate(-26px, 0);
-    }
-
-    63.6363636364% {
-        transform: translate(-26px, 0);
-    }
-
-    72.7272727273% {
-        transform: translate(-26px, 0);
-    }
-
-    81.8181818182% {
-        transform: translate(-26px, -26px);
-    }
-
-    90.9090909091% {
-        transform: translate(0px, -26px);
-    }
-
-    100% {
-        transform: translate(0px, 0px);
-    }
-    }
-
-    .banter-loader__box:nth-child(3) {
-    animation: moveBox-3 4s infinite;
-    }
-
-    @keyframes moveBox-4 {
-    9.0909090909% {
-        transform: translate(-26px, 0);
-    }
-
-    18.1818181818% {
-        transform: translate(-26px, 0);
-    }
-
-    27.2727272727% {
-        transform: translate(-26px, -26px);
-    }
-
-    36.3636363636% {
-        transform: translate(0px, -26px);
-    }
-
-    45.4545454545% {
-        transform: translate(0px, 0px);
-    }
-
-    54.5454545455% {
-        transform: translate(0px, -26px);
-    }
-
-    63.6363636364% {
-        transform: translate(0px, -26px);
-    }
-
-    72.7272727273% {
-        transform: translate(0px, -26px);
-    }
-
-    81.8181818182% {
-        transform: translate(-26px, -26px);
-    }
-
-    90.9090909091% {
-        transform: translate(-26px, 0px);
-    }
-
-    100% {
-        transform: translate(0px, 0px);
-    }
-    }
-
-    .banter-loader__box:nth-child(4) {
-    animation: moveBox-4 4s infinite;
-    }
-
-    @keyframes moveBox-5 {
-    9.0909090909% {
-        transform: translate(0, 0);
-    }
-
-    18.1818181818% {
-        transform: translate(0, 0);
-    }
-
-    27.2727272727% {
-        transform: translate(0, 0);
-    }
-
-    36.3636363636% {
-        transform: translate(26px, 0);
-    }
-
-    45.4545454545% {
-        transform: translate(26px, 0);
-    }
-
-    54.5454545455% {
-        transform: translate(26px, 0);
-    }
-
-    63.6363636364% {
-        transform: translate(26px, 0);
-    }
-
-    72.7272727273% {
-        transform: translate(26px, 0);
-    }
-
-    81.8181818182% {
-        transform: translate(26px, -26px);
-    }
-
-    90.9090909091% {
-        transform: translate(0px, -26px);
-    }
-
-    100% {
-        transform: translate(0px, 0px);
-    }
-    }
-
-    .banter-loader__box:nth-child(5) {
-    animation: moveBox-5 4s infinite;
-    }
-
-    @keyframes moveBox-6 {
-    9.0909090909% {
-        transform: translate(0, 0);
-    }
-
-    18.1818181818% {
-        transform: translate(-26px, 0);
-    }
-
-    27.2727272727% {
-        transform: translate(-26px, 0);
-    }
-
-    36.3636363636% {
-        transform: translate(0px, 0);
-    }
-
-    45.4545454545% {
-        transform: translate(0px, 0);
-    }
-
-    54.5454545455% {
-        transform: translate(0px, 0);
-    }
-
-    63.6363636364% {
-        transform: translate(0px, 0);
-    }
-
-    72.7272727273% {
-        transform: translate(0px, 26px);
-    }
-
-    81.8181818182% {
-        transform: translate(-26px, 26px);
-    }
-
-    90.9090909091% {
-        transform: translate(-26px, 0px);
-    }
-
-    100% {
-        transform: translate(0px, 0px);
-    }
-    }
-
-    .banter-loader__box:nth-child(6) {
-    animation: moveBox-6 4s infinite;
-    }
-
-    @keyframes moveBox-7 {
-    9.0909090909% {
-        transform: translate(26px, 0);
-    }
-
-    18.1818181818% {
-        transform: translate(26px, 0);
-    }
-
-    27.2727272727% {
-        transform: translate(26px, 0);
-    }
-
-    36.3636363636% {
-        transform: translate(0px, 0);
-    }
-
-    45.4545454545% {
-        transform: translate(0px, -26px);
-    }
-
-    54.5454545455% {
-        transform: translate(26px, -26px);
-    }
-
-    63.6363636364% {
-        transform: translate(0px, -26px);
-    }
-
-    72.7272727273% {
-        transform: translate(0px, -26px);
-    }
-
-    81.8181818182% {
-        transform: translate(0px, 0px);
-    }
-
-    90.9090909091% {
-        transform: translate(26px, 0px);
-    }
-
-    100% {
-        transform: translate(0px, 0px);
-    }
-    }
-
-    .banter-loader__box:nth-child(7) {
-    animation: moveBox-7 4s infinite;
-    }
-
-    @keyframes moveBox-8 {
-    9.0909090909% {
-        transform: translate(0, 0);
-    }
-
-    18.1818181818% {
-        transform: translate(-26px, 0);
-    }
-
-    27.2727272727% {
-        transform: translate(-26px, -26px);
-    }
-
-    36.3636363636% {
-        transform: translate(0px, -26px);
-    }
-
-    45.4545454545% {
-        transform: translate(0px, -26px);
-    }
-
-    54.5454545455% {
-        transform: translate(0px, -26px);
-    }
-
-    63.6363636364% {
-        transform: translate(0px, -26px);
-    }
-
-    72.7272727273% {
-        transform: translate(0px, -26px);
-    }
-
-    81.8181818182% {
-        transform: translate(26px, -26px);
-    }
-
-    90.9090909091% {
-        transform: translate(26px, 0px);
-    }
-
-    100% {
-        transform: translate(0px, 0px);
-    }
-    }
-
-    .banter-loader__box:nth-child(8) {
-    animation: moveBox-8 4s infinite;
-    }
-
-    @keyframes moveBox-9 {
-    9.0909090909% {
-        transform: translate(-26px, 0);
-    }
-
-    18.1818181818% {
-        transform: translate(-26px, 0);
-    }
-
-    27.2727272727% {
-        transform: translate(0px, 0);
-    }
-
-    36.3636363636% {
-        transform: translate(-26px, 0);
-    }
-
-    45.4545454545% {
-        transform: translate(0px, 0);
-    }
-
-    54.5454545455% {
-        transform: translate(0px, 0);
-    }
-
-    63.6363636364% {
-        transform: translate(-26px, 0);
-    }
-
-    72.7272727273% {
-        transform: translate(-26px, 0);
-    }
-
-    81.8181818182% {
-        transform: translate(-52px, 0);
-    }
-
-    90.9090909091% {
-        transform: translate(-26px, 0);
-    }
-
-    100% {
-        transform: translate(0px, 0);
-    }
-    }
-
-    .banter-loader__box:nth-child(9) {
-    animation: moveBox-9 4s infinite;
-    }
-</style>
-
-<script>	
-    function initLoading() {
-        const isFirstVisit = !sessionStorage.getItem('visited');
-        if (isFirstVisit) {
-            let loading = document.querySelector('.loading');
-            loading.style.display = 'flex';
-            document.addEventListener('DOMContentLoaded', function() {
-                setTimeout(() => {
-                    loading.classList.add('fade-out'); 
-                    setTimeout(() => {
-                        loading.style.display = 'none';
-                    }, 1000); 
-                }, 1000); 
-                sessionStorage.setItem('visited', 'true');
-            });   
-        }    
-    }
-
-    initLoading();
+          primaryColor: '#4a5568',
+          primaryTextColor: '#f7fafc',
+          primaryBorderColor: '#63b3ed',
+          lineColor: '#e2e8f0',
+          secondaryColor: '#2d3748',
+          tertiaryColor: '#1a202c',
+          background: '#1a202c',
+          
+          
+          fillType0: '#2d3748',
+          fillType1: '#4a5568',
+          fillType2: '#4299e1',
+          clusterBkg: '#2d3748',
+          clusterBorder: '#4a5568',
+          nodeBorder: '#e2e8f0',
+          mainBkg: '#4a5568',
+          altBkg: '#2d3748',
+          
+          
+          labelBackground: '#2d3748',
+          edgeLabelBackground: '#2d3748',
+          titleColor: '#f7fafc',
+          
+          
+          actorBkg: '#2d3748',
+          actorBorder: '#4a5568',
+          actorTextColor: '#e2e8f0',
+          actorLine: '#4a5568',
+          signalColor: '#e2e8f0',
+          signalTextColor: '#e2e8f0',
+          noteBkgColor: '#4a5568',
+          noteBorderColor: '#4a5568',
+          noteTextColor: '#e2e8f0',
+          activationBorderColor: '#4299e1',
+          activationBkgColor: '#2d3748',
+          
+          
+          sectionBkgColor: '#2d3748',
+          altSectionBkgColor: '#4a5568',
+          sectionBorderColor: '#4a5568',
+          taskBkgColor: '#4299e1',
+          taskBorderColor: '#63b3ed',
+          taskTextColor: '#ffffff',
+          activeTaskBkgColor: '#48bb78',
+          activeTaskBorderColor: '#38a169',
+          doneTaskBkgColor: '#2d3748',
+          doneTaskBorderColor: '#4a5568',
+          critBkgColor: '#f56565',
+          critBorderColor: '#e53e3e',
+          critTextColor: '#ffffff',
+          
+          
+          pie1: '#4299e1',
+          pie2: '#48bb78',
+          pie3: '#ed8936',
+          pie4: '#9f7aea',
+          pie5: '#ed64a6',
+          pie6: '#38b2ac',
+          pie7: '#f6ad55',
+          pie8: '#68d391',
+          pie9: '#63b3ed',
+          pie10: '#b794f4',
+          pieTitleTextSize: '24px',
+          pieSectionTextSize: '16px',
+          pieOuterStrokeWidth: '2px',
+          pieStroke: '#1a202c',
+          pieOpacity: '1',
+          
+          
+          classText: '#f7fafc',
+          classTitle: '#f7fafc',
+          
+          
+          stateBkg: '#2d3748',
+          stateBorder: '#4a5568',
+          labelColor: '#f7fafc',
+          stateLabel: '#f7fafc',
+          stateText: '#f7fafc',
+          transitionLabel: '#f7fafc',
+          
+          
+          entityBkg: '#2d3748',
+          entityBorder: '#4a5568',
+          attributeBkg: '#2d3748',
+          attributeBorder: '#4a5568',
+          relationshipText: '#f7fafc',
+          
+          
+          gridColor: '#4a5568',
+          scaleBarColor: '#4a5568',
+          barColor: '#4299e1',
+          barBorderColor: '#63b3ed',
+          todayLineColor: '#f6ad55',
+          
+          
+          git0: '#4299e1',
+          git1: '#48bb78',
+          git2: '#ed8936',
+          git3: '#9f7aea',
+          git4: '#ed64a6',
+          git5: '#38b2ac',
+          git6: '#f6ad55',
+          git7: '#68d391',
+          gitInv0: '#2d3748',
+          gitInv1: '#2d3748',
+          gitInv2: '#2d3748',
+          gitInv3: '#2d3748',
+          gitInv4: '#2d3748',
+          gitInv5: '#2d3748',
+          gitInv6: '#2d3748',
+          gitInv7: '#2d3748',
+          
+          
+          mindmapPrimary: '#4299e1',
+          mindmapSecondary: '#48bb78',
+          mindmapTertiary: '#ed8936',
+          
+          
+          errorTextColor: '#fc8181',
+          warningTextColor: '#f6ad55',
+          infoTextColor: '#63b3ed',
+          
+          
+          edgeLabelBackground: '#1a202c',
+          
+          
+          edgeLabelBackground: '#2d3748',
+          
+          
+          classLabel: '#f7fafc',
+          dividerColor: '#4a5568',
+          
+          
+          dividerColor: '#4a5568',
+          
+          
+          dividerColor: '#4a5568',
+          
+          
+          fontFamily: '"Douyin Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
+          fontSize: '16px'
+        },
+        fontFamily: '"Douyin Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
+        fontSize: 16,
+        flowchart: {
+          useMaxWidth: true,
+          htmlLabels: true,
+          curve: 'basis'
+        },
+        sequence: {
+          useMaxWidth: true
+        },
+        journey: {
+          useMaxWidth: true
+        },
+        pie: {
+          useMaxWidth: true
+        },
+        gantt: {
+          useMaxWidth: true
+        },
+        git: {
+          useMaxWidth: true
+        },
+        mindmap: {
+          useMaxWidth: true
+        }
+      });
+    } else {
+      
+      mermaid.initialize({
+        startOnLoad: false,
+        theme: 'default',
+        themeVariables: {
+          primaryColor: '#007bff',
+          primaryTextColor: '#333',
+          primaryBorderColor: '#007bff',
+          lineColor: '#666',
+          secondaryColor: '#f8f9fa',
+          tertiaryColor: '#e9ecef'
+        },
+        fontFamily: '"Douyin Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
+        fontSize: 16,
+        flowchart: {
+          useMaxWidth: true,
+          htmlLabels: true,
+          curve: 'basis'
+        }
+      });
+    }
+    
+    
+    document.querySelectorAll('.mermaid').forEach(function(element) {
+      if (!element.dataset.original) {
+        element.dataset.original = element.textContent.trim();
+      }
+    });
+    
+    
+    return mermaid.run();
+  }
+
+  
+  document.addEventListener('DOMContentLoaded', function() {
+    
+    initializeMermaid();
+    
+    
+    logThemeInfo();
+    
+    
+    const darkModeToggle = document.getElementById('dark-mode-toggle');
+    if (darkModeToggle) {
+      darkModeToggle.addEventListener('click', function() {
+        
+        document.querySelectorAll('.mermaid').forEach(function(element) {
+          element.classList.add('reloading');
+        });
+        
+        
+        setTimeout(function() {
+          
+          document.querySelectorAll('.mermaid').forEach(function(element) {
+            
+            if (!element.dataset.original) {
+              element.dataset.original = element.textContent.trim();
+            }
+            
+            
+            element.innerHTML = '';
+            
+            
+            element.textContent = element.dataset.original;
+            
+            
+            element.removeAttribute('data-processed');
+          });
+          
+          
+          console.log('[Mermaid] Theme changed, reinitializing...');
+          
+          
+          initializeMermaid().then(function() {
+            
+            document.querySelectorAll('.mermaid').forEach(function(element) {
+              element.classList.remove('reloading');
+            });
+          });
+        }, 250);
+      });
+    }
+  });
 </script>
-
-
 <link rel='stylesheet' href='https://chinese-fonts-cdn.deno.dev/packages/dymh/dist/DouyinSansBold/result.css' />
 
 
@@ -609,13 +348,13 @@
         
             
             <figure class="site-avatar">
-                <a href="/">
+                <a href="/public/">
                 
                     
                     
                     
                         
-                        <img src="/img/avatar_hu_9c50848f93c56cbf.jpeg" width="300"
+                        <img src="/public/img/avatar_hu_9c50848f93c56cbf.jpeg" width="300"
                             height="296" class="site-logo" loading="lazy" alt="Avatar">
                     
                 
@@ -628,7 +367,7 @@
         
         
         <div class="site-meta">
-            <h1 class="site-name"><a href="/">Henry Zhang</a></h1>
+            <h1 class="site-name"><a href="/public">Henry Zhang</a></h1>
             <h2 class="site-description">Driven by Wonder, Powered by Knowledge.🤓</h2>
         </div>
     </header><ol class="menu-social">
@@ -658,7 +397,7 @@
         
         
         <li >
-            <a href='/' >
+            <a href='/public/' >
                 
                 
                 
@@ -678,7 +417,7 @@
         
         
         <li >
-            <a href='/about-me/' >
+            <a href='/public/about-me/' >
                 
                 
                 
@@ -697,7 +436,7 @@
         
         
         <li >
-            <a href='/archives/' >
+            <a href='/public/archives/' >
                 
                 
                 
@@ -717,7 +456,7 @@
         
         
         <li >
-            <a href='/search/' >
+            <a href='/public/search/' >
                 
                 
                 
@@ -736,7 +475,7 @@
         
         
         <li >
-            <a href='/some-useful-links/' >
+            <a href='/public/some-useful-links/' >
                 
                 
                 
@@ -755,7 +494,7 @@
         
         
         <li >
-            <a href='/update-logs/' >
+            <a href='/public/update-logs/' >
                 
                 
                 
@@ -807,7 +546,7 @@
         
             
                 
-                    <form action="/search/" class="search-form widget" >
+                    <form action="/public/search/" class="search-form widget" >
         <p>
             <label>搜索</label>
             <input name="keyword" required placeholder="输入关键词..." />
@@ -853,40 +592,44 @@
 
     <div class="tagCloud-tags">
         
-            <a href="/categories/notes/" class="font_size_18">
+            <a href="/public/categories/notes/" class="font_size_27">
                 Notes
             </a>
         
-            <a href="/categories/daliy-blog/" class="font_size_3">
-                Daliy Blog
-            </a>
-        
-            <a href="/categories/test/" class="font_size_3">
+            <a href="/public/categories/test/" class="font_size_4">
                 Test
             </a>
         
-            <a href="/categories/security/" class="font_size_1">
+            <a href="/public/categories/daliy-blog/" class="font_size_3">
+                Daliy Blog
+            </a>
+        
+            <a href="/public/categories/git/" class="font_size_2">
+                Git
+            </a>
+        
+            <a href="/public/categories/tool/" class="font_size_2">
+                Tool
+            </a>
+        
+            <a href="/public/categories/apexcharts/" class="font_size_1">
+                Apexcharts
+            </a>
+        
+            <a href="/public/categories/knows/" class="font_size_1">
+                Knows
+            </a>
+        
+            <a href="/public/categories/security/" class="font_size_1">
                 Security
             </a>
         
-            <a href="/categories/syntax/" class="font_size_1">
+            <a href="/public/categories/syntax/" class="font_size_1">
                 Syntax
             </a>
         
-            <a href="/categories/tech/" class="font_size_1">
+            <a href="/public/categories/tech/" class="font_size_1">
                 Tech
-            </a>
-        
-            <a href="/categories/test-with-whitespaces/" class="font_size_1">
-                Test With Whitespaces
-            </a>
-        
-            <a href="/categories/themes/" class="font_size_1">
-                Themes
-            </a>
-        
-            <a href="/categories/%E6%B5%8B%E8%AF%95/" class="font_size_1">
-                测试
             </a>
         
     </div>
@@ -909,7 +652,7 @@
 
         <div class="section-card">
             <div class="section-details">
-                <h3 class="section-count">29 个页面</h3>
+                <h3 class="section-count">72 个页面</h3>
                 <h1 class="section-term">Tags</h1>
                 
             </div>
@@ -919,110 +662,110 @@
     <section class="article-list--compact">
         
             <article>
-    <a href="/tags/math/">
+    <a href="/public/tags/ai/">
         <div class="article-details">
-            <h2 class="article-title">Math</h2>
+            <h2 class="article-title">AI</h2>
             <footer class="article-time">
-                <time datetime='2025-12-12T22:00:52&#43;08:00'>2025-12-12</time>
+                <time datetime='2026-01-12T01:30:46&#43;08:00'>2026-01-12</time>
             </footer>
         </div>
     </a>
 </article>
         
             <article>
-    <a href="/tags/cybersecurity/">
+    <a href="/public/tags/claude-code/">
         <div class="article-details">
-            <h2 class="article-title">Cybersecurity</h2>
+            <h2 class="article-title">Claude Code</h2>
             <footer class="article-time">
-                <time datetime='2025-12-05T02:31:57-05:00'>2025-12-05</time>
+                <time datetime='2026-01-12T01:30:46&#43;08:00'>2026-01-12</time>
             </footer>
         </div>
     </a>
 </article>
         
             <article>
-    <a href="/tags/linux/">
+    <a href="/public/tags/sdlc/">
         <div class="article-details">
-            <h2 class="article-title">Linux</h2>
+            <h2 class="article-title">SDLC</h2>
             <footer class="article-time">
-                <time datetime='2025-12-05T02:31:57-05:00'>2025-12-05</time>
+                <time datetime='2026-01-12T01:30:46&#43;08:00'>2026-01-12</time>
             </footer>
         </div>
     </a>
 </article>
         
             <article>
-    <a href="/tags/macos/">
+    <a href="/public/tags/superclaude/">
         <div class="article-details">
-            <h2 class="article-title">MacOS</h2>
+            <h2 class="article-title">SuperClaude</h2>
             <footer class="article-time">
-                <time datetime='2025-12-05T02:31:57-05:00'>2025-12-05</time>
+                <time datetime='2026-01-12T01:30:46&#43;08:00'>2026-01-12</time>
             </footer>
         </div>
     </a>
 </article>
         
             <article>
-    <a href="/tags/sha256/">
+    <a href="/public/tags/vibe-coding/">
         <div class="article-details">
-            <h2 class="article-title">SHA256</h2>
+            <h2 class="article-title">Vibe Coding</h2>
             <footer class="article-time">
-                <time datetime='2025-12-05T02:31:57-05:00'>2025-12-05</time>
+                <time datetime='2026-01-12T01:30:46&#43;08:00'>2026-01-12</time>
             </footer>
         </div>
     </a>
 </article>
         
             <article>
-    <a href="/tags/windows/">
+    <a href="/public/tags/%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7/">
         <div class="article-details">
-            <h2 class="article-title">Windows</h2>
+            <h2 class="article-title">开发工具</h2>
             <footer class="article-time">
-                <time datetime='2025-12-05T02:31:57-05:00'>2025-12-05</time>
+                <time datetime='2026-01-12T01:30:46&#43;08:00'>2026-01-12</time>
             </footer>
         </div>
     </a>
 </article>
         
             <article>
-    <a href="/tags/apt/">
+    <a href="/public/tags/%E5%BC%80%E5%8F%91%E6%B5%81%E7%A8%8B/">
         <div class="article-details">
-            <h2 class="article-title">Apt</h2>
+            <h2 class="article-title">开发流程</h2>
             <footer class="article-time">
-                <time datetime='2025-12-05T01:27:47-05:00'>2025-12-05</time>
+                <time datetime='2026-01-12T01:30:46&#43;08:00'>2026-01-12</time>
             </footer>
         </div>
     </a>
 </article>
         
             <article>
-    <a href="/tags/package-management/">
+    <a href="/public/tags/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B/">
         <div class="article-details">
-            <h2 class="article-title">Package-Management</h2>
+            <h2 class="article-title">软件工程</h2>
             <footer class="article-time">
-                <time datetime='2025-12-05T01:27:47-05:00'>2025-12-05</time>
+                <time datetime='2026-01-12T01:30:46&#43;08:00'>2026-01-12</time>
             </footer>
         </div>
     </a>
 </article>
         
             <article>
-    <a href="/tags/git/">
+    <a href="/public/tags/%E9%A1%B9%E7%9B%AE%E7%AE%A1%E7%90%86/">
         <div class="article-details">
-            <h2 class="article-title">Git</h2>
+            <h2 class="article-title">项目管理</h2>
             <footer class="article-time">
-                <time datetime='2025-11-25T17:43:06&#43;08:00'>2025-11-25</time>
+                <time datetime='2026-01-12T01:30:46&#43;08:00'>2026-01-12</time>
             </footer>
         </div>
     </a>
 </article>
         
             <article>
-    <a href="/tags/vpn/">
+    <a href="/public/tags/development/">
         <div class="article-details">
-            <h2 class="article-title">Vpn</h2>
+            <h2 class="article-title">Development</h2>
             <footer class="article-time">
-                <time datetime='2025-11-23T05:53:10&#43;08:00'>2025-11-23</time>
+                <time datetime='2026-01-12T00:00:00&#43;08:00'>2026-01-12</time>
             </footer>
         </div>
     </a>
@@ -1039,11 +782,34 @@
                 
             
             
-                    <a class='page-link' href='/tags/page/2/'>2</a>
+                    <a class='page-link' href='/public/tags/page/2/'>2</a>
                 
             
             
-                    <a class='page-link' href='/tags/page/3/'>3</a>
+                    
+                        
+                        <span class='page-link dots'>&hellip;</span>
+                    
+                
+            
+            
+                    
+                
+            
+            
+                    
+                
+            
+            
+                    
+                
+            
+            
+                    
+                
+            
+            
+                    <a class='page-link' href='/public/tags/page/8/'>8</a>
                 
             
     </nav>
@@ -1052,7 +818,9 @@
     <section class="copyright">
         &copy; 
         
-        2025 blog@mail.henry070.org
+            2025 - 
+        
+        2026 blog@mail.henry070.org
     </section>
     
     <section class="powerby">
@@ -1070,7 +838,7 @@
                 src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
                 
                 >
-            </script><script type="text/javascript" src="/ts/main.1e9a3bafd846ced4c345d084b355fb8c7bae75701c338f8a1f8a82c780137826.js" defer></script>
+            </script><script type="text/javascript" src="/public/ts/main.c922af694cc257bf1ecc41c0dd7b0430f9114ec280ccf67cd2c6ad55f5316c4e.js" defer></script>
 <script>
     (function () {
         const customFont = document.createElement('link');
@@ -1278,7 +1046,7 @@
       
       let img = document.createElement('img');
       img.classList.add('code-more-img');
-      img.src = "https://Gzmomo001.github.io/icons/down.png"
+      img.src = "https://Gzmomo001.github.io/public/icons/down.png"
       
       codeMoreBtn.appendChild(img);
       codeMoreBox.appendChild(codeMoreBtn);

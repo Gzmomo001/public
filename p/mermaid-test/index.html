@@ -1,0 +1,1426 @@
+<!DOCTYPE html>
+<html lang="zh-cn" dir="ltr">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="Mermaid图表测试 这是一个测试Mermaid图表功能的博客文章。以下是各种类型的Mermaid图表示例。\n流程图 flowchart LR A[Hard] --&gt;|Text| B(Round) B --&gt; C{Decision} C --&gt;|One| D[Result 1] C --&gt;|Two| E[Result 2] 复杂流程图 flowchart TD A[开始] --&gt; B{是否登录?} B --&gt;|是| C[显示用户界面] B --&gt;|否| D[跳转登录页面] D --&gt; E[输入用户名密码] E --&gt; F{验证成功?} F --&gt;|是| C F --&gt;|否| G[显示错误信息] G --&gt; E C --&gt; H[用户操作] H --&gt; I[结束] 序列图 sequenceDiagram participant A as 用户 participant B as 前端 participant C as 后端 participant D as 数据库 A-&gt;&gt;B: 发送请求 B-&gt;&gt;C: 转发请求 C-&gt;&gt;D: 查询数据 D--&gt;&gt;C: 返回结果 C--&gt;&gt;B: 处理响应 B--&gt;&gt;A: 显示结果 类图 classDiagram class Animal { +name: string +age: int +eat() +sleep() } class Dog { +breed: string +bark() } class Cat { +color: string +meow() } Animal &lt;|-- Dog Animal &lt;|-- Cat 状态图 stateDiagram-v2 [*] --&gt; 待处理 待处理 --&gt; 处理中: 开始处理 处理中 --&gt; 已完成: 处理成功 处理中 --&gt; 失败: 处理失败 失败 --&gt; 待处理: 重试 已完成 --&gt; [*] 饼图 pie title 编程语言使用比例 &#34;JavaScript&#34; : 45 &#34;Python&#34; : 30 &#34;Java&#34; : 15 &#34;Go&#34; : 10 甘特图 gantt title 项目开发计划 dateFormat YYYY-MM-DD section 前端开发 需求分析 :done, des1, 2024-01-01, 2024-01-05 UI设计 :done, des2, 2024-01-06, 2024-01-10 前端开发 :active, des3, 2024-01-11, 2024-01-20 测试 : des4, 2024-01-21, 2024-01-25 section 后端开发 数据库设计 :done, des5, 2024-01-01, 2024-01-05 API开发 :active, des6, 2024-01-06, 2024-01-15 集成测试 : des7, 2024-01-16, 2024-01-20 Git图 gitGraph commit commit branch develop checkout develop commit commit checkout main merge develop commit branch feature checkout feature commit checkout main merge feature ER图 erDiagram USER { int id PK string name string email datetime created_at } POST { int id PK int user_id FK string title text content datetime created_at } COMMENT { int id PK int post_id FK int user_id FK text content datetime created_at } USER ||--o{ POST : creates POST ||--o{ COMMENT : has USER ||--o{ COMMENT : writes 思维导图 mindmap root(( Hugo博客 )) 布局系统 单页模板 列表模板 部分模板 内容管理 文章 页面 分类 标签 主题开发 SCSS样式 JavaScript 响应式设计 部署方案 GitHub Pages Netlify Vercel 用户旅程图 journey title 用户购物旅程 section 访问网站 浏览首页: 5: 用户 搜索商品: 4: 用户 section 选择商品 查看详情: 5: 用户 比较价格: 3: 用户 加入购物车: 5: 用户 section 完成购买 下单支付: 4: 用户 等待收货: 3: 用户 确认收货: 5: 用户 4种注释样式测试 提示: 这个博客现在支持Mermaid图表了！你可以使用标准的GitHub Flavored Markdown语法来创建各种类型的图表。\n">
+<title>mermaid-test</title>
+
+<link rel='canonical' href='https://Gzmomo001.github.io/public/p/mermaid-test/'>
+
+<link rel="stylesheet" href="/public/scss/style.min.69ed452c4f70aa0bd98aa7f62758389d29493390c2f090e74cf1c607d4445e3e.css"><meta property='og:title' content="mermaid-test">
+<meta property='og:description' content="Mermaid图表测试 这是一个测试Mermaid图表功能的博客文章。以下是各种类型的Mermaid图表示例。\n流程图 flowchart LR A[Hard] --&gt;|Text| B(Round) B --&gt; C{Decision} C --&gt;|One| D[Result 1] C --&gt;|Two| E[Result 2] 复杂流程图 flowchart TD A[开始] --&gt; B{是否登录?} B --&gt;|是| C[显示用户界面] B --&gt;|否| D[跳转登录页面] D --&gt; E[输入用户名密码] E --&gt; F{验证成功?} F --&gt;|是| C F --&gt;|否| G[显示错误信息] G --&gt; E C --&gt; H[用户操作] H --&gt; I[结束] 序列图 sequenceDiagram participant A as 用户 participant B as 前端 participant C as 后端 participant D as 数据库 A-&gt;&gt;B: 发送请求 B-&gt;&gt;C: 转发请求 C-&gt;&gt;D: 查询数据 D--&gt;&gt;C: 返回结果 C--&gt;&gt;B: 处理响应 B--&gt;&gt;A: 显示结果 类图 classDiagram class Animal { +name: string +age: int +eat() +sleep() } class Dog { +breed: string +bark() } class Cat { +color: string +meow() } Animal &lt;|-- Dog Animal &lt;|-- Cat 状态图 stateDiagram-v2 [*] --&gt; 待处理 待处理 --&gt; 处理中: 开始处理 处理中 --&gt; 已完成: 处理成功 处理中 --&gt; 失败: 处理失败 失败 --&gt; 待处理: 重试 已完成 --&gt; [*] 饼图 pie title 编程语言使用比例 &#34;JavaScript&#34; : 45 &#34;Python&#34; : 30 &#34;Java&#34; : 15 &#34;Go&#34; : 10 甘特图 gantt title 项目开发计划 dateFormat YYYY-MM-DD section 前端开发 需求分析 :done, des1, 2024-01-01, 2024-01-05 UI设计 :done, des2, 2024-01-06, 2024-01-10 前端开发 :active, des3, 2024-01-11, 2024-01-20 测试 : des4, 2024-01-21, 2024-01-25 section 后端开发 数据库设计 :done, des5, 2024-01-01, 2024-01-05 API开发 :active, des6, 2024-01-06, 2024-01-15 集成测试 : des7, 2024-01-16, 2024-01-20 Git图 gitGraph commit commit branch develop checkout develop commit commit checkout main merge develop commit branch feature checkout feature commit checkout main merge feature ER图 erDiagram USER { int id PK string name string email datetime created_at } POST { int id PK int user_id FK string title text content datetime created_at } COMMENT { int id PK int post_id FK int user_id FK text content datetime created_at } USER ||--o{ POST : creates POST ||--o{ COMMENT : has USER ||--o{ COMMENT : writes 思维导图 mindmap root(( Hugo博客 )) 布局系统 单页模板 列表模板 部分模板 内容管理 文章 页面 分类 标签 主题开发 SCSS样式 JavaScript 响应式设计 部署方案 GitHub Pages Netlify Vercel 用户旅程图 journey title 用户购物旅程 section 访问网站 浏览首页: 5: 用户 搜索商品: 4: 用户 section 选择商品 查看详情: 5: 用户 比较价格: 3: 用户 加入购物车: 5: 用户 section 完成购买 下单支付: 4: 用户 等待收货: 3: 用户 确认收货: 5: 用户 4种注释样式测试 提示: 这个博客现在支持Mermaid图表了！你可以使用标准的GitHub Flavored Markdown语法来创建各种类型的图表。\n">
+<meta property='og:url' content='https://Gzmomo001.github.io/public/p/mermaid-test/'>
+<meta property='og:site_name' content='Henry Zhang'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='mermaid' /><meta property='article:tag' content='diagram' /><meta property='article:tag' content='test' /><meta property='article:published_time' content='2025-12-25T02:23:00-05:00'/><meta property='article:modified_time' content='2026-01-08T14:46:05-05:00'/>
+<meta name="twitter:title" content="mermaid-test">
+<meta name="twitter:description" content="Mermaid图表测试 这是一个测试Mermaid图表功能的博客文章。以下是各种类型的Mermaid图表示例。\n流程图 flowchart LR A[Hard] --&gt;|Text| B(Round) B --&gt; C{Decision} C --&gt;|One| D[Result 1] C --&gt;|Two| E[Result 2] 复杂流程图 flowchart TD A[开始] --&gt; B{是否登录?} B --&gt;|是| C[显示用户界面] B --&gt;|否| D[跳转登录页面] D --&gt; E[输入用户名密码] E --&gt; F{验证成功?} F --&gt;|是| C F --&gt;|否| G[显示错误信息] G --&gt; E C --&gt; H[用户操作] H --&gt; I[结束] 序列图 sequenceDiagram participant A as 用户 participant B as 前端 participant C as 后端 participant D as 数据库 A-&gt;&gt;B: 发送请求 B-&gt;&gt;C: 转发请求 C-&gt;&gt;D: 查询数据 D--&gt;&gt;C: 返回结果 C--&gt;&gt;B: 处理响应 B--&gt;&gt;A: 显示结果 类图 classDiagram class Animal { +name: string +age: int +eat() +sleep() } class Dog { +breed: string +bark() } class Cat { +color: string +meow() } Animal &lt;|-- Dog Animal &lt;|-- Cat 状态图 stateDiagram-v2 [*] --&gt; 待处理 待处理 --&gt; 处理中: 开始处理 处理中 --&gt; 已完成: 处理成功 处理中 --&gt; 失败: 处理失败 失败 --&gt; 待处理: 重试 已完成 --&gt; [*] 饼图 pie title 编程语言使用比例 &#34;JavaScript&#34; : 45 &#34;Python&#34; : 30 &#34;Java&#34; : 15 &#34;Go&#34; : 10 甘特图 gantt title 项目开发计划 dateFormat YYYY-MM-DD section 前端开发 需求分析 :done, des1, 2024-01-01, 2024-01-05 UI设计 :done, des2, 2024-01-06, 2024-01-10 前端开发 :active, des3, 2024-01-11, 2024-01-20 测试 : des4, 2024-01-21, 2024-01-25 section 后端开发 数据库设计 :done, des5, 2024-01-01, 2024-01-05 API开发 :active, des6, 2024-01-06, 2024-01-15 集成测试 : des7, 2024-01-16, 2024-01-20 Git图 gitGraph commit commit branch develop checkout develop commit commit checkout main merge develop commit branch feature checkout feature commit checkout main merge feature ER图 erDiagram USER { int id PK string name string email datetime created_at } POST { int id PK int user_id FK string title text content datetime created_at } COMMENT { int id PK int post_id FK int user_id FK text content datetime created_at } USER ||--o{ POST : creates POST ||--o{ COMMENT : has USER ||--o{ COMMENT : writes 思维导图 mindmap root(( Hugo博客 )) 布局系统 单页模板 列表模板 部分模板 内容管理 文章 页面 分类 标签 主题开发 SCSS样式 JavaScript 响应式设计 部署方案 GitHub Pages Netlify Vercel 用户旅程图 journey title 用户购物旅程 section 访问网站 浏览首页: 5: 用户 搜索商品: 4: 用户 section 选择商品 查看详情: 5: 用户 比较价格: 3: 用户 加入购物车: 5: 用户 section 完成购买 下单支付: 4: 用户 等待收货: 3: 用户 确认收货: 5: 用户 4种注释样式测试 提示: 这个博客现在支持Mermaid图表了！你可以使用标准的GitHub Flavored Markdown语法来创建各种类型的图表。\n">
+    <link rel="shortcut icon" href="/favicon.ico" />
+
+
+<script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+<script>
+  
+  function getCurrentTheme() {
+    const colorSchemeKey = 'StackColorScheme';
+    const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+    const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+    
+    if (colorSchemeItem === 'dark' || (colorSchemeItem === 'auto' && supportDarkMode)) {
+      return 'dark';
+    } else {
+      return 'light';
+    }
+  }
+
+  
+  function logThemeInfo() {
+    const colorSchemeKey = 'StackColorScheme';
+    const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+    const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+    const documentScheme = document.documentElement.dataset.scheme;
+    
+    console.log('[Mermaid] Theme Detection:', {
+      localStorage: colorSchemeItem,
+      systemDark: supportDarkMode,
+      documentScheme: documentScheme,
+      calculatedTheme: getCurrentTheme()
+    });
+  }
+
+  
+  function initializeMermaid() {
+    const currentTheme = getCurrentTheme();
+    
+    if (currentTheme === 'dark') {
+      
+      mermaid.initialize({
+        startOnLoad: false,
+        theme: 'dark',
+        themeVariables: {
+          
+          primaryColor: '#4a5568',
+          primaryTextColor: '#f7fafc',
+          primaryBorderColor: '#63b3ed',
+          lineColor: '#e2e8f0',
+          secondaryColor: '#2d3748',
+          tertiaryColor: '#1a202c',
+          background: '#1a202c',
+          
+          
+          fillType0: '#2d3748',
+          fillType1: '#4a5568',
+          fillType2: '#4299e1',
+          clusterBkg: '#2d3748',
+          clusterBorder: '#4a5568',
+          nodeBorder: '#e2e8f0',
+          mainBkg: '#4a5568',
+          altBkg: '#2d3748',
+          
+          
+          labelBackground: '#2d3748',
+          edgeLabelBackground: '#2d3748',
+          titleColor: '#f7fafc',
+          
+          
+          actorBkg: '#2d3748',
+          actorBorder: '#4a5568',
+          actorTextColor: '#e2e8f0',
+          actorLine: '#4a5568',
+          signalColor: '#e2e8f0',
+          signalTextColor: '#e2e8f0',
+          noteBkgColor: '#4a5568',
+          noteBorderColor: '#4a5568',
+          noteTextColor: '#e2e8f0',
+          activationBorderColor: '#4299e1',
+          activationBkgColor: '#2d3748',
+          
+          
+          sectionBkgColor: '#2d3748',
+          altSectionBkgColor: '#4a5568',
+          sectionBorderColor: '#4a5568',
+          taskBkgColor: '#4299e1',
+          taskBorderColor: '#63b3ed',
+          taskTextColor: '#ffffff',
+          activeTaskBkgColor: '#48bb78',
+          activeTaskBorderColor: '#38a169',
+          doneTaskBkgColor: '#2d3748',
+          doneTaskBorderColor: '#4a5568',
+          critBkgColor: '#f56565',
+          critBorderColor: '#e53e3e',
+          critTextColor: '#ffffff',
+          
+          
+          pie1: '#4299e1',
+          pie2: '#48bb78',
+          pie3: '#ed8936',
+          pie4: '#9f7aea',
+          pie5: '#ed64a6',
+          pie6: '#38b2ac',
+          pie7: '#f6ad55',
+          pie8: '#68d391',
+          pie9: '#63b3ed',
+          pie10: '#b794f4',
+          pieTitleTextSize: '24px',
+          pieSectionTextSize: '16px',
+          pieOuterStrokeWidth: '2px',
+          pieStroke: '#1a202c',
+          pieOpacity: '1',
+          
+          
+          classText: '#f7fafc',
+          classTitle: '#f7fafc',
+          
+          
+          stateBkg: '#2d3748',
+          stateBorder: '#4a5568',
+          labelColor: '#f7fafc',
+          stateLabel: '#f7fafc',
+          stateText: '#f7fafc',
+          transitionLabel: '#f7fafc',
+          
+          
+          entityBkg: '#2d3748',
+          entityBorder: '#4a5568',
+          attributeBkg: '#2d3748',
+          attributeBorder: '#4a5568',
+          relationshipText: '#f7fafc',
+          
+          
+          gridColor: '#4a5568',
+          scaleBarColor: '#4a5568',
+          barColor: '#4299e1',
+          barBorderColor: '#63b3ed',
+          todayLineColor: '#f6ad55',
+          
+          
+          git0: '#4299e1',
+          git1: '#48bb78',
+          git2: '#ed8936',
+          git3: '#9f7aea',
+          git4: '#ed64a6',
+          git5: '#38b2ac',
+          git6: '#f6ad55',
+          git7: '#68d391',
+          gitInv0: '#2d3748',
+          gitInv1: '#2d3748',
+          gitInv2: '#2d3748',
+          gitInv3: '#2d3748',
+          gitInv4: '#2d3748',
+          gitInv5: '#2d3748',
+          gitInv6: '#2d3748',
+          gitInv7: '#2d3748',
+          
+          
+          mindmapPrimary: '#4299e1',
+          mindmapSecondary: '#48bb78',
+          mindmapTertiary: '#ed8936',
+          
+          
+          errorTextColor: '#fc8181',
+          warningTextColor: '#f6ad55',
+          infoTextColor: '#63b3ed',
+          
+          
+          edgeLabelBackground: '#1a202c',
+          
+          
+          edgeLabelBackground: '#2d3748',
+          
+          
+          classLabel: '#f7fafc',
+          dividerColor: '#4a5568',
+          
+          
+          dividerColor: '#4a5568',
+          
+          
+          dividerColor: '#4a5568',
+          
+          
+          fontFamily: '"Douyin Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
+          fontSize: '16px'
+        },
+        fontFamily: '"Douyin Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
+        fontSize: 16,
+        flowchart: {
+          useMaxWidth: true,
+          htmlLabels: true,
+          curve: 'basis'
+        },
+        sequence: {
+          useMaxWidth: true
+        },
+        journey: {
+          useMaxWidth: true
+        },
+        pie: {
+          useMaxWidth: true
+        },
+        gantt: {
+          useMaxWidth: true
+        },
+        git: {
+          useMaxWidth: true
+        },
+        mindmap: {
+          useMaxWidth: true
+        }
+      });
+    } else {
+      
+      mermaid.initialize({
+        startOnLoad: false,
+        theme: 'default',
+        themeVariables: {
+          primaryColor: '#007bff',
+          primaryTextColor: '#333',
+          primaryBorderColor: '#007bff',
+          lineColor: '#666',
+          secondaryColor: '#f8f9fa',
+          tertiaryColor: '#e9ecef'
+        },
+        fontFamily: '"Douyin Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
+        fontSize: 16,
+        flowchart: {
+          useMaxWidth: true,
+          htmlLabels: true,
+          curve: 'basis'
+        }
+      });
+    }
+    
+    
+    document.querySelectorAll('.mermaid').forEach(function(element) {
+      if (!element.dataset.original) {
+        element.dataset.original = element.textContent.trim();
+      }
+    });
+    
+    
+    return mermaid.run();
+  }
+
+  
+  document.addEventListener('DOMContentLoaded', function() {
+    
+    initializeMermaid();
+    
+    
+    logThemeInfo();
+    
+    
+    const darkModeToggle = document.getElementById('dark-mode-toggle');
+    if (darkModeToggle) {
+      darkModeToggle.addEventListener('click', function() {
+        
+        document.querySelectorAll('.mermaid').forEach(function(element) {
+          element.classList.add('reloading');
+        });
+        
+        
+        setTimeout(function() {
+          
+          document.querySelectorAll('.mermaid').forEach(function(element) {
+            
+            if (!element.dataset.original) {
+              element.dataset.original = element.textContent.trim();
+            }
+            
+            
+            element.innerHTML = '';
+            
+            
+            element.textContent = element.dataset.original;
+            
+            
+            element.removeAttribute('data-processed');
+          });
+          
+          
+          console.log('[Mermaid] Theme changed, reinitializing...');
+          
+          
+          initializeMermaid().then(function() {
+            
+            document.querySelectorAll('.mermaid').forEach(function(element) {
+              element.classList.remove('reloading');
+            });
+          });
+        }, 250);
+      });
+    }
+  });
+</script>
+<link rel='stylesheet' href='https://chinese-fonts-cdn.deno.dev/packages/dymh/dist/DouyinSansBold/result.css' />
+
+
+    </head>
+    <body class="
+    article-page
+    ">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky ">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="切换菜单">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header>
+        
+            
+            <figure class="site-avatar">
+                <a href="/public/">
+                
+                    
+                    
+                    
+                        
+                        <img src="/public/img/avatar_hu_9c50848f93c56cbf.jpeg" width="300"
+                            height="296" class="site-logo" loading="lazy" alt="Avatar">
+                    
+                
+                </a>
+                
+                    <span class="emoji">🤓</span>
+                
+            </figure>
+            
+        
+        
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/public">Henry Zhang</a></h1>
+            <h2 class="site-description">Driven by Wonder, Powered by Knowledge.🤓</h2>
+        </div>
+    </header><ol class="menu-social">
+            
+                <li>
+                    <a 
+                        href='https://github.com/Gzmomo001'
+                        target="_blank"
+                        title="GitHub"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+        </ol><ol class="menu" id="main-menu">
+        
+        
+        
+        <li >
+            <a href='/public/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="5 12 3 12 12 3 21 12 19 12" />
+  <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
+  <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
+</svg>
+
+
+
+                
+                <span>Home</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/public/about-me/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="7" r="4" />
+  <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
+</svg>
+
+
+
+                
+                <span>About me</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/public/archives/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <rect x="3" y="4" width="18" height="4" rx="2" />
+  <path d="M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-10" />
+  <line x1="10" y1="12" x2="14" y2="12" />
+</svg>
+
+
+
+                
+                <span>Archives</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/public/search/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="10" cy="10" r="7" />
+  <line x1="21" y1="21" x2="15" y2="15" />
+</svg>
+
+
+
+                
+                <span>Search</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/public/some-useful-links/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-link" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5" />
+  <path d="M14 10a3.5 3.5 0 0 0 -5 0l-4 4a3.5 3.5 0 0 0 5 5l.5 -.5" />
+</svg>
+
+
+
+                
+                <span>Some Useful Links</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/public/update-logs/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                
+                <span>Update Logs</span>
+            </a>
+        </li>
+        
+        <li class="menu-bottom-section">
+            <ol class="menu">
+
+                
+                    <li id="dark-mode-toggle">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <span>暗色模式</span>
+                    </li>
+                
+            </ol>
+        </li>
+    </ol>
+</aside>
+
+    <aside class="sidebar right-sidebar sticky">
+        
+        
+            
+        
+
+        
+        
+            
+                
+                    
+    <section class="widget archives">
+        <div class="widget-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+        </div>
+        <h2 class="widget-title section-title">目录</h2>
+        
+        <div class="widget--toc">
+            <nav id="TableOfContents">
+  <ol>
+    <li><a href="#mermaid图表测试">Mermaid图表测试</a>
+      <ol>
+        <li><a href="#流程图">流程图</a></li>
+        <li><a href="#复杂流程图">复杂流程图</a></li>
+        <li><a href="#序列图">序列图</a></li>
+        <li><a href="#类图">类图</a></li>
+        <li><a href="#状态图">状态图</a></li>
+        <li><a href="#饼图">饼图</a></li>
+        <li><a href="#甘特图">甘特图</a></li>
+        <li><a href="#git图">Git图</a></li>
+        <li><a href="#er图">ER图</a></li>
+        <li><a href="#思维导图">思维导图</a></li>
+        <li><a href="#用户旅程图">用户旅程图</a></li>
+        <li><a href="#4种注释样式测试">4种注释样式测试</a></li>
+        <li><a href="#测试完成">测试完成</a></li>
+      </ol>
+    </li>
+  </ol>
+</nav>
+        </div>
+    </section>
+
+                
+            
+        
+    </aside>
+
+
+
+            <main class="main full-width">
+    <article class="main-article">
+    <header class="article-header">
+
+    <div class="article-details">
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/public/p/mermaid-test/">mermaid-test</a>
+        </h2>
+    
+        
+    </div>
+
+    
+    
+    
+    
+    <footer class="article-time">
+        <div class="article-metadata">
+            
+            <div class="article-category">
+                
+                    
+                    
+                    <a href="/public/categories/test/" class="category-link" style="background-color: #640ab2; color: #ffffff;">
+                        Test
+                    </a>
+                
+            </div>
+            
+
+            
+            <div class="article-tags">
+                
+                    
+                    
+                    <a href="/public/tags/mermaid/" class="tag-link" style="color: #ffffff; border: 1px solid #52fcd3; background-color: #52fcd320;">
+                        #Mermaid
+                    </a>
+                
+                    
+                    
+                    <a href="/public/tags/diagram/" class="tag-link" style="color: #ffffff; border: 1px solid #df5415; background-color: #df541520;">
+                        #Diagram
+                    </a>
+                
+                    
+                    
+                    <a href="/public/tags/test/" class="tag-link" style="color: #ffffff; border: 1px solid #640ab2; background-color: #640ab220;">
+                        #Test
+                    </a>
+                
+            </div>
+            
+        </div>
+
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">2025-12-25</time>
+            </div>
+        <div class="article-lastmod">
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+                <time>
+                    Jan 08, 2026 14:46 -0500
+                </time>
+            </div>
+    </footer>
+    
+
+    
+</div>
+
+</header>
+
+    <section class="article-content">
+    
+    
+    <h1 id="mermaid图表测试">Mermaid图表测试
+</h1><p>这是一个测试Mermaid图表功能的博客文章。以下是各种类型的Mermaid图表示例。</p>
+<h2 id="流程图">流程图
+</h2><pre class="mermaid">
+  flowchart LR
+
+A[Hard] --&gt;|Text| B(Round)
+B --&gt; C{Decision}
+C --&gt;|One| D[Result 1]
+C --&gt;|Two| E[Result 2]
+</pre>
+
+<h2 id="复杂流程图">复杂流程图
+</h2><pre class="mermaid">
+  flowchart TD
+    A[开始] --&gt; B{是否登录?}
+    B --&gt;|是| C[显示用户界面]
+    B --&gt;|否| D[跳转登录页面]
+    D --&gt; E[输入用户名密码]
+    E --&gt; F{验证成功?}
+    F --&gt;|是| C
+    F --&gt;|否| G[显示错误信息]
+    G --&gt; E
+    C --&gt; H[用户操作]
+    H --&gt; I[结束]
+</pre>
+
+<h2 id="序列图">序列图
+</h2><pre class="mermaid">
+  sequenceDiagram
+    participant A as 用户
+    participant B as 前端
+    participant C as 后端
+    participant D as 数据库
+    
+    A-&gt;&gt;B: 发送请求
+    B-&gt;&gt;C: 转发请求
+    C-&gt;&gt;D: 查询数据
+    D--&gt;&gt;C: 返回结果
+    C--&gt;&gt;B: 处理响应
+    B--&gt;&gt;A: 显示结果
+</pre>
+
+<h2 id="类图">类图
+</h2><pre class="mermaid">
+  classDiagram
+    class Animal {
+        +name: string
+        +age: int
+        +eat()
+        +sleep()
+    }
+    
+    class Dog {
+        +breed: string
+        +bark()
+    }
+    
+    class Cat {
+        +color: string
+        +meow()
+    }
+    
+    Animal &lt;|-- Dog
+    Animal &lt;|-- Cat
+</pre>
+
+<h2 id="状态图">状态图
+</h2><pre class="mermaid">
+  stateDiagram-v2
+    [*] --&gt; 待处理
+    待处理 --&gt; 处理中: 开始处理
+    处理中 --&gt; 已完成: 处理成功
+    处理中 --&gt; 失败: 处理失败
+    失败 --&gt; 待处理: 重试
+    已完成 --&gt; [*]
+</pre>
+
+<h2 id="饼图">饼图
+</h2><pre class="mermaid">
+  pie
+    title 编程语言使用比例
+    &#34;JavaScript&#34; : 45
+    &#34;Python&#34; : 30
+    &#34;Java&#34; : 15
+    &#34;Go&#34; : 10
+</pre>
+
+<h2 id="甘特图">甘特图
+</h2><pre class="mermaid">
+  gantt
+    title 项目开发计划
+    dateFormat  YYYY-MM-DD
+    section 前端开发
+    需求分析           :done,    des1, 2024-01-01, 2024-01-05
+    UI设计            :done,    des2, 2024-01-06, 2024-01-10
+    前端开发          :active,  des3, 2024-01-11, 2024-01-20
+    测试              :         des4, 2024-01-21, 2024-01-25
+    
+    section 后端开发
+    数据库设计        :done,    des5, 2024-01-01, 2024-01-05
+    API开发           :active,  des6, 2024-01-06, 2024-01-15
+    集成测试          :         des7, 2024-01-16, 2024-01-20
+</pre>
+
+<h2 id="git图">Git图
+</h2><pre class="mermaid">
+  gitGraph
+    commit
+    commit
+    branch develop
+    checkout develop
+    commit
+    commit
+    checkout main
+    merge develop
+    commit
+    branch feature
+    checkout feature
+    commit
+    checkout main
+    merge feature
+</pre>
+
+<h2 id="er图">ER图
+</h2><pre class="mermaid">
+  erDiagram
+    USER {
+        int id PK
+        string name
+        string email
+        datetime created_at
+    }
+    
+    POST {
+        int id PK
+        int user_id FK
+        string title
+        text content
+        datetime created_at
+    }
+    
+    COMMENT {
+        int id PK
+        int post_id FK
+        int user_id FK
+        text content
+        datetime created_at
+    }
+    
+    USER ||--o{ POST : creates
+    POST ||--o{ COMMENT : has
+    USER ||--o{ COMMENT : writes
+</pre>
+
+<h2 id="思维导图">思维导图
+</h2><pre class="mermaid">
+  mindmap
+  root(( Hugo博客 ))
+    布局系统
+      单页模板
+      列表模板
+      部分模板
+    内容管理
+      文章
+      页面
+      分类
+      标签
+    主题开发
+      SCSS样式
+      JavaScript
+      响应式设计
+   部署方案
+      GitHub Pages
+      Netlify
+      Vercel
+</pre>
+
+<h2 id="用户旅程图">用户旅程图
+</h2><pre class="mermaid">
+  journey
+    title 用户购物旅程
+    section 访问网站
+      浏览首页: 5: 用户
+      搜索商品: 4: 用户
+    section 选择商品
+      查看详情: 5: 用户
+      比较价格: 3: 用户
+      加入购物车: 5: 用户
+    section 完成购买
+      下单支付: 4: 用户
+      等待收货: 3: 用户
+      确认收货: 5: 用户
+</pre>
+
+<h2 id="4种注释样式测试">4种注释样式测试
+</h2><blockquote>
+<p><strong>提示</strong>: 这个博客现在支持Mermaid图表了！你可以使用标准的GitHub Flavored Markdown语法来创建各种类型的图表。</p>
+</blockquote>
+<blockquote>
+<p><strong>警告</strong>: 确保你的Mermaid语法是正确的，否则图表可能无法正常显示。</p>
+</blockquote>
+<blockquote>
+<p><strong>错误</strong>: 如果图表没有显示，请检查浏览器控制台是否有JavaScript错误。</p>
+</blockquote>
+<blockquote>
+<p><strong>注意</strong>: Mermaid图表是在客户端渲染的，需要JavaScript支持。</p>
+</blockquote>
+<h2 id="测试完成">测试完成
+</h2><p>如果以上所有图表都能正常显示，说明Mermaid集成已经成功完成！现在你可以在任何Markdown文章中使用 ```mermaid 代码块来创建图表了。</p>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+
+    
+    <section class="article-copyright">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <path d="M14.5 9a3.5 4 0 1 0 0 6" />
+</svg>
+
+
+
+        <span>A winner is just a loser who tried one more time.</span>
+    </section>
+    
+
+    
+</footer>
+
+
+    
+        <link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css"integrity="sha384-n8MVd4RsNIU0tAv4ct0nTaAbDJwPJzDEaqSD1odI&#43;WdtXRGWt2kTvGFasHpSy3SV"crossorigin="anonymous"
+            ><script 
+                src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"integrity="sha384-XjKyOOlGwcjNTAIQHIpgOno0Hl1YQqzUOEleOLALmuqehneUG&#43;vnGctmUb0ZY0l8"crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"integrity="sha384-&#43;VBxd3r6XgURycqtZ117nYw44OOcIax56Z4dCRWbxyPt0Koah1uHoK0o4&#43;/RRE05"crossorigin="anonymous"
+                defer
+                >
+            </script><script>
+    window.addEventListener("DOMContentLoaded", () => {
+	const mainArticleElement = document.querySelector(".main-article");
+        renderMathInElement(mainArticleElement, {
+            delimiters: [
+                { left: "$$", right: "$$", display: true },
+                { left: "$", right: "$", display: false },
+                { left: "\\(", right: "\\)", display: false },
+                { left: "\\[", right: "\\]", display: true }
+            ],
+            ignoredClasses: ["gist"]
+        });})
+</script>
+
+    
+</article>
+
+    
+
+    
+
+<aside class="related-content--wrapper">
+    <h2 class="section-title">相关文章</h2>
+    <div class="related-content">
+        <div class="flex article-list--tile">
+            
+                
+<article class="has-image">
+    <a href="/public/p/test-chinese/">
+        
+        
+            <div class="article-image">
+                <img src="/public/p/test-chinese/helena-hertz-wWZzXlDpMog-unsplash.46f61e8ea6a2df8fc5bf1d24a17c44a6_hu_57b7cab9514860c.jpg" 
+                        width="250" 
+                        height="150" 
+                        loading="lazy"
+                        alt="Featured image of post Chinese Test"
+                        data-key="test-chinese" 
+                        data-hash="md5-RvYejqai34/Fvx0koXxEpg==">
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Chinese Test</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="/public/p/placeholder-text/">
+        
+        
+            <div class="article-image">
+                <img src="/public/p/placeholder-text/matt-le-SJSpo9hQf7s-unsplash.8eae06664ddfb3e8dc6e000756cb703b_hu_cc847465c05fc251.jpg" 
+                        width="250" 
+                        height="150" 
+                        loading="lazy"
+                        alt="Featured image of post Placeholder Text"
+                        
+                        data-hash="md5-jq4GZk3fs&#43;jcbgAHVstwOw==">
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Placeholder Text</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="/public/p/emoji-support/">
+        
+        
+            <div class="article-image">
+                <img src="/public/p/emoji-support/the-creative-exchange-d2zvqp3fpro-unsplash.60116b1ccfc8632e9a65f7d51df3efc2_hu_c1cfd6b8275d624a.jpg" 
+                        width="250" 
+                        height="150" 
+                        loading="lazy"
+                        alt="Featured image of post Emoji Support"
+                        
+                        data-hash="md5-YBFrHM/IYy6aZffVHfPvwg==">
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Emoji Support</h2>
+        </div>
+    </a>
+</article>
+
+            
+        </div>
+    </div>
+</aside>
+
+     
+    
+        
+    <script
+    src="https://giscus.app/client.js"
+    data-repo="Gzmomo001/Gzmomo001.github.io"
+    data-repo-id="R_kgDOOuLpRA"
+    data-category="General"
+    data-category-id="DIC_kwDOOuLpRM4Cr0Pz"
+    data-mapping="pathname"
+    data-strict="0"
+    data-reactions-enabled="1"
+    data-emit-metadata="0"
+    data-input-position="top"
+    data-theme="light"
+    data-lang="en"
+    data-loading=""
+    crossorigin="anonymous"
+    async
+></script>
+<script>
+    function setGiscusTheme(theme) {
+        let giscus = document.querySelector("iframe.giscus-frame");
+        if (giscus) {
+            giscus.contentWindow.postMessage(
+                {
+                    giscus: {
+                        setConfig: {
+                            theme: theme,
+                        },
+                    },
+                },
+                "https://giscus.app"
+            );
+        }
+    }
+
+    (function () {
+        addEventListener("message", (e) => {
+            if (event.origin !== "https://giscus.app") return;
+            handler();
+        });
+        window.addEventListener("onColorSchemeChange", handler);
+
+        function handler() {
+            if (document.documentElement.dataset.scheme === "light") {
+                setGiscusTheme('light');
+            } else {
+                setGiscusTheme('dark_dimmed');
+            }
+        }
+    })();
+</script>
+
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+            2025 - 
+        
+        2026 blog@mail.henry070.org
+    </section>
+    
+    <section class="powerby">
+        
+            Robust AI <br/>
+        使用 <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> 构建 <br />
+        主题 <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.30.0">Stack</a></b> 由 <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a> 设计
+    </section>
+</footer>
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css"crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css"crossorigin="anonymous"
+            >
+
+            </main>
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
+                
+                >
+            </script><script type="text/javascript" src="/public/ts/main.c922af694cc257bf1ecc41c0dd7b0430f9114ec280ccf67cd2c6ad55f5316c4e.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+<style>
+    #TableOfContents > ul, ol {
+        ul, ol {
+            display: none;
+        }
+        .open {
+            display: block;
+        }
+    }
+</style>
+
+<script>
+    function initTocHide() {
+        
+        let toc = document.querySelector(".widget--toc");
+        if (!toc) {
+            return;
+        }
+        
+        window.addEventListener('scroll', function() {
+            
+            let openUl = document.querySelectorAll(".open");
+            if (openUl.length > 0) {
+              openUl.forEach((ul) => {
+                ul.classList.remove("open")
+              })
+            }
+            
+            let currentLi = document.querySelector(".active-class");
+            if (!currentLi) {
+                return
+            }
+            
+            if (currentLi.children.length > 1) {
+                currentLi.children[1].classList.add("open")
+            }
+            
+            let ul = currentLi.parentElement;
+            do {
+                ul.classList.add("open");
+                ul = ul.parentElement.parentElement
+            } while (ul !== undefined && (ul.localName === 'ul' || ul.localName === 'ol'))
+        });
+    }
+    initTocHide()
+</script>
+
+<style>
+    #backTopBtn {
+        display: none;
+        position: fixed;
+        bottom: 30px;
+         
+        z-index: 99;
+        cursor: pointer;
+        width: 40px;
+        height: 40px;
+        background-color: #666;
+        border-radius: 50%;
+        text-align: center;
+        line-height: 40px;
+        font-size: 25px;
+        color: white;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+        transition: background-color 0.3s;
+    }
+    
+    #backTopBtn:hover {
+        background-color: #333;
+    }
+    
+    #backTopBtn .arrow-icon {
+        display: none;
+    }
+    
+    #backTopBtn .backtop-svg {
+        width: 24px;
+        height: 24px;
+        margin: 8px;
+        fill: white;
+    }
+</style>
+
+
+<script>
+    
+
+    function initScrollTop() {
+        let rightSideBar = document.querySelector(".right-sidebar");
+        if (!rightSideBar) {
+            return;
+        }
+        
+        let btn = document.createElement("div");
+        btn.id = "backTopBtn";
+        btn.innerHTML = '<span class="arrow-icon"></span>' +
+                        '<svg class="backtop-svg" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="15764">' +
+                        '<path d="M512 938.666667c-59.733333 0-123.733333-2.133333-185.6-4.266667l-32-2.133333c-108.8-6.4-194.133333-91.733333-200.533333-200.533334C87.466667 648.533333 85.333333 576 85.333333 512c0-59.733333 2.133333-125.866667 6.4-202.666667v-17.066666c6.4-108.8 91.733333-194.133333 200.533334-200.533334 76.8-4.266667 149.333333-6.4 219.733333-6.4 59.733333 0 123.733333 2.133333 185.6 4.266667l32 2.133333c108.8 6.4 194.133333 91.733333 200.533333 200.533334 6.4 83.2 8.533333 155.733333 8.533334 219.733333 0 59.733333-2.133333 125.866667-6.4 202.666667v17.066666c-6.4 108.8-91.733333 194.133333-200.533334 200.533334-76.8 4.266667-149.333333 6.4-219.733333 6.4z m0-224c17.066667 0 32-14.933333 32-32V430.933333l96 96c12.8 12.8 32 12.8 44.8 0 12.8-12.8 12.8-32 0-44.8l-153.6-153.6c-6.4-6.4-8.533333-8.533333-12.8-8.533333-4.266667-2.133333-8.533333-2.133333-10.666667 0-4.266667 0-6.4 2.133333-10.666666 6.4l-2.133334 2.133333-153.6 153.6c-12.8 12.8-12.8 32 0 44.8 12.8 12.8 32 12.8 44.8 0l96-96V682.666667c-2.133333 17.066667 12.8 32 29.866667 32z" fill="#ffffff" p-id="15765"></path>' +
+                        '</svg>';
+        btn.onclick = backToTop;
+        rightSideBar.appendChild(btn);
+        
+        window.onscroll = function() {
+            
+            if (document.body.scrollTop > 700 || document.documentElement.scrollTop > 700) {
+                btn.style.display = "block";
+            } else {
+                btn.style.display = "none";
+            }
+        };
+    }
+
+    
+
+    function backToTop(){
+        window.scrollTo({ top: 0, behavior: "smooth" })
+    }
+
+    initScrollTop();
+</script>
+
+<style>
+    .highlight {
+         
+        max-height: 1000px;
+        overflow: hidden;
+    }
+
+    .code-show {
+        max-height: none !important;
+    }
+
+    .code-more-box {
+        width: 100%;
+        padding-top: 120px;  
+        background-image: linear-gradient(
+            to bottom,
+            rgba(4, 6, 5, 0) 0%,
+            rgba(4, 6, 5, 0.4) 40%,
+            rgba(4, 6, 5, 0.8) 100%
+        );
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        z-index: 1;
+    }
+
+    .code-more-btn {
+        display: block;
+        margin: auto;
+        width: 44px;
+        height: 22px;
+        background: #5f5f5f;
+        border-top-left-radius: 8px;
+        border-top-right-radius: 8px;
+        padding-top: 6px;
+        cursor: pointer;
+    }
+
+    .code-more-img {
+        cursor: pointer !important;
+        display: block;
+        margin: auto;
+        width: 22px;
+        height: 16px;
+    }
+</style>
+
+<script>
+  function initCodeMoreBox() {
+    let codeBlocks = document.querySelectorAll(".highlight");
+    if (!codeBlocks) {
+      return;
+    }
+    codeBlocks.forEach(codeBlock => {
+      
+      if (codeBlock.scrollHeight <= codeBlock.clientHeight) {
+        return;
+      }
+      
+      
+      let codeMoreBox = document.createElement('div');
+      codeMoreBox.classList.add('code-more-box');
+      
+      let codeMoreBtn = document.createElement('span');
+      codeMoreBtn.classList.add('code-more-btn');
+      codeMoreBtn.addEventListener('click', () => {
+        codeBlock.classList.add('code-show');
+        codeMoreBox.style.display = 'none';
+        
+        window.dispatchEvent(new Event('resize'))
+      })
+      
+      let img = document.createElement('img');
+      img.classList.add('code-more-img');
+      img.src = "https://Gzmomo001.github.io/public/icons/down.png"
+      
+      codeMoreBtn.appendChild(img);
+      codeMoreBox.appendChild(codeMoreBtn);
+      codeBlock.appendChild(codeMoreBox)
+    })
+  }
+  
+  initCodeMoreBox();
+</script>
+
+
+
+    </body>
+</html>

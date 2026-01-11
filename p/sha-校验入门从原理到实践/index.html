@@ -4,574 +4,313 @@
 <meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="本文详细介绍了 SHA256 校验的原理和在不同操作系统上的实践方法，帮助初学者快速掌握文件完整性验证的关键技能。">
 <title>SHA 校验入门：从原理到实践</title>
 
-<link rel='canonical' href='https://Gzmomo001.github.io/p/sha-%E6%A0%A1%E9%AA%8C%E5%85%A5%E9%97%A8%E4%BB%8E%E5%8E%9F%E7%90%86%E5%88%B0%E5%AE%9E%E8%B7%B5/'>
+<link rel='canonical' href='https://Gzmomo001.github.io/public/p/sha-%E6%A0%A1%E9%AA%8C%E5%85%A5%E9%97%A8%E4%BB%8E%E5%8E%9F%E7%90%86%E5%88%B0%E5%AE%9E%E8%B7%B5/'>
 
-<link rel="stylesheet" href="/scss/style.min.f0d856d8a5610b3c0c2069a79146122abf2acb30a6b00e2bbb69c2113678b2e3.css"><meta property='og:title' content="SHA 校验入门：从原理到实践">
+<link rel="stylesheet" href="/public/scss/style.min.69ed452c4f70aa0bd98aa7f62758389d29493390c2f090e74cf1c607d4445e3e.css"><meta property='og:title' content="SHA 校验入门：从原理到实践">
 <meta property='og:description' content="本文详细介绍了 SHA256 校验的原理和在不同操作系统上的实践方法，帮助初学者快速掌握文件完整性验证的关键技能。">
-<meta property='og:url' content='https://Gzmomo001.github.io/p/sha-%E6%A0%A1%E9%AA%8C%E5%85%A5%E9%97%A8%E4%BB%8E%E5%8E%9F%E7%90%86%E5%88%B0%E5%AE%9E%E8%B7%B5/'>
+<meta property='og:url' content='https://Gzmomo001.github.io/public/p/sha-%E6%A0%A1%E9%AA%8C%E5%85%A5%E9%97%A8%E4%BB%8E%E5%8E%9F%E7%90%86%E5%88%B0%E5%AE%9E%E8%B7%B5/'>
 <meta property='og:site_name' content='Henry Zhang'>
-<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='SHA256' /><meta property='article:tag' content='Linux' /><meta property='article:tag' content='macOS' /><meta property='article:tag' content='Windows' /><meta property='article:tag' content='Cybersecurity' /><meta property='article:published_time' content='2025-12-05T02:31:57-05:00'/><meta property='article:modified_time' content='2025-12-09T11:32:50-05:00'/><meta property='og:image' content='https://Gzmomo001.github.io/default.jpeg' />
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='SHA256' /><meta property='article:tag' content='Linux' /><meta property='article:tag' content='macOS' /><meta property='article:tag' content='Windows' /><meta property='article:tag' content='Cybersecurity' /><meta property='article:published_time' content='2025-12-05T02:31:57-05:00'/><meta property='article:modified_time' content='2025-12-09T11:32:50-05:00'/><meta property='og:image' content='https://Gzmomo001.github.io/public/default.jpeg' />
 <meta name="twitter:title" content="SHA 校验入门：从原理到实践">
 <meta name="twitter:description" content="本文详细介绍了 SHA256 校验的原理和在不同操作系统上的实践方法，帮助初学者快速掌握文件完整性验证的关键技能。"><meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:image" content='https://Gzmomo001.github.io/default.jpeg' />
+    <meta name="twitter:image" content='https://Gzmomo001.github.io/public/default.jpeg' />
     <link rel="shortcut icon" href="/favicon.ico" />
-<link rel='stylesheet' href='https://chinese-fonts-cdn.deno.dev/packages/dymh/dist/DouyinSansBold/result.css' />
 
-<div class="loading">
-     
-    <div class="banter-loader">
-        <div class="banter-loader__box"></div>
-        <div class="banter-loader__box"></div>
-        <div class="banter-loader__box"></div>
-        <div class="banter-loader__box"></div>
-        <div class="banter-loader__box"></div>
-        <div class="banter-loader__box"></div>
-        <div class="banter-loader__box"></div>
-        <div class="banter-loader__box"></div>
-        <div class="banter-loader__box"></div>
-    </div>
-</div>
 
-<style>
-    .loading {
-        position: fixed;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        z-index: 99;
-        zoom: 3.0;
-        background-color: #5b5b5b;
-        display: none;
-        transition: opacity 1s ease-out; 
+<script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+<script>
+  
+  function getCurrentTheme() {
+    const colorSchemeKey = 'StackColorScheme';
+    const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+    const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+    
+    if (colorSchemeItem === 'dark' || (colorSchemeItem === 'auto' && supportDarkMode)) {
+      return 'dark';
+    } else {
+      return 'light';
     }
+  }
 
-    .loading.fade-out {
-        opacity: 0;
-    }
-	
+  
+  function logThemeInfo() {
+    const colorSchemeKey = 'StackColorScheme';
+    const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+    const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+    const documentScheme = document.documentElement.dataset.scheme;
+    
+    console.log('[Mermaid] Theme Detection:', {
+      localStorage: colorSchemeItem,
+      systemDark: supportDarkMode,
+      documentScheme: documentScheme,
+      calculatedTheme: getCurrentTheme()
+    });
+  }
+
+  
+  function initializeMermaid() {
+    const currentTheme = getCurrentTheme();
+    
+    if (currentTheme === 'dark') {
+      
+      mermaid.initialize({
+        startOnLoad: false,
+        theme: 'dark',
+        themeVariables: {
           
-    .banter-loader {
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    width: 72px;
-    height: 72px;
-    margin-left: -36px;
-    margin-top: -36px;
-    }
-
-    .banter-loader__box {
-    float: left;
-    position: relative;
-    width: 20px;
-    height: 20px;
-    margin-right: 6px;
-    }
-
-    .banter-loader__box:before {
-    content: "";
-    position: absolute;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    background: #fff;
-    }
-
-    .banter-loader__box:nth-child(3n) {
-    margin-right: 0;
-    margin-bottom: 6px;
-    }
-
-    .banter-loader__box:nth-child(1):before, .banter-loader__box:nth-child(4):before {
-    margin-left: 26px;
-    }
-
-    .banter-loader__box:nth-child(3):before {
-    margin-top: 52px;
-    }
-
-    .banter-loader__box:last-child {
-    margin-bottom: 0;
-    }
-
-    @keyframes moveBox-1 {
-    9.0909090909% {
-        transform: translate(-26px, 0);
-    }
-
-    18.1818181818% {
-        transform: translate(0px, 0);
-    }
-
-    27.2727272727% {
-        transform: translate(0px, 0);
-    }
-
-    36.3636363636% {
-        transform: translate(26px, 0);
-    }
-
-    45.4545454545% {
-        transform: translate(26px, 26px);
-    }
-
-    54.5454545455% {
-        transform: translate(26px, 26px);
-    }
-
-    63.6363636364% {
-        transform: translate(26px, 26px);
-    }
-
-    72.7272727273% {
-        transform: translate(26px, 0px);
-    }
-
-    81.8181818182% {
-        transform: translate(0px, 0px);
-    }
-
-    90.9090909091% {
-        transform: translate(-26px, 0px);
-    }
-
-    100% {
-        transform: translate(0px, 0px);
-    }
-    }
-
-    .banter-loader__box:nth-child(1) {
-    animation: moveBox-1 4s infinite;
-    }
-
-    @keyframes moveBox-2 {
-    9.0909090909% {
-        transform: translate(0, 0);
-    }
-
-    18.1818181818% {
-        transform: translate(26px, 0);
-    }
-
-    27.2727272727% {
-        transform: translate(0px, 0);
-    }
-
-    36.3636363636% {
-        transform: translate(26px, 0);
-    }
-
-    45.4545454545% {
-        transform: translate(26px, 26px);
-    }
-
-    54.5454545455% {
-        transform: translate(26px, 26px);
-    }
-
-    63.6363636364% {
-        transform: translate(26px, 26px);
-    }
-
-    72.7272727273% {
-        transform: translate(26px, 26px);
-    }
-
-    81.8181818182% {
-        transform: translate(0px, 26px);
-    }
-
-    90.9090909091% {
-        transform: translate(0px, 26px);
-    }
-
-    100% {
-        transform: translate(0px, 0px);
-    }
-    }
-
-    .banter-loader__box:nth-child(2) {
-    animation: moveBox-2 4s infinite;
-    }
-
-    @keyframes moveBox-3 {
-    9.0909090909% {
-        transform: translate(-26px, 0);
-    }
-
-    18.1818181818% {
-        transform: translate(-26px, 0);
-    }
-
-    27.2727272727% {
-        transform: translate(0px, 0);
-    }
-
-    36.3636363636% {
-        transform: translate(-26px, 0);
-    }
-
-    45.4545454545% {
-        transform: translate(-26px, 0);
-    }
-
-    54.5454545455% {
-        transform: translate(-26px, 0);
-    }
-
-    63.6363636364% {
-        transform: translate(-26px, 0);
-    }
-
-    72.7272727273% {
-        transform: translate(-26px, 0);
-    }
-
-    81.8181818182% {
-        transform: translate(-26px, -26px);
-    }
-
-    90.9090909091% {
-        transform: translate(0px, -26px);
-    }
-
-    100% {
-        transform: translate(0px, 0px);
-    }
-    }
-
-    .banter-loader__box:nth-child(3) {
-    animation: moveBox-3 4s infinite;
-    }
-
-    @keyframes moveBox-4 {
-    9.0909090909% {
-        transform: translate(-26px, 0);
-    }
-
-    18.1818181818% {
-        transform: translate(-26px, 0);
-    }
-
-    27.2727272727% {
-        transform: translate(-26px, -26px);
-    }
-
-    36.3636363636% {
-        transform: translate(0px, -26px);
-    }
-
-    45.4545454545% {
-        transform: translate(0px, 0px);
-    }
-
-    54.5454545455% {
-        transform: translate(0px, -26px);
-    }
-
-    63.6363636364% {
-        transform: translate(0px, -26px);
-    }
-
-    72.7272727273% {
-        transform: translate(0px, -26px);
-    }
-
-    81.8181818182% {
-        transform: translate(-26px, -26px);
-    }
-
-    90.9090909091% {
-        transform: translate(-26px, 0px);
-    }
-
-    100% {
-        transform: translate(0px, 0px);
-    }
-    }
-
-    .banter-loader__box:nth-child(4) {
-    animation: moveBox-4 4s infinite;
-    }
-
-    @keyframes moveBox-5 {
-    9.0909090909% {
-        transform: translate(0, 0);
-    }
-
-    18.1818181818% {
-        transform: translate(0, 0);
-    }
-
-    27.2727272727% {
-        transform: translate(0, 0);
-    }
-
-    36.3636363636% {
-        transform: translate(26px, 0);
-    }
-
-    45.4545454545% {
-        transform: translate(26px, 0);
-    }
-
-    54.5454545455% {
-        transform: translate(26px, 0);
-    }
-
-    63.6363636364% {
-        transform: translate(26px, 0);
-    }
-
-    72.7272727273% {
-        transform: translate(26px, 0);
-    }
-
-    81.8181818182% {
-        transform: translate(26px, -26px);
-    }
-
-    90.9090909091% {
-        transform: translate(0px, -26px);
-    }
-
-    100% {
-        transform: translate(0px, 0px);
-    }
-    }
-
-    .banter-loader__box:nth-child(5) {
-    animation: moveBox-5 4s infinite;
-    }
-
-    @keyframes moveBox-6 {
-    9.0909090909% {
-        transform: translate(0, 0);
-    }
-
-    18.1818181818% {
-        transform: translate(-26px, 0);
-    }
-
-    27.2727272727% {
-        transform: translate(-26px, 0);
-    }
-
-    36.3636363636% {
-        transform: translate(0px, 0);
-    }
-
-    45.4545454545% {
-        transform: translate(0px, 0);
-    }
-
-    54.5454545455% {
-        transform: translate(0px, 0);
-    }
-
-    63.6363636364% {
-        transform: translate(0px, 0);
-    }
-
-    72.7272727273% {
-        transform: translate(0px, 26px);
-    }
-
-    81.8181818182% {
-        transform: translate(-26px, 26px);
-    }
-
-    90.9090909091% {
-        transform: translate(-26px, 0px);
-    }
-
-    100% {
-        transform: translate(0px, 0px);
-    }
-    }
-
-    .banter-loader__box:nth-child(6) {
-    animation: moveBox-6 4s infinite;
-    }
-
-    @keyframes moveBox-7 {
-    9.0909090909% {
-        transform: translate(26px, 0);
-    }
-
-    18.1818181818% {
-        transform: translate(26px, 0);
-    }
-
-    27.2727272727% {
-        transform: translate(26px, 0);
-    }
-
-    36.3636363636% {
-        transform: translate(0px, 0);
-    }
-
-    45.4545454545% {
-        transform: translate(0px, -26px);
-    }
-
-    54.5454545455% {
-        transform: translate(26px, -26px);
-    }
-
-    63.6363636364% {
-        transform: translate(0px, -26px);
-    }
-
-    72.7272727273% {
-        transform: translate(0px, -26px);
-    }
-
-    81.8181818182% {
-        transform: translate(0px, 0px);
-    }
-
-    90.9090909091% {
-        transform: translate(26px, 0px);
-    }
-
-    100% {
-        transform: translate(0px, 0px);
-    }
-    }
-
-    .banter-loader__box:nth-child(7) {
-    animation: moveBox-7 4s infinite;
-    }
-
-    @keyframes moveBox-8 {
-    9.0909090909% {
-        transform: translate(0, 0);
-    }
-
-    18.1818181818% {
-        transform: translate(-26px, 0);
-    }
-
-    27.2727272727% {
-        transform: translate(-26px, -26px);
-    }
-
-    36.3636363636% {
-        transform: translate(0px, -26px);
-    }
-
-    45.4545454545% {
-        transform: translate(0px, -26px);
-    }
-
-    54.5454545455% {
-        transform: translate(0px, -26px);
-    }
-
-    63.6363636364% {
-        transform: translate(0px, -26px);
-    }
-
-    72.7272727273% {
-        transform: translate(0px, -26px);
-    }
-
-    81.8181818182% {
-        transform: translate(26px, -26px);
-    }
-
-    90.9090909091% {
-        transform: translate(26px, 0px);
-    }
-
-    100% {
-        transform: translate(0px, 0px);
-    }
-    }
-
-    .banter-loader__box:nth-child(8) {
-    animation: moveBox-8 4s infinite;
-    }
-
-    @keyframes moveBox-9 {
-    9.0909090909% {
-        transform: translate(-26px, 0);
-    }
-
-    18.1818181818% {
-        transform: translate(-26px, 0);
-    }
-
-    27.2727272727% {
-        transform: translate(0px, 0);
-    }
-
-    36.3636363636% {
-        transform: translate(-26px, 0);
-    }
-
-    45.4545454545% {
-        transform: translate(0px, 0);
-    }
-
-    54.5454545455% {
-        transform: translate(0px, 0);
-    }
-
-    63.6363636364% {
-        transform: translate(-26px, 0);
-    }
-
-    72.7272727273% {
-        transform: translate(-26px, 0);
-    }
-
-    81.8181818182% {
-        transform: translate(-52px, 0);
-    }
-
-    90.9090909091% {
-        transform: translate(-26px, 0);
-    }
-
-    100% {
-        transform: translate(0px, 0);
-    }
-    }
-
-    .banter-loader__box:nth-child(9) {
-    animation: moveBox-9 4s infinite;
-    }
-</style>
-
-<script>	
-    function initLoading() {
-        const isFirstVisit = !sessionStorage.getItem('visited');
-        if (isFirstVisit) {
-            let loading = document.querySelector('.loading');
-            loading.style.display = 'flex';
-            document.addEventListener('DOMContentLoaded', function() {
-                setTimeout(() => {
-                    loading.classList.add('fade-out'); 
-                    setTimeout(() => {
-                        loading.style.display = 'none';
-                    }, 1000); 
-                }, 1000); 
-                sessionStorage.setItem('visited', 'true');
-            });   
-        }    
-    }
-
-    initLoading();
+          primaryColor: '#4a5568',
+          primaryTextColor: '#f7fafc',
+          primaryBorderColor: '#63b3ed',
+          lineColor: '#e2e8f0',
+          secondaryColor: '#2d3748',
+          tertiaryColor: '#1a202c',
+          background: '#1a202c',
+          
+          
+          fillType0: '#2d3748',
+          fillType1: '#4a5568',
+          fillType2: '#4299e1',
+          clusterBkg: '#2d3748',
+          clusterBorder: '#4a5568',
+          nodeBorder: '#e2e8f0',
+          mainBkg: '#4a5568',
+          altBkg: '#2d3748',
+          
+          
+          labelBackground: '#2d3748',
+          edgeLabelBackground: '#2d3748',
+          titleColor: '#f7fafc',
+          
+          
+          actorBkg: '#2d3748',
+          actorBorder: '#4a5568',
+          actorTextColor: '#e2e8f0',
+          actorLine: '#4a5568',
+          signalColor: '#e2e8f0',
+          signalTextColor: '#e2e8f0',
+          noteBkgColor: '#4a5568',
+          noteBorderColor: '#4a5568',
+          noteTextColor: '#e2e8f0',
+          activationBorderColor: '#4299e1',
+          activationBkgColor: '#2d3748',
+          
+          
+          sectionBkgColor: '#2d3748',
+          altSectionBkgColor: '#4a5568',
+          sectionBorderColor: '#4a5568',
+          taskBkgColor: '#4299e1',
+          taskBorderColor: '#63b3ed',
+          taskTextColor: '#ffffff',
+          activeTaskBkgColor: '#48bb78',
+          activeTaskBorderColor: '#38a169',
+          doneTaskBkgColor: '#2d3748',
+          doneTaskBorderColor: '#4a5568',
+          critBkgColor: '#f56565',
+          critBorderColor: '#e53e3e',
+          critTextColor: '#ffffff',
+          
+          
+          pie1: '#4299e1',
+          pie2: '#48bb78',
+          pie3: '#ed8936',
+          pie4: '#9f7aea',
+          pie5: '#ed64a6',
+          pie6: '#38b2ac',
+          pie7: '#f6ad55',
+          pie8: '#68d391',
+          pie9: '#63b3ed',
+          pie10: '#b794f4',
+          pieTitleTextSize: '24px',
+          pieSectionTextSize: '16px',
+          pieOuterStrokeWidth: '2px',
+          pieStroke: '#1a202c',
+          pieOpacity: '1',
+          
+          
+          classText: '#f7fafc',
+          classTitle: '#f7fafc',
+          
+          
+          stateBkg: '#2d3748',
+          stateBorder: '#4a5568',
+          labelColor: '#f7fafc',
+          stateLabel: '#f7fafc',
+          stateText: '#f7fafc',
+          transitionLabel: '#f7fafc',
+          
+          
+          entityBkg: '#2d3748',
+          entityBorder: '#4a5568',
+          attributeBkg: '#2d3748',
+          attributeBorder: '#4a5568',
+          relationshipText: '#f7fafc',
+          
+          
+          gridColor: '#4a5568',
+          scaleBarColor: '#4a5568',
+          barColor: '#4299e1',
+          barBorderColor: '#63b3ed',
+          todayLineColor: '#f6ad55',
+          
+          
+          git0: '#4299e1',
+          git1: '#48bb78',
+          git2: '#ed8936',
+          git3: '#9f7aea',
+          git4: '#ed64a6',
+          git5: '#38b2ac',
+          git6: '#f6ad55',
+          git7: '#68d391',
+          gitInv0: '#2d3748',
+          gitInv1: '#2d3748',
+          gitInv2: '#2d3748',
+          gitInv3: '#2d3748',
+          gitInv4: '#2d3748',
+          gitInv5: '#2d3748',
+          gitInv6: '#2d3748',
+          gitInv7: '#2d3748',
+          
+          
+          mindmapPrimary: '#4299e1',
+          mindmapSecondary: '#48bb78',
+          mindmapTertiary: '#ed8936',
+          
+          
+          errorTextColor: '#fc8181',
+          warningTextColor: '#f6ad55',
+          infoTextColor: '#63b3ed',
+          
+          
+          edgeLabelBackground: '#1a202c',
+          
+          
+          edgeLabelBackground: '#2d3748',
+          
+          
+          classLabel: '#f7fafc',
+          dividerColor: '#4a5568',
+          
+          
+          dividerColor: '#4a5568',
+          
+          
+          dividerColor: '#4a5568',
+          
+          
+          fontFamily: '"Douyin Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
+          fontSize: '16px'
+        },
+        fontFamily: '"Douyin Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
+        fontSize: 16,
+        flowchart: {
+          useMaxWidth: true,
+          htmlLabels: true,
+          curve: 'basis'
+        },
+        sequence: {
+          useMaxWidth: true
+        },
+        journey: {
+          useMaxWidth: true
+        },
+        pie: {
+          useMaxWidth: true
+        },
+        gantt: {
+          useMaxWidth: true
+        },
+        git: {
+          useMaxWidth: true
+        },
+        mindmap: {
+          useMaxWidth: true
+        }
+      });
+    } else {
+      
+      mermaid.initialize({
+        startOnLoad: false,
+        theme: 'default',
+        themeVariables: {
+          primaryColor: '#007bff',
+          primaryTextColor: '#333',
+          primaryBorderColor: '#007bff',
+          lineColor: '#666',
+          secondaryColor: '#f8f9fa',
+          tertiaryColor: '#e9ecef'
+        },
+        fontFamily: '"Douyin Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
+        fontSize: 16,
+        flowchart: {
+          useMaxWidth: true,
+          htmlLabels: true,
+          curve: 'basis'
+        }
+      });
+    }
+    
+    
+    document.querySelectorAll('.mermaid').forEach(function(element) {
+      if (!element.dataset.original) {
+        element.dataset.original = element.textContent.trim();
+      }
+    });
+    
+    
+    return mermaid.run();
+  }
+
+  
+  document.addEventListener('DOMContentLoaded', function() {
+    
+    initializeMermaid();
+    
+    
+    logThemeInfo();
+    
+    
+    const darkModeToggle = document.getElementById('dark-mode-toggle');
+    if (darkModeToggle) {
+      darkModeToggle.addEventListener('click', function() {
+        
+        document.querySelectorAll('.mermaid').forEach(function(element) {
+          element.classList.add('reloading');
+        });
+        
+        
+        setTimeout(function() {
+          
+          document.querySelectorAll('.mermaid').forEach(function(element) {
+            
+            if (!element.dataset.original) {
+              element.dataset.original = element.textContent.trim();
+            }
+            
+            
+            element.innerHTML = '';
+            
+            
+            element.textContent = element.dataset.original;
+            
+            
+            element.removeAttribute('data-processed');
+          });
+          
+          
+          console.log('[Mermaid] Theme changed, reinitializing...');
+          
+          
+          initializeMermaid().then(function() {
+            
+            document.querySelectorAll('.mermaid').forEach(function(element) {
+              element.classList.remove('reloading');
+            });
+          });
+        }, 250);
+      });
+    }
+  });
 </script>
-
-
 <link rel='stylesheet' href='https://chinese-fonts-cdn.deno.dev/packages/dymh/dist/DouyinSansBold/result.css' />
 
 
@@ -612,13 +351,13 @@
         
             
             <figure class="site-avatar">
-                <a href="/">
+                <a href="/public/">
                 
                     
                     
                     
                         
-                        <img src="/img/avatar_hu_9c50848f93c56cbf.jpeg" width="300"
+                        <img src="/public/img/avatar_hu_9c50848f93c56cbf.jpeg" width="300"
                             height="296" class="site-logo" loading="lazy" alt="Avatar">
                     
                 
@@ -631,7 +370,7 @@
         
         
         <div class="site-meta">
-            <h1 class="site-name"><a href="/">Henry Zhang</a></h1>
+            <h1 class="site-name"><a href="/public">Henry Zhang</a></h1>
             <h2 class="site-description">Driven by Wonder, Powered by Knowledge.🤓</h2>
         </div>
     </header><ol class="menu-social">
@@ -661,7 +400,7 @@
         
         
         <li >
-            <a href='/' >
+            <a href='/public/' >
                 
                 
                 
@@ -681,7 +420,7 @@
         
         
         <li >
-            <a href='/about-me/' >
+            <a href='/public/about-me/' >
                 
                 
                 
@@ -700,7 +439,7 @@
         
         
         <li >
-            <a href='/archives/' >
+            <a href='/public/archives/' >
                 
                 
                 
@@ -720,7 +459,7 @@
         
         
         <li >
-            <a href='/search/' >
+            <a href='/public/search/' >
                 
                 
                 
@@ -739,7 +478,7 @@
         
         
         <li >
-            <a href='/some-useful-links/' >
+            <a href='/public/some-useful-links/' >
                 
                 
                 
@@ -758,7 +497,7 @@
         
         
         <li >
-            <a href='/update-logs/' >
+            <a href='/public/update-logs/' >
                 
                 
                 
@@ -834,16 +573,20 @@
         <div class="widget--toc">
             <nav id="TableOfContents">
   <ol>
-    <li><a href="#什么是-sha256">什么是 SHA256？</a></li>
-    <li><a href="#为什么要使用-sha256-校验">为什么要使用 SHA256 校验？</a></li>
-    <li><a href="#如何在不同平台使用-sha256">如何在不同平台使用 SHA256？</a>
+    <li><a href="#sha-校验入门从原理到实践">SHA 校验入门：从原理到实践</a>
       <ol>
-        <li><a href="#linux">Linux</a></li>
-        <li><a href="#macos">macOS</a></li>
-        <li><a href="#windows">Windows</a></li>
+        <li><a href="#什么是-sha256">什么是 SHA256？</a></li>
+        <li><a href="#为什么要使用-sha256-校验">为什么要使用 SHA256 校验？</a></li>
+        <li><a href="#如何在不同平台使用-sha256">如何在不同平台使用 SHA256？</a>
+          <ol>
+            <li><a href="#linux">Linux</a></li>
+            <li><a href="#macos">macOS</a></li>
+            <li><a href="#windows">Windows</a></li>
+          </ol>
+        </li>
+        <li><a href="#总结">总结</a></li>
       </ol>
     </li>
-    <li><a href="#总结">总结</a></li>
   </ol>
 </nav>
         </div>
@@ -860,9 +603,9 @@
     <article class="has-image main-article">
     <header class="article-header">
         <div class="article-image">
-            <a href="/p/sha-%E6%A0%A1%E9%AA%8C%E5%85%A5%E9%97%A8%E4%BB%8E%E5%8E%9F%E7%90%86%E5%88%B0%E5%AE%9E%E8%B7%B5/">
+            <a href="/public/p/sha-%E6%A0%A1%E9%AA%8C%E5%85%A5%E9%97%A8%E4%BB%8E%E5%8E%9F%E7%90%86%E5%88%B0%E5%AE%9E%E8%B7%B5/">
                 
-                    <img src="/default.jpeg" loading="lazy" alt="Featured image of post SHA 校验入门：从原理到实践" />
+                    <img src="/public/default.jpeg" loading="lazy" alt="Featured image of post SHA 校验入门：从原理到实践" />
                 
             </a>
         </div>
@@ -871,7 +614,7 @@
     <div class="article-details">
     <div class="article-title-wrapper">
         <h2 class="article-title">
-            <a href="/p/sha-%E6%A0%A1%E9%AA%8C%E5%85%A5%E9%97%A8%E4%BB%8E%E5%8E%9F%E7%90%86%E5%88%B0%E5%AE%9E%E8%B7%B5/">SHA 校验入门：从原理到实践</a>
+            <a href="/public/p/sha-%E6%A0%A1%E9%AA%8C%E5%85%A5%E9%97%A8%E4%BB%8E%E5%8E%9F%E7%90%86%E5%88%B0%E5%AE%9E%E8%B7%B5/">SHA 校验入门：从原理到实践</a>
         </h2>
     
         
@@ -892,13 +635,13 @@
                 
                     
                     
-                    <a href="/categories/tech/" class="category-link" style="background-color: #4fe6ab; color: #ffffff;">
+                    <a href="/public/categories/tech/" class="category-link" style="background-color: #4fe6ab; color: #ffffff;">
                         Tech
                     </a>
                 
                     
                     
-                    <a href="/categories/security/" class="category-link" style="background-color: #f25ce1; color: #ffffff;">
+                    <a href="/public/categories/security/" class="category-link" style="background-color: #f25ce1; color: #ffffff;">
                         Security
                     </a>
                 
@@ -910,31 +653,31 @@
                 
                     
                     
-                    <a href="/tags/sha256/" class="tag-link" style="color: #ffffff; border: 1px solid #b92e71; background-color: #b92e7120;">
+                    <a href="/public/tags/sha256/" class="tag-link" style="color: #ffffff; border: 1px solid #b92e71; background-color: #b92e7120;">
                         #SHA256
                     </a>
                 
                     
                     
-                    <a href="/tags/linux/" class="tag-link" style="color: #ffffff; border: 1px solid #83ad85; background-color: #83ad8520;">
+                    <a href="/public/tags/linux/" class="tag-link" style="color: #ffffff; border: 1px solid #83ad85; background-color: #83ad8520;">
                         #Linux
                     </a>
                 
                     
                     
-                    <a href="/tags/macos/" class="tag-link" style="color: #ffffff; border: 1px solid #49cf4e; background-color: #49cf4e20;">
+                    <a href="/public/tags/macos/" class="tag-link" style="color: #ffffff; border: 1px solid #49cf4e; background-color: #49cf4e20;">
                         #MacOS
                     </a>
                 
                     
                     
-                    <a href="/tags/windows/" class="tag-link" style="color: #ffffff; border: 1px solid #26d9c2; background-color: #26d9c220;">
+                    <a href="/public/tags/windows/" class="tag-link" style="color: #ffffff; border: 1px solid #26d9c2; background-color: #26d9c220;">
                         #Windows
                     </a>
                 
                     
                     
-                    <a href="/tags/cybersecurity/" class="tag-link" style="color: #ffffff; border: 1px solid #7b7a8d; background-color: #7b7a8d20;">
+                    <a href="/public/tags/cybersecurity/" class="tag-link" style="color: #ffffff; border: 1px solid #7b7a8d; background-color: #7b7a8d20;">
                         #Cybersecurity
                     </a>
                 
@@ -1003,41 +746,101 @@
 </h2><p>下面是在主流操作系统上计算文件 SHA256 哈希值的实用命令。</p>
 <h3 id="linux">Linux
 </h3><p>在大多数 Linux 发行版中，<code>sha256sum</code> 是一个预装的命令行工具，非常方便。</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sha256sum /path/to/your/file
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="c1"># 通过哈希值直接验证下载后的文件完整性</span>
-</span></span><span class="line"><span class="cl"><span class="nb">echo</span> <span class="s1">&#39;&lt;hash_code&gt; &lt;file_name&gt;&#39;</span> <span class="p">|</span> sha256sum -c<span class="err">&#39;</span>
-</span></span></code></pre></div><blockquote class="alert alert-tip">
+
+
+
+
+
+<div class="highlight highlight-bash">
+  <pre>
+    <code class="language-bash" data-lang="bash">sha256sum /path/to/your/file
+
+# 通过哈希值直接验证下载后的文件完整性
+echo &#39;&lt;hash_code&gt; &lt;file_name&gt;&#39; | sha256sum -c&#39;</code>
+  </pre>
+</div>
+
+<blockquote class="alert alert-tip">
     <p>一般情况下gihub上release文件都自带sha256可以直接校验.</p></blockquote>
 <p><strong>示例：</strong>
 假设我们下载了一个名为 <code>ubuntu-24.04-desktop-amd64.iso</code> 的文件。</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># 计算 ISO 文件的 SHA256 哈希值</span>
-</span></span><span class="line"><span class="cl">sha256sum ubuntu-24.04-desktop-amd64.iso
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="c1"># 命令执行后会输出类似下面的结果</span>
-</span></span><span class="line"><span class="cl"><span class="c1"># 5b863375b70b5711d51c35068205562e316a3c64c4d5b6f3f7756f6b5f5a8f3d  ubuntu-24.04-desktop-amd64.iso</span>
-</span></span></code></pre></div><p>你只需要将输出的这串 <code>5b86...</code> 与官方网站提供的哈希值进行对比即可。</p>
+
+
+
+
+
+<div class="highlight highlight-bash">
+  <pre>
+    <code class="language-bash" data-lang="bash"># 计算 ISO 文件的 SHA256 哈希值
+sha256sum ubuntu-24.04-desktop-amd64.iso
+
+# 命令执行后会输出类似下面的结果
+# 5b863375b70b5711d51c35068205562e316a3c64c4d5b6f3f7756f6b5f5a8f3d  ubuntu-24.04-desktop-amd64.iso</code>
+  </pre>
+</div>
+
+<p>你只需要将输出的这串 <code>5b86...</code> 与官方网站提供的哈希值进行对比即可。</p>
 <h3 id="macos">macOS
 </h3><p>macOS 用户可以使用 <code>shasum</code> 命令，并通过 <code>-a</code> 参数指定算法。</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">shasum -a <span class="m">256</span> /path/to/your/file
-</span></span></code></pre></div><p><strong>示例：</strong></p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># 计算同一个 ISO 文件的哈希值</span>
-</span></span><span class="line"><span class="cl">shasum -a <span class="m">256</span> ubuntu-24.04-desktop-amd64.iso
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="c1"># 输出格式与 Linux 类似</span>
-</span></span><span class="line"><span class="cl"><span class="c1"># 5b863375b70b5711d51c35068205562e316a3c64c4d5b6f3f7756f6b5f5a8f3d  ubuntu-24.04-desktop-amd64.iso</span>
-</span></span></code></pre></div><h3 id="windows">Windows
+
+
+
+
+
+<div class="highlight highlight-bash">
+  <pre>
+    <code class="language-bash" data-lang="bash">shasum -a 256 /path/to/your/file</code>
+  </pre>
+</div>
+
+<p><strong>示例：</strong></p>
+
+
+
+
+
+<div class="highlight highlight-bash">
+  <pre>
+    <code class="language-bash" data-lang="bash"># 计算同一个 ISO 文件的哈希值
+shasum -a 256 ubuntu-24.04-desktop-amd64.iso
+
+# 输出格式与 Linux 类似
+# 5b863375b70b5711d51c35068205562e316a3c64c4d5b6f3f7756f6b5f5a8f3d  ubuntu-24.04-desktop-amd64.iso</code>
+  </pre>
+</div>
+
+<h3 id="windows">Windows
 </h3><p>Windows 用户可以使用系统内置的 <code>CertUtil</code> 工具。</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-powershell" data-lang="powershell"><span class="line"><span class="cl"><span class="n">CertUtil</span> <span class="n">-hashfile</span> <span class="n">C:</span><span class="p">\</span><span class="n">path</span><span class="p">\</span><span class="n">to</span><span class="p">\</span><span class="n">your</span><span class="p">\</span><span class="n">file</span> <span class="n">SHA256</span>
-</span></span></code></pre></div><p><strong>示例：</strong></p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-powershell" data-lang="powershell"><span class="line"><span class="cl"><span class="c"># 在 PowerShell 或 CMD 中运行</span>
-</span></span><span class="line"><span class="cl"><span class="n">CertUtil</span> <span class="n">-hashfile</span> <span class="n">D:</span><span class="p">\</span><span class="n">Downloads</span><span class="p">\</span><span class="n">ubuntu</span><span class="p">-</span><span class="mf">24.04</span><span class="n">-desktop-amd64</span><span class="p">.</span><span class="py">iso</span> <span class="n">SHA256</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="c"># 输出会是这样的格式</span>
-</span></span><span class="line"><span class="cl"><span class="c"># SHA256 哈希值:</span>
-</span></span><span class="line"><span class="cl"><span class="c"># 5b863375b70b5711d51c35068205562e316a3c64c4d5b6f3f7756f6b5f5a8f3d</span>
-</span></span><span class="line"><span class="cl"><span class="c"># CertUtil: -hashfile 命令成功完成。</span>
-</span></span></code></pre></div><blockquote class="alert alert-note">
+
+
+
+
+
+<div class="highlight highlight-powershell">
+  <pre>
+    <code class="language-powershell" data-lang="powershell">CertUtil -hashfile C:\path\to\your\file SHA256</code>
+  </pre>
+</div>
+
+<p><strong>示例：</strong></p>
+
+
+
+
+
+<div class="highlight highlight-powershell">
+  <pre>
+    <code class="language-powershell" data-lang="powershell"># 在 PowerShell 或 CMD 中运行
+CertUtil -hashfile D:\Downloads\ubuntu-24.04-desktop-amd64.iso SHA256
+
+# 输出会是这样的格式
+# SHA256 哈希值:
+# 5b863375b70b5711d51c35068205562e316a3c64c4d5b6f3f7756f6b5f5a8f3d
+# CertUtil: -hashfile 命令成功完成。</code>
+  </pre>
+</div>
+
+<blockquote class="alert alert-note">
     <p>Windows 输出的哈希值默认没有空格，但某些第三方工具可能会添加空格。比对时请确保格式一致，或者忽略空格进行比较。</p></blockquote>
 <h2 id="总结">总结
 </h2><p>SHA256 校验是保护我们免受损坏文件和恶意软件侵害的一个简单而强大的工具。养成在处理重要文件时进行哈希校验的习惯，将为你的数字生活增添一道重要的安全防线。操作本身非常简单，几条命令就能搞定，但其背后的安全意义却十分重大。</p>
@@ -1159,7 +962,9 @@
     <section class="copyright">
         &copy; 
         
-        2025 blog@mail.henry070.org
+            2025 - 
+        
+        2026 blog@mail.henry070.org
     </section>
     
     <section class="powerby">
@@ -1255,7 +1060,7 @@
                 src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
                 
                 >
-            </script><script type="text/javascript" src="/ts/main.1e9a3bafd846ced4c345d084b355fb8c7bae75701c338f8a1f8a82c780137826.js" defer></script>
+            </script><script type="text/javascript" src="/public/ts/main.c922af694cc257bf1ecc41c0dd7b0430f9114ec280ccf67cd2c6ad55f5316c4e.js" defer></script>
 <script>
     (function () {
         const customFont = document.createElement('link');
@@ -1463,7 +1268,7 @@
       
       let img = document.createElement('img');
       img.classList.add('code-more-img');
-      img.src = "https://Gzmomo001.github.io/icons/down.png"
+      img.src = "https://Gzmomo001.github.io/public/icons/down.png"
       
       codeMoreBtn.appendChild(img);
       codeMoreBox.appendChild(codeMoreBtn);

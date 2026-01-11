@@ -4,574 +4,313 @@
 <meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="这里是我记录 Hugo 这个框架笔记的地方">
 <title>Hugo_notes</title>
 
-<link rel='canonical' href='https://Gzmomo001.github.io/p/hugo_notes/'>
+<link rel='canonical' href='https://Gzmomo001.github.io/public/p/hugo_notes/'>
 
-<link rel="stylesheet" href="/scss/style.min.f0d856d8a5610b3c0c2069a79146122abf2acb30a6b00e2bbb69c2113678b2e3.css"><meta property='og:title' content="Hugo_notes">
+<link rel="stylesheet" href="/public/scss/style.min.69ed452c4f70aa0bd98aa7f62758389d29493390c2f090e74cf1c607d4445e3e.css"><meta property='og:title' content="Hugo_notes">
 <meta property='og:description' content="这里是我记录 Hugo 这个框架笔记的地方">
-<meta property='og:url' content='https://Gzmomo001.github.io/p/hugo_notes/'>
+<meta property='og:url' content='https://Gzmomo001.github.io/public/p/hugo_notes/'>
 <meta property='og:site_name' content='Henry Zhang'>
-<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='Hugo' /><meta property='article:published_time' content='2025-05-22T23:29:01&#43;08:00'/><meta property='article:modified_time' content='2025-11-25T18:20:14&#43;08:00'/><meta property='og:image' content='https://Gzmomo001.github.io/p/hugo_notes/1.jpeg' />
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='Hugo' /><meta property='article:published_time' content='2025-05-22T23:29:01&#43;08:00'/><meta property='article:modified_time' content='2025-11-25T18:20:14&#43;08:00'/><meta property='og:image' content='https://Gzmomo001.github.io/public/p/hugo_notes/1.jpeg' />
 <meta name="twitter:title" content="Hugo_notes">
 <meta name="twitter:description" content="这里是我记录 Hugo 这个框架笔记的地方"><meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:image" content='https://Gzmomo001.github.io/p/hugo_notes/1.jpeg' />
+    <meta name="twitter:image" content='https://Gzmomo001.github.io/public/p/hugo_notes/1.jpeg' />
     <link rel="shortcut icon" href="/favicon.ico" />
-<link rel='stylesheet' href='https://chinese-fonts-cdn.deno.dev/packages/dymh/dist/DouyinSansBold/result.css' />
 
-<div class="loading">
-     
-    <div class="banter-loader">
-        <div class="banter-loader__box"></div>
-        <div class="banter-loader__box"></div>
-        <div class="banter-loader__box"></div>
-        <div class="banter-loader__box"></div>
-        <div class="banter-loader__box"></div>
-        <div class="banter-loader__box"></div>
-        <div class="banter-loader__box"></div>
-        <div class="banter-loader__box"></div>
-        <div class="banter-loader__box"></div>
-    </div>
-</div>
 
-<style>
-    .loading {
-        position: fixed;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        z-index: 99;
-        zoom: 3.0;
-        background-color: #5b5b5b;
-        display: none;
-        transition: opacity 1s ease-out; 
+<script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+<script>
+  
+  function getCurrentTheme() {
+    const colorSchemeKey = 'StackColorScheme';
+    const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+    const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+    
+    if (colorSchemeItem === 'dark' || (colorSchemeItem === 'auto' && supportDarkMode)) {
+      return 'dark';
+    } else {
+      return 'light';
     }
+  }
 
-    .loading.fade-out {
-        opacity: 0;
-    }
-	
+  
+  function logThemeInfo() {
+    const colorSchemeKey = 'StackColorScheme';
+    const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+    const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+    const documentScheme = document.documentElement.dataset.scheme;
+    
+    console.log('[Mermaid] Theme Detection:', {
+      localStorage: colorSchemeItem,
+      systemDark: supportDarkMode,
+      documentScheme: documentScheme,
+      calculatedTheme: getCurrentTheme()
+    });
+  }
+
+  
+  function initializeMermaid() {
+    const currentTheme = getCurrentTheme();
+    
+    if (currentTheme === 'dark') {
+      
+      mermaid.initialize({
+        startOnLoad: false,
+        theme: 'dark',
+        themeVariables: {
           
-    .banter-loader {
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    width: 72px;
-    height: 72px;
-    margin-left: -36px;
-    margin-top: -36px;
-    }
-
-    .banter-loader__box {
-    float: left;
-    position: relative;
-    width: 20px;
-    height: 20px;
-    margin-right: 6px;
-    }
-
-    .banter-loader__box:before {
-    content: "";
-    position: absolute;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    background: #fff;
-    }
-
-    .banter-loader__box:nth-child(3n) {
-    margin-right: 0;
-    margin-bottom: 6px;
-    }
-
-    .banter-loader__box:nth-child(1):before, .banter-loader__box:nth-child(4):before {
-    margin-left: 26px;
-    }
-
-    .banter-loader__box:nth-child(3):before {
-    margin-top: 52px;
-    }
-
-    .banter-loader__box:last-child {
-    margin-bottom: 0;
-    }
-
-    @keyframes moveBox-1 {
-    9.0909090909% {
-        transform: translate(-26px, 0);
-    }
-
-    18.1818181818% {
-        transform: translate(0px, 0);
-    }
-
-    27.2727272727% {
-        transform: translate(0px, 0);
-    }
-
-    36.3636363636% {
-        transform: translate(26px, 0);
-    }
-
-    45.4545454545% {
-        transform: translate(26px, 26px);
-    }
-
-    54.5454545455% {
-        transform: translate(26px, 26px);
-    }
-
-    63.6363636364% {
-        transform: translate(26px, 26px);
-    }
-
-    72.7272727273% {
-        transform: translate(26px, 0px);
-    }
-
-    81.8181818182% {
-        transform: translate(0px, 0px);
-    }
-
-    90.9090909091% {
-        transform: translate(-26px, 0px);
-    }
-
-    100% {
-        transform: translate(0px, 0px);
-    }
-    }
-
-    .banter-loader__box:nth-child(1) {
-    animation: moveBox-1 4s infinite;
-    }
-
-    @keyframes moveBox-2 {
-    9.0909090909% {
-        transform: translate(0, 0);
-    }
-
-    18.1818181818% {
-        transform: translate(26px, 0);
-    }
-
-    27.2727272727% {
-        transform: translate(0px, 0);
-    }
-
-    36.3636363636% {
-        transform: translate(26px, 0);
-    }
-
-    45.4545454545% {
-        transform: translate(26px, 26px);
-    }
-
-    54.5454545455% {
-        transform: translate(26px, 26px);
-    }
-
-    63.6363636364% {
-        transform: translate(26px, 26px);
-    }
-
-    72.7272727273% {
-        transform: translate(26px, 26px);
-    }
-
-    81.8181818182% {
-        transform: translate(0px, 26px);
-    }
-
-    90.9090909091% {
-        transform: translate(0px, 26px);
-    }
-
-    100% {
-        transform: translate(0px, 0px);
-    }
-    }
-
-    .banter-loader__box:nth-child(2) {
-    animation: moveBox-2 4s infinite;
-    }
-
-    @keyframes moveBox-3 {
-    9.0909090909% {
-        transform: translate(-26px, 0);
-    }
-
-    18.1818181818% {
-        transform: translate(-26px, 0);
-    }
-
-    27.2727272727% {
-        transform: translate(0px, 0);
-    }
-
-    36.3636363636% {
-        transform: translate(-26px, 0);
-    }
-
-    45.4545454545% {
-        transform: translate(-26px, 0);
-    }
-
-    54.5454545455% {
-        transform: translate(-26px, 0);
-    }
-
-    63.6363636364% {
-        transform: translate(-26px, 0);
-    }
-
-    72.7272727273% {
-        transform: translate(-26px, 0);
-    }
-
-    81.8181818182% {
-        transform: translate(-26px, -26px);
-    }
-
-    90.9090909091% {
-        transform: translate(0px, -26px);
-    }
-
-    100% {
-        transform: translate(0px, 0px);
-    }
-    }
-
-    .banter-loader__box:nth-child(3) {
-    animation: moveBox-3 4s infinite;
-    }
-
-    @keyframes moveBox-4 {
-    9.0909090909% {
-        transform: translate(-26px, 0);
-    }
-
-    18.1818181818% {
-        transform: translate(-26px, 0);
-    }
-
-    27.2727272727% {
-        transform: translate(-26px, -26px);
-    }
-
-    36.3636363636% {
-        transform: translate(0px, -26px);
-    }
-
-    45.4545454545% {
-        transform: translate(0px, 0px);
-    }
-
-    54.5454545455% {
-        transform: translate(0px, -26px);
-    }
-
-    63.6363636364% {
-        transform: translate(0px, -26px);
-    }
-
-    72.7272727273% {
-        transform: translate(0px, -26px);
-    }
-
-    81.8181818182% {
-        transform: translate(-26px, -26px);
-    }
-
-    90.9090909091% {
-        transform: translate(-26px, 0px);
-    }
-
-    100% {
-        transform: translate(0px, 0px);
-    }
-    }
-
-    .banter-loader__box:nth-child(4) {
-    animation: moveBox-4 4s infinite;
-    }
-
-    @keyframes moveBox-5 {
-    9.0909090909% {
-        transform: translate(0, 0);
-    }
-
-    18.1818181818% {
-        transform: translate(0, 0);
-    }
-
-    27.2727272727% {
-        transform: translate(0, 0);
-    }
-
-    36.3636363636% {
-        transform: translate(26px, 0);
-    }
-
-    45.4545454545% {
-        transform: translate(26px, 0);
-    }
-
-    54.5454545455% {
-        transform: translate(26px, 0);
-    }
-
-    63.6363636364% {
-        transform: translate(26px, 0);
-    }
-
-    72.7272727273% {
-        transform: translate(26px, 0);
-    }
-
-    81.8181818182% {
-        transform: translate(26px, -26px);
-    }
-
-    90.9090909091% {
-        transform: translate(0px, -26px);
-    }
-
-    100% {
-        transform: translate(0px, 0px);
-    }
-    }
-
-    .banter-loader__box:nth-child(5) {
-    animation: moveBox-5 4s infinite;
-    }
-
-    @keyframes moveBox-6 {
-    9.0909090909% {
-        transform: translate(0, 0);
-    }
-
-    18.1818181818% {
-        transform: translate(-26px, 0);
-    }
-
-    27.2727272727% {
-        transform: translate(-26px, 0);
-    }
-
-    36.3636363636% {
-        transform: translate(0px, 0);
-    }
-
-    45.4545454545% {
-        transform: translate(0px, 0);
-    }
-
-    54.5454545455% {
-        transform: translate(0px, 0);
-    }
-
-    63.6363636364% {
-        transform: translate(0px, 0);
-    }
-
-    72.7272727273% {
-        transform: translate(0px, 26px);
-    }
-
-    81.8181818182% {
-        transform: translate(-26px, 26px);
-    }
-
-    90.9090909091% {
-        transform: translate(-26px, 0px);
-    }
-
-    100% {
-        transform: translate(0px, 0px);
-    }
-    }
-
-    .banter-loader__box:nth-child(6) {
-    animation: moveBox-6 4s infinite;
-    }
-
-    @keyframes moveBox-7 {
-    9.0909090909% {
-        transform: translate(26px, 0);
-    }
-
-    18.1818181818% {
-        transform: translate(26px, 0);
-    }
-
-    27.2727272727% {
-        transform: translate(26px, 0);
-    }
-
-    36.3636363636% {
-        transform: translate(0px, 0);
-    }
-
-    45.4545454545% {
-        transform: translate(0px, -26px);
-    }
-
-    54.5454545455% {
-        transform: translate(26px, -26px);
-    }
-
-    63.6363636364% {
-        transform: translate(0px, -26px);
-    }
-
-    72.7272727273% {
-        transform: translate(0px, -26px);
-    }
-
-    81.8181818182% {
-        transform: translate(0px, 0px);
-    }
-
-    90.9090909091% {
-        transform: translate(26px, 0px);
-    }
-
-    100% {
-        transform: translate(0px, 0px);
-    }
-    }
-
-    .banter-loader__box:nth-child(7) {
-    animation: moveBox-7 4s infinite;
-    }
-
-    @keyframes moveBox-8 {
-    9.0909090909% {
-        transform: translate(0, 0);
-    }
-
-    18.1818181818% {
-        transform: translate(-26px, 0);
-    }
-
-    27.2727272727% {
-        transform: translate(-26px, -26px);
-    }
-
-    36.3636363636% {
-        transform: translate(0px, -26px);
-    }
-
-    45.4545454545% {
-        transform: translate(0px, -26px);
-    }
-
-    54.5454545455% {
-        transform: translate(0px, -26px);
-    }
-
-    63.6363636364% {
-        transform: translate(0px, -26px);
-    }
-
-    72.7272727273% {
-        transform: translate(0px, -26px);
-    }
-
-    81.8181818182% {
-        transform: translate(26px, -26px);
-    }
-
-    90.9090909091% {
-        transform: translate(26px, 0px);
-    }
-
-    100% {
-        transform: translate(0px, 0px);
-    }
-    }
-
-    .banter-loader__box:nth-child(8) {
-    animation: moveBox-8 4s infinite;
-    }
-
-    @keyframes moveBox-9 {
-    9.0909090909% {
-        transform: translate(-26px, 0);
-    }
-
-    18.1818181818% {
-        transform: translate(-26px, 0);
-    }
-
-    27.2727272727% {
-        transform: translate(0px, 0);
-    }
-
-    36.3636363636% {
-        transform: translate(-26px, 0);
-    }
-
-    45.4545454545% {
-        transform: translate(0px, 0);
-    }
-
-    54.5454545455% {
-        transform: translate(0px, 0);
-    }
-
-    63.6363636364% {
-        transform: translate(-26px, 0);
-    }
-
-    72.7272727273% {
-        transform: translate(-26px, 0);
-    }
-
-    81.8181818182% {
-        transform: translate(-52px, 0);
-    }
-
-    90.9090909091% {
-        transform: translate(-26px, 0);
-    }
-
-    100% {
-        transform: translate(0px, 0);
-    }
-    }
-
-    .banter-loader__box:nth-child(9) {
-    animation: moveBox-9 4s infinite;
-    }
-</style>
-
-<script>	
-    function initLoading() {
-        const isFirstVisit = !sessionStorage.getItem('visited');
-        if (isFirstVisit) {
-            let loading = document.querySelector('.loading');
-            loading.style.display = 'flex';
-            document.addEventListener('DOMContentLoaded', function() {
-                setTimeout(() => {
-                    loading.classList.add('fade-out'); 
-                    setTimeout(() => {
-                        loading.style.display = 'none';
-                    }, 1000); 
-                }, 1000); 
-                sessionStorage.setItem('visited', 'true');
-            });   
-        }    
-    }
-
-    initLoading();
+          primaryColor: '#4a5568',
+          primaryTextColor: '#f7fafc',
+          primaryBorderColor: '#63b3ed',
+          lineColor: '#e2e8f0',
+          secondaryColor: '#2d3748',
+          tertiaryColor: '#1a202c',
+          background: '#1a202c',
+          
+          
+          fillType0: '#2d3748',
+          fillType1: '#4a5568',
+          fillType2: '#4299e1',
+          clusterBkg: '#2d3748',
+          clusterBorder: '#4a5568',
+          nodeBorder: '#e2e8f0',
+          mainBkg: '#4a5568',
+          altBkg: '#2d3748',
+          
+          
+          labelBackground: '#2d3748',
+          edgeLabelBackground: '#2d3748',
+          titleColor: '#f7fafc',
+          
+          
+          actorBkg: '#2d3748',
+          actorBorder: '#4a5568',
+          actorTextColor: '#e2e8f0',
+          actorLine: '#4a5568',
+          signalColor: '#e2e8f0',
+          signalTextColor: '#e2e8f0',
+          noteBkgColor: '#4a5568',
+          noteBorderColor: '#4a5568',
+          noteTextColor: '#e2e8f0',
+          activationBorderColor: '#4299e1',
+          activationBkgColor: '#2d3748',
+          
+          
+          sectionBkgColor: '#2d3748',
+          altSectionBkgColor: '#4a5568',
+          sectionBorderColor: '#4a5568',
+          taskBkgColor: '#4299e1',
+          taskBorderColor: '#63b3ed',
+          taskTextColor: '#ffffff',
+          activeTaskBkgColor: '#48bb78',
+          activeTaskBorderColor: '#38a169',
+          doneTaskBkgColor: '#2d3748',
+          doneTaskBorderColor: '#4a5568',
+          critBkgColor: '#f56565',
+          critBorderColor: '#e53e3e',
+          critTextColor: '#ffffff',
+          
+          
+          pie1: '#4299e1',
+          pie2: '#48bb78',
+          pie3: '#ed8936',
+          pie4: '#9f7aea',
+          pie5: '#ed64a6',
+          pie6: '#38b2ac',
+          pie7: '#f6ad55',
+          pie8: '#68d391',
+          pie9: '#63b3ed',
+          pie10: '#b794f4',
+          pieTitleTextSize: '24px',
+          pieSectionTextSize: '16px',
+          pieOuterStrokeWidth: '2px',
+          pieStroke: '#1a202c',
+          pieOpacity: '1',
+          
+          
+          classText: '#f7fafc',
+          classTitle: '#f7fafc',
+          
+          
+          stateBkg: '#2d3748',
+          stateBorder: '#4a5568',
+          labelColor: '#f7fafc',
+          stateLabel: '#f7fafc',
+          stateText: '#f7fafc',
+          transitionLabel: '#f7fafc',
+          
+          
+          entityBkg: '#2d3748',
+          entityBorder: '#4a5568',
+          attributeBkg: '#2d3748',
+          attributeBorder: '#4a5568',
+          relationshipText: '#f7fafc',
+          
+          
+          gridColor: '#4a5568',
+          scaleBarColor: '#4a5568',
+          barColor: '#4299e1',
+          barBorderColor: '#63b3ed',
+          todayLineColor: '#f6ad55',
+          
+          
+          git0: '#4299e1',
+          git1: '#48bb78',
+          git2: '#ed8936',
+          git3: '#9f7aea',
+          git4: '#ed64a6',
+          git5: '#38b2ac',
+          git6: '#f6ad55',
+          git7: '#68d391',
+          gitInv0: '#2d3748',
+          gitInv1: '#2d3748',
+          gitInv2: '#2d3748',
+          gitInv3: '#2d3748',
+          gitInv4: '#2d3748',
+          gitInv5: '#2d3748',
+          gitInv6: '#2d3748',
+          gitInv7: '#2d3748',
+          
+          
+          mindmapPrimary: '#4299e1',
+          mindmapSecondary: '#48bb78',
+          mindmapTertiary: '#ed8936',
+          
+          
+          errorTextColor: '#fc8181',
+          warningTextColor: '#f6ad55',
+          infoTextColor: '#63b3ed',
+          
+          
+          edgeLabelBackground: '#1a202c',
+          
+          
+          edgeLabelBackground: '#2d3748',
+          
+          
+          classLabel: '#f7fafc',
+          dividerColor: '#4a5568',
+          
+          
+          dividerColor: '#4a5568',
+          
+          
+          dividerColor: '#4a5568',
+          
+          
+          fontFamily: '"Douyin Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
+          fontSize: '16px'
+        },
+        fontFamily: '"Douyin Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
+        fontSize: 16,
+        flowchart: {
+          useMaxWidth: true,
+          htmlLabels: true,
+          curve: 'basis'
+        },
+        sequence: {
+          useMaxWidth: true
+        },
+        journey: {
+          useMaxWidth: true
+        },
+        pie: {
+          useMaxWidth: true
+        },
+        gantt: {
+          useMaxWidth: true
+        },
+        git: {
+          useMaxWidth: true
+        },
+        mindmap: {
+          useMaxWidth: true
+        }
+      });
+    } else {
+      
+      mermaid.initialize({
+        startOnLoad: false,
+        theme: 'default',
+        themeVariables: {
+          primaryColor: '#007bff',
+          primaryTextColor: '#333',
+          primaryBorderColor: '#007bff',
+          lineColor: '#666',
+          secondaryColor: '#f8f9fa',
+          tertiaryColor: '#e9ecef'
+        },
+        fontFamily: '"Douyin Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
+        fontSize: 16,
+        flowchart: {
+          useMaxWidth: true,
+          htmlLabels: true,
+          curve: 'basis'
+        }
+      });
+    }
+    
+    
+    document.querySelectorAll('.mermaid').forEach(function(element) {
+      if (!element.dataset.original) {
+        element.dataset.original = element.textContent.trim();
+      }
+    });
+    
+    
+    return mermaid.run();
+  }
+
+  
+  document.addEventListener('DOMContentLoaded', function() {
+    
+    initializeMermaid();
+    
+    
+    logThemeInfo();
+    
+    
+    const darkModeToggle = document.getElementById('dark-mode-toggle');
+    if (darkModeToggle) {
+      darkModeToggle.addEventListener('click', function() {
+        
+        document.querySelectorAll('.mermaid').forEach(function(element) {
+          element.classList.add('reloading');
+        });
+        
+        
+        setTimeout(function() {
+          
+          document.querySelectorAll('.mermaid').forEach(function(element) {
+            
+            if (!element.dataset.original) {
+              element.dataset.original = element.textContent.trim();
+            }
+            
+            
+            element.innerHTML = '';
+            
+            
+            element.textContent = element.dataset.original;
+            
+            
+            element.removeAttribute('data-processed');
+          });
+          
+          
+          console.log('[Mermaid] Theme changed, reinitializing...');
+          
+          
+          initializeMermaid().then(function() {
+            
+            document.querySelectorAll('.mermaid').forEach(function(element) {
+              element.classList.remove('reloading');
+            });
+          });
+        }, 250);
+      });
+    }
+  });
 </script>
-
-
 <link rel='stylesheet' href='https://chinese-fonts-cdn.deno.dev/packages/dymh/dist/DouyinSansBold/result.css' />
 
 
@@ -612,13 +351,13 @@
         
             
             <figure class="site-avatar">
-                <a href="/">
+                <a href="/public/">
                 
                     
                     
                     
                         
-                        <img src="/img/avatar_hu_9c50848f93c56cbf.jpeg" width="300"
+                        <img src="/public/img/avatar_hu_9c50848f93c56cbf.jpeg" width="300"
                             height="296" class="site-logo" loading="lazy" alt="Avatar">
                     
                 
@@ -631,7 +370,7 @@
         
         
         <div class="site-meta">
-            <h1 class="site-name"><a href="/">Henry Zhang</a></h1>
+            <h1 class="site-name"><a href="/public">Henry Zhang</a></h1>
             <h2 class="site-description">Driven by Wonder, Powered by Knowledge.🤓</h2>
         </div>
     </header><ol class="menu-social">
@@ -661,7 +400,7 @@
         
         
         <li >
-            <a href='/' >
+            <a href='/public/' >
                 
                 
                 
@@ -681,7 +420,7 @@
         
         
         <li >
-            <a href='/about-me/' >
+            <a href='/public/about-me/' >
                 
                 
                 
@@ -700,7 +439,7 @@
         
         
         <li >
-            <a href='/archives/' >
+            <a href='/public/archives/' >
                 
                 
                 
@@ -720,7 +459,7 @@
         
         
         <li >
-            <a href='/search/' >
+            <a href='/public/search/' >
                 
                 
                 
@@ -739,7 +478,7 @@
         
         
         <li >
-            <a href='/some-useful-links/' >
+            <a href='/public/some-useful-links/' >
                 
                 
                 
@@ -758,7 +497,7 @@
         
         
         <li >
-            <a href='/update-logs/' >
+            <a href='/public/update-logs/' >
                 
                 
                 
@@ -834,31 +573,35 @@
         <div class="widget--toc">
             <nav id="TableOfContents">
   <ol>
-    <li><a href="#如何使用-hugo-框架快速搭建一个自己的博客">如何使用 hugo 框架快速搭建一个自己的博客.</a>
+    <li><a href="#hugo-笔记">Hugo 笔记</a>
       <ol>
-        <li><a href="#安装-hugo">安装 hugo</a></li>
-        <li><a href="#安装-git">安装 git</a></li>
-        <li><a href="#检查-hugo-和-git-是否安装">检查 hugo 和 git 是否安装.</a></li>
-        <li><a href="#顺着官网的文档建立你的第一个本地服务的博客">顺着官网的文档建立你的第一个本地服务的博客</a></li>
-        <li><a href="#将你的本地-git-仓库-push-到-github">将你的本地 git 仓库 push 到 github</a></li>
-        <li><a href="#大工告成-快去查看你的第一个博客吧">大工告成, 快去查看你的第一个博客吧.</a></li>
-      </ol>
-    </li>
-    <li><a href="#创建新的博客">创建新的博客</a></li>
-    <li><a href="#刷新静态文件">刷新静态文件</a></li>
-    <li><a href="#md-语法">md 语法</a></li>
-    <li><a href="#stack-主题设置">stack 主题设置</a>
-      <ol>
-        <li><a href="#widgets">widgets</a></li>
-        <li><a href="#博客的标题显示格式定义">博客的标题显示格式定义</a></li>
-        <li><a href="#add-links">add links</a></li>
-      </ol>
-    </li>
-    <li><a href="#todo">TODO</a></li>
-    <li><a href="#返回顶部按钮">返回顶部按钮</a>
-      <ol>
-        <li><a href="#失败案例">失败案例:</a></li>
-        <li><a href="#通过-js-直接画出返回顶部的图标">通过 js 直接画出返回顶部的图标</a></li>
+        <li><a href="#如何使用-hugo-框架快速搭建一个自己的博客">如何使用 hugo 框架快速搭建一个自己的博客.</a>
+          <ol>
+            <li><a href="#安装-hugo">安装 hugo</a></li>
+            <li><a href="#安装-git">安装 git</a></li>
+            <li><a href="#检查-hugo-和-git-是否安装">检查 hugo 和 git 是否安装.</a></li>
+            <li><a href="#顺着官网的文档建立你的第一个本地服务的博客">顺着官网的文档建立你的第一个本地服务的博客</a></li>
+            <li><a href="#将你的本地-git-仓库-push-到-github">将你的本地 git 仓库 push 到 github</a></li>
+            <li><a href="#大工告成-快去查看你的第一个博客吧">大工告成, 快去查看你的第一个博客吧.</a></li>
+          </ol>
+        </li>
+        <li><a href="#创建新的博客">创建新的博客</a></li>
+        <li><a href="#刷新静态文件">刷新静态文件</a></li>
+        <li><a href="#md-语法">md 语法</a></li>
+        <li><a href="#stack-主题设置">stack 主题设置</a>
+          <ol>
+            <li><a href="#widgets">widgets</a></li>
+            <li><a href="#博客的标题显示格式定义">博客的标题显示格式定义</a></li>
+            <li><a href="#add-links">add links</a></li>
+          </ol>
+        </li>
+        <li><a href="#todo">TODO</a></li>
+        <li><a href="#返回顶部按钮">返回顶部按钮</a>
+          <ol>
+            <li><a href="#失败案例">失败案例:</a></li>
+            <li><a href="#通过-js-直接画出返回顶部的图标">通过 js 直接画出返回顶部的图标</a></li>
+          </ol>
+        </li>
       </ol>
     </li>
   </ol>
@@ -877,9 +620,9 @@
     <article class="has-image main-article">
     <header class="article-header">
         <div class="article-image">
-            <a href="/p/hugo_notes/">
-                <img src="/p/hugo_notes/1_hu_6cbdad19a7aa5807.jpeg"
-                        srcset="/p/hugo_notes/1_hu_6cbdad19a7aa5807.jpeg 800w, /p/hugo_notes/1_hu_aee2da64d75a7d6b.jpeg 1600w"
+            <a href="/public/p/hugo_notes/">
+                <img src="/public/p/hugo_notes/1_hu_6cbdad19a7aa5807.jpeg"
+                        srcset="/public/p/hugo_notes/1_hu_6cbdad19a7aa5807.jpeg 800w, /public/p/hugo_notes/1_hu_aee2da64d75a7d6b.jpeg 1600w"
                         width="800" 
                         height="395" 
                         loading="lazy"
@@ -892,7 +635,7 @@
     <div class="article-details">
     <div class="article-title-wrapper">
         <h2 class="article-title">
-            <a href="/p/hugo_notes/">Hugo_notes</a>
+            <a href="/public/p/hugo_notes/">Hugo_notes</a>
         </h2>
     
         
@@ -913,7 +656,7 @@
                 
                     
                     
-                    <a href="/categories/notes/" class="category-link" style="background-color: #704400; color: #ffffff;">
+                    <a href="/public/categories/notes/" class="category-link" style="background-color: #704400; color: #ffffff;">
                         Notes
                     </a>
                 
@@ -925,7 +668,7 @@
                 
                     
                     
-                    <a href="/tags/hugo/" class="tag-link" style="color: #ffffff; border: 1px solid #d808bc; background-color: #d808bc20;">
+                    <a href="/public/tags/hugo/" class="tag-link" style="color: #ffffff; border: 1px solid #d808bc; background-color: #d808bc20;">
                         #Hugo
                     </a>
                 
@@ -956,7 +699,7 @@
 
 
                 <time>
-                    Nov 25, 2025 18:20 CST
+                    Nov 25, 2025 18:20 &#43;0800
                 </time>
             </div>
     </footer>
@@ -994,9 +737,19 @@
 <p>这里是 git 安装的<a class="link" href="https://git-scm.com/downloads"  target="_blank" rel="noopener"
     >文档链接</a>.</p>
 <h3 id="检查-hugo-和-git-是否安装">检查 hugo 和 git 是否安装.
-</h3><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">hugo version
-</span></span><span class="line"><span class="cl">git --version
-</span></span></code></pre></div><p>如果成功显示了版本号, 则说明安装成功.</p>
+</h3>
+
+
+
+
+<div class="highlight highlight-bash">
+  <pre>
+    <code class="language-bash" data-lang="bash">hugo version
+git --version</code>
+  </pre>
+</div>
+
+<p>如果成功显示了版本号, 则说明安装成功.</p>
 <h3 id="顺着官网的文档建立你的第一个本地服务的博客">顺着官网的<a class="link" href="https://gohugo.io/getting-started/quick-start/"  target="_blank" rel="noopener"
     >文档</a>建立你的第一个本地服务的博客
 </h3><blockquote class="alert alert-tip">
@@ -1016,22 +769,42 @@
 <h3 id="大工告成-快去查看你的第一个博客吧">大工告成, 快去查看你的第一个博客吧.
 </h3><p>直接在浏览器中输入&quot;&lt;你的用户名&gt;.github.io&quot;然后回车即可访问你的博客.</p>
 <h2 id="创建新的博客">创建新的博客
-</h2><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">hugo new content/post/&lt;博客名&gt;.md
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">hugo new content/post/daliy_blog<span class="k">$(</span>date +%Y-%m-%d<span class="k">)</span>.md
-</span></span><span class="line"><span class="cl"><span class="c1"># 这个方法适用于日常博客的发表, 博客名会基于当前的日期创建</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">hugo new content/post/daliy_blog<span class="k">$(</span>date +%Y-%m-%d<span class="k">)</span>/index.md
-</span></span><span class="line"><span class="cl"><span class="c1"># 这样可以创建博客文件夹, 文件夹下可以放图片等内容</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">cp static/images/default.jpg content/post/daily_blog<span class="k">$(</span>date +%Y-%m-%d<span class="k">)</span>/
-</span></span></code></pre></div><h2 id="刷新静态文件">刷新静态文件
-</h2><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">hugo
-</span></span><span class="line"><span class="cl"><span class="c1"># 这个指令会在你的静态文件目录下生成静态文件, 然后你就可以在你的服务器上部署了</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">hugo server -D
-</span></span><span class="line"><span class="cl"><span class="c1"># 这个指令会打开本地hugo服务, 并在你有修改的时候自动刷新静态文件</span>
-</span></span></code></pre></div><h2 id="md-语法">md 语法
+</h2>
+
+
+
+
+<div class="highlight highlight-bash">
+  <pre>
+    <code class="language-bash" data-lang="bash">hugo new content/post/&lt;博客名&gt;.md
+
+hugo new content/post/daliy_blog$(date &#43;%Y-%m-%d).md
+# 这个方法适用于日常博客的发表, 博客名会基于当前的日期创建
+
+hugo new content/post/daliy_blog$(date &#43;%Y-%m-%d)/index.md
+# 这样可以创建博客文件夹, 文件夹下可以放图片等内容
+
+cp static/images/default.jpg content/post/daily_blog$(date &#43;%Y-%m-%d)/</code>
+  </pre>
+</div>
+
+<h2 id="刷新静态文件">刷新静态文件
+</h2>
+
+
+
+
+<div class="highlight highlight-bash">
+  <pre>
+    <code class="language-bash" data-lang="bash">hugo
+# 这个指令会在你的静态文件目录下生成静态文件, 然后你就可以在你的服务器上部署了
+
+hugo server -D
+# 这个指令会打开本地hugo服务, 并在你有修改的时候自动刷新静态文件</code>
+  </pre>
+</div>
+
+<h2 id="md-语法">md 语法
 </h2><ol>
 <li>插入一张图片</li>
 </ol>
@@ -1065,16 +838,26 @@
 </h3><h3 id="add-links">add links
 </h3><p>To use this feature, add <code>links</code> section to frontmatter.</p>
 <p>This page&rsquo;s frontmatter:</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="nt">links</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">  </span>- <span class="nt">title</span><span class="p">:</span><span class="w"> </span><span class="l">GitHub</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="l">GitHub is the world&#39;s largest software development platform.</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">website</span><span class="p">:</span><span class="w"> </span><span class="l">https://github.com</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l">https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">  </span>- <span class="nt">title</span><span class="p">:</span><span class="w"> </span><span class="l">TypeScript</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="l">TypeScript is a typed superset of JavaScript that compiles to plain JavaScript.</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">website</span><span class="p">:</span><span class="w"> </span><span class="l">https://www.typescriptlang.org</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l">ts-logo-128.jpg</span><span class="w">
-</span></span></span></code></pre></div><p><code>image</code> field accepts both local and external images.</p>
+
+
+
+
+
+<div class="highlight highlight-yaml">
+  <pre>
+    <code class="language-yaml" data-lang="yaml">links:
+  - title: GitHub
+    description: GitHub is the world&#39;s largest software development platform.
+    website: https://github.com
+    image: https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png
+  - title: TypeScript
+    description: TypeScript is a typed superset of JavaScript that compiles to plain JavaScript.
+    website: https://www.typescriptlang.org
+    image: ts-logo-128.jpg</code>
+  </pre>
+</div>
+
+<p><code>image</code> field accepts both local and external images.</p>
 <h2 id="todo">TODO
 </h2><ul>
 <li><input disabled="" type="checkbox"> 配置评论区, <a class="link" href="https://juejin.cn/post/6844903834712539150"  target="_blank" rel="noopener"
@@ -1085,7 +868,7 @@
     >参考博客</a>. 圆框使用 AI 修改.</li>
 <li><input checked="" disabled="" type="checkbox"> 代码框自动折叠功能,<a class="link" href="https://letere-gzj.github.io/hugo-stack/p/hugo/custom-stack-theme/#8-%E8%87%AA%E5%AE%9A%E4%B9%89md%E5%BC%95%E7%94%A8%E5%9D%97%E9%A2%9C%E8%89%B2%E6%A8%A1%E6%9D%BF"  target="_blank" rel="noopener"
     >参考</a>. 在原有的基础上修改了一下样式, 更加美观.</li>
-<li><input checked="" disabled="" type="checkbox"> 修复字体问题, 已完成. <a class="link" href="/p/stack-theme-hugo-%E5%AD%97%E4%BD%93%E8%AE%BE%E7%BD%AE/" >教程</a></li>
+<li><input checked="" disabled="" type="checkbox"> 修复字体问题, 已完成. <a class="link" href="/public/p/stack-theme-hugo-%E5%AD%97%E4%BD%93%E8%AE%BE%E7%BD%AE/" >教程</a></li>
 <li><input checked="" disabled="" type="checkbox"> 返回顶部按钮</li>
 <li><input disabled="" type="checkbox"> 防止爬虫(<a class="link" href="https://blog.lufei.de/p/215/"  target="_blank" rel="noopener"
     >https://blog.lufei.de/p/215/</a>)
@@ -1105,64 +888,74 @@
     >这个部分</a>的操作发现按钮并不能正确的显示出来.几番操作无果之后转向 AI 求助. 最好 AI 给出了一个相对合理的替代方案.</p>
 <h3 id="通过-js-直接画出返回顶部的图标">通过 js 直接画出返回顶部的图标
 </h3><p>只需要在<code>layouts/partials/footer/custom.html</code>下将下面的代码粘贴进去即可</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">style</span><span class="p">&gt;</span>
-</span></span><span class="line"><span class="cl">  <span class="p">#</span><span class="nn">backTopBtn</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="k">display</span><span class="p">:</span> <span class="kc">none</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">    <span class="k">position</span><span class="p">:</span> <span class="kc">fixed</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">    <span class="k">bottom</span><span class="p">:</span> <span class="mi">30</span><span class="kt">px</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">    <span class="k">right</span><span class="p">:</span> <span class="mi">375</span><span class="kt">px</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">    <span class="k">z-index</span><span class="p">:</span> <span class="mi">99</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">    <span class="k">cursor</span><span class="p">:</span> <span class="kc">pointer</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">    <span class="k">width</span><span class="p">:</span> <span class="mi">30</span><span class="kt">px</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">    <span class="k">height</span><span class="p">:</span> <span class="mi">30</span><span class="kt">px</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">    <span class="k">background-color</span><span class="p">:</span> <span class="mh">#666</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">    <span class="k">border-radius</span><span class="p">:</span> <span class="mi">8</span><span class="kt">px</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">    <span class="k">color</span><span class="p">:</span> <span class="kc">white</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">    <span class="k">text-align</span><span class="p">:</span> <span class="kc">center</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">    <span class="k">line-height</span><span class="p">:</span> <span class="mi">30</span><span class="kt">px</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">    <span class="k">font-size</span><span class="p">:</span> <span class="mi">20</span><span class="kt">px</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">  <span class="p">}</span>
-</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">style</span><span class="p">&gt;</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">script</span><span class="p">&gt;</span>
-</span></span><span class="line"><span class="cl">  <span class="cm">/**
-</span></span></span><span class="line"><span class="cl"><span class="cm">   * 滚动回顶部初始化
-</span></span></span><span class="line"><span class="cl"><span class="cm">   */</span>
-</span></span><span class="line"><span class="cl">  <span class="kd">function</span> <span class="nx">initScrollTop</span><span class="p">()</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="kd">let</span> <span class="nx">rightSideBar</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">querySelector</span><span class="p">(</span><span class="s2">&#34;.right-sidebar&#34;</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">rightSideBar</span><span class="p">)</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">      <span class="k">return</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">    <span class="p">}</span>
-</span></span><span class="line"><span class="cl">    <span class="c1">// 添加返回顶部按钮到右侧边栏
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="kd">let</span> <span class="nx">btn</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">createElement</span><span class="p">(</span><span class="s2">&#34;div&#34;</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">    <span class="nx">btn</span><span class="p">.</span><span class="nx">id</span> <span class="o">=</span> <span class="s2">&#34;backTopBtn&#34;</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">    <span class="nx">btn</span><span class="p">.</span><span class="nx">innerHTML</span> <span class="o">=</span> <span class="s2">&#34;↑&#34;</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">    <span class="nx">btn</span><span class="p">.</span><span class="nx">onclick</span> <span class="o">=</span> <span class="nx">backToTop</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">    <span class="nx">rightSideBar</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span><span class="nx">btn</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">    <span class="c1">// 滚动监听
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="nb">window</span><span class="p">.</span><span class="nx">onscroll</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">      <span class="c1">// 当网页向下滑动 20px 出现&#34;返回顶部&#34; 按钮
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>      <span class="k">if</span> <span class="p">(</span>
-</span></span><span class="line"><span class="cl">        <span class="nb">document</span><span class="p">.</span><span class="nx">body</span><span class="p">.</span><span class="nx">scrollTop</span> <span class="o">&gt;</span> <span class="mi">500</span> <span class="o">||</span>
-</span></span><span class="line"><span class="cl">        <span class="nb">document</span><span class="p">.</span><span class="nx">documentElement</span><span class="p">.</span><span class="nx">scrollTop</span> <span class="o">&gt;</span> <span class="mi">500</span>
-</span></span><span class="line"><span class="cl">      <span class="p">)</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">        <span class="nx">btn</span><span class="p">.</span><span class="nx">style</span><span class="p">.</span><span class="nx">display</span> <span class="o">=</span> <span class="s2">&#34;block&#34;</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">      <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">        <span class="nx">btn</span><span class="p">.</span><span class="nx">style</span><span class="p">.</span><span class="nx">display</span> <span class="o">=</span> <span class="s2">&#34;none&#34;</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">      <span class="p">}</span>
-</span></span><span class="line"><span class="cl">    <span class="p">};</span>
-</span></span><span class="line"><span class="cl">  <span class="p">}</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">  <span class="cm">/**
-</span></span></span><span class="line"><span class="cl"><span class="cm">   * 返回顶部
-</span></span></span><span class="line"><span class="cl"><span class="cm">   */</span>
-</span></span><span class="line"><span class="cl">  <span class="kd">function</span> <span class="nx">backToTop</span><span class="p">()</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="nb">window</span><span class="p">.</span><span class="nx">scrollTo</span><span class="p">({</span> <span class="nx">top</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span> <span class="nx">behavior</span><span class="o">:</span> <span class="s2">&#34;smooth&#34;</span> <span class="p">});</span>
-</span></span><span class="line"><span class="cl">  <span class="p">}</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">  <span class="nx">initScrollTop</span><span class="p">();</span>
-</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
-</span></span></code></pre></div>
+
+
+
+
+
+<div class="highlight highlight-html">
+  <pre>
+    <code class="language-html" data-lang="html">&lt;style&gt;
+  #backTopBtn {
+    display: none;
+    position: fixed;
+    bottom: 30px;
+    right: 375px;
+    z-index: 99;
+    cursor: pointer;
+    width: 30px;
+    height: 30px;
+    background-color: #666;
+    border-radius: 8px;
+    color: white;
+    text-align: center;
+    line-height: 30px;
+    font-size: 20px;
+  }
+&lt;/style&gt;
+
+&lt;script&gt;
+  /**
+   * 滚动回顶部初始化
+   */
+  function initScrollTop() {
+    let rightSideBar = document.querySelector(&#34;.right-sidebar&#34;);
+    if (!rightSideBar) {
+      return;
+    }
+    // 添加返回顶部按钮到右侧边栏
+    let btn = document.createElement(&#34;div&#34;);
+    btn.id = &#34;backTopBtn&#34;;
+    btn.innerHTML = &#34;↑&#34;;
+    btn.onclick = backToTop;
+    rightSideBar.appendChild(btn);
+    // 滚动监听
+    window.onscroll = function () {
+      // 当网页向下滑动 20px 出现&#34;返回顶部&#34; 按钮
+      if (
+        document.body.scrollTop &gt; 500 ||
+        document.documentElement.scrollTop &gt; 500
+      ) {
+        btn.style.display = &#34;block&#34;;
+      } else {
+        btn.style.display = &#34;none&#34;;
+      }
+    };
+  }
+
+  /**
+   * 返回顶部
+   */
+  function backToTop() {
+    window.scrollTo({ top: 0, behavior: &#34;smooth&#34; });
+  }
+
+  initScrollTop();
+&lt;/script&gt;</code>
+  </pre>
+</div>
+
+
 </section>
 
 
@@ -1227,18 +1020,18 @@
             
                 
 <article class="has-image">
-    <a href="/p/%E7%A7%91%E5%AD%A6%E4%B8%8A%E7%BD%91%E9%85%8D%E7%BD%AE%E6%95%99%E7%A8%8B/">
+    <a href="/public/p/%E7%A7%91%E5%AD%A6%E4%B8%8A%E7%BD%91%E9%85%8D%E7%BD%AE%E6%95%99%E7%A8%8B-%E8%8A%82%E7%82%B9%E6%90%AD%E5%BB%BA/">
         
         
             <div class="article-image">
                 
-                    <img src="/default.jpeg" loading="lazy" data-key="" data-hash="/default.jpeg"/>
+                    <img src="/public/default.jpeg" loading="lazy" data-key="" data-hash="/public/default.jpeg"/>
                 
             </div>
         
 
         <div class="article-details">
-            <h2 class="article-title">科学上网配置教程</h2>
+            <h2 class="article-title">科学上网配置教程 &amp; 节点搭建</h2>
         </div>
     </a>
 </article>
@@ -1246,11 +1039,11 @@
             
                 
 <article class="has-image">
-    <a href="/p/linux_system_service-linux-%E4%B9%8B-%E7%B3%BB%E7%BB%9F%E6%9C%8D%E5%8A%A1/">
+    <a href="/public/p/linux_system_service-linux-%E4%B9%8B-%E7%B3%BB%E7%BB%9F%E6%9C%8D%E5%8A%A1/">
         
         
             <div class="article-image">
-                <img src="/p/linux_system_service-linux-%E4%B9%8B-%E7%B3%BB%E7%BB%9F%E6%9C%8D%E5%8A%A1/image.a0523778934542ff44b5192a799567da_hu_120e934acdd88e76.png" 
+                <img src="/public/p/linux_system_service-linux-%E4%B9%8B-%E7%B3%BB%E7%BB%9F%E6%9C%8D%E5%8A%A1/image.a0523778934542ff44b5192a799567da_hu_120e934acdd88e76.png" 
                         width="250" 
                         height="150" 
                         loading="lazy"
@@ -1270,11 +1063,11 @@
             
                 
 <article class="has-image">
-    <a href="/p/mc%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%90%AD%E5%BB%BA-%E5%8A%A0%E5%85%A5/">
+    <a href="/public/p/mc%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%90%AD%E5%BB%BA-%E5%8A%A0%E5%85%A5/">
         
         
             <div class="article-image">
-                <img src="/p/mc%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%90%AD%E5%BB%BA-%E5%8A%A0%E5%85%A5/image.c12f1808aab9c5464ee244812cb30b95_hu_86d91d7056630acc.png" 
+                <img src="/public/p/mc%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%90%AD%E5%BB%BA-%E5%8A%A0%E5%85%A5/image.c12f1808aab9c5464ee244812cb30b95_hu_86d91d7056630acc.png" 
                         width="250" 
                         height="150" 
                         loading="lazy"
@@ -1294,12 +1087,12 @@
             
                 
 <article class="has-image">
-    <a href="/p/chapter13/">
+    <a href="/public/p/chapter13/">
         
         
             <div class="article-image">
                 
-                    <img src="/java.png" loading="lazy" data-key="" data-hash="/java.png"/>
+                    <img src="/public/java.png" loading="lazy" data-key="" data-hash="/public/java.png"/>
                 
             </div>
         
@@ -1313,12 +1106,12 @@
             
                 
 <article class="has-image">
-    <a href="/p/chapter12/">
+    <a href="/public/p/chapter12/">
         
         
             <div class="article-image">
                 
-                    <img src="/java.png" loading="lazy" data-key="" data-hash="/java.png"/>
+                    <img src="/public/java.png" loading="lazy" data-key="" data-hash="/public/java.png"/>
                 
             </div>
         
@@ -1394,7 +1187,9 @@
     <section class="copyright">
         &copy; 
         
-        2025 blog@mail.henry070.org
+            2025 - 
+        
+        2026 blog@mail.henry070.org
     </section>
     
     <section class="powerby">
@@ -1490,7 +1285,7 @@
                 src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
                 
                 >
-            </script><script type="text/javascript" src="/ts/main.1e9a3bafd846ced4c345d084b355fb8c7bae75701c338f8a1f8a82c780137826.js" defer></script>
+            </script><script type="text/javascript" src="/public/ts/main.c922af694cc257bf1ecc41c0dd7b0430f9114ec280ccf67cd2c6ad55f5316c4e.js" defer></script>
 <script>
     (function () {
         const customFont = document.createElement('link');
@@ -1698,7 +1493,7 @@
       
       let img = document.createElement('img');
       img.classList.add('code-more-img');
-      img.src = "https://Gzmomo001.github.io/icons/down.png"
+      img.src = "https://Gzmomo001.github.io/public/icons/down.png"
       
       codeMoreBtn.appendChild(img);
       codeMoreBox.appendChild(codeMoreBtn);

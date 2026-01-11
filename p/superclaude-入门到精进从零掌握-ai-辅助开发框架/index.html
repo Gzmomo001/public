@@ -1,0 +1,3888 @@
+<!DOCTYPE html>
+<html lang="zh-cn" dir="ltr">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="全面的 SuperClaude 框架教程，从快速开始到高级模式，帮助你掌握 AI 辅助开发的强大工具。包含完整的实战项目和最佳实践指南。">
+<title>SuperClaude 入门到精进：从零掌握 AI 辅助开发框架</title>
+
+<link rel='canonical' href='https://Gzmomo001.github.io/public/p/superclaude-%E5%85%A5%E9%97%A8%E5%88%B0%E7%B2%BE%E8%BF%9B%E4%BB%8E%E9%9B%B6%E6%8E%8C%E6%8F%A1-ai-%E8%BE%85%E5%8A%A9%E5%BC%80%E5%8F%91%E6%A1%86%E6%9E%B6/'>
+
+<link rel="stylesheet" href="/public/scss/style.min.69ed452c4f70aa0bd98aa7f62758389d29493390c2f090e74cf1c607d4445e3e.css"><meta property='og:title' content="SuperClaude 入门到精进：从零掌握 AI 辅助开发框架">
+<meta property='og:description' content="全面的 SuperClaude 框架教程，从快速开始到高级模式，帮助你掌握 AI 辅助开发的强大工具。包含完整的实战项目和最佳实践指南。">
+<meta property='og:url' content='https://Gzmomo001.github.io/public/p/superclaude-%E5%85%A5%E9%97%A8%E5%88%B0%E7%B2%BE%E8%BF%9B%E4%BB%8E%E9%9B%B6%E6%8E%8C%E6%8F%A1-ai-%E8%BE%85%E5%8A%A9%E5%BC%80%E5%8F%91%E6%A1%86%E6%9E%B6/'>
+<meta property='og:site_name' content='Henry Zhang'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='Claude Code' /><meta property='article:tag' content='SuperClaude' /><meta property='article:tag' content='AI' /><meta property='article:tag' content='开发工具' /><meta property='article:tag' content='Vibe Coding' /><meta property='article:published_time' content='2026-01-12T01:30:46&#43;08:00'/><meta property='article:modified_time' content='2026-01-11T17:48:07&#43;00:00'/><meta property='og:image' content='https://Gzmomo001.github.io/public/default.jpeg' />
+<meta name="twitter:title" content="SuperClaude 入门到精进：从零掌握 AI 辅助开发框架">
+<meta name="twitter:description" content="全面的 SuperClaude 框架教程，从快速开始到高级模式，帮助你掌握 AI 辅助开发的强大工具。包含完整的实战项目和最佳实践指南。"><meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content='https://Gzmomo001.github.io/public/default.jpeg' />
+    <link rel="shortcut icon" href="/favicon.ico" />
+
+
+<script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+<script>
+  
+  function getCurrentTheme() {
+    const colorSchemeKey = 'StackColorScheme';
+    const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+    const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+    
+    if (colorSchemeItem === 'dark' || (colorSchemeItem === 'auto' && supportDarkMode)) {
+      return 'dark';
+    } else {
+      return 'light';
+    }
+  }
+
+  
+  function logThemeInfo() {
+    const colorSchemeKey = 'StackColorScheme';
+    const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+    const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+    const documentScheme = document.documentElement.dataset.scheme;
+    
+    console.log('[Mermaid] Theme Detection:', {
+      localStorage: colorSchemeItem,
+      systemDark: supportDarkMode,
+      documentScheme: documentScheme,
+      calculatedTheme: getCurrentTheme()
+    });
+  }
+
+  
+  function initializeMermaid() {
+    const currentTheme = getCurrentTheme();
+    
+    if (currentTheme === 'dark') {
+      
+      mermaid.initialize({
+        startOnLoad: false,
+        theme: 'dark',
+        themeVariables: {
+          
+          primaryColor: '#4a5568',
+          primaryTextColor: '#f7fafc',
+          primaryBorderColor: '#63b3ed',
+          lineColor: '#e2e8f0',
+          secondaryColor: '#2d3748',
+          tertiaryColor: '#1a202c',
+          background: '#1a202c',
+          
+          
+          fillType0: '#2d3748',
+          fillType1: '#4a5568',
+          fillType2: '#4299e1',
+          clusterBkg: '#2d3748',
+          clusterBorder: '#4a5568',
+          nodeBorder: '#e2e8f0',
+          mainBkg: '#4a5568',
+          altBkg: '#2d3748',
+          
+          
+          labelBackground: '#2d3748',
+          edgeLabelBackground: '#2d3748',
+          titleColor: '#f7fafc',
+          
+          
+          actorBkg: '#2d3748',
+          actorBorder: '#4a5568',
+          actorTextColor: '#e2e8f0',
+          actorLine: '#4a5568',
+          signalColor: '#e2e8f0',
+          signalTextColor: '#e2e8f0',
+          noteBkgColor: '#4a5568',
+          noteBorderColor: '#4a5568',
+          noteTextColor: '#e2e8f0',
+          activationBorderColor: '#4299e1',
+          activationBkgColor: '#2d3748',
+          
+          
+          sectionBkgColor: '#2d3748',
+          altSectionBkgColor: '#4a5568',
+          sectionBorderColor: '#4a5568',
+          taskBkgColor: '#4299e1',
+          taskBorderColor: '#63b3ed',
+          taskTextColor: '#ffffff',
+          activeTaskBkgColor: '#48bb78',
+          activeTaskBorderColor: '#38a169',
+          doneTaskBkgColor: '#2d3748',
+          doneTaskBorderColor: '#4a5568',
+          critBkgColor: '#f56565',
+          critBorderColor: '#e53e3e',
+          critTextColor: '#ffffff',
+          
+          
+          pie1: '#4299e1',
+          pie2: '#48bb78',
+          pie3: '#ed8936',
+          pie4: '#9f7aea',
+          pie5: '#ed64a6',
+          pie6: '#38b2ac',
+          pie7: '#f6ad55',
+          pie8: '#68d391',
+          pie9: '#63b3ed',
+          pie10: '#b794f4',
+          pieTitleTextSize: '24px',
+          pieSectionTextSize: '16px',
+          pieOuterStrokeWidth: '2px',
+          pieStroke: '#1a202c',
+          pieOpacity: '1',
+          
+          
+          classText: '#f7fafc',
+          classTitle: '#f7fafc',
+          
+          
+          stateBkg: '#2d3748',
+          stateBorder: '#4a5568',
+          labelColor: '#f7fafc',
+          stateLabel: '#f7fafc',
+          stateText: '#f7fafc',
+          transitionLabel: '#f7fafc',
+          
+          
+          entityBkg: '#2d3748',
+          entityBorder: '#4a5568',
+          attributeBkg: '#2d3748',
+          attributeBorder: '#4a5568',
+          relationshipText: '#f7fafc',
+          
+          
+          gridColor: '#4a5568',
+          scaleBarColor: '#4a5568',
+          barColor: '#4299e1',
+          barBorderColor: '#63b3ed',
+          todayLineColor: '#f6ad55',
+          
+          
+          git0: '#4299e1',
+          git1: '#48bb78',
+          git2: '#ed8936',
+          git3: '#9f7aea',
+          git4: '#ed64a6',
+          git5: '#38b2ac',
+          git6: '#f6ad55',
+          git7: '#68d391',
+          gitInv0: '#2d3748',
+          gitInv1: '#2d3748',
+          gitInv2: '#2d3748',
+          gitInv3: '#2d3748',
+          gitInv4: '#2d3748',
+          gitInv5: '#2d3748',
+          gitInv6: '#2d3748',
+          gitInv7: '#2d3748',
+          
+          
+          mindmapPrimary: '#4299e1',
+          mindmapSecondary: '#48bb78',
+          mindmapTertiary: '#ed8936',
+          
+          
+          errorTextColor: '#fc8181',
+          warningTextColor: '#f6ad55',
+          infoTextColor: '#63b3ed',
+          
+          
+          edgeLabelBackground: '#1a202c',
+          
+          
+          edgeLabelBackground: '#2d3748',
+          
+          
+          classLabel: '#f7fafc',
+          dividerColor: '#4a5568',
+          
+          
+          dividerColor: '#4a5568',
+          
+          
+          dividerColor: '#4a5568',
+          
+          
+          fontFamily: '"Douyin Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
+          fontSize: '16px'
+        },
+        fontFamily: '"Douyin Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
+        fontSize: 16,
+        flowchart: {
+          useMaxWidth: true,
+          htmlLabels: true,
+          curve: 'basis'
+        },
+        sequence: {
+          useMaxWidth: true
+        },
+        journey: {
+          useMaxWidth: true
+        },
+        pie: {
+          useMaxWidth: true
+        },
+        gantt: {
+          useMaxWidth: true
+        },
+        git: {
+          useMaxWidth: true
+        },
+        mindmap: {
+          useMaxWidth: true
+        }
+      });
+    } else {
+      
+      mermaid.initialize({
+        startOnLoad: false,
+        theme: 'default',
+        themeVariables: {
+          primaryColor: '#007bff',
+          primaryTextColor: '#333',
+          primaryBorderColor: '#007bff',
+          lineColor: '#666',
+          secondaryColor: '#f8f9fa',
+          tertiaryColor: '#e9ecef'
+        },
+        fontFamily: '"Douyin Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
+        fontSize: 16,
+        flowchart: {
+          useMaxWidth: true,
+          htmlLabels: true,
+          curve: 'basis'
+        }
+      });
+    }
+    
+    
+    document.querySelectorAll('.mermaid').forEach(function(element) {
+      if (!element.dataset.original) {
+        element.dataset.original = element.textContent.trim();
+      }
+    });
+    
+    
+    return mermaid.run();
+  }
+
+  
+  document.addEventListener('DOMContentLoaded', function() {
+    
+    initializeMermaid();
+    
+    
+    logThemeInfo();
+    
+    
+    const darkModeToggle = document.getElementById('dark-mode-toggle');
+    if (darkModeToggle) {
+      darkModeToggle.addEventListener('click', function() {
+        
+        document.querySelectorAll('.mermaid').forEach(function(element) {
+          element.classList.add('reloading');
+        });
+        
+        
+        setTimeout(function() {
+          
+          document.querySelectorAll('.mermaid').forEach(function(element) {
+            
+            if (!element.dataset.original) {
+              element.dataset.original = element.textContent.trim();
+            }
+            
+            
+            element.innerHTML = '';
+            
+            
+            element.textContent = element.dataset.original;
+            
+            
+            element.removeAttribute('data-processed');
+          });
+          
+          
+          console.log('[Mermaid] Theme changed, reinitializing...');
+          
+          
+          initializeMermaid().then(function() {
+            
+            document.querySelectorAll('.mermaid').forEach(function(element) {
+              element.classList.remove('reloading');
+            });
+          });
+        }, 250);
+      });
+    }
+  });
+</script>
+<link rel='stylesheet' href='https://chinese-fonts-cdn.deno.dev/packages/dymh/dist/DouyinSansBold/result.css' />
+
+
+    </head>
+    <body class="
+    article-page
+    ">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky ">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="切换菜单">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header>
+        
+            
+            <figure class="site-avatar">
+                <a href="/public/">
+                
+                    
+                    
+                    
+                        
+                        <img src="/public/img/avatar_hu_9c50848f93c56cbf.jpeg" width="300"
+                            height="296" class="site-logo" loading="lazy" alt="Avatar">
+                    
+                
+                </a>
+                
+                    <span class="emoji">🤓</span>
+                
+            </figure>
+            
+        
+        
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/public">Henry Zhang</a></h1>
+            <h2 class="site-description">Driven by Wonder, Powered by Knowledge.🤓</h2>
+        </div>
+    </header><ol class="menu-social">
+            
+                <li>
+                    <a 
+                        href='https://github.com/Gzmomo001'
+                        target="_blank"
+                        title="GitHub"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+        </ol><ol class="menu" id="main-menu">
+        
+        
+        
+        <li >
+            <a href='/public/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="5 12 3 12 12 3 21 12 19 12" />
+  <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
+  <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
+</svg>
+
+
+
+                
+                <span>Home</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/public/about-me/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="7" r="4" />
+  <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
+</svg>
+
+
+
+                
+                <span>About me</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/public/archives/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <rect x="3" y="4" width="18" height="4" rx="2" />
+  <path d="M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-10" />
+  <line x1="10" y1="12" x2="14" y2="12" />
+</svg>
+
+
+
+                
+                <span>Archives</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/public/search/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="10" cy="10" r="7" />
+  <line x1="21" y1="21" x2="15" y2="15" />
+</svg>
+
+
+
+                
+                <span>Search</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/public/some-useful-links/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-link" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5" />
+  <path d="M14 10a3.5 3.5 0 0 0 -5 0l-4 4a3.5 3.5 0 0 0 5 5l.5 -.5" />
+</svg>
+
+
+
+                
+                <span>Some Useful Links</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/public/update-logs/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                
+                <span>Update Logs</span>
+            </a>
+        </li>
+        
+        <li class="menu-bottom-section">
+            <ol class="menu">
+
+                
+                    <li id="dark-mode-toggle">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <span>暗色模式</span>
+                    </li>
+                
+            </ol>
+        </li>
+    </ol>
+</aside>
+
+    <aside class="sidebar right-sidebar sticky">
+        
+        
+            
+        
+
+        
+        
+            
+                
+                    
+    <section class="widget archives">
+        <div class="widget-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+        </div>
+        <h2 class="widget-title section-title">目录</h2>
+        
+        <div class="widget--toc">
+            <nav id="TableOfContents">
+  <ol>
+    <li><a href="#superclaude-入门到精进从零掌握-ai-辅助开发框架">SuperClaude 入门到精进：从零掌握 AI 辅助开发框架</a>
+      <ol>
+        <li><a href="#-目录">📚 目录</a></li>
+        <li><a href="#第一部分superclaude-是什么概念理解">第一部分：SuperClaude 是什么？（概念理解）</a>
+          <ol>
+            <li><a href="#11-核心概念">1.1 核心概念</a></li>
+            <li><a href="#12-框架能力概览">1.2 框架能力概览</a></li>
+            <li><a href="#13-工作原理图解">1.3 工作原理图解</a></li>
+          </ol>
+        </li>
+        <li><a href="#第二部分快速开始5-分钟上手">第二部分：快速开始（5 分钟上手）</a>
+          <ol>
+            <li><a href="#21-安装方法">2.1 安装方法</a>
+              <ol>
+                <li><a href="#方法一pipx推荐">方法一：pipx（推荐）</a></li>
+                <li><a href="#方法二pip">方法二：pip</a></li>
+                <li><a href="#方法三npm">方法三：npm</a></li>
+              </ol>
+            </li>
+            <li><a href="#22-验证安装">2.2 验证安装</a></li>
+            <li><a href="#23-第一个项目体验">2.3 第一个项目体验</a></li>
+          </ol>
+        </li>
+        <li><a href="#第三部分核心命令详解21-个命令">第三部分：核心命令详解（21 个命令）</a>
+          <ol>
+            <li><a href="#31-开发类命令">3.1 开发类命令</a>
+              <ol>
+                <li><a href="#-scbuild---智能项目构建">🎯 <code>/sc:build</code> - 智能项目构建</a></li>
+                <li><a href="#-scimplement---特性实现">🎯 <code>/sc:implement</code> - 特性实现</a></li>
+                <li><a href="#-scdesign---系统设计">🎯 <code>/sc:design</code> - 系统设计</a></li>
+              </ol>
+            </li>
+            <li><a href="#32-分析类命令">3.2 分析类命令</a>
+              <ol>
+                <li><a href="#-scanalyze---全面代码分析">🔍 <code>/sc:analyze</code> - 全面代码分析</a></li>
+                <li><a href="#-sctroubleshoot---问题排查">🔍 <code>/sc:troubleshoot</code> - 问题排查</a></li>
+                <li><a href="#-scexplain---教学式解释">🔍 <code>/sc:explain</code> - 教学式解释</a></li>
+              </ol>
+            </li>
+            <li><a href="#33-质量类命令">3.3 质量类命令</a>
+              <ol>
+                <li><a href="#-scimprove---代码优化">✨ <code>/sc:improve</code> - 代码优化</a></li>
+                <li><a href="#-sccleanup---技术债务清理">✨ <code>/sc:cleanup</code> - 技术债务清理</a></li>
+                <li><a href="#-sctest---测试执行">✨ <code>/sc:test</code> - 测试执行</a></li>
+              </ol>
+            </li>
+            <li><a href="#34-项目管理类命令">3.4 项目管理类命令</a>
+              <ol>
+                <li><a href="#-scworkflow---工作流生成">📋 <code>/sc:workflow</code> - 工作流生成</a></li>
+                <li><a href="#-sctask---任务执行">📋 <code>/sc:task</code> - 任务执行</a></li>
+                <li><a href="#-scgit---git-操作">📋 <code>/sc:git</code> - Git 操作</a></li>
+              </ol>
+            </li>
+            <li><a href="#35-学习类命令">3.5 学习类命令</a>
+              <ol>
+                <li><a href="#-scbrainstorm---需求发现">🧠 <code>/sc:brainstorm</code> - 需求发现</a></li>
+                <li><a href="#-scexplain---代码讲解">🧠 <code>/sc:explain</code> - 代码讲解</a></li>
+                <li><a href="#-sclearn---学习资源">🧠 <code>/sc:learn</code> - 学习资源</a></li>
+              </ol>
+            </li>
+            <li><a href="#36-其他重要命令">3.6 其他重要命令</a>
+              <ol>
+                <li><a href="#-scload---加载项目上下文">📂 <code>/sc:load</code> - 加载项目上下文</a></li>
+                <li><a href="#-scsave---保存会话">💾 <code>/sc:save</code> - 保存会话</a></li>
+                <li><a href="#-scindex---项目文档生成">📑 <code>/sc:index</code> - 项目文档生成</a></li>
+                <li><a href="#-scdocument---文档生成">📄 <code>/sc:document</code> - 文档生成</a></li>
+                <li><a href="#-screcommend---命令推荐">🎯 <code>/sc:recommend</code> - 命令推荐</a></li>
+                <li><a href="#-schelp---帮助信息">❓ <code>/sc:help</code> - 帮助信息</a></li>
+              </ol>
+            </li>
+          </ol>
+        </li>
+        <li><a href="#第四部分ai-专家角色系统">第四部分：AI 专家角色系统</a>
+          <ol>
+            <li><a href="#41-专家角色列表">4.1 专家角色列表</a>
+              <ol>
+                <li><a href="#-架构类">🏗️ 架构类</a></li>
+                <li><a href="#-开发类">💻 开发类</a></li>
+                <li><a href="#-质量类">🔒 质量类</a></li>
+                <li><a href="#-管理类">📊 管理类</a></li>
+                <li><a href="#-分析类">🔬 分析类</a></li>
+                <li><a href="#-其他">🎓 其他</a></li>
+              </ol>
+            </li>
+            <li><a href="#42-自动激活-vs-手动指定">4.2 自动激活 vs 手动指定</a></li>
+            <li><a href="#43-多角色协作">4.3 多角色协作</a></li>
+          </ol>
+        </li>
+        <li><a href="#第五部分mcp-服务器集成">第五部分：MCP 服务器集成</a>
+          <ol>
+            <li><a href="#51-可用的-mcp-服务器">5.1 可用的 MCP 服务器</a></li>
+            <li><a href="#52-自动集成示例">5.2 自动集成示例</a></li>
+            <li><a href="#53-配置-mcp-服务器">5.3 配置 MCP 服务器</a></li>
+          </ol>
+        </li>
+        <li><a href="#第六部分完整实战项目待办事项应用">第六部分：完整实战项目：待办事项应用</a>
+          <ol>
+            <li><a href="#61-项目概览">6.1 项目概览</a></li>
+            <li><a href="#62-完整开发流程">6.2 完整开发流程</a>
+              <ol>
+                <li><a href="#步骤-1需求发现">步骤 1：需求发现</a></li>
+                <li><a href="#步骤-2系统设计">步骤 2：系统设计</a></li>
+                <li><a href="#步骤-3项目初始化">步骤 3：项目初始化</a></li>
+                <li><a href="#步骤-4核心功能实现">步骤 4：核心功能实现</a></li>
+                <li><a href="#步骤-5功能完善">步骤 5：功能完善</a></li>
+                <li><a href="#步骤-6测试">步骤 6：测试</a></li>
+                <li><a href="#步骤-7代码质量检查">步骤 7：代码质量检查</a></li>
+                <li><a href="#步骤-8代码优化">步骤 8：代码优化</a></li>
+                <li><a href="#步骤-9生产构建">步骤 9：生产构建</a></li>
+                <li><a href="#步骤-10文档生成">步骤 10：文档生成</a></li>
+                <li><a href="#步骤-11部署准备">步骤 11：部署准备</a></li>
+              </ol>
+            </li>
+            <li><a href="#63-项目时间线">6.3 项目时间线</a></li>
+          </ol>
+        </li>
+        <li><a href="#第七部分实战场景与工作流">第七部分：实战场景与工作流</a>
+          <ol>
+            <li><a href="#71-新项目启动工作流">7.1 新项目启动工作流</a></li>
+            <li><a href="#72-代码审查工作流">7.2 代码审查工作流</a></li>
+            <li><a href="#73-bug-修复工作流">7.3 Bug 修复工作流</a></li>
+            <li><a href="#74-遗留系统现代化">7.4 遗留系统现代化</a></li>
+            <li><a href="#75-安全优先开发">7.5 安全优先开发</a></li>
+          </ol>
+        </li>
+        <li><a href="#第八部分学习路线图4-周精进计划">第八部分：学习路线图（4 周精进计划）</a>
+          <ol>
+            <li><a href="#第-1-周核心命令掌握">第 1 周：核心命令掌握</a></li>
+            <li><a href="#第-2-周行为模式和标志">第 2 周：行为模式和标志</a></li>
+            <li><a href="#第-3-周mcp-服务器集成">第 3 周：MCP 服务器集成</a></li>
+            <li><a href="#第-4-周高级模式和精通">第 4 周：高级模式和精通</a></li>
+          </ol>
+        </li>
+        <li><a href="#第九部分最佳实践与技巧">第九部分：最佳实践与技巧</a>
+          <ol>
+            <li><a href="#91-命令使用习惯">9.1 命令使用习惯</a>
+              <ol>
+                <li><a href="#从简单开始按需添加复杂度">从简单开始，按需添加复杂度</a></li>
+                <li><a href="#使用安全模式">使用安全模式</a></li>
+                <li><a href="#选择适当的作用域">选择适当的作用域</a></li>
+              </ol>
+            </li>
+            <li><a href="#92-效率最大化技巧">9.2 效率最大化技巧</a>
+              <ol>
+                <li><a href="#让自动激活先工作">让自动激活先工作</a></li>
+                <li><a href="#使用预览和安全模式">使用预览和安全模式</a></li>
+                <li><a href="#大型操作的令牌管理">大型操作的令牌管理</a></li>
+                <li><a href="#使用导师角色学习">使用导师角色学习</a></li>
+              </ol>
+            </li>
+            <li><a href="#93-避免常见错误">9.3 避免常见错误</a></li>
+          </ol>
+        </li>
+        <li><a href="#第十部分进阶主题">第十部分：进阶主题</a>
+          <ol>
+            <li><a href="#101-superclaude-vs-标准-claude-code">10.1 SuperClaude vs 标准 Claude Code</a></li>
+            <li><a href="#102-理解行为上下文注入">10.2 理解行为上下文注入</a></li>
+            <li><a href="#103-自定义和扩展">10.3 自定义和扩展</a></li>
+          </ol>
+        </li>
+        <li><a href="#第十一部分资源与参考">第十一部分：资源与参考</a>
+          <ol>
+            <li><a href="#111-官方资源">11.1 官方资源</a></li>
+            <li><a href="#112-社区资源">11.2 社区资源</a></li>
+            <li><a href="#113-相关工具">11.3 相关工具</a></li>
+          </ol>
+        </li>
+        <li><a href="#版本控制与更新策略">版本控制与更新策略</a>
+          <ol>
+            <li><a href="#-更新日志">📝 更新日志</a>
+              <ol>
+                <li><a href="#v100-2026-01-12">v1.0.0 (2026-01-12)</a></li>
+              </ol>
+            </li>
+          </ol>
+        </li>
+        <li><a href="#-贡献指南">🤝 贡献指南</a></li>
+        <li><a href="#-注意事项">⚠️ 注意事项</a></li>
+        <li><a href="#-总结">🎯 总结</a></li>
+      </ol>
+    </li>
+  </ol>
+</nav>
+        </div>
+    </section>
+
+                
+            
+        
+    </aside>
+
+
+
+            <main class="main full-width">
+    <article class="has-image main-article">
+    <header class="article-header">
+        <div class="article-image">
+            <a href="/public/p/superclaude-%E5%85%A5%E9%97%A8%E5%88%B0%E7%B2%BE%E8%BF%9B%E4%BB%8E%E9%9B%B6%E6%8E%8C%E6%8F%A1-ai-%E8%BE%85%E5%8A%A9%E5%BC%80%E5%8F%91%E6%A1%86%E6%9E%B6/">
+                
+                    <img src="/public/default.jpeg" loading="lazy" alt="Featured image of post SuperClaude 入门到精进：从零掌握 AI 辅助开发框架" />
+                
+            </a>
+        </div>
+    
+
+    <div class="article-details">
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/public/p/superclaude-%E5%85%A5%E9%97%A8%E5%88%B0%E7%B2%BE%E8%BF%9B%E4%BB%8E%E9%9B%B6%E6%8E%8C%E6%8F%A1-ai-%E8%BE%85%E5%8A%A9%E5%BC%80%E5%8F%91%E6%A1%86%E6%9E%B6/">SuperClaude 入门到精进：从零掌握 AI 辅助开发框架</a>
+        </h2>
+    
+        
+        <h3 class="article-subtitle">
+            全面的 SuperClaude 框架教程，从快速开始到高级模式，帮助你掌握 AI 辅助开发的强大工具。包含完整的实战项目和最佳实践指南。
+        </h3>
+        
+    </div>
+
+    
+    
+    
+    
+    <footer class="article-time">
+        <div class="article-metadata">
+            
+            <div class="article-category">
+                
+                    
+                    
+                    <a href="/public/categories/knows/" class="category-link" style="background-color: #06f5c4; color: #ffffff;">
+                        Knows
+                    </a>
+                
+            </div>
+            
+
+            
+            <div class="article-tags">
+                
+                    
+                    
+                    <a href="/public/tags/claude-code/" class="tag-link" style="color: #ffffff; border: 1px solid #61f2de; background-color: #61f2de20;">
+                        #Claude Code
+                    </a>
+                
+                    
+                    
+                    <a href="/public/tags/superclaude/" class="tag-link" style="color: #ffffff; border: 1px solid #caf194; background-color: #caf19420;">
+                        #SuperClaude
+                    </a>
+                
+                    
+                    
+                    <a href="/public/tags/ai/" class="tag-link" style="color: #ffffff; border: 1px solid #560040; background-color: #56004020;">
+                        #AI
+                    </a>
+                
+                    
+                    
+                    <a href="/public/tags/%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7/" class="tag-link" style="color: #ffffff; border: 1px solid #ac1367; background-color: #ac136720;">
+                        #开发工具
+                    </a>
+                
+                    
+                    
+                    <a href="/public/tags/vibe-coding/" class="tag-link" style="color: #ffffff; border: 1px solid #514103; background-color: #51410320;">
+                        #Vibe Coding
+                    </a>
+                
+            </div>
+            
+        </div>
+
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">2026-01-12</time>
+            </div>
+        <div class="article-lastmod">
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+                <time>
+                    Jan 11, 2026 17:48 UTC
+                </time>
+            </div>
+    </footer>
+    
+
+    
+</div>
+
+</header>
+
+    <section class="article-content">
+    
+    
+    <p>version = &ldquo;1.0.0&rdquo;
+sc_version = &ldquo;4.1.5&rdquo;</p>
+<h1 id="superclaude-入门到精进从零掌握-ai-辅助开发框架">SuperClaude 入门到精进：从零掌握 AI 辅助开发框架
+</h1><blockquote>
+<p><strong>💡 核心洞察</strong>：SuperClaude 不是替代 Claude Code，而是通过行为上下文注入 <strong>配置和增强</strong> 它，将 AI 辅助开发提升到全新的系统化水平。</p>
+</blockquote>
+<p>本文将带你从零开始，逐步掌握 SuperClaude 框架，通过丰富的实战示例和完整的待办事项应用项目，真正理解和运用这个强大的 AI 辅助开发工具。</p>
+<hr>
+<h2 id="-目录">📚 目录
+</h2><ol>
+<li><a class="link" href="#%e7%ac%ac%e4%b8%80%e9%83%a8%e5%88%86superclaude-%e6%98%af%e4%bb%80%e4%b9%88%e6%a6%82%e5%bf%b5%e7%90%86%e8%a7%a3" >SuperClaude 是什么？</a></li>
+<li><a class="link" href="#%e7%ac%ac%e4%ba%8c%e9%83%a8%e5%88%86%e5%bf%ab%e9%80%9f%e5%bc%80%e5%a7%8b5-%e5%88%86%e9%92%9f%e4%b8%8a%e6%89%8b" >快速开始（5分钟上手）</a></li>
+<li><a class="link" href="#%e7%ac%ac%e4%b8%89%e9%83%a8%e5%88%86%e6%a0%b8%e5%bf%83%e5%91%bd%e4%bb%a4%e8%af%a6%e8%a7%a321-%e4%b8%aa%e5%91%bd%e4%bb%a4" >核心命令详解</a></li>
+<li><a class="link" href="#%e7%ac%ac%e5%9b%9b%e9%83%a8%e5%88%86ai-%e4%b8%93%e5%ae%b6%e8%a7%92%e8%89%b2%e7%b3%bb%e7%bb%9f" >AI 专家角色系统</a></li>
+<li><a class="link" href="#%e7%ac%ac%e4%ba%94%e9%83%a8%e5%88%86mcp-%e6%9c%8d%e5%8a%a1%e5%99%a8%e9%9b%86%e6%88%90" >MCP 服务器集成</a></li>
+<li><a class="link" href="#%e7%ac%ac%e5%85%ad%e9%83%a8%e5%88%86%e5%ae%8c%e6%95%b4%e5%ae%9e%e6%88%98%e9%a1%b9%e7%9b%ae%e5%be%85%e5%8a%9e%e4%ba%8b%e9%a1%b9%e5%ba%94%e7%94%a8" >完整实战项目：待办事项应用</a></li>
+<li><a class="link" href="#%e7%ac%ac%e4%b8%83%e9%83%a8%e5%88%86%e5%ae%9e%e6%88%98%e5%9c%ba%e6%99%af%e4%b8%8e%e5%b7%a5%e4%bd%9c%e6%b5%81" >实战场景与工作流</a></li>
+<li><a class="link" href="#%e7%ac%ac%e5%85%ab%e9%83%a8%e5%88%86%e5%ad%a6%e4%b9%a0%e8%b7%af%e7%ba%bf%e5%9b%be4-%e5%91%a8%e7%b2%be%e8%bf%9b%e8%ae%a1%e5%88%92" >学习路线图（4周精进计划）</a></li>
+<li><a class="link" href="#%e7%ac%ac%e4%b9%9d%e9%83%a8%e5%88%86%e6%9c%80%e4%bd%b3%e5%ae%9e%e8%b7%b5%e4%b8%8e%e6%8a%80%e5%b7%a7" >最佳实践与技巧</a></li>
+<li><a class="link" href="#%e7%ac%ac%e5%8d%81%e9%83%a8%e5%88%86%e8%bf%9b%e9%98%b6%e4%b8%bb%e9%a2%98" >进阶主题</a></li>
+<li><a class="link" href="#%e7%ac%ac%e5%8d%81%e4%b8%80%e9%83%a8%e5%88%86%e8%b5%84%e6%ba%90%e4%b8%8e%e5%8f%82%e8%80%83" >资源与参考</a></li>
+<li><a class="link" href="#%e7%89%88%e6%9c%ac%e6%8e%a7%e5%88%b6%e4%b8%8e%e6%9b%b4%e6%96%b0%e7%ad%96%e7%95%a5" >更新日志与维护</a></li>
+</ol>
+<hr>
+<h2 id="第一部分superclaude-是什么概念理解">第一部分：SuperClaude 是什么？（概念理解）
+</h2><h3 id="11-核心概念">1.1 核心概念
+</h3><p>首先，让我们明确 SuperClaude <strong>不是什么</strong>：</p>
+<p>❌ <strong>不是独立软件</strong> - 它不需要单独安装和运行
+❌ <strong>不替代 Claude Code</strong> - 它是构建在 Claude Code 之上的增强层
+❌ <strong>不需要额外的 AI 模型</strong> - 使用的是你已有的 Claude API</p>
+<p>那么，<strong>SuperClaude 是什么</strong>？</p>
+<p>✅ <strong>配置框架（Configuration Framework）</strong> - 通过结构化的行为配置，让 Claude Code 按照特定模式工作
+✅ <strong>行为上下文注入（Behavioral Context Injection）</strong> - 在运行时将专家级行为模式注入到 Claude 的响应中
+✅ <strong>能力增强层</strong> - 将 Claude Code 从通用助手转变为专业开发平台</p>
+<h3 id="12-框架能力概览">1.2 框架能力概览
+</h3><p>SuperClaude 提供了四大核心能力：</p>
+<div class="table-wrapper"><table>
+  <thead>
+      <tr>
+          <th>能力类型</th>
+          <th>数量</th>
+          <th>说明</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td><strong>📝 命令</strong></td>
+          <td>21</td>
+          <td><code>/sc:</code> 触发的专用命令，覆盖开发全流程</td>
+      </tr>
+      <tr>
+          <td><strong>🤖 专家</strong></td>
+          <td>14</td>
+          <td>领域专精的 AI 专家角色</td>
+      </tr>
+      <tr>
+          <td><strong>🎯 模式</strong></td>
+          <td>6</td>
+          <td>上下文适应的行为模式</td>
+      </tr>
+      <tr>
+          <td><strong>🔌 MCP</strong></td>
+          <td>6</td>
+          <td>外部工具集成服务器</td>
+      </tr>
+  </tbody>
+</table></div>
+<h3 id="13-工作原理图解">1.3 工作原理图解
+</h3><pre class="mermaid">
+  flowchart LR
+    A[用户输入 /sc:command] --&gt; B[Claude Code]
+    B --&gt; C[读取上下文文件]
+    C --&gt; D[行为激活]
+    D --&gt; E{需要外部工具?}
+    E --&gt;|是| F[MCP 服务器集成]
+    E --&gt;|否| G[增强响应输出]
+    F --&gt; G
+
+    style A fill:#e1f5ff
+    style G fill:#c8e6c9
+    style F fill:#fff9c4
+</pre>
+
+<p><strong>魔法是如何发生的</strong>：当你输入 <code>/sc:brainstorm</code> 时，Claude Code 会：</p>
+<ol>
+<li>识别 <code>/sc:</code> 触发器</li>
+<li>读取对应的行为配置文件（<code>.md</code> 格式）</li>
+<li>激活特定的专家角色和行为模式</li>
+<li>根据需要调用 MCP 服务器</li>
+<li>按照框架模式生成全面、系统的响应</li>
+</ol>
+<hr>
+<h2 id="第二部分快速开始5-分钟上手">第二部分：快速开始（5 分钟上手）
+</h2><h3 id="21-安装方法">2.1 安装方法
+</h3><p>SuperClaude 支持三种安装方式，选择最适合你的：</p>
+<h4 id="方法一pipx推荐">方法一：pipx（推荐）
+</h4>
+
+
+
+
+<div class="highlight highlight-bash">
+  <pre>
+    <code class="language-bash" data-lang="bash">pipx install SuperClaude &amp;&amp; SuperClaude install</code>
+  </pre>
+</div>
+
+<p><strong>优势</strong>：隔离环境，不污染系统 Python</p>
+<h4 id="方法二pip">方法二：pip
+</h4>
+
+
+
+
+<div class="highlight highlight-bash">
+  <pre>
+    <code class="language-bash" data-lang="bash">pip install SuperClaude &amp;&amp; SuperClaude install</code>
+  </pre>
+</div>
+
+<p><strong>适用</strong>：已熟悉 Python 包管理的开发者</p>
+<h4 id="方法三npm">方法三：npm
+</h4>
+
+
+
+
+<div class="highlight highlight-bash">
+  <pre>
+    <code class="language-bash" data-lang="bash">npm install -g @bifrost_inc/superclaude &amp;&amp; superclaude install</code>
+  </pre>
+</div>
+
+<p><strong>适用</strong>：前端开发者或 Node.js 生态系统用户</p>
+<h3 id="22-验证安装">2.2 验证安装
+</h3><p>安装完成后，在 Claude Code 中测试以下命令：</p>
+
+
+
+
+
+<div class="highlight highlight-bash">
+  <pre>
+    <code class="language-bash" data-lang="bash"># 交互式需求发现
+/sc:brainstorm &#34;我想开发一个任务管理 Web 应用&#34;
+
+# 分析现有代码
+/sc:analyze src/
+
+# 生成实现方案
+/sc:implement &#34;用户认证系统&#34;</code>
+  </pre>
+</div>
+
+<p>如果这些命令能够正常工作并产生预期响应，说明安装成功！</p>
+<h3 id="23-第一个项目体验">2.3 第一个项目体验
+</h3><p>让我们通过一个完整的开发流程体验 SuperClaude 的强大能力：</p>
+
+
+
+
+
+<div class="highlight highlight-bash">
+  <pre>
+    <code class="language-bash" data-lang="bash"># 1️⃣ 需求探索
+/sc:brainstorm &#34;电商网站&#34;
+
+# 2️⃣ 加载项目上下文（如果已有代码）
+/sc:load src/
+
+# 3️⃣ 架构分析
+/sc:analyze --focus architecture
+
+# 4️⃣ 生成实施路线图
+/sc:workflow &#34;支付集成&#34;
+
+# 5️⃣ 构建功能
+/sc:implement &#34;Stripe 结账&#34;
+
+# 6️⃣ 测试验证
+/sc:test --coverage
+
+# 7️⃣ 保存会话进度
+/sc:save &#34;支付功能完成&#34;</code>
+  </pre>
+</div>
+
+<p><strong>预期效果</strong>：每个命令都会触发对应的专家角色，生成结构化、专业化的响应，完全不同于简单的问答模式。</p>
+<hr>
+<h2 id="第三部分核心命令详解21-个命令">第三部分：核心命令详解（21 个命令）
+</h2><p>SuperClaude 的 21 个核心命令覆盖了软件开发的完整生命周期。让我们按功能类别深入了解它们。</p>
+<h3 id="31-开发类命令">3.1 开发类命令
+</h3><h4 id="-scbuild---智能项目构建">🎯 <code>/sc:build</code> - 智能项目构建
+</h4><p><strong>功能</strong>：自动检测框架并优化构建过程</p>
+<p><strong>基础用法</strong>：</p>
+
+
+
+
+
+<div class="highlight highlight-bash">
+  <pre>
+    <code class="language-bash" data-lang="bash">/sc:build my-project/</code>
+  </pre>
+</div>
+
+<p><strong>高级用法</strong>：</p>
+
+
+
+
+
+<div class="highlight highlight-bash">
+  <pre>
+    <code class="language-bash" data-lang="bash"># 自动检测框架并验证配置
+/sc:build react-app/ --validate
+
+# 生产构建（优化、压缩）
+/sc:build --prod --optimize
+
+# 指定框架类型
+/sc:build vue-app/ --framework vue</code>
+  </pre>
+</div>
+
+<p><strong>使用场景</strong>：</p>
+<ul>
+<li>🆕 新项目初始化</li>
+<li>🔧 自动检测框架（React, Vue, Next.js, Svelte 等）</li>
+<li>⚡ 优化构建配置（Vite, Webpack, Turbopack）</li>
+</ul>
+<p><strong>实际效果</strong>：</p>
+<ul>
+<li>生成符合最佳实践的项目结构</li>
+<li>自动配置 TypeScript、ESLint、Prettier</li>
+<li>集成测试框架（Vitest, Jest）</li>
+</ul>
+<hr>
+<h4 id="-scimplement---特性实现">🎯 <code>/sc:implement</code> - 特性实现
+</h4><p><strong>功能</strong>：从需求到代码的完整实现，自动选择专家角色</p>
+<p><strong>基础用法</strong>：</p>
+
+
+
+
+
+<div class="highlight highlight-bash">
+  <pre>
+    <code class="language-bash" data-lang="bash">/sc:implement &#34;用户登录功能&#34;</code>
+  </pre>
+</div>
+
+<p><strong>高级用法</strong>：</p>
+
+
+
+
+
+<div class="highlight highlight-bash">
+  <pre>
+    <code class="language-bash" data-lang="bash"># 指定专家角色
+/sc:implement &#34;REST API&#34; --persona backend
+
+# 带测试实现
+/sc:implement &#34;数据验证&#34; --with-tests
+
+# 指定技术栈
+/sc:implement &#34;用户认证&#34; --stack nextjs --with-tests</code>
+  </pre>
+</div>
+
+<p><strong>使用场景</strong>：</p>
+<ul>
+<li>✨ 从用户故事到代码实现</li>
+<li>🎨 自动选择合适的架构模式</li>
+<li>📝 生成符合规范的代码和文档</li>
+<li>🧪 包含单元测试和集成测试</li>
+</ul>
+<p><strong>代码示例</strong>：</p>
+
+
+
+
+
+<div class="highlight highlight-typescript">
+  <pre>
+    <code class="language-typescript" data-lang="typescript">// 输入: /sc:implement &#34;用户登录&#34; --with-tests
+
+// SuperClaude 会生成：
+// 1. 类型定义
+interface LoginCredentials {
+  email: string;
+  password: string;
+}
+
+interface AuthResponse {
+  token: string;
+  user: User;
+}
+
+// 2. API 函数
+export async function login(credentials: LoginCredentials): Promise&lt;AuthResponse&gt; {
+  const response = await fetch(&#39;/api/auth/login&#39;, {
+    method: &#39;POST&#39;,
+    headers: { &#39;Content-Type&#39;: &#39;application/json&#39; },
+    body: JSON.stringify(credentials),
+  });
+
+  if (!response.ok) {
+    throw new Error(&#39;登录失败&#39;);
+  }
+
+  return response.json();
+}
+
+// 3. 测试用例
+describe(&#39;login&#39;, () =&gt; {
+  it(&#39;should authenticate user with valid credentials&#39;, async () =&gt; {
+    const result = await login({
+      email: &#39;user@example.com&#39;,
+      password: &#39;password123&#39;,
+    });
+
+    expect(result).toHaveProperty(&#39;token&#39;);
+    expect(result).toHaveProperty(&#39;user&#39;);
+  });
+});</code>
+  </pre>
+</div>
+
+<hr>
+<h4 id="-scdesign---系统设计">🎯 <code>/sc:design</code> - 系统设计
+</h4><p><strong>功能</strong>：创建架构图和设计规范</p>
+<p><strong>基础用法</strong>：</p>
+
+
+
+
+
+<div class="highlight highlight-bash">
+  <pre>
+    <code class="language-bash" data-lang="bash">/sc:design &#34;微服务架构&#34;</code>
+  </pre>
+</div>
+
+<p><strong>高级用法</strong>：</p>
+
+
+
+
+
+<div class="highlight highlight-bash">
+  <pre>
+    <code class="language-bash" data-lang="bash"># 架构设计
+/sc:design &#34;系统架构&#34; --type architecture
+
+# 组件设计
+/sc:design &#34;用户管理组件&#34; --type component
+
+# API 设计（生成 OpenAPI 规范）
+/sc:design &#34;GraphQL API&#34; --format openapi</code>
+  </pre>
+</div>
+
+<p><strong>输出内容</strong>：</p>
+<ul>
+<li>📊 架构图（Mermaid 格式）</li>
+<li>📋 设计文档</li>
+<li>🔄 数据流图</li>
+<li>🎨 UI/UX 建议（针对组件设计）</li>
+</ul>
+<hr>
+<h3 id="32-分析类命令">3.2 分析类命令
+</h3><h4 id="-scanalyze---全面代码分析">🔍 <code>/sc:analyze</code> - 全面代码分析
+</h4><p>这是 SuperClaude 最强大的命令之一，支持多维度、多深度的代码分析。</p>
+<p><strong>基础用法</strong>：</p>
+
+
+
+
+
+<div class="highlight highlight-bash">
+  <pre>
+    <code class="language-bash" data-lang="bash">/sc:analyze auth.js</code>
+  </pre>
+</div>
+
+<p><strong>思考深度梯度</strong>：</p>
+
+
+
+
+
+<div class="highlight highlight-bash">
+  <pre>
+    <code class="language-bash" data-lang="bash">/sc:analyze codebase/ --think           # ~4K tokens，多文件分析
+/sc:analyze codebase/ --think-hard      # ~10K tokens，深度架构分析
+/sc:analyze codebase/ --ultrathink      # ~32K tokens，最大深度分析</code>
+  </pre>
+</div>
+
+<p><strong>专注特定方面</strong>：</p>
+
+
+
+
+
+<div class="highlight highlight-bash">
+  <pre>
+    <code class="language-bash" data-lang="bash"># 安全分析
+/sc:analyze api/ --focus security
+
+# 性能分析
+/sc:analyze component/ --focus performance
+
+# 代码质量
+/sc:analyze code/ --focus quality
+
+# 可维护性
+/sc:analyze legacy/ --focus maintainability</code>
+  </pre>
+</div>
+
+<p><strong>多角色视角</strong>：</p>
+
+
+
+
+
+<div class="highlight highlight-bash">
+  <pre>
+    <code class="language-bash" data-lang="bash"># 架构师视角
+/sc:analyze design/ --persona-architect
+
+# 安全专家视角
+/sc:analyze auth/ --persona-security
+
+# 性能专家视角
+/sc:analyze db/ --persona-performance
+
+# QA 视角
+/sc:analyze code/ --persona-qa</code>
+  </pre>
+</div>
+
+<p><strong>实际案例</strong>：</p>
+
+
+
+
+
+<div class="highlight highlight-bash">
+  <pre>
+    <code class="language-bash" data-lang="bash"># 输入
+/sc:analyze api/auth.js --focus security --think-hard
+
+# 输出包括：
+# 1. 安全漏洞识别（SQL 注入、XSS、CSRF）
+# 2. 依赖项安全审计
+# 3. 敏感数据处理检查
+# 4. 认证/授权机制评估
+# 5. 安全改进建议（带优先级）</code>
+  </pre>
+</div>
+
+<hr>
+<h4 id="-sctroubleshoot---问题排查">🔍 <code>/sc:troubleshoot</code> - 问题排查
+</h4><p><strong>功能</strong>：系统化诊断，为错误提供逐步解决方案</p>
+<p><strong>基础用法</strong>：</p>
+
+
+
+
+
+<div class="highlight highlight-bash">
+  <pre>
+    <code class="language-bash" data-lang="bash">/sc:troubleshoot &#34;登录失败&#34;</code>
+  </pre>
+</div>
+
+<p><strong>高级用法</strong>：</p>
+
+
+
+
+
+<div class="highlight highlight-bash">
+  <pre>
+    <code class="language-bash" data-lang="bash"># 带日志分析
+/sc:troubleshoot &#34;500 错误&#34; --logs logs/error.log
+
+# 系统化诊断
+/sc:troubleshoot &#34;内存泄漏&#34; --diagnose
+
+# 指定环境
+/sc:troubleshoot &#34;生产环境崩溃&#34; --env production</code>
+  </pre>
+</div>
+
+<p><strong>诊断流程</strong>：</p>
+<ol>
+<li>📊 收集错误信息和上下文</li>
+<li>🔍 分析根本原因</li>
+<li>💡 提供多个可能的解决方案</li>
+<li>⚠️ 评估每个方案的优缺点</li>
+<li>✅ 推荐最佳解决方案</li>
+</ol>
+<hr>
+<h4 id="-scexplain---教学式解释">🔍 <code>/sc:explain</code> - 教学式解释
+</h4><p><strong>功能</strong>：帮助理解复杂代码或概念，导师模式</p>
+<p><strong>基础用法</strong>：</p>
+
+
+
+
+
+<div class="highlight highlight-bash">
+  <pre>
+    <code class="language-bash" data-lang="bash">/sc:explain complex-function.js</code>
+  </pre>
+</div>
+
+<p><strong>高级用法</strong>：</p>
+
+
+
+
+
+<div class="highlight highlight-bash">
+  <pre>
+    <code class="language-bash" data-lang="bash"># 概念讲解
+/sc:explain &#34;GraphQL vs REST&#34;
+
+# 导师模式（详细、互动式）
+/sc:explain React Hooks --persona-mentor --verbose
+
+# 深度技术讲解
+/sc:explain &#34;JavaScript 事件循环&#34; --depth advanced</code>
+  </pre>
+</div>
+
+<p><strong>解释风格</strong>：</p>
+<ul>
+<li>📚 从基础概念开始</li>
+<li>🎨 使用图表和类比</li>
+<li>💻 提供实际代码示例</li>
+<li>❓ 互动式提问和验证</li>
+<li>🔗 提供进一步学习资源</li>
+</ul>
+<hr>
+<h3 id="33-质量类命令">3.3 质量类命令
+</h3><h4 id="-scimprove---代码优化">✨ <code>/sc:improve</code> - 代码优化
+</h4><p><strong>功能</strong>：自动应用最佳实践，优化代码质量</p>
+<p><strong>基础用法</strong>：</p>
+
+
+
+
+
+<div class="highlight highlight-bash">
+  <pre>
+    <code class="language-bash" data-lang="bash">/sc:improve code.js</code>
+  </pre>
+</div>
+
+<p><strong>安全模式（推荐用于生产代码）</strong>：</p>
+
+
+
+
+
+<div class="highlight highlight-bash">
+  <pre>
+    <code class="language-bash" data-lang="bash"># 预览模式（先看会发生什么）
+/sc:improve code.js --preview
+
+# 安全模式（只应用安全更改）
+/sc:improve production-auth/ --safe-mode --validate
+
+# 性能优化
+/sc:improve app.js --type performance --benchmark</code>
+  </pre>
+</div>
+
+<p><strong>优化类型</strong>：</p>
+
+
+
+
+
+<div class="highlight highlight-bash">
+  <pre>
+    <code class="language-bash" data-lang="bash"># 性能优化
+/sc:improve --type performance
+
+# 代码质量
+/sc:improve --type quality
+
+# 可读性
+/sc:improve --type readability
+
+# 安全性
+/sc:improve --type security</code>
+  </pre>
+</div>
+
+<p><strong>优化示例</strong>：</p>
+
+
+
+
+
+<div class="highlight highlight-javascript">
+  <pre>
+    <code class="language-javascript" data-lang="javascript">// 优化前
+const getUserData = async (id) =&gt; {
+  const user = await db.query(&#39;SELECT * FROM users WHERE id = &#39; &#43; id);
+  const posts = await db.query(&#39;SELECT * FROM posts WHERE userId = &#39; &#43; id);
+  const comments = await db.query(&#39;SELECT * FROM comments WHERE userId = &#39; &#43; id);
+  return { user, posts, comments };
+};
+
+// 优化后（使用 /sc:improve --type performance）
+const getUserData = async (id: number) =&gt; {
+  // 使用参数化查询防止 SQL 注入
+  const [user, posts, comments] = await Promise.all([
+    db.query(&#39;SELECT * FROM users WHERE id = $1&#39;, [id]),
+    db.query(&#39;SELECT * FROM posts WHERE userId = $1&#39;, [id]),
+    db.query(&#39;SELECT * FROM comments WHERE userId = $1&#39;, [id]),
+  ]);
+
+  // 只返回必要的字段
+  return {
+    user: sanitizeUser(user),
+    posts: posts.map(sanitizePost),
+    comments: comments.map(sanitizeComment),
+  };
+};</code>
+  </pre>
+</div>
+
+<hr>
+<h4 id="-sccleanup---技术债务清理">✨ <code>/sc:cleanup</code> - 技术债务清理
+</h4><p><strong>功能</strong>：清理冗余代码、未使用的依赖、过时的模式</p>
+<p><strong>基础用法</strong>：</p>
+
+
+
+
+
+<div class="highlight highlight-bash">
+  <pre>
+    <code class="language-bash" data-lang="bash">/sc:cleanup legacy/</code>
+  </pre>
+</div>
+
+<p><strong>波模式（系统性改进）</strong>：</p>
+
+
+
+
+
+<div class="highlight highlight-bash">
+  <pre>
+    <code class="language-bash" data-lang="bash"># 自动模式（分析后自动清理）
+/sc:cleanup old-code/ --wave-mode auto
+
+# 系统模式（分阶段、可回滚）
+/sc:cleanup old-code/ --wave-mode systematic
+
+# 交互模式（每个更改前询问）
+/sc:cleanup old-code/ --wave-mode interactive</code>
+  </pre>
+</div>
+
+<p><strong>清理内容</strong>：</p>
+<ul>
+<li>🗑️ 未使用的变量和函数</li>
+<li>📦 未使用的依赖包</li>
+<li>🔄 过时的 API 调用</li>
+<li>📝 注释掉的代码</li>
+<li>🎨 重复的代码片段</li>
+</ul>
+<hr>
+<h4 id="-sctest---测试执行">✨ <code>/sc:test</code> - 测试执行
+</h4><p><strong>功能</strong>：全面的测试策略和执行</p>
+<p><strong>测试类型</strong>：</p>
+
+
+
+
+
+<div class="highlight highlight-bash">
+  <pre>
+    <code class="language-bash" data-lang="bash"># 单元测试
+/sc:test --type unit
+
+# 集成测试
+/sc:test --type integration
+
+# E2E 测试（使用 Playwright）
+/sc:test e2e --playwright
+
+# 安全测试
+/sc:test --type security
+
+# 性能测试
+/sc:test --type performance</code>
+  </pre>
+</div>
+
+<p><strong>覆盖率</strong>：</p>
+
+
+
+
+
+<div class="highlight highlight-bash">
+  <pre>
+    <code class="language-bash" data-lang="bash"># 带覆盖率报告
+/sc:test --coverage
+
+# 设置覆盖率目标
+/sc:test --coverage --threshold 80</code>
+  </pre>
+</div>
+
+<p><strong>测试框架集成</strong>：</p>
+<ul>
+<li>Vitest / Jest</li>
+<li>Playwright / Cypress</li>
+<li>React Testing Library</li>
+<li>Supertest（API 测试）</li>
+</ul>
+<hr>
+<h3 id="34-项目管理类命令">3.4 项目管理类命令
+</h3><h4 id="-scworkflow---工作流生成">📋 <code>/sc:workflow</code> - 工作流生成
+</h4><p><strong>功能</strong>：从 PRD 或需求生成结构化实施步骤</p>
+<p><strong>基础用法</strong>：</p>
+
+
+
+
+
+<div class="highlight highlight-bash">
+  <pre>
+    <code class="language-bash" data-lang="bash">/sc:workflow &#34;用户注册功能&#34;</code>
+  </pre>
+</div>
+
+<p><strong>高级用法</strong>：</p>
+
+
+
+
+
+<div class="highlight highlight-bash">
+  <pre>
+    <code class="language-bash" data-lang="bash"># 从 PRD 文件生成
+/sc:workflow --from prd.md
+
+# 指定开发方法论
+/sc:workflow &#34;支付集成&#34; --methodology scrum
+
+# 生成甘特图
+/sc:workflow &#34;项目启动&#34; --gantt</code>
+  </pre>
+</div>
+
+<p><strong>输出内容</strong>：</p>
+<ul>
+<li>📝 任务分解（WBS）</li>
+<li>⏱️ 时间估算</li>
+<li>🎯 依赖关系</li>
+<li>📊 风险评估</li>
+<li>✅ 验收标准</li>
+</ul>
+<hr>
+<h4 id="-sctask---任务执行">📋 <code>/sc:task</code> - 任务执行
+</h4><p><strong>功能</strong>：执行复杂任务，支持委托模式</p>
+<p><strong>基础用法</strong>：</p>
+
+
+
+
+
+<div class="highlight highlight-bash">
+  <pre>
+    <code class="language-bash" data-lang="bash">/sc:task &#34;重构认证系统&#34;</code>
+  </pre>
+</div>
+
+<p><strong>委托模式</strong>：</p>
+
+
+
+
+
+<div class="highlight highlight-bash">
+  <pre>
+    <code class="language-bash" data-lang="bash"># 自动委托（并行处理）
+/sc:task &#34;代码审查&#34; --delegate auto
+
+# 手动委托
+/sc:task &#34;性能优化&#34; --delegate parallel</code>
+  </pre>
+</div>
+
+<hr>
+<h4 id="-scgit---git-操作">📋 <code>/sc:git</code> - Git 操作
+</h4><p><strong>功能</strong>：智能提交和分支策略</p>
+<p><strong>智能提交</strong>：</p>
+
+
+
+
+
+<div class="highlight highlight-bash">
+  <pre>
+    <code class="language-bash" data-lang="bash">/sc:git --smart-commit</code>
+  </pre>
+</div>
+
+<p><strong>分支策略</strong>：</p>
+
+
+
+
+
+<div class="highlight highlight-bash">
+  <pre>
+    <code class="language-bash" data-lang="bash">/sc:git --branch-strategy gitflow</code>
+  </pre>
+</div>
+
+<p><strong>生成的提交信息</strong>：</p>
+<ul>
+<li>遵循 Conventional Commits 规范</li>
+<li>自动分析更改内容</li>
+<li>生成详细的提交描述</li>
+</ul>
+<hr>
+<h3 id="35-学习类命令">3.5 学习类命令
+</h3><h4 id="-scbrainstorm---需求发现">🧠 <code>/sc:brainstorm</code> - 需求发现
+</h4><p><strong>功能</strong>：交互式需求探索，Socratic 对话</p>
+<p><strong>基础用法</strong>：</p>
+
+
+
+
+
+<div class="highlight highlight-bash">
+  <pre>
+    <code class="language-bash" data-lang="bash">/sc:brainstorm &#34;项目管理应用&#34;</code>
+  </pre>
+</div>
+
+<p><strong>深度探索</strong>：</p>
+
+
+
+
+
+<div class="highlight highlight-bash">
+  <pre>
+    <code class="language-bash" data-lang="bash">/sc:brainstorm &#34;SaaS 平台&#34; --depth deep</code>
+  </pre>
+</div>
+
+<p><strong>探索维度</strong>：</p>
+<ul>
+<li>💡 功能需求</li>
+<li>🎯 用户场景</li>
+<li>⚠️ 技术挑战</li>
+<li>💰 商业价值</li>
+<li>🔄 竞争分析</li>
+</ul>
+<hr>
+<h4 id="-scexplain---代码讲解">🧠 <code>/sc:explain</code> - 代码讲解
+</h4><p>已在分析类命令中详细说明。</p>
+<hr>
+<h4 id="-sclearn---学习资源">🧠 <code>/sc:learn</code> - 学习资源
+</h4><p><strong>功能</strong>：获取学习路径和官方文档参考</p>
+<p><strong>基础用法</strong>：</p>
+
+
+
+
+
+<div class="highlight highlight-bash">
+  <pre>
+    <code class="language-bash" data-lang="bash">/sc:learn &#34;React Server Components&#34;</code>
+  </pre>
+</div>
+
+<p><strong>高级用法</strong>：</p>
+
+
+
+
+
+<div class="highlight highlight-bash">
+  <pre>
+    <code class="language-bash" data-lang="bash"># 获取官方文档
+/sc:learn --docs
+
+# 生成学习路径
+/sc:learn &#34;TypeScript&#34; --roadmap
+
+# 获取最佳实践
+/sc:learn &#34;Next.js&#34; --best-practices</code>
+  </pre>
+</div>
+
+<hr>
+<h3 id="36-其他重要命令">3.6 其他重要命令
+</h3><h4 id="-scload---加载项目上下文">📂 <code>/sc:load</code> - 加载项目上下文
+</h4><p><strong>功能</strong>：导入项目结构，生成上下文摘要</p>
+<p><strong>基础用法</strong>：</p>
+
+
+
+
+
+<div class="highlight highlight-bash">
+  <pre>
+    <code class="language-bash" data-lang="bash">/sc:load src/</code>
+  </pre>
+</div>
+
+<p><strong>深度加载</strong>：</p>
+
+
+
+
+
+<div class="highlight highlight-bash">
+  <pre>
+    <code class="language-bash" data-lang="bash"># 深度加载（生成摘要）
+/sc:load --deep --summary
+
+# 指定范围
+/sc:load components/ --scope module
+
+# 排除目录
+/sc:load src/ --exclude node_modules,dist</code>
+  </pre>
+</div>
+
+<hr>
+<h4 id="-scsave---保存会话">💾 <code>/sc:save</code> - 保存会话
+</h4><p><strong>功能</strong>：持久化会话上下文，便于后续恢复</p>
+<p><strong>基础用法</strong>：</p>
+
+
+
+
+
+<div class="highlight highlight-bash">
+  <pre>
+    <code class="language-bash" data-lang="bash">/sc:save &#34;功能开发完成&#34;</code>
+  </pre>
+</div>
+
+<p><strong>带标签保存</strong>：</p>
+
+
+
+
+
+<div class="highlight highlight-bash">
+  <pre>
+    <code class="language-bash" data-lang="bash">/sc:save &#34;bug 修复&#34; --tags fix,auth,critical</code>
+  </pre>
+</div>
+
+<p><strong>会话管理</strong>：</p>
+<ul>
+<li>自动保存对话历史</li>
+<li>保存项目上下文</li>
+<li>保存未完成任务</li>
+<li>生成会话报告</li>
+</ul>
+<hr>
+<h4 id="-scindex---项目文档生成">📑 <code>/sc:index</code> - 项目文档生成
+</h4><p><strong>功能</strong>：生成项目索引和知识库</p>
+<p><strong>基础用法</strong>：</p>
+
+
+
+
+
+<div class="highlight highlight-bash">
+  <pre>
+    <code class="language-bash" data-lang="bash">/sc:index</code>
+  </pre>
+</div>
+
+<p><strong>生成类型</strong>：</p>
+
+
+
+
+
+<div class="highlight highlight-bash">
+  <pre>
+    <code class="language-bash" data-lang="bash"># 项目索引
+/sc:index --type project
+
+# 知识库
+/sc:index --type knowledge-base
+
+# API 文档
+/sc:index --type api</code>
+  </pre>
+</div>
+
+<hr>
+<h4 id="-scdocument---文档生成">📄 <code>/sc:document</code> - 文档生成
+</h4><p><strong>功能</strong>：为代码生成各类文档</p>
+<p><strong>基础用法</strong>：</p>
+
+
+
+
+
+<div class="highlight highlight-bash">
+  <pre>
+    <code class="language-bash" data-lang="bash">/sc:document Button.jsx</code>
+  </pre>
+</div>
+
+<p><strong>文档类型</strong>：</p>
+
+
+
+
+
+<div class="highlight highlight-bash">
+  <pre>
+    <code class="language-bash" data-lang="bash"># 组件文档
+/sc:document Button.jsx --type component
+
+# API 文档（OpenAPI）
+/sc:document api/ --type openapi
+
+# 指南文档
+/sc:document features/ --type guide
+
+# README
+/sc:document --type readme</code>
+  </pre>
+</div>
+
+<hr>
+<h4 id="-screcommend---命令推荐">🎯 <code>/sc:recommend</code> - 命令推荐
+</h4><p><strong>功能</strong>：获取最适合当前任务的命令建议</p>
+<p><strong>基础用法</strong>：</p>
+
+
+
+
+
+<div class="highlight highlight-bash">
+  <pre>
+    <code class="language-bash" data-lang="bash">/sc:recommend &#34;重构代码&#34;</code>
+  </pre>
+</div>
+
+<p><strong>列出所有推荐命令</strong>：</p>
+
+
+
+
+
+<div class="highlight highlight-bash">
+  <pre>
+    <code class="language-bash" data-lang="bash">/sc:recommend --list</code>
+  </pre>
+</div>
+
+<hr>
+<h4 id="-schelp---帮助信息">❓ <code>/sc:help</code> - 帮助信息
+</h4><p><strong>功能</strong>：查看命令详情和使用方法</p>
+<p><strong>基础用法</strong>：</p>
+
+
+
+
+
+<div class="highlight highlight-bash">
+  <pre>
+    <code class="language-bash" data-lang="bash">/sc:help
+
+# 查看特定命令
+/sc:help /sc:implement
+
+# 按类别查看
+/sc:help --category analysis
+/sc:help --category development</code>
+  </pre>
+</div>
+
+<hr>
+<h2 id="第四部分ai-专家角色系统">第四部分：AI 专家角色系统
+</h2><p>SuperClaude 的 14 个 AI 专家角色是其核心优势之一，每个专家都在特定领域具有深度专精。</p>
+<h3 id="41-专家角色列表">4.1 专家角色列表
+</h3><h4 id="-架构类">🏗️ 架构类
+</h4><div class="table-wrapper"><table>
+  <thead>
+      <tr>
+          <th>角色</th>
+          <th>专精领域</th>
+          <th>自动触发场景</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td><code>@agent-architect</code></td>
+          <td>系统架构设计、技术栈选择</td>
+          <td><code>/sc:design --type architecture</code></td>
+      </tr>
+      <tr>
+          <td><code>@agent-design</code></td>
+          <td>设计系统、UI/UX、组件设计</td>
+          <td><code>/sc:design --type component</code></td>
+      </tr>
+  </tbody>
+</table></div>
+<h4 id="-开发类">💻 开发类
+</h4><div class="table-wrapper"><table>
+  <thead>
+      <tr>
+          <th>角色</th>
+          <th>专精领域</th>
+          <th>自动触发场景</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td><code>@agent-frontend</code></td>
+          <td>React, Vue, 前端性能优化</td>
+          <td>分析 <code>.jsx</code>, <code>.vue</code>, <code>.tsx</code> 文件</td>
+      </tr>
+      <tr>
+          <td><code>@agent-backend</code></td>
+          <td>Node.js, Python, API 设计</td>
+          <td>分析 <code>.js</code>（后端）, <code>.py</code> 文件</td>
+      </tr>
+      <tr>
+          <td><code>@agent-devops</code></td>
+          <td>CI/CD, Docker, K8s, 部署</td>
+          <td><code>/sc:build --prod</code>, DevOps 相关任务</td>
+      </tr>
+  </tbody>
+</table></div>
+<h4 id="-质量类">🔒 质量类
+</h4><div class="table-wrapper"><table>
+  <thead>
+      <tr>
+          <th>角色</th>
+          <th>专精领域</th>
+          <th>自动触发场景</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td><code>@agent-security</code></td>
+          <td>安全审计、漏洞检测</td>
+          <td><code>/sc:analyze --focus security</code></td>
+      </tr>
+      <tr>
+          <td><code>@agent-qa</code></td>
+          <td>测试策略、质量保证</td>
+          <td><code>/sc:test</code>, <code>/sc:analyze --focus quality</code></td>
+      </tr>
+      <tr>
+          <td><code>@agent-performance</code></td>
+          <td>性能优化、瓶颈分析</td>
+          <td><code>/sc:analyze --focus performance</code></td>
+      </tr>
+  </tbody>
+</table></div>
+<h4 id="-管理类">📊 管理类
+</h4><div class="table-wrapper"><table>
+  <thead>
+      <tr>
+          <th>角色</th>
+          <th>专精领域</th>
+          <th>自动触发场景</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td><code>@agent-project-manager</code></td>
+          <td>项目协调、需求管理</td>
+          <td>默认协调者，<code>/sc:workflow</code></td>
+      </tr>
+      <tr>
+          <td><code>@agent-scribe</code></td>
+          <td>文档撰写、技术写作</td>
+          <td><code>/sc:document</code></td>
+      </tr>
+  </tbody>
+</table></div>
+<h4 id="-分析类">🔬 分析类
+</h4><div class="table-wrapper"><table>
+  <thead>
+      <tr>
+          <th>角色</th>
+          <th>专精领域</th>
+          <th>自动触发场景</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td><code>@agent-analyst</code></td>
+          <td>数据分析、指标追踪</td>
+          <td>数据相关任务</td>
+      </tr>
+  </tbody>
+</table></div>
+<h4 id="-其他">🎓 其他
+</h4><div class="table-wrapper"><table>
+  <thead>
+      <tr>
+          <th>角色</th>
+          <th>专精领域</th>
+          <th>自动触发场景</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td><code>@agent-mentor</code></td>
+          <td>教学解释、概念讲解</td>
+          <td><code>/sc:explain --persona-mentor</code></td>
+      </tr>
+      <tr>
+          <td><code>@agent-researcher</code></td>
+          <td>技术研究、方案调研</td>
+          <td><code>/sc:brainstorm</code> 深度模式</td>
+      </tr>
+  </tbody>
+</table></div>
+<h3 id="42-自动激活-vs-手动指定">4.2 自动激活 vs 手动指定
+</h3><p><strong>自动激活（推荐）</strong>：</p>
+
+
+
+
+
+<div class="highlight highlight-bash">
+  <pre>
+    <code class="language-bash" data-lang="bash"># 分析认证代码 → 自动激活安全专家
+/sc:analyze auth.js
+
+# 分析 React 组件 → 自动激活前端专家
+/sc:analyze Button.jsx
+
+# 分析 API 端点 → 自动激活后端专家
+/sc:analyze api/users.js</code>
+  </pre>
+</div>
+
+<p><strong>手动指定</strong>：</p>
+
+
+
+
+
+<div class="highlight highlight-bash">
+  <pre>
+    <code class="language-bash" data-lang="bash"># 强制使用架构师视角
+/sc:analyze design/ --persona-architect
+
+# 强制使用安全专家视角
+/sc:analyze code/ --persona-security
+
+# 强制使用性能专家视角
+/sc:analyze api/ --persona-performance</code>
+  </pre>
+</div>
+
+<h3 id="43-多角色协作">4.3 多角色协作
+</h3><p>通过组合不同专家角色，可以获得多维度的分析：</p>
+
+
+
+
+
+<div class="highlight highlight-bash">
+  <pre>
+    <code class="language-bash" data-lang="bash"># API 设计的多维度评估
+/sc:analyze api/ --persona-architect     # 架构可行性
+/sc:analyze api/ --persona-security      # 安全性
+/sc:analyze api/ --persona-performance   # 性能
+/sc:analyze api/ --persona-qa            # 可测试性</code>
+  </pre>
+</div>
+
+<hr>
+<h2 id="第五部分mcp-服务器集成">第五部分：MCP 服务器集成
+</h2><p>MCP（Model Context Protocol）服务器为 SuperClaude 提供了强大的外部工具集成能力。</p>
+<h3 id="51-可用的-mcp-服务器">5.1 可用的 MCP 服务器
+</h3><div class="table-wrapper"><table>
+  <thead>
+      <tr>
+          <th>服务器</th>
+          <th>用途</th>
+          <th>自动触发场景</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td><strong>Context7</strong></td>
+          <td>文档和最佳实践查询</td>
+          <td><code>/sc:build</code>, 框架相关问题</td>
+      </tr>
+      <tr>
+          <td><strong>Sequential</strong></td>
+          <td>复杂推理和分析</td>
+          <td><code>/sc:troubleshoot</code>, 深度分析</td>
+      </tr>
+      <tr>
+          <td><strong>Magic</strong></td>
+          <td>UI 组件生成</td>
+          <td><code>/sc:build</code>（前端项目）</td>
+      </tr>
+      <tr>
+          <td><strong>Playwright</strong></td>
+          <td>E2E 测试</td>
+          <td><code>/sc:test e2e</code></td>
+      </tr>
+      <tr>
+          <td><strong>Morphllm</strong></td>
+          <td>大规模内容处理</td>
+          <td>大型代码库分析</td>
+      </tr>
+      <tr>
+          <td><strong>Serena</strong></td>
+          <td>跨会话持久化</td>
+          <td><code>/sc:load</code>, <code>/sc:save</code></td>
+      </tr>
+  </tbody>
+</table></div>
+<h3 id="52-自动集成示例">5.2 自动集成示例
+</h3><p><strong>Context7 集成</strong>：</p>
+
+
+
+
+
+<div class="highlight highlight-bash">
+  <pre>
+    <code class="language-bash" data-lang="bash"># 自动查询 React 最佳实践
+/sc:build react-app/
+
+# Context7 会：
+# 1. 查询 React 官方文档
+# 2. 获取最新最佳实践
+# 3. 应用推荐的项目结构
+# 4. 配置推荐的工具链</code>
+  </pre>
+</div>
+
+<p><strong>Sequential 集成</strong>：</p>
+
+
+
+
+
+<div class="highlight highlight-bash">
+  <pre>
+    <code class="language-bash" data-lang="bash"># 自动使用复杂推理
+/sc:troubleshoot &#34;登录失败但无错误日志&#34;
+
+# Sequential 会：
+# 1. 分析可能的错误原因
+# 2. 生成诊断假设
+# 3. 提供验证步骤
+# 4. 逐步排除可能性</code>
+  </pre>
+</div>
+
+<p><strong>Magic 集成</strong>：</p>
+
+
+
+
+
+<div class="highlight highlight-bash">
+  <pre>
+    <code class="language-bash" data-lang="bash"># 自动生成 UI 组件
+/sc:build dashboard
+
+# Magic 会：
+# 1. 分析设计需求
+# 2. 生成组件代码
+# 3. 创建响应式样式
+# 4. 集成到项目中</code>
+  </pre>
+</div>
+
+<h3 id="53-配置-mcp-服务器">5.3 配置 MCP 服务器
+</h3><p>详细的 MCP 服务器配置请参考官方文档：<a class="link" href="https://github.com/SuperClaude-Org/SuperClaude_Framework/blob/master/docs/mcp-setup.md"  target="_blank" rel="noopener"
+    >SuperClaude MCP 配置指南</a></p>
+<hr>
+<h2 id="第六部分完整实战项目待办事项应用">第六部分：完整实战项目：待办事项应用
+</h2><p>让我们通过一个完整的待办事项应用项目，演示 SuperClaude 的全部能力。</p>
+<h3 id="61-项目概览">6.1 项目概览
+</h3><p><strong>项目目标</strong>：构建一个功能完整的待办事项 Web 应用</p>
+<p><strong>技术栈</strong>：</p>
+<ul>
+<li>🎨 <strong>前端</strong>：React 18 + TypeScript + Vite</li>
+<li>🗃️ <strong>状态管理</strong>：Zustand</li>
+<li>💅 <strong>样式</strong>：Tailwind CSS</li>
+<li>🧪 <strong>测试</strong>：Vitest + React Testing Library</li>
+<li>📦 <strong>构建工具</strong>：Vite</li>
+</ul>
+<p><strong>核心功能</strong>：</p>
+<ol>
+<li>✅ 添加/删除/编辑任务</li>
+<li>🔄 任务状态切换（待办/完成）</li>
+<li>🏷️ 任务分类和标签</li>
+<li>🔍 搜索和过滤</li>
+<li>💾 本地存储持久化</li>
+<li>🌙 深色模式切换</li>
+<li>📱 响应式设计</li>
+</ol>
+<h3 id="62-完整开发流程">6.2 完整开发流程
+</h3><h4 id="步骤-1需求发现">步骤 1：需求发现
+</h4>
+
+
+
+
+<div class="highlight highlight-bash">
+  <pre>
+    <code class="language-bash" data-lang="bash">/sc:brainstorm &#34;待办事项应用&#34;</code>
+  </pre>
+</div>
+
+<p><strong>SuperClaude 会引导你探索</strong>：</p>
+<ul>
+<li>核心功能需求</li>
+<li>用户体验设计</li>
+<li>技术栈选择</li>
+<li>潜在技术挑战</li>
+<li>扩展性考虑</li>
+</ul>
+<p><strong>输出示例</strong>：</p>
+
+
+
+
+
+<div class="highlight highlight-markdown">
+  <pre>
+    <code class="language-markdown" data-lang="markdown">## 需求探索结果
+
+### 核心功能
+- ✅ 任务 CRUD 操作
+- 🏷️ 分类和标签系统
+- 🔍 搜索和过滤
+- 💾 数据持久化
+
+### 用户体验
+- 🎯 简洁直观的界面
+- ⚡ 快速响应
+- 📱 移动端友好
+- 🌙 深色模式支持
+
+### 技术建议
+- React 18（现代特性）
+- TypeScript（类型安全）
+- Zustand（轻量状态管理）
+- Tailwind CSS（快速开发）
+
+### 技术挑战
+- ⚠️ 状态同步
+- ⚠️ 性能优化（大数据量）
+- ⚠️ 离线支持</code>
+  </pre>
+</div>
+
+<hr>
+<h4 id="步骤-2系统设计">步骤 2：系统设计
+</h4>
+
+
+
+
+<div class="highlight highlight-bash">
+  <pre>
+    <code class="language-bash" data-lang="bash">/sc:design &#34;待办应用架构&#34; --type architecture</code>
+  </pre>
+</div>
+
+<p><strong>设计输出</strong>：</p>
+<p><strong>组件层次结构</strong>：</p>
+<pre class="mermaid">
+  graph TD
+    A[App] --&gt; B[TodoProvider]
+    B --&gt; C[TodoHeader]
+    B --&gt; D[TodoInput]
+    B --&gt; E[TodoList]
+    B --&gt; F[TodoFilter]
+    E --&gt; G[TodoItem]
+    G --&gt; H[TodoContent]
+    G --&gt; I[TodoActions]
+</pre>
+
+<p><strong>数据流设计</strong>：</p>
+<pre class="mermaid">
+  flowchart LR
+    A[User Action] --&gt; B[Event Handler]
+    B --&gt; C[Zustand Store]
+    C --&gt; D[State Update]
+    D --&gt; E[React Re-render]
+    E --&gt; F[localStorage Sync]
+</pre>
+
+<hr>
+<h4 id="步骤-3项目初始化">步骤 3：项目初始化
+</h4>
+
+
+
+
+<div class="highlight highlight-bash">
+  <pre>
+    <code class="language-bash" data-lang="bash">/sc:build todo-app/ --framework react --with-typescript</code>
+  </pre>
+</div>
+
+<p><strong>生成的项目结构</strong>：</p>
+
+
+
+
+  
+
+
+<div class="highlight highlight-text">
+  <pre>
+    <code class="language-text" data-lang="text">todo-app/
+├── src/
+│   ├── components/          # UI 组件
+│   │   ├── TodoHeader.tsx
+│   │   ├── TodoInput.tsx
+│   │   ├── TodoList.tsx
+│   │   ├── TodoItem.tsx
+│   │   └── TodoFilter.tsx
+│   ├── stores/              # Zustand 状态管理
+│   │   └── todoStore.ts
+│   ├── hooks/               # 自定义 Hooks
+│   │   └── useTodos.ts
+│   ├── utils/               # 工具函数
+│   │   └── storage.ts
+│   ├── types/               # TypeScript 类型
+│   │   └── todo.ts
+│   ├── App.tsx
+│   └── main.tsx
+├── public/
+├── tests/
+│   ├── components/
+│   └── utils/
+├── package.json
+├── tsconfig.json
+├── vite.config.ts
+└── tailwind.config.js</code>
+  </pre>
+</div>
+
+<hr>
+<h4 id="步骤-4核心功能实现">步骤 4：核心功能实现
+</h4><h5 id="41-任务数据模型">4.1 任务数据模型
+</h5>
+
+
+
+
+<div class="highlight highlight-bash">
+  <pre>
+    <code class="language-bash" data-lang="bash">/sc:implement &#34;Todo 类型定义和接口&#34; --with-tests</code>
+  </pre>
+</div>
+
+<p><strong>生成的代码</strong>：</p>
+
+
+
+
+
+<div class="highlight highlight-typescript">
+  <pre>
+    <code class="language-typescript" data-lang="typescript">// src/types/todo.ts
+export interface Todo {
+  id: string;
+  title: string;
+  description?: string;
+  completed: boolean;
+  category: string;
+  tags: string[];
+  priority: &#39;low&#39; | &#39;medium&#39; | &#39;high&#39;;
+  createdAt: Date;
+  completedAt?: Date;
+  dueDate?: Date;
+}
+
+export interface TodoFilter {
+  search: string;
+  category: string;
+  tags: string[];
+  status: &#39;all&#39; | &#39;active&#39; | &#39;completed&#39;;
+}
+
+export interface TodoStore {
+  todos: Todo[];
+  filter: TodoFilter;
+  // Actions
+  addTodo: (todo: Omit&lt;Todo, &#39;id&#39; | &#39;createdAt&#39;&gt;) =&gt; void;
+  updateTodo: (id: string, updates: Partial&lt;Todo&gt;) =&gt; void;
+  deleteTodo: (id: string) =&gt; void;
+  toggleTodo: (id: string) =&gt; void;
+  setFilter: (filter: Partial&lt;TodoFilter&gt;) =&gt; void;
+  clearCompleted: () =&gt; void;
+}</code>
+  </pre>
+</div>
+
+<h5 id="42-状态管理">4.2 状态管理
+</h5>
+
+
+
+
+<div class="highlight highlight-bash">
+  <pre>
+    <code class="language-bash" data-lang="bash">/sc:implement &#34;Zustand todo store&#34; --persona-frontend</code>
+  </pre>
+</div>
+
+
+
+
+
+
+<div class="highlight highlight-typescript">
+  <pre>
+    <code class="language-typescript" data-lang="typescript">// src/stores/todoStore.ts
+import { create } from &#39;zustand&#39;;
+import { persist } from &#39;zustand/middleware&#39;;
+import type { Todo, TodoStore } from &#39;../types/todo&#39;;
+
+export const useTodoStore = create&lt;TodoStore&gt;()(
+  persist(
+    (set, get) =&gt; ({
+      todos: [],
+      filter: {
+        search: &#39;&#39;,
+        category: &#39;&#39;,
+        tags: [],
+        status: &#39;all&#39;,
+      },
+
+      addTodo: (todo) =&gt; {
+        const newTodo: Todo = {
+          ...todo,
+          id: crypto.randomUUID(),
+          createdAt: new Date(),
+        };
+        set((state) =&gt; ({ todos: [...state.todos, newTodo] }));
+      },
+
+      updateTodo: (id, updates) =&gt;
+        set((state) =&gt; ({
+          todos: state.todos.map((todo) =&gt;
+            todo.id === id ? { ...todo, ...updates } : todo
+          ),
+        })),
+
+      deleteTodo: (id) =&gt;
+        set((state) =&gt; ({
+          todos: state.todos.filter((todo) =&gt; todo.id !== id),
+        })),
+
+      toggleTodo: (id) =&gt;
+        set((state) =&gt; ({
+          todos: state.todos.map((todo) =&gt;
+            todo.id === id
+              ? {
+                  ...todo,
+                  completed: !todo.completed,
+                  completedAt: !todo.completed ? new Date() : undefined,
+                }
+              : todo
+          ),
+        })),
+
+      setFilter: (filter) =&gt;
+        set((state) =&gt; ({
+          filter: { ...state.filter, ...filter },
+        })),
+
+      clearCompleted: () =&gt;
+        set((state) =&gt; ({
+          todos: state.todos.filter((todo) =&gt; !todo.completed),
+        })),
+    }),
+    {
+      name: &#39;todo-storage&#39;,
+    }
+  )
+);</code>
+  </pre>
+</div>
+
+<h5 id="43-ui-组件">4.3 UI 组件
+</h5>
+
+
+
+
+<div class="highlight highlight-bash">
+  <pre>
+    <code class="language-bash" data-lang="bash">/sc:implement &#34;TodoList 组件&#34; --persona-frontend
+/sc:implement &#34;TodoItem 组件&#34; --persona-frontend
+/sc:implement &#34;AddTodoForm 组件&#34; --persona-frontend</code>
+  </pre>
+</div>
+
+<p><strong>TodoList 组件示例</strong>：</p>
+
+
+
+
+
+<div class="highlight highlight-typescript">
+  <pre>
+    <code class="language-typescript" data-lang="typescript">// src/components/TodoList.tsx
+import { useTodoStore } from &#39;../stores/todoStore&#39;;
+import { TodoItem } from &#39;./TodoItem&#39;;
+import { useMemo } from &#39;react&#39;;
+
+export function TodoList() {
+  const { todos, filter } = useTodoStore();
+
+  const filteredTodos = useMemo(() =&gt; {
+    return todos.filter((todo) =&gt; {
+      // 搜索过滤
+      if (filter.search &amp;&amp; !todo.title.toLowerCase().includes(filter.search.toLowerCase())) {
+        return false;
+      }
+
+      // 分类过滤
+      if (filter.category &amp;&amp; todo.category !== filter.category) {
+        return false;
+      }
+
+      // 状态过滤
+      if (filter.status === &#39;active&#39; &amp;&amp; todo.completed) return false;
+      if (filter.status === &#39;completed&#39; &amp;&amp; !todo.completed) return false;
+
+      return true;
+    });
+  }, [todos, filter]);
+
+  return (
+    &lt;ul className=&#34;space-y-2&#34;&gt;
+      {filteredTodos.map((todo) =&gt; (
+        &lt;TodoItem key={todo.id} todo={todo} /&gt;
+      ))}
+    &lt;/ul&gt;
+  );
+}</code>
+  </pre>
+</div>
+
+<h5 id="44-样式系统">4.4 样式系统
+</h5>
+
+
+
+
+<div class="highlight highlight-bash">
+  <pre>
+    <code class="language-bash" data-lang="bash">/sc:implement &#34;Tailwind 配置和深色模式&#34; --persona-frontend</code>
+  </pre>
+</div>
+
+
+
+
+
+
+<div class="highlight highlight-javascript">
+  <pre>
+    <code class="language-javascript" data-lang="javascript">// tailwind.config.js
+/** @type {import(&#39;tailwindcss&#39;).Config} */
+export default {
+  content: [
+    &#34;./index.html&#34;,
+    &#34;./src/**/*.{js,ts,jsx,tsx}&#34;,
+  ],
+  darkMode: &#39;class&#39;,
+  theme: {
+    extend: {
+      colors: {
+        primary: {
+          50: &#39;#f0f9ff&#39;,
+          100: &#39;#e0f2fe&#39;,
+          500: &#39;#0ea5e9&#39;,
+          600: &#39;#0284c7&#39;,
+          700: &#39;#0369a1&#39;,
+        },
+      },
+    },
+  },
+  plugins: [],
+};</code>
+  </pre>
+</div>
+
+<hr>
+<h4 id="步骤-5功能完善">步骤 5：功能完善
+</h4><h5 id="51-搜索和过滤">5.1 搜索和过滤
+</h5>
+
+
+
+
+<div class="highlight highlight-bash">
+  <pre>
+    <code class="language-bash" data-lang="bash">/sc:implement &#34;搜索过滤功能&#34; --with-tests</code>
+  </pre>
+</div>
+
+<h5 id="52-本地持久化">5.2 本地持久化
+</h5>
+
+
+
+
+<div class="highlight highlight-bash">
+  <pre>
+    <code class="language-bash" data-lang="bash">/sc:implement &#34;localStorage 持久化&#34; --focus performance</code>
+  </pre>
+</div>
+
+<h5 id="53-响应式设计">5.3 响应式设计
+</h5>
+
+
+
+
+<div class="highlight highlight-bash">
+  <pre>
+    <code class="language-bash" data-lang="bash">/sc:implement &#34;移动端适配&#34; --persona-frontend</code>
+  </pre>
+</div>
+
+<hr>
+<h4 id="步骤-6测试">步骤 6：测试
+</h4>
+
+
+
+
+<div class="highlight highlight-bash">
+  <pre>
+    <code class="language-bash" data-lang="bash">/sc:test --coverage
+/sc:test e2e --playwright</code>
+  </pre>
+</div>
+
+<p><strong>生成的测试示例</strong>：</p>
+
+
+
+
+
+<div class="highlight highlight-typescript">
+  <pre>
+    <code class="language-typescript" data-lang="typescript">// tests/components/TodoItem.test.tsx
+import { describe, it, expect } from &#39;vitest&#39;;
+import { render, screen, fireEvent } from &#39;@testing-library/react&#39;;
+import { TodoItem } from &#39;@/components/TodoItem&#39;;
+import { useTodoStore } from &#39;@/stores/todoStore&#39;;
+
+describe(&#39;TodoItem&#39;, () =&gt; {
+  it(&#39;should render todo title&#39;, () =&gt; {
+    const todo = {
+      id: &#39;1&#39;,
+      title: &#39;Test Todo&#39;,
+      completed: false,
+      category: &#39;personal&#39;,
+      tags: [],
+      priority: &#39;medium&#39; as const,
+      createdAt: new Date(),
+    };
+
+    render(&lt;TodoItem todo={todo} /&gt;);
+    expect(screen.getByText(&#39;Test Todo&#39;)).toBeInTheDocument();
+  });
+
+  it(&#39;should toggle todo completion&#39;, () =&gt; {
+    const todo = {
+      id: &#39;1&#39;,
+      title: &#39;Test Todo&#39;,
+      completed: false,
+      category: &#39;personal&#39;,
+      tags: [],
+      priority: &#39;medium&#39; as const,
+      createdAt: new Date(),
+    };
+
+    render(&lt;TodoItem todo={todo} /&gt;);
+
+    const checkbox = screen.getByRole(&#39;checkbox&#39;);
+    fireEvent.click(checkbox);
+
+    const store = useTodoStore.getState();
+    expect(store.todos.find((t) =&gt; t.id === &#39;1&#39;)?.completed).toBe(true);
+  });
+});</code>
+  </pre>
+</div>
+
+<hr>
+<h4 id="步骤-7代码质量检查">步骤 7：代码质量检查
+</h4>
+
+
+
+
+<div class="highlight highlight-bash">
+  <pre>
+    <code class="language-bash" data-lang="bash">/sc:analyze --focus quality
+/sc:analyze --focus security
+/sc:analyze --focus performance --persona-performance</code>
+  </pre>
+</div>
+
+<hr>
+<h4 id="步骤-8代码优化">步骤 8：代码优化
+</h4>
+
+
+
+
+<div class="highlight highlight-bash">
+  <pre>
+    <code class="language-bash" data-lang="bash">/sc:improve src/ --type performance --benchmark
+/sc:improve src/ --type quality --validate</code>
+  </pre>
+</div>
+
+<hr>
+<h4 id="步骤-9生产构建">步骤 9：生产构建
+</h4>
+
+
+
+
+<div class="highlight highlight-bash">
+  <pre>
+    <code class="language-bash" data-lang="bash">/sc:build --prod --optimize
+/sc:test --type security</code>
+  </pre>
+</div>
+
+<hr>
+<h4 id="步骤-10文档生成">步骤 10：文档生成
+</h4>
+
+
+
+
+<div class="highlight highlight-bash">
+  <pre>
+    <code class="language-bash" data-lang="bash">/sc:document components/ --type guide
+/sc:document --type readme
+/sc:index</code>
+  </pre>
+</div>
+
+<hr>
+<h4 id="步骤-11部署准备">步骤 11：部署准备
+</h4>
+
+
+
+
+<div class="highlight highlight-bash">
+  <pre>
+    <code class="language-bash" data-lang="bash">/sc:build --static --analyze-bundle
+/sc:git --smart-commit</code>
+  </pre>
+</div>
+
+<h3 id="63-项目时间线">6.3 项目时间线
+</h3><div class="table-wrapper"><table>
+  <thead>
+      <tr>
+          <th>阶段</th>
+          <th>时间</th>
+          <th>主要命令</th>
+          <th>产出</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>需求分析</td>
+          <td>30分钟</td>
+          <td><code>/sc:brainstorm</code>, <code>/sc:design</code></td>
+          <td>需求文档、架构设计</td>
+      </tr>
+      <tr>
+          <td>项目初始化</td>
+          <td>15分钟</td>
+          <td><code>/sc:build</code></td>
+          <td>项目骨架</td>
+      </tr>
+      <tr>
+          <td>核心开发</td>
+          <td>2-3小时</td>
+          <td><code>/sc:implement</code> × 8</td>
+          <td>完整功能实现</td>
+      </tr>
+      <tr>
+          <td>测试</td>
+          <td>1小时</td>
+          <td><code>/sc:test</code>, <code>/sc:analyze</code></td>
+          <td>测试报告、质量分析</td>
+      </tr>
+      <tr>
+          <td>优化</td>
+          <td>1小时</td>
+          <td><code>/sc:improve</code></td>
+          <td>性能优化、代码改进</td>
+      </tr>
+      <tr>
+          <td>文档</td>
+          <td>30分钟</td>
+          <td><code>/sc:document</code>, <code>/sc:index</code></td>
+          <td>项目文档</td>
+      </tr>
+      <tr>
+          <td>部署</td>
+          <td>15分钟</td>
+          <td><code>/sc:build --prod</code></td>
+          <td>生产构建</td>
+      </tr>
+  </tbody>
+</table></div>
+<p><strong>总计</strong>：约 5-6 小时完成完整项目</p>
+<hr>
+<h2 id="第七部分实战场景与工作流">第七部分：实战场景与工作流
+</h2><h3 id="71-新项目启动工作流">7.1 新项目启动工作流
+</h3>
+
+
+
+
+<div class="highlight highlight-bash">
+  <pre>
+    <code class="language-bash" data-lang="bash"># 1. 需求发现
+/sc:brainstorm &#34;任务管理 SaaS 应用&#34;
+
+# 2. 架构设计
+/sc:design &#34;系统架构&#34; --type architecture
+
+# 3. 项目初始化
+/sc:build task-manager/ --framework nextjs
+
+# 4. 核心功能实现
+/sc:implement &#34;用户认证&#34;
+/sc:implement &#34;任务 CRUD&#34;
+/sc:implement &#34;团队协作&#34;
+
+# 5. 测试
+/sc:test --coverage
+
+# 6. 保存进度
+/sc:save &#34;MVP 完成&#34;</code>
+  </pre>
+</div>
+
+<hr>
+<h3 id="72-代码审查工作流">7.2 代码审查工作流
+</h3>
+
+
+
+
+<div class="highlight highlight-bash">
+  <pre>
+    <code class="language-bash" data-lang="bash"># 1. 质量分析
+/sc:analyze pr/ --persona-qa --focus quality
+
+# 2. 安全审查
+/sc:analyze pr/ --persona-security --focus security
+
+# 3. 性能检查
+/sc:analyze pr/ --persona-performance --focus performance
+
+# 4. 文档生成
+/sc:document pr/ --type changelog
+
+# 5. 智能提交
+/sc:git --smart-commit</code>
+  </pre>
+</div>
+
+<hr>
+<h3 id="73-bug-修复工作流">7.3 Bug 修复工作流
+</h3>
+
+
+
+
+<div class="highlight highlight-bash">
+  <pre>
+    <code class="language-bash" data-lang="bash"># 1. 问题诊断
+/sc:troubleshoot &#34;登录失败&#34; --logs
+
+# 2. 深度分析
+/sc:analyze auth/ --think-hard --focus debugging
+
+# 3. 修复实施
+/sc:implement &#34;修复登录 bug&#34; --safe-mode --validate
+
+# 4. 回归测试
+/sc:test --type unit auth/
+/sc:test e2e --playwright
+
+# 5. 保存
+/sc:save &#34;bug-fix-login&#34;</code>
+  </pre>
+</div>
+
+<hr>
+<h3 id="74-遗留系统现代化">7.4 遗留系统现代化
+</h3>
+
+
+
+
+<div class="highlight highlight-bash">
+  <pre>
+    <code class="language-bash" data-lang="bash"># 1. 深度架构分析
+/sc:analyze legacy/ --persona-architect --ultrathink
+
+# 2. 现代化规划
+/sc:design modernization-strategy --type architecture
+
+# 3. 迭代改进（波模式）
+/sc:improve legacy/ --wave-mode systematic --safe-mode --loop
+
+# 4. 文档更新
+/sc:index
+/sc:document legacy/ --type guide</code>
+  </pre>
+</div>
+
+<hr>
+<h3 id="75-安全优先开发">7.5 安全优先开发
+</h3>
+
+
+
+
+<div class="highlight highlight-bash">
+  <pre>
+    <code class="language-bash" data-lang="bash"># 1. 安全设计
+/sc:design &#34;认证系统&#34; --focus security
+
+# 2. 安全实现
+/sc:implement &#34;JWT 认证&#34; --persona-security
+
+# 3. 安全审查
+/sc:analyze auth/ --persona-security --focus security
+
+# 4. 安全测试
+/sc:test --type security
+
+# 5. 合规检查
+/sc:analyze --persona-security --compliance gdpr</code>
+  </pre>
+</div>
+
+<hr>
+<h2 id="第八部分学习路线图4-周精进计划">第八部分：学习路线图（4 周精进计划）
+</h2><h3 id="第-1-周核心命令掌握">第 1 周：核心命令掌握
+</h3><p><strong>学习重点</strong>：</p>
+<ul>
+<li><code>/sc:brainstorm</code> - 需求探索</li>
+<li><code>/sc:analyze</code> - 代码分析</li>
+<li><code>/sc:implement</code> - 功能实现</li>
+</ul>
+<p><strong>练习任务</strong>：</p>
+<ul>
+<li>完成待办事项应用项目</li>
+<li>使用基础命令完成开发周期</li>
+<li>熟悉命令参数和标志</li>
+</ul>
+<p><strong>学习目标</strong>：</p>
+<ul>
+<li>✅ 独立完成第一个项目</li>
+<li>✅ 理解 SuperClaude 工作原理</li>
+<li>✅ 掌握核心命令的基本用法</li>
+</ul>
+<hr>
+<h3 id="第-2-周行为模式和标志">第 2 周：行为模式和标志
+</h3><p><strong>学习重点</strong>：</p>
+<ul>
+<li>思考深度标志（<code>--think</code>, <code>--think-hard</code>, <code>--ultrathink</code>）</li>
+<li>专注标志（<code>--focus security</code>, <code>--focus performance</code>）</li>
+<li>预览和安全模式（<code>--preview</code>, <code>--safe-mode</code>）</li>
+</ul>
+<p><strong>练习任务</strong>：</p>
+<ul>
+<li>使用不同深度分析同一代码库</li>
+<li>组合多个专注标志</li>
+<li>使用预览模式测试改进</li>
+</ul>
+<p><strong>学习目标</strong>：</p>
+<ul>
+<li>✅ 优化个人工作流</li>
+<li>✅ 理解不同标志的使用场景</li>
+<li>✅ 掌握高级参数组合</li>
+</ul>
+<hr>
+<h3 id="第-3-周mcp-服务器集成">第 3 周：MCP 服务器集成
+</h3><p><strong>学习重点</strong>：</p>
+<ul>
+<li>配置和使用 MCP 服务器</li>
+<li>理解自动集成机制</li>
+<li>工具选择和组合</li>
+</ul>
+<p><strong>练习任务</strong>：</p>
+<ul>
+<li>配置 Context7 获取框架文档</li>
+<li>使用 Playwright 进行 E2E 测试</li>
+<li>使用 Magic 生成 UI 组件</li>
+</ul>
+<p><strong>学习目标</strong>：</p>
+<ul>
+<li>✅ 充分利用外部工具</li>
+<li>✅ 理解 MCP 工作原理</li>
+<li>✅ 配置自定义 MCP 服务器</li>
+</ul>
+<hr>
+<h3 id="第-4-周高级模式和精通">第 4 周：高级模式和精通
+</h3><p><strong>学习重点</strong>：</p>
+<ul>
+<li>自定义工作流</li>
+<li>会话管理（<code>/sc:load</code>, <code>/sc:save</code>）</li>
+<li>团队协作模式</li>
+<li>波模式系统改进</li>
+</ul>
+<p><strong>练习任务</strong>：</p>
+<ul>
+<li>创建个人专属工作流</li>
+<li>管理多个项目会话</li>
+<li>设计团队协作规范</li>
+</ul>
+<p><strong>学习目标</strong>：</p>
+<ul>
+<li>✅ 框架精通</li>
+<li>✅ 可以指导他人使用</li>
+<li>✅ 设计团队工作流程</li>
+</ul>
+<hr>
+<h2 id="第九部分最佳实践与技巧">第九部分：最佳实践与技巧
+</h2><h3 id="91-命令使用习惯">9.1 命令使用习惯
+</h3><h4 id="从简单开始按需添加复杂度">从简单开始，按需添加复杂度
+</h4>
+
+
+
+
+<div class="highlight highlight-bash">
+  <pre>
+    <code class="language-bash" data-lang="bash"># 基础
+/sc:analyze code.js
+
+# 添加深度
+/sc:analyze code.js --think
+
+# 添加文档参考
+/sc:analyze code.js --think --c7</code>
+  </pre>
+</div>
+
+<h4 id="使用安全模式">使用安全模式
+</h4>
+
+
+
+
+<div class="highlight highlight-bash">
+  <pre>
+    <code class="language-bash" data-lang="bash"># 生产代码总是先预览
+/sc:improve production-auth/ --safe-mode --validate --preview</code>
+  </pre>
+</div>
+
+<h4 id="选择适当的作用域">选择适当的作用域
+</h4>
+
+
+
+
+<div class="highlight highlight-bash">
+  <pre>
+    <code class="language-bash" data-lang="bash"># 文件级
+/sc:analyze single-component.js
+
+# 模块级
+/sc:analyze user-auth/
+
+# 项目级
+/sc:analyze --scope project</code>
+  </pre>
+</div>
+
+<hr>
+<h3 id="92-效率最大化技巧">9.2 效率最大化技巧
+</h3><h4 id="让自动激活先工作">让自动激活先工作
+</h4><p>先使用基本命令，观察 SuperClaude 如何自动选择工具和专家。只在需要特定视角时才手动覆盖。</p>
+<h4 id="使用预览和安全模式">使用预览和安全模式
+</h4>
+
+
+
+
+<div class="highlight highlight-bash">
+  <pre>
+    <code class="language-bash" data-lang="bash"># 先查看会发生什么
+/sc:improve code.js --preview
+
+# 确认后再应用安全更改
+/sc:improve code.js --safe-mode</code>
+  </pre>
+</div>
+
+<h4 id="大型操作的令牌管理">大型操作的令牌管理
+</h4>
+
+
+
+
+<div class="highlight highlight-bash">
+  <pre>
+    <code class="language-bash" data-lang="bash"># 压缩输出并并行处理
+/sc:analyze huge-codebase/ --uc --delegate auto</code>
+  </pre>
+</div>
+
+<h4 id="使用导师角色学习">使用导师角色学习
+</h4>
+
+
+
+
+<div class="highlight highlight-bash">
+  <pre>
+    <code class="language-bash" data-lang="bash"># 学习新概念时使用导师模式
+/sc:explain GraphQL --persona-mentor --verbose</code>
+  </pre>
+</div>
+
+<hr>
+<h3 id="93-避免常见错误">9.3 避免常见错误
+</h3><ol>
+<li><strong>过度使用高级标志</strong> - 不是所有任务都需要 <code>--ultrathink</code></li>
+<li><strong>忽略预览模式</strong> - 在生产代码上总是先使用 <code>--preview</code></li>
+<li><strong>手动指定专家</strong> - 让系统自动激活，除非有特殊需求</li>
+<li><strong>跳过会话保存</strong> - 使用 <code>/sc:save</code> 保持上下文连续性</li>
+</ol>
+<hr>
+<h2 id="第十部分进阶主题">第十部分：进阶主题
+</h2><h3 id="101-superclaude-vs-标准-claude-code">10.1 SuperClaude vs 标准 Claude Code
+</h3><div class="table-wrapper"><table>
+  <thead>
+      <tr>
+          <th>使用 SuperClaude ✅</th>
+          <th>使用标准 Claude 💭</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>构建完整软件项目</td>
+          <td>简单问题或解释</td>
+      </tr>
+      <tr>
+          <td>系统化工作流和质量门控</td>
+          <td>一次性编码任务</td>
+      </tr>
+      <tr>
+          <td>复杂、多组件系统</td>
+          <td>学习编程概念</td>
+      </tr>
+      <tr>
+          <td>长期项目需要持久化</td>
+          <td>快速原型或实验</td>
+      </tr>
+      <tr>
+          <td>团队协作和标准</td>
+          <td>代码片段生成</td>
+      </tr>
+      <tr>
+          <td>领域专精需求</td>
+          <td>通用编程帮助</td>
+      </tr>
+  </tbody>
+</table></div>
+<hr>
+<h3 id="102-理解行为上下文注入">10.2 理解行为上下文注入
+</h3><p>SuperClaude 通过 <code>.md</code> 文件注入行为：</p>
+<ol>
+<li><strong>触发器</strong>：<code>/sc:</code> 和 <code>@agent-</code></li>
+<li><strong>激活</strong>：读取对应的 <code>.md</code> 上下文文件</li>
+<li><strong>响应</strong>：按照框架模式生成全面响应</li>
+</ol>
+<hr>
+<h3 id="103-自定义和扩展">10.3 自定义和扩展
+</h3><p>详细的自定义配置请参考官方文档。</p>
+<hr>
+<h2 id="第十一部分资源与参考">第十一部分：资源与参考
+</h2><h3 id="111-官方资源">11.1 官方资源
+</h3><ul>
+<li><strong>GitHub 仓库</strong>：<a class="link" href="https://github.com/SuperClaude-Org/SuperClaude_Framework"  target="_blank" rel="noopener"
+    >SuperClaude-Org/SuperClaude_Framework</a></li>
+<li><strong>快速开始</strong>：<a class="link" href="https://github.com/SuperClaude-Org/SuperClaude_Framework/blob/master/docs/getting-started/quick-start.md"  target="_blank" rel="noopener"
+    >Quick Start Guide</a></li>
+<li><strong>命令参考</strong>：<a class="link" href="https://github.com/SuperClaude-Org/SuperClaude_Framework/blob/master/docs/user-guide/commands.md"  target="_blank" rel="noopener"
+    >Commands Guide</a></li>
+<li><strong>PyPI</strong>：<a class="link" href="https://pypi.org/project/superclaude/"  target="_blank" rel="noopener"
+    >pypi.org/project/superclaude/</a></li>
+<li><strong>NPM</strong>：<a class="link" href="https://www.npmjs.com/package/@bifrost_inc/superclaude"  target="_blank" rel="noopener"
+    >@bifrost_inc/superclaude</a></li>
+</ul>
+<hr>
+<h3 id="112-社区资源">11.2 社区资源
+</h3><ul>
+<li><strong>中文指南</strong>：<a class="link" href="https://dev.to/dragon72463399/superclaude-he-xin-ming-ling-kuai-jie-jian-zhi-nan-4ckj"  target="_blank" rel="noopener"
+    >SuperClaude 核心命令快捷键指南</a></li>
+<li><strong>YouTube</strong>：<a class="link" href="https://www.youtube.com/watch?v=Ph_Pbaqn2EM"  target="_blank" rel="noopener"
+    >Claude Code Done Right | The SuperClaude Method</a></li>
+<li><strong>Medium</strong>：<a class="link" href="https://medium.com/@maxslashwang/a-tool-to-supercharge-claude-codes-power-many-times-over-7a43b149d704"  target="_blank" rel="noopener"
+    >A Tool to Supercharge Claude Code</a></li>
+<li><strong>Reddit</strong>：<a class="link" href="https://www.reddit.com/r/ClaudeAI/comments/1m6rncg/superclaude_and_claude_code_example_flow_when/"  target="_blank" rel="noopener"
+    >SuperClaude and claude code discussion</a></li>
+</ul>
+<hr>
+<h3 id="113-相关工具">11.3 相关工具
+</h3><ul>
+<li><strong>Claude Code</strong>：<a class="link" href="https://github.com/anthropics/claude-code"  target="_blank" rel="noopener"
+    >anthropics/claude-code</a></li>
+<li><strong>Claude Code Best Practices</strong>：<a class="link" href="https://www.anthropic.com/engineering/claude-code-best-practices"  target="_blank" rel="noopener"
+    >Official Guide</a></li>
+<li><strong>Claude Code Cheat Sheet</strong>：<a class="link" href="https://github.com/Njengah/claude-code-cheat-sheet"  target="_blank" rel="noopener"
+    >GitHub</a></li>
+</ul>
+<hr>
+<h2 id="版本控制与更新策略">版本控制与更新策略
+</h2><h3 id="-更新日志">📝 更新日志
+</h3><h4 id="v100-2026-01-12">v1.0.0 (2026-01-12)
+</h4><ul>
+<li>✨ 初始版本发布</li>
+<li>📚 完整的 11 部分教程</li>
+<li>🎯 包含完整实战项目（待办事项应用）</li>
+<li>💡 最佳实践和技巧</li>
+<li>🔄 版本管理和更新策略</li>
+</ul>
+<hr>
+<p><strong>最近重大更新</strong>：2026-01-12
+<strong>下次计划更新</strong>：2026-Q2（跟随 SuperClaude 新版本）
+<strong>SuperClaude 版本</strong>：4.1.5
+<strong>教程版本</strong>：1.0.0</p>
+<hr>
+<h2 id="-贡献指南">🤝 贡献指南
+</h2><p>发现错误或有改进建议？欢迎贡献！</p>
+<ul>
+<li>🐛 <strong>报告问题</strong>：<a class="link" href="https://github.com/Gzmomo001/Gzmomo001.github.io/issues"  target="_blank" rel="noopener"
+    >GitHub Issues</a></li>
+<li>💡 <strong>提出建议</strong>：在文章下方评论</li>
+<li>✍️ <strong>改进文档</strong>：提交 Pull Request</li>
+</ul>
+<hr>
+<h2 id="-注意事项">⚠️ 注意事项
+</h2><ol>
+<li><strong>保持更新</strong> - SuperClaude 版本更新快，需定期检查新功能</li>
+<li><strong>实践为主</strong> - 鼓励读者边学边做</li>
+<li><strong>社区贡献</strong> - 欢迎反馈和补充</li>
+<li><strong>官方为准</strong> - 最终以官方文档为准</li>
+</ol>
+<hr>
+<h2 id="-总结">🎯 总结
+</h2><p>SuperClaude 是一个强大的 AI 辅助开发框架，通过系统化的命令、专家角色和 MCP 集成，将 Claude Code 提升到了全新的水平。</p>
+<p>通过本教程，你学会了：</p>
+<ul>
+<li>✅ SuperClaude 的核心概念和工作原理</li>
+<li>✅ 21 个核心命令的使用方法</li>
+<li>✅ 14 个 AI 专家角色的应用场景</li>
+<li>✅ MCP 服务器的集成能力</li>
+<li>✅ 完整项目的开发流程</li>
+<li>✅ 实战场景的工作流组合</li>
+<li>✅ 4 周循序渐进的学习路线</li>
+<li>✅ 最佳实践和效率技巧</li>
+</ul>
+<p><strong>下一步行动</strong>：</p>
+<ol>
+<li>安装 SuperClaude：<code>pipx install SuperClaude &amp;&amp; SuperClaude install</code></li>
+<li>完成待办事项应用项目</li>
+<li>按照 4 周学习路线逐步精进</li>
+<li>加入社区，分享你的经验</li>
+</ol>
+<p>祝你在 AI 辅助开发的旅程中一帆风顺！🚀</p>
+<hr>
+<p><strong>Sources</strong>:</p>
+<ul>
+<li><a class="link" href="https://github.com/SuperClaude-Org/SuperClaude_Framework"  target="_blank" rel="noopener"
+    >SuperClaude Framework - GitHub</a></li>
+<li><a class="link" href="https://github.com/SuperClaude-Org/SuperClaude_Framework/blob/master/docs/getting-started/quick-start.md"  target="_blank" rel="noopener"
+    >Quick Start Guide</a></li>
+<li><a class="link" href="https://github.com/SuperClaude-Org/SuperClaude_Framework/blob/master/docs/user-guide/commands.md"  target="_blank" rel="noopener"
+    >Commands Reference</a></li>
+<li><a class="link" href="https://dev.to/dragon72463399/superclaude-he-xin-ming-ling-kuai-jie-jian-zhi-nan-4ckj"  target="_blank" rel="noopener"
+    >SuperClaude 核心命令快捷键指南 (中文)</a> by drake</li>
+<li><a class="link" href="https://www.anthropic.com/engineering/claude-code-best-practices"  target="_blank" rel="noopener"
+    >Claude Code Best Practices</a></li>
+</ul>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+
+    
+    <section class="article-copyright">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <path d="M14.5 9a3.5 4 0 1 0 0 6" />
+</svg>
+
+
+
+        <span>A winner is just a loser who tried one more time.</span>
+    </section>
+    
+
+    
+</footer>
+
+
+    
+        <link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css"integrity="sha384-n8MVd4RsNIU0tAv4ct0nTaAbDJwPJzDEaqSD1odI&#43;WdtXRGWt2kTvGFasHpSy3SV"crossorigin="anonymous"
+            ><script 
+                src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"integrity="sha384-XjKyOOlGwcjNTAIQHIpgOno0Hl1YQqzUOEleOLALmuqehneUG&#43;vnGctmUb0ZY0l8"crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"integrity="sha384-&#43;VBxd3r6XgURycqtZ117nYw44OOcIax56Z4dCRWbxyPt0Koah1uHoK0o4&#43;/RRE05"crossorigin="anonymous"
+                defer
+                >
+            </script><script>
+    window.addEventListener("DOMContentLoaded", () => {
+	const mainArticleElement = document.querySelector(".main-article");
+        renderMathInElement(mainArticleElement, {
+            delimiters: [
+                { left: "$$", right: "$$", display: true },
+                { left: "$", right: "$", display: false },
+                { left: "\\(", right: "\\)", display: false },
+                { left: "\\[", right: "\\]", display: true }
+            ],
+            ignoredClasses: ["gist"]
+        });})
+</script>
+
+    
+</article>
+
+    
+
+    
+
+<aside class="related-content--wrapper">
+    <h2 class="section-title">相关文章</h2>
+    <div class="related-content">
+        <div class="flex article-list--tile">
+            
+                
+<article class="has-image">
+    <a href="/public/p/vibe-codingai-%E7%BC%96%E7%A8%8B%E9%9D%A9%E5%91%BD%E4%B8%8E%E7%A8%8B%E5%BA%8F%E5%91%98%E7%9A%84%E6%96%B0%E6%97%B6%E4%BB%A3/">
+        
+        
+            <div class="article-image">
+                
+                    <img src="/public/default.jpeg" loading="lazy" data-key="" data-hash="/public/default.jpeg"/>
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Vibe Coding：AI 编程革命与程序员的新时代</h2>
+        </div>
+    </a>
+</article>
+
+            
+        </div>
+    </div>
+</aside>
+
+     
+    
+        
+    <script
+    src="https://giscus.app/client.js"
+    data-repo="Gzmomo001/Gzmomo001.github.io"
+    data-repo-id="R_kgDOOuLpRA"
+    data-category="General"
+    data-category-id="DIC_kwDOOuLpRM4Cr0Pz"
+    data-mapping="pathname"
+    data-strict="0"
+    data-reactions-enabled="1"
+    data-emit-metadata="0"
+    data-input-position="top"
+    data-theme="light"
+    data-lang="en"
+    data-loading=""
+    crossorigin="anonymous"
+    async
+></script>
+<script>
+    function setGiscusTheme(theme) {
+        let giscus = document.querySelector("iframe.giscus-frame");
+        if (giscus) {
+            giscus.contentWindow.postMessage(
+                {
+                    giscus: {
+                        setConfig: {
+                            theme: theme,
+                        },
+                    },
+                },
+                "https://giscus.app"
+            );
+        }
+    }
+
+    (function () {
+        addEventListener("message", (e) => {
+            if (event.origin !== "https://giscus.app") return;
+            handler();
+        });
+        window.addEventListener("onColorSchemeChange", handler);
+
+        function handler() {
+            if (document.documentElement.dataset.scheme === "light") {
+                setGiscusTheme('light');
+            } else {
+                setGiscusTheme('dark_dimmed');
+            }
+        }
+    })();
+</script>
+
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+            2025 - 
+        
+        2026 blog@mail.henry070.org
+    </section>
+    
+    <section class="powerby">
+        
+            Robust AI <br/>
+        使用 <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> 构建 <br />
+        主题 <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.30.0">Stack</a></b> 由 <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a> 设计
+    </section>
+</footer>
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css"crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css"crossorigin="anonymous"
+            >
+
+            </main>
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
+                
+                >
+            </script><script type="text/javascript" src="/public/ts/main.c922af694cc257bf1ecc41c0dd7b0430f9114ec280ccf67cd2c6ad55f5316c4e.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+<style>
+    #TableOfContents > ul, ol {
+        ul, ol {
+            display: none;
+        }
+        .open {
+            display: block;
+        }
+    }
+</style>
+
+<script>
+    function initTocHide() {
+        
+        let toc = document.querySelector(".widget--toc");
+        if (!toc) {
+            return;
+        }
+        
+        window.addEventListener('scroll', function() {
+            
+            let openUl = document.querySelectorAll(".open");
+            if (openUl.length > 0) {
+              openUl.forEach((ul) => {
+                ul.classList.remove("open")
+              })
+            }
+            
+            let currentLi = document.querySelector(".active-class");
+            if (!currentLi) {
+                return
+            }
+            
+            if (currentLi.children.length > 1) {
+                currentLi.children[1].classList.add("open")
+            }
+            
+            let ul = currentLi.parentElement;
+            do {
+                ul.classList.add("open");
+                ul = ul.parentElement.parentElement
+            } while (ul !== undefined && (ul.localName === 'ul' || ul.localName === 'ol'))
+        });
+    }
+    initTocHide()
+</script>
+
+<style>
+    #backTopBtn {
+        display: none;
+        position: fixed;
+        bottom: 30px;
+         
+        z-index: 99;
+        cursor: pointer;
+        width: 40px;
+        height: 40px;
+        background-color: #666;
+        border-radius: 50%;
+        text-align: center;
+        line-height: 40px;
+        font-size: 25px;
+        color: white;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+        transition: background-color 0.3s;
+    }
+    
+    #backTopBtn:hover {
+        background-color: #333;
+    }
+    
+    #backTopBtn .arrow-icon {
+        display: none;
+    }
+    
+    #backTopBtn .backtop-svg {
+        width: 24px;
+        height: 24px;
+        margin: 8px;
+        fill: white;
+    }
+</style>
+
+
+<script>
+    
+
+    function initScrollTop() {
+        let rightSideBar = document.querySelector(".right-sidebar");
+        if (!rightSideBar) {
+            return;
+        }
+        
+        let btn = document.createElement("div");
+        btn.id = "backTopBtn";
+        btn.innerHTML = '<span class="arrow-icon"></span>' +
+                        '<svg class="backtop-svg" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="15764">' +
+                        '<path d="M512 938.666667c-59.733333 0-123.733333-2.133333-185.6-4.266667l-32-2.133333c-108.8-6.4-194.133333-91.733333-200.533333-200.533334C87.466667 648.533333 85.333333 576 85.333333 512c0-59.733333 2.133333-125.866667 6.4-202.666667v-17.066666c6.4-108.8 91.733333-194.133333 200.533334-200.533334 76.8-4.266667 149.333333-6.4 219.733333-6.4 59.733333 0 123.733333 2.133333 185.6 4.266667l32 2.133333c108.8 6.4 194.133333 91.733333 200.533333 200.533334 6.4 83.2 8.533333 155.733333 8.533334 219.733333 0 59.733333-2.133333 125.866667-6.4 202.666667v17.066666c-6.4 108.8-91.733333 194.133333-200.533334 200.533334-76.8 4.266667-149.333333 6.4-219.733333 6.4z m0-224c17.066667 0 32-14.933333 32-32V430.933333l96 96c12.8 12.8 32 12.8 44.8 0 12.8-12.8 12.8-32 0-44.8l-153.6-153.6c-6.4-6.4-8.533333-8.533333-12.8-8.533333-4.266667-2.133333-8.533333-2.133333-10.666667 0-4.266667 0-6.4 2.133333-10.666666 6.4l-2.133334 2.133333-153.6 153.6c-12.8 12.8-12.8 32 0 44.8 12.8 12.8 32 12.8 44.8 0l96-96V682.666667c-2.133333 17.066667 12.8 32 29.866667 32z" fill="#ffffff" p-id="15765"></path>' +
+                        '</svg>';
+        btn.onclick = backToTop;
+        rightSideBar.appendChild(btn);
+        
+        window.onscroll = function() {
+            
+            if (document.body.scrollTop > 700 || document.documentElement.scrollTop > 700) {
+                btn.style.display = "block";
+            } else {
+                btn.style.display = "none";
+            }
+        };
+    }
+
+    
+
+    function backToTop(){
+        window.scrollTo({ top: 0, behavior: "smooth" })
+    }
+
+    initScrollTop();
+</script>
+
+<style>
+    .highlight {
+         
+        max-height: 1000px;
+        overflow: hidden;
+    }
+
+    .code-show {
+        max-height: none !important;
+    }
+
+    .code-more-box {
+        width: 100%;
+        padding-top: 120px;  
+        background-image: linear-gradient(
+            to bottom,
+            rgba(4, 6, 5, 0) 0%,
+            rgba(4, 6, 5, 0.4) 40%,
+            rgba(4, 6, 5, 0.8) 100%
+        );
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        z-index: 1;
+    }
+
+    .code-more-btn {
+        display: block;
+        margin: auto;
+        width: 44px;
+        height: 22px;
+        background: #5f5f5f;
+        border-top-left-radius: 8px;
+        border-top-right-radius: 8px;
+        padding-top: 6px;
+        cursor: pointer;
+    }
+
+    .code-more-img {
+        cursor: pointer !important;
+        display: block;
+        margin: auto;
+        width: 22px;
+        height: 16px;
+    }
+</style>
+
+<script>
+  function initCodeMoreBox() {
+    let codeBlocks = document.querySelectorAll(".highlight");
+    if (!codeBlocks) {
+      return;
+    }
+    codeBlocks.forEach(codeBlock => {
+      
+      if (codeBlock.scrollHeight <= codeBlock.clientHeight) {
+        return;
+      }
+      
+      
+      let codeMoreBox = document.createElement('div');
+      codeMoreBox.classList.add('code-more-box');
+      
+      let codeMoreBtn = document.createElement('span');
+      codeMoreBtn.classList.add('code-more-btn');
+      codeMoreBtn.addEventListener('click', () => {
+        codeBlock.classList.add('code-show');
+        codeMoreBox.style.display = 'none';
+        
+        window.dispatchEvent(new Event('resize'))
+      })
+      
+      let img = document.createElement('img');
+      img.classList.add('code-more-img');
+      img.src = "https://Gzmomo001.github.io/public/icons/down.png"
+      
+      codeMoreBtn.appendChild(img);
+      codeMoreBox.appendChild(codeMoreBtn);
+      codeBlock.appendChild(codeMoreBox)
+    })
+  }
+  
+  initCodeMoreBox();
+</script>
+
+
+
+    </body>
+</html>

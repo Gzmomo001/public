@@ -1,0 +1,1984 @@
+<!DOCTYPE html>
+<html lang="zh-cn" dir="ltr">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="掌握Git worktree功能，轻松管理多个分支的开发工作流，告别频繁切换分支的烦恼">
+<title>Git Worktree：并行开发的利器</title>
+
+<link rel='canonical' href='https://Gzmomo001.github.io/public/p/git-worktree/'>
+
+<link rel="stylesheet" href="/public/scss/style.min.69ed452c4f70aa0bd98aa7f62758389d29493390c2f090e74cf1c607d4445e3e.css"><meta property='og:title' content="Git Worktree：并行开发的利器">
+<meta property='og:description' content="掌握Git worktree功能，轻松管理多个分支的开发工作流，告别频繁切换分支的烦恼">
+<meta property='og:url' content='https://Gzmomo001.github.io/public/p/git-worktree/'>
+<meta property='og:site_name' content='Henry Zhang'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='git' /><meta property='article:tag' content='worktree' /><meta property='article:tag' content='version-control' /><meta property='article:tag' content='development' /><meta property='article:published_time' content='2026-01-12T00:00:00&#43;08:00'/><meta property='article:modified_time' content='2026-01-11T18:44:44&#43;00:00'/><meta property='og:image' content='https://Gzmomo001.github.io/public/git.png' />
+<meta name="twitter:title" content="Git Worktree：并行开发的利器">
+<meta name="twitter:description" content="掌握Git worktree功能，轻松管理多个分支的开发工作流，告别频繁切换分支的烦恼"><meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content='https://Gzmomo001.github.io/public/git.png' />
+    <link rel="shortcut icon" href="/favicon.ico" />
+
+
+<script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+<script>
+  
+  function getCurrentTheme() {
+    const colorSchemeKey = 'StackColorScheme';
+    const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+    const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+    
+    if (colorSchemeItem === 'dark' || (colorSchemeItem === 'auto' && supportDarkMode)) {
+      return 'dark';
+    } else {
+      return 'light';
+    }
+  }
+
+  
+  function logThemeInfo() {
+    const colorSchemeKey = 'StackColorScheme';
+    const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+    const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+    const documentScheme = document.documentElement.dataset.scheme;
+    
+    console.log('[Mermaid] Theme Detection:', {
+      localStorage: colorSchemeItem,
+      systemDark: supportDarkMode,
+      documentScheme: documentScheme,
+      calculatedTheme: getCurrentTheme()
+    });
+  }
+
+  
+  function initializeMermaid() {
+    const currentTheme = getCurrentTheme();
+    
+    if (currentTheme === 'dark') {
+      
+      mermaid.initialize({
+        startOnLoad: false,
+        theme: 'dark',
+        themeVariables: {
+          
+          primaryColor: '#4a5568',
+          primaryTextColor: '#f7fafc',
+          primaryBorderColor: '#63b3ed',
+          lineColor: '#e2e8f0',
+          secondaryColor: '#2d3748',
+          tertiaryColor: '#1a202c',
+          background: '#1a202c',
+          
+          
+          fillType0: '#2d3748',
+          fillType1: '#4a5568',
+          fillType2: '#4299e1',
+          clusterBkg: '#2d3748',
+          clusterBorder: '#4a5568',
+          nodeBorder: '#e2e8f0',
+          mainBkg: '#4a5568',
+          altBkg: '#2d3748',
+          
+          
+          labelBackground: '#2d3748',
+          edgeLabelBackground: '#2d3748',
+          titleColor: '#f7fafc',
+          
+          
+          actorBkg: '#2d3748',
+          actorBorder: '#4a5568',
+          actorTextColor: '#e2e8f0',
+          actorLine: '#4a5568',
+          signalColor: '#e2e8f0',
+          signalTextColor: '#e2e8f0',
+          noteBkgColor: '#4a5568',
+          noteBorderColor: '#4a5568',
+          noteTextColor: '#e2e8f0',
+          activationBorderColor: '#4299e1',
+          activationBkgColor: '#2d3748',
+          
+          
+          sectionBkgColor: '#2d3748',
+          altSectionBkgColor: '#4a5568',
+          sectionBorderColor: '#4a5568',
+          taskBkgColor: '#4299e1',
+          taskBorderColor: '#63b3ed',
+          taskTextColor: '#ffffff',
+          activeTaskBkgColor: '#48bb78',
+          activeTaskBorderColor: '#38a169',
+          doneTaskBkgColor: '#2d3748',
+          doneTaskBorderColor: '#4a5568',
+          critBkgColor: '#f56565',
+          critBorderColor: '#e53e3e',
+          critTextColor: '#ffffff',
+          
+          
+          pie1: '#4299e1',
+          pie2: '#48bb78',
+          pie3: '#ed8936',
+          pie4: '#9f7aea',
+          pie5: '#ed64a6',
+          pie6: '#38b2ac',
+          pie7: '#f6ad55',
+          pie8: '#68d391',
+          pie9: '#63b3ed',
+          pie10: '#b794f4',
+          pieTitleTextSize: '24px',
+          pieSectionTextSize: '16px',
+          pieOuterStrokeWidth: '2px',
+          pieStroke: '#1a202c',
+          pieOpacity: '1',
+          
+          
+          classText: '#f7fafc',
+          classTitle: '#f7fafc',
+          
+          
+          stateBkg: '#2d3748',
+          stateBorder: '#4a5568',
+          labelColor: '#f7fafc',
+          stateLabel: '#f7fafc',
+          stateText: '#f7fafc',
+          transitionLabel: '#f7fafc',
+          
+          
+          entityBkg: '#2d3748',
+          entityBorder: '#4a5568',
+          attributeBkg: '#2d3748',
+          attributeBorder: '#4a5568',
+          relationshipText: '#f7fafc',
+          
+          
+          gridColor: '#4a5568',
+          scaleBarColor: '#4a5568',
+          barColor: '#4299e1',
+          barBorderColor: '#63b3ed',
+          todayLineColor: '#f6ad55',
+          
+          
+          git0: '#4299e1',
+          git1: '#48bb78',
+          git2: '#ed8936',
+          git3: '#9f7aea',
+          git4: '#ed64a6',
+          git5: '#38b2ac',
+          git6: '#f6ad55',
+          git7: '#68d391',
+          gitInv0: '#2d3748',
+          gitInv1: '#2d3748',
+          gitInv2: '#2d3748',
+          gitInv3: '#2d3748',
+          gitInv4: '#2d3748',
+          gitInv5: '#2d3748',
+          gitInv6: '#2d3748',
+          gitInv7: '#2d3748',
+          
+          
+          mindmapPrimary: '#4299e1',
+          mindmapSecondary: '#48bb78',
+          mindmapTertiary: '#ed8936',
+          
+          
+          errorTextColor: '#fc8181',
+          warningTextColor: '#f6ad55',
+          infoTextColor: '#63b3ed',
+          
+          
+          edgeLabelBackground: '#1a202c',
+          
+          
+          edgeLabelBackground: '#2d3748',
+          
+          
+          classLabel: '#f7fafc',
+          dividerColor: '#4a5568',
+          
+          
+          dividerColor: '#4a5568',
+          
+          
+          dividerColor: '#4a5568',
+          
+          
+          fontFamily: '"Douyin Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
+          fontSize: '16px'
+        },
+        fontFamily: '"Douyin Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
+        fontSize: 16,
+        flowchart: {
+          useMaxWidth: true,
+          htmlLabels: true,
+          curve: 'basis'
+        },
+        sequence: {
+          useMaxWidth: true
+        },
+        journey: {
+          useMaxWidth: true
+        },
+        pie: {
+          useMaxWidth: true
+        },
+        gantt: {
+          useMaxWidth: true
+        },
+        git: {
+          useMaxWidth: true
+        },
+        mindmap: {
+          useMaxWidth: true
+        }
+      });
+    } else {
+      
+      mermaid.initialize({
+        startOnLoad: false,
+        theme: 'default',
+        themeVariables: {
+          primaryColor: '#007bff',
+          primaryTextColor: '#333',
+          primaryBorderColor: '#007bff',
+          lineColor: '#666',
+          secondaryColor: '#f8f9fa',
+          tertiaryColor: '#e9ecef'
+        },
+        fontFamily: '"Douyin Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
+        fontSize: 16,
+        flowchart: {
+          useMaxWidth: true,
+          htmlLabels: true,
+          curve: 'basis'
+        }
+      });
+    }
+    
+    
+    document.querySelectorAll('.mermaid').forEach(function(element) {
+      if (!element.dataset.original) {
+        element.dataset.original = element.textContent.trim();
+      }
+    });
+    
+    
+    return mermaid.run();
+  }
+
+  
+  document.addEventListener('DOMContentLoaded', function() {
+    
+    initializeMermaid();
+    
+    
+    logThemeInfo();
+    
+    
+    const darkModeToggle = document.getElementById('dark-mode-toggle');
+    if (darkModeToggle) {
+      darkModeToggle.addEventListener('click', function() {
+        
+        document.querySelectorAll('.mermaid').forEach(function(element) {
+          element.classList.add('reloading');
+        });
+        
+        
+        setTimeout(function() {
+          
+          document.querySelectorAll('.mermaid').forEach(function(element) {
+            
+            if (!element.dataset.original) {
+              element.dataset.original = element.textContent.trim();
+            }
+            
+            
+            element.innerHTML = '';
+            
+            
+            element.textContent = element.dataset.original;
+            
+            
+            element.removeAttribute('data-processed');
+          });
+          
+          
+          console.log('[Mermaid] Theme changed, reinitializing...');
+          
+          
+          initializeMermaid().then(function() {
+            
+            document.querySelectorAll('.mermaid').forEach(function(element) {
+              element.classList.remove('reloading');
+            });
+          });
+        }, 250);
+      });
+    }
+  });
+</script>
+<link rel='stylesheet' href='https://chinese-fonts-cdn.deno.dev/packages/dymh/dist/DouyinSansBold/result.css' />
+
+
+    </head>
+    <body class="
+    article-page
+    ">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky ">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="切换菜单">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header>
+        
+            
+            <figure class="site-avatar">
+                <a href="/public/">
+                
+                    
+                    
+                    
+                        
+                        <img src="/public/img/avatar_hu_9c50848f93c56cbf.jpeg" width="300"
+                            height="296" class="site-logo" loading="lazy" alt="Avatar">
+                    
+                
+                </a>
+                
+                    <span class="emoji">🤓</span>
+                
+            </figure>
+            
+        
+        
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/public">Henry Zhang</a></h1>
+            <h2 class="site-description">Driven by Wonder, Powered by Knowledge.🤓</h2>
+        </div>
+    </header><ol class="menu-social">
+            
+                <li>
+                    <a 
+                        href='https://github.com/Gzmomo001'
+                        target="_blank"
+                        title="GitHub"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+        </ol><ol class="menu" id="main-menu">
+        
+        
+        
+        <li >
+            <a href='/public/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="5 12 3 12 12 3 21 12 19 12" />
+  <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
+  <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
+</svg>
+
+
+
+                
+                <span>Home</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/public/about-me/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="7" r="4" />
+  <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
+</svg>
+
+
+
+                
+                <span>About me</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/public/archives/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <rect x="3" y="4" width="18" height="4" rx="2" />
+  <path d="M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-10" />
+  <line x1="10" y1="12" x2="14" y2="12" />
+</svg>
+
+
+
+                
+                <span>Archives</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/public/search/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="10" cy="10" r="7" />
+  <line x1="21" y1="21" x2="15" y2="15" />
+</svg>
+
+
+
+                
+                <span>Search</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/public/some-useful-links/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-link" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5" />
+  <path d="M14 10a3.5 3.5 0 0 0 -5 0l-4 4a3.5 3.5 0 0 0 5 5l.5 -.5" />
+</svg>
+
+
+
+                
+                <span>Some Useful Links</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/public/update-logs/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                
+                <span>Update Logs</span>
+            </a>
+        </li>
+        
+        <li class="menu-bottom-section">
+            <ol class="menu">
+
+                
+                    <li id="dark-mode-toggle">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <span>暗色模式</span>
+                    </li>
+                
+            </ol>
+        </li>
+    </ol>
+</aside>
+
+    <aside class="sidebar right-sidebar sticky">
+        
+        
+            
+        
+
+        
+        
+            
+                
+                    
+    <section class="widget archives">
+        <div class="widget-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+        </div>
+        <h2 class="widget-title section-title">目录</h2>
+        
+        <div class="widget--toc">
+            <nav id="TableOfContents">
+  <ol>
+    <li>
+      <ol>
+        <li><a href="#前言">前言</a></li>
+        <li><a href="#什么是-git-worktree">什么是 Git Worktree？</a>
+          <ol>
+            <li><a href="#概念解析">概念解析</a></li>
+            <li><a href="#工作原理">工作原理</a></li>
+            <li><a href="#系统要求">系统要求</a></li>
+          </ol>
+        </li>
+        <li><a href="#基本用法">基本用法</a>
+          <ol>
+            <li><a href="#创建-worktree">创建 Worktree</a></li>
+            <li><a href="#查看-worktree-列表">查看 Worktree 列表</a></li>
+            <li><a href="#删除-worktree">删除 Worktree</a></li>
+            <li><a href="#移动-worktree">移动 Worktree</a></li>
+          </ol>
+        </li>
+        <li><a href="#实际应用场景">实际应用场景</a>
+          <ol>
+            <li><a href="#场景-1hotfix-救火最常用">场景 1：Hotfix 救火（最常用）</a></li>
+            <li><a href="#场景-2代码评审">场景 2：代码评审</a></li>
+            <li><a href="#场景-3并行构建和测试">场景 3：并行构建和测试</a></li>
+            <li><a href="#场景-4长期实验">场景 4：长期实验</a></li>
+          </ol>
+        </li>
+        <li><a href="#worktree-vs-传统分支切换">Worktree vs. 传统分支切换</a>
+          <ol>
+            <li><a href="#对比表格">对比表格</a></li>
+            <li><a href="#流程对比">流程对比</a></li>
+          </ol>
+        </li>
+        <li><a href="#最佳实践">最佳实践</a>
+          <ol>
+            <li><a href="#1-命名规范">1. 命名规范</a></li>
+            <li><a href="#2-定期清理">2. 定期清理</a></li>
+            <li><a href="#3-vs-code-多根工作区">3. VS Code 多根工作区</a></li>
+            <li><a href="#4-避免的坑">4. 避免的坑</a></li>
+          </ol>
+        </li>
+        <li><a href="#与工作流集成">与工作流集成</a>
+          <ol>
+            <li><a href="#git-flow--worktree">Git Flow + Worktree</a></li>
+            <li><a href="#github-flow--worktree">GitHub Flow + Worktree</a></li>
+          </ol>
+        </li>
+        <li><a href="#进阶技巧">进阶技巧</a>
+          <ol>
+            <li><a href="#1-bare-仓库--worktree">1. Bare 仓库 + Worktree</a></li>
+            <li><a href="#2-自动化脚本">2. 自动化脚本</a></li>
+            <li><a href="#3-并行测试脚本">3. 并行测试脚本</a></li>
+          </ol>
+        </li>
+        <li><a href="#常见问题排查">常见问题排查</a>
+          <ol>
+            <li><a href="#问题-1stale-worktree-引用">问题 1：Stale worktree 引用</a></li>
+            <li><a href="#问题-2worktree-被锁定">问题 2：Worktree 被锁定</a></li>
+            <li><a href="#问题-3找不到-git-目录">问题 3：找不到 <code>.git</code> 目录</a></li>
+            <li><a href="#问题-4配置冲突">问题 4：配置冲突</a></li>
+          </ol>
+        </li>
+        <li><a href="#工具推荐">工具推荐</a>
+          <ol>
+            <li><a href="#gui-工具支持">GUI 工具支持</a></li>
+            <li><a href="#命令行增强">命令行增强</a></li>
+          </ol>
+        </li>
+        <li><a href="#总结">总结</a></li>
+        <li><a href="#相关资源">相关资源</a>
+          <ol>
+            <li><a href="#官方文档">官方文档</a></li>
+            <li><a href="#相关文章">相关文章</a></li>
+            <li><a href="#视频教程">视频教程</a></li>
+          </ol>
+        </li>
+        <li><a href="#实战练习">实战练习</a></li>
+      </ol>
+    </li>
+  </ol>
+</nav>
+        </div>
+    </section>
+
+                
+            
+        
+    </aside>
+
+
+
+            <main class="main full-width">
+    <article class="has-image main-article">
+    <header class="article-header">
+        <div class="article-image">
+            <a href="/public/p/git-worktree/">
+                
+                    <img src="/public/git.png" loading="lazy" alt="Featured image of post Git Worktree：并行开发的利器" />
+                
+            </a>
+        </div>
+    
+
+    <div class="article-details">
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/public/p/git-worktree/">Git Worktree：并行开发的利器</a>
+        </h2>
+    
+        
+        <h3 class="article-subtitle">
+            掌握Git worktree功能，轻松管理多个分支的开发工作流，告别频繁切换分支的烦恼
+        </h3>
+        
+    </div>
+
+    
+    
+    
+    
+    <footer class="article-time">
+        <div class="article-metadata">
+            
+            <div class="article-category">
+                
+                    
+                    
+                    <a href="/public/categories/git/" class="category-link" style="background-color: #581977; color: #ffffff;">
+                        Git
+                    </a>
+                
+                    
+                    
+                    <a href="/public/categories/tool/" class="category-link" style="background-color: #9a830c; color: #ffffff;">
+                        Tool
+                    </a>
+                
+            </div>
+            
+
+            
+            <div class="article-tags">
+                
+                    
+                    
+                    <a href="/public/tags/git/" class="tag-link" style="color: #ffffff; border: 1px solid #581977; background-color: #58197720;">
+                        #Git
+                    </a>
+                
+                    
+                    
+                    <a href="/public/tags/worktree/" class="tag-link" style="color: #ffffff; border: 1px solid #fad055; background-color: #fad05520;">
+                        #Worktree
+                    </a>
+                
+                    
+                    
+                    <a href="/public/tags/version-control/" class="tag-link" style="color: #ffffff; border: 1px solid #ab60e9; background-color: #ab60e920;">
+                        #Version-Control
+                    </a>
+                
+                    
+                    
+                    <a href="/public/tags/development/" class="tag-link" style="color: #ffffff; border: 1px solid #4c17aa; background-color: #4c17aa20;">
+                        #Development
+                    </a>
+                
+            </div>
+            
+        </div>
+
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">2026-01-12</time>
+            </div>
+        <div class="article-lastmod">
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+                <time>
+                    Jan 11, 2026 18:44 UTC
+                </time>
+            </div>
+    </footer>
+    
+
+    
+</div>
+
+</header>
+
+    <section class="article-content">
+    
+    
+    <h2 id="前言">前言
+</h2><p>想象一下这个场景：你正在一个复杂的 <code>feature/user-auth</code> 分支上开发新功能，代码改了一半，还没提交。突然产品经理跑过来说：&ldquo;线上有个严重bug需要马上修复！&rdquo;</p>
+<p>按照传统的 Git 工作流，你需要：</p>
+<ol>
+<li><code>git stash</code> 暂存当前更改</li>
+<li><code>git checkout main</code> 切换到主分支</li>
+<li>创建 hotfix 分支修复bug</li>
+<li>修复、测试、部署</li>
+<li><code>git checkout feature/user-auth</code> 切回来</li>
+<li><code>git stash pop</code> 恢复之前的更改</li>
+<li>继续开发&hellip;</li>
+</ol>
+<p>这个过程繁琐且容易出错。如果你忘记 stash，可能会不小心把未完成的代码带到 hotfix 分支；如果 stash 太多，还容易混淆。</p>
+<p><strong>有没有更好的办法？</strong></p>
+<p>当然有！这就是本文要介绍的主角 —— <strong>Git Worktree</strong>。</p>
+<hr>
+<h2 id="什么是-git-worktree">什么是 Git Worktree？
+</h2><h3 id="概念解析">概念解析
+</h3><p>Git Worktree 是 Git 2.5+ 版本引入的一个功能，允许你<strong>在同一个 Git 仓库中同时拥有多个工作目录（Working Tree）</strong>，每个工作目录可以检出到不同的分支。</p>
+<p>简单来说：</p>
+<ul>
+<li><strong>传统方式</strong>：一个仓库 = 一个工作目录 = 一个分支（需要频繁切换）</li>
+<li><strong>Worktree 方式</strong>：一个仓库 = 多个工作目录 = 多个分支同时开发</li>
+</ul>
+<h3 id="工作原理">工作原理
+</h3><pre class="mermaid">
+  graph LR
+    A[Repository .git] --&gt; B[Working Tree 1&lt;br/&gt;main branch]
+    A --&gt; C[Working Tree 2&lt;br/&gt;feature branch]
+    A --&gt; D[Working Tree 3&lt;br/&gt;hotfix branch]
+
+    style A fill:#e1f5ff
+    style B fill:#e8f5e9
+    style C fill:#fff9c4
+    style D fill:#ffebee
+</pre>
+
+<p>所有的 worktree 共享同一个 <code>.git</code> 仓库，但各自拥有独立的工作目录，可以同时进行不同的操作。</p>
+<h3 id="系统要求">系统要求
+</h3><ul>
+<li><strong>Git 版本</strong>：2.5 或更高（推荐 2.15+）</li>
+<li><strong>查看版本</strong>：<code>git --version</code></li>
+</ul>
+<blockquote class="alert alert-tip">
+    <p>大多数现代系统和 Git 发行版都已支持 worktree 功能。如果你使用的是 GitHub Desktop、SourceTree 等 GUI 工具，底层也是调用 Git 命令，因此同样支持。</p></blockquote>
+<hr>
+<h2 id="基本用法">基本用法
+</h2><h3 id="创建-worktree">创建 Worktree
+</h3><p><strong>语法</strong>：<code>git worktree add &lt;路径&gt; &lt;分支名&gt;</code></p>
+<p><strong>示例</strong>：</p>
+
+
+
+
+
+<div class="highlight highlight-bash">
+  <pre>
+    <code class="language-bash" data-lang="bash"># 1. 创建新分支并在新目录中工作
+git worktree add ../feature-login feature/login
+# 会在上级目录创建 feature-login 文件夹，并检出到 feature/login 分支
+
+# 2. 基于现有分支创建 worktree
+git worktree add ../hotfix-hotbug hotfix/critical-bug
+# 如果分支已存在，直接检出
+
+# 3. 基于特定提交创建 worktree（用于临时实验）
+git worktree add ../temp-experiment HEAD~3
+# 创建一个临时工作目录，基于3次提交前的代码
+
+# 4. 创建 detached HEAD worktree（用于代码考古）
+git worktree add ../old-code a1b2c3d
+# 基于指定 commit hash 创建</code>
+  </pre>
+</div>
+
+<h3 id="查看-worktree-列表">查看 Worktree 列表
+</h3>
+
+
+
+
+<div class="highlight highlight-bash">
+  <pre>
+    <code class="language-bash" data-lang="bash"># 列出所有 worktree
+git worktree list
+
+# 输出示例：
+# /Users/username/project                1234567 [main]
+# /Users/username/feature-login           abcdef0 [feature/login]
+# /Users/username/hotfix-hotbug           9876543 [hotfix/critical-bug]</code>
+  </pre>
+</div>
+
+<h3 id="删除-worktree">删除 Worktree
+</h3>
+
+
+
+
+<div class="highlight highlight-bash">
+  <pre>
+    <code class="language-bash" data-lang="bash"># 方法1：使用 git worktree remove（推荐）
+git worktree remove ../feature-login
+# 会同时删除目录和 worktree 引用
+
+# 方法2：手动删除目录后清理
+rm -rf ../feature-login
+git worktree prune
+# prune 会清理没有对应目录的 worktree 引用
+
+# 方法3：删除 worktree 引用但保留目录（极少使用）
+git worktree lock ../feature-login
+git worktree unlock ../feature-login</code>
+  </pre>
+</div>
+
+<h3 id="移动-worktree">移动 Worktree
+</h3>
+
+
+
+
+<div class="highlight highlight-bash">
+  <pre>
+    <code class="language-bash" data-lang="bash"># 将 worktree 移动到新位置（Git 2.17&#43;）
+git worktree move ../feature-login ../new-location/feature-login</code>
+  </pre>
+</div>
+
+<hr>
+<h2 id="实际应用场景">实际应用场景
+</h2><h3 id="场景-1hotfix-救火最常用">场景 1：Hotfix 救火（最常用）
+</h3><p><strong>问题</strong>：正在开发功能，突然需要紧急修复线上bug</p>
+<p><strong>传统方式</strong>：</p>
+
+
+
+
+
+<div class="highlight highlight-bash">
+  <pre>
+    <code class="language-bash" data-lang="bash"># 在 feature 分支上
+git stash
+git checkout main
+git checkout -b hotfix/critical-bug
+# 修复、测试、部署
+git checkout feature/login
+git stash pop
+# 继续开发</code>
+  </pre>
+</div>
+
+<p><strong>Worktree 方式</strong>：</p>
+
+
+
+
+
+<div class="highlight highlight-bash">
+  <pre>
+    <code class="language-bash" data-lang="bash"># 在 feature 分支上（保持不动）
+git worktree add ../hotfix-emergency hotfix/critical-bug
+cd ../hotfix-emergency
+# 修复、测试、部署（完全不影响 feature 分支）
+cd ../project  # 回到原来的工作目录
+# 继续开发，代码原封不动</code>
+  </pre>
+</div>
+
+<p><strong>优势</strong>：</p>
+<ul>
+<li>✅ 无需 stash，避免忘记恢复代码</li>
+<li>✅ feature 分支的 IDE 状态、终端历史都保留</li>
+<li>✅ hotfix 完成后直接删除 worktree 即可</li>
+</ul>
+<h3 id="场景-2代码评审">场景 2：代码评审
+</h3><p><strong>问题</strong>：需要 review 同事的 PR，但不想切换分支</p>
+
+
+
+
+
+<div class="highlight highlight-bash">
+  <pre>
+    <code class="language-bash" data-lang="bash"># 为 PR 创建一个专门的 worktree
+git worktree add ../review-pr-123 origin/pr/123
+cd ../review-pr-123
+
+# 在新终端/IDE 中打开
+code ../review-pr-123
+
+# 本地运行、测试、修改
+# 完全不影响当前工作目录</code>
+  </pre>
+</div>
+
+<p><strong>优势</strong>：</p>
+<ul>
+<li>✅ 多个 IDE 窗口同时打开不同代码</li>
+<li>✅ 并行测试多个 PR</li>
+<li>✅ review 完成直接删除</li>
+</ul>
+<h3 id="场景-3并行构建和测试">场景 3：并行构建和测试
+</h3>
+
+
+
+
+<div class="highlight highlight-bash">
+  <pre>
+    <code class="language-bash" data-lang="bash"># 主工作目录：开发
+# worktree 1：生产环境构建
+git worktree add ../build-production main
+cd ../build-production
+npm run build:prod
+
+# worktree 2：测试环境
+git worktree add ../test-environment develop
+cd ../test-environment
+npm run test:e2e
+
+# 所有任务并行运行，互不干扰</code>
+  </pre>
+</div>
+
+<h3 id="场景-4长期实验">场景 4：长期实验
+</h3><p><strong>问题</strong>：尝试一个大胆的重构，但不想影响主分支</p>
+
+
+
+
+
+<div class="highlight highlight-bash">
+  <pre>
+    <code class="language-bash" data-lang="bash">git worktree add ../experiment-big-refactor experiment/big-refactor
+cd ../experiment-big-refactor
+
+# 大胆修改、测试
+# 如果失败：直接删除目录，不影响主仓库
+# 如果成功：合并回主分支</code>
+  </pre>
+</div>
+
+<p><strong>优势</strong>：</p>
+<ul>
+<li>✅ 实验性代码完全隔离</li>
+<li>✅ 可以随时放弃，无需 rebase/reset</li>
+<li>✅ 保存多个实验版本，方便对比</li>
+</ul>
+<hr>
+<h2 id="worktree-vs-传统分支切换">Worktree vs. 传统分支切换
+</h2><h3 id="对比表格">对比表格
+</h3><div class="table-wrapper"><table>
+  <thead>
+      <tr>
+          <th>特性</th>
+          <th>传统分支切换</th>
+          <th>Git Worktree</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td><strong>切换速度</strong></td>
+          <td>慢（需要checkout）</td>
+          <td>快（仅cd目录）</td>
+      </tr>
+      <tr>
+          <td><strong>未提交的代码</strong></td>
+          <td>需要 stash 或 commit</td>
+          <td>保留在原工作目录</td>
+      </tr>
+      <tr>
+          <td><strong>IDE 状态</strong></td>
+          <td>每次切换重置</td>
+          <td>每个worktree独立保存</td>
+      </tr>
+      <tr>
+          <td><strong>并行开发</strong></td>
+          <td>❌ 不支持</td>
+          <td>✅ 原生支持</td>
+      </tr>
+      <tr>
+          <td><strong>磁盘占用</strong></td>
+          <td>1 份代码</td>
+          <td>N 份代码（N = worktree数量）</td>
+      </tr>
+      <tr>
+          <td><strong>适用场景</strong></td>
+          <td>单任务开发</td>
+          <td>多任务并行</td>
+      </tr>
+      <tr>
+          <td><strong>学习成本</strong></td>
+          <td>低</td>
+          <td>低（命令简单）</td>
+      </tr>
+  </tbody>
+</table></div>
+<h3 id="流程对比">流程对比
+</h3><pre class="mermaid">
+  flowchart TB
+    subgraph Traditional[&#34;传统分支切换流程&#34;]
+        A[开始开发功能A] --&gt; B{需要修复Bug}
+        B --&gt; C[git stash]
+        C --&gt; D[git checkout hotfix]
+        D --&gt; E[修复Bug]
+        E --&gt; F[git checkout feature]
+        F --&gt; G[git stash pop]
+        G --&gt; H[继续开发]
+    end
+
+    subgraph Worktree[&#34;Worktree 并行流程&#34;]
+        I[开始开发功能A] --&gt; J{需要修复Bug}
+        J --&gt; K[cd ../hotfix-worktree]
+        K --&gt; L[修复Bug]
+        L --&gt; M[cd ../原目录]
+        M --&gt; N[继续开发]
+    end
+
+    style Traditional fill:#fff3e0
+    style Worktree fill:#e8f5e9
+</pre>
+
+<hr>
+<h2 id="最佳实践">最佳实践
+</h2><h3 id="1-命名规范">1. 命名规范
+</h3><p><strong>目录结构建议</strong>：</p>
+
+
+
+
+
+<div class="highlight highlight-bash">
+  <pre>
+    <code class="language-bash" data-lang="bash"># 方式1：按类型组织
+git worktree add ../feature/user-auth feature/user-auth
+git worktree add ../hotfix/login-bug hotfix/login-bug
+git worktree add ../experiment/new-ui experiment/new-ui
+
+# 方式2：统一放在 worktrees 目录
+mkdir worktrees
+git worktree add worktrees/feature-user-auth feature/user-auth
+git worktree add worktrees/hotfix-critical hotfix/critical</code>
+  </pre>
+</div>
+
+<h3 id="2-定期清理">2. 定期清理
+</h3>
+
+
+
+
+<div class="highlight highlight-bash">
+  <pre>
+    <code class="language-bash" data-lang="bash"># 定期查看所有 worktree
+git worktree list
+
+# 合并完成后删除
+git worktree remove ../feature-completed
+
+# 清理无效引用
+git worktree prune</code>
+  </pre>
+</div>
+
+<h3 id="3-vs-code-多根工作区">3. VS Code 多根工作区
+</h3><p>创建 <code>.vscode/workspace.code-workspace</code>：</p>
+
+
+
+
+
+<div class="highlight highlight-json">
+  <pre>
+    <code class="language-json" data-lang="json">{
+  &#34;folders&#34;: [
+    {
+      &#34;path&#34;: &#34;../project&#34;
+    },
+    {
+      &#34;path&#34;: &#34;../feature-login&#34;
+    },
+    {
+      &#34;path&#34;: &#34;../hotfix-emergency&#34;
+    }
+  ]
+}</code>
+  </pre>
+</div>
+
+<p>这样可以在一个 VS Code 窗口中同时管理多个 worktree！</p>
+<h3 id="4-避免的坑">4. 避免的坑
+</h3><p>⚠️ <strong>不要手动编辑 <code>.git/worktrees</code></strong></p>
+<ul>
+<li>这个目录存储 worktree 的元数据</li>
+<li>手动修改可能导致仓库损坏</li>
+</ul>
+<p>⚠️ <strong>注意磁盘空间</strong></p>
+<ul>
+<li>每个 worktree 都是一份完整的代码副本</li>
+<li>定期清理不需要的 worktree</li>
+</ul>
+<p>⚠️ <strong>避免嵌套 worktree</strong></p>
+<ul>
+<li>不要在一个 worktree 内再创建 worktree</li>
+<li>保持在同一层级</li>
+</ul>
+<p>⚠️ <strong>Hooks 和配置</strong></p>
+<ul>
+<li>Hooks 会在所有 worktree 中触发</li>
+<li>注意不要重复执行（如 pre-commit hook）</li>
+</ul>
+<hr>
+<h2 id="与工作流集成">与工作流集成
+</h2><h3 id="git-flow--worktree">Git Flow + Worktree
+</h3>
+
+
+
+
+<div class="highlight highlight-bash">
+  <pre>
+    <code class="language-bash" data-lang="bash">project/
+├── .git                    # 主仓库
+├── main/                   # 主分支工作目录（当前）
+├── develop/                # 开发分支 worktree
+├── feature-user-auth/      # 功能分支 worktree
+├── hotfix-critical-bug/    # 紧急修复 worktree
+└── release-v1.2/           # 发布分支 worktree</code>
+  </pre>
+</div>
+
+<p><strong>工作流程</strong>：</p>
+
+
+
+
+
+<div class="highlight highlight-bash">
+  <pre>
+    <code class="language-bash" data-lang="bash"># 主工作目录在 main 分支
+
+# 创建 develop worktree（长期保留）
+git worktree add ../develop develop
+
+# 创建功能 worktree
+git worktree add ../feature-user-auth feature/user-auth
+cd ../feature-user-auth
+# 开发功能...
+
+# 突发 hotfix
+git worktree add ../hotfix-critical hotfix/critical
+cd ../hotfix-critical
+# 修复、部署...
+
+# 合并后清理
+git worktree remove ../feature-user-auth</code>
+  </pre>
+</div>
+
+<h3 id="github-flow--worktree">GitHub Flow + Worktree
+</h3>
+
+
+
+
+<div class="highlight highlight-bash">
+  <pre>
+    <code class="language-bash" data-lang="bash"># 主分支长期 worktree
+git worktree add ../main-main main
+
+# 为每个 PR 创建 worktree
+git worktree add ../pr-123 origin/pr/123
+cd ../pr-123
+# 测试、review...
+
+# PR 合并后删除
+git worktree remove ../pr-123</code>
+  </pre>
+</div>
+
+<hr>
+<h2 id="进阶技巧">进阶技巧
+</h2><h3 id="1-bare-仓库--worktree">1. Bare 仓库 + Worktree
+</h3><p>适用于服务器或 CI/CD 环境：</p>
+
+
+
+
+
+<div class="highlight highlight-bash">
+  <pre>
+    <code class="language-bash" data-lang="bash"># 创建 bare 仓库（没有工作目录）
+git clone --bare https://github.com/user/repo.git repo.git
+
+# 从 bare 仓库创建 worktree
+cd repo.git
+git worktree add /var/www/html main
+git worktree add /var/www/staging develop
+
+# 更新所有 worktree
+git worktree list | awk &#39;{print $1}&#39; | xargs -I {} git -C {} pull</code>
+  </pre>
+</div>
+
+<h3 id="2-自动化脚本">2. 自动化脚本
+</h3><p><strong>快速创建 feature worktree</strong>：</p>
+
+
+
+
+
+<div class="highlight highlight-bash">
+  <pre>
+    <code class="language-bash" data-lang="bash">#!/bin/bash
+# ~/bin/git-feature
+if [ -z &#34;$1&#34; ]; then
+  echo &#34;Usage: git-feature &lt;branch-name&gt;&#34;
+  exit 1
+fi
+
+git worktree add &#34;../feature-$1&#34; &#34;feature/$1&#34;
+cd &#34;../feature-$1&#34; || exit
+echo &#34;✓ Created worktree for feature/$1&#34;</code>
+  </pre>
+</div>
+
+<p>使用：</p>
+
+
+
+
+
+<div class="highlight highlight-bash">
+  <pre>
+    <code class="language-bash" data-lang="bash">chmod &#43;x ~/bin/git-feature
+git-feature user-auth  # 等同于 git worktree add ../feature-user-auth feature/user-auth</code>
+  </pre>
+</div>
+
+<h3 id="3-并行测试脚本">3. 并行测试脚本
+</h3>
+
+
+
+
+<div class="highlight highlight-bash">
+  <pre>
+    <code class="language-bash" data-lang="bash">#!/bin/bash
+# 在所有 worktree 中运行测试
+for dir in ../*/; do
+  if [ -f &#34;$dir/package.json&#34; ]; then
+    echo &#34;Testing in $dir&#34;
+    (cd &#34;$dir&#34; &amp;&amp; npm test)
+  fi
+done</code>
+  </pre>
+</div>
+
+<hr>
+<h2 id="常见问题排查">常见问题排查
+</h2><h3 id="问题-1stale-worktree-引用">问题 1：Stale worktree 引用
+</h3><p><strong>现象</strong>：<code>git worktree list</code> 显示已删除的目录</p>
+<p><strong>解决</strong>：</p>
+
+
+
+
+
+<div class="highlight highlight-bash">
+  <pre>
+    <code class="language-bash" data-lang="bash">git worktree prune</code>
+  </pre>
+</div>
+
+<h3 id="问题-2worktree-被锁定">问题 2：Worktree 被锁定
+</h3><p><strong>现象</strong>：无法删除 worktree，提示 &ldquo;locked&rdquo;</p>
+<p><strong>解决</strong>：</p>
+
+
+
+
+
+<div class="highlight highlight-bash">
+  <pre>
+    <code class="language-bash" data-lang="bash"># 先解锁
+git worktree unlock ../problematic-worktree
+
+# 再删除
+git worktree remove ../problematic-worktree</code>
+  </pre>
+</div>
+
+<h3 id="问题-3找不到-git-目录">问题 3：找不到 <code>.git</code> 目录
+</h3><p><strong>现象</strong>：worktree 目录中没有 <code>.git</code> 文件夹</p>
+<p><strong>解释</strong>：这是正常的！worktree 目录中有一个 <code>.git</code> <strong>文件</strong>（不是文件夹），内容是：</p>
+
+
+
+
+  
+
+
+<div class="highlight highlight-text">
+  <pre>
+    <code class="language-text" data-lang="text">gitdir: /path/to/main/.git/worktrees/worktree-name</code>
+  </pre>
+</div>
+
+<h3 id="问题-4配置冲突">问题 4：配置冲突
+</h3><p><strong>现象</strong>：不同 worktree 中需要不同的 Git 配置</p>
+<p><strong>解决</strong>：使用条件包含（Git 2.13+）</p>
+
+
+
+
+
+<div class="highlight highlight-bash">
+  <pre>
+    <code class="language-bash" data-lang="bash"># ~/.gitconfig
+[includeIf &#34;gitdir:~/project/&#34;]
+  path = ~/.gitconfig-project</code>
+  </pre>
+</div>
+
+<hr>
+<h2 id="工具推荐">工具推荐
+</h2><h3 id="gui-工具支持">GUI 工具支持
+</h3><ul>
+<li><strong>GitKraken</strong>：原生支持 worktree</li>
+<li><strong>Fork</strong>：支持 worktree 管理</li>
+<li><strong>VS Code GitLens</strong>：显示 worktree 信息</li>
+<li><strong>Tower</strong>：支持 worktree 创建和管理</li>
+</ul>
+<h3 id="命令行增强">命令行增强
+</h3>
+
+
+
+
+<div class="highlight highlight-bash">
+  <pre>
+    <code class="language-bash" data-lang="bash"># 创建别名
+git config --global alias.wt &#39;worktree&#39;
+
+# 使用：
+git wt list          # 列出 worktree
+git wt add ../f f    # 添加 worktree
+git wt rm ../f       # 删除 worktree</code>
+  </pre>
+</div>
+
+<hr>
+<h2 id="总结">总结
+</h2><p>Git Worktree 是一个被低估的强大功能，特别适合以下场景：</p>
+<p>✅ <strong>需要频繁切换分支</strong>时
+✅ <strong>紧急修复</strong>不需要打断当前工作
+✅ <strong>并行开发</strong>多个功能
+✅ <strong>代码评审</strong>需要快速切换
+✅ <strong>长期实验</strong>需要隔离环境</p>
+<p><strong>什么时候不要用 Worktree</strong>：
+❌ 磁盘空间紧张（每个 worktree 都是一份完整代码）
+❌ 只进行线性开发，很少切换分支
+❌ 团队成员不熟悉 worktree（沟通成本）</p>
+<hr>
+<h2 id="相关资源">相关资源
+</h2><h3 id="官方文档">官方文档
+</h3><ul>
+<li><a class="link" href="https://git-scm.com/docs/git-worktree"  target="_blank" rel="noopener"
+    >Git Worktree 官方文档</a></li>
+<li><a class="link" href="https://git-scm.com/docs/git-worktree#_examples"  target="_blank" rel="noopener"
+    >Git Worktree Tutorial</a></li>
+</ul>
+<h3 id="相关文章">相关文章
+</h3><ul>
+<li><a class="link" href="/p/git/" >Git 版本控制完整指南</a></li>
+<li><a class="link" href="/p/dev_flow/" >软件开发全流程：从0到1的完整指南</a></li>
+<li><a class="link" href="/p/linux-shell-basics/" >Linux Shell 基础</a></li>
+</ul>
+<h3 id="视频教程">视频教程
+</h3><p>如果你想深入了解 Git 的高级用法，推荐观看：</p>
+<div class="video-wrapper">
+    <iframe loading="lazy" 
+            src="https://www.youtube.com/embed/DaK7C-NjXaM" 
+            allowfullscreen 
+            title="YouTube Video"
+    >
+    </iframe>
+</div>
+
+<p><strong><a class="link" href="https://www.youtube.com/watch?v=DaK7C-NjXaM"  target="_blank" rel="noopener"
+    >Git Worktree Tutorial</a></strong></p>
+<p>(注：如果视频链接失效，可以在 YouTube 搜索 &ldquo;git worktree tutorial&rdquo;)</p>
+<hr>
+<h2 id="实战练习">实战练习
+</h2><p>想快速上手？试试这个练习：</p>
+
+
+
+
+
+<div class="highlight highlight-bash">
+  <pre>
+    <code class="language-bash" data-lang="bash"># 1. 克隆一个测试仓库
+git clone https://github.com/user/test-repo.git
+cd test-repo
+
+# 2. 创建第一个 worktree
+git worktree add ../feature-demo feature/demo
+cd ../feature-demo
+echo &#34;Feature demo&#34; &gt; demo.txt
+git add demo.txt
+git commit -m &#34;Add demo feature&#34;
+
+# 3. 回到主目录，创建第二个 worktree
+cd ../test-repo
+git worktree add ../hotfix-demo hotfix/demo
+cd ../hotfix-demo
+echo &#34;Hotfix demo&#34; &gt; hotfix.txt
+git add hotfix.txt
+git commit -m &#34;Add hotfix&#34;
+
+# 4. 查看所有 worktree
+cd ../test-repo
+git worktree list
+
+# 5. 清理
+git worktree remove ../feature-demo
+git worktree remove ../hotfix-demo</code>
+  </pre>
+</div>
+
+<hr>
+<p><strong>Happy Coding! 🚀</strong></p>
+<p>记住：工具是为了提升效率，选择适合你的工作流程最重要。Git Worktree 不是银弹，但在多任务并行场景下，它能显著提升开发体验。</p>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+
+    
+    <section class="article-copyright">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <path d="M14.5 9a3.5 4 0 1 0 0 6" />
+</svg>
+
+
+
+        <span>A winner is just a loser who tried one more time.</span>
+    </section>
+    
+
+    
+</footer>
+
+
+    
+        <link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css"integrity="sha384-n8MVd4RsNIU0tAv4ct0nTaAbDJwPJzDEaqSD1odI&#43;WdtXRGWt2kTvGFasHpSy3SV"crossorigin="anonymous"
+            ><script 
+                src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"integrity="sha384-XjKyOOlGwcjNTAIQHIpgOno0Hl1YQqzUOEleOLALmuqehneUG&#43;vnGctmUb0ZY0l8"crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"integrity="sha384-&#43;VBxd3r6XgURycqtZ117nYw44OOcIax56Z4dCRWbxyPt0Koah1uHoK0o4&#43;/RRE05"crossorigin="anonymous"
+                defer
+                >
+            </script><script>
+    window.addEventListener("DOMContentLoaded", () => {
+	const mainArticleElement = document.querySelector(".main-article");
+        renderMathInElement(mainArticleElement, {
+            delimiters: [
+                { left: "$$", right: "$$", display: true },
+                { left: "$", right: "$", display: false },
+                { left: "\\(", right: "\\)", display: false },
+                { left: "\\[", right: "\\]", display: true }
+            ],
+            ignoredClasses: ["gist"]
+        });})
+</script>
+
+    
+</article>
+
+    
+
+    
+
+<aside class="related-content--wrapper">
+    <h2 class="section-title">相关文章</h2>
+    <div class="related-content">
+        <div class="flex article-list--tile">
+            
+                
+<article class="has-image">
+    <a href="/public/p/%E4%BD%BF%E7%94%A8-bfg-repo-cleaner-%E4%BB%8E-git-%E5%8E%86%E5%8F%B2%E4%B8%AD%E5%BD%BB%E5%BA%95%E5%88%A0%E9%99%A4%E5%A4%A7%E6%96%87%E4%BB%B6/">
+        
+        
+            <div class="article-image">
+                
+                    <img src="/public/default.jpeg" loading="lazy" data-key="" data-hash="/public/default.jpeg"/>
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">使用 BFG Repo Cleaner 从 Git 历史中彻底删除大文件</h2>
+        </div>
+    </a>
+</article>
+
+            
+        </div>
+    </div>
+</aside>
+
+     
+    
+        
+    <script
+    src="https://giscus.app/client.js"
+    data-repo="Gzmomo001/Gzmomo001.github.io"
+    data-repo-id="R_kgDOOuLpRA"
+    data-category="General"
+    data-category-id="DIC_kwDOOuLpRM4Cr0Pz"
+    data-mapping="pathname"
+    data-strict="0"
+    data-reactions-enabled="1"
+    data-emit-metadata="0"
+    data-input-position="top"
+    data-theme="light"
+    data-lang="en"
+    data-loading=""
+    crossorigin="anonymous"
+    async
+></script>
+<script>
+    function setGiscusTheme(theme) {
+        let giscus = document.querySelector("iframe.giscus-frame");
+        if (giscus) {
+            giscus.contentWindow.postMessage(
+                {
+                    giscus: {
+                        setConfig: {
+                            theme: theme,
+                        },
+                    },
+                },
+                "https://giscus.app"
+            );
+        }
+    }
+
+    (function () {
+        addEventListener("message", (e) => {
+            if (event.origin !== "https://giscus.app") return;
+            handler();
+        });
+        window.addEventListener("onColorSchemeChange", handler);
+
+        function handler() {
+            if (document.documentElement.dataset.scheme === "light") {
+                setGiscusTheme('light');
+            } else {
+                setGiscusTheme('dark_dimmed');
+            }
+        }
+    })();
+</script>
+
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+            2025 - 
+        
+        2026 blog@mail.henry070.org
+    </section>
+    
+    <section class="powerby">
+        
+            Robust AI <br/>
+        使用 <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> 构建 <br />
+        主题 <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.30.0">Stack</a></b> 由 <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a> 设计
+    </section>
+</footer>
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css"crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css"crossorigin="anonymous"
+            >
+
+            </main>
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
+                
+                >
+            </script><script type="text/javascript" src="/public/ts/main.c922af694cc257bf1ecc41c0dd7b0430f9114ec280ccf67cd2c6ad55f5316c4e.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+<style>
+    #TableOfContents > ul, ol {
+        ul, ol {
+            display: none;
+        }
+        .open {
+            display: block;
+        }
+    }
+</style>
+
+<script>
+    function initTocHide() {
+        
+        let toc = document.querySelector(".widget--toc");
+        if (!toc) {
+            return;
+        }
+        
+        window.addEventListener('scroll', function() {
+            
+            let openUl = document.querySelectorAll(".open");
+            if (openUl.length > 0) {
+              openUl.forEach((ul) => {
+                ul.classList.remove("open")
+              })
+            }
+            
+            let currentLi = document.querySelector(".active-class");
+            if (!currentLi) {
+                return
+            }
+            
+            if (currentLi.children.length > 1) {
+                currentLi.children[1].classList.add("open")
+            }
+            
+            let ul = currentLi.parentElement;
+            do {
+                ul.classList.add("open");
+                ul = ul.parentElement.parentElement
+            } while (ul !== undefined && (ul.localName === 'ul' || ul.localName === 'ol'))
+        });
+    }
+    initTocHide()
+</script>
+
+<style>
+    #backTopBtn {
+        display: none;
+        position: fixed;
+        bottom: 30px;
+         
+        z-index: 99;
+        cursor: pointer;
+        width: 40px;
+        height: 40px;
+        background-color: #666;
+        border-radius: 50%;
+        text-align: center;
+        line-height: 40px;
+        font-size: 25px;
+        color: white;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+        transition: background-color 0.3s;
+    }
+    
+    #backTopBtn:hover {
+        background-color: #333;
+    }
+    
+    #backTopBtn .arrow-icon {
+        display: none;
+    }
+    
+    #backTopBtn .backtop-svg {
+        width: 24px;
+        height: 24px;
+        margin: 8px;
+        fill: white;
+    }
+</style>
+
+
+<script>
+    
+
+    function initScrollTop() {
+        let rightSideBar = document.querySelector(".right-sidebar");
+        if (!rightSideBar) {
+            return;
+        }
+        
+        let btn = document.createElement("div");
+        btn.id = "backTopBtn";
+        btn.innerHTML = '<span class="arrow-icon"></span>' +
+                        '<svg class="backtop-svg" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="15764">' +
+                        '<path d="M512 938.666667c-59.733333 0-123.733333-2.133333-185.6-4.266667l-32-2.133333c-108.8-6.4-194.133333-91.733333-200.533333-200.533334C87.466667 648.533333 85.333333 576 85.333333 512c0-59.733333 2.133333-125.866667 6.4-202.666667v-17.066666c6.4-108.8 91.733333-194.133333 200.533334-200.533334 76.8-4.266667 149.333333-6.4 219.733333-6.4 59.733333 0 123.733333 2.133333 185.6 4.266667l32 2.133333c108.8 6.4 194.133333 91.733333 200.533333 200.533334 6.4 83.2 8.533333 155.733333 8.533334 219.733333 0 59.733333-2.133333 125.866667-6.4 202.666667v17.066666c-6.4 108.8-91.733333 194.133333-200.533334 200.533334-76.8 4.266667-149.333333 6.4-219.733333 6.4z m0-224c17.066667 0 32-14.933333 32-32V430.933333l96 96c12.8 12.8 32 12.8 44.8 0 12.8-12.8 12.8-32 0-44.8l-153.6-153.6c-6.4-6.4-8.533333-8.533333-12.8-8.533333-4.266667-2.133333-8.533333-2.133333-10.666667 0-4.266667 0-6.4 2.133333-10.666666 6.4l-2.133334 2.133333-153.6 153.6c-12.8 12.8-12.8 32 0 44.8 12.8 12.8 32 12.8 44.8 0l96-96V682.666667c-2.133333 17.066667 12.8 32 29.866667 32z" fill="#ffffff" p-id="15765"></path>' +
+                        '</svg>';
+        btn.onclick = backToTop;
+        rightSideBar.appendChild(btn);
+        
+        window.onscroll = function() {
+            
+            if (document.body.scrollTop > 700 || document.documentElement.scrollTop > 700) {
+                btn.style.display = "block";
+            } else {
+                btn.style.display = "none";
+            }
+        };
+    }
+
+    
+
+    function backToTop(){
+        window.scrollTo({ top: 0, behavior: "smooth" })
+    }
+
+    initScrollTop();
+</script>
+
+<style>
+    .highlight {
+         
+        max-height: 1000px;
+        overflow: hidden;
+    }
+
+    .code-show {
+        max-height: none !important;
+    }
+
+    .code-more-box {
+        width: 100%;
+        padding-top: 120px;  
+        background-image: linear-gradient(
+            to bottom,
+            rgba(4, 6, 5, 0) 0%,
+            rgba(4, 6, 5, 0.4) 40%,
+            rgba(4, 6, 5, 0.8) 100%
+        );
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        z-index: 1;
+    }
+
+    .code-more-btn {
+        display: block;
+        margin: auto;
+        width: 44px;
+        height: 22px;
+        background: #5f5f5f;
+        border-top-left-radius: 8px;
+        border-top-right-radius: 8px;
+        padding-top: 6px;
+        cursor: pointer;
+    }
+
+    .code-more-img {
+        cursor: pointer !important;
+        display: block;
+        margin: auto;
+        width: 22px;
+        height: 16px;
+    }
+</style>
+
+<script>
+  function initCodeMoreBox() {
+    let codeBlocks = document.querySelectorAll(".highlight");
+    if (!codeBlocks) {
+      return;
+    }
+    codeBlocks.forEach(codeBlock => {
+      
+      if (codeBlock.scrollHeight <= codeBlock.clientHeight) {
+        return;
+      }
+      
+      
+      let codeMoreBox = document.createElement('div');
+      codeMoreBox.classList.add('code-more-box');
+      
+      let codeMoreBtn = document.createElement('span');
+      codeMoreBtn.classList.add('code-more-btn');
+      codeMoreBtn.addEventListener('click', () => {
+        codeBlock.classList.add('code-show');
+        codeMoreBox.style.display = 'none';
+        
+        window.dispatchEvent(new Event('resize'))
+      })
+      
+      let img = document.createElement('img');
+      img.classList.add('code-more-img');
+      img.src = "https://Gzmomo001.github.io/public/icons/down.png"
+      
+      codeMoreBtn.appendChild(img);
+      codeMoreBox.appendChild(codeMoreBtn);
+      codeBlock.appendChild(codeMoreBox)
+    })
+  }
+  
+  initCodeMoreBox();
+</script>
+
+
+
+    </body>
+</html>

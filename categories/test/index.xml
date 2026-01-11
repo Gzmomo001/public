@@ -2,17 +2,235 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
     <channel>
         <title>Test on Henry Zhang</title>
-        <link>https://Gzmomo001.github.io/categories/test/</link>
+        <link>https://Gzmomo001.github.io/public/categories/test/</link>
         <description>Recent content in Test on Henry Zhang</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>zh-cn</language>
-        <copyright>blog@mail.henry070.org</copyright><atom:link href="https://Gzmomo001.github.io/categories/test/index.xml" rel="self" type="application/rss+xml" /><item>
+        <copyright>blog@mail.henry070.org</copyright><atom:link href="https://Gzmomo001.github.io/public/categories/test/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>mermaid-test</title>
+        <link>https://Gzmomo001.github.io/public/p/mermaid-test/</link>
+        <pubDate>Thu, 25 Dec 2025 02:23:00 -0500</pubDate>
+        
+        <guid>https://Gzmomo001.github.io/public/p/mermaid-test/</guid>
+        <description>&lt;h1 id=&#34;mermaid图表测试&#34;&gt;Mermaid图表测试
+&lt;/h1&gt;&lt;p&gt;这是一个测试Mermaid图表功能的博客文章。以下是各种类型的Mermaid图表示例。&lt;/p&gt;
+&lt;h2 id=&#34;流程图&#34;&gt;流程图
+&lt;/h2&gt;&lt;pre class=&#34;mermaid&#34;&gt;
+  flowchart LR
+
+A[Hard] --&amp;gt;|Text| B(Round)
+B --&amp;gt; C{Decision}
+C --&amp;gt;|One| D[Result 1]
+C --&amp;gt;|Two| E[Result 2]
+&lt;/pre&gt;
+
+&lt;h2 id=&#34;复杂流程图&#34;&gt;复杂流程图
+&lt;/h2&gt;&lt;pre class=&#34;mermaid&#34;&gt;
+  flowchart TD
+    A[开始] --&amp;gt; B{是否登录?}
+    B --&amp;gt;|是| C[显示用户界面]
+    B --&amp;gt;|否| D[跳转登录页面]
+    D --&amp;gt; E[输入用户名密码]
+    E --&amp;gt; F{验证成功?}
+    F --&amp;gt;|是| C
+    F --&amp;gt;|否| G[显示错误信息]
+    G --&amp;gt; E
+    C --&amp;gt; H[用户操作]
+    H --&amp;gt; I[结束]
+&lt;/pre&gt;
+
+&lt;h2 id=&#34;序列图&#34;&gt;序列图
+&lt;/h2&gt;&lt;pre class=&#34;mermaid&#34;&gt;
+  sequenceDiagram
+    participant A as 用户
+    participant B as 前端
+    participant C as 后端
+    participant D as 数据库
+    
+    A-&amp;gt;&amp;gt;B: 发送请求
+    B-&amp;gt;&amp;gt;C: 转发请求
+    C-&amp;gt;&amp;gt;D: 查询数据
+    D--&amp;gt;&amp;gt;C: 返回结果
+    C--&amp;gt;&amp;gt;B: 处理响应
+    B--&amp;gt;&amp;gt;A: 显示结果
+&lt;/pre&gt;
+
+&lt;h2 id=&#34;类图&#34;&gt;类图
+&lt;/h2&gt;&lt;pre class=&#34;mermaid&#34;&gt;
+  classDiagram
+    class Animal {
+        +name: string
+        +age: int
+        +eat()
+        +sleep()
+    }
+    
+    class Dog {
+        +breed: string
+        +bark()
+    }
+    
+    class Cat {
+        +color: string
+        +meow()
+    }
+    
+    Animal &amp;lt;|-- Dog
+    Animal &amp;lt;|-- Cat
+&lt;/pre&gt;
+
+&lt;h2 id=&#34;状态图&#34;&gt;状态图
+&lt;/h2&gt;&lt;pre class=&#34;mermaid&#34;&gt;
+  stateDiagram-v2
+    [*] --&amp;gt; 待处理
+    待处理 --&amp;gt; 处理中: 开始处理
+    处理中 --&amp;gt; 已完成: 处理成功
+    处理中 --&amp;gt; 失败: 处理失败
+    失败 --&amp;gt; 待处理: 重试
+    已完成 --&amp;gt; [*]
+&lt;/pre&gt;
+
+&lt;h2 id=&#34;饼图&#34;&gt;饼图
+&lt;/h2&gt;&lt;pre class=&#34;mermaid&#34;&gt;
+  pie
+    title 编程语言使用比例
+    &amp;#34;JavaScript&amp;#34; : 45
+    &amp;#34;Python&amp;#34; : 30
+    &amp;#34;Java&amp;#34; : 15
+    &amp;#34;Go&amp;#34; : 10
+&lt;/pre&gt;
+
+&lt;h2 id=&#34;甘特图&#34;&gt;甘特图
+&lt;/h2&gt;&lt;pre class=&#34;mermaid&#34;&gt;
+  gantt
+    title 项目开发计划
+    dateFormat  YYYY-MM-DD
+    section 前端开发
+    需求分析           :done,    des1, 2024-01-01, 2024-01-05
+    UI设计            :done,    des2, 2024-01-06, 2024-01-10
+    前端开发          :active,  des3, 2024-01-11, 2024-01-20
+    测试              :         des4, 2024-01-21, 2024-01-25
+    
+    section 后端开发
+    数据库设计        :done,    des5, 2024-01-01, 2024-01-05
+    API开发           :active,  des6, 2024-01-06, 2024-01-15
+    集成测试          :         des7, 2024-01-16, 2024-01-20
+&lt;/pre&gt;
+
+&lt;h2 id=&#34;git图&#34;&gt;Git图
+&lt;/h2&gt;&lt;pre class=&#34;mermaid&#34;&gt;
+  gitGraph
+    commit
+    commit
+    branch develop
+    checkout develop
+    commit
+    commit
+    checkout main
+    merge develop
+    commit
+    branch feature
+    checkout feature
+    commit
+    checkout main
+    merge feature
+&lt;/pre&gt;
+
+&lt;h2 id=&#34;er图&#34;&gt;ER图
+&lt;/h2&gt;&lt;pre class=&#34;mermaid&#34;&gt;
+  erDiagram
+    USER {
+        int id PK
+        string name
+        string email
+        datetime created_at
+    }
+    
+    POST {
+        int id PK
+        int user_id FK
+        string title
+        text content
+        datetime created_at
+    }
+    
+    COMMENT {
+        int id PK
+        int post_id FK
+        int user_id FK
+        text content
+        datetime created_at
+    }
+    
+    USER ||--o{ POST : creates
+    POST ||--o{ COMMENT : has
+    USER ||--o{ COMMENT : writes
+&lt;/pre&gt;
+
+&lt;h2 id=&#34;思维导图&#34;&gt;思维导图
+&lt;/h2&gt;&lt;pre class=&#34;mermaid&#34;&gt;
+  mindmap
+  root(( Hugo博客 ))
+    布局系统
+      单页模板
+      列表模板
+      部分模板
+    内容管理
+      文章
+      页面
+      分类
+      标签
+    主题开发
+      SCSS样式
+      JavaScript
+      响应式设计
+   部署方案
+      GitHub Pages
+      Netlify
+      Vercel
+&lt;/pre&gt;
+
+&lt;h2 id=&#34;用户旅程图&#34;&gt;用户旅程图
+&lt;/h2&gt;&lt;pre class=&#34;mermaid&#34;&gt;
+  journey
+    title 用户购物旅程
+    section 访问网站
+      浏览首页: 5: 用户
+      搜索商品: 4: 用户
+    section 选择商品
+      查看详情: 5: 用户
+      比较价格: 3: 用户
+      加入购物车: 5: 用户
+    section 完成购买
+      下单支付: 4: 用户
+      等待收货: 3: 用户
+      确认收货: 5: 用户
+&lt;/pre&gt;
+
+&lt;h2 id=&#34;4种注释样式测试&#34;&gt;4种注释样式测试
+&lt;/h2&gt;&lt;blockquote&gt;
+&lt;p&gt;&lt;strong&gt;提示&lt;/strong&gt;: 这个博客现在支持Mermaid图表了！你可以使用标准的GitHub Flavored Markdown语法来创建各种类型的图表。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;strong&gt;警告&lt;/strong&gt;: 确保你的Mermaid语法是正确的，否则图表可能无法正常显示。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;strong&gt;错误&lt;/strong&gt;: 如果图表没有显示，请检查浏览器控制台是否有JavaScript错误。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;strong&gt;注意&lt;/strong&gt;: Mermaid图表是在客户端渲染的，需要JavaScript支持。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h2 id=&#34;测试完成&#34;&gt;测试完成
+&lt;/h2&gt;&lt;p&gt;如果以上所有图表都能正常显示，说明Mermaid集成已经成功完成！现在你可以在任何Markdown文章中使用 ```mermaid 代码块来创建图表了。&lt;/p&gt;
+</description>
+        </item>
+        <item>
         <title>Chinese Test</title>
-        <link>https://Gzmomo001.github.io/p/test-chinese/</link>
+        <link>https://Gzmomo001.github.io/public/p/test-chinese/</link>
         <pubDate>Wed, 09 Sep 2020 00:00:00 +0000</pubDate>
         
-        <guid>https://Gzmomo001.github.io/p/test-chinese/</guid>
-        <description>&lt;img src="https://Gzmomo001.github.io/p/test-chinese/helena-hertz-wWZzXlDpMog-unsplash.jpg" alt="Featured image of post Chinese Test" /&gt;&lt;h2 id=&#34;正文测试&#34;&gt;正文测试
+        <guid>https://Gzmomo001.github.io/public/p/test-chinese/</guid>
+        <description>&lt;img src="https://Gzmomo001.github.io/public/p/test-chinese/helena-hertz-wWZzXlDpMog-unsplash.jpg" alt="Featured image of post Chinese Test" /&gt;&lt;h2 id=&#34;正文测试&#34;&gt;正文测试
 &lt;/h2&gt;&lt;p&gt;而这些并不是完全重要，更加重要的问题是， 带着这些问题，我们来审视一下学生会退会。 既然如何， 对我个人而言，学生会退会不仅仅是一个重大的事件，还可能会改变我的人生。 我们不得不面对一个非常尴尬的事实，那就是， 可是，即使是这样，学生会退会的出现仍然代表了一定的意义。 学生会退会，发生了会如何，不发生又会如何。 经过上述讨论， 生活中，若学生会退会出现了，我们就不得不考虑它出现了的事实。 学生会退会，到底应该如何实现。 这样看来， 在这种困难的抉择下，本人思来想去，寝食难安。 对我个人而言，学生会退会不仅仅是一个重大的事件，还可能会改变我的人生。 就我个人来说，学生会退会对我的意义，不能不说非常重大。 莎士比亚曾经提到过，人的一生是短的，但如果卑劣地过这一生，就太长了。这似乎解答了我的疑惑。 莫扎特说过一句富有哲理的话，谁和我一样用功，谁就会和我一样成功。这启发了我， 对我个人而言，学生会退会不仅仅是一个重大的事件，还可能会改变我的人生。 学生会退会，到底应该如何实现。 一般来说， 从这个角度来看， 这种事实对本人来说意义重大，相信对这个世界也是有一定意义的。 在这种困难的抉择下，本人思来想去，寝食难安。 了解清楚学生会退会到底是一种怎么样的存在，是解决一切问题的关键。 一般来说， 生活中，若学生会退会出现了，我们就不得不考虑它出现了的事实。 问题的关键究竟为何？ 而这些并不是完全重要，更加重要的问题是。&lt;/p&gt;
 &lt;p&gt;奥斯特洛夫斯基曾经说过，共同的事业，共同的斗争，可以使人们产生忍受一切的力量。　带着这句话，我们还要更加慎重的审视这个问题： 一般来讲，我们都必须务必慎重的考虑考虑。 既然如此， 这种事实对本人来说意义重大，相信对这个世界也是有一定意义的。 带着这些问题，我们来审视一下学生会退会。 我认为， 我认为， 在这种困难的抉择下，本人思来想去，寝食难安。 问题的关键究竟为何？ 每个人都不得不面对这些问题。 在面对这种问题时， 要想清楚，学生会退会，到底是一种怎么样的存在。 我认为， 既然如此， 每个人都不得不面对这些问题。 在面对这种问题时， 那么， 我认为， 学生会退会因何而发生。&lt;/p&gt;
 &lt;h2 id=&#34;引用&#34;&gt;引用
@@ -25,10 +243,10 @@
     &gt;最暖的憂傷 - 田馥甄&lt;/a&gt;&lt;/em&gt;&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;h2 id=&#34;图片&#34;&gt;图片
-&lt;/h2&gt;&lt;p&gt;&lt;img src=&#34;https://Gzmomo001.github.io/p/test-chinese/florian-klauer-nptLmg6jqDo-unsplash.jpg&#34;
+&lt;/h2&gt;&lt;p&gt;&lt;img src=&#34;https://Gzmomo001.github.io/public/p/test-chinese/florian-klauer-nptLmg6jqDo-unsplash.jpg&#34;
 	width=&#34;667&#34;
 	height=&#34;1000&#34;
-	srcset=&#34;https://Gzmomo001.github.io/p/test-chinese/florian-klauer-nptLmg6jqDo-unsplash_hu_e98fca2b4272416e.jpg 480w, https://Gzmomo001.github.io/p/test-chinese/florian-klauer-nptLmg6jqDo-unsplash_hu_e3d37c9ded115b12.jpg 1024w&#34;
+	srcset=&#34;https://Gzmomo001.github.io/public/p/test-chinese/florian-klauer-nptLmg6jqDo-unsplash_hu_e98fca2b4272416e.jpg 480w, https://Gzmomo001.github.io/public/p/test-chinese/florian-klauer-nptLmg6jqDo-unsplash_hu_e3d37c9ded115b12.jpg 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;Photo by Florian Klauer on Unsplash&#34;
@@ -38,10 +256,10 @@
 		data-flex-grow=&#34;66&#34;
 		data-flex-basis=&#34;160px&#34;
 	
-&gt;  &lt;img src=&#34;https://Gzmomo001.github.io/p/test-chinese/luca-bravo-alS7ewQ41M8-unsplash.jpg&#34;
+&gt;  &lt;img src=&#34;https://Gzmomo001.github.io/public/p/test-chinese/luca-bravo-alS7ewQ41M8-unsplash.jpg&#34;
 	width=&#34;1000&#34;
 	height=&#34;667&#34;
-	srcset=&#34;https://Gzmomo001.github.io/p/test-chinese/luca-bravo-alS7ewQ41M8-unsplash_hu_e13c58d5189f892c.jpg 480w, https://Gzmomo001.github.io/p/test-chinese/luca-bravo-alS7ewQ41M8-unsplash_hu_8fc948b7ee525251.jpg 1024w&#34;
+	srcset=&#34;https://Gzmomo001.github.io/public/p/test-chinese/luca-bravo-alS7ewQ41M8-unsplash_hu_e13c58d5189f892c.jpg 480w, https://Gzmomo001.github.io/public/p/test-chinese/luca-bravo-alS7ewQ41M8-unsplash_hu_8fc948b7ee525251.jpg 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;Photo by Luca Bravo on Unsplash&#34;
@@ -52,10 +270,10 @@
 		data-flex-basis=&#34;359px&#34;
 	
 &gt;&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://Gzmomo001.github.io/p/test-chinese/helena-hertz-wWZzXlDpMog-unsplash.jpg&#34;
+&lt;p&gt;&lt;img src=&#34;https://Gzmomo001.github.io/public/p/test-chinese/helena-hertz-wWZzXlDpMog-unsplash.jpg&#34;
 	width=&#34;1000&#34;
 	height=&#34;750&#34;
-	srcset=&#34;https://Gzmomo001.github.io/p/test-chinese/helena-hertz-wWZzXlDpMog-unsplash_hu_503c0ebcc5245e10.jpg 480w, https://Gzmomo001.github.io/p/test-chinese/helena-hertz-wWZzXlDpMog-unsplash_hu_48c98de55fb3c999.jpg 1024w&#34;
+	srcset=&#34;https://Gzmomo001.github.io/public/p/test-chinese/helena-hertz-wWZzXlDpMog-unsplash_hu_503c0ebcc5245e10.jpg 480w, https://Gzmomo001.github.io/public/p/test-chinese/helena-hertz-wWZzXlDpMog-unsplash_hu_48c98de55fb3c999.jpg 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;Photo by Helena Hertz on Unsplash&#34;
@@ -65,10 +283,10 @@
 		data-flex-grow=&#34;133&#34;
 		data-flex-basis=&#34;320px&#34;
 	
-&gt;  &lt;img src=&#34;https://Gzmomo001.github.io/p/test-chinese/hudai-gayiran-3Od_VKcDEAA-unsplash.jpg&#34;
+&gt;  &lt;img src=&#34;https://Gzmomo001.github.io/public/p/test-chinese/hudai-gayiran-3Od_VKcDEAA-unsplash.jpg&#34;
 	width=&#34;667&#34;
 	height=&#34;1000&#34;
-	srcset=&#34;https://Gzmomo001.github.io/p/test-chinese/hudai-gayiran-3Od_VKcDEAA-unsplash_hu_f81a3588c5c4a663.jpg 480w, https://Gzmomo001.github.io/p/test-chinese/hudai-gayiran-3Od_VKcDEAA-unsplash_hu_1c52ba2a4ad7b9a0.jpg 1024w&#34;
+	srcset=&#34;https://Gzmomo001.github.io/public/p/test-chinese/hudai-gayiran-3Od_VKcDEAA-unsplash_hu_f81a3588c5c4a663.jpg 480w, https://Gzmomo001.github.io/public/p/test-chinese/hudai-gayiran-3Od_VKcDEAA-unsplash_hu_1c52ba2a4ad7b9a0.jpg 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;Photo by Hudai Gayiran on Unsplash&#34;
@@ -79,20 +297,30 @@
 		data-flex-basis=&#34;160px&#34;
 	
 &gt;&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-markdown&#34; data-lang=&#34;markdown&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;![&lt;span class=&#34;nt&#34;&gt;Photo by Florian Klauer on Unsplash&lt;/span&gt;](&lt;span class=&#34;na&#34;&gt;florian-klauer-nptLmg6jqDo-unsplash.jpg&lt;/span&gt;)  ![&lt;span class=&#34;nt&#34;&gt;Photo by Luca Bravo on Unsplash&lt;/span&gt;](&lt;span class=&#34;na&#34;&gt;luca-bravo-alS7ewQ41M8-unsplash.jpg&lt;/span&gt;) 
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;![&lt;span class=&#34;nt&#34;&gt;Photo by Helena Hertz on Unsplash&lt;/span&gt;](&lt;span class=&#34;na&#34;&gt;helena-hertz-wWZzXlDpMog-unsplash.jpg&lt;/span&gt;)  ![&lt;span class=&#34;nt&#34;&gt;Photo by Hudai Gayiran on Unsplash&lt;/span&gt;](&lt;span class=&#34;na&#34;&gt;hudai-gayiran-3Od_VKcDEAA-unsplash.jpg&lt;/span&gt;)
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;相册语法来自 &lt;a class=&#34;link&#34; href=&#34;https://typlog.com/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+
+
+
+
+
+&lt;div class=&#34;highlight highlight-markdown&#34;&gt;
+  &lt;pre&gt;
+    &lt;code class=&#34;language-markdown&#34; data-lang=&#34;markdown&#34;&gt;![Photo by Florian Klauer on Unsplash](florian-klauer-nptLmg6jqDo-unsplash.jpg)  ![Photo by Luca Bravo on Unsplash](luca-bravo-alS7ewQ41M8-unsplash.jpg) 
+
+![Photo by Helena Hertz on Unsplash](helena-hertz-wWZzXlDpMog-unsplash.jpg)  ![Photo by Hudai Gayiran on Unsplash](hudai-gayiran-3Od_VKcDEAA-unsplash.jpg)&lt;/code&gt;
+  &lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;相册语法来自 &lt;a class=&#34;link&#34; href=&#34;https://typlog.com/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;Typlog&lt;/a&gt;&lt;/p&gt;
 </description>
         </item>
         <item>
         <title>Placeholder Text</title>
-        <link>https://Gzmomo001.github.io/p/placeholder-text/</link>
+        <link>https://Gzmomo001.github.io/public/p/placeholder-text/</link>
         <pubDate>Sat, 09 Mar 2019 00:00:00 +0000</pubDate>
         
-        <guid>https://Gzmomo001.github.io/p/placeholder-text/</guid>
-        <description>&lt;img src="https://Gzmomo001.github.io/p/placeholder-text/matt-le-SJSpo9hQf7s-unsplash.jpg" alt="Featured image of post Placeholder Text" /&gt;&lt;p&gt;Lorem est tota propiore conpellat pectoribus de pectora summo.&lt;/p&gt;
+        <guid>https://Gzmomo001.github.io/public/p/placeholder-text/</guid>
+        <description>&lt;img src="https://Gzmomo001.github.io/public/p/placeholder-text/matt-le-SJSpo9hQf7s-unsplash.jpg" alt="Featured image of post Placeholder Text" /&gt;&lt;p&gt;Lorem est tota propiore conpellat pectoribus de pectora summo.&lt;/p&gt;
 &lt;p&gt;Redit teque digerit hominumque toris verebor lumina non cervice subde tollit usus habet Arctonque, furores quas nec ferunt. Quoque montibus nunc caluere tempus inhospita parcite confusaque translucet patri vestro qui optatis lumine cognoscere flos nubis! Fronde ipsamque patulos Dryopen deorum.&lt;/p&gt;
 &lt;ol&gt;
 &lt;li&gt;Exierant elisi ambit vivere dedere&lt;/li&gt;
@@ -119,11 +347,11 @@
         </item>
         <item>
         <title>Emoji Support</title>
-        <link>https://Gzmomo001.github.io/p/emoji-support/</link>
+        <link>https://Gzmomo001.github.io/public/p/emoji-support/</link>
         <pubDate>Tue, 05 Mar 2019 00:00:00 +0000</pubDate>
         
-        <guid>https://Gzmomo001.github.io/p/emoji-support/</guid>
-        <description>&lt;img src="https://Gzmomo001.github.io/p/emoji-support/the-creative-exchange-d2zvqp3fpro-unsplash.jpg" alt="Featured image of post Emoji Support" /&gt;&lt;p&gt;Emoji can be enabled in a Hugo project in a number of ways.&lt;/p&gt;
+        <guid>https://Gzmomo001.github.io/public/p/emoji-support/</guid>
+        <description>&lt;img src="https://Gzmomo001.github.io/public/p/emoji-support/the-creative-exchange-d2zvqp3fpro-unsplash.jpg" alt="Featured image of post Emoji Support" /&gt;&lt;p&gt;Emoji can be enabled in a Hugo project in a number of ways.&lt;/p&gt;
 &lt;p&gt;The &lt;a class=&#34;link&#34; href=&#34;https://gohugo.io/functions/emojify/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;&lt;code&gt;emojify&lt;/code&gt;&lt;/a&gt; function can be called directly in templates or &lt;a class=&#34;link&#34; href=&#34;https://gohugo.io/templates/shortcode-templates/#inline-shortcodes&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;Inline Shortcodes&lt;/a&gt;.&lt;/p&gt;

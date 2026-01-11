@@ -1,0 +1,658 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+    <channel>
+        <title>Pacman on Henry Zhang</title>
+        <link>https://Gzmomo001.github.io/public/tags/pacman/</link>
+        <description>Recent content in Pacman on Henry Zhang</description>
+        <generator>Hugo -- gohugo.io</generator>
+        <language>zh-cn</language>
+        <copyright>blog@mail.henry070.org</copyright>
+        <lastBuildDate>Sun, 11 Jan 2026 16:57:00 +0000</lastBuildDate><atom:link href="https://Gzmomo001.github.io/public/tags/pacman/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>软件包管理：Linux 的应用商店</title>
+        <link>https://Gzmomo001.github.io/public/p/%E8%BD%AF%E4%BB%B6%E5%8C%85%E7%AE%A1%E7%90%86linux-%E7%9A%84%E5%BA%94%E7%94%A8%E5%95%86%E5%BA%97/</link>
+        <pubDate>Sun, 11 Jan 2026 03:00:00 +0800</pubDate>
+        
+        <guid>https://Gzmomo001.github.io/public/p/%E8%BD%AF%E4%BB%B6%E5%8C%85%E7%AE%A1%E7%90%86linux-%E7%9A%84%E5%BA%94%E7%94%A8%E5%95%86%E5%BA%97/</guid>
+        <description>&lt;img src="https://Gzmomo001.github.io/public/default.jpeg" alt="Featured image of post 软件包管理：Linux 的应用商店" /&gt;&lt;h1 id=&#34;软件包管理linux-的应用商店&#34;&gt;软件包管理：Linux 的应用商店
+&lt;/h1&gt;&lt;h2 id=&#34;引言&#34;&gt;引言
+&lt;/h2&gt;&lt;p&gt;软件包管理是 Linux 系统中最日常的任务之一。不同的发行版使用不同的包管理器，但核心概念是相通的。在这篇文章中，我们将系统学习 Linux 的软件包管理系统。&lt;/p&gt;
+&lt;h2 id=&#34;包管理器概述&#34;&gt;包管理器概述
+&lt;/h2&gt;&lt;h3 id=&#34;什么是软件包&#34;&gt;什么是软件包
+&lt;/h3&gt;&lt;p&gt;软件包是预编译的应用程序及其元数据的打包格式：&lt;/p&gt;
+&lt;pre class=&#34;mermaid&#34;&gt;
+  flowchart TD
+    A[源代码] --&amp;gt; B[编译]
+    B --&amp;gt; C[打包]
+    C --&amp;gt; D[软件包]
+
+    D --&amp;gt; E[Debian 包&amp;lt;br/&amp;gt;.deb]
+    D --&amp;gt; F[Red Hat 包&amp;lt;br/&amp;gt;.rpm]
+    D --&amp;gt; G[Arch 包&amp;lt;br/&amp;gt;.pkg.tar.zst]
+
+    E --&amp;gt; H[APT]
+    F --&amp;gt; I[DNF/YUM]
+    G --&amp;gt; J[Pacman]
+
+    style H fill:#e3f2fd
+    style I fill:#fff3e0
+    style J fill:#f3e5f5
+&lt;/pre&gt;
+
+&lt;h3 id=&#34;包管理器的功能&#34;&gt;包管理器的功能
+&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;安装软件&lt;/strong&gt;：从仓库或本地文件安装&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;卸载软件&lt;/strong&gt;：删除软件及其配置&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;更新软件&lt;/strong&gt;：升级到最新版本&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;依赖管理&lt;/strong&gt;：自动处理依赖关系&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;仓库管理&lt;/strong&gt;：添加、删除、更新软件源&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;debian-系apt&#34;&gt;Debian 系：APT
+&lt;/h2&gt;&lt;h3 id=&#34;apt-基础&#34;&gt;APT 基础
+&lt;/h3&gt;
+
+
+
+
+&lt;div class=&#34;highlight highlight-bash&#34;&gt;
+  &lt;pre&gt;
+    &lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;# 更新软件包列表
+sudo apt update
+
+# 升级所有已安装的软件包
+sudo apt upgrade
+
+# 完整系统升级（包括依赖关系变化）
+sudo apt full-upgrade
+
+# 安装软件
+sudo apt install nginx
+sudo apt install vim git curl
+
+# 删除软件（保留配置）
+sudo apt remove nginx
+
+# 删除软件和配置
+sudo apt purge nginx
+
+# 删除不需要的依赖
+sudo apt autoremove
+
+# 清理下载的包文件
+sudo apt clean
+sudo apt autoclean&lt;/code&gt;
+  &lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h3 id=&#34;软件源配置&#34;&gt;软件源配置
+&lt;/h3&gt;
+
+
+
+
+&lt;div class=&#34;highlight highlight-bash&#34;&gt;
+  &lt;pre&gt;
+    &lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;# 软件源文件
+/etc/apt/sources.list
+/etc/apt/sources.list.d/*.conf
+
+# 查看当前源
+cat /etc/apt/sources.list
+
+# 添加 PPA（Personal Package Archive）
+sudo add-apt-repository ppa:deadsnakes/ppa
+sudo apt update
+
+# 手动添加源
+echo &amp;#39;deb https://example.com/ubuntu jammy main&amp;#39; | sudo tee /etc/apt/sources.list.d/custom.list
+
+# 添加 GPG 密钥
+wget -qO - https://example.com/key.gpg | sudo apt-key add -
+
+# 更新系统后清理旧包
+sudo apt autoremove
+sudo apt autoclean&lt;/code&gt;
+  &lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h3 id=&#34;deb-文件&#34;&gt;.deb 文件
+&lt;/h3&gt;
+
+
+
+
+&lt;div class=&#34;highlight highlight-bash&#34;&gt;
+  &lt;pre&gt;
+    &lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;# 安装 .deb 文件
+sudo dpkg -i package.deb
+
+# 修复依赖问题
+sudo apt install -f
+
+# 查看已安装的包
+dpkg -l | grep nginx
+
+# 查看包信息
+dpkg -I package.deb
+
+# 查看包内容
+dpkg -c package.deb
+
+# 卸载 .deb 包
+sudo dpkg -r package_name
+sudo dpkg -P package_name  # 包括配置文件&lt;/code&gt;
+  &lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h3 id=&#34;常用操作&#34;&gt;常用操作
+&lt;/h3&gt;
+
+
+
+
+&lt;div class=&#34;highlight highlight-bash&#34;&gt;
+  &lt;pre&gt;
+    &lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;# 搜索软件包
+apt search nginx
+apt show nginx           # 查看包详情
+
+# 查看已安装的包
+apt list --installed
+
+# 查看可升级的包
+apt list --upgradable
+
+# 查看包依赖关系
+apt depends nginx
+apt rdepends nginx       # 反向依赖
+
+# 下载但不安装
+apt download nginx
+apt source nginx         # 下载源代码
+
+# 固定软件版本
+sudo apt mark hold nginx     # 禁止升级
+sudo apt mark unhold nginx   # 允许升级&lt;/code&gt;
+  &lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h2 id=&#34;red-hat-系dnf&#34;&gt;Red Hat 系：DNF
+&lt;/h2&gt;&lt;h3 id=&#34;dnf-基础&#34;&gt;DNF 基础
+&lt;/h3&gt;
+
+
+
+
+&lt;div class=&#34;highlight highlight-bash&#34;&gt;
+  &lt;pre&gt;
+    &lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;# 安装软件
+sudo dnf install nginx
+
+# 更新软件
+sudo dnf update nginx
+sudo dnf upgrade              # 升级所有软件
+
+# 删除软件
+sudo dnf remove nginx
+sudo dnf erase nginx
+
+# 查找软件
+dnf search nginx
+
+# 查看包信息
+dnf info nginx&lt;/code&gt;
+  &lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h3 id=&#34;仓库配置&#34;&gt;仓库配置
+&lt;/h3&gt;
+
+
+
+
+&lt;div class=&#34;highlight highlight-bash&#34;&gt;
+  &lt;pre&gt;
+    &lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;# 仓库配置目录
+/etc/yum.repos.d/*.repo
+
+# 查看已启用的仓库
+dnf repolist
+
+# 查看所有仓库
+dnf repolist all
+
+# 启用/禁用仓库
+sudo dnf config-manager --set-enabled epel
+sudo dnf config-manager --set-disabled epel
+
+# 添加仓库
+sudo dnf config-manager --add-repo https://download.example.com/repo.rpm
+
+# EPEL（Extra Packages for Enterprise Linux）
+sudo dnf install epel-release&lt;/code&gt;
+  &lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h3 id=&#34;rpm-文件&#34;&gt;.rpm 文件
+&lt;/h3&gt;
+
+
+
+
+&lt;div class=&#34;highlight highlight-bash&#34;&gt;
+  &lt;pre&gt;
+    &lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;# 安装 .rpm 文件
+sudo rpm -ivh package.rpm
+# 或
+sudo dnf localinstall package.rpm
+
+# 查询已安装的包
+rpm -qa | grep nginx
+rpm -qi nginx             # 包信息
+rpm -ql nginx             # 包文件列表
+rpm -qf /bin/nginx        # 查看文件属于哪个包
+
+# 卸载 .rpm 包
+sudo rpm -e nginx
+
+# 验证包
+rpm -V nginx&lt;/code&gt;
+  &lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h2 id=&#34;arch-系pacman&#34;&gt;Arch 系：Pacman
+&lt;/h2&gt;&lt;h3 id=&#34;pacman-基础&#34;&gt;Pacman 基础
+&lt;/h3&gt;
+
+
+
+
+&lt;div class=&#34;highlight highlight-bash&#34;&gt;
+  &lt;pre&gt;
+    &lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;# 同步包数据库
+sudo pacman -Sy
+
+# 升级系统
+sudo pacman -Syu
+
+# 安装软件
+sudo pacman -S nginx
+
+# 删除软件
+sudo pacman -R nginx          # 保留依赖和配置
+sudo pacman -Rs nginx         # 删除依赖
+sudo pacman -Rns nginx        # 删除依赖和配置
+
+# 搜索软件
+pacman -Ss nginx
+
+# 查看包信息
+pacman -Si nginx
+pacman -Qii nginx             # 已安装包的详细信息&lt;/code&gt;
+  &lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h3 id=&#34;仓库和-aur&#34;&gt;仓库和 AUR
+&lt;/h3&gt;
+
+
+
+
+&lt;div class=&#34;highlight highlight-bash&#34;&gt;
+  &lt;pre&gt;
+    &lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;# 官方仓库
+core - 核心软件
+extra - 额外软件
+community - 社区软件
+
+# 查看包在哪个仓库
+pacman -Ss nginx
+
+# AUR（Arch User Repository）
+# 需要使用 yay 或 paru 等 AUR 助手
+
+# 安装 yay
+sudo pacman -S base-devel git
+git clone https://aur.archlinux.org/yay.git
+cd yay
+makepkg -si
+
+# 使用 yay
+yay -S google-chrome         # 从 AUR 安装
+yay -Syu                     # 升级系统（包括 AUR）
+yay -Ss package             # 搜索包&lt;/code&gt;
+  &lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h3 id=&#34;pkgtarzst-文件&#34;&gt;.pkg.tar.zst 文件
+&lt;/h3&gt;
+
+
+
+
+&lt;div class=&#34;highlight highlight-bash&#34;&gt;
+  &lt;pre&gt;
+    &lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;# 安装本地包文件
+sudo pacman -U package.pkg.tar.zst
+
+# 查看包内容
+pacman -Ql package
+pacman -Qo /path/to/file    # 文件属于哪个包&lt;/code&gt;
+  &lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h2 id=&#34;依赖管理&#34;&gt;依赖管理
+&lt;/h2&gt;&lt;h3 id=&#34;依赖类型&#34;&gt;依赖类型
+&lt;/h3&gt;&lt;pre class=&#34;mermaid&#34;&gt;
+  flowchart TD
+    A[软件包] --&amp;gt; B[依赖]
+    B --&amp;gt; C[硬依赖&amp;lt;br/&amp;gt;requires]
+    B --&amp;gt; D[软依赖&amp;lt;br/&amp;gt;suggests]
+    B --&amp;gt; E[构建依赖&amp;lt;br/&amp;gt;build-dep]
+
+    C --&amp;gt; F[必须安装]
+    D --&amp;gt; G[推荐安装]
+    E --&amp;gt; H[编译时需要]
+
+    style C fill:#ffcdd2
+    style D fill:#fff3e0
+    style E fill:#e3f2fd
+&lt;/pre&gt;
+
+&lt;h3 id=&#34;查看依赖关系&#34;&gt;查看依赖关系
+&lt;/h3&gt;
+
+
+
+
+&lt;div class=&#34;highlight highlight-bash&#34;&gt;
+  &lt;pre&gt;
+    &lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;# Debian/Ubuntu
+apt depends nginx           # 正向依赖
+apt rdepends nginx          # 反向依赖（被依赖）
+
+# Red Hat/CentOS
+dnf repoquery --requires nginx
+dnf repoquery --whatrequires nginx
+
+# Arch
+pactree nginx               # 依赖树
+pactree -r nginx            # 反向依赖树&lt;/code&gt;
+  &lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h3 id=&#34;解决依赖冲突&#34;&gt;解决依赖冲突
+&lt;/h3&gt;
+
+
+
+
+&lt;div class=&#34;highlight highlight-bash&#34;&gt;
+  &lt;pre&gt;
+    &lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;# 查看冲突的包
+apt show package | grep Conflicts
+
+# 强制安装（不推荐）
+sudo apt install -f
+
+# 使用特定版本
+sudo apt install package=1.0.0
+
+# 锁定版本
+sudo apt-mark hold package&lt;/code&gt;
+  &lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h2 id=&#34;snap-和-flatpak&#34;&gt;Snap 和 Flatpak
+&lt;/h2&gt;&lt;h3 id=&#34;snapcanonical&#34;&gt;Snap（Canonical）
+&lt;/h3&gt;
+
+
+
+
+&lt;div class=&#34;highlight highlight-bash&#34;&gt;
+  &lt;pre&gt;
+    &lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;# 安装 snapd
+sudo apt install snapd
+
+# 查找 snap 应用
+snap find chrome
+
+# 安装 snap
+sudo snap install chromium
+sudo snap install chromium --classic  # 经典模式
+
+# 列出已安装的 snap
+snap list
+
+# 更新 snap
+sudo snap refresh chromium
+
+# 删除 snap
+sudo snap remove chromium
+
+# 查看 snap 信息
+snap info chromium&lt;/code&gt;
+  &lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h3 id=&#34;flatpak通用&#34;&gt;Flatpak（通用）
+&lt;/h3&gt;
+
+
+
+
+&lt;div class=&#34;highlight highlight-bash&#34;&gt;
+  &lt;pre&gt;
+    &lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;# 安装 flatpak
+sudo apt install flatpak
+
+# 添加 Flathub 仓库
+flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
+
+# 查找应用
+flatpak search spotify
+
+# 安装应用
+flatpak install flathub com.spotify.Client
+
+# 列出已安装的应用
+flatpak list
+
+# 更新应用
+flatpak update com.spotify.Client
+
+# 删除应用
+flatpak uninstall com.spotify.Client
+
+# 运行应用
+flatpak run com.spotify.Client&lt;/code&gt;
+  &lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h2 id=&#34;appimage&#34;&gt;AppImage
+&lt;/h2&gt;
+
+
+
+
+&lt;div class=&#34;highlight highlight-bash&#34;&gt;
+  &lt;pre&gt;
+    &lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;# 下载 AppImage 文件
+wget https://example.com/app.AppImage
+
+# 赋予执行权限
+chmod &amp;#43;x app.AppImage
+
+# 运行
+./app.AppImage
+
+# 集成到系统（可选）
+./app.AppImage --appimage-extract
+./squashfs-root/AppRun
+
+# 或使用 AppImageLauncher
+sudo apt install appimagelauncher&lt;/code&gt;
+  &lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h2 id=&#34;源码编译&#34;&gt;源码编译
+&lt;/h2&gt;&lt;h3 id=&#34;基本流程&#34;&gt;基本流程
+&lt;/h3&gt;
+
+
+
+
+&lt;div class=&#34;highlight highlight-bash&#34;&gt;
+  &lt;pre&gt;
+    &lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;# 1. 安装编译工具
+sudo apt install build-essential
+
+# 2. 下载源代码
+wget https://example.com/source.tar.gz
+tar -xf source.tar.gz
+cd source
+
+# 3. 配置
+./configure --prefix=/usr/local
+
+# 4. 编译
+make
+
+# 5. 安装
+sudo make install
+
+# 6. 卸载
+sudo make uninstall&lt;/code&gt;
+  &lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h3 id=&#34;checkinstall创建包&#34;&gt;checkinstall（创建包）
+&lt;/h3&gt;
+
+
+
+
+&lt;div class=&#34;highlight highlight-bash&#34;&gt;
+  &lt;pre&gt;
+    &lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;# 安装 checkinstall
+sudo apt install checkinstall
+
+# 使用 checkinstall 替代 make install
+make
+sudo checkinstall
+
+# 这会创建一个 .deb 包，便于管理&lt;/code&gt;
+  &lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h2 id=&#34;实用技巧&#34;&gt;实用技巧
+&lt;/h2&gt;&lt;h3 id=&#34;查找命令对应的包&#34;&gt;查找命令对应的包
+&lt;/h3&gt;
+
+
+
+
+&lt;div class=&#34;highlight highlight-bash&#34;&gt;
+  &lt;pre&gt;
+    &lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;# Debian/Ubuntu
+apt search command_name
+apt-file search command_name     # 需要更新数据库：sudo apt update
+
+# Red Hat/CentOS
+dnf provides command_name
+yum whatprovides &amp;#34;*bin/command&amp;#34;
+
+# Arch
+pacman -Fy /usr/bin/command      # 需要更新数据库：sudo pacman -Fy
+pacman -F command&lt;/code&gt;
+  &lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h3 id=&#34;包管理器快捷方式&#34;&gt;包管理器快捷方式
+&lt;/h3&gt;
+
+
+
+
+&lt;div class=&#34;highlight highlight-bash&#34;&gt;
+  &lt;pre&gt;
+    &lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;# APT
+alias apt-upgrade=&amp;#39;sudo apt update &amp;amp;&amp;amp; sudo apt upgrade -y&amp;#39;
+alias apt-install=&amp;#39;sudo apt install -y&amp;#39;
+alias apt-search=&amp;#39;apt search&amp;#39;
+
+# DNF
+alias dnf-upgrade=&amp;#39;sudo dnf upgrade -y&amp;#39;
+alias dnf-install=&amp;#39;sudo dnf install -y&amp;#39;
+
+# Pacman
+alias pac-upgrade=&amp;#39;sudo pacman -Syu&amp;#39;
+alias pac-install=&amp;#39;sudo pacman -S&amp;#39;
+alias pac-remove=&amp;#39;sudo pacman -Rns&amp;#39;&lt;/code&gt;
+  &lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h3 id=&#34;清理系统&#34;&gt;清理系统
+&lt;/h3&gt;
+
+
+
+
+&lt;div class=&#34;highlight highlight-bash&#34;&gt;
+  &lt;pre&gt;
+    &lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;# Debian/Ubuntu
+sudo apt autoremove      # 删除不需要的依赖
+sudo apt autoclean       # 清理旧包文件
+sudo apt clean           # 清理所有包文件
+
+# Red Hat/CentOS
+sudo dnf autoremove
+sudo dnf clean all
+
+# Arch
+sudo pacman -Sc          # 清理未安装的包文件
+sudo pacman -Scc         # 清理所有缓存&lt;/code&gt;
+  &lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h2 id=&#34;总结&#34;&gt;总结
+&lt;/h2&gt;&lt;p&gt;软件包管理是 Linux 系统管理的日常任务。通过这篇文章，我们学习了：&lt;/p&gt;
+&lt;h3 id=&#34;核心技能&#34;&gt;核心技能
+&lt;/h3&gt;&lt;ol&gt;
+&lt;li&gt;&lt;strong&gt;APT&lt;/strong&gt;：Debian/Ubuntu 系统的包管理&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;DNF&lt;/strong&gt;：Red Hat/Fedora 系统的包管理&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Pacman&lt;/strong&gt;：Arch Linux 的包管理&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;通用格式&lt;/strong&gt;：Snap、Flatpak、AppImage&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;源码编译&lt;/strong&gt;：终极灵活性&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h3 id=&#34;最佳实践&#34;&gt;最佳实践
+&lt;/h3&gt;&lt;ol&gt;
+&lt;li&gt;&lt;strong&gt;定期更新&lt;/strong&gt;：保持系统和软件最新&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;使用官方源&lt;/strong&gt;：安全可靠&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;理解依赖&lt;/strong&gt;：避免冲突&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;清理无用包&lt;/strong&gt;：节省空间&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;备份配置&lt;/strong&gt;：升级前备份重要配置&lt;/li&gt;
+&lt;/ol&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&amp;ldquo;包管理器是 Linux 最大的优势之一，它让软件安装变得简单。&amp;rdquo; — Linus Torvalds&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;掌握包管理器，让你的 Linux 之旅更加顺畅！&lt;/p&gt;
+&lt;hr&gt;
+&lt;p&gt;&lt;strong&gt;← 返回系列概述&lt;/strong&gt;: &lt;a class=&#34;link&#34; href=&#34;https://Gzmomo001.github.io/public/p/linux-%E6%A6%82%E8%BF%B0%E4%BB%8E-unix-%E5%88%B0%E5%BC%80%E6%BA%90%E9%9D%A9%E5%91%BD/&#34; &gt;Linux 概述：从 Unix 到开源革命&lt;/a&gt;&lt;/p&gt;
+&lt;hr&gt;
+&lt;p&gt;&lt;strong&gt;参考资源&lt;/strong&gt;：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;https://wiki.debian.org/APT&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;APT 用户指南&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;https://dnf.readthedocs.io/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;DNF 文档&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;https://wiki.archlinux.org/title/pacman&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;Pacman 手册&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;https://docs.flatpak.org/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;Flatpak 文档&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+        </item>
+        
+    </channel>
+</rss>

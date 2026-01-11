@@ -2,18 +2,18 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
     <channel>
         <title>Tech on Henry Zhang</title>
-        <link>https://Gzmomo001.github.io/categories/tech/</link>
+        <link>https://Gzmomo001.github.io/public/categories/tech/</link>
         <description>Recent content in Tech on Henry Zhang</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>zh-cn</language>
         <copyright>blog@mail.henry070.org</copyright>
-        <lastBuildDate>Tue, 09 Dec 2025 11:32:50 -0500</lastBuildDate><atom:link href="https://Gzmomo001.github.io/categories/tech/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Tue, 09 Dec 2025 11:32:50 -0500</lastBuildDate><atom:link href="https://Gzmomo001.github.io/public/categories/tech/index.xml" rel="self" type="application/rss+xml" /><item>
         <title>SHA 校验入门：从原理到实践</title>
-        <link>https://Gzmomo001.github.io/p/sha-%E6%A0%A1%E9%AA%8C%E5%85%A5%E9%97%A8%E4%BB%8E%E5%8E%9F%E7%90%86%E5%88%B0%E5%AE%9E%E8%B7%B5/</link>
+        <link>https://Gzmomo001.github.io/public/p/sha-%E6%A0%A1%E9%AA%8C%E5%85%A5%E9%97%A8%E4%BB%8E%E5%8E%9F%E7%90%86%E5%88%B0%E5%AE%9E%E8%B7%B5/</link>
         <pubDate>Fri, 05 Dec 2025 02:31:57 -0500</pubDate>
         
-        <guid>https://Gzmomo001.github.io/p/sha-%E6%A0%A1%E9%AA%8C%E5%85%A5%E9%97%A8%E4%BB%8E%E5%8E%9F%E7%90%86%E5%88%B0%E5%AE%9E%E8%B7%B5/</guid>
-        <description>&lt;img src="https://Gzmomo001.github.io/default.jpeg" alt="Featured image of post SHA 校验入门：从原理到实践" /&gt;&lt;h1 id=&#34;sha-校验入门从原理到实践&#34;&gt;SHA 校验入门：从原理到实践
+        <guid>https://Gzmomo001.github.io/public/p/sha-%E6%A0%A1%E9%AA%8C%E5%85%A5%E9%97%A8%E4%BB%8E%E5%8E%9F%E7%90%86%E5%88%B0%E5%AE%9E%E8%B7%B5/</guid>
+        <description>&lt;img src="https://Gzmomo001.github.io/public/default.jpeg" alt="Featured image of post SHA 校验入门：从原理到实践" /&gt;&lt;h1 id=&#34;sha-校验入门从原理到实践&#34;&gt;SHA 校验入门：从原理到实践
 &lt;/h1&gt;&lt;p&gt;在数字世界中，我们经常需要下载和传输文件。但你如何能确定下载的文件就是发布者想要你收到的那个，没有被篡改，也没有在传输过程中损坏呢？答案就是 &lt;strong&gt;哈希校验（Hash Validation）&lt;/strong&gt;，而 SHA256 正是其中最常用的一种算法。&lt;/p&gt;
 &lt;p&gt;这篇笔记将带你从零开始，理解 SHA256 的基本原理，并学会在不同操作系统上进行实际操作。&lt;/p&gt;
 &lt;h2 id=&#34;什么是-sha256&#34;&gt;什么是 SHA256？
@@ -37,41 +37,101 @@
 &lt;/h2&gt;&lt;p&gt;下面是在主流操作系统上计算文件 SHA256 哈希值的实用命令。&lt;/p&gt;
 &lt;h3 id=&#34;linux&#34;&gt;Linux
 &lt;/h3&gt;&lt;p&gt;在大多数 Linux 发行版中，&lt;code&gt;sha256sum&lt;/code&gt; 是一个预装的命令行工具，非常方便。&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sha256sum /path/to/your/file
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# 通过哈希值直接验证下载后的文件完整性&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nb&#34;&gt;echo&lt;/span&gt; &lt;span class=&#34;s1&#34;&gt;&amp;#39;&amp;lt;hash_code&amp;gt; &amp;lt;file_name&amp;gt;&amp;#39;&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;|&lt;/span&gt; sha256sum -c&lt;span class=&#34;err&#34;&gt;&amp;#39;&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;blockquote class=&#34;alert alert-tip&#34;&gt;
+
+
+
+
+
+&lt;div class=&#34;highlight highlight-bash&#34;&gt;
+  &lt;pre&gt;
+    &lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;sha256sum /path/to/your/file
+
+# 通过哈希值直接验证下载后的文件完整性
+echo &amp;#39;&amp;lt;hash_code&amp;gt; &amp;lt;file_name&amp;gt;&amp;#39; | sha256sum -c&amp;#39;&lt;/code&gt;
+  &lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;blockquote class=&#34;alert alert-tip&#34;&gt;
     &lt;p&gt;一般情况下gihub上release文件都自带sha256可以直接校验.&lt;/p&gt;&lt;/blockquote&gt;
 &lt;p&gt;&lt;strong&gt;示例：&lt;/strong&gt;
 假设我们下载了一个名为 &lt;code&gt;ubuntu-24.04-desktop-amd64.iso&lt;/code&gt; 的文件。&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# 计算 ISO 文件的 SHA256 哈希值&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sha256sum ubuntu-24.04-desktop-amd64.iso
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# 命令执行后会输出类似下面的结果&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# 5b863375b70b5711d51c35068205562e316a3c64c4d5b6f3f7756f6b5f5a8f3d  ubuntu-24.04-desktop-amd64.iso&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;你只需要将输出的这串 &lt;code&gt;5b86...&lt;/code&gt; 与官方网站提供的哈希值进行对比即可。&lt;/p&gt;
+
+
+
+
+
+&lt;div class=&#34;highlight highlight-bash&#34;&gt;
+  &lt;pre&gt;
+    &lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;# 计算 ISO 文件的 SHA256 哈希值
+sha256sum ubuntu-24.04-desktop-amd64.iso
+
+# 命令执行后会输出类似下面的结果
+# 5b863375b70b5711d51c35068205562e316a3c64c4d5b6f3f7756f6b5f5a8f3d  ubuntu-24.04-desktop-amd64.iso&lt;/code&gt;
+  &lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;你只需要将输出的这串 &lt;code&gt;5b86...&lt;/code&gt; 与官方网站提供的哈希值进行对比即可。&lt;/p&gt;
 &lt;h3 id=&#34;macos&#34;&gt;macOS
 &lt;/h3&gt;&lt;p&gt;macOS 用户可以使用 &lt;code&gt;shasum&lt;/code&gt; 命令，并通过 &lt;code&gt;-a&lt;/code&gt; 参数指定算法。&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;shasum -a &lt;span class=&#34;m&#34;&gt;256&lt;/span&gt; /path/to/your/file
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;strong&gt;示例：&lt;/strong&gt;&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# 计算同一个 ISO 文件的哈希值&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;shasum -a &lt;span class=&#34;m&#34;&gt;256&lt;/span&gt; ubuntu-24.04-desktop-amd64.iso
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# 输出格式与 Linux 类似&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# 5b863375b70b5711d51c35068205562e316a3c64c4d5b6f3f7756f6b5f5a8f3d  ubuntu-24.04-desktop-amd64.iso&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id=&#34;windows&#34;&gt;Windows
+
+
+
+
+
+&lt;div class=&#34;highlight highlight-bash&#34;&gt;
+  &lt;pre&gt;
+    &lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;shasum -a 256 /path/to/your/file&lt;/code&gt;
+  &lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;&lt;strong&gt;示例：&lt;/strong&gt;&lt;/p&gt;
+
+
+
+
+
+&lt;div class=&#34;highlight highlight-bash&#34;&gt;
+  &lt;pre&gt;
+    &lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;# 计算同一个 ISO 文件的哈希值
+shasum -a 256 ubuntu-24.04-desktop-amd64.iso
+
+# 输出格式与 Linux 类似
+# 5b863375b70b5711d51c35068205562e316a3c64c4d5b6f3f7756f6b5f5a8f3d  ubuntu-24.04-desktop-amd64.iso&lt;/code&gt;
+  &lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h3 id=&#34;windows&#34;&gt;Windows
 &lt;/h3&gt;&lt;p&gt;Windows 用户可以使用系统内置的 &lt;code&gt;CertUtil&lt;/code&gt; 工具。&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-powershell&#34; data-lang=&#34;powershell&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;n&#34;&gt;CertUtil&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;-hashfile&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;C:&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;\&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;path&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;\&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;to&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;\&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;your&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;\&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;file&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;SHA256&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;strong&gt;示例：&lt;/strong&gt;&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-powershell&#34; data-lang=&#34;powershell&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c&#34;&gt;# 在 PowerShell 或 CMD 中运行&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;n&#34;&gt;CertUtil&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;-hashfile&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;D:&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;\&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Downloads&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;\&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;ubuntu&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;-&lt;/span&gt;&lt;span class=&#34;mf&#34;&gt;24.04&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;-desktop-amd64&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;py&#34;&gt;iso&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;SHA256&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c&#34;&gt;# 输出会是这样的格式&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c&#34;&gt;# SHA256 哈希值:&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c&#34;&gt;# 5b863375b70b5711d51c35068205562e316a3c64c4d5b6f3f7756f6b5f5a8f3d&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c&#34;&gt;# CertUtil: -hashfile 命令成功完成。&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;blockquote class=&#34;alert alert-note&#34;&gt;
+
+
+
+
+
+&lt;div class=&#34;highlight highlight-powershell&#34;&gt;
+  &lt;pre&gt;
+    &lt;code class=&#34;language-powershell&#34; data-lang=&#34;powershell&#34;&gt;CertUtil -hashfile C:\path\to\your\file SHA256&lt;/code&gt;
+  &lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;&lt;strong&gt;示例：&lt;/strong&gt;&lt;/p&gt;
+
+
+
+
+
+&lt;div class=&#34;highlight highlight-powershell&#34;&gt;
+  &lt;pre&gt;
+    &lt;code class=&#34;language-powershell&#34; data-lang=&#34;powershell&#34;&gt;# 在 PowerShell 或 CMD 中运行
+CertUtil -hashfile D:\Downloads\ubuntu-24.04-desktop-amd64.iso SHA256
+
+# 输出会是这样的格式
+# SHA256 哈希值:
+# 5b863375b70b5711d51c35068205562e316a3c64c4d5b6f3f7756f6b5f5a8f3d
+# CertUtil: -hashfile 命令成功完成。&lt;/code&gt;
+  &lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;blockquote class=&#34;alert alert-note&#34;&gt;
     &lt;p&gt;Windows 输出的哈希值默认没有空格，但某些第三方工具可能会添加空格。比对时请确保格式一致，或者忽略空格进行比较。&lt;/p&gt;&lt;/blockquote&gt;
 &lt;h2 id=&#34;总结&#34;&gt;总结
 &lt;/h2&gt;&lt;p&gt;SHA256 校验是保护我们免受损坏文件和恶意软件侵害的一个简单而强大的工具。养成在处理重要文件时进行哈希校验的习惯，将为你的数字生活增添一道重要的安全防线。操作本身非常简单，几条命令就能搞定，但其背后的安全意义却十分重大。&lt;/p&gt;

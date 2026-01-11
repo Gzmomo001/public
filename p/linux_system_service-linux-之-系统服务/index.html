@@ -4,574 +4,313 @@
 <meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="什么是系统服务(service) 简单理解就是开机自启动的程序或者脚本, 会常驻在系统的内存中.\n对于现在的大部分的 linux 发行版, 系统服务通常使用 systemd 进行管理.\n三种配置文件 系统: dir: /usr/lib/systemd/system/ 这里存放着系统自带的服务单元, 如 apt. 一般不建议随便乱动这里的服务, 除非你知道自己在干什么. 运行时: dir: /run/systemd/system/ 临时服务, 一般可其他服务或者用户行为启动的临时服务. 在系统重启后清空 管理员: dir: /etc/systemd/system/ 用户自定义的服务, 管理员系统服务优先级高于系统服务, 意味着它会覆盖系统中相同的服务. 如果我们想添加自己的系统服务, 建议都放在管理员服务目录下.\n">
 <title>Linux_system_service | Linux 之 系统服务</title>
 
-<link rel='canonical' href='https://Gzmomo001.github.io/p/linux_system_service-linux-%E4%B9%8B-%E7%B3%BB%E7%BB%9F%E6%9C%8D%E5%8A%A1/'>
+<link rel='canonical' href='https://Gzmomo001.github.io/public/p/linux_system_service-linux-%E4%B9%8B-%E7%B3%BB%E7%BB%9F%E6%9C%8D%E5%8A%A1/'>
 
-<link rel="stylesheet" href="/scss/style.min.f0d856d8a5610b3c0c2069a79146122abf2acb30a6b00e2bbb69c2113678b2e3.css"><meta property='og:title' content="Linux_system_service | Linux 之 系统服务">
+<link rel="stylesheet" href="/public/scss/style.min.69ed452c4f70aa0bd98aa7f62758389d29493390c2f090e74cf1c607d4445e3e.css"><meta property='og:title' content="Linux_system_service | Linux 之 系统服务">
 <meta property='og:description' content="什么是系统服务(service) 简单理解就是开机自启动的程序或者脚本, 会常驻在系统的内存中.\n对于现在的大部分的 linux 发行版, 系统服务通常使用 systemd 进行管理.\n三种配置文件 系统: dir: /usr/lib/systemd/system/ 这里存放着系统自带的服务单元, 如 apt. 一般不建议随便乱动这里的服务, 除非你知道自己在干什么. 运行时: dir: /run/systemd/system/ 临时服务, 一般可其他服务或者用户行为启动的临时服务. 在系统重启后清空 管理员: dir: /etc/systemd/system/ 用户自定义的服务, 管理员系统服务优先级高于系统服务, 意味着它会覆盖系统中相同的服务. 如果我们想添加自己的系统服务, 建议都放在管理员服务目录下.\n">
-<meta property='og:url' content='https://Gzmomo001.github.io/p/linux_system_service-linux-%E4%B9%8B-%E7%B3%BB%E7%BB%9F%E6%9C%8D%E5%8A%A1/'>
+<meta property='og:url' content='https://Gzmomo001.github.io/public/p/linux_system_service-linux-%E4%B9%8B-%E7%B3%BB%E7%BB%9F%E6%9C%8D%E5%8A%A1/'>
 <meta property='og:site_name' content='Henry Zhang'>
-<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='linux' /><meta property='article:published_time' content='2025-06-13T15:47:20&#43;08:00'/><meta property='article:modified_time' content='2025-06-13T20:08:28&#43;08:00'/><meta property='og:image' content='https://Gzmomo001.github.io/p/linux_system_service-linux-%E4%B9%8B-%E7%B3%BB%E7%BB%9F%E6%9C%8D%E5%8A%A1/image.png' />
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='linux' /><meta property='article:published_time' content='2025-06-13T15:47:20&#43;08:00'/><meta property='article:modified_time' content='2025-06-13T20:08:28&#43;08:00'/><meta property='og:image' content='https://Gzmomo001.github.io/public/p/linux_system_service-linux-%E4%B9%8B-%E7%B3%BB%E7%BB%9F%E6%9C%8D%E5%8A%A1/image.png' />
 <meta name="twitter:title" content="Linux_system_service | Linux 之 系统服务">
 <meta name="twitter:description" content="什么是系统服务(service) 简单理解就是开机自启动的程序或者脚本, 会常驻在系统的内存中.\n对于现在的大部分的 linux 发行版, 系统服务通常使用 systemd 进行管理.\n三种配置文件 系统: dir: /usr/lib/systemd/system/ 这里存放着系统自带的服务单元, 如 apt. 一般不建议随便乱动这里的服务, 除非你知道自己在干什么. 运行时: dir: /run/systemd/system/ 临时服务, 一般可其他服务或者用户行为启动的临时服务. 在系统重启后清空 管理员: dir: /etc/systemd/system/ 用户自定义的服务, 管理员系统服务优先级高于系统服务, 意味着它会覆盖系统中相同的服务. 如果我们想添加自己的系统服务, 建议都放在管理员服务目录下.\n"><meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:image" content='https://Gzmomo001.github.io/p/linux_system_service-linux-%E4%B9%8B-%E7%B3%BB%E7%BB%9F%E6%9C%8D%E5%8A%A1/image.png' />
+    <meta name="twitter:image" content='https://Gzmomo001.github.io/public/p/linux_system_service-linux-%E4%B9%8B-%E7%B3%BB%E7%BB%9F%E6%9C%8D%E5%8A%A1/image.png' />
     <link rel="shortcut icon" href="/favicon.ico" />
-<link rel='stylesheet' href='https://chinese-fonts-cdn.deno.dev/packages/dymh/dist/DouyinSansBold/result.css' />
 
-<div class="loading">
-     
-    <div class="banter-loader">
-        <div class="banter-loader__box"></div>
-        <div class="banter-loader__box"></div>
-        <div class="banter-loader__box"></div>
-        <div class="banter-loader__box"></div>
-        <div class="banter-loader__box"></div>
-        <div class="banter-loader__box"></div>
-        <div class="banter-loader__box"></div>
-        <div class="banter-loader__box"></div>
-        <div class="banter-loader__box"></div>
-    </div>
-</div>
 
-<style>
-    .loading {
-        position: fixed;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        z-index: 99;
-        zoom: 3.0;
-        background-color: #5b5b5b;
-        display: none;
-        transition: opacity 1s ease-out; 
+<script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+<script>
+  
+  function getCurrentTheme() {
+    const colorSchemeKey = 'StackColorScheme';
+    const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+    const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+    
+    if (colorSchemeItem === 'dark' || (colorSchemeItem === 'auto' && supportDarkMode)) {
+      return 'dark';
+    } else {
+      return 'light';
     }
+  }
 
-    .loading.fade-out {
-        opacity: 0;
-    }
-	
+  
+  function logThemeInfo() {
+    const colorSchemeKey = 'StackColorScheme';
+    const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+    const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+    const documentScheme = document.documentElement.dataset.scheme;
+    
+    console.log('[Mermaid] Theme Detection:', {
+      localStorage: colorSchemeItem,
+      systemDark: supportDarkMode,
+      documentScheme: documentScheme,
+      calculatedTheme: getCurrentTheme()
+    });
+  }
+
+  
+  function initializeMermaid() {
+    const currentTheme = getCurrentTheme();
+    
+    if (currentTheme === 'dark') {
+      
+      mermaid.initialize({
+        startOnLoad: false,
+        theme: 'dark',
+        themeVariables: {
           
-    .banter-loader {
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    width: 72px;
-    height: 72px;
-    margin-left: -36px;
-    margin-top: -36px;
-    }
-
-    .banter-loader__box {
-    float: left;
-    position: relative;
-    width: 20px;
-    height: 20px;
-    margin-right: 6px;
-    }
-
-    .banter-loader__box:before {
-    content: "";
-    position: absolute;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    background: #fff;
-    }
-
-    .banter-loader__box:nth-child(3n) {
-    margin-right: 0;
-    margin-bottom: 6px;
-    }
-
-    .banter-loader__box:nth-child(1):before, .banter-loader__box:nth-child(4):before {
-    margin-left: 26px;
-    }
-
-    .banter-loader__box:nth-child(3):before {
-    margin-top: 52px;
-    }
-
-    .banter-loader__box:last-child {
-    margin-bottom: 0;
-    }
-
-    @keyframes moveBox-1 {
-    9.0909090909% {
-        transform: translate(-26px, 0);
-    }
-
-    18.1818181818% {
-        transform: translate(0px, 0);
-    }
-
-    27.2727272727% {
-        transform: translate(0px, 0);
-    }
-
-    36.3636363636% {
-        transform: translate(26px, 0);
-    }
-
-    45.4545454545% {
-        transform: translate(26px, 26px);
-    }
-
-    54.5454545455% {
-        transform: translate(26px, 26px);
-    }
-
-    63.6363636364% {
-        transform: translate(26px, 26px);
-    }
-
-    72.7272727273% {
-        transform: translate(26px, 0px);
-    }
-
-    81.8181818182% {
-        transform: translate(0px, 0px);
-    }
-
-    90.9090909091% {
-        transform: translate(-26px, 0px);
-    }
-
-    100% {
-        transform: translate(0px, 0px);
-    }
-    }
-
-    .banter-loader__box:nth-child(1) {
-    animation: moveBox-1 4s infinite;
-    }
-
-    @keyframes moveBox-2 {
-    9.0909090909% {
-        transform: translate(0, 0);
-    }
-
-    18.1818181818% {
-        transform: translate(26px, 0);
-    }
-
-    27.2727272727% {
-        transform: translate(0px, 0);
-    }
-
-    36.3636363636% {
-        transform: translate(26px, 0);
-    }
-
-    45.4545454545% {
-        transform: translate(26px, 26px);
-    }
-
-    54.5454545455% {
-        transform: translate(26px, 26px);
-    }
-
-    63.6363636364% {
-        transform: translate(26px, 26px);
-    }
-
-    72.7272727273% {
-        transform: translate(26px, 26px);
-    }
-
-    81.8181818182% {
-        transform: translate(0px, 26px);
-    }
-
-    90.9090909091% {
-        transform: translate(0px, 26px);
-    }
-
-    100% {
-        transform: translate(0px, 0px);
-    }
-    }
-
-    .banter-loader__box:nth-child(2) {
-    animation: moveBox-2 4s infinite;
-    }
-
-    @keyframes moveBox-3 {
-    9.0909090909% {
-        transform: translate(-26px, 0);
-    }
-
-    18.1818181818% {
-        transform: translate(-26px, 0);
-    }
-
-    27.2727272727% {
-        transform: translate(0px, 0);
-    }
-
-    36.3636363636% {
-        transform: translate(-26px, 0);
-    }
-
-    45.4545454545% {
-        transform: translate(-26px, 0);
-    }
-
-    54.5454545455% {
-        transform: translate(-26px, 0);
-    }
-
-    63.6363636364% {
-        transform: translate(-26px, 0);
-    }
-
-    72.7272727273% {
-        transform: translate(-26px, 0);
-    }
-
-    81.8181818182% {
-        transform: translate(-26px, -26px);
-    }
-
-    90.9090909091% {
-        transform: translate(0px, -26px);
-    }
-
-    100% {
-        transform: translate(0px, 0px);
-    }
-    }
-
-    .banter-loader__box:nth-child(3) {
-    animation: moveBox-3 4s infinite;
-    }
-
-    @keyframes moveBox-4 {
-    9.0909090909% {
-        transform: translate(-26px, 0);
-    }
-
-    18.1818181818% {
-        transform: translate(-26px, 0);
-    }
-
-    27.2727272727% {
-        transform: translate(-26px, -26px);
-    }
-
-    36.3636363636% {
-        transform: translate(0px, -26px);
-    }
-
-    45.4545454545% {
-        transform: translate(0px, 0px);
-    }
-
-    54.5454545455% {
-        transform: translate(0px, -26px);
-    }
-
-    63.6363636364% {
-        transform: translate(0px, -26px);
-    }
-
-    72.7272727273% {
-        transform: translate(0px, -26px);
-    }
-
-    81.8181818182% {
-        transform: translate(-26px, -26px);
-    }
-
-    90.9090909091% {
-        transform: translate(-26px, 0px);
-    }
-
-    100% {
-        transform: translate(0px, 0px);
-    }
-    }
-
-    .banter-loader__box:nth-child(4) {
-    animation: moveBox-4 4s infinite;
-    }
-
-    @keyframes moveBox-5 {
-    9.0909090909% {
-        transform: translate(0, 0);
-    }
-
-    18.1818181818% {
-        transform: translate(0, 0);
-    }
-
-    27.2727272727% {
-        transform: translate(0, 0);
-    }
-
-    36.3636363636% {
-        transform: translate(26px, 0);
-    }
-
-    45.4545454545% {
-        transform: translate(26px, 0);
-    }
-
-    54.5454545455% {
-        transform: translate(26px, 0);
-    }
-
-    63.6363636364% {
-        transform: translate(26px, 0);
-    }
-
-    72.7272727273% {
-        transform: translate(26px, 0);
-    }
-
-    81.8181818182% {
-        transform: translate(26px, -26px);
-    }
-
-    90.9090909091% {
-        transform: translate(0px, -26px);
-    }
-
-    100% {
-        transform: translate(0px, 0px);
-    }
-    }
-
-    .banter-loader__box:nth-child(5) {
-    animation: moveBox-5 4s infinite;
-    }
-
-    @keyframes moveBox-6 {
-    9.0909090909% {
-        transform: translate(0, 0);
-    }
-
-    18.1818181818% {
-        transform: translate(-26px, 0);
-    }
-
-    27.2727272727% {
-        transform: translate(-26px, 0);
-    }
-
-    36.3636363636% {
-        transform: translate(0px, 0);
-    }
-
-    45.4545454545% {
-        transform: translate(0px, 0);
-    }
-
-    54.5454545455% {
-        transform: translate(0px, 0);
-    }
-
-    63.6363636364% {
-        transform: translate(0px, 0);
-    }
-
-    72.7272727273% {
-        transform: translate(0px, 26px);
-    }
-
-    81.8181818182% {
-        transform: translate(-26px, 26px);
-    }
-
-    90.9090909091% {
-        transform: translate(-26px, 0px);
-    }
-
-    100% {
-        transform: translate(0px, 0px);
-    }
-    }
-
-    .banter-loader__box:nth-child(6) {
-    animation: moveBox-6 4s infinite;
-    }
-
-    @keyframes moveBox-7 {
-    9.0909090909% {
-        transform: translate(26px, 0);
-    }
-
-    18.1818181818% {
-        transform: translate(26px, 0);
-    }
-
-    27.2727272727% {
-        transform: translate(26px, 0);
-    }
-
-    36.3636363636% {
-        transform: translate(0px, 0);
-    }
-
-    45.4545454545% {
-        transform: translate(0px, -26px);
-    }
-
-    54.5454545455% {
-        transform: translate(26px, -26px);
-    }
-
-    63.6363636364% {
-        transform: translate(0px, -26px);
-    }
-
-    72.7272727273% {
-        transform: translate(0px, -26px);
-    }
-
-    81.8181818182% {
-        transform: translate(0px, 0px);
-    }
-
-    90.9090909091% {
-        transform: translate(26px, 0px);
-    }
-
-    100% {
-        transform: translate(0px, 0px);
-    }
-    }
-
-    .banter-loader__box:nth-child(7) {
-    animation: moveBox-7 4s infinite;
-    }
-
-    @keyframes moveBox-8 {
-    9.0909090909% {
-        transform: translate(0, 0);
-    }
-
-    18.1818181818% {
-        transform: translate(-26px, 0);
-    }
-
-    27.2727272727% {
-        transform: translate(-26px, -26px);
-    }
-
-    36.3636363636% {
-        transform: translate(0px, -26px);
-    }
-
-    45.4545454545% {
-        transform: translate(0px, -26px);
-    }
-
-    54.5454545455% {
-        transform: translate(0px, -26px);
-    }
-
-    63.6363636364% {
-        transform: translate(0px, -26px);
-    }
-
-    72.7272727273% {
-        transform: translate(0px, -26px);
-    }
-
-    81.8181818182% {
-        transform: translate(26px, -26px);
-    }
-
-    90.9090909091% {
-        transform: translate(26px, 0px);
-    }
-
-    100% {
-        transform: translate(0px, 0px);
-    }
-    }
-
-    .banter-loader__box:nth-child(8) {
-    animation: moveBox-8 4s infinite;
-    }
-
-    @keyframes moveBox-9 {
-    9.0909090909% {
-        transform: translate(-26px, 0);
-    }
-
-    18.1818181818% {
-        transform: translate(-26px, 0);
-    }
-
-    27.2727272727% {
-        transform: translate(0px, 0);
-    }
-
-    36.3636363636% {
-        transform: translate(-26px, 0);
-    }
-
-    45.4545454545% {
-        transform: translate(0px, 0);
-    }
-
-    54.5454545455% {
-        transform: translate(0px, 0);
-    }
-
-    63.6363636364% {
-        transform: translate(-26px, 0);
-    }
-
-    72.7272727273% {
-        transform: translate(-26px, 0);
-    }
-
-    81.8181818182% {
-        transform: translate(-52px, 0);
-    }
-
-    90.9090909091% {
-        transform: translate(-26px, 0);
-    }
-
-    100% {
-        transform: translate(0px, 0);
-    }
-    }
-
-    .banter-loader__box:nth-child(9) {
-    animation: moveBox-9 4s infinite;
-    }
-</style>
-
-<script>	
-    function initLoading() {
-        const isFirstVisit = !sessionStorage.getItem('visited');
-        if (isFirstVisit) {
-            let loading = document.querySelector('.loading');
-            loading.style.display = 'flex';
-            document.addEventListener('DOMContentLoaded', function() {
-                setTimeout(() => {
-                    loading.classList.add('fade-out'); 
-                    setTimeout(() => {
-                        loading.style.display = 'none';
-                    }, 1000); 
-                }, 1000); 
-                sessionStorage.setItem('visited', 'true');
-            });   
-        }    
-    }
-
-    initLoading();
+          primaryColor: '#4a5568',
+          primaryTextColor: '#f7fafc',
+          primaryBorderColor: '#63b3ed',
+          lineColor: '#e2e8f0',
+          secondaryColor: '#2d3748',
+          tertiaryColor: '#1a202c',
+          background: '#1a202c',
+          
+          
+          fillType0: '#2d3748',
+          fillType1: '#4a5568',
+          fillType2: '#4299e1',
+          clusterBkg: '#2d3748',
+          clusterBorder: '#4a5568',
+          nodeBorder: '#e2e8f0',
+          mainBkg: '#4a5568',
+          altBkg: '#2d3748',
+          
+          
+          labelBackground: '#2d3748',
+          edgeLabelBackground: '#2d3748',
+          titleColor: '#f7fafc',
+          
+          
+          actorBkg: '#2d3748',
+          actorBorder: '#4a5568',
+          actorTextColor: '#e2e8f0',
+          actorLine: '#4a5568',
+          signalColor: '#e2e8f0',
+          signalTextColor: '#e2e8f0',
+          noteBkgColor: '#4a5568',
+          noteBorderColor: '#4a5568',
+          noteTextColor: '#e2e8f0',
+          activationBorderColor: '#4299e1',
+          activationBkgColor: '#2d3748',
+          
+          
+          sectionBkgColor: '#2d3748',
+          altSectionBkgColor: '#4a5568',
+          sectionBorderColor: '#4a5568',
+          taskBkgColor: '#4299e1',
+          taskBorderColor: '#63b3ed',
+          taskTextColor: '#ffffff',
+          activeTaskBkgColor: '#48bb78',
+          activeTaskBorderColor: '#38a169',
+          doneTaskBkgColor: '#2d3748',
+          doneTaskBorderColor: '#4a5568',
+          critBkgColor: '#f56565',
+          critBorderColor: '#e53e3e',
+          critTextColor: '#ffffff',
+          
+          
+          pie1: '#4299e1',
+          pie2: '#48bb78',
+          pie3: '#ed8936',
+          pie4: '#9f7aea',
+          pie5: '#ed64a6',
+          pie6: '#38b2ac',
+          pie7: '#f6ad55',
+          pie8: '#68d391',
+          pie9: '#63b3ed',
+          pie10: '#b794f4',
+          pieTitleTextSize: '24px',
+          pieSectionTextSize: '16px',
+          pieOuterStrokeWidth: '2px',
+          pieStroke: '#1a202c',
+          pieOpacity: '1',
+          
+          
+          classText: '#f7fafc',
+          classTitle: '#f7fafc',
+          
+          
+          stateBkg: '#2d3748',
+          stateBorder: '#4a5568',
+          labelColor: '#f7fafc',
+          stateLabel: '#f7fafc',
+          stateText: '#f7fafc',
+          transitionLabel: '#f7fafc',
+          
+          
+          entityBkg: '#2d3748',
+          entityBorder: '#4a5568',
+          attributeBkg: '#2d3748',
+          attributeBorder: '#4a5568',
+          relationshipText: '#f7fafc',
+          
+          
+          gridColor: '#4a5568',
+          scaleBarColor: '#4a5568',
+          barColor: '#4299e1',
+          barBorderColor: '#63b3ed',
+          todayLineColor: '#f6ad55',
+          
+          
+          git0: '#4299e1',
+          git1: '#48bb78',
+          git2: '#ed8936',
+          git3: '#9f7aea',
+          git4: '#ed64a6',
+          git5: '#38b2ac',
+          git6: '#f6ad55',
+          git7: '#68d391',
+          gitInv0: '#2d3748',
+          gitInv1: '#2d3748',
+          gitInv2: '#2d3748',
+          gitInv3: '#2d3748',
+          gitInv4: '#2d3748',
+          gitInv5: '#2d3748',
+          gitInv6: '#2d3748',
+          gitInv7: '#2d3748',
+          
+          
+          mindmapPrimary: '#4299e1',
+          mindmapSecondary: '#48bb78',
+          mindmapTertiary: '#ed8936',
+          
+          
+          errorTextColor: '#fc8181',
+          warningTextColor: '#f6ad55',
+          infoTextColor: '#63b3ed',
+          
+          
+          edgeLabelBackground: '#1a202c',
+          
+          
+          edgeLabelBackground: '#2d3748',
+          
+          
+          classLabel: '#f7fafc',
+          dividerColor: '#4a5568',
+          
+          
+          dividerColor: '#4a5568',
+          
+          
+          dividerColor: '#4a5568',
+          
+          
+          fontFamily: '"Douyin Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
+          fontSize: '16px'
+        },
+        fontFamily: '"Douyin Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
+        fontSize: 16,
+        flowchart: {
+          useMaxWidth: true,
+          htmlLabels: true,
+          curve: 'basis'
+        },
+        sequence: {
+          useMaxWidth: true
+        },
+        journey: {
+          useMaxWidth: true
+        },
+        pie: {
+          useMaxWidth: true
+        },
+        gantt: {
+          useMaxWidth: true
+        },
+        git: {
+          useMaxWidth: true
+        },
+        mindmap: {
+          useMaxWidth: true
+        }
+      });
+    } else {
+      
+      mermaid.initialize({
+        startOnLoad: false,
+        theme: 'default',
+        themeVariables: {
+          primaryColor: '#007bff',
+          primaryTextColor: '#333',
+          primaryBorderColor: '#007bff',
+          lineColor: '#666',
+          secondaryColor: '#f8f9fa',
+          tertiaryColor: '#e9ecef'
+        },
+        fontFamily: '"Douyin Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
+        fontSize: 16,
+        flowchart: {
+          useMaxWidth: true,
+          htmlLabels: true,
+          curve: 'basis'
+        }
+      });
+    }
+    
+    
+    document.querySelectorAll('.mermaid').forEach(function(element) {
+      if (!element.dataset.original) {
+        element.dataset.original = element.textContent.trim();
+      }
+    });
+    
+    
+    return mermaid.run();
+  }
+
+  
+  document.addEventListener('DOMContentLoaded', function() {
+    
+    initializeMermaid();
+    
+    
+    logThemeInfo();
+    
+    
+    const darkModeToggle = document.getElementById('dark-mode-toggle');
+    if (darkModeToggle) {
+      darkModeToggle.addEventListener('click', function() {
+        
+        document.querySelectorAll('.mermaid').forEach(function(element) {
+          element.classList.add('reloading');
+        });
+        
+        
+        setTimeout(function() {
+          
+          document.querySelectorAll('.mermaid').forEach(function(element) {
+            
+            if (!element.dataset.original) {
+              element.dataset.original = element.textContent.trim();
+            }
+            
+            
+            element.innerHTML = '';
+            
+            
+            element.textContent = element.dataset.original;
+            
+            
+            element.removeAttribute('data-processed');
+          });
+          
+          
+          console.log('[Mermaid] Theme changed, reinitializing...');
+          
+          
+          initializeMermaid().then(function() {
+            
+            document.querySelectorAll('.mermaid').forEach(function(element) {
+              element.classList.remove('reloading');
+            });
+          });
+        }, 250);
+      });
+    }
+  });
 </script>
-
-
 <link rel='stylesheet' href='https://chinese-fonts-cdn.deno.dev/packages/dymh/dist/DouyinSansBold/result.css' />
 
 
@@ -612,13 +351,13 @@
         
             
             <figure class="site-avatar">
-                <a href="/">
+                <a href="/public/">
                 
                     
                     
                     
                         
-                        <img src="/img/avatar_hu_9c50848f93c56cbf.jpeg" width="300"
+                        <img src="/public/img/avatar_hu_9c50848f93c56cbf.jpeg" width="300"
                             height="296" class="site-logo" loading="lazy" alt="Avatar">
                     
                 
@@ -631,7 +370,7 @@
         
         
         <div class="site-meta">
-            <h1 class="site-name"><a href="/">Henry Zhang</a></h1>
+            <h1 class="site-name"><a href="/public">Henry Zhang</a></h1>
             <h2 class="site-description">Driven by Wonder, Powered by Knowledge.🤓</h2>
         </div>
     </header><ol class="menu-social">
@@ -661,7 +400,7 @@
         
         
         <li >
-            <a href='/' >
+            <a href='/public/' >
                 
                 
                 
@@ -681,7 +420,7 @@
         
         
         <li >
-            <a href='/about-me/' >
+            <a href='/public/about-me/' >
                 
                 
                 
@@ -700,7 +439,7 @@
         
         
         <li >
-            <a href='/archives/' >
+            <a href='/public/archives/' >
                 
                 
                 
@@ -720,7 +459,7 @@
         
         
         <li >
-            <a href='/search/' >
+            <a href='/public/search/' >
                 
                 
                 
@@ -739,7 +478,7 @@
         
         
         <li >
-            <a href='/some-useful-links/' >
+            <a href='/public/some-useful-links/' >
                 
                 
                 
@@ -758,7 +497,7 @@
         
         
         <li >
-            <a href='/update-logs/' >
+            <a href='/public/update-logs/' >
                 
                 
                 
@@ -834,25 +573,29 @@
         <div class="widget--toc">
             <nav id="TableOfContents">
   <ol>
-    <li><a href="#什么是系统服务service">什么是系统服务(service)</a>
+    <li>
       <ol>
-        <li><a href="#三种配置文件">三种配置文件</a></li>
-      </ol>
-    </li>
-    <li><a href="#service-文件">.service 文件</a>
-      <ol>
-        <li><a href="#为什么要定义这种文件格式">为什么要定义这种文件格式</a></li>
-        <li><a href="#核心结构">核心结构</a>
+        <li><a href="#什么是系统服务service">什么是系统服务(service)</a>
           <ol>
-            <li><a href="#unit"><code>Unit</code></a></li>
-            <li><a href="#service"><code>Service</code></a></li>
-            <li><a href="#install"><code>Install</code></a></li>
+            <li><a href="#三种配置文件">三种配置文件</a></li>
           </ol>
         </li>
+        <li><a href="#service-文件">.service 文件</a>
+          <ol>
+            <li><a href="#为什么要定义这种文件格式">为什么要定义这种文件格式</a></li>
+            <li><a href="#核心结构">核心结构</a>
+              <ol>
+                <li><a href="#unit"><code>Unit</code></a></li>
+                <li><a href="#service"><code>Service</code></a></li>
+                <li><a href="#install"><code>Install</code></a></li>
+              </ol>
+            </li>
+          </ol>
+        </li>
+        <li><a href="#我的-mc-服务器系统服务实例">我的 mc 服务器系统服务实例</a></li>
+        <li><a href="#服务操作--service-operation">服务操作 | Service Operation</a></li>
       </ol>
     </li>
-    <li><a href="#我的-mc-服务器系统服务实例">我的 mc 服务器系统服务实例</a></li>
-    <li><a href="#服务操作--service-operation">服务操作 | Service Operation</a></li>
   </ol>
 </nav>
         </div>
@@ -869,9 +612,9 @@
     <article class="has-image main-article">
     <header class="article-header">
         <div class="article-image">
-            <a href="/p/linux_system_service-linux-%E4%B9%8B-%E7%B3%BB%E7%BB%9F%E6%9C%8D%E5%8A%A1/">
-                <img src="/p/linux_system_service-linux-%E4%B9%8B-%E7%B3%BB%E7%BB%9F%E6%9C%8D%E5%8A%A1/image_hu_9817b173a9eccc88.png"
-                        srcset="/p/linux_system_service-linux-%E4%B9%8B-%E7%B3%BB%E7%BB%9F%E6%9C%8D%E5%8A%A1/image_hu_9817b173a9eccc88.png 800w, /p/linux_system_service-linux-%E4%B9%8B-%E7%B3%BB%E7%BB%9F%E6%9C%8D%E5%8A%A1/image_hu_5c99add6931ef06a.png 1600w"
+            <a href="/public/p/linux_system_service-linux-%E4%B9%8B-%E7%B3%BB%E7%BB%9F%E6%9C%8D%E5%8A%A1/">
+                <img src="/public/p/linux_system_service-linux-%E4%B9%8B-%E7%B3%BB%E7%BB%9F%E6%9C%8D%E5%8A%A1/image_hu_9817b173a9eccc88.png"
+                        srcset="/public/p/linux_system_service-linux-%E4%B9%8B-%E7%B3%BB%E7%BB%9F%E6%9C%8D%E5%8A%A1/image_hu_9817b173a9eccc88.png 800w, /public/p/linux_system_service-linux-%E4%B9%8B-%E7%B3%BB%E7%BB%9F%E6%9C%8D%E5%8A%A1/image_hu_5c99add6931ef06a.png 1600w"
                         width="800" 
                         height="400" 
                         loading="lazy"
@@ -884,7 +627,7 @@
     <div class="article-details">
     <div class="article-title-wrapper">
         <h2 class="article-title">
-            <a href="/p/linux_system_service-linux-%E4%B9%8B-%E7%B3%BB%E7%BB%9F%E6%9C%8D%E5%8A%A1/">Linux_system_service | Linux 之 系统服务</a>
+            <a href="/public/p/linux_system_service-linux-%E4%B9%8B-%E7%B3%BB%E7%BB%9F%E6%9C%8D%E5%8A%A1/">Linux_system_service | Linux 之 系统服务</a>
         </h2>
     
         
@@ -901,7 +644,7 @@
                 
                     
                     
-                    <a href="/categories/notes/" class="category-link" style="background-color: #704400; color: #ffffff;">
+                    <a href="/public/categories/notes/" class="category-link" style="background-color: #704400; color: #ffffff;">
                         Notes
                     </a>
                 
@@ -913,7 +656,7 @@
                 
                     
                     
-                    <a href="/tags/linux/" class="tag-link" style="color: #ffffff; border: 1px solid #83ad85; background-color: #83ad8520;">
+                    <a href="/public/tags/linux/" class="tag-link" style="color: #ffffff; border: 1px solid #83ad85; background-color: #83ad8520;">
                         #Linux
                     </a>
                 
@@ -944,7 +687,7 @@
 
 
                 <time>
-                    Jun 13, 2025 20:08 CST
+                    Jun 13, 2025 20:08 &#43;0800
                 </time>
             </div>
     </footer>
@@ -995,13 +738,23 @@
 <h3 id="核心结构">核心结构
 </h3><h4 id="unit"><code>Unit</code>
 </h4><p>用于定义服务的元信息(meta data)和依赖.</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-service" data-lang="service"><span class="line"><span class="cl"><span class="k">[Unit]</span>
-</span></span><span class="line"><span class="cl"><span class="na">Description</span><span class="o">=</span><span class="s">My Service</span>
-</span></span><span class="line"><span class="cl"><span class="na">Documentation</span><span class="o">=</span><span class="s">https://example.org/docs/my-service</span>
-</span></span><span class="line"><span class="cl"><span class="na">After</span><span class="o">=</span><span class="s">network.target #这里需要定义这个服务在哪个服务之后启动</span>
-</span></span><span class="line"><span class="cl"><span class="na">Wants</span><span class="o">=</span><span class="s">network.target #弱依赖</span>
-</span></span><span class="line"><span class="cl"><span class="na">Requires</span><span class="o">=</span><span class="s">network.target #强依赖</span>
-</span></span></code></pre></div><p>常见的系统服务目标（可以在 After 中使用）：</p>
+
+
+
+
+
+<div class="highlight highlight-service">
+  <pre>
+    <code class="language-service" data-lang="service">[Unit]
+Description=My Service
+Documentation=https://example.org/docs/my-service
+After=network.target #这里需要定义这个服务在哪个服务之后启动
+Wants=network.target #弱依赖
+Requires=network.target #强依赖</code>
+  </pre>
+</div>
+
+<p>常见的系统服务目标（可以在 After 中使用）：</p>
 <ul>
 <li><code>basic.target</code>: 基础系统初始化完成</li>
 <li><code>network.target</code>: 网络已启动</li>
@@ -1015,8 +768,18 @@
 <li><code>bluetooth.target</code>: 蓝牙服务</li>
 </ul>
 <p>也可以直接指定其他具体的服务，例如：</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-service" data-lang="service"><span class="line"><span class="cl"><span class="na">After</span><span class="o">=</span><span class="s">mysql.service redis.service</span>
-</span></span></code></pre></div><p>服务依赖关系选项：</p>
+
+
+
+
+
+<div class="highlight highlight-service">
+  <pre>
+    <code class="language-service" data-lang="service">After=mysql.service redis.service</code>
+  </pre>
+</div>
+
+<p>服务依赖关系选项：</p>
 <ul>
 <li><code>Requires=</code>: 强依赖，如果依赖的服务启动失败，该服务也会失败</li>
 <li><code>Wants=</code>: 弱依赖，依赖服务的启动状态不影响本服务</li>
@@ -1027,20 +790,40 @@
 <li><code>After=</code>: 在指定服务之后启动</li>
 </ul>
 <p>示例：</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-service" data-lang="service"><span class="line"><span class="cl"><span class="na">Wants</span><span class="o">=</span><span class="s">redis.service</span>
-</span></span><span class="line"><span class="cl"><span class="na">After</span><span class="o">=</span><span class="s">network.target redis.service</span>
-</span></span><span class="line"><span class="cl"><span class="na">Conflicts</span><span class="o">=</span><span class="s">apache2.service</span>
-</span></span></code></pre></div><h4 id="service"><code>Service</code>
+
+
+
+
+
+<div class="highlight highlight-service">
+  <pre>
+    <code class="language-service" data-lang="service">Wants=redis.service
+After=network.target redis.service
+Conflicts=apache2.service</code>
+  </pre>
+</div>
+
+<h4 id="service"><code>Service</code>
 </h4><p>定义服务的行为</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-service" data-lang="service"><span class="line"><span class="cl"><span class="k">[Service]</span>
-</span></span><span class="line"><span class="cl"><span class="na">Type </span><span class="o">=</span><span class="s"> simple</span>
-</span></span><span class="line"><span class="cl"><span class="na">ExecStart </span><span class="o">=</span><span class="s"> /usr/bin/redis-server /etc/redis/redis.conf</span>
-</span></span><span class="line"><span class="cl"><span class="na">Restart </span><span class="o">=</span><span class="s"> always</span>
-</span></span><span class="line"><span class="cl"><span class="na">User </span><span class="o">=</span><span class="s"> redis</span>
-</span></span><span class="line"><span class="cl"><span class="na">Group </span><span class="o">=</span><span class="s"> redis</span>
-</span></span><span class="line"><span class="cl"><span class="na">Environment </span><span class="o">=</span><span class="s"> e.g. PATH=/usr/bin</span>
-</span></span><span class="line"><span class="cl"><span class="na">WorkingDirectory </span><span class="o">=</span><span class="s"> /etc/redis</span>
-</span></span></code></pre></div><p>Service 块的主要配置项：</p>
+
+
+
+
+
+<div class="highlight highlight-service">
+  <pre>
+    <code class="language-service" data-lang="service">[Service]
+Type = simple
+ExecStart = /usr/bin/redis-server /etc/redis/redis.conf
+Restart = always
+User = redis
+Group = redis
+Environment = e.g. PATH=/usr/bin
+WorkingDirectory = /etc/redis</code>
+  </pre>
+</div>
+
+<p>Service 块的主要配置项：</p>
 <ol>
 <li><code>Type</code>: 服务的启动类型</li>
 </ol>
@@ -1048,18 +831,38 @@
 <li>
 <p><code>simple</code>: 默认值，ExecStart 启动的进~程为主进程，启动后会持续运行。适用于持续运行的服务，如 web 服务器、数据库等。
 示例：</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-service" data-lang="service"><span class="line"><span class="cl"><span class="k">[Service]</span>
-</span></span><span class="line"><span class="cl"><span class="na">Type</span><span class="o">=</span><span class="s">simple</span>
-</span></span><span class="line"><span class="cl"><span class="na">ExecStart</span><span class="o">=</span><span class="s">/usr/bin/nginx -g &#39;daemon off;&#39;</span>
-</span></span></code></pre></div></li>
+
+
+
+
+
+<div class="highlight highlight-service">
+  <pre>
+    <code class="language-service" data-lang="service">[Service]
+Type=simple
+ExecStart=/usr/bin/nginx -g &#39;daemon off;&#39;</code>
+  </pre>
+</div>
+
+</li>
 <li>
 <p><code>oneshot</code>: 一次性进程，执行完就退出。适用于只需要执行一次的任务，如系统初始化脚本。通常需要配合 <code>RemainAfterExit=yes</code> 使用，表示进程退出后服务仍然处于活动状态。比如我要执行一个脚本, 那么我可以通过关闭这个服务来关闭这个脚本.
 示例：</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-service" data-lang="service"><span class="line"><span class="cl"><span class="k">[Service]</span>
-</span></span><span class="line"><span class="cl"><span class="na">Type</span><span class="o">=</span><span class="s">oneshot</span>
-</span></span><span class="line"><span class="cl"><span class="na">RemainAfterExit</span><span class="o">=</span><span class="s">yes</span>
-</span></span><span class="line"><span class="cl"><span class="na">ExecStart</span><span class="o">=</span><span class="s">/usr/local/bin/init-script.sh</span>
-</span></span></code></pre></div></li>
+
+
+
+
+
+<div class="highlight highlight-service">
+  <pre>
+    <code class="language-service" data-lang="service">[Service]
+Type=oneshot
+RemainAfterExit=yes
+ExecStart=/usr/local/bin/init-script.sh</code>
+  </pre>
+</div>
+
+</li>
 <li>
 <p><code>forking</code>: 服务会 fork，父进程退出后服务启动成功</p>
 </li>
@@ -1135,15 +938,25 @@
 <li><code>DeviceAllow</code>: 设备访问控制，如 <code>DeviceAllow=/dev/sda r</code> 表示只读访问</li>
 </ol>
 <p>示例：</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-service" data-lang="service"><span class="line"><span class="cl"><span class="k">[Service]</span>
-</span></span><span class="line"><span class="cl"><span class="na">CPUQuota</span><span class="o">=</span><span class="s">200%</span>
-</span></span><span class="line"><span class="cl"><span class="na">CPUWeight</span><span class="o">=</span><span class="s">500</span>
-</span></span><span class="line"><span class="cl"><span class="na">CPUAffinity</span><span class="o">=</span><span class="s">0,1</span>
-</span></span><span class="line"><span class="cl"><span class="na">MemoryLimit</span><span class="o">=</span><span class="s">500M</span>
-</span></span><span class="line"><span class="cl"><span class="na">LimitNOFILE</span><span class="o">=</span><span class="s">65535</span>
-</span></span><span class="line"><span class="cl"><span class="na">TasksMax</span><span class="o">=</span><span class="s">200</span>
-</span></span><span class="line"><span class="cl"><span class="na">IOWeight</span><span class="o">=</span><span class="s">500</span>
-</span></span></code></pre></div><h4 id="install"><code>Install</code>
+
+
+
+
+
+<div class="highlight highlight-service">
+  <pre>
+    <code class="language-service" data-lang="service">[Service]
+CPUQuota=200%
+CPUWeight=500
+CPUAffinity=0,1
+MemoryLimit=500M
+LimitNOFILE=65535
+TasksMax=200
+IOWeight=500</code>
+  </pre>
+</div>
+
+<h4 id="install"><code>Install</code>
 </h4><p>定义如何将服务安装到系统，主要用于配置服务的自启动行为。常用配置项：</p>
 <ul>
 <li><code>WantedBy</code>: 服务被启用时创建的符号链接的目标。最常用的值是：
@@ -1157,34 +970,54 @@
 <li><code>Alias</code>: 为服务创建别名</li>
 </ul>
 <p>示例：</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-service" data-lang="service"><span class="line"><span class="cl"><span class="k">[Install]</span>
-</span></span><span class="line"><span class="cl"><span class="na">WantedBy</span><span class="o">=</span><span class="s">multi-user.target</span>
-</span></span><span class="line"><span class="cl"><span class="na">Alias</span><span class="o">=</span><span class="s">myapp.service</span>
-</span></span><span class="line"><span class="cl"><span class="na">Also</span><span class="o">=</span><span class="s">myapp-logger.service</span>
-</span></span></code></pre></div><p>服务安装相关命令：</p>
+
+
+
+
+
+<div class="highlight highlight-service">
+  <pre>
+    <code class="language-service" data-lang="service">[Install]
+WantedBy=multi-user.target
+Alias=myapp.service
+Also=myapp-logger.service</code>
+  </pre>
+</div>
+
+<p>服务安装相关命令：</p>
 <ul>
 <li><code>systemctl enable &lt;服务名&gt;</code>: 启用服务（开机自启）</li>
 <li><code>systemctl disable &lt;服务名&gt;</code>: 停用服务</li>
 <li><code>systemctl is-enabled &lt;服务名&gt;</code>: 检查服务是否启用</li>
 </ul>
 <h2 id="我的-mc-服务器系统服务实例">我的 mc 服务器系统服务实例
-</h2><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-service" data-lang="service"><span class="line"><span class="cl"><span class="k">[Unit]</span>
-</span></span><span class="line"><span class="cl"><span class="na">Description</span><span class="o">=</span><span class="s">Minecraft Server</span>
-</span></span><span class="line"><span class="cl"><span class="na">After</span><span class="o">=</span><span class="s">network.target</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="k">[Service]</span>
-</span></span><span class="line"><span class="cl"><span class="na">Type</span><span class="o">=</span><span class="s">oneshot</span>
-</span></span><span class="line"><span class="cl"><span class="na">User</span><span class="o">=</span><span class="s">m</span>
-</span></span><span class="line"><span class="cl"><span class="na">CPUQuota</span><span class="o">=</span><span class="s">10000%</span>
-</span></span><span class="line"><span class="cl"><span class="na">WorkingDirectory</span><span class="o">=</span><span class="s">/home/m/桌面/mc_server</span>
-</span></span><span class="line"><span class="cl"><span class="na">ExecStart</span><span class="o">=</span><span class="s">/bin/sh run.sh</span>
-</span></span><span class="line"><span class="cl"><span class="na">ExecStop</span><span class="o">=</span><span class="s">/bin/sh run.sh stop</span>
-</span></span><span class="line"><span class="cl"><span class="na">RemainAfterExit</span><span class="o">=</span><span class="s">yes</span>
-</span></span><span class="line"><span class="cl"><span class="na">Restart</span><span class="o">=</span><span class="s">on-failure</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="k">[Install]</span>
-</span></span><span class="line"><span class="cl"><span class="na">WantedBy</span><span class="o">=</span><span class="s">multi-user.target</span>
-</span></span></code></pre></div><h2 id="服务操作--service-operation">服务操作 | Service Operation
+</h2>
+
+
+
+
+<div class="highlight highlight-service">
+  <pre>
+    <code class="language-service" data-lang="service">[Unit]
+Description=Minecraft Server
+After=network.target
+
+[Service]
+Type=oneshot
+User=m
+CPUQuota=10000%
+WorkingDirectory=/home/m/桌面/mc_server
+ExecStart=/bin/sh run.sh
+ExecStop=/bin/sh run.sh stop
+RemainAfterExit=yes
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target</code>
+  </pre>
+</div>
+
+<h2 id="服务操作--service-operation">服务操作 | Service Operation
 </h2><ol>
 <li>启动服务 <code>systemctl start mc.service</code></li>
 <li>开机启动服务 <code>systemctl enable mc.service</code></li>
@@ -1256,18 +1089,18 @@
             
                 
 <article class="has-image">
-    <a href="/p/%E7%A7%91%E5%AD%A6%E4%B8%8A%E7%BD%91%E9%85%8D%E7%BD%AE%E6%95%99%E7%A8%8B/">
+    <a href="/public/p/%E7%A7%91%E5%AD%A6%E4%B8%8A%E7%BD%91%E9%85%8D%E7%BD%AE%E6%95%99%E7%A8%8B-%E8%8A%82%E7%82%B9%E6%90%AD%E5%BB%BA/">
         
         
             <div class="article-image">
                 
-                    <img src="/default.jpeg" loading="lazy" data-key="" data-hash="/default.jpeg"/>
+                    <img src="/public/default.jpeg" loading="lazy" data-key="" data-hash="/public/default.jpeg"/>
                 
             </div>
         
 
         <div class="article-details">
-            <h2 class="article-title">科学上网配置教程</h2>
+            <h2 class="article-title">科学上网配置教程 &amp; 节点搭建</h2>
         </div>
     </a>
 </article>
@@ -1275,11 +1108,11 @@
             
                 
 <article class="has-image">
-    <a href="/p/mc%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%90%AD%E5%BB%BA-%E5%8A%A0%E5%85%A5/">
+    <a href="/public/p/mc%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%90%AD%E5%BB%BA-%E5%8A%A0%E5%85%A5/">
         
         
             <div class="article-image">
-                <img src="/p/mc%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%90%AD%E5%BB%BA-%E5%8A%A0%E5%85%A5/image.c12f1808aab9c5464ee244812cb30b95_hu_86d91d7056630acc.png" 
+                <img src="/public/p/mc%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%90%AD%E5%BB%BA-%E5%8A%A0%E5%85%A5/image.c12f1808aab9c5464ee244812cb30b95_hu_86d91d7056630acc.png" 
                         width="250" 
                         height="150" 
                         loading="lazy"
@@ -1299,12 +1132,12 @@
             
                 
 <article class="has-image">
-    <a href="/p/chapter13/">
+    <a href="/public/p/chapter13/">
         
         
             <div class="article-image">
                 
-                    <img src="/java.png" loading="lazy" data-key="" data-hash="/java.png"/>
+                    <img src="/public/java.png" loading="lazy" data-key="" data-hash="/public/java.png"/>
                 
             </div>
         
@@ -1318,12 +1151,12 @@
             
                 
 <article class="has-image">
-    <a href="/p/chapter12/">
+    <a href="/public/p/chapter12/">
         
         
             <div class="article-image">
                 
-                    <img src="/java.png" loading="lazy" data-key="" data-hash="/java.png"/>
+                    <img src="/public/java.png" loading="lazy" data-key="" data-hash="/public/java.png"/>
                 
             </div>
         
@@ -1337,11 +1170,11 @@
             
                 
 <article class="has-image">
-    <a href="/p/hugo_notes/">
+    <a href="/public/p/hugo_notes/">
         
         
             <div class="article-image">
-                <img src="/p/hugo_notes/1.8e7fe11288f3247c5acac91e5854cb03_hu_7e558d0f1d225d98.jpeg" 
+                <img src="/public/p/hugo_notes/1.8e7fe11288f3247c5acac91e5854cb03_hu_7e558d0f1d225d98.jpeg" 
                         width="250" 
                         height="150" 
                         loading="lazy"
@@ -1423,7 +1256,9 @@
     <section class="copyright">
         &copy; 
         
-        2025 blog@mail.henry070.org
+            2025 - 
+        
+        2026 blog@mail.henry070.org
     </section>
     
     <section class="powerby">
@@ -1519,7 +1354,7 @@
                 src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
                 
                 >
-            </script><script type="text/javascript" src="/ts/main.1e9a3bafd846ced4c345d084b355fb8c7bae75701c338f8a1f8a82c780137826.js" defer></script>
+            </script><script type="text/javascript" src="/public/ts/main.c922af694cc257bf1ecc41c0dd7b0430f9114ec280ccf67cd2c6ad55f5316c4e.js" defer></script>
 <script>
     (function () {
         const customFont = document.createElement('link');
@@ -1727,7 +1562,7 @@
       
       let img = document.createElement('img');
       img.classList.add('code-more-img');
-      img.src = "https://Gzmomo001.github.io/icons/down.png"
+      img.src = "https://Gzmomo001.github.io/public/icons/down.png"
       
       codeMoreBtn.appendChild(img);
       codeMoreBox.appendChild(codeMoreBtn);

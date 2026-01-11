@@ -1,0 +1,875 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+    <channel>
+        <title>系统编程 on Henry Zhang</title>
+        <link>https://Gzmomo001.github.io/public/tags/%E7%B3%BB%E7%BB%9F%E7%BC%96%E7%A8%8B/</link>
+        <description>Recent content in 系统编程 on Henry Zhang</description>
+        <generator>Hugo -- gohugo.io</generator>
+        <language>zh-cn</language>
+        <copyright>blog@mail.henry070.org</copyright>
+        <lastBuildDate>Sun, 11 Jan 2026 16:57:00 +0000</lastBuildDate><atom:link href="https://Gzmomo001.github.io/public/tags/%E7%B3%BB%E7%BB%9F%E7%BC%96%E7%A8%8B/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>进程管理：Linux 的生命线</title>
+        <link>https://Gzmomo001.github.io/public/p/%E8%BF%9B%E7%A8%8B%E7%AE%A1%E7%90%86linux-%E7%9A%84%E7%94%9F%E5%91%BD%E7%BA%BF/</link>
+        <pubDate>Sun, 11 Jan 2026 00:00:00 +0800</pubDate>
+        
+        <guid>https://Gzmomo001.github.io/public/p/%E8%BF%9B%E7%A8%8B%E7%AE%A1%E7%90%86linux-%E7%9A%84%E7%94%9F%E5%91%BD%E7%BA%BF/</guid>
+        <description>&lt;img src="https://Gzmomo001.github.io/public/default.jpeg" alt="Featured image of post 进程管理：Linux 的生命线" /&gt;&lt;h1 id=&#34;进程管理linux-的生命线&#34;&gt;进程管理：Linux 的生命线
+&lt;/h1&gt;&lt;h2 id=&#34;引言&#34;&gt;引言
+&lt;/h2&gt;&lt;p&gt;进程是 Linux 系统中正在运行的程序的实例。理解进程管理对于系统管理员、开发者和 DevOps 工程师至关重要。在这篇文章中，我们将深入探讨 Linux 如何创建、调度和管理进程。&lt;/p&gt;
+&lt;h2 id=&#34;什么是进程&#34;&gt;什么是进程？
+&lt;/h2&gt;&lt;h3 id=&#34;进程-vs-程序&#34;&gt;进程 vs 程序
+&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;程序（Program）&lt;/strong&gt;：存储在磁盘上的可执行文件（静态）&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;进程（Process）&lt;/strong&gt;：正在内存中运行的程序实例（动态）&lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre class=&#34;mermaid&#34;&gt;
+  flowchart LR
+    A[程序&amp;lt;br/&amp;gt;磁盘上的可执行文件] --&amp;gt;|execve| B[进程&amp;lt;br/&amp;gt;内存中的运行实例]
+    B --&amp;gt;|fork| C[子进程]
+    B --&amp;gt;|exit| D[僵尸进程]
+
+    style A fill:#e3f2fd
+    style B fill:#fff3e0
+    style C fill:#c8e6c9
+    style D fill:#ffcdd2
+&lt;/pre&gt;
+
+&lt;h3 id=&#34;进程的特征&#34;&gt;进程的特征
+&lt;/h3&gt;&lt;ol&gt;
+&lt;li&gt;&lt;strong&gt;独立性&lt;/strong&gt;：每个进程都有独立的地址空间&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;动态性&lt;/strong&gt;：进程是动态创建和销毁的&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;并发性&lt;/strong&gt;：多个进程可以同时运行&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;异步性&lt;/strong&gt;：进程执行速度不可预测&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2 id=&#34;进程描述符task_struct&#34;&gt;进程描述符（task_struct）
+&lt;/h2&gt;&lt;p&gt;内核使用 &lt;code&gt;task_struct&lt;/code&gt; 结构体来描述进程：&lt;/p&gt;
+
+
+
+
+
+&lt;div class=&#34;highlight highlight-c&#34;&gt;
+  &lt;pre&gt;
+    &lt;code class=&#34;language-c&#34; data-lang=&#34;c&#34;&gt;struct task_struct {
+    // 进程状态
+    volatile long state;      // 运行状态
+    int exit_state;           // 退出状态
+
+    // 进程标识
+    pid_t pid;                // 进程ID
+    pid_t tgid;               // 线程组ID
+
+    // 进程关系
+    struct task_struct *real_parent;   // 真实父进程
+    struct task_struct *parent;        // 当前父进程
+    struct list_head children;         // 子进程链表
+
+    // 调度相关信息
+    struct sched_entity se;            // 调度实体
+    int prio;                          // 优先级
+    int static_prio;                   // 静态优先级
+    int normal_prio;                   // 标准优先级
+    unsigned int rt_priority;          // 实时优先级
+
+    // 内存管理
+    struct mm_struct *mm;              // 内存描述符
+    struct mm_struct *active_mm;
+
+    // 文件系统
+    struct fs_struct *fs;              // 文件系统信息
+    struct files_struct *files;        // 打开的文件
+
+    // 信号处理
+    struct signal_struct *signal;
+    struct sighand_struct *sighand;
+
+    // 时间信息
+    cputime_t utime, stime;            // 用户态和内核态时间
+
+    // ... 更多字段
+};&lt;/code&gt;
+  &lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h3 id=&#34;进程标识符&#34;&gt;进程标识符
+&lt;/h3&gt;
+
+
+
+
+&lt;div class=&#34;highlight highlight-bash&#34;&gt;
+  &lt;pre&gt;
+    &lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;# 查看进程 PID
+ps -eo pid,cmd | head
+
+# 查看当前 Shell 的 PID
+echo $$
+
+# 查看父进程 PID
+echo $PPID
+
+# 查看进程组 ID
+ps -eo pid,pgid,cmd | head&lt;/code&gt;
+  &lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;&lt;strong&gt;关键标识符&lt;/strong&gt;：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;PID&lt;/strong&gt;：进程ID（1-32768，循环使用）&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;PPID&lt;/strong&gt;：父进程ID&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;PGID&lt;/strong&gt;：进程组ID&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;SID&lt;/strong&gt;：会话ID&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;进程生命周期&#34;&gt;进程生命周期
+&lt;/h2&gt;&lt;h3 id=&#34;进程状态&#34;&gt;进程状态
+&lt;/h3&gt;&lt;p&gt;Linux 进程有以下几种状态：&lt;/p&gt;
+&lt;pre class=&#34;mermaid&#34;&gt;
+  stateDiagram-v2
+    [*] --&amp;gt; 创建: fork()
+    创建 --&amp;gt; 运行: 调度器选中
+    运行 --&amp;gt; 可中断睡眠: 等待I/O事件
+    运行 --&amp;gt; 不可中断睡眠: 磁盘I/O
+    运行 --&amp;gt; 僵尸: exit()
+    运行 --&amp;gt; 停止: SIGSTOP
+    可中断睡眠 --&amp;gt; 运行: 事件完成
+    不可中断睡眠 --&amp;gt; 运行: I/O完成
+    停止 --&amp;gt; 运行: SIGCONT
+    僵尸 --&amp;gt; [*]: wait()
+&lt;/pre&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+      &lt;tr&gt;
+          &lt;th&gt;状态&lt;/th&gt;
+          &lt;th&gt;内核定义&lt;/th&gt;
+          &lt;th&gt;描述&lt;/th&gt;
+      &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+      &lt;tr&gt;
+          &lt;td&gt;&lt;strong&gt;运行&lt;/strong&gt;&lt;/td&gt;
+          &lt;td&gt;TASK_RUNNING&lt;/td&gt;
+          &lt;td&gt;正在运行或等待运行&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;&lt;strong&gt;可中断睡眠&lt;/strong&gt;&lt;/td&gt;
+          &lt;td&gt;TASK_INTERRUPTIBLE&lt;/td&gt;
+          &lt;td&gt;等待某些条件，可被信号中断&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;&lt;strong&gt;不可中断睡眠&lt;/strong&gt;&lt;/td&gt;
+          &lt;td&gt;TASK_UNINTERRUPTIBLE&lt;/td&gt;
+          &lt;td&gt;等待某些条件，不可被中断&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;&lt;strong&gt;僵尸&lt;/strong&gt;&lt;/td&gt;
+          &lt;td&gt;TASK_DEAD&lt;/td&gt;
+          &lt;td&gt;已终止但父进程未读取退出状态&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;&lt;strong&gt;停止&lt;/strong&gt;&lt;/td&gt;
+          &lt;td&gt;TASK_TRACED/STOPPED&lt;/td&gt;
+          &lt;td&gt;被调试器暂停或收到 SIGSTOP&lt;/td&gt;
+      &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+&lt;h3 id=&#34;查看进程状态&#34;&gt;查看进程状态
+&lt;/h3&gt;
+
+
+
+
+&lt;div class=&#34;highlight highlight-bash&#34;&gt;
+  &lt;pre&gt;
+    &lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;# 查看所有进程状态
+ps aux | head
+
+# STAT 列含义：
+# R - Running
+# S - Sleeping (interruptible)
+# D - Disk sleep (uninterruptible)
+# Z - Zombie
+# T - Stopped
+# &amp;#43; - 前台进程组
+# s - 会话leader
+# l - 多线程
+# N - 低优先级
+# &amp;lt; - 高优先级
+
+# 查看特定进程状态
+cat /proc/1/status | grep State&lt;/code&gt;
+  &lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h2 id=&#34;进程创建&#34;&gt;进程创建
+&lt;/h2&gt;&lt;h3 id=&#34;fork-系统调用&#34;&gt;fork() 系统调用
+&lt;/h3&gt;&lt;p&gt;&lt;code&gt;fork()&lt;/code&gt; 创建一个几乎与父进程相同的子进程：&lt;/p&gt;
+
+
+
+
+
+&lt;div class=&#34;highlight highlight-c&#34;&gt;
+  &lt;pre&gt;
+    &lt;code class=&#34;language-c&#34; data-lang=&#34;c&#34;&gt;#include &amp;lt;unistd.h&amp;gt;
+#include &amp;lt;stdio.h&amp;gt;
+#include &amp;lt;sys/types.h&amp;gt;
+
+int main() {
+    pid_t pid;
+
+    printf(&amp;#34;Before fork()\n&amp;#34;);
+
+    pid = fork();  // 创建子进程
+
+    if (pid == -1) {
+        // fork 失败
+        perror(&amp;#34;fork failed&amp;#34;);
+        return 1;
+    } else if (pid == 0) {
+        // 子进程代码
+        printf(&amp;#34;Child process: PID = %d, PPID = %d\n&amp;#34;,
+               getpid(), getppid());
+    } else {
+        // 父进程代码
+        printf(&amp;#34;Parent process: PID = %d, Child PID = %d\n&amp;#34;,
+               getpid(), pid);
+    }
+
+    printf(&amp;#34;Common code\n&amp;#34;);
+    return 0;
+}&lt;/code&gt;
+  &lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;&lt;strong&gt;fork() 的工作原理&lt;/strong&gt;：&lt;/p&gt;
+&lt;pre class=&#34;mermaid&#34;&gt;
+  flowchart TD
+    A[父进程] --&amp;gt;|fork| B{fork成功?}
+    B --&amp;gt;|是| C[创建子进程]
+    B --&amp;gt;|否| E[返回-1]
+    C --&amp;gt; D[复制父进程资源]
+    D --&amp;gt; F[返回子进程PID给父进程]
+    D --&amp;gt; G[返回0给子进程]
+&lt;/pre&gt;
+
+&lt;h3 id=&#34;写时复制copy-on-write&#34;&gt;写时复制（Copy-on-Write）
+&lt;/h3&gt;&lt;p&gt;现代 Linux 使用 COW 优化 fork 性能：&lt;/p&gt;
+
+
+
+
+  
+
+
+&lt;div class=&#34;highlight highlight-text&#34;&gt;
+  &lt;pre&gt;
+    &lt;code class=&#34;language-text&#34; data-lang=&#34;text&#34;&gt;┌─────────────────────────────────────────────────┐
+│                  fork() 之前                    │
+│  ┌───────────────────────────────────────┐     │
+│  │    父进程内存                          │     │
+│  │    [代码段 | 数据段 | 堆 | 栈]         │     │
+│  └───────────────────────────────────────┘     │
+└─────────────────────────────────────────────────┘
+
+┌─────────────────────────────────────────────────┐
+│                  fork() 之后                    │
+│  ┌──────────────────────┐  ┌─────────────────┐ │
+│  │   父进程             │  │   子进程        │ │
+│  │  [共享只读数据]      │  │  [共享只读数据] │ │
+│  │  ┌──────────────┐   │  │  ┌───────────┐  │ │
+│  │  │ 页表(只读)   │   │  │  │ 页表(只读)│  │ │
+│  │  └──────────────┘   │  │  └───────────┘  │ │
+│  └──────────────────────┘  └─────────────────┘ │
+│                                                     │
+│  写入时才复制物理页面                              │
+└─────────────────────────────────────────────────┘&lt;/code&gt;
+  &lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h3 id=&#34;exec-系列函数&#34;&gt;exec() 系列函数
+&lt;/h3&gt;&lt;p&gt;&lt;code&gt;exec()&lt;/code&gt; 用新程序替换当前进程的内存映像：&lt;/p&gt;
+
+
+
+
+
+&lt;div class=&#34;highlight highlight-c&#34;&gt;
+  &lt;pre&gt;
+    &lt;code class=&#34;language-c&#34; data-lang=&#34;c&#34;&gt;#include &amp;lt;unistd.h&amp;gt;
+#include &amp;lt;stdio.h&amp;gt;
+
+int main() {
+    printf(&amp;#34;Before exec\n&amp;#34;);
+
+    // 执行 ls 命令
+    execlp(&amp;#34;ls&amp;#34;, &amp;#34;ls&amp;#34;, &amp;#34;-la&amp;#34;, &amp;#34;/tmp&amp;#34;, NULL);
+
+    // exec 成功则不会执行这里
+    perror(&amp;#34;exec failed&amp;#34;);
+    return 1;
+}&lt;/code&gt;
+  &lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;&lt;strong&gt;exec 函数族&lt;/strong&gt;：&lt;/p&gt;
+
+
+
+
+
+&lt;div class=&#34;highlight highlight-c&#34;&gt;
+  &lt;pre&gt;
+    &lt;code class=&#34;language-c&#34; data-lang=&#34;c&#34;&gt;// 带p的函数在PATH环境变量中搜索程序
+execlp(const char *file, const char *arg, ...);
+execvp(const char *file, char *const argv[]);
+
+// 不带p的需要完整路径
+execl(const char *path, const char *arg, ...);
+execv(const char *path, char *const argv[]);
+
+// 带l的函数使用列表传递参数
+execl(&amp;#34;/bin/ls&amp;#34;, &amp;#34;ls&amp;#34;, &amp;#34;-la&amp;#34;, NULL);
+
+// 带v的函数使用数组传递参数
+char *args[] = {&amp;#34;ls&amp;#34;, &amp;#34;-la&amp;#34;, &amp;#34;/tmp&amp;#34;, NULL};
+execv(&amp;#34;/bin/ls&amp;#34;, args);&lt;/code&gt;
+  &lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h3 id=&#34;fork--exec-组合&#34;&gt;fork + exec 组合
+&lt;/h3&gt;&lt;p&gt;这是 Shell 创建新进程的标准模式：&lt;/p&gt;
+&lt;pre class=&#34;mermaid&#34;&gt;
+  sequenceDiagram
+    participant S as Shell
+    participant K as Kernel
+    participant N as New Program
+
+    S-&amp;gt;&amp;gt;K: fork()
+    Note over K: 创建子进程&amp;lt;br/&amp;gt;复制Shell
+    K-&amp;gt;&amp;gt;S: 返回子进程PID
+    S-&amp;gt;&amp;gt;K: exec(new_program)
+    Note over K: 替换子进程内存&amp;lt;br/&amp;gt;加载新程序
+    K-&amp;gt;&amp;gt;N: 启动新程序
+    N-&amp;gt;&amp;gt;S: 程序结束
+    S-&amp;gt;&amp;gt;K: wait() 回收子进程
+&lt;/pre&gt;
+
+&lt;h3 id=&#34;wait-和-waitpid&#34;&gt;wait() 和 waitpid()
+&lt;/h3&gt;&lt;p&gt;父进程等待子进程结束：&lt;/p&gt;
+
+
+
+
+
+&lt;div class=&#34;highlight highlight-c&#34;&gt;
+  &lt;pre&gt;
+    &lt;code class=&#34;language-c&#34; data-lang=&#34;c&#34;&gt;#include &amp;lt;sys/wait.h&amp;gt;
+#include &amp;lt;unistd.h&amp;gt;
+#include &amp;lt;stdio.h&amp;gt;
+#include &amp;lt;stdlib.h&amp;gt;
+
+int main() {
+    pid_t pid;
+    int status;
+
+    pid = fork();
+
+    if (pid == 0) {
+        // 子进程
+        printf(&amp;#34;Child running...\n&amp;#34;);
+        sleep(2);
+        exit(42);  // 退出码
+    } else {
+        // 父进程
+        printf(&amp;#34;Parent waiting for child...\n&amp;#34;);
+
+        wait(&amp;amp;status);  // 等待任意子进程
+
+        if (WIFEXITED(status)) {
+            printf(&amp;#34;Child exited with status: %d\n&amp;#34;,
+                   WEXITSTATUS(status));
+        }
+    }
+
+    return 0;
+}&lt;/code&gt;
+  &lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;&lt;strong&gt;等待宏&lt;/strong&gt;：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;WIFEXITED(status)&lt;/code&gt;：子进程正常退出&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;WEXITSTATUS(status)&lt;/code&gt;：获取退出码&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;WIFSIGNALED(status)&lt;/code&gt;：子进程被信号终止&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;WTERMSIG(status)&lt;/code&gt;：获取终止信号&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;进程调度&#34;&gt;进程调度
+&lt;/h2&gt;&lt;h3 id=&#34;cfs完全公平调度器&#34;&gt;CFS（完全公平调度器）
+&lt;/h3&gt;&lt;p&gt;CFS 的设计目标：&lt;strong&gt;公平地分配 CPU 时间&lt;/strong&gt;&lt;/p&gt;
+&lt;h4 id=&#34;虚拟运行时间vruntime&#34;&gt;虚拟运行时间（vruntime）
+&lt;/h4&gt;
+
+
+
+
+&lt;div class=&#34;highlight highlight-c&#34;&gt;
+  &lt;pre&gt;
+    &lt;code class=&#34;language-c&#34; data-lang=&#34;c&#34;&gt;// vruntime 计算简化版
+vruntime &amp;#43;= (delta_exec * NICE_0_LOAD) / load.weight;
+
+// delta_exec: 实际运行时间
+// NICE_0_LOAD: nice=0 时的权重（1024）
+// load.weight: 进程权重&lt;/code&gt;
+  &lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;pre class=&#34;mermaid&#34;&gt;
+  flowchart LR
+    A[运行1秒] --&amp;gt; B{nice值?}
+    B --&amp;gt;|nice=0&amp;lt;br/&amp;gt;weight=1024| C[vruntime += 1s]
+    B --&amp;gt;|nice=5&amp;lt;br/&amp;gt;weight=312| D[vruntime += 3.2s]
+    B --&amp;gt;|nice=-5&amp;lt;br/&amp;gt;weight=3121| E[vruntime += 0.32s]
+
+    style C fill:#fff3e0
+    style D fill:#ffcdd2
+    style E fill:#c8e6c9
+&lt;/pre&gt;
+
+&lt;h4 id=&#34;红黑树管理可运行进程&#34;&gt;红黑树管理可运行进程
+&lt;/h4&gt;
+
+
+
+
+&lt;div class=&#34;highlight highlight-c&#34;&gt;
+  &lt;pre&gt;
+    &lt;code class=&#34;language-c&#34; data-lang=&#34;c&#34;&gt;// CFS 运行队列
+struct cfs_rq {
+    struct load_weight load;
+    u64 exec_clock;
+    u64 min_vruntime;
+    struct rb_root tasks_timeline;    // 红黑树根节点
+    struct rb_node *rb_leftmost;      // 最左节点（最小vruntime）
+    struct task_struct *curr;         // 当前运行进程
+};
+
+// 选择下一个运行的进程
+static struct sched_entity *pick_next_entity(struct cfs_rq *cfs_rq) {
+    struct rb_node *left = cfs_rq-&amp;gt;rb_leftmost;
+    return rb_entry(left, struct sched_entity, run_node);
+}&lt;/code&gt;
+  &lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;&lt;strong&gt;调度流程&lt;/strong&gt;：&lt;/p&gt;
+&lt;pre class=&#34;mermaid&#34;&gt;
+  flowchart TD
+    A[时钟中断] --&amp;gt; B[更新当前进程vruntime]
+    B --&amp;gt; C[检查是否需要调度]
+    C --&amp;gt;|不需要| D[继续运行]
+    C --&amp;gt;|需要| E[选择vruntime最小的进程]
+    E --&amp;gt; F[切换到新进程]
+    F --&amp;gt; G[新进程开始运行]
+
+    style E fill:#fff3e0
+&lt;/pre&gt;
+
+&lt;h3 id=&#34;调度策略&#34;&gt;调度策略
+&lt;/h3&gt;
+
+
+
+
+&lt;div class=&#34;highlight highlight-bash&#34;&gt;
+  &lt;pre&gt;
+    &lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;# 查看进程调度策略
+ps -eo pid,cmd,policy,rtprio,ni | grep -E &amp;#34;PID|ksoft|kworker&amp;#34;
+
+# POLICY 列含义：
+# FF - FIFO 实时调度
+# RR - 轮转实时调度
+# TS - 分时调度（普通进程）
+# IDL - 空闲进程
+
+# 查看实时进程
+ps -eo pid,cmd,policy,rtprio | awk &amp;#39;$3 ~ /FF|RR/&amp;#39;&lt;/code&gt;
+  &lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;&lt;strong&gt;修改进程优先级&lt;/strong&gt;：&lt;/p&gt;
+
+
+
+
+
+&lt;div class=&#34;highlight highlight-bash&#34;&gt;
+  &lt;pre&gt;
+    &lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;# nice 值：-20（最高优先级）到 19（最低优先级）
+# 默认 nice 值为 0
+
+# 以指定 nice 值启动进程
+nice -n 10 tar -czf backup.tar.gz /home
+
+# renice：修改运行进程的优先级
+renice &amp;#43;5 -p 1234         # 将 PID 1234 的 nice 值改为 &amp;#43;5
+
+# 查看进程 nice 值
+ps -eo pid,ni,cmd | head&lt;/code&gt;
+  &lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h3 id=&#34;cpu-亲和性&#34;&gt;CPU 亲和性
+&lt;/h3&gt;&lt;p&gt;绑定进程到特定 CPU 核心：&lt;/p&gt;
+
+
+
+
+
+&lt;div class=&#34;highlight highlight-bash&#34;&gt;
+  &lt;pre&gt;
+    &lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;# 查看进程 CPU 亲和性
+taskset -p 1234           # 显示 PID 1234 的 CPU 亲和性
+# pid 1234&amp;#39;s current affinity mask: ff (所有8个CPU)
+
+# 设置进程 CPU 亲和性
+taskset -p 3 1234         # 绑定到 CPU 0 和 1（二进制 11）
+taskset -pc 0,2,4 1234    # 绑定到 CPU 0, 2, 4
+
+# 启动进程时指定 CPU 亲和性
+taskset -c 0,1 ./myapp    # 在 CPU 0 和 1 上运行
+
+# 查看各 CPU 负载
+mpstat -P ALL 1&lt;/code&gt;
+  &lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h2 id=&#34;进程监控工具&#34;&gt;进程监控工具
+&lt;/h2&gt;&lt;h3 id=&#34;ps-命令&#34;&gt;ps 命令
+&lt;/h3&gt;
+
+
+
+
+&lt;div class=&#34;highlight highlight-bash&#34;&gt;
+  &lt;pre&gt;
+    &lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;# 基本用法
+ps aux                    # BSD 风格
+ps -ef                    # System V 风格
+
+# 常用组合
+ps aux | grep nginx       # 查找 nginx 进程
+ps -eo pid,ppid,cmd,%mem,%cpu --sort=-%mem | head
+# 按内存使用排序
+
+# 查看进程树
+ps axjf                   # ASCII 艺术进程树
+ps -e --forest            # 进程森林
+
+# 查看特定用户进程
+ps -u username
+
+# 查看完整命令
+ps auxww                  # 不截断命令行&lt;/code&gt;
+  &lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h3 id=&#34;tophtop&#34;&gt;top/htop
+&lt;/h3&gt;
+
+
+
+
+&lt;div class=&#34;highlight highlight-bash&#34;&gt;
+  &lt;pre&gt;
+    &lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;# top 命令
+top
+# 按 P：按 CPU 排序
+# 按 M：按内存排序
+# 按 T：按时间排序
+# 按 k：杀死进程
+# 按 r：renice
+# 按 q：退出
+
+# htop（更友好）
+htop
+# F1-F10：功能键
+# /：搜索进程
+# F9：调整进程优先级
+# F6：排序方式&lt;/code&gt;
+  &lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h3 id=&#34;pidstat&#34;&gt;pidstat
+&lt;/h3&gt;
+
+
+
+
+&lt;div class=&#34;highlight highlight-bash&#34;&gt;
+  &lt;pre&gt;
+    &lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;# 安装 sysstat 包
+sudo apt install sysstat
+
+# CPU 使用统计
+pidstat 2 5              # 每2秒输出一次，共5次
+
+# 显示特定进程
+pidstat -p 1234 1
+
+# 显示线程统计
+pidstat -t -p 1234
+
+# 显示上下文切换
+pidstat -w -p 1234
+
+# 显示缺页异常
+pidstat -r -p 1234&lt;/code&gt;
+  &lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h3 id=&#34;proc-文件系统&#34;&gt;/proc 文件系统
+&lt;/h3&gt;
+
+
+
+
+&lt;div class=&#34;highlight highlight-bash&#34;&gt;
+  &lt;pre&gt;
+    &lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;# 查看进程信息
+ls /proc/1234/
+
+cat /proc/1234/status     # 进程状态
+cat /proc/1234/cmdline    # 命令行参数
+cat /proc/1234/environ    # 环境变量
+cat /proc/1234/maps       # 内存映射
+cat /proc/1234/fd         # 文件描述符
+ls -l /proc/1234/fd/      # 查看打开的文件
+
+# 实时监控
+watch -n 1 &amp;#39;cat /proc/1234/status | grep -E &amp;#34;VmSize|VmRSS&amp;#34;&amp;#39;&lt;/code&gt;
+  &lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h2 id=&#34;进程控制&#34;&gt;进程控制
+&lt;/h2&gt;&lt;h3 id=&#34;发送信号&#34;&gt;发送信号
+&lt;/h3&gt;
+
+
+
+
+&lt;div class=&#34;highlight highlight-bash&#34;&gt;
+  &lt;pre&gt;
+    &lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;# 常用信号
+# SIGTERM (15): 优雅终止
+# SIGKILL (9): 强制终止
+# SIGHUP (1): 重新加载配置
+# SIGSTOP (19): 暂停进程
+# SIGCONT (18): 继续进程
+
+# kill 命令
+kill 1234                # 默认发送 SIGTERM
+kill -9 1234             # 强制终止
+kill -HUP 1234           # 重新加载
+
+# killall：按名称杀死进程
+killall nginx
+killall -9 firefox
+
+# pkill：按模式匹配
+pkill -f &amp;#34;python.*script&amp;#34;
+pkill -u username        # 杀死用户的所有进程
+
+# 查看可用信号
+kill -l&lt;/code&gt;
+  &lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h3 id=&#34;nohup-和-disown&#34;&gt;nohup 和 disown
+&lt;/h3&gt;
+
+
+
+
+&lt;div class=&#34;highlight highlight-bash&#34;&gt;
+  &lt;pre&gt;
+    &lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;# nohup：忽略 SIGHUP 信号
+nohup ./long_process &amp;amp;   # 终端关闭后进程继续运行
+
+# disown：从作业列表中移除
+./process &amp;amp;
+Ctrl&amp;#43;Z                   # 暂停
+bg                       # 后台运行
+disown -h %1             # 忽略 SIGHUP
+
+# tmux/screen：更好的会话管理
+tmux new -s session      # 创建新会话&lt;/code&gt;
+  &lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h2 id=&#34;实战案例&#34;&gt;实战案例
+&lt;/h2&gt;&lt;h3 id=&#34;查找并杀死僵尸进程&#34;&gt;查找并杀死僵尸进程
+&lt;/h3&gt;
+
+
+
+
+&lt;div class=&#34;highlight highlight-bash&#34;&gt;
+  &lt;pre&gt;
+    &lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;#!/bin/bash
+# kill_zombies.sh
+
+# 查找僵尸进程
+echo &amp;#34;Checking for zombie processes...&amp;#34;
+
+ps aux | awk &amp;#39;{print $8, $2}&amp;#39; | grep -w Z | while read state pid; do
+    if [ -n &amp;#34;$pid&amp;#34; ]; then
+        echo &amp;#34;Found zombie process: PID $pid&amp;#34;
+
+        # 查找父进程
+        ppid=$(ps -o ppid= -p $pid | tr -d &amp;#39; &amp;#39;)
+        echo &amp;#34;Parent PID: $ppid&amp;#34;
+
+        # 通知父进程回收子进程
+        kill -CHLD $ppid
+        sleep 1
+
+        # 如果仍然存在，杀死父进程
+        if ps -p $pid &amp;gt; /dev/null; then
+            echo &amp;#34;Zombie still exists, killing parent...&amp;#34;
+            kill -9 $ppid
+        fi
+    fi
+done&lt;/code&gt;
+  &lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h3 id=&#34;进程监控脚本&#34;&gt;进程监控脚本
+&lt;/h3&gt;
+
+
+
+
+&lt;div class=&#34;highlight highlight-bash&#34;&gt;
+  &lt;pre&gt;
+    &lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;#!/bin/bash
+# monitor_process.sh
+
+PROCESS_NAME=$1
+INTERVAL=5
+
+if [ -z &amp;#34;$PROCESS_NAME&amp;#34; ]; then
+    echo &amp;#34;Usage: $0 &amp;lt;process_name&amp;gt;&amp;#34;
+    exit 1
+fi
+
+while true; do
+    clear
+    echo &amp;#34;=== Monitoring: $PROCESS_NAME ===&amp;#34;
+    echo &amp;#34;Time: $(date)&amp;#34;
+    echo &amp;#34;&amp;#34;
+
+    pid=$(pgrep -o &amp;#34;$PROCESS_NAME&amp;#34;)
+
+    if [ -n &amp;#34;$pid&amp;#34; ]; then
+        echo &amp;#34;PID: $pid&amp;#34;
+        echo &amp;#34;&amp;#34;
+
+        # CPU 和内存使用
+        ps -p $pid -o %cpu,%mem,cmd
+
+        echo &amp;#34;&amp;#34;
+        echo &amp;#34;--- CPU History ---&amp;#34;
+        pidstat -p $pid 1 1 | tail -1
+
+        echo &amp;#34;&amp;#34;
+        echo &amp;#34;--- Memory Usage ---&amp;#34;
+        grep -E &amp;#34;VmSize|VmRSS&amp;#34; /proc/$pid/status
+
+        echo &amp;#34;&amp;#34;
+        echo &amp;#34;--- File Descriptors ---&amp;#34;
+        ls /proc/$pid/fd | wc -l
+    else
+        echo &amp;#34;Process not found!&amp;#34;
+    fi
+
+    sleep $INTERVAL
+done&lt;/code&gt;
+  &lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h3 id=&#34;限制进程资源&#34;&gt;限制进程资源
+&lt;/h3&gt;
+
+
+
+
+&lt;div class=&#34;highlight highlight-bash&#34;&gt;
+  &lt;pre&gt;
+    &lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;# ulimit：查看和设置资源限制
+ulimit -a                 # 查看所有限制
+ulimit -n 4096            # 设置文件描述符限制
+ulimit -u 1024            # 设置进程数限制
+
+# cgroups v2：更强大的资源控制
+# 创建 cgroup
+sudo mkdir /sys/fs/cgroup/myapp
+
+# 设置内存限制
+echo 500M &amp;gt; /sys/fs/cgroup/myapp/memory.max
+
+# 设置 CPU 限制
+echo 2 &amp;gt; /sys/fs/cgroup/myapp/cpu.max
+
+# 运行程序
+sudo cgexec -g memory,cpu:myapp ./myapp&lt;/code&gt;
+  &lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h2 id=&#34;总结&#34;&gt;总结
+&lt;/h2&gt;&lt;p&gt;进程管理是 Linux 系统的核心功能。通过这篇文章，我们了解了：&lt;/p&gt;
+&lt;h3 id=&#34;核心概念&#34;&gt;核心概念
+&lt;/h3&gt;&lt;ol&gt;
+&lt;li&gt;&lt;strong&gt;进程 vs 程序&lt;/strong&gt;：静态 vs 动态&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;task_struct&lt;/strong&gt;：内核中的进程描述符&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;进程生命周期&lt;/strong&gt;：从创建到销毁&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;fork/exec/wait&lt;/strong&gt;：进程控制三部曲&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;CFS 调度器&lt;/strong&gt;：公平分配 CPU 时间&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h3 id=&#34;实践技能&#34;&gt;实践技能
+&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;使用 &lt;code&gt;ps&lt;/code&gt;、&lt;code&gt;top&lt;/code&gt;、&lt;code&gt;htop&lt;/code&gt; 监控进程&lt;/li&gt;
+&lt;li&gt;通过 &lt;code&gt;kill&lt;/code&gt;、&lt;code&gt;killall&lt;/code&gt; 控制进程&lt;/li&gt;
+&lt;li&gt;理解进程状态和转换&lt;/li&gt;
+&lt;li&gt;分析进程性能问题&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;下一步&#34;&gt;下一步
+&lt;/h3&gt;&lt;p&gt;在后续文章中，我们将学习：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;内存管理&lt;/strong&gt;：虚拟内存、分页、交换&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;文件系统&lt;/strong&gt;：VFS、inode、文件权限&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;网络编程&lt;/strong&gt;：Socket、TCP/IP&lt;/li&gt;
+&lt;/ul&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&amp;ldquo;Processes are the living embodiment of running programs.&amp;rdquo; — Michael Kerrisk&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;掌握进程管理是理解 Linux 系统的关键一步。继续深入探索，你会发现更多奥秘！&lt;/p&gt;
+&lt;hr&gt;
+&lt;p&gt;&lt;strong&gt;← 返回系列概述&lt;/strong&gt;: &lt;a class=&#34;link&#34; href=&#34;https://Gzmomo001.github.io/public/p/linux-%E6%A6%82%E8%BF%B0%E4%BB%8E-unix-%E5%88%B0%E5%BC%80%E6%BA%90%E9%9D%A9%E5%91%BD/&#34; &gt;Linux 概述：从 Unix 到开源革命&lt;/a&gt;&lt;/p&gt;
+&lt;hr&gt;
+&lt;p&gt;&lt;strong&gt;参考资源&lt;/strong&gt;：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;https://www.kernel.org/doc/html/latest/scheduler/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;Linux内核进程管理&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;https://www.oreilly.com/library/view/understanding-the-linux/0596005652/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;Understanding the Linux Kernel - Chapter 3&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;https://man7.org/tlpi/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;The Linux Programming Interface - Chapter 24&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;https://man7.org/linux/man-pages/man5/proc.5.html&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;proc(5) - Linux manual page&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+        </item>
+        
+    </channel>
+</rss>

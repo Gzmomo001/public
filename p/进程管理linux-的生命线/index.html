@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="zh-cn" dir="ltr">
+<html lang="en-us" dir="ltr">
     <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><meta charset='utf-8'>
 <meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="深入理解 Linux 进程管理、进程生命周期、CFS 调度器、进程控制以及性能监控工具">
 <title>进程管理：Linux 的生命线</title>
@@ -10,7 +10,7 @@
 <meta property='og:description' content="深入理解 Linux 进程管理、进程生命周期、CFS 调度器、进程控制以及性能监控工具">
 <meta property='og:url' content='http://localhost:1313/p/%E8%BF%9B%E7%A8%8B%E7%AE%A1%E7%90%86linux-%E7%9A%84%E7%94%9F%E5%91%BD%E7%BA%BF/'>
 <meta property='og:site_name' content='Henry Zhang'>
-<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='linux' /><meta property='article:tag' content='进程管理' /><meta property='article:tag' content='调度器' /><meta property='article:tag' content='系统编程' /><meta property='article:published_time' content='2026-01-11T00:00:00&#43;08:00'/><meta property='article:modified_time' content='2026-01-11T16:57:00&#43;00:00'/><meta property='og:image' content='http://localhost:1313/default.jpeg' />
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='linux' /><meta property='article:tag' content='进程管理' /><meta property='article:tag' content='调度器' /><meta property='article:tag' content='系统编程' /><meta property='article:published_time' content='2026-01-11T00:00:00&#43;08:00'/><meta property='article:modified_time' content='2026-01-12T00:57:00&#43;08:00'/><meta property='og:image' content='http://localhost:1313/default.jpeg' />
 <meta name="twitter:title" content="进程管理：Linux 的生命线">
 <meta name="twitter:description" content="深入理解 Linux 进程管理、进程生命周期、CFS 调度器、进程控制以及性能监控工具"><meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:image" content='http://localhost:1313/default.jpeg' />
@@ -357,7 +357,7 @@
                     
                     
                         
-                        <img src="/img/avatar_hu_9c50848f93c56cbf.jpeg" width="300"
+                        <img src="/img/avatar_hu_a69ebd3e9749347e.jpeg" width="300"
                             height="296" class="site-logo" loading="lazy" alt="Avatar">
                     
                 
@@ -753,7 +753,7 @@
 
 
                 <time>
-                    Jan 11, 2026 16:57 UTC
+                    Jan 12, 2026 00:57 CST
                 </time>
             </div>
     </footer>
@@ -797,77 +797,57 @@
 </ol>
 <h2 id="进程描述符task_struct">进程描述符（task_struct）
 </h2><p>内核使用 <code>task_struct</code> 结构体来描述进程：</p>
-
-
-
-
-
-<div class="highlight highlight-c">
-  <pre>
-    <code class="language-c" data-lang="c">struct task_struct {
-    // 进程状态
-    volatile long state;      // 运行状态
-    int exit_state;           // 退出状态
-
-    // 进程标识
-    pid_t pid;                // 进程ID
-    pid_t tgid;               // 线程组ID
-
-    // 进程关系
-    struct task_struct *real_parent;   // 真实父进程
-    struct task_struct *parent;        // 当前父进程
-    struct list_head children;         // 子进程链表
-
-    // 调度相关信息
-    struct sched_entity se;            // 调度实体
-    int prio;                          // 优先级
-    int static_prio;                   // 静态优先级
-    int normal_prio;                   // 标准优先级
-    unsigned int rt_priority;          // 实时优先级
-
-    // 内存管理
-    struct mm_struct *mm;              // 内存描述符
-    struct mm_struct *active_mm;
-
-    // 文件系统
-    struct fs_struct *fs;              // 文件系统信息
-    struct files_struct *files;        // 打开的文件
-
-    // 信号处理
-    struct signal_struct *signal;
-    struct sighand_struct *sighand;
-
-    // 时间信息
-    cputime_t utime, stime;            // 用户态和内核态时间
-
-    // ... 更多字段
-};</code>
-  </pre>
-</div>
-
-<h3 id="进程标识符">进程标识符
-</h3>
-
-
-
-
-<div class="highlight highlight-bash">
-  <pre>
-    <code class="language-bash" data-lang="bash"># 查看进程 PID
-ps -eo pid,cmd | head
-
-# 查看当前 Shell 的 PID
-echo $$
-
-# 查看父进程 PID
-echo $PPID
-
-# 查看进程组 ID
-ps -eo pid,pgid,cmd | head</code>
-  </pre>
-</div>
-
-<p><strong>关键标识符</strong>：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="k">struct</span> <span class="n">task_struct</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// 进程状态
+</span></span></span><span class="line"><span class="cl">    <span class="k">volatile</span> <span class="kt">long</span> <span class="n">state</span><span class="p">;</span>      <span class="c1">// 运行状态
+</span></span></span><span class="line"><span class="cl">    <span class="kt">int</span> <span class="n">exit_state</span><span class="p">;</span>           <span class="c1">// 退出状态
+</span></span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1">// 进程标识
+</span></span></span><span class="line"><span class="cl">    <span class="kt">pid_t</span> <span class="n">pid</span><span class="p">;</span>                <span class="c1">// 进程ID
+</span></span></span><span class="line"><span class="cl">    <span class="kt">pid_t</span> <span class="n">tgid</span><span class="p">;</span>               <span class="c1">// 线程组ID
+</span></span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1">// 进程关系
+</span></span></span><span class="line"><span class="cl">    <span class="k">struct</span> <span class="n">task_struct</span> <span class="o">*</span><span class="n">real_parent</span><span class="p">;</span>   <span class="c1">// 真实父进程
+</span></span></span><span class="line"><span class="cl">    <span class="k">struct</span> <span class="n">task_struct</span> <span class="o">*</span><span class="n">parent</span><span class="p">;</span>        <span class="c1">// 当前父进程
+</span></span></span><span class="line"><span class="cl">    <span class="k">struct</span> <span class="n">list_head</span> <span class="n">children</span><span class="p">;</span>         <span class="c1">// 子进程链表
+</span></span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1">// 调度相关信息
+</span></span></span><span class="line"><span class="cl">    <span class="k">struct</span> <span class="n">sched_entity</span> <span class="n">se</span><span class="p">;</span>            <span class="c1">// 调度实体
+</span></span></span><span class="line"><span class="cl">    <span class="kt">int</span> <span class="n">prio</span><span class="p">;</span>                          <span class="c1">// 优先级
+</span></span></span><span class="line"><span class="cl">    <span class="kt">int</span> <span class="n">static_prio</span><span class="p">;</span>                   <span class="c1">// 静态优先级
+</span></span></span><span class="line"><span class="cl">    <span class="kt">int</span> <span class="n">normal_prio</span><span class="p">;</span>                   <span class="c1">// 标准优先级
+</span></span></span><span class="line"><span class="cl">    <span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">rt_priority</span><span class="p">;</span>          <span class="c1">// 实时优先级
+</span></span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1">// 内存管理
+</span></span></span><span class="line"><span class="cl">    <span class="k">struct</span> <span class="n">mm_struct</span> <span class="o">*</span><span class="n">mm</span><span class="p">;</span>              <span class="c1">// 内存描述符
+</span></span></span><span class="line"><span class="cl">    <span class="k">struct</span> <span class="n">mm_struct</span> <span class="o">*</span><span class="n">active_mm</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1">// 文件系统
+</span></span></span><span class="line"><span class="cl">    <span class="k">struct</span> <span class="n">fs_struct</span> <span class="o">*</span><span class="n">fs</span><span class="p">;</span>              <span class="c1">// 文件系统信息
+</span></span></span><span class="line"><span class="cl">    <span class="k">struct</span> <span class="n">files_struct</span> <span class="o">*</span><span class="n">files</span><span class="p">;</span>        <span class="c1">// 打开的文件
+</span></span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1">// 信号处理
+</span></span></span><span class="line"><span class="cl">    <span class="k">struct</span> <span class="n">signal_struct</span> <span class="o">*</span><span class="n">signal</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">struct</span> <span class="n">sighand_struct</span> <span class="o">*</span><span class="n">sighand</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1">// 时间信息
+</span></span></span><span class="line"><span class="cl">    <span class="kt">cputime_t</span> <span class="n">utime</span><span class="p">,</span> <span class="n">stime</span><span class="p">;</span>            <span class="c1">// 用户态和内核态时间
+</span></span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1">// ... 更多字段
+</span></span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span></code></pre></div><h3 id="进程标识符">进程标识符
+</h3><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># 查看进程 PID</span>
+</span></span><span class="line"><span class="cl">ps -eo pid,cmd <span class="p">|</span> head
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 查看当前 Shell 的 PID</span>
+</span></span><span class="line"><span class="cl"><span class="nb">echo</span> <span class="nv">$$</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 查看父进程 PID</span>
+</span></span><span class="line"><span class="cl"><span class="nb">echo</span> <span class="nv">$PPID</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 查看进程组 ID</span>
+</span></span><span class="line"><span class="cl">ps -eo pid,pgid,cmd <span class="p">|</span> head
+</span></span></code></pre></div><p><strong>关键标识符</strong>：</p>
 <ul>
 <li><strong>PID</strong>：进程ID（1-32768，循环使用）</li>
 <li><strong>PPID</strong>：父进程ID</li>
@@ -928,75 +908,55 @@ ps -eo pid,pgid,cmd | head</code>
   </tbody>
 </table></div>
 <h3 id="查看进程状态">查看进程状态
-</h3>
-
-
-
-
-<div class="highlight highlight-bash">
-  <pre>
-    <code class="language-bash" data-lang="bash"># 查看所有进程状态
-ps aux | head
-
-# STAT 列含义：
-# R - Running
-# S - Sleeping (interruptible)
-# D - Disk sleep (uninterruptible)
-# Z - Zombie
-# T - Stopped
-# &#43; - 前台进程组
-# s - 会话leader
-# l - 多线程
-# N - 低优先级
-# &lt; - 高优先级
-
-# 查看特定进程状态
-cat /proc/1/status | grep State</code>
-  </pre>
-</div>
-
-<h2 id="进程创建">进程创建
+</h3><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># 查看所有进程状态</span>
+</span></span><span class="line"><span class="cl">ps aux <span class="p">|</span> head
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># STAT 列含义：</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># R - Running</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># S - Sleeping (interruptible)</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># D - Disk sleep (uninterruptible)</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Z - Zombie</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># T - Stopped</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># + - 前台进程组</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># s - 会话leader</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># l - 多线程</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># N - 低优先级</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># &lt; - 高优先级</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 查看特定进程状态</span>
+</span></span><span class="line"><span class="cl">cat /proc/1/status <span class="p">|</span> grep State
+</span></span></code></pre></div><h2 id="进程创建">进程创建
 </h2><h3 id="fork-系统调用">fork() 系统调用
 </h3><p><code>fork()</code> 创建一个几乎与父进程相同的子进程：</p>
-
-
-
-
-
-<div class="highlight highlight-c">
-  <pre>
-    <code class="language-c" data-lang="c">#include &lt;unistd.h&gt;
-#include &lt;stdio.h&gt;
-#include &lt;sys/types.h&gt;
-
-int main() {
-    pid_t pid;
-
-    printf(&#34;Before fork()\n&#34;);
-
-    pid = fork();  // 创建子进程
-
-    if (pid == -1) {
-        // fork 失败
-        perror(&#34;fork failed&#34;);
-        return 1;
-    } else if (pid == 0) {
-        // 子进程代码
-        printf(&#34;Child process: PID = %d, PPID = %d\n&#34;,
-               getpid(), getppid());
-    } else {
-        // 父进程代码
-        printf(&#34;Parent process: PID = %d, Child PID = %d\n&#34;,
-               getpid(), pid);
-    }
-
-    printf(&#34;Common code\n&#34;);
-    return 0;
-}</code>
-  </pre>
-</div>
-
-<p><strong>fork() 的工作原理</strong>：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;unistd.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;stdio.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;sys/types.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">pid_t</span> <span class="n">pid</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="nf">printf</span><span class="p">(</span><span class="s">&#34;Before fork()</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="n">pid</span> <span class="o">=</span> <span class="nf">fork</span><span class="p">();</span>  <span class="c1">// 创建子进程
+</span></span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="n">pid</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="c1">// fork 失败
+</span></span></span><span class="line"><span class="cl">        <span class="nf">perror</span><span class="p">(</span><span class="s">&#34;fork failed&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="mi">1</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="n">pid</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="c1">// 子进程代码
+</span></span></span><span class="line"><span class="cl">        <span class="nf">printf</span><span class="p">(</span><span class="s">&#34;Child process: PID = %d, PPID = %d</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">               <span class="nf">getpid</span><span class="p">(),</span> <span class="nf">getppid</span><span class="p">());</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="c1">// 父进程代码
+</span></span></span><span class="line"><span class="cl">        <span class="nf">printf</span><span class="p">(</span><span class="s">&#34;Parent process: PID = %d, Child PID = %d</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">               <span class="nf">getpid</span><span class="p">(),</span> <span class="n">pid</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="nf">printf</span><span class="p">(</span><span class="s">&#34;Common code</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p><strong>fork() 的工作原理</strong>：</p>
 <pre class="mermaid">
   flowchart TD
     A[父进程] --&gt;|fork| B{fork成功?}
@@ -1009,89 +969,57 @@ int main() {
 
 <h3 id="写时复制copy-on-write">写时复制（Copy-on-Write）
 </h3><p>现代 Linux 使用 COW 优化 fork 性能：</p>
-
-
-
-
-  
-
-
-<div class="highlight highlight-text">
-  <pre>
-    <code class="language-text" data-lang="text">┌─────────────────────────────────────────────────┐
-│                  fork() 之前                    │
-│  ┌───────────────────────────────────────┐     │
-│  │    父进程内存                          │     │
-│  │    [代码段 | 数据段 | 堆 | 栈]         │     │
-│  └───────────────────────────────────────┘     │
-└─────────────────────────────────────────────────┘
-
-┌─────────────────────────────────────────────────┐
-│                  fork() 之后                    │
-│  ┌──────────────────────┐  ┌─────────────────┐ │
-│  │   父进程             │  │   子进程        │ │
-│  │  [共享只读数据]      │  │  [共享只读数据] │ │
-│  │  ┌──────────────┐   │  │  ┌───────────┐  │ │
-│  │  │ 页表(只读)   │   │  │  │ 页表(只读)│  │ │
-│  │  └──────────────┘   │  │  └───────────┘  │ │
-│  └──────────────────────┘  └─────────────────┘ │
-│                                                     │
-│  写入时才复制物理页面                              │
-└─────────────────────────────────────────────────┘</code>
-  </pre>
-</div>
-
-<h3 id="exec-系列函数">exec() 系列函数
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">┌─────────────────────────────────────────────────┐
+</span></span><span class="line"><span class="cl">│                  fork() 之前                    │
+</span></span><span class="line"><span class="cl">│  ┌───────────────────────────────────────┐     │
+</span></span><span class="line"><span class="cl">│  │    父进程内存                          │     │
+</span></span><span class="line"><span class="cl">│  │    [代码段 | 数据段 | 堆 | 栈]         │     │
+</span></span><span class="line"><span class="cl">│  └───────────────────────────────────────┘     │
+</span></span><span class="line"><span class="cl">└─────────────────────────────────────────────────┘
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">┌─────────────────────────────────────────────────┐
+</span></span><span class="line"><span class="cl">│                  fork() 之后                    │
+</span></span><span class="line"><span class="cl">│  ┌──────────────────────┐  ┌─────────────────┐ │
+</span></span><span class="line"><span class="cl">│  │   父进程             │  │   子进程        │ │
+</span></span><span class="line"><span class="cl">│  │  [共享只读数据]      │  │  [共享只读数据] │ │
+</span></span><span class="line"><span class="cl">│  │  ┌──────────────┐   │  │  ┌───────────┐  │ │
+</span></span><span class="line"><span class="cl">│  │  │ 页表(只读)   │   │  │  │ 页表(只读)│  │ │
+</span></span><span class="line"><span class="cl">│  │  └──────────────┘   │  │  └───────────┘  │ │
+</span></span><span class="line"><span class="cl">│  └──────────────────────┘  └─────────────────┘ │
+</span></span><span class="line"><span class="cl">│                                                     │
+</span></span><span class="line"><span class="cl">│  写入时才复制物理页面                              │
+</span></span><span class="line"><span class="cl">└─────────────────────────────────────────────────┘
+</span></span></code></pre></div><h3 id="exec-系列函数">exec() 系列函数
 </h3><p><code>exec()</code> 用新程序替换当前进程的内存映像：</p>
-
-
-
-
-
-<div class="highlight highlight-c">
-  <pre>
-    <code class="language-c" data-lang="c">#include &lt;unistd.h&gt;
-#include &lt;stdio.h&gt;
-
-int main() {
-    printf(&#34;Before exec\n&#34;);
-
-    // 执行 ls 命令
-    execlp(&#34;ls&#34;, &#34;ls&#34;, &#34;-la&#34;, &#34;/tmp&#34;, NULL);
-
-    // exec 成功则不会执行这里
-    perror(&#34;exec failed&#34;);
-    return 1;
-}</code>
-  </pre>
-</div>
-
-<p><strong>exec 函数族</strong>：</p>
-
-
-
-
-
-<div class="highlight highlight-c">
-  <pre>
-    <code class="language-c" data-lang="c">// 带p的函数在PATH环境变量中搜索程序
-execlp(const char *file, const char *arg, ...);
-execvp(const char *file, char *const argv[]);
-
-// 不带p的需要完整路径
-execl(const char *path, const char *arg, ...);
-execv(const char *path, char *const argv[]);
-
-// 带l的函数使用列表传递参数
-execl(&#34;/bin/ls&#34;, &#34;ls&#34;, &#34;-la&#34;, NULL);
-
-// 带v的函数使用数组传递参数
-char *args[] = {&#34;ls&#34;, &#34;-la&#34;, &#34;/tmp&#34;, NULL};
-execv(&#34;/bin/ls&#34;, args);</code>
-  </pre>
-</div>
-
-<h3 id="fork--exec-组合">fork + exec 组合
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;unistd.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;stdio.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">printf</span><span class="p">(</span><span class="s">&#34;Before exec</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1">// 执行 ls 命令
+</span></span></span><span class="line"><span class="cl">    <span class="nf">execlp</span><span class="p">(</span><span class="s">&#34;ls&#34;</span><span class="p">,</span> <span class="s">&#34;ls&#34;</span><span class="p">,</span> <span class="s">&#34;-la&#34;</span><span class="p">,</span> <span class="s">&#34;/tmp&#34;</span><span class="p">,</span> <span class="nb">NULL</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1">// exec 成功则不会执行这里
+</span></span></span><span class="line"><span class="cl">    <span class="nf">perror</span><span class="p">(</span><span class="s">&#34;exec failed&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="mi">1</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p><strong>exec 函数族</strong>：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="c1">// 带p的函数在PATH环境变量中搜索程序
+</span></span></span><span class="line"><span class="cl"><span class="nf">execlp</span><span class="p">(</span><span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">file</span><span class="p">,</span> <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">arg</span><span class="p">,</span> <span class="p">...);</span>
+</span></span><span class="line"><span class="cl"><span class="nf">execvp</span><span class="p">(</span><span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">file</span><span class="p">,</span> <span class="kt">char</span> <span class="o">*</span><span class="k">const</span> <span class="n">argv</span><span class="p">[]);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// 不带p的需要完整路径
+</span></span></span><span class="line"><span class="cl"><span class="nf">execl</span><span class="p">(</span><span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">path</span><span class="p">,</span> <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">arg</span><span class="p">,</span> <span class="p">...);</span>
+</span></span><span class="line"><span class="cl"><span class="nf">execv</span><span class="p">(</span><span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">path</span><span class="p">,</span> <span class="kt">char</span> <span class="o">*</span><span class="k">const</span> <span class="n">argv</span><span class="p">[]);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// 带l的函数使用列表传递参数
+</span></span></span><span class="line"><span class="cl"><span class="nf">execl</span><span class="p">(</span><span class="s">&#34;/bin/ls&#34;</span><span class="p">,</span> <span class="s">&#34;ls&#34;</span><span class="p">,</span> <span class="s">&#34;-la&#34;</span><span class="p">,</span> <span class="nb">NULL</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// 带v的函数使用数组传递参数
+</span></span></span><span class="line"><span class="cl"><span class="kt">char</span> <span class="o">*</span><span class="n">args</span><span class="p">[]</span> <span class="o">=</span> <span class="p">{</span><span class="s">&#34;ls&#34;</span><span class="p">,</span> <span class="s">&#34;-la&#34;</span><span class="p">,</span> <span class="s">&#34;/tmp&#34;</span><span class="p">,</span> <span class="nb">NULL</span><span class="p">};</span>
+</span></span><span class="line"><span class="cl"><span class="nf">execv</span><span class="p">(</span><span class="s">&#34;/bin/ls&#34;</span><span class="p">,</span> <span class="n">args</span><span class="p">);</span>
+</span></span></code></pre></div><h3 id="fork--exec-组合">fork + exec 组合
 </h3><p>这是 Shell 创建新进程的标准模式：</p>
 <pre class="mermaid">
   sequenceDiagram
@@ -1111,47 +1039,37 @@ execv(&#34;/bin/ls&#34;, args);</code>
 
 <h3 id="wait-和-waitpid">wait() 和 waitpid()
 </h3><p>父进程等待子进程结束：</p>
-
-
-
-
-
-<div class="highlight highlight-c">
-  <pre>
-    <code class="language-c" data-lang="c">#include &lt;sys/wait.h&gt;
-#include &lt;unistd.h&gt;
-#include &lt;stdio.h&gt;
-#include &lt;stdlib.h&gt;
-
-int main() {
-    pid_t pid;
-    int status;
-
-    pid = fork();
-
-    if (pid == 0) {
-        // 子进程
-        printf(&#34;Child running...\n&#34;);
-        sleep(2);
-        exit(42);  // 退出码
-    } else {
-        // 父进程
-        printf(&#34;Parent waiting for child...\n&#34;);
-
-        wait(&amp;status);  // 等待任意子进程
-
-        if (WIFEXITED(status)) {
-            printf(&#34;Child exited with status: %d\n&#34;,
-                   WEXITSTATUS(status));
-        }
-    }
-
-    return 0;
-}</code>
-  </pre>
-</div>
-
-<p><strong>等待宏</strong>：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;sys/wait.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;unistd.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;stdio.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;stdlib.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">pid_t</span> <span class="n">pid</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">int</span> <span class="n">status</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="n">pid</span> <span class="o">=</span> <span class="nf">fork</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="n">pid</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="c1">// 子进程
+</span></span></span><span class="line"><span class="cl">        <span class="nf">printf</span><span class="p">(</span><span class="s">&#34;Child running...</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="nf">sleep</span><span class="p">(</span><span class="mi">2</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="nf">exit</span><span class="p">(</span><span class="mi">42</span><span class="p">);</span>  <span class="c1">// 退出码
+</span></span></span><span class="line"><span class="cl">    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="c1">// 父进程
+</span></span></span><span class="line"><span class="cl">        <span class="nf">printf</span><span class="p">(</span><span class="s">&#34;Parent waiting for child...</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="nf">wait</span><span class="p">(</span><span class="o">&amp;</span><span class="n">status</span><span class="p">);</span>  <span class="c1">// 等待任意子进程
+</span></span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="p">(</span><span class="nf">WIFEXITED</span><span class="p">(</span><span class="n">status</span><span class="p">))</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="nf">printf</span><span class="p">(</span><span class="s">&#34;Child exited with status: %d</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                   <span class="nf">WEXITSTATUS</span><span class="p">(</span><span class="n">status</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p><strong>等待宏</strong>：</p>
 <ul>
 <li><code>WIFEXITED(status)</code>：子进程正常退出</li>
 <li><code>WEXITSTATUS(status)</code>：获取退出码</li>
@@ -1162,23 +1080,13 @@ int main() {
 </h2><h3 id="cfs完全公平调度器">CFS（完全公平调度器）
 </h3><p>CFS 的设计目标：<strong>公平地分配 CPU 时间</strong></p>
 <h4 id="虚拟运行时间vruntime">虚拟运行时间（vruntime）
-</h4>
-
-
-
-
-<div class="highlight highlight-c">
-  <pre>
-    <code class="language-c" data-lang="c">// vruntime 计算简化版
-vruntime &#43;= (delta_exec * NICE_0_LOAD) / load.weight;
-
-// delta_exec: 实际运行时间
-// NICE_0_LOAD: nice=0 时的权重（1024）
-// load.weight: 进程权重</code>
-  </pre>
-</div>
-
-<pre class="mermaid">
+</h4><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="c1">// vruntime 计算简化版
+</span></span></span><span class="line"><span class="cl"><span class="n">vruntime</span> <span class="o">+=</span> <span class="p">(</span><span class="n">delta_exec</span> <span class="o">*</span> <span class="n">NICE_0_LOAD</span><span class="p">)</span> <span class="o">/</span> <span class="n">load</span><span class="p">.</span><span class="n">weight</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// delta_exec: 实际运行时间
+</span></span></span><span class="line"><span class="cl"><span class="c1">// NICE_0_LOAD: nice=0 时的权重（1024）
+</span></span></span><span class="line"><span class="cl"><span class="c1">// load.weight: 进程权重
+</span></span></span></code></pre></div><pre class="mermaid">
   flowchart LR
     A[运行1秒] --&gt; B{nice值?}
     B --&gt;|nice=0&lt;br/&gt;weight=1024| C[vruntime += 1s]
@@ -1191,32 +1099,22 @@ vruntime &#43;= (delta_exec * NICE_0_LOAD) / load.weight;
 </pre>
 
 <h4 id="红黑树管理可运行进程">红黑树管理可运行进程
-</h4>
-
-
-
-
-<div class="highlight highlight-c">
-  <pre>
-    <code class="language-c" data-lang="c">// CFS 运行队列
-struct cfs_rq {
-    struct load_weight load;
-    u64 exec_clock;
-    u64 min_vruntime;
-    struct rb_root tasks_timeline;    // 红黑树根节点
-    struct rb_node *rb_leftmost;      // 最左节点（最小vruntime）
-    struct task_struct *curr;         // 当前运行进程
-};
-
-// 选择下一个运行的进程
-static struct sched_entity *pick_next_entity(struct cfs_rq *cfs_rq) {
-    struct rb_node *left = cfs_rq-&gt;rb_leftmost;
-    return rb_entry(left, struct sched_entity, run_node);
-}</code>
-  </pre>
-</div>
-
-<p><strong>调度流程</strong>：</p>
+</h4><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="c1">// CFS 运行队列
+</span></span></span><span class="line"><span class="cl"><span class="k">struct</span> <span class="n">cfs_rq</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">struct</span> <span class="n">load_weight</span> <span class="n">load</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">u64</span> <span class="n">exec_clock</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">u64</span> <span class="n">min_vruntime</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">struct</span> <span class="n">rb_root</span> <span class="n">tasks_timeline</span><span class="p">;</span>    <span class="c1">// 红黑树根节点
+</span></span></span><span class="line"><span class="cl">    <span class="k">struct</span> <span class="n">rb_node</span> <span class="o">*</span><span class="n">rb_leftmost</span><span class="p">;</span>      <span class="c1">// 最左节点（最小vruntime）
+</span></span></span><span class="line"><span class="cl">    <span class="k">struct</span> <span class="n">task_struct</span> <span class="o">*</span><span class="n">curr</span><span class="p">;</span>         <span class="c1">// 当前运行进程
+</span></span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// 选择下一个运行的进程
+</span></span></span><span class="line"><span class="cl"><span class="k">static</span> <span class="k">struct</span> <span class="n">sched_entity</span> <span class="o">*</span><span class="nf">pick_next_entity</span><span class="p">(</span><span class="k">struct</span> <span class="n">cfs_rq</span> <span class="o">*</span><span class="n">cfs_rq</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">struct</span> <span class="n">rb_node</span> <span class="o">*</span><span class="n">left</span> <span class="o">=</span> <span class="n">cfs_rq</span><span class="o">-&gt;</span><span class="n">rb_leftmost</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="nf">rb_entry</span><span class="p">(</span><span class="n">left</span><span class="p">,</span> <span class="k">struct</span> <span class="n">sched_entity</span><span class="p">,</span> <span class="n">run_node</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p><strong>调度流程</strong>：</p>
 <pre class="mermaid">
   flowchart TD
     A[时钟中断] --&gt; B[更新当前进程vruntime]
@@ -1230,357 +1128,237 @@ static struct sched_entity *pick_next_entity(struct cfs_rq *cfs_rq) {
 </pre>
 
 <h3 id="调度策略">调度策略
-</h3>
-
-
-
-
-<div class="highlight highlight-bash">
-  <pre>
-    <code class="language-bash" data-lang="bash"># 查看进程调度策略
-ps -eo pid,cmd,policy,rtprio,ni | grep -E &#34;PID|ksoft|kworker&#34;
-
-# POLICY 列含义：
-# FF - FIFO 实时调度
-# RR - 轮转实时调度
-# TS - 分时调度（普通进程）
-# IDL - 空闲进程
-
-# 查看实时进程
-ps -eo pid,cmd,policy,rtprio | awk &#39;$3 ~ /FF|RR/&#39;</code>
-  </pre>
-</div>
-
-<p><strong>修改进程优先级</strong>：</p>
-
-
-
-
-
-<div class="highlight highlight-bash">
-  <pre>
-    <code class="language-bash" data-lang="bash"># nice 值：-20（最高优先级）到 19（最低优先级）
-# 默认 nice 值为 0
-
-# 以指定 nice 值启动进程
-nice -n 10 tar -czf backup.tar.gz /home
-
-# renice：修改运行进程的优先级
-renice &#43;5 -p 1234         # 将 PID 1234 的 nice 值改为 &#43;5
-
-# 查看进程 nice 值
-ps -eo pid,ni,cmd | head</code>
-  </pre>
-</div>
-
-<h3 id="cpu-亲和性">CPU 亲和性
+</h3><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># 查看进程调度策略</span>
+</span></span><span class="line"><span class="cl">ps -eo pid,cmd,policy,rtprio,ni <span class="p">|</span> grep -E <span class="s2">&#34;PID|ksoft|kworker&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># POLICY 列含义：</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># FF - FIFO 实时调度</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># RR - 轮转实时调度</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># TS - 分时调度（普通进程）</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># IDL - 空闲进程</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 查看实时进程</span>
+</span></span><span class="line"><span class="cl">ps -eo pid,cmd,policy,rtprio <span class="p">|</span> awk <span class="s1">&#39;$3 ~ /FF|RR/&#39;</span>
+</span></span></code></pre></div><p><strong>修改进程优先级</strong>：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># nice 值：-20（最高优先级）到 19（最低优先级）</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 默认 nice 值为 0</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 以指定 nice 值启动进程</span>
+</span></span><span class="line"><span class="cl">nice -n <span class="m">10</span> tar -czf backup.tar.gz /home
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># renice：修改运行进程的优先级</span>
+</span></span><span class="line"><span class="cl">renice +5 -p <span class="m">1234</span>         <span class="c1"># 将 PID 1234 的 nice 值改为 +5</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 查看进程 nice 值</span>
+</span></span><span class="line"><span class="cl">ps -eo pid,ni,cmd <span class="p">|</span> head
+</span></span></code></pre></div><h3 id="cpu-亲和性">CPU 亲和性
 </h3><p>绑定进程到特定 CPU 核心：</p>
-
-
-
-
-
-<div class="highlight highlight-bash">
-  <pre>
-    <code class="language-bash" data-lang="bash"># 查看进程 CPU 亲和性
-taskset -p 1234           # 显示 PID 1234 的 CPU 亲和性
-# pid 1234&#39;s current affinity mask: ff (所有8个CPU)
-
-# 设置进程 CPU 亲和性
-taskset -p 3 1234         # 绑定到 CPU 0 和 1（二进制 11）
-taskset -pc 0,2,4 1234    # 绑定到 CPU 0, 2, 4
-
-# 启动进程时指定 CPU 亲和性
-taskset -c 0,1 ./myapp    # 在 CPU 0 和 1 上运行
-
-# 查看各 CPU 负载
-mpstat -P ALL 1</code>
-  </pre>
-</div>
-
-<h2 id="进程监控工具">进程监控工具
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># 查看进程 CPU 亲和性</span>
+</span></span><span class="line"><span class="cl">taskset -p <span class="m">1234</span>           <span class="c1"># 显示 PID 1234 的 CPU 亲和性</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># pid 1234&#39;s current affinity mask: ff (所有8个CPU)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 设置进程 CPU 亲和性</span>
+</span></span><span class="line"><span class="cl">taskset -p <span class="m">3</span> <span class="m">1234</span>         <span class="c1"># 绑定到 CPU 0 和 1（二进制 11）</span>
+</span></span><span class="line"><span class="cl">taskset -pc 0,2,4 <span class="m">1234</span>    <span class="c1"># 绑定到 CPU 0, 2, 4</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 启动进程时指定 CPU 亲和性</span>
+</span></span><span class="line"><span class="cl">taskset -c 0,1 ./myapp    <span class="c1"># 在 CPU 0 和 1 上运行</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 查看各 CPU 负载</span>
+</span></span><span class="line"><span class="cl">mpstat -P ALL <span class="m">1</span>
+</span></span></code></pre></div><h2 id="进程监控工具">进程监控工具
 </h2><h3 id="ps-命令">ps 命令
-</h3>
-
-
-
-
-<div class="highlight highlight-bash">
-  <pre>
-    <code class="language-bash" data-lang="bash"># 基本用法
-ps aux                    # BSD 风格
-ps -ef                    # System V 风格
-
-# 常用组合
-ps aux | grep nginx       # 查找 nginx 进程
-ps -eo pid,ppid,cmd,%mem,%cpu --sort=-%mem | head
-# 按内存使用排序
-
-# 查看进程树
-ps axjf                   # ASCII 艺术进程树
-ps -e --forest            # 进程森林
-
-# 查看特定用户进程
-ps -u username
-
-# 查看完整命令
-ps auxww                  # 不截断命令行</code>
-  </pre>
-</div>
-
-<h3 id="tophtop">top/htop
-</h3>
-
-
-
-
-<div class="highlight highlight-bash">
-  <pre>
-    <code class="language-bash" data-lang="bash"># top 命令
-top
-# 按 P：按 CPU 排序
-# 按 M：按内存排序
-# 按 T：按时间排序
-# 按 k：杀死进程
-# 按 r：renice
-# 按 q：退出
-
-# htop（更友好）
-htop
-# F1-F10：功能键
-# /：搜索进程
-# F9：调整进程优先级
-# F6：排序方式</code>
-  </pre>
-</div>
-
-<h3 id="pidstat">pidstat
-</h3>
-
-
-
-
-<div class="highlight highlight-bash">
-  <pre>
-    <code class="language-bash" data-lang="bash"># 安装 sysstat 包
-sudo apt install sysstat
-
-# CPU 使用统计
-pidstat 2 5              # 每2秒输出一次，共5次
-
-# 显示特定进程
-pidstat -p 1234 1
-
-# 显示线程统计
-pidstat -t -p 1234
-
-# 显示上下文切换
-pidstat -w -p 1234
-
-# 显示缺页异常
-pidstat -r -p 1234</code>
-  </pre>
-</div>
-
-<h3 id="proc-文件系统">/proc 文件系统
-</h3>
-
-
-
-
-<div class="highlight highlight-bash">
-  <pre>
-    <code class="language-bash" data-lang="bash"># 查看进程信息
-ls /proc/1234/
-
-cat /proc/1234/status     # 进程状态
-cat /proc/1234/cmdline    # 命令行参数
-cat /proc/1234/environ    # 环境变量
-cat /proc/1234/maps       # 内存映射
-cat /proc/1234/fd         # 文件描述符
-ls -l /proc/1234/fd/      # 查看打开的文件
-
-# 实时监控
-watch -n 1 &#39;cat /proc/1234/status | grep -E &#34;VmSize|VmRSS&#34;&#39;</code>
-  </pre>
-</div>
-
-<h2 id="进程控制">进程控制
+</h3><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># 基本用法</span>
+</span></span><span class="line"><span class="cl">ps aux                    <span class="c1"># BSD 风格</span>
+</span></span><span class="line"><span class="cl">ps -ef                    <span class="c1"># System V 风格</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 常用组合</span>
+</span></span><span class="line"><span class="cl">ps aux <span class="p">|</span> grep nginx       <span class="c1"># 查找 nginx 进程</span>
+</span></span><span class="line"><span class="cl">ps -eo pid,ppid,cmd,%mem,%cpu --sort<span class="o">=</span>-%mem <span class="p">|</span> head
+</span></span><span class="line"><span class="cl"><span class="c1"># 按内存使用排序</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 查看进程树</span>
+</span></span><span class="line"><span class="cl">ps axjf                   <span class="c1"># ASCII 艺术进程树</span>
+</span></span><span class="line"><span class="cl">ps -e --forest            <span class="c1"># 进程森林</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 查看特定用户进程</span>
+</span></span><span class="line"><span class="cl">ps -u username
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 查看完整命令</span>
+</span></span><span class="line"><span class="cl">ps auxww                  <span class="c1"># 不截断命令行</span>
+</span></span></code></pre></div><h3 id="tophtop">top/htop
+</h3><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># top 命令</span>
+</span></span><span class="line"><span class="cl">top
+</span></span><span class="line"><span class="cl"><span class="c1"># 按 P：按 CPU 排序</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 按 M：按内存排序</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 按 T：按时间排序</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 按 k：杀死进程</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 按 r：renice</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 按 q：退出</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># htop（更友好）</span>
+</span></span><span class="line"><span class="cl">htop
+</span></span><span class="line"><span class="cl"><span class="c1"># F1-F10：功能键</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># /：搜索进程</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># F9：调整进程优先级</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># F6：排序方式</span>
+</span></span></code></pre></div><h3 id="pidstat">pidstat
+</h3><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># 安装 sysstat 包</span>
+</span></span><span class="line"><span class="cl">sudo apt install sysstat
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># CPU 使用统计</span>
+</span></span><span class="line"><span class="cl">pidstat <span class="m">2</span> <span class="m">5</span>              <span class="c1"># 每2秒输出一次，共5次</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 显示特定进程</span>
+</span></span><span class="line"><span class="cl">pidstat -p <span class="m">1234</span> <span class="m">1</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 显示线程统计</span>
+</span></span><span class="line"><span class="cl">pidstat -t -p <span class="m">1234</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 显示上下文切换</span>
+</span></span><span class="line"><span class="cl">pidstat -w -p <span class="m">1234</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 显示缺页异常</span>
+</span></span><span class="line"><span class="cl">pidstat -r -p <span class="m">1234</span>
+</span></span></code></pre></div><h3 id="proc-文件系统">/proc 文件系统
+</h3><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># 查看进程信息</span>
+</span></span><span class="line"><span class="cl">ls /proc/1234/
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">cat /proc/1234/status     <span class="c1"># 进程状态</span>
+</span></span><span class="line"><span class="cl">cat /proc/1234/cmdline    <span class="c1"># 命令行参数</span>
+</span></span><span class="line"><span class="cl">cat /proc/1234/environ    <span class="c1"># 环境变量</span>
+</span></span><span class="line"><span class="cl">cat /proc/1234/maps       <span class="c1"># 内存映射</span>
+</span></span><span class="line"><span class="cl">cat /proc/1234/fd         <span class="c1"># 文件描述符</span>
+</span></span><span class="line"><span class="cl">ls -l /proc/1234/fd/      <span class="c1"># 查看打开的文件</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 实时监控</span>
+</span></span><span class="line"><span class="cl">watch -n <span class="m">1</span> <span class="s1">&#39;cat /proc/1234/status | grep -E &#34;VmSize|VmRSS&#34;&#39;</span>
+</span></span></code></pre></div><h2 id="进程控制">进程控制
 </h2><h3 id="发送信号">发送信号
-</h3>
-
-
-
-
-<div class="highlight highlight-bash">
-  <pre>
-    <code class="language-bash" data-lang="bash"># 常用信号
-# SIGTERM (15): 优雅终止
-# SIGKILL (9): 强制终止
-# SIGHUP (1): 重新加载配置
-# SIGSTOP (19): 暂停进程
-# SIGCONT (18): 继续进程
-
-# kill 命令
-kill 1234                # 默认发送 SIGTERM
-kill -9 1234             # 强制终止
-kill -HUP 1234           # 重新加载
-
-# killall：按名称杀死进程
-killall nginx
-killall -9 firefox
-
-# pkill：按模式匹配
-pkill -f &#34;python.*script&#34;
-pkill -u username        # 杀死用户的所有进程
-
-# 查看可用信号
-kill -l</code>
-  </pre>
-</div>
-
-<h3 id="nohup-和-disown">nohup 和 disown
-</h3>
-
-
-
-
-<div class="highlight highlight-bash">
-  <pre>
-    <code class="language-bash" data-lang="bash"># nohup：忽略 SIGHUP 信号
-nohup ./long_process &amp;   # 终端关闭后进程继续运行
-
-# disown：从作业列表中移除
-./process &amp;
-Ctrl&#43;Z                   # 暂停
-bg                       # 后台运行
-disown -h %1             # 忽略 SIGHUP
-
-# tmux/screen：更好的会话管理
-tmux new -s session      # 创建新会话</code>
-  </pre>
-</div>
-
-<h2 id="实战案例">实战案例
+</h3><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># 常用信号</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># SIGTERM (15): 优雅终止</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># SIGKILL (9): 强制终止</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># SIGHUP (1): 重新加载配置</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># SIGSTOP (19): 暂停进程</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># SIGCONT (18): 继续进程</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># kill 命令</span>
+</span></span><span class="line"><span class="cl"><span class="nb">kill</span> <span class="m">1234</span>                <span class="c1"># 默认发送 SIGTERM</span>
+</span></span><span class="line"><span class="cl"><span class="nb">kill</span> -9 <span class="m">1234</span>             <span class="c1"># 强制终止</span>
+</span></span><span class="line"><span class="cl"><span class="nb">kill</span> -HUP <span class="m">1234</span>           <span class="c1"># 重新加载</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># killall：按名称杀死进程</span>
+</span></span><span class="line"><span class="cl">killall nginx
+</span></span><span class="line"><span class="cl">killall -9 firefox
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># pkill：按模式匹配</span>
+</span></span><span class="line"><span class="cl">pkill -f <span class="s2">&#34;python.*script&#34;</span>
+</span></span><span class="line"><span class="cl">pkill -u username        <span class="c1"># 杀死用户的所有进程</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 查看可用信号</span>
+</span></span><span class="line"><span class="cl"><span class="nb">kill</span> -l
+</span></span></code></pre></div><h3 id="nohup-和-disown">nohup 和 disown
+</h3><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># nohup：忽略 SIGHUP 信号</span>
+</span></span><span class="line"><span class="cl">nohup ./long_process <span class="p">&amp;</span>   <span class="c1"># 终端关闭后进程继续运行</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># disown：从作业列表中移除</span>
+</span></span><span class="line"><span class="cl">./process <span class="p">&amp;</span>
+</span></span><span class="line"><span class="cl">Ctrl+Z                   <span class="c1"># 暂停</span>
+</span></span><span class="line"><span class="cl"><span class="nb">bg</span>                       <span class="c1"># 后台运行</span>
+</span></span><span class="line"><span class="cl"><span class="nb">disown</span> -h %1             <span class="c1"># 忽略 SIGHUP</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># tmux/screen：更好的会话管理</span>
+</span></span><span class="line"><span class="cl">tmux new -s session      <span class="c1"># 创建新会话</span>
+</span></span></code></pre></div><h2 id="实战案例">实战案例
 </h2><h3 id="查找并杀死僵尸进程">查找并杀死僵尸进程
-</h3>
-
-
-
-
-<div class="highlight highlight-bash">
-  <pre>
-    <code class="language-bash" data-lang="bash">#!/bin/bash
-# kill_zombies.sh
-
-# 查找僵尸进程
-echo &#34;Checking for zombie processes...&#34;
-
-ps aux | awk &#39;{print $8, $2}&#39; | grep -w Z | while read state pid; do
-    if [ -n &#34;$pid&#34; ]; then
-        echo &#34;Found zombie process: PID $pid&#34;
-
-        # 查找父进程
-        ppid=$(ps -o ppid= -p $pid | tr -d &#39; &#39;)
-        echo &#34;Parent PID: $ppid&#34;
-
-        # 通知父进程回收子进程
-        kill -CHLD $ppid
-        sleep 1
-
-        # 如果仍然存在，杀死父进程
-        if ps -p $pid &gt; /dev/null; then
-            echo &#34;Zombie still exists, killing parent...&#34;
-            kill -9 $ppid
-        fi
-    fi
-done</code>
-  </pre>
-</div>
-
-<h3 id="进程监控脚本">进程监控脚本
-</h3>
-
-
-
-
-<div class="highlight highlight-bash">
-  <pre>
-    <code class="language-bash" data-lang="bash">#!/bin/bash
-# monitor_process.sh
-
-PROCESS_NAME=$1
-INTERVAL=5
-
-if [ -z &#34;$PROCESS_NAME&#34; ]; then
-    echo &#34;Usage: $0 &lt;process_name&gt;&#34;
-    exit 1
-fi
-
-while true; do
-    clear
-    echo &#34;=== Monitoring: $PROCESS_NAME ===&#34;
-    echo &#34;Time: $(date)&#34;
-    echo &#34;&#34;
-
-    pid=$(pgrep -o &#34;$PROCESS_NAME&#34;)
-
-    if [ -n &#34;$pid&#34; ]; then
-        echo &#34;PID: $pid&#34;
-        echo &#34;&#34;
-
-        # CPU 和内存使用
-        ps -p $pid -o %cpu,%mem,cmd
-
-        echo &#34;&#34;
-        echo &#34;--- CPU History ---&#34;
-        pidstat -p $pid 1 1 | tail -1
-
-        echo &#34;&#34;
-        echo &#34;--- Memory Usage ---&#34;
-        grep -E &#34;VmSize|VmRSS&#34; /proc/$pid/status
-
-        echo &#34;&#34;
-        echo &#34;--- File Descriptors ---&#34;
-        ls /proc/$pid/fd | wc -l
-    else
-        echo &#34;Process not found!&#34;
-    fi
-
-    sleep $INTERVAL
-done</code>
-  </pre>
-</div>
-
-<h3 id="限制进程资源">限制进程资源
-</h3>
-
-
-
-
-<div class="highlight highlight-bash">
-  <pre>
-    <code class="language-bash" data-lang="bash"># ulimit：查看和设置资源限制
-ulimit -a                 # 查看所有限制
-ulimit -n 4096            # 设置文件描述符限制
-ulimit -u 1024            # 设置进程数限制
-
-# cgroups v2：更强大的资源控制
-# 创建 cgroup
-sudo mkdir /sys/fs/cgroup/myapp
-
-# 设置内存限制
-echo 500M &gt; /sys/fs/cgroup/myapp/memory.max
-
-# 设置 CPU 限制
-echo 2 &gt; /sys/fs/cgroup/myapp/cpu.max
-
-# 运行程序
-sudo cgexec -g memory,cpu:myapp ./myapp</code>
-  </pre>
-</div>
-
-<h2 id="总结">总结
+</h3><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="cp">#!/bin/bash
+</span></span></span><span class="line"><span class="cl"><span class="c1"># kill_zombies.sh</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 查找僵尸进程</span>
+</span></span><span class="line"><span class="cl"><span class="nb">echo</span> <span class="s2">&#34;Checking for zombie processes...&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">ps aux <span class="p">|</span> awk <span class="s1">&#39;{print $8, $2}&#39;</span> <span class="p">|</span> grep -w Z <span class="p">|</span> <span class="k">while</span> <span class="nb">read</span> state pid<span class="p">;</span> <span class="k">do</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="o">[</span> -n <span class="s2">&#34;</span><span class="nv">$pid</span><span class="s2">&#34;</span> <span class="o">]</span><span class="p">;</span> <span class="k">then</span>
+</span></span><span class="line"><span class="cl">        <span class="nb">echo</span> <span class="s2">&#34;Found zombie process: PID </span><span class="nv">$pid</span><span class="s2">&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="c1"># 查找父进程</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">ppid</span><span class="o">=</span><span class="k">$(</span>ps -o <span class="nv">ppid</span><span class="o">=</span> -p <span class="nv">$pid</span> <span class="p">|</span> tr -d <span class="s1">&#39; &#39;</span><span class="k">)</span>
+</span></span><span class="line"><span class="cl">        <span class="nb">echo</span> <span class="s2">&#34;Parent PID: </span><span class="nv">$ppid</span><span class="s2">&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="c1"># 通知父进程回收子进程</span>
+</span></span><span class="line"><span class="cl">        <span class="nb">kill</span> -CHLD <span class="nv">$ppid</span>
+</span></span><span class="line"><span class="cl">        sleep <span class="m">1</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="c1"># 如果仍然存在，杀死父进程</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> ps -p <span class="nv">$pid</span> &gt; /dev/null<span class="p">;</span> <span class="k">then</span>
+</span></span><span class="line"><span class="cl">            <span class="nb">echo</span> <span class="s2">&#34;Zombie still exists, killing parent...&#34;</span>
+</span></span><span class="line"><span class="cl">            <span class="nb">kill</span> -9 <span class="nv">$ppid</span>
+</span></span><span class="line"><span class="cl">        <span class="k">fi</span>
+</span></span><span class="line"><span class="cl">    <span class="k">fi</span>
+</span></span><span class="line"><span class="cl"><span class="k">done</span>
+</span></span></code></pre></div><h3 id="进程监控脚本">进程监控脚本
+</h3><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="cp">#!/bin/bash
+</span></span></span><span class="line"><span class="cl"><span class="c1"># monitor_process.sh</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nv">PROCESS_NAME</span><span class="o">=</span><span class="nv">$1</span>
+</span></span><span class="line"><span class="cl"><span class="nv">INTERVAL</span><span class="o">=</span><span class="m">5</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="o">[</span> -z <span class="s2">&#34;</span><span class="nv">$PROCESS_NAME</span><span class="s2">&#34;</span> <span class="o">]</span><span class="p">;</span> <span class="k">then</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">echo</span> <span class="s2">&#34;Usage: </span><span class="nv">$0</span><span class="s2"> &lt;process_name&gt;&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">exit</span> <span class="m">1</span>
+</span></span><span class="line"><span class="cl"><span class="k">fi</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">while</span> true<span class="p">;</span> <span class="k">do</span>
+</span></span><span class="line"><span class="cl">    clear
+</span></span><span class="line"><span class="cl">    <span class="nb">echo</span> <span class="s2">&#34;=== Monitoring: </span><span class="nv">$PROCESS_NAME</span><span class="s2"> ===&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">echo</span> <span class="s2">&#34;Time: </span><span class="k">$(</span>date<span class="k">)</span><span class="s2">&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">echo</span> <span class="s2">&#34;&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="nv">pid</span><span class="o">=</span><span class="k">$(</span>pgrep -o <span class="s2">&#34;</span><span class="nv">$PROCESS_NAME</span><span class="s2">&#34;</span><span class="k">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="o">[</span> -n <span class="s2">&#34;</span><span class="nv">$pid</span><span class="s2">&#34;</span> <span class="o">]</span><span class="p">;</span> <span class="k">then</span>
+</span></span><span class="line"><span class="cl">        <span class="nb">echo</span> <span class="s2">&#34;PID: </span><span class="nv">$pid</span><span class="s2">&#34;</span>
+</span></span><span class="line"><span class="cl">        <span class="nb">echo</span> <span class="s2">&#34;&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="c1"># CPU 和内存使用</span>
+</span></span><span class="line"><span class="cl">        ps -p <span class="nv">$pid</span> -o %cpu,%mem,cmd
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="nb">echo</span> <span class="s2">&#34;&#34;</span>
+</span></span><span class="line"><span class="cl">        <span class="nb">echo</span> <span class="s2">&#34;--- CPU History ---&#34;</span>
+</span></span><span class="line"><span class="cl">        pidstat -p <span class="nv">$pid</span> <span class="m">1</span> <span class="m">1</span> <span class="p">|</span> tail -1
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="nb">echo</span> <span class="s2">&#34;&#34;</span>
+</span></span><span class="line"><span class="cl">        <span class="nb">echo</span> <span class="s2">&#34;--- Memory Usage ---&#34;</span>
+</span></span><span class="line"><span class="cl">        grep -E <span class="s2">&#34;VmSize|VmRSS&#34;</span> /proc/<span class="nv">$pid</span>/status
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="nb">echo</span> <span class="s2">&#34;&#34;</span>
+</span></span><span class="line"><span class="cl">        <span class="nb">echo</span> <span class="s2">&#34;--- File Descriptors ---&#34;</span>
+</span></span><span class="line"><span class="cl">        ls /proc/<span class="nv">$pid</span>/fd <span class="p">|</span> wc -l
+</span></span><span class="line"><span class="cl">    <span class="k">else</span>
+</span></span><span class="line"><span class="cl">        <span class="nb">echo</span> <span class="s2">&#34;Process not found!&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">fi</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    sleep <span class="nv">$INTERVAL</span>
+</span></span><span class="line"><span class="cl"><span class="k">done</span>
+</span></span></code></pre></div><h3 id="限制进程资源">限制进程资源
+</h3><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># ulimit：查看和设置资源限制</span>
+</span></span><span class="line"><span class="cl"><span class="nb">ulimit</span> -a                 <span class="c1"># 查看所有限制</span>
+</span></span><span class="line"><span class="cl"><span class="nb">ulimit</span> -n <span class="m">4096</span>            <span class="c1"># 设置文件描述符限制</span>
+</span></span><span class="line"><span class="cl"><span class="nb">ulimit</span> -u <span class="m">1024</span>            <span class="c1"># 设置进程数限制</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># cgroups v2：更强大的资源控制</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 创建 cgroup</span>
+</span></span><span class="line"><span class="cl">sudo mkdir /sys/fs/cgroup/myapp
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 设置内存限制</span>
+</span></span><span class="line"><span class="cl"><span class="nb">echo</span> 500M &gt; /sys/fs/cgroup/myapp/memory.max
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 设置 CPU 限制</span>
+</span></span><span class="line"><span class="cl"><span class="nb">echo</span> <span class="m">2</span> &gt; /sys/fs/cgroup/myapp/cpu.max
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 运行程序</span>
+</span></span><span class="line"><span class="cl">sudo cgexec -g memory,cpu:myapp ./myapp
+</span></span></code></pre></div><h2 id="总结">总结
 </h2><p>进程管理是 Linux 系统的核心功能。通过这篇文章，我们了解了：</p>
 <h3 id="核心概念">核心概念
 </h3><ol>
@@ -1942,7 +1720,7 @@ sudo cgexec -g memory,cpu:myapp ./myapp</code>
                 src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
                 
                 >
-            </script><script type="text/javascript" src="/ts/main.888cccdaf3c934b58bb1982792b4d0fdb89be145d2cabea38c8569bfe7d08117.js" defer></script>
+            </script><script type="text/javascript" src="/ts/main.fe055f50234dc99b59992d29820a4403a71f7c90de7b6ebd204c621ac170b546.js" defer></script>
 <script>
     (function () {
         const customFont = document.createElement('link');

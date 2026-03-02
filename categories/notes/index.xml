@@ -5,9 +5,9 @@
         <link>http://localhost:1313/categories/notes/</link>
         <description>Recent content in Notes on Henry Zhang</description>
         <generator>Hugo -- gohugo.io</generator>
-        <language>zh-cn</language>
+        <language>en-us</language>
         <copyright>blog@mail.henry070.org</copyright>
-        <lastBuildDate>Sun, 11 Jan 2026 16:57:00 +0000</lastBuildDate><atom:link href="http://localhost:1313/categories/notes/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Mon, 12 Jan 2026 00:57:00 +0800</lastBuildDate><atom:link href="http://localhost:1313/categories/notes/index.xml" rel="self" type="application/rss+xml" /><item>
         <title>软件包管理：Linux 的应用商店</title>
         <link>http://localhost:1313/p/%E8%BD%AF%E4%BB%B6%E5%8C%85%E7%AE%A1%E7%90%86linux-%E7%9A%84%E5%BA%94%E7%94%A8%E5%95%86%E5%BA%97/</link>
         <pubDate>Sun, 11 Jan 2026 03:00:00 +0800</pubDate>
@@ -6939,7 +6939,7 @@ sudo rm /var/lib/dpkg/lock*&lt;/code&gt;
 &lt;p&gt;&lt;img src=&#34;http://localhost:1313/p/git/jojos-killer.gif&#34;
 	width=&#34;464&#34;
 	height=&#34;258&#34;
-	srcset=&#34;http://localhost:1313/p/git/jojos-killer_hu_113ff57fcf33b172.gif 480w, http://localhost:1313/p/git/jojos-killer_hu_49e2041d9bb05d24.gif 1024w&#34;
+	srcset=&#34;http://localhost:1313/p/git/jojos-killer_hu_e5fcf31d63d0f58e.gif 480w, http://localhost:1313/p/git/jojos-killer_hu_5e55566e1a98829f.gif 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;败者食尘&#34;
@@ -7487,7 +7487,7 @@ git checkout -b fix/image-loading    # 比如你要修 bug&lt;/code&gt;
 &lt;p&gt;&lt;img src=&#34;http://localhost:1313/p/%E7%A7%91%E5%AD%A6%E4%B8%8A%E7%BD%91%E9%85%8D%E7%BD%AE%E6%95%99%E7%A8%8B-%E8%8A%82%E7%82%B9%E6%90%AD%E5%BB%BA/win1.jpg&#34;
 	width=&#34;1044&#34;
 	height=&#34;634&#34;
-	srcset=&#34;http://localhost:1313/p/%E7%A7%91%E5%AD%A6%E4%B8%8A%E7%BD%91%E9%85%8D%E7%BD%AE%E6%95%99%E7%A8%8B-%E8%8A%82%E7%82%B9%E6%90%AD%E5%BB%BA/win1_hu_9a6ef8efacf44485.jpg 480w, http://localhost:1313/p/%E7%A7%91%E5%AD%A6%E4%B8%8A%E7%BD%91%E9%85%8D%E7%BD%AE%E6%95%99%E7%A8%8B-%E8%8A%82%E7%82%B9%E6%90%AD%E5%BB%BA/win1_hu_c1dc58a06ca091a.jpg 1024w&#34;
+	srcset=&#34;http://localhost:1313/p/%E7%A7%91%E5%AD%A6%E4%B8%8A%E7%BD%91%E9%85%8D%E7%BD%AE%E6%95%99%E7%A8%8B-%E8%8A%82%E7%82%B9%E6%90%AD%E5%BB%BA/win1_hu_a25224771b7e0955.jpg 480w, http://localhost:1313/p/%E7%A7%91%E5%AD%A6%E4%B8%8A%E7%BD%91%E9%85%8D%E7%BD%AE%E6%95%99%E7%A8%8B-%E8%8A%82%E7%82%B9%E6%90%AD%E5%BB%BA/win1_hu_1f21c1a2faf34543.jpg 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;下载下来之后解压文件夹, 并把它放在你记得的文件位置即可&#34;
@@ -7501,7 +7501,7 @@ git checkout -b fix/image-loading    # 比如你要修 bug&lt;/code&gt;
 &lt;p&gt;&lt;img src=&#34;http://localhost:1313/p/%E7%A7%91%E5%AD%A6%E4%B8%8A%E7%BD%91%E9%85%8D%E7%BD%AE%E6%95%99%E7%A8%8B-%E8%8A%82%E7%82%B9%E6%90%AD%E5%BB%BA/win4.jpg&#34;
 	width=&#34;1044&#34;
 	height=&#34;678&#34;
-	srcset=&#34;http://localhost:1313/p/%E7%A7%91%E5%AD%A6%E4%B8%8A%E7%BD%91%E9%85%8D%E7%BD%AE%E6%95%99%E7%A8%8B-%E8%8A%82%E7%82%B9%E6%90%AD%E5%BB%BA/win4_hu_73072d8f97059ea.jpg 480w, http://localhost:1313/p/%E7%A7%91%E5%AD%A6%E4%B8%8A%E7%BD%91%E9%85%8D%E7%BD%AE%E6%95%99%E7%A8%8B-%E8%8A%82%E7%82%B9%E6%90%AD%E5%BB%BA/win4_hu_2257914782d53857.jpg 1024w&#34;
+	srcset=&#34;http://localhost:1313/p/%E7%A7%91%E5%AD%A6%E4%B8%8A%E7%BD%91%E9%85%8D%E7%BD%AE%E6%95%99%E7%A8%8B-%E8%8A%82%E7%82%B9%E6%90%AD%E5%BB%BA/win4_hu_b7f8e812f84ce366.jpg 480w, http://localhost:1313/p/%E7%A7%91%E5%AD%A6%E4%B8%8A%E7%BD%91%E9%85%8D%E7%BD%AE%E6%95%99%E7%A8%8B-%E8%8A%82%E7%82%B9%E6%90%AD%E5%BB%BA/win4_hu_c4029b1bf784698.jpg 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;之后可以选择创建快捷方式到桌面上方便以后打开&#34;
@@ -7515,7 +7515,7 @@ git checkout -b fix/image-loading    # 比如你要修 bug&lt;/code&gt;
 &lt;p&gt;&lt;img src=&#34;http://localhost:1313/p/%E7%A7%91%E5%AD%A6%E4%B8%8A%E7%BD%91%E9%85%8D%E7%BD%AE%E6%95%99%E7%A8%8B-%E8%8A%82%E7%82%B9%E6%90%AD%E5%BB%BA/win3.jpg&#34;
 	width=&#34;1482&#34;
 	height=&#34;953&#34;
-	srcset=&#34;http://localhost:1313/p/%E7%A7%91%E5%AD%A6%E4%B8%8A%E7%BD%91%E9%85%8D%E7%BD%AE%E6%95%99%E7%A8%8B-%E8%8A%82%E7%82%B9%E6%90%AD%E5%BB%BA/win3_hu_52283cd0435a0081.jpg 480w, http://localhost:1313/p/%E7%A7%91%E5%AD%A6%E4%B8%8A%E7%BD%91%E9%85%8D%E7%BD%AE%E6%95%99%E7%A8%8B-%E8%8A%82%E7%82%B9%E6%90%AD%E5%BB%BA/win3_hu_7974fe239a362a14.jpg 1024w&#34;
+	srcset=&#34;http://localhost:1313/p/%E7%A7%91%E5%AD%A6%E4%B8%8A%E7%BD%91%E9%85%8D%E7%BD%AE%E6%95%99%E7%A8%8B-%E8%8A%82%E7%82%B9%E6%90%AD%E5%BB%BA/win3_hu_b3a4b5386557bdfa.jpg 480w, http://localhost:1313/p/%E7%A7%91%E5%AD%A6%E4%B8%8A%E7%BD%91%E9%85%8D%E7%BD%AE%E6%95%99%E7%A8%8B-%E8%8A%82%E7%82%B9%E6%90%AD%E5%BB%BA/win3_hu_4f656f00ad8f3213.jpg 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;双击后或者使用管理员模式打开后点击左上角的配置项并从剪切板导入(提前将我提供的节点复制到剪切板)&#34;
@@ -7529,7 +7529,7 @@ git checkout -b fix/image-loading    # 比如你要修 bug&lt;/code&gt;
 &lt;p&gt;&lt;img src=&#34;http://localhost:1313/p/%E7%A7%91%E5%AD%A6%E4%B8%8A%E7%BD%91%E9%85%8D%E7%BD%AE%E6%95%99%E7%A8%8B-%E8%8A%82%E7%82%B9%E6%90%AD%E5%BB%BA/win5.jpg&#34;
 	width=&#34;1495&#34;
 	height=&#34;844&#34;
-	srcset=&#34;http://localhost:1313/p/%E7%A7%91%E5%AD%A6%E4%B8%8A%E7%BD%91%E9%85%8D%E7%BD%AE%E6%95%99%E7%A8%8B-%E8%8A%82%E7%82%B9%E6%90%AD%E5%BB%BA/win5_hu_39f25f4cd088e248.jpg 480w, http://localhost:1313/p/%E7%A7%91%E5%AD%A6%E4%B8%8A%E7%BD%91%E9%85%8D%E7%BD%AE%E6%95%99%E7%A8%8B-%E8%8A%82%E7%82%B9%E6%90%AD%E5%BB%BA/win5_hu_372e73bb276acbc3.jpg 1024w&#34;
+	srcset=&#34;http://localhost:1313/p/%E7%A7%91%E5%AD%A6%E4%B8%8A%E7%BD%91%E9%85%8D%E7%BD%AE%E6%95%99%E7%A8%8B-%E8%8A%82%E7%82%B9%E6%90%AD%E5%BB%BA/win5_hu_a4bdcad09cf671a3.jpg 480w, http://localhost:1313/p/%E7%A7%91%E5%AD%A6%E4%B8%8A%E7%BD%91%E9%85%8D%E7%BD%AE%E6%95%99%E7%A8%8B-%E8%8A%82%E7%82%B9%E6%90%AD%E5%BB%BA/win5_hu_23d375bfc8cf880.jpg 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;将添加进来的节点设置为活动配置文件(右下角路由模式为白名单模式)&#34;
@@ -7543,7 +7543,7 @@ git checkout -b fix/image-loading    # 比如你要修 bug&lt;/code&gt;
 &lt;p&gt;&lt;img src=&#34;http://localhost:1313/p/%E7%A7%91%E5%AD%A6%E4%B8%8A%E7%BD%91%E9%85%8D%E7%BD%AE%E6%95%99%E7%A8%8B-%E8%8A%82%E7%82%B9%E6%90%AD%E5%BB%BA/win6.jpg&#34;
 	width=&#34;696&#34;
 	height=&#34;786&#34;
-	srcset=&#34;http://localhost:1313/p/%E7%A7%91%E5%AD%A6%E4%B8%8A%E7%BD%91%E9%85%8D%E7%BD%AE%E6%95%99%E7%A8%8B-%E8%8A%82%E7%82%B9%E6%90%AD%E5%BB%BA/win6_hu_d9850a81728f497b.jpg 480w, http://localhost:1313/p/%E7%A7%91%E5%AD%A6%E4%B8%8A%E7%BD%91%E9%85%8D%E7%BD%AE%E6%95%99%E7%A8%8B-%E8%8A%82%E7%82%B9%E6%90%AD%E5%BB%BA/win6_hu_69ef5c87b199cbb3.jpg 1024w&#34;
+	srcset=&#34;http://localhost:1313/p/%E7%A7%91%E5%AD%A6%E4%B8%8A%E7%BD%91%E9%85%8D%E7%BD%AE%E6%95%99%E7%A8%8B-%E8%8A%82%E7%82%B9%E6%90%AD%E5%BB%BA/win6_hu_909220de9ae96da7.jpg 480w, http://localhost:1313/p/%E7%A7%91%E5%AD%A6%E4%B8%8A%E7%BD%91%E9%85%8D%E7%BD%AE%E6%95%99%E7%A8%8B-%E8%8A%82%E7%82%B9%E6%90%AD%E5%BB%BA/win6_hu_be6d54efc05df6f0.jpg 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;右键点击桌面右下角的应用图表并设置为pac模式就完成基本的设置了&#34;
@@ -7567,7 +7567,7 @@ git checkout -b fix/image-loading    # 比如你要修 bug&lt;/code&gt;
 &lt;p&gt;&lt;img src=&#34;http://localhost:1313/p/%E7%A7%91%E5%AD%A6%E4%B8%8A%E7%BD%91%E9%85%8D%E7%BD%AE%E6%95%99%E7%A8%8B-%E8%8A%82%E7%82%B9%E6%90%AD%E5%BB%BA/mac1.jpg&#34;
 	width=&#34;1152&#34;
 	height=&#34;892&#34;
-	srcset=&#34;http://localhost:1313/p/%E7%A7%91%E5%AD%A6%E4%B8%8A%E7%BD%91%E9%85%8D%E7%BD%AE%E6%95%99%E7%A8%8B-%E8%8A%82%E7%82%B9%E6%90%AD%E5%BB%BA/mac1_hu_b51c9304a8d201e1.jpg 480w, http://localhost:1313/p/%E7%A7%91%E5%AD%A6%E4%B8%8A%E7%BD%91%E9%85%8D%E7%BD%AE%E6%95%99%E7%A8%8B-%E8%8A%82%E7%82%B9%E6%90%AD%E5%BB%BA/mac1_hu_e77ff801d65af922.jpg 1024w&#34;
+	srcset=&#34;http://localhost:1313/p/%E7%A7%91%E5%AD%A6%E4%B8%8A%E7%BD%91%E9%85%8D%E7%BD%AE%E6%95%99%E7%A8%8B-%E8%8A%82%E7%82%B9%E6%90%AD%E5%BB%BA/mac1_hu_ceb3716e690eb226.jpg 480w, http://localhost:1313/p/%E7%A7%91%E5%AD%A6%E4%B8%8A%E7%BD%91%E9%85%8D%E7%BD%AE%E6%95%99%E7%A8%8B-%E8%8A%82%E7%82%B9%E6%90%AD%E5%BB%BA/mac1_hu_670ad82187b0488d.jpg 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;安装并打开小火箭之后点击按钮从剪切板导入我提供的节点(节点链接需要提前复制到剪切板)&#34;
@@ -7581,7 +7581,7 @@ git checkout -b fix/image-loading    # 比如你要修 bug&lt;/code&gt;
 &lt;p&gt;&lt;img src=&#34;http://localhost:1313/p/%E7%A7%91%E5%AD%A6%E4%B8%8A%E7%BD%91%E9%85%8D%E7%BD%AE%E6%95%99%E7%A8%8B-%E8%8A%82%E7%82%B9%E6%90%AD%E5%BB%BA/mac2.jpg&#34;
 	width=&#34;1164&#34;
 	height=&#34;908&#34;
-	srcset=&#34;http://localhost:1313/p/%E7%A7%91%E5%AD%A6%E4%B8%8A%E7%BD%91%E9%85%8D%E7%BD%AE%E6%95%99%E7%A8%8B-%E8%8A%82%E7%82%B9%E6%90%AD%E5%BB%BA/mac2_hu_4de5646745ca1c64.jpg 480w, http://localhost:1313/p/%E7%A7%91%E5%AD%A6%E4%B8%8A%E7%BD%91%E9%85%8D%E7%BD%AE%E6%95%99%E7%A8%8B-%E8%8A%82%E7%82%B9%E6%90%AD%E5%BB%BA/mac2_hu_39072c7feea3bff3.jpg 1024w&#34;
+	srcset=&#34;http://localhost:1313/p/%E7%A7%91%E5%AD%A6%E4%B8%8A%E7%BD%91%E9%85%8D%E7%BD%AE%E6%95%99%E7%A8%8B-%E8%8A%82%E7%82%B9%E6%90%AD%E5%BB%BA/mac2_hu_79231d96bb3b9ef0.jpg 480w, http://localhost:1313/p/%E7%A7%91%E5%AD%A6%E4%B8%8A%E7%BD%91%E9%85%8D%E7%BD%AE%E6%95%99%E7%A8%8B-%E8%8A%82%E7%82%B9%E6%90%AD%E5%BB%BA/mac2_hu_6f222d8b2d83b992.jpg 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;点击第二栏的config, 点击右上角的加号软件会提示输入url. 此时把下面的url粘贴到上面&#34;
@@ -7599,7 +7599,7 @@ git checkout -b fix/image-loading    # 比如你要修 bug&lt;/code&gt;
 &lt;p&gt;&lt;img src=&#34;http://localhost:1313/p/%E7%A7%91%E5%AD%A6%E4%B8%8A%E7%BD%91%E9%85%8D%E7%BD%AE%E6%95%99%E7%A8%8B-%E8%8A%82%E7%82%B9%E6%90%AD%E5%BB%BA/mac3.jpg&#34;
 	width=&#34;320&#34;
 	height=&#34;668&#34;
-	srcset=&#34;http://localhost:1313/p/%E7%A7%91%E5%AD%A6%E4%B8%8A%E7%BD%91%E9%85%8D%E7%BD%AE%E6%95%99%E7%A8%8B-%E8%8A%82%E7%82%B9%E6%90%AD%E5%BB%BA/mac3_hu_e744499e9414634b.jpg 480w, http://localhost:1313/p/%E7%A7%91%E5%AD%A6%E4%B8%8A%E7%BD%91%E9%85%8D%E7%BD%AE%E6%95%99%E7%A8%8B-%E8%8A%82%E7%82%B9%E6%90%AD%E5%BB%BA/mac3_hu_4a12c1e5d771db06.jpg 1024w&#34;
+	srcset=&#34;http://localhost:1313/p/%E7%A7%91%E5%AD%A6%E4%B8%8A%E7%BD%91%E9%85%8D%E7%BD%AE%E6%95%99%E7%A8%8B-%E8%8A%82%E7%82%B9%E6%90%AD%E5%BB%BA/mac3_hu_8f604898a93487a5.jpg 480w, http://localhost:1313/p/%E7%A7%91%E5%AD%A6%E4%B8%8A%E7%BD%91%E9%85%8D%E7%BD%AE%E6%95%99%E7%A8%8B-%E8%8A%82%E7%82%B9%E6%90%AD%E5%BB%BA/mac3_hu_ba0be976fcb2435b.jpg 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;导入规则后点击使用该规则&#34;
@@ -7613,7 +7613,7 @@ git checkout -b fix/image-loading    # 比如你要修 bug&lt;/code&gt;
 &lt;p&gt;&lt;img src=&#34;http://localhost:1313/p/%E7%A7%91%E5%AD%A6%E4%B8%8A%E7%BD%91%E9%85%8D%E7%BD%AE%E6%95%99%E7%A8%8B-%E8%8A%82%E7%82%B9%E6%90%AD%E5%BB%BA/mac4.jpg&#34;
 	width=&#34;804&#34;
 	height=&#34;736&#34;
-	srcset=&#34;http://localhost:1313/p/%E7%A7%91%E5%AD%A6%E4%B8%8A%E7%BD%91%E9%85%8D%E7%BD%AE%E6%95%99%E7%A8%8B-%E8%8A%82%E7%82%B9%E6%90%AD%E5%BB%BA/mac4_hu_11d47162b0e7edca.jpg 480w, http://localhost:1313/p/%E7%A7%91%E5%AD%A6%E4%B8%8A%E7%BD%91%E9%85%8D%E7%BD%AE%E6%95%99%E7%A8%8B-%E8%8A%82%E7%82%B9%E6%90%AD%E5%BB%BA/mac4_hu_4eefbc227c271365.jpg 1024w&#34;
+	srcset=&#34;http://localhost:1313/p/%E7%A7%91%E5%AD%A6%E4%B8%8A%E7%BD%91%E9%85%8D%E7%BD%AE%E6%95%99%E7%A8%8B-%E8%8A%82%E7%82%B9%E6%90%AD%E5%BB%BA/mac4_hu_cce549b97f718a7.jpg 480w, http://localhost:1313/p/%E7%A7%91%E5%AD%A6%E4%B8%8A%E7%BD%91%E9%85%8D%E7%BD%AE%E6%95%99%E7%A8%8B-%E8%8A%82%E7%82%B9%E6%90%AD%E5%BB%BA/mac4_hu_2555beb088346128.jpg 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;最后回到home点击选择节点,routing 选择 config, 打开开关就大功告成了&#34;
@@ -9190,11 +9190,11 @@ WantedBy=multi-user.target&lt;/code&gt;
 &lt;h3 id=&#34;1-如何加入我的模组服务器-建议直接使用后面的整合包安装-更稳定也更方便&#34;&gt;&lt;del&gt;1. 如何加入我的模组服务器&lt;/del&gt; 建议直接使用后面的整合包安装, 更稳定也更方便.
 &lt;/h3&gt;&lt;h4 id=&#34;安装-1182forge-4030-版本&#34;&gt;安装 1.18.2+forge 40.3.0 版本
 &lt;/h4&gt;&lt;p&gt;&lt;code&gt;点击下载&lt;/code&gt;
-&lt;img src=&#34;http://localhost:1313/p/mc%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%90%AD%E5%BB%BA-%E5%8A%A0%E5%85%A5/v1_hu_736a98c9bbf842a4.png&#34; width=&#34;1200&#34; height=&#34;898&#34; alt=&#34;exception types&#34;&gt;&lt;/p&gt;
+&lt;img src=&#34;http://localhost:1313/p/mc%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%90%AD%E5%BB%BA-%E5%8A%A0%E5%85%A5/v1_hu_334a43f613cc0b87.png&#34; width=&#34;1200&#34; height=&#34;898&#34; alt=&#34;exception types&#34;&gt;&lt;/p&gt;
 &lt;p&gt;&lt;code&gt;选择18.2+forge 40.3.0版本&lt;/code&gt;&lt;/p&gt;
-&lt;img src=&#34;http://localhost:1313/p/mc%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%90%AD%E5%BB%BA-%E5%8A%A0%E5%85%A5/v2_hu_276dd84c915b4521.png&#34; width=&#34;1200&#34; height=&#34;905&#34; alt=&#34;exception types&#34;&gt;
-&lt;img src=&#34;http://localhost:1313/p/mc%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%90%AD%E5%BB%BA-%E5%8A%A0%E5%85%A5/v3_hu_2f591b8eca54f1be.png&#34; width=&#34;1200&#34; height=&#34;904&#34; alt=&#34;exception types&#34;&gt;
-&lt;img src=&#34;http://localhost:1313/p/mc%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%90%AD%E5%BB%BA-%E5%8A%A0%E5%85%A5/v4_hu_a75a7d96e3be6c51.png&#34; width=&#34;1200&#34; height=&#34;899&#34; alt=&#34;exception types&#34;&gt;
+&lt;img src=&#34;http://localhost:1313/p/mc%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%90%AD%E5%BB%BA-%E5%8A%A0%E5%85%A5/v2_hu_767ad3472e6db833.png&#34; width=&#34;1200&#34; height=&#34;905&#34; alt=&#34;exception types&#34;&gt;
+&lt;img src=&#34;http://localhost:1313/p/mc%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%90%AD%E5%BB%BA-%E5%8A%A0%E5%85%A5/v3_hu_d5de7db7ba11914e.png&#34; width=&#34;1200&#34; height=&#34;904&#34; alt=&#34;exception types&#34;&gt;
+&lt;img src=&#34;http://localhost:1313/p/mc%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%90%AD%E5%BB%BA-%E5%8A%A0%E5%85%A5/v4_hu_f51fb87ad3d6d4c6.png&#34; width=&#34;1200&#34; height=&#34;899&#34; alt=&#34;exception types&#34;&gt;
 &lt;h4 id=&#34;安装模组&#34;&gt;安装模组
 &lt;/h4&gt;&lt;ol&gt;
 &lt;li&gt;下载我的模组和材质包.&lt;/li&gt;
@@ -9207,14 +9207,14 @@ WantedBy=multi-user.target&lt;/code&gt;
 &lt;li&gt;压缩包下载后解压, 会有两种文件: zip, jar. zip 对应的是材质包, jar 是模组.
 点击版本管理&lt;/li&gt;
 &lt;/ol&gt;
-&lt;img src=&#34;http://localhost:1313/p/mc%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%90%AD%E5%BB%BA-%E5%8A%A0%E5%85%A5/main_hu_cd62cbf18f0f3bf5.png&#34; width=&#34;1200&#34; height=&#34;913&#34; alt=&#34;exception types&#34;&gt;
+&lt;img src=&#34;http://localhost:1313/p/mc%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%90%AD%E5%BB%BA-%E5%8A%A0%E5%85%A5/main_hu_58c6b993e09d892a.png&#34; width=&#34;1200&#34; height=&#34;913&#34; alt=&#34;exception types&#34;&gt;
 &lt;ol start=&#34;3&#34;&gt;
 &lt;li&gt;在模组拦选择添加模组, 选择刚刚下载的包里的&lt;code&gt;jar&lt;/code&gt;文件.&lt;/li&gt;
 &lt;/ol&gt;
-&lt;img src=&#34;http://localhost:1313/p/mc%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%90%AD%E5%BB%BA-%E5%8A%A0%E5%85%A5/v5_hu_41c2e29e2930d7df.png&#34; width=&#34;1200&#34; height=&#34;911&#34; alt=&#34;exception types&#34;&gt;
+&lt;img src=&#34;http://localhost:1313/p/mc%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%90%AD%E5%BB%BA-%E5%8A%A0%E5%85%A5/v5_hu_5840638b18fd56fd.png&#34; width=&#34;1200&#34; height=&#34;911&#34; alt=&#34;exception types&#34;&gt;
 &lt;h4 id=&#34;安装光影&#34;&gt;安装光影
 &lt;/h4&gt;&lt;p&gt;在浏览中选择打开资源包文件夹, 然后添加下载文件夹中的&lt;code&gt;zip&lt;/code&gt;文件.
-&lt;img src=&#34;http://localhost:1313/p/mc%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%90%AD%E5%BB%BA-%E5%8A%A0%E5%85%A5/v6_hu_a6b4669caa9893f7.png&#34; width=&#34;1200&#34; height=&#34;909&#34; alt=&#34;exception types&#34;&gt;&lt;/p&gt;
+&lt;img src=&#34;http://localhost:1313/p/mc%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%90%AD%E5%BB%BA-%E5%8A%A0%E5%85%A5/v6_hu_8b9b084a24e21732.png&#34; width=&#34;1200&#34; height=&#34;909&#34; alt=&#34;exception types&#34;&gt;&lt;/p&gt;
 &lt;h4 id=&#34;整合包安装游戏不带启动器版本&#34;&gt;整合包安装游戏(不带启动器版本)
 &lt;/h4&gt;&lt;p&gt;&lt;code&gt;该方法已淘汰, 请勿使用该方法&lt;/code&gt;&lt;/p&gt;
 &lt;p&gt;使用 HMCL 的整合包安装功能, 直接一次性安装好所有模组和材质包.&lt;/p&gt;
@@ -9223,7 +9223,7 @@ WantedBy=multi-user.target&lt;/code&gt;
 &lt;ol start=&#34;2&#34;&gt;
 &lt;li&gt;
 &lt;p&gt;点击安装整合包
-&lt;img src=&#34;http://localhost:1313/p/mc%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%90%AD%E5%BB%BA-%E5%8A%A0%E5%85%A5/p1_hu_a3107bb23487123e.png&#34; width=&#34;1200&#34; height=&#34;901&#34; alt=&#34;exception types&#34;&gt;&lt;/p&gt;
+&lt;img src=&#34;http://localhost:1313/p/mc%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%90%AD%E5%BB%BA-%E5%8A%A0%E5%85%A5/p1_hu_616bc55b66b31d20.png&#34; width=&#34;1200&#34; height=&#34;901&#34; alt=&#34;exception types&#34;&gt;&lt;/p&gt;
 &lt;/li&gt;
 &lt;li&gt;
 &lt;p&gt;从本地安装整合包, 并选择下载好的 zip 整合包.&lt;/p&gt;
@@ -9242,7 +9242,7 @@ WantedBy=multi-user.target&lt;/code&gt;
 &lt;li&gt;选择版本.&lt;/li&gt;
 &lt;li&gt;点击 Installer 安装稳定版&lt;/li&gt;
 &lt;/ol&gt;
-&lt;img src=&#34;http://localhost:1313/p/mc%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%90%AD%E5%BB%BA-%E5%8A%A0%E5%85%A5/d_hu_7c67ad27a83df608.png&#34; width=&#34;1200&#34; height=&#34;916&#34; alt=&#34;exception types&#34;&gt;
+&lt;img src=&#34;http://localhost:1313/p/mc%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%90%AD%E5%BB%BA-%E5%8A%A0%E5%85%A5/d_hu_31bfa53b7f807a8d.png&#34; width=&#34;1200&#34; height=&#34;916&#34; alt=&#34;exception types&#34;&gt;
 &lt;ol start=&#34;4&#34;&gt;
 &lt;li&gt;下载完成之后看到 jar 结尾的文件说明成功下载.&lt;/li&gt;
 &lt;/ol&gt;
@@ -9362,7 +9362,7 @@ java -jar forge-1.18.2-40.3.0-installer.jar --installServer&lt;/code&gt;
 &lt;li&gt;在 cploar 服务启动之后在网页中打开服务器的&lt;code&gt;9200&lt;/code&gt;端口.&lt;/li&gt;
 &lt;li&gt;设置映射.&lt;/li&gt;
 &lt;/ol&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:1313/p/mc%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%90%AD%E5%BB%BA-%E5%8A%A0%E5%85%A5/port_hu_6ba287f842e76ffa.png&#34; width=&#34;1200&#34; height=&#34;472&#34; alt=&#34;exception types&#34;&gt;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/p/mc%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%90%AD%E5%BB%BA-%E5%8A%A0%E5%85%A5/port_hu_978793072fc3bdad.png&#34; width=&#34;1200&#34; height=&#34;472&#34; alt=&#34;exception types&#34;&gt;
 仿照图片中的设置配置映射.&lt;/p&gt;
 &lt;blockquote class=&#34;alert alert-note&#34;&gt;
     &lt;p&gt;对于 forge, 服务器开启后默认端口为 25565, 如果想修改监听端口可以修改 properties 里的端口设置.&lt;/p&gt;&lt;/blockquote&gt;
@@ -9373,30 +9373,6 @@ java -jar forge-1.18.2-40.3.0-installer.jar --installServer&lt;/code&gt;
 &lt;p&gt;服务器地址就是 &lt;code&gt;tcp://11.tcp.vip.cpolar.cn:11627&lt;/code&gt;&lt;/p&gt;
 &lt;/li&gt;
 &lt;/ol&gt;
-</description>
-        </item>
-        <item>
-        <title>ubuntu远程桌面</title>
-        <link>http://localhost:1313/p/ubuntu%E8%BF%9C%E7%A8%8B%E6%A1%8C%E9%9D%A2/</link>
-        <pubDate>Sun, 08 Jun 2025 22:16:17 +0800</pubDate>
-        
-        <guid>http://localhost:1313/p/ubuntu%E8%BF%9C%E7%A8%8B%E6%A1%8C%E9%9D%A2/</guid>
-        <description>&lt;img src="http://localhost:1313/default.jpeg" alt="Featured image of post ubuntu远程桌面" /&gt;&lt;h2 id=&#34;前言&#34;&gt;前言
-&lt;/h2&gt;&lt;p&gt;本教程基于 ubuntu, 请确保的 ubuntu 系统大于 20.
-这里参考阿里提供的&lt;a class=&#34;link&#34; href=&#34;https://developer.aliyun.com/article/762186&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
-    &gt;方案&lt;/a&gt;&lt;/p&gt;
-&lt;h2 id=&#34;&#34;&gt;
-&lt;/h2&gt;
-
-
-
-
-&lt;div class=&#34;highlight highlight-bash&#34;&gt;
-  &lt;pre&gt;
-    &lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;sudo apt install vino&lt;/code&gt;
-  &lt;/pre&gt;
-&lt;/div&gt;
-
 </description>
         </item>
         <item>
@@ -9470,7 +9446,8 @@ java -jar forge-1.18.2-40.3.0-installer.jar --installServer&lt;/code&gt;
 
 &lt;div class=&#34;highlight highlight-java&#34;&gt;
   &lt;pre&gt;
-    &lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;abstract class Course&amp;lt;T&amp;gt; {
+    &lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;
+abstract class Course&amp;lt;T&amp;gt; {
     protected String courseTime;
     protected String courseLocation;
     protected List&amp;lt;T&amp;gt; students;
@@ -9730,7 +9707,7 @@ class Dog implements Animal {
 &lt;/div&gt;
 
 &lt;h2 id=&#34;exception-types--错误类型&#34;&gt;Exception Types | 错误类型
-&lt;/h2&gt;&lt;img src=&#34;http://localhost:1313/p/chapter12/exception_hu_821cfc0c383d1a10.png&#34; width=&#34;1200&#34; height=&#34;474&#34; alt=&#34;exception types&#34;&gt;
+&lt;/h2&gt;&lt;img src=&#34;http://localhost:1313/p/chapter12/exception_hu_2d775bea792e44c0.png&#34; width=&#34;1200&#34; height=&#34;474&#34; alt=&#34;exception types&#34;&gt;
 &lt;p&gt;在 Java 中， Throwable 是所有异常和错误的根类。所有通过 throw 抛出的异常必须继承自 Throwable 。其直接子类包括：&lt;/p&gt;
 &lt;h3 id=&#34;error&#34;&gt;Error
 &lt;/h3&gt;&lt;h4 id=&#34;linkageerror&#34;&gt;LinkageError

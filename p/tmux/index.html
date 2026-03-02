@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="zh-cn" dir="ltr">
+<html lang="en-us" dir="ltr">
     <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><meta charset='utf-8'>
 <meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="Screen 上位替代">
 <title>Tmux</title>
@@ -357,7 +357,7 @@
                     
                     
                         
-                        <img src="/img/avatar_hu_9c50848f93c56cbf.jpeg" width="300"
+                        <img src="/img/avatar_hu_a69ebd3e9749347e.jpeg" width="300"
                             height="296" class="site-logo" loading="lazy" alt="Avatar">
                     
                 
@@ -648,8 +648,8 @@
     <header class="article-header">
         <div class="article-image">
             <a href="/p/tmux/">
-                <img src="/p/tmux/tmux_hu_bfe78bcb4b749fe9.png"
-                        srcset="/p/tmux/tmux_hu_bfe78bcb4b749fe9.png 800w, /p/tmux/tmux_hu_5cfa26d501497eac.png 1600w"
+                <img src="/p/tmux/tmux_hu_eeb646e61dda33c.png"
+                        srcset="/p/tmux/tmux_hu_eeb646e61dda33c.png 800w, /p/tmux/tmux_hu_720cdcdbec858308.png 1600w"
                         width="800" 
                         height="800" 
                         loading="lazy"
@@ -726,7 +726,7 @@
 
 
                 <time>
-                    Nov 25, 2025 18:20 &#43;0800
+                    Nov 25, 2025 18:20 CST
                 </time>
             </div>
     </footer>
@@ -758,49 +758,19 @@
 <h3 id="feature">Feature
 </h3><p>tmux 的结构逻辑跟linux系统很像. 如果你对linux系统熟悉的话可以简单将tmux的session理解为用户. windows 就是用户桌面环境. 分屏功能就像是你在一个window中可以同时打开多个软件.</p>
 <h3 id="installation--安装-tmux">Installation | 安装 tmux
-</h3>
-
-
-
-
-<div class="highlight highlight-bash">
-  <pre>
-    <code class="language-bash" data-lang="bash"># ubuntu
-sudo apt install tmux</code>
-  </pre>
-</div>
-
-
-
-
-
-
-<div class="highlight highlight-bash">
-  <pre>
-    <code class="language-bash" data-lang="bash"># macos
-brew install tmux</code>
-  </pre>
-</div>
-
-<h3 id="quick-start">quick start
+</h3><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># ubuntu</span>
+</span></span><span class="line"><span class="cl">sudo apt install tmux
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># macos</span>
+</span></span><span class="line"><span class="cl">brew install tmux
+</span></span></code></pre></div><h3 id="quick-start">quick start
 </h3><ol>
 <li>启动 tmux</li>
 </ol>
 <ul>
 <li>不带参数执行此命令会自动创建一个新的 session(在用户不主动关闭的情况在 session 即使在 tmux 关闭后仍然会继续运行)</li>
 </ul>
-
-
-
-
-
-<div class="highlight highlight-bash">
-  <pre>
-    <code class="language-bash" data-lang="bash">tmux</code>
-  </pre>
-</div>
-
-<ol start="2">
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">tmux
+</span></span></code></pre></div><ol start="2">
 <li>分屏:</li>
 </ol>
 <ul>
@@ -831,84 +801,34 @@ brew install tmux</code>
 <p>列出 session</p>
 </li>
 </ol>
-
-
-
-
-
-<div class="highlight highlight-bash">
-  <pre>
-    <code class="language-bash" data-lang="bash">tmux ls</code>
-  </pre>
-</div>
-
-<ol start="7">
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">tmux ls
+</span></span></code></pre></div><ol start="7">
 <li>恢复 tmux:</li>
 </ol>
-
-
-
-
-
-<div class="highlight highlight-bash">
-  <pre>
-    <code class="language-bash" data-lang="bash">tmux a</code>
-  </pre>
-</div>
-
-<ol start="8">
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">tmux a
+</span></span></code></pre></div><ol start="8">
 <li>删除 session:</li>
 </ol>
-
-
-
-
-
-<div class="highlight highlight-bash">
-  <pre>
-    <code class="language-bash" data-lang="bash">tmux kill-session -t &lt;session_name&gt;</code>
-  </pre>
-</div>
-
-<h3 id="advance-setting">Advance setting
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">tmux kill-session -t &lt;session_name&gt;
+</span></span></code></pre></div><h3 id="advance-setting">Advance setting
 </h3><h4 id="session">session
-</h4>
-
-
-
-
-<div class="highlight highlight-bash">
-  <pre>
-    <code class="language-bash" data-lang="bash"># 创建制定名称的session
-tmux new -s &lt;session_name&gt;
-
-# 回复到指定的session
-tmux a -t &lt;session_name&gt;
-
-# 窗口分屏快速切换聚焦(摁下q的时候会看到分屏序号)
-# &#34;ctrlb &#43; q &#43; &lt;index&gt;&#34; 
-
-# tmux 概览(你会看到当前系统中所有的sesion和窗口,通过方向键就能快速预览窗口,enter就能直接切换到聚焦的window)
-# “ctrlb &#43; w”</code>
-  </pre>
-</div>
-
-<h4 id="tmux-配置文件-解锁鼠标控制">tmux 配置文件 (解锁鼠标控制
+</h4><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># 创建制定名称的session</span>
+</span></span><span class="line"><span class="cl">tmux new -s &lt;session_name&gt;
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 回复到指定的session</span>
+</span></span><span class="line"><span class="cl">tmux a -t &lt;session_name&gt;
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 窗口分屏快速切换聚焦(摁下q的时候会看到分屏序号)</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># &#34;ctrlb + q + &lt;index&gt;&#34; </span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># tmux 概览(你会看到当前系统中所有的sesion和窗口,通过方向键就能快速预览窗口,enter就能直接切换到聚焦的window)</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># “ctrlb + w”</span>
+</span></span></code></pre></div><h4 id="tmux-配置文件-解锁鼠标控制">tmux 配置文件 (解锁鼠标控制
 </h4><ol>
 <li>进入配置文件</li>
 </ol>
-
-
-
-
-
-<div class="highlight highlight-bash">
-  <pre>
-    <code class="language-bash" data-lang="bash">nano ~/.tmux.conf</code>
-  </pre>
-</div>
-
-<ol start="2">
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">nano ~/.tmux.conf
+</span></span></code></pre></div><ol start="2">
 <li>
 <p>开启鼠标调整窗口大小的支持: &ldquo;set -g mouse on&rdquo;</p>
 </li>
@@ -922,50 +842,20 @@ tmux a -t &lt;session_name&gt;
 <p><strong>仓库地址</strong>: <a class="link" href="https://github.com/tmux-plugins/tpm"  target="_blank" rel="noopener"
     >https://github.com/tmux-plugins/tpm</a></p>
 <h3 id="安装-tpm">安装 TPM
-</h3>
-
-
-
-
-<div class="highlight highlight-bash">
-  <pre>
-    <code class="language-bash" data-lang="bash"># 克隆 TPM 到本地插件目录
-git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm</code>
-  </pre>
-</div>
-
-<h3 id="配置-tpm">配置 TPM
+</h3><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># 克隆 TPM 到本地插件目录</span>
+</span></span><span class="line"><span class="cl">git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
+</span></span></code></pre></div><h3 id="配置-tpm">配置 TPM
 </h3><p>在 <code>~/.tmux.conf</code> 文件<strong>底部</strong>添加以下内容：</p>
-
-
-
-
-
-<div class="highlight highlight-bash">
-  <pre>
-    <code class="language-bash" data-lang="bash"># 插件列表
-set -g @plugin &#39;tmux-plugins/tpm&#39;
-set -g @plugin &#39;tmux-plugins/tmux-sensible&#39;
-
-# 初始化 TPM（必须放在配置文件的最后一行）
-run &#39;~/.tmux/plugins/tpm/tpm&#39;</code>
-  </pre>
-</div>
-
-<p>重新加载 tmux 配置：</p>
-
-
-
-
-
-<div class="highlight highlight-bash">
-  <pre>
-    <code class="language-bash" data-lang="bash"># 在终端执行（如果 tmux 正在运行）
-tmux source ~/.tmux.conf</code>
-  </pre>
-</div>
-
-<h3 id="tpm-使用快捷键">TPM 使用快捷键
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># 插件列表</span>
+</span></span><span class="line"><span class="cl"><span class="nb">set</span> -g @plugin <span class="s1">&#39;tmux-plugins/tpm&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="nb">set</span> -g @plugin <span class="s1">&#39;tmux-plugins/tmux-sensible&#39;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 初始化 TPM（必须放在配置文件的最后一行）</span>
+</span></span><span class="line"><span class="cl">run <span class="s1">&#39;~/.tmux/plugins/tpm/tpm&#39;</span>
+</span></span></code></pre></div><p>重新加载 tmux 配置：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># 在终端执行（如果 tmux 正在运行）</span>
+</span></span><span class="line"><span class="cl">tmux <span class="nb">source</span> ~/.tmux.conf
+</span></span></code></pre></div><h3 id="tpm-使用快捷键">TPM 使用快捷键
 </h3><p>按 <code>prefix</code>（默认 Ctrl+b）+ 以下按键：</p>
 <ul>
 <li><strong><code>I</code></strong> (大写 i) - 安装新插件</li>
@@ -979,18 +869,8 @@ tmux source ~/.tmux.conf</code>
     >tmux-plugins/tmux-yank</a></p>
 <h4 id="安装">安装
 </h4><p>在 <code>~/.tmux.conf</code> 的插件列表中添加：</p>
-
-
-
-
-
-<div class="highlight highlight-bash">
-  <pre>
-    <code class="language-bash" data-lang="bash">set -g @plugin &#39;tmux-plugins/tmux-yank&#39;</code>
-  </pre>
-</div>
-
-<p>按 <code>prefix + I</code> 安装插件。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="nb">set</span> -g @plugin <span class="s1">&#39;tmux-plugins/tmux-yank&#39;</span>
+</span></span></code></pre></div><p>按 <code>prefix + I</code> 安装插件。</p>
 <h4 id="功能">功能
 </h4><ul>
 <li><strong>复制模式</strong>：选中文本后自动复制到系统剪切板</li>
@@ -1003,66 +883,26 @@ tmux source ~/.tmux.conf</code>
 </ul>
 <h4 id="系统依赖">系统依赖
 </h4><p><strong>macOS</strong>:</p>
-
-
-
-
-
-<div class="highlight highlight-bash">
-  <pre>
-    <code class="language-bash" data-lang="bash">brew install reattach-to-user-namespace</code>
-  </pre>
-</div>
-
-<p>在 <code>~/.tmux.conf</code> 添加：</p>
-
-
-
-
-
-<div class="highlight highlight-bash">
-  <pre>
-    <code class="language-bash" data-lang="bash">set -g default-command &#34;reattach-to-user-namespace -l $SHELL&#34;</code>
-  </pre>
-</div>
-
-<p><strong>Linux</strong>:</p>
-
-
-
-
-
-<div class="highlight highlight-bash">
-  <pre>
-    <code class="language-bash" data-lang="bash"># Ubuntu/Debian
-sudo apt install xclip
-
-# Fedora
-sudo dnf install xclip
-
-# Arch
-sudo pacman -S xclip</code>
-  </pre>
-</div>
-
-<hr>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">brew install reattach-to-user-namespace
+</span></span></code></pre></div><p>在 <code>~/.tmux.conf</code> 添加：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="nb">set</span> -g default-command <span class="s2">&#34;reattach-to-user-namespace -l </span><span class="nv">$SHELL</span><span class="s2">&#34;</span>
+</span></span></code></pre></div><p><strong>Linux</strong>:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># Ubuntu/Debian</span>
+</span></span><span class="line"><span class="cl">sudo apt install xclip
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Fedora</span>
+</span></span><span class="line"><span class="cl">sudo dnf install xclip
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Arch</span>
+</span></span><span class="line"><span class="cl">sudo pacman -S xclip
+</span></span></code></pre></div><hr>
 <h3 id="2-tmux-resurrect---保存和恢复会话">2. tmux-resurrect - 保存和恢复会话
 </h3><p>无需配置即可保存 tmux 环境的所有细节，并在系统重启后恢复。</p>
 <p><strong>仓库</strong>: <a class="link" href="https://github.com/tmux-plugins/tmux-resurrect"  target="_blank" rel="noopener"
     >tmux-plugins/tmux-resurrect</a></p>
 <h4 id="安装-1">安装
-</h4>
-
-
-
-
-<div class="highlight highlight-bash">
-  <pre>
-    <code class="language-bash" data-lang="bash">set -g @plugin &#39;tmux-plugins/tmux-resurrect&#39;</code>
-  </pre>
-</div>
-
-<h4 id="功能-1">功能
+</h4><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="nb">set</span> -g @plugin <span class="s1">&#39;tmux-plugins/tmux-resurrect&#39;</span>
+</span></span></code></pre></div><h4 id="功能-1">功能
 </h4><ul>
 <li>完全恢复 tmux 环境：sessions、windows、panes、pane布局</li>
 <li>恢复程序状态：vim、man、less、htop 等工具的运行状态</li>
@@ -1074,58 +914,28 @@ sudo pacman -S xclip</code>
 <li><strong><code>prefix + Ctrl-r</code></strong> - 恢复保存的环境</li>
 </ul>
 <h4 id="高级配置可选">高级配置（可选）
-</h4>
-
-
-
-
-<div class="highlight highlight-bash">
-  <pre>
-    <code class="language-bash" data-lang="bash"># 启用 vim 会话恢复
-set -g @resurrect-capture-pane-contents &#39;on&#39;
-set -g @resurrect-strategy-vim &#39;session&#39;
-set -g @resurrect-strategy-nvim &#39;session&#39;
-
-# 恢复更多程序的状态
-for program in &#39;fish&#39; &#39;ksh&#39; &#39;zsh&#39;; do
-    set -g @resurrect-strategy-$program &#39;session&#39;
-done</code>
-  </pre>
-</div>
-
-<hr>
+</h4><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># 启用 vim 会话恢复</span>
+</span></span><span class="line"><span class="cl"><span class="nb">set</span> -g @resurrect-capture-pane-contents <span class="s1">&#39;on&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="nb">set</span> -g @resurrect-strategy-vim <span class="s1">&#39;session&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="nb">set</span> -g @resurrect-strategy-nvim <span class="s1">&#39;session&#39;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 恢复更多程序的状态</span>
+</span></span><span class="line"><span class="cl"><span class="k">for</span> program in <span class="s1">&#39;fish&#39;</span> <span class="s1">&#39;ksh&#39;</span> <span class="s1">&#39;zsh&#39;</span><span class="p">;</span> <span class="k">do</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">set</span> -g @resurrect-strategy-<span class="nv">$program</span> <span class="s1">&#39;session&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="k">done</span>
+</span></span></code></pre></div><hr>
 <h3 id="3-tmux-continuum---自动保存会话">3. tmux-continuum - 自动保存会话
 </h3><p>tmux-resurrect 的增强版，实现自动保存和恢复 tmux 环境。</p>
 <p><strong>仓库</strong>: <a class="link" href="https://github.com/tmux-plugins/tmux-continuum"  target="_blank" rel="noopener"
     >tmux-plugins/tmux-continuum</a></p>
 <h4 id="安装-2">安装
-</h4>
-
-
-
-
-<div class="highlight highlight-bash">
-  <pre>
-    <code class="language-bash" data-lang="bash">set -g @plugin &#39;tmux-plugins/continuum&#39;</code>
-  </pre>
-</div>
-
-<h4 id="配置">配置
+</h4><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="nb">set</span> -g @plugin <span class="s1">&#39;tmux-plugins/continuum&#39;</span>
+</span></span></code></pre></div><h4 id="配置">配置
 </h4><p>在 <code>~/.tmux.conf</code> 添加：</p>
-
-
-
-
-
-<div class="highlight highlight-bash">
-  <pre>
-    <code class="language-bash" data-lang="bash"># 每 15 分钟自动保存一次
-set -g @continuum-restore &#39;on&#39;
-set -g @continuum-save-interval &#39;15&#39;</code>
-  </pre>
-</div>
-
-<h4 id="功能-2">功能
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># 每 15 分钟自动保存一次</span>
+</span></span><span class="line"><span class="cl"><span class="nb">set</span> -g @continuum-restore <span class="s1">&#39;on&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="nb">set</span> -g @continuum-save-interval <span class="s1">&#39;15&#39;</span>
+</span></span></code></pre></div><h4 id="功能-2">功能
 </h4><ul>
 <li>按时间间隔自动保存 tmux 环境</li>
 <li>tmux 启动时自动恢复上次保存的环境</li>
@@ -1138,59 +948,49 @@ set -g @continuum-save-interval &#39;15&#39;</code>
 <hr>
 <h2 id="完整配置示例">完整配置示例
 </h2><p>以下是一个包含 TPM 和推荐插件的完整 <code>~/.tmux.conf</code> 配置：</p>
-
-
-
-
-
-<div class="highlight highlight-bash">
-  <pre>
-    <code class="language-bash" data-lang="bash"># ============================================
-# 基础配置
-# ============================================
-# 更改前缀键为 Ctrl&#43;s
-set -g prefix C-s
-unbind C-b
-bind C-s send-prefix
-
-# 开启鼠标支持
-set -g mouse on
-
-# 设置窗口和面板索引从 1 开始
-set -g base-index 1
-setw -g pane-base-index 1
-
-# 重新加载配置文件
-bind r source-file ~/.tmux.conf \; display &#34;Config reloaded!&#34;
-
-# ============================================
-# 插件列表
-# ============================================
-set -g @plugin &#39;tmux-plugins/tpm&#39;
-set -g @plugin &#39;tmux-plugins/tmux-sensible&#39;
-set -g @plugin &#39;tmux-plugins/tmux-yank&#39;
-set -g @plugin &#39;tmux-plugins/tmux-resurrect&#39;
-set -g @plugin &#39;tmux-plugins/continuum&#39;
-
-# ============================================
-# 插件配置
-# ============================================
-# tmux-resurrect 配置
-set -g @resurrect-capture-pane-contents &#39;on&#39;
-set -g @resurrect-strategy-vim &#39;session&#39;
-
-# tmux-continuum 配置
-set -g @continuum-restore &#39;on&#39;
-set -g @continuum-save-interval &#39;15&#39;
-
-# ============================================
-# 初始化 TPM（必须放在最后一行）
-# ============================================
-run &#39;~/.tmux/plugins/tpm/tpm&#39;</code>
-  </pre>
-</div>
-
-<p>安装插件步骤：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># ============================================</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 基础配置</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># ============================================</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 更改前缀键为 Ctrl+s</span>
+</span></span><span class="line"><span class="cl"><span class="nb">set</span> -g prefix C-s
+</span></span><span class="line"><span class="cl">unbind C-b
+</span></span><span class="line"><span class="cl"><span class="nb">bind</span> C-s send-prefix
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 开启鼠标支持</span>
+</span></span><span class="line"><span class="cl"><span class="nb">set</span> -g mouse on
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 设置窗口和面板索引从 1 开始</span>
+</span></span><span class="line"><span class="cl"><span class="nb">set</span> -g base-index <span class="m">1</span>
+</span></span><span class="line"><span class="cl">setw -g pane-base-index <span class="m">1</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 重新加载配置文件</span>
+</span></span><span class="line"><span class="cl"><span class="nb">bind</span> r source-file ~/.tmux.conf <span class="se">\;</span> display <span class="s2">&#34;Config reloaded!&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># ============================================</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 插件列表</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># ============================================</span>
+</span></span><span class="line"><span class="cl"><span class="nb">set</span> -g @plugin <span class="s1">&#39;tmux-plugins/tpm&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="nb">set</span> -g @plugin <span class="s1">&#39;tmux-plugins/tmux-sensible&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="nb">set</span> -g @plugin <span class="s1">&#39;tmux-plugins/tmux-yank&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="nb">set</span> -g @plugin <span class="s1">&#39;tmux-plugins/tmux-resurrect&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="nb">set</span> -g @plugin <span class="s1">&#39;tmux-plugins/continuum&#39;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># ============================================</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 插件配置</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># ============================================</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># tmux-resurrect 配置</span>
+</span></span><span class="line"><span class="cl"><span class="nb">set</span> -g @resurrect-capture-pane-contents <span class="s1">&#39;on&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="nb">set</span> -g @resurrect-strategy-vim <span class="s1">&#39;session&#39;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># tmux-continuum 配置</span>
+</span></span><span class="line"><span class="cl"><span class="nb">set</span> -g @continuum-restore <span class="s1">&#39;on&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="nb">set</span> -g @continuum-save-interval <span class="s1">&#39;15&#39;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># ============================================</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 初始化 TPM（必须放在最后一行）</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># ============================================</span>
+</span></span><span class="line"><span class="cl">run <span class="s1">&#39;~/.tmux/plugins/tpm/tpm&#39;</span>
+</span></span></code></pre></div><p>安装插件步骤：</p>
 <ol>
 <li>保存配置文件</li>
 <li>按 <code>Ctrl+s + I</code> (大写 i) 安装所有插件</li>
@@ -1519,7 +1319,7 @@ run &#39;~/.tmux/plugins/tpm/tpm&#39;</code>
                 src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
                 
                 >
-            </script><script type="text/javascript" src="/ts/main.888cccdaf3c934b58bb1982792b4d0fdb89be145d2cabea38c8569bfe7d08117.js" defer></script>
+            </script><script type="text/javascript" src="/ts/main.fe055f50234dc99b59992d29820a4403a71f7c90de7b6ebd204c621ac170b546.js" defer></script>
 <script>
     (function () {
         const customFont = document.createElement('link');

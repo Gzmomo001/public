@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="zh-cn" dir="ltr">
+<html lang="en-us" dir="ltr">
     <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><meta charset='utf-8'>
 <meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="深入探讨 Vibe Coding 的定义、发展历程和行业影响，分析 AI 编程工具的进化与未来趋势">
 <title>Vibe Coding：AI 编程革命与程序员的新时代</title>
@@ -357,7 +357,7 @@
                     
                     
                         
-                        <img src="/img/avatar_hu_9c50848f93c56cbf.jpeg" width="300"
+                        <img src="/img/avatar_hu_a69ebd3e9749347e.jpeg" width="300"
                             height="296" class="site-logo" loading="lazy" alt="Avatar">
                     
                 
@@ -1149,25 +1149,15 @@ AI 改起代码来速度很快，并且可以一次修改一大片。虽然效�
 <li>使用分支策略（feature/、bugfix/ 等）在本地／远程做实验，确认稳定再 merge</li>
 </ul>
 <p><strong>示例</strong>：</p>
-
-
-
-
-
-<div class="highlight highlight-bash">
-  <pre>
-    <code class="language-bash" data-lang="bash"># 完成用户认证模块后
-git add .
-git commit -m &#34;feat: 完成用户认证模块基础功能
-
-- 实现 JWT 登录
-- 添加用户注册接口
-- 完成基础的权限验证
-- 可以手动测试通过&#34;</code>
-  </pre>
-</div>
-
-<h3 id="2-设计先行">2. 设计先行
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># 完成用户认证模块后</span>
+</span></span><span class="line"><span class="cl">git add .
+</span></span><span class="line"><span class="cl">git commit -m <span class="s2">&#34;feat: 完成用户认证模块基础功能
+</span></span></span><span class="line"><span class="cl"><span class="s2">
+</span></span></span><span class="line"><span class="cl"><span class="s2">- 实现 JWT 登录
+</span></span></span><span class="line"><span class="cl"><span class="s2">- 添加用户注册接口
+</span></span></span><span class="line"><span class="cl"><span class="s2">- 完成基础的权限验证
+</span></span></span><span class="line"><span class="cl"><span class="s2">- 可以手动测试通过&#34;</span>
+</span></span></code></pre></div><h3 id="2-设计先行">2. 设计先行
 </h3><p><strong>为什么重要</strong>：
 虽然现在 AI 的规划能力已经很强，但是受制于上下文长度的限制，还是需要先有整体规划，再分解任务，这样才能让协作不会偏离主要轨道。</p>
 <p><strong>实践建议</strong>：</p>
@@ -1177,26 +1167,14 @@ git commit -m &#34;feat: 完成用户认证模块基础功能
 <li>拆里程碑为具体任务，并设立时间表／优先级；定期检查里程碑是否达成</li>
 </ul>
 <p><strong>Prompt 示例</strong>：</p>
-
-
-
-
-  
-
-
-<div class="highlight highlight-text">
-  <pre>
-    <code class="language-text" data-lang="text">请帮我为这个项目编写一份产品设计文档，包括：
-1. 项目目标和核心价值主张
-2. 目标用户和使用场景
-3. 核心功能模块划分
-4. 功能优先级排序
-5. 开发里程碑和时间表
-6. 每个模块的验收标准</code>
-  </pre>
-</div>
-
-<h3 id="3-模块化开发--阶段-review">3. 模块化开发 + 阶段 Review
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">请帮我为这个项目编写一份产品设计文档，包括：
+</span></span><span class="line"><span class="cl">1. 项目目标和核心价值主张
+</span></span><span class="line"><span class="cl">2. 目标用户和使用场景
+</span></span><span class="line"><span class="cl">3. 核心功能模块划分
+</span></span><span class="line"><span class="cl">4. 功能优先级排序
+</span></span><span class="line"><span class="cl">5. 开发里程碑和时间表
+</span></span><span class="line"><span class="cl">6. 每个模块的验收标准
+</span></span></code></pre></div><h3 id="3-模块化开发--阶段-review">3. 模块化开发 + 阶段 Review
 </h3><p><strong>为什么重要</strong>：
 在每个需求做完后人工检查，可以及时纠正偏差，避免在后期需要修改整个系统，成本会越来越高。</p>
 <p><strong>实践建议</strong>：</p>
@@ -1215,27 +1193,15 @@ git commit -m &#34;feat: 完成用户认证模块基础功能
 <li>在任务拆解中写出清晰子任务列表，标明顺序及依赖</li>
 </ul>
 <p><strong>示例</strong>：</p>
-
-
-
-
-  
-
-
-<div class="highlight highlight-text">
-  <pre>
-    <code class="language-text" data-lang="text">不要说：&#34;帮我开发一个电商网站&#34;
-
-要说：&#34;请按以下步骤开发：
-1. 先创建商品列表页面，显示 10 个假数据商品
-2. 完成后再开发商品详情页面
-3. 然后实现购物车功能
-4. 最后实现支付接口
-每完成一步，等我确认后再进行下一步&#34;</code>
-  </pre>
-</div>
-
-<h3 id="5-及时干预--换思路">5. 及时干预 + 换思路
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">不要说：&#34;帮我开发一个电商网站&#34;
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">要说：&#34;请按以下步骤开发：
+</span></span><span class="line"><span class="cl">1. 先创建商品列表页面，显示 10 个假数据商品
+</span></span><span class="line"><span class="cl">2. 完成后再开发商品详情页面
+</span></span><span class="line"><span class="cl">3. 然后实现购物车功能
+</span></span><span class="line"><span class="cl">4. 最后实现支付接口
+</span></span><span class="line"><span class="cl">每完成一步，等我确认后再进行下一步&#34;
+</span></span></code></pre></div><h3 id="5-及时干预--换思路">5. 及时干预 + 换思路
 </h3><p><strong>为什么重要</strong>：
 在使用 AI 作为主力进行编程时，如果 AI 在某个局部实现不断失败，用同一种方式调试没有成果，甚至进入死循环，要果断制止 AI，并且换种方式进行实现。</p>
 <p><strong>实践建议</strong>：</p>
@@ -1255,34 +1221,22 @@ git commit -m &#34;feat: 完成用户认证模块基础功能
 <li>做好变更日志或 Review 注释，方便追踪哪些地方从旧会话延续下来</li>
 </ul>
 <p><strong>总结并重新开始 Prompt 示例</strong>：</p>
-
-
-
-
-  
-
-
-<div class="highlight highlight-text">
-  <pre>
-    <code class="language-text" data-lang="text"># 项目总结
-当前项目是一个基于 React &#43; Node.js 的任务管理系统
-已完成功能：
-- 用户登录/注册
-- 任务列表展示
-- 任务创建/编辑/删除
-
-当前技术栈：
-- 前端：React &#43; Tailwind CSS
-- 后端：Node.js &#43; Express
-- 数据库：PostgreSQL
-
-# 新任务
-请继续开发任务提醒功能，具体需求如下：
-...</code>
-  </pre>
-</div>
-
-<h2 id="局限性和风险">局限性和风险
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl"># 项目总结
+</span></span><span class="line"><span class="cl">当前项目是一个基于 React + Node.js 的任务管理系统
+</span></span><span class="line"><span class="cl">已完成功能：
+</span></span><span class="line"><span class="cl">- 用户登录/注册
+</span></span><span class="line"><span class="cl">- 任务列表展示
+</span></span><span class="line"><span class="cl">- 任务创建/编辑/删除
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">当前技术栈：
+</span></span><span class="line"><span class="cl">- 前端：React + Tailwind CSS
+</span></span><span class="line"><span class="cl">- 后端：Node.js + Express
+</span></span><span class="line"><span class="cl">- 数据库：PostgreSQL
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"># 新任务
+</span></span><span class="line"><span class="cl">请继续开发任务提醒功能，具体需求如下：
+</span></span><span class="line"><span class="cl">...
+</span></span></code></pre></div><h2 id="局限性和风险">局限性和风险
 </h2><p>尽管 Vibe Coding 在某些场景下表现出色，但我们也不能忽视它带来的局限性和风险。</p>
 <h3 id="技术债务堆积">技术债务堆积
 </h3><p>Vibe Coding 最大的问题之一是<strong>技术债务的快速累积</strong>。由于不审查代码质量，AI 生成的代码可能存在：</p>
@@ -1442,177 +1396,141 @@ git commit -m &#34;feat: 完成用户认证模块基础功能
 </h1><ol>
 <li>当需要从头开启一个项目的时候可以使用下面的prompt提供给cluade code.</li>
 </ol>
-
-
-
-
-  
-
-
-<div class="highlight highlight-text">
-  <pre>
-    <code class="language-text" data-lang="text">Act as an elite Senior Software Architect and Product Manager. I am planning to build a new software project from scratch.
-
-Here is the high-level idea:
-&#34;&#34;&#34;
-[INSERT YOUR PROJECT IDEA HERE]
-&#34;&#34;&#34;
-
-Your goal is to design the absolute best architecture and plan for this specific product, **ignoring my personal background or current skill set.** Assume I have the capacity to learn or hire for any technology you recommend.
-
-Please guide me through the setup process strictly following these steps:
-
-### Step 1: Deep Dive Discovery (The most important step)
-Do not assume anything. Before proposing any solutions, you must fully understand the problem space. Ask me a comprehensive set of clarifying questions covering the following domains:
-1.  **Core Product Logic:** (User flows, edge cases, role permissions, &#34;must-have&#34; vs &#34;nice-to-have&#34; features)
-2.  **Data &amp; Complexity:** (Data volume, relationship complexity, read/write ratio, consistency requirements)
-3.  **Non-Functional Requirements:** (Expected traffic/scale, latency limits, security/compliance needs, offline capabilities)
-4.  **Integration &amp; Environment:** (Third-party APIs, target platforms, hosting preferences)
-5.  **Business Constraints:** (Timeline urgency, budget for infrastructure, long-term maintenance goals)
-
-*Group your questions logically and wait for my answers.*
-
-### Step 2: Objective Tech Stack Analysis
-Once I answer the questions in Step 1, analyze the requirements objectively.
-1.  Propose **3 distinct technology stack options**.
-    * *Option A (The &#34;MVP/Velocity&#34; Stack):* Best for getting to market fast.
-    * *Option B (The &#34;Scale/Performance&#34; Stack):* Best for high concurrency and robustness.
-    * *Option C (The &#34;Specialized&#34; Stack):* A stack specifically tailored to the unique nature of this product (e.g., specific AI libs, real-time frameworks).
-2.  For each option, explain **WHY** it is objectively better for the specific requirements we discussed, listing clear Pros &amp; Cons.
-3.  **Do not** ask about my preferred languages. Recommend what is best for the *product*.
-
-### Step 3: Architecture &amp; Implementation Plan
-After I select a stack from Step 2:
-1.  Generate a detailed `SPEC.md` including directory structure.
-2.  Create a step-by-step implementation plan (Phase 1, Phase 2, etc.).
-
-Let&#39;s begin with **Step 1**. Please ask your comprehensive list of clarifying questions.</code>
-  </pre>
-</div>
-
-<p>全自动执行prompt</p>
-
-
-
-
-  
-
-
-<div class="highlight highlight-text">
-  <pre>
-    <code class="language-text" data-lang="text">Great. We have the Tech Stack and the SPEC.md. Now, I want you to enter **&#34;Autonomous Execution Mode&#34;**.
-
-Your goal is to build, test, and ship the entire project with minimal human intervention. You must follow this strict **Sequential Workflow**:
-
-### Phase 1: Planning &amp; Setup
-1.  Initialize the git repository.
-2.  Create a file named `MASTER_PLAN.md`.
-    * List **every single file** that needs to be created.
-    * Group them into logical **Modules**.
-    * Mark every item as `[ ]` (Pending).
-3.  Set up the base project structure and install necessary dependencies (package.json, go.mod, etc.).
-
-### Phase 2: The Coding Loop (Repeat for each module)
-**Do not stop to ask me questions. Read `MASTER_PLAN.md` to see what is next.**
-For each module in the plan:
-1.  **Implement:** Write the source code for the module.
-2.  **Test:** Immediately write a Unit Test for this specific module.
-3.  **Verify:** Run the test.
-    * *If Pass:* Mark the item as `[x]` in `MASTER_PLAN.md`.
-    * *If Fail:* **Self-Correct.** Read the error, fix the code, and re-run the test. Do not ask me unless you fail 3 times in a row.
-4.  **Commit:** Git commit with a descriptive message (e.g., &#34;feat: implement auth module&#34;).
-
-### Phase 3: Finalization
-1.  **Integration Test:** Once all modules are `[x]`, run the full test suite to ensure no regressions.
-2.  **Audit:** Read `SPEC.md` again. Verify line-by-line that all requirements are met.
-3.  **Documentation:** Generate a `README.md` containing:
-    * Project setup instructions.
-    * How to run tests.
-    * Architecture overview.
-4.  **Delivery:**
-    * Add the remote repository URL: `[INSERT_YOUR_GIT_REPO_URL_HERE]`
-    * Push the code to the `main` branch.
-
-**Constraint:**
-* **Do not ask for permission for every file creation.** Assume you have authorization to proceed as long as you are following the `MASTER_PLAN.md`.
-* Start Phase 1 immediately.</code>
-  </pre>
-</div>
-
-<ol start="2">
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">Act as an elite Senior Software Architect and Product Manager. I am planning to build a new software project from scratch.
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">Here is the high-level idea:
+</span></span><span class="line"><span class="cl">&#34;&#34;&#34;
+</span></span><span class="line"><span class="cl">[INSERT YOUR PROJECT IDEA HERE]
+</span></span><span class="line"><span class="cl">&#34;&#34;&#34;
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">Your goal is to design the absolute best architecture and plan for this specific product, **ignoring my personal background or current skill set.** Assume I have the capacity to learn or hire for any technology you recommend.
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">Please guide me through the setup process strictly following these steps:
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">### Step 1: Deep Dive Discovery (The most important step)
+</span></span><span class="line"><span class="cl">Do not assume anything. Before proposing any solutions, you must fully understand the problem space. Ask me a comprehensive set of clarifying questions covering the following domains:
+</span></span><span class="line"><span class="cl">1.  **Core Product Logic:** (User flows, edge cases, role permissions, &#34;must-have&#34; vs &#34;nice-to-have&#34; features)
+</span></span><span class="line"><span class="cl">2.  **Data &amp; Complexity:** (Data volume, relationship complexity, read/write ratio, consistency requirements)
+</span></span><span class="line"><span class="cl">3.  **Non-Functional Requirements:** (Expected traffic/scale, latency limits, security/compliance needs, offline capabilities)
+</span></span><span class="line"><span class="cl">4.  **Integration &amp; Environment:** (Third-party APIs, target platforms, hosting preferences)
+</span></span><span class="line"><span class="cl">5.  **Business Constraints:** (Timeline urgency, budget for infrastructure, long-term maintenance goals)
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">*Group your questions logically and wait for my answers.*
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">### Step 2: Objective Tech Stack Analysis
+</span></span><span class="line"><span class="cl">Once I answer the questions in Step 1, analyze the requirements objectively.
+</span></span><span class="line"><span class="cl">1.  Propose **3 distinct technology stack options**.
+</span></span><span class="line"><span class="cl">    * *Option A (The &#34;MVP/Velocity&#34; Stack):* Best for getting to market fast.
+</span></span><span class="line"><span class="cl">    * *Option B (The &#34;Scale/Performance&#34; Stack):* Best for high concurrency and robustness.
+</span></span><span class="line"><span class="cl">    * *Option C (The &#34;Specialized&#34; Stack):* A stack specifically tailored to the unique nature of this product (e.g., specific AI libs, real-time frameworks).
+</span></span><span class="line"><span class="cl">2.  For each option, explain **WHY** it is objectively better for the specific requirements we discussed, listing clear Pros &amp; Cons.
+</span></span><span class="line"><span class="cl">3.  **Do not** ask about my preferred languages. Recommend what is best for the *product*.
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">### Step 3: Architecture &amp; Implementation Plan
+</span></span><span class="line"><span class="cl">After I select a stack from Step 2:
+</span></span><span class="line"><span class="cl">1.  Generate a detailed `SPEC.md` including directory structure.
+</span></span><span class="line"><span class="cl">2.  Create a step-by-step implementation plan (Phase 1, Phase 2, etc.).
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">Let&#39;s begin with **Step 1**. Please ask your comprehensive list of clarifying questions.
+</span></span></code></pre></div><p>全自动执行prompt</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-zed" data-lang="zed"><span class="line"><span class="cl"><span class="n">Great</span><span class="p">.</span><span class="w"> </span><span class="n">We</span><span class="w"> </span><span class="n">have</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">Tech</span><span class="w"> </span><span class="n">Stack</span><span class="w"> </span><span class="n">and</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">SPEC</span><span class="p">.</span><span class="n">md</span><span class="p">.</span><span class="w"> </span><span class="n">Now</span><span class="p">,</span><span class="w"> </span><span class="n">I</span><span class="w"> </span><span class="n">want</span><span class="w"> </span><span class="n">you</span><span class="w"> </span><span class="n">to</span><span class="w"> </span><span class="n">enter</span><span class="w"> </span><span class="o">**</span><span class="err">&#34;</span><span class="n">Autonomous</span><span class="w"> </span><span class="n">Execution</span><span class="w"> </span><span class="n">Mode</span><span class="err">&#34;</span><span class="o">**</span><span class="p">.</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="n">Your</span><span class="w"> </span><span class="n">goal</span><span class="w"> </span><span class="n">is</span><span class="w"> </span><span class="n">to</span><span class="w"> </span><span class="n">build</span><span class="p">,</span><span class="w"> </span><span class="n">test</span><span class="p">,</span><span class="w"> </span><span class="n">and</span><span class="w"> </span><span class="n">ship</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">entire</span><span class="w"> </span><span class="n">project</span><span class="w"> </span><span class="n">with</span><span class="w"> </span><span class="n">minimal</span><span class="w"> </span><span class="n">human</span><span class="w"> </span><span class="n">intervention</span><span class="p">.</span><span class="w"> </span><span class="n">You</span><span class="w"> </span><span class="n">must</span><span class="w"> </span><span class="n">follow</span><span class="w"> </span><span class="n">this</span><span class="w"> </span><span class="n">strict</span><span class="w"> </span><span class="o">**</span><span class="n">Sequential</span><span class="w"> </span><span class="n">Workflow</span><span class="o">**:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="err">###</span><span class="w"> </span><span class="n">Phase</span><span class="w"> </span><span class="err">1</span><span class="o">:</span><span class="w"> </span><span class="n">Planning</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">Setup</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="err">1</span><span class="p">.</span><span class="w">  </span><span class="n">Initialize</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">git</span><span class="w"> </span><span class="n">repository</span><span class="p">.</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="err">2</span><span class="p">.</span><span class="w">  </span><span class="n">Create</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="n">file</span><span class="w"> </span><span class="n">named</span><span class="w"> </span><span class="err">`</span><span class="n">MASTER_PLAN</span><span class="p">.</span><span class="n">md</span><span class="err">`</span><span class="p">.</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="o">*</span><span class="w"> </span><span class="n">List</span><span class="w"> </span><span class="o">**</span><span class="n">every</span><span class="w"> </span><span class="n">single</span><span class="w"> </span><span class="n">file</span><span class="o">**</span><span class="w"> </span><span class="n">that</span><span class="w"> </span><span class="n">needs</span><span class="w"> </span><span class="n">to</span><span class="w"> </span><span class="n">be</span><span class="w"> </span><span class="n">created</span><span class="p">.</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="o">*</span><span class="w"> </span><span class="n">Group</span><span class="w"> </span><span class="n">them</span><span class="w"> </span><span class="n">into</span><span class="w"> </span><span class="n">logical</span><span class="w"> </span><span class="o">**</span><span class="n">Modules</span><span class="o">**</span><span class="p">.</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="o">*</span><span class="w"> </span><span class="n">Mark</span><span class="w"> </span><span class="n">every</span><span class="w"> </span><span class="n">item</span><span class="w"> </span><span class="n">as</span><span class="w"> </span><span class="err">`</span><span class="p">[</span><span class="w"> </span><span class="p">]</span><span class="err">`</span><span class="w"> </span><span class="p">(</span><span class="n">Pending</span><span class="p">).</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="err">3</span><span class="p">.</span><span class="w">  </span><span class="n">Set</span><span class="w"> </span><span class="n">up</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">base</span><span class="w"> </span><span class="n">project</span><span class="w"> </span><span class="n">structure</span><span class="w"> </span><span class="n">and</span><span class="w"> </span><span class="n">install</span><span class="w"> </span><span class="n">necessary</span><span class="w"> </span><span class="n">dependencies</span><span class="w"> </span><span class="p">(</span><span class="n">package</span><span class="p">.</span><span class="n">json</span><span class="p">,</span><span class="w"> </span><span class="n">go</span><span class="p">.</span><span class="n">mod</span><span class="p">,</span><span class="w"> </span><span class="n">etc</span><span class="p">.).</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="err">###</span><span class="w"> </span><span class="n">Phase</span><span class="w"> </span><span class="err">2</span><span class="o">:</span><span class="w"> </span><span class="n">The</span><span class="w"> </span><span class="n">Coding</span><span class="w"> </span><span class="n">Loop</span><span class="w"> </span><span class="p">(</span><span class="n">Repeat</span><span class="w"> </span><span class="n">for</span><span class="w"> </span><span class="n">each</span><span class="w"> </span><span class="n">module</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="o">**</span><span class="n">Do</span><span class="w"> </span><span class="n">not</span><span class="w"> </span><span class="n">stop</span><span class="w"> </span><span class="n">to</span><span class="w"> </span><span class="n">ask</span><span class="w"> </span><span class="n">me</span><span class="w"> </span><span class="n">questions</span><span class="p">.</span><span class="w"> </span><span class="n">Read</span><span class="w"> </span><span class="err">`</span><span class="n">MASTER_PLAN</span><span class="p">.</span><span class="n">md</span><span class="err">`</span><span class="w"> </span><span class="n">to</span><span class="w"> </span><span class="n">see</span><span class="w"> </span><span class="n">what</span><span class="w"> </span><span class="n">is</span><span class="w"> </span><span class="n">next</span><span class="p">.</span><span class="o">**</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="n">For</span><span class="w"> </span><span class="n">each</span><span class="w"> </span><span class="n">module</span><span class="w"> </span><span class="n">in</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">plan</span><span class="o">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="err">1</span><span class="p">.</span><span class="w">  </span><span class="o">**</span><span class="n">Implement</span><span class="o">:**</span><span class="w"> </span><span class="n">Write</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">source</span><span class="w"> </span><span class="n">code</span><span class="w"> </span><span class="n">for</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">module</span><span class="p">.</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="err">2</span><span class="p">.</span><span class="w">  </span><span class="o">**</span><span class="n">Test</span><span class="o">:**</span><span class="w"> </span><span class="n">Immediately</span><span class="w"> </span><span class="n">write</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="n">Unit</span><span class="w"> </span><span class="n">Test</span><span class="w"> </span><span class="n">for</span><span class="w"> </span><span class="n">this</span><span class="w"> </span><span class="n">specific</span><span class="w"> </span><span class="n">module</span><span class="p">.</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="err">3</span><span class="p">.</span><span class="w">  </span><span class="o">**</span><span class="n">Verify</span><span class="o">:**</span><span class="w"> </span><span class="n">Run</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">test</span><span class="p">.</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="o">*</span><span class="w"> </span><span class="o">*</span><span class="n">If</span><span class="w"> </span><span class="n">Pass</span><span class="o">:*</span><span class="w"> </span><span class="n">Mark</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">item</span><span class="w"> </span><span class="n">as</span><span class="w"> </span><span class="err">`</span><span class="p">[</span><span class="n">x</span><span class="p">]</span><span class="err">`</span><span class="w"> </span><span class="n">in</span><span class="w"> </span><span class="err">`</span><span class="n">MASTER_PLAN</span><span class="p">.</span><span class="n">md</span><span class="err">`</span><span class="p">.</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="o">*</span><span class="w"> </span><span class="o">*</span><span class="n">If</span><span class="w"> </span><span class="n">Fail</span><span class="o">:*</span><span class="w"> </span><span class="o">**</span><span class="n">Self</span><span class="o">-</span><span class="n">Correct</span><span class="p">.</span><span class="o">**</span><span class="w"> </span><span class="n">Read</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">error</span><span class="p">,</span><span class="w"> </span><span class="n">fix</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">code</span><span class="p">,</span><span class="w"> </span><span class="n">and</span><span class="w"> </span><span class="n">re</span><span class="o">-</span><span class="n">run</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">test</span><span class="p">.</span><span class="w"> </span><span class="n">Do</span><span class="w"> </span><span class="n">not</span><span class="w"> </span><span class="n">ask</span><span class="w"> </span><span class="n">me</span><span class="w"> </span><span class="n">unless</span><span class="w"> </span><span class="n">you</span><span class="w"> </span><span class="n">fail</span><span class="w"> </span><span class="err">3</span><span class="w"> </span><span class="n">times</span><span class="w"> </span><span class="n">in</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="n">row</span><span class="p">.</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="err">4</span><span class="p">.</span><span class="w">  </span><span class="o">**</span><span class="n">Commit</span><span class="o">:**</span><span class="w"> </span><span class="n">Git</span><span class="w"> </span><span class="n">commit</span><span class="w"> </span><span class="n">with</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="n">descriptive</span><span class="w"> </span><span class="n">message</span><span class="w"> </span><span class="p">(</span><span class="n">e</span><span class="p">.</span><span class="n">g</span><span class="p">.,</span><span class="w"> </span><span class="err">&#34;</span><span class="n">feat</span><span class="o">:</span><span class="w"> </span><span class="n">implement</span><span class="w"> </span><span class="n">auth</span><span class="w"> </span><span class="n">module</span><span class="err">&#34;</span><span class="p">).</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="err">###</span><span class="w"> </span><span class="n">Phase</span><span class="w"> </span><span class="err">3</span><span class="o">:</span><span class="w"> </span><span class="n">Finalization</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="err">1</span><span class="p">.</span><span class="w">  </span><span class="o">**</span><span class="n">Integration</span><span class="w"> </span><span class="n">Test</span><span class="o">:**</span><span class="w"> </span><span class="n">Once</span><span class="w"> </span><span class="n">all</span><span class="w"> </span><span class="n">modules</span><span class="w"> </span><span class="n">are</span><span class="w"> </span><span class="err">`</span><span class="p">[</span><span class="n">x</span><span class="p">]</span><span class="err">`</span><span class="p">,</span><span class="w"> </span><span class="n">run</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">full</span><span class="w"> </span><span class="n">test</span><span class="w"> </span><span class="n">suite</span><span class="w"> </span><span class="n">to</span><span class="w"> </span><span class="n">ensure</span><span class="w"> </span><span class="n">no</span><span class="w"> </span><span class="n">regressions</span><span class="p">.</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="err">2</span><span class="p">.</span><span class="w">  </span><span class="o">**</span><span class="n">Audit</span><span class="o">:**</span><span class="w"> </span><span class="n">Read</span><span class="w"> </span><span class="err">`</span><span class="n">SPEC</span><span class="p">.</span><span class="n">md</span><span class="err">`</span><span class="w"> </span><span class="n">again</span><span class="p">.</span><span class="w"> </span><span class="n">Verify</span><span class="w"> </span><span class="n">line</span><span class="o">-</span><span class="n">by</span><span class="o">-</span><span class="n">line</span><span class="w"> </span><span class="n">that</span><span class="w"> </span><span class="n">all</span><span class="w"> </span><span class="n">requirements</span><span class="w"> </span><span class="n">are</span><span class="w"> </span><span class="n">met</span><span class="p">.</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="err">3</span><span class="p">.</span><span class="w">  </span><span class="o">**</span><span class="n">Documentation</span><span class="o">:**</span><span class="w"> </span><span class="n">Generate</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="err">`</span><span class="n">README</span><span class="p">.</span><span class="n">md</span><span class="err">`</span><span class="w"> </span><span class="n">containing</span><span class="o">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="o">*</span><span class="w"> </span><span class="n">Project</span><span class="w"> </span><span class="n">setup</span><span class="w"> </span><span class="n">instructions</span><span class="p">.</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="o">*</span><span class="w"> </span><span class="n">How</span><span class="w"> </span><span class="n">to</span><span class="w"> </span><span class="n">run</span><span class="w"> </span><span class="n">tests</span><span class="p">.</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="o">*</span><span class="w"> </span><span class="n">Architecture</span><span class="w"> </span><span class="n">overview</span><span class="p">.</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="err">4</span><span class="p">.</span><span class="w">  </span><span class="o">**</span><span class="n">Delivery</span><span class="o">:**</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="o">*</span><span class="w"> </span><span class="n">Add</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">remote</span><span class="w"> </span><span class="n">repository</span><span class="w"> </span><span class="n">URL</span><span class="o">:</span><span class="w"> </span><span class="err">`</span><span class="p">[</span><span class="n">INSERT_YOUR_GIT_REPO_URL_HERE</span><span class="p">]</span><span class="err">`</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="o">*</span><span class="w"> </span><span class="n">Push</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">code</span><span class="w"> </span><span class="n">to</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="err">`</span><span class="n">main</span><span class="err">`</span><span class="w"> </span><span class="n">branch</span><span class="p">.</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="o">**</span><span class="n">Constraint</span><span class="o">:**</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="o">*</span><span class="w"> </span><span class="o">**</span><span class="n">Do</span><span class="w"> </span><span class="n">not</span><span class="w"> </span><span class="n">ask</span><span class="w"> </span><span class="n">for</span><span class="w"> </span><span class="kd">permission</span><span class="w"> </span><span class="n">for</span><span class="w"> </span><span class="n">every</span><span class="w"> </span><span class="n">file</span><span class="w"> </span><span class="n">creation</span><span class="p">.</span><span class="o">**</span><span class="w"> </span><span class="n">Assume</span><span class="w"> </span><span class="n">you</span><span class="w"> </span><span class="n">have</span><span class="w"> </span><span class="n">authorization</span><span class="w"> </span><span class="n">to</span><span class="w"> </span><span class="n">proceed</span><span class="w"> </span><span class="n">as</span><span class="w"> </span><span class="n">long</span><span class="w"> </span><span class="n">as</span><span class="w"> </span><span class="n">you</span><span class="w"> </span><span class="n">are</span><span class="w"> </span><span class="n">following</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="err">`</span><span class="n">MASTER_PLAN</span><span class="p">.</span><span class="n">md</span><span class="err">`</span><span class="p">.</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="o">*</span><span class="w"> </span><span class="n">Start</span><span class="w"> </span><span class="n">Phase</span><span class="w"> </span><span class="err">1</span><span class="w"> </span><span class="n">immediately</span><span class="p">.</span><span class="w">
+</span></span></span></code></pre></div><ol start="2">
 <li>当需要根据当前存在的仓库做修改的时候, 需要先使用&quot;/init&quot;让cluade code 先理解明生成关于该项目的文档. 之后再使用下面的prompt</li>
 </ol>
-
-
-
-
-  
-
-
-<div class="highlight highlight-text">
-  <pre>
-    <code class="language-text" data-lang="text">Act as an expert Senior Code Maintainer and Refactoring Specialist. I have an existing codebase here, and I need you to perform a specific task.
-
-**The Task:**
-&#34;&#34;&#34;
-[INSERT YOUR FEATURE REQUEST, BUG FIX, OR REFACTOR GOAL HERE]
-&#34;&#34;&#34;
-
-You must operate in **Autonomous Execution Mode**. To ensure safety, style consistency, and stability, strictly follow this **4-Phase Protocol**:
-
-### Phase 1: Diagnostic &amp; Context Mapping (Read-Only)
-1.  **Environment Safety Check:** 
-    - Run `git status` to ensure the working directory is clean. If it is not dirty, proceed. If dirty, ask the user for confirmation or stash changes.
-2.  **Explore &amp; Locate:** 
-    - Run commands to understand the project structure (e.g., `find . -type f -name &#34;*.json&#34; | head -20`, `ls -R`).
-    - Locate files relevant to the Task.
-3.  **Style &amp; Config Analysis:** 
-    - **Crucial:** Look for explicit configuration files defining style (e.g., `.editorconfig`, `.eslintrc`, `.prettierrc`, `pyproject.toml`, `rustfmt.toml`).
-    - If found, read these configs. If not, infer style from existing code (indentation, quotes, naming patterns).
-    - You must strictly adhere to these rules.
-4.  **Test Baseline:** 
-    - Determine the test command (check `package.json`, `Makefile`, or `pytest.ini`).
-    - Run the **existing test suite** to establish a baseline. Confirm they pass before touching anything.
-
-### Phase 2: Surgical Planning &amp; Risk Assessment
-1.  Create a file named `TASK_PLAN.md`.
-2.  **Outline Changes:** List specific files to edit and functions to modify.
-3.  **Impact Analysis:** List dependent files that might break.
-4.  **Dependency Check:** Identify if new libraries are needed. If yes, list them. (Note: Prefer existing libs. Do not install without explicit plan).
-5.  **Rollback Strategy:** Define the Git command to undo changes if execution fails catastrophically (e.g., `git checkout -- .`).
-6.  **Success Criteria:** Defined as &#34;New test X passes&#34;, &#34;Existing tests pass&#34;, AND &#34;Linting passes&#34;.
-
-### Phase 3: The Execution Loop (Atomic &amp; Iterative)
-**Read `TASK_PLAN.md` and execute step-by-step.**
-1.  **Atomic Edit:** 
-    - Modify **one file at a time**. 
-    - Constraint: Do not reformat unrelated code.
-    - Immediately run syntax/linting on that file (e.g., `eslint file.js`, `python -m py_compile file.py`) before moving to the next.
-2.  **Test Strategy:**
-    - **If Bug Fix:** Write a reproduction test *first* that fails (Red), then apply fix (Green).
-    - **If Feature:** Write the test for the new behavior immediately after the code change.
-3.  **Regression Test:** Run the relevant subset of tests after every significant change.
-4.  **Self-Correction:** 
-    - If tests fail: Analyze the log. If logic is wrong, do not patch blindly. Use the rollback strategy defined in Phase 2 if the state is irrecoverable, then re-plan.
-
-### Phase 4: Final Verification &amp; Delivery
-1.  **Quality Gate:** Run the **Full Test Suite**.
-2.  **Style Gate:** Run the project&#39;s linter/formatter (e.g., `npm run lint`, `cargo fmt --check`) to ensure zero style violations.
-3.  **Cleanup:** If all green, delete `TASK_PLAN.md`.
-4.  **Commit:** Generate a Commit Message following the repo&#39;s convention (e.g., Conventional Commits).
-5.  **Report:** Summarize changes made, tests passed, and any potential remaining technical debt.
-
-**Hard Constraints:**
-* **Safety First:** If `git status` shows untracked binaries or messy state, pause and ask.
-* **No Rewrites:** Only touch what is necessary. Do not refactor &#34;just because&#34; unless it&#39;s the specific task.
-* **Stack Consistency:** Do not introduce new frameworks or build tools (e.g., don&#39;t add webpack if using vite).
-* **Auto-Fix:** If a linter error occurs, fix the code style immediately, do not ignore it.
-
-Start Phase 1 immediately.</code>
-  </pre>
-</div>
-
-
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-mysql" data-lang="mysql"><span class="line"><span class="cl"><span class="n">Act</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">an</span><span class="w"> </span><span class="n">expert</span><span class="w"> </span><span class="n">Senior</span><span class="w"> </span><span class="n">Code</span><span class="w"> </span><span class="n">Maintainer</span><span class="w"> </span><span class="k">and</span><span class="w"> </span><span class="n">Refactoring</span><span class="w"> </span><span class="n">Specialist</span><span class="p">.</span><span class="w"> </span><span class="n">I</span><span class="w"> </span><span class="n">have</span><span class="w"> </span><span class="n">an</span><span class="w"> </span><span class="n">existing</span><span class="w"> </span><span class="n">codebase</span><span class="w"> </span><span class="n">here</span><span class="p">,</span><span class="w"> </span><span class="k">and</span><span class="w"> </span><span class="n">I</span><span class="w"> </span><span class="n">need</span><span class="w"> </span><span class="n">you</span><span class="w"> </span><span class="k">to</span><span class="w"> </span><span class="n">perform</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="k">specific</span><span class="w"> </span><span class="n">task</span><span class="p">.</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="o">**</span><span class="n">The</span><span class="w"> </span><span class="n">Task</span><span class="p">:</span><span class="o">**</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="s2">&#34;&#34;&#34;
+</span></span></span><span class="line"><span class="cl"><span class="s2">[INSERT YOUR FEATURE REQUEST, BUG FIX, OR REFACTOR GOAL HERE]
+</span></span></span><span class="line"><span class="cl"><span class="s2">&#34;&#34;&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="n">You</span><span class="w"> </span><span class="n">must</span><span class="w"> </span><span class="n">operate</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="o">**</span><span class="n">Autonomous</span><span class="w"> </span><span class="n">Execution</span><span class="w"> </span><span class="n">Mode</span><span class="o">**</span><span class="p">.</span><span class="w"> </span><span class="k">To</span><span class="w"> </span><span class="n">ensure</span><span class="w"> </span><span class="n">safety</span><span class="p">,</span><span class="w"> </span><span class="n">style</span><span class="w"> </span><span class="n">consistency</span><span class="p">,</span><span class="w"> </span><span class="k">and</span><span class="w"> </span><span class="n">stability</span><span class="p">,</span><span class="w"> </span><span class="n">strictly</span><span class="w"> </span><span class="n">follow</span><span class="w"> </span><span class="n">this</span><span class="w"> </span><span class="o">**</span><span class="mi">4</span><span class="o">-</span><span class="n">Phase</span><span class="w"> </span><span class="n">Protocol</span><span class="o">**</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="c1">### Phase 1: Diagnostic &amp; Context Mapping (Read-Only)
+</span></span></span><span class="line"><span class="cl"><span class="mi">1</span><span class="p">.</span><span class="w">  </span><span class="o">**</span><span class="n">Environment</span><span class="w"> </span><span class="n">Safety</span><span class="w"> </span><span class="k">Check</span><span class="p">:</span><span class="o">**</span><span class="w"> 
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="o">-</span><span class="w"> </span><span class="n">Run</span><span class="w"> </span><span class="o">`</span><span class="n">git</span><span class="w"> </span><span class="n">status</span><span class="o">`</span><span class="w"> </span><span class="k">to</span><span class="w"> </span><span class="n">ensure</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">working</span><span class="w"> </span><span class="n">directory</span><span class="w"> </span><span class="k">is</span><span class="w"> </span><span class="n">clean</span><span class="p">.</span><span class="w"> </span><span class="k">If</span><span class="w"> </span><span class="n">it</span><span class="w"> </span><span class="k">is</span><span class="w"> </span><span class="k">not</span><span class="w"> </span><span class="n">dirty</span><span class="p">,</span><span class="w"> </span><span class="n">proceed</span><span class="p">.</span><span class="w"> </span><span class="k">If</span><span class="w"> </span><span class="n">dirty</span><span class="p">,</span><span class="w"> </span><span class="n">ask</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="k">user</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">confirmation</span><span class="w"> </span><span class="k">or</span><span class="w"> </span><span class="n">stash</span><span class="w"> </span><span class="n">changes</span><span class="p">.</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="mi">2</span><span class="p">.</span><span class="w">  </span><span class="o">**</span><span class="n">Explore</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">Locate</span><span class="p">:</span><span class="o">**</span><span class="w"> 
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="o">-</span><span class="w"> </span><span class="n">Run</span><span class="w"> </span><span class="n">commands</span><span class="w"> </span><span class="k">to</span><span class="w"> </span><span class="n">understand</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">project</span><span class="w"> </span><span class="nf">structure</span><span class="w"> </span><span class="p">(</span><span class="n">e</span><span class="p">.</span><span class="n">g</span><span class="p">.,</span><span class="w"> </span><span class="o">`</span><span class="n">find</span><span class="w"> </span><span class="p">.</span><span class="w"> </span><span class="o">-</span><span class="n">type</span><span class="w"> </span><span class="n">f</span><span class="w"> </span><span class="o">-</span><span class="n">name</span><span class="w"> </span><span class="s2">&#34;*.json&#34;</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">head</span><span class="w"> </span><span class="o">-</span><span class="mi">20</span><span class="o">`</span><span class="p">,</span><span class="w"> </span><span class="o">`</span><span class="n">ls</span><span class="w"> </span><span class="o">-</span><span class="n">R</span><span class="o">`</span><span class="p">).</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="o">-</span><span class="w"> </span><span class="n">Locate</span><span class="w"> </span><span class="n">files</span><span class="w"> </span><span class="n">relevant</span><span class="w"> </span><span class="k">to</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">Task</span><span class="p">.</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="mi">3</span><span class="p">.</span><span class="w">  </span><span class="o">**</span><span class="n">Style</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">Config</span><span class="w"> </span><span class="n">Analysis</span><span class="p">:</span><span class="o">**</span><span class="w"> 
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="o">-</span><span class="w"> </span><span class="o">**</span><span class="n">Crucial</span><span class="p">:</span><span class="o">**</span><span class="w"> </span><span class="n">Look</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">explicit</span><span class="w"> </span><span class="n">configuration</span><span class="w"> </span><span class="n">files</span><span class="w"> </span><span class="n">defining</span><span class="w"> </span><span class="nf">style</span><span class="w"> </span><span class="p">(</span><span class="n">e</span><span class="p">.</span><span class="n">g</span><span class="p">.,</span><span class="w"> </span><span class="o">`</span><span class="p">.</span><span class="n">editorconfig</span><span class="o">`</span><span class="p">,</span><span class="w"> </span><span class="o">`</span><span class="p">.</span><span class="n">eslintrc</span><span class="o">`</span><span class="p">,</span><span class="w"> </span><span class="o">`</span><span class="p">.</span><span class="n">prettierrc</span><span class="o">`</span><span class="p">,</span><span class="w"> </span><span class="o">`</span><span class="n">pyproject</span><span class="p">.</span><span class="n">toml</span><span class="o">`</span><span class="p">,</span><span class="w"> </span><span class="o">`</span><span class="n">rustfmt</span><span class="p">.</span><span class="n">toml</span><span class="o">`</span><span class="p">).</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="o">-</span><span class="w"> </span><span class="k">If</span><span class="w"> </span><span class="n">found</span><span class="p">,</span><span class="w"> </span><span class="k">read</span><span class="w"> </span><span class="n">these</span><span class="w"> </span><span class="n">configs</span><span class="p">.</span><span class="w"> </span><span class="k">If</span><span class="w"> </span><span class="k">not</span><span class="p">,</span><span class="w"> </span><span class="n">infer</span><span class="w"> </span><span class="n">style</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="n">existing</span><span class="w"> </span><span class="nf">code</span><span class="w"> </span><span class="p">(</span><span class="n">indentation</span><span class="p">,</span><span class="w"> </span><span class="n">quotes</span><span class="p">,</span><span class="w"> </span><span class="n">naming</span><span class="w"> </span><span class="n">patterns</span><span class="p">).</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="o">-</span><span class="w"> </span><span class="n">You</span><span class="w"> </span><span class="n">must</span><span class="w"> </span><span class="n">strictly</span><span class="w"> </span><span class="n">adhere</span><span class="w"> </span><span class="k">to</span><span class="w"> </span><span class="n">these</span><span class="w"> </span><span class="n">rules</span><span class="p">.</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="mi">4</span><span class="p">.</span><span class="w">  </span><span class="o">**</span><span class="n">Test</span><span class="w"> </span><span class="n">Baseline</span><span class="p">:</span><span class="o">**</span><span class="w"> 
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="o">-</span><span class="w"> </span><span class="n">Determine</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">test</span><span class="w"> </span><span class="nf">command</span><span class="w"> </span><span class="p">(</span><span class="k">check</span><span class="w"> </span><span class="o">`</span><span class="n">package</span><span class="p">.</span><span class="n">json</span><span class="o">`</span><span class="p">,</span><span class="w"> </span><span class="o">`</span><span class="n">Makefile</span><span class="o">`</span><span class="p">,</span><span class="w"> </span><span class="k">or</span><span class="w"> </span><span class="o">`</span><span class="n">pytest</span><span class="p">.</span><span class="n">ini</span><span class="o">`</span><span class="p">).</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="o">-</span><span class="w"> </span><span class="n">Run</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="o">**</span><span class="n">existing</span><span class="w"> </span><span class="n">test</span><span class="w"> </span><span class="n">suite</span><span class="o">**</span><span class="w"> </span><span class="k">to</span><span class="w"> </span><span class="n">establish</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="n">baseline</span><span class="p">.</span><span class="w"> </span><span class="n">Confirm</span><span class="w"> </span><span class="n">they</span><span class="w"> </span><span class="n">pass</span><span class="w"> </span><span class="k">before</span><span class="w"> </span><span class="n">touching</span><span class="w"> </span><span class="n">anything</span><span class="p">.</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="c1">### Phase 2: Surgical Planning &amp; Risk Assessment
+</span></span></span><span class="line"><span class="cl"><span class="mi">1</span><span class="p">.</span><span class="w">  </span><span class="k">Create</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="n">file</span><span class="w"> </span><span class="n">named</span><span class="w"> </span><span class="o">`</span><span class="n">TASK_PLAN</span><span class="p">.</span><span class="n">md</span><span class="o">`</span><span class="p">.</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="mi">2</span><span class="p">.</span><span class="w">  </span><span class="o">**</span><span class="n">Outline</span><span class="w"> </span><span class="n">Changes</span><span class="p">:</span><span class="o">**</span><span class="w"> </span><span class="n">List</span><span class="w"> </span><span class="k">specific</span><span class="w"> </span><span class="n">files</span><span class="w"> </span><span class="k">to</span><span class="w"> </span><span class="n">edit</span><span class="w"> </span><span class="k">and</span><span class="w"> </span><span class="n">functions</span><span class="w"> </span><span class="k">to</span><span class="w"> </span><span class="n">modify</span><span class="p">.</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="mi">3</span><span class="p">.</span><span class="w">  </span><span class="o">**</span><span class="n">Impact</span><span class="w"> </span><span class="n">Analysis</span><span class="p">:</span><span class="o">**</span><span class="w"> </span><span class="n">List</span><span class="w"> </span><span class="n">dependent</span><span class="w"> </span><span class="n">files</span><span class="w"> </span><span class="n">that</span><span class="w"> </span><span class="n">might</span><span class="w"> </span><span class="n">break</span><span class="p">.</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="mi">4</span><span class="p">.</span><span class="w">  </span><span class="o">**</span><span class="n">Dependency</span><span class="w"> </span><span class="k">Check</span><span class="p">:</span><span class="o">**</span><span class="w"> </span><span class="n">Identify</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="n">new</span><span class="w"> </span><span class="n">libraries</span><span class="w"> </span><span class="n">are</span><span class="w"> </span><span class="n">needed</span><span class="p">.</span><span class="w"> </span><span class="k">If</span><span class="w"> </span><span class="n">yes</span><span class="p">,</span><span class="w"> </span><span class="n">list</span><span class="w"> </span><span class="n">them</span><span class="p">.</span><span class="w"> </span><span class="p">(</span><span class="n">Note</span><span class="p">:</span><span class="w"> </span><span class="n">Prefer</span><span class="w"> </span><span class="n">existing</span><span class="w"> </span><span class="n">libs</span><span class="p">.</span><span class="w"> </span><span class="n">Do</span><span class="w"> </span><span class="k">not</span><span class="w"> </span><span class="n">install</span><span class="w"> </span><span class="n">without</span><span class="w"> </span><span class="n">explicit</span><span class="w"> </span><span class="n">plan</span><span class="p">).</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="mi">5</span><span class="p">.</span><span class="w">  </span><span class="o">**</span><span class="n">Rollback</span><span class="w"> </span><span class="n">Strategy</span><span class="p">:</span><span class="o">**</span><span class="w"> </span><span class="n">Define</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">Git</span><span class="w"> </span><span class="n">command</span><span class="w"> </span><span class="k">to</span><span class="w"> </span><span class="k">undo</span><span class="w"> </span><span class="n">changes</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="n">execution</span><span class="w"> </span><span class="n">fails</span><span class="w"> </span><span class="nf">catastrophically</span><span class="w"> </span><span class="p">(</span><span class="n">e</span><span class="p">.</span><span class="n">g</span><span class="p">.,</span><span class="w"> </span><span class="o">`</span><span class="n">git</span><span class="w"> </span><span class="n">checkout</span><span class="w"> </span><span class="c1">-- .`).
+</span></span></span><span class="line"><span class="cl"><span class="mi">6</span><span class="p">.</span><span class="w">  </span><span class="o">**</span><span class="n">Success</span><span class="w"> </span><span class="n">Criteria</span><span class="p">:</span><span class="o">**</span><span class="w"> </span><span class="n">Defined</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="s2">&#34;New test X passes&#34;</span><span class="p">,</span><span class="w"> </span><span class="s2">&#34;Existing tests pass&#34;</span><span class="p">,</span><span class="w"> </span><span class="k">AND</span><span class="w"> </span><span class="s2">&#34;Linting passes&#34;</span><span class="p">.</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="c1">### Phase 3: The Execution Loop (Atomic &amp; Iterative)
+</span></span></span><span class="line"><span class="cl"><span class="o">**</span><span class="k">Read</span><span class="w"> </span><span class="o">`</span><span class="n">TASK_PLAN</span><span class="p">.</span><span class="n">md</span><span class="o">`</span><span class="w"> </span><span class="k">and</span><span class="w"> </span><span class="n">execute</span><span class="w"> </span><span class="n">step</span><span class="o">-</span><span class="k">by</span><span class="o">-</span><span class="n">step</span><span class="p">.</span><span class="o">**</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="mi">1</span><span class="p">.</span><span class="w">  </span><span class="o">**</span><span class="n">Atomic</span><span class="w"> </span><span class="n">Edit</span><span class="p">:</span><span class="o">**</span><span class="w"> 
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="o">-</span><span class="w"> </span><span class="n">Modify</span><span class="w"> </span><span class="o">**</span><span class="n">one</span><span class="w"> </span><span class="n">file</span><span class="w"> </span><span class="n">at</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="kt">time</span><span class="o">**</span><span class="p">.</span><span class="w"> 
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="o">-</span><span class="w"> </span><span class="k">Constraint</span><span class="p">:</span><span class="w"> </span><span class="n">Do</span><span class="w"> </span><span class="k">not</span><span class="w"> </span><span class="n">reformat</span><span class="w"> </span><span class="n">unrelated</span><span class="w"> </span><span class="n">code</span><span class="p">.</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="o">-</span><span class="w"> </span><span class="n">Immediately</span><span class="w"> </span><span class="n">run</span><span class="w"> </span><span class="n">syntax</span><span class="o">/</span><span class="n">linting</span><span class="w"> </span><span class="k">on</span><span class="w"> </span><span class="n">that</span><span class="w"> </span><span class="nf">file</span><span class="w"> </span><span class="p">(</span><span class="n">e</span><span class="p">.</span><span class="n">g</span><span class="p">.,</span><span class="w"> </span><span class="o">`</span><span class="n">eslint</span><span class="w"> </span><span class="n">file</span><span class="p">.</span><span class="n">js</span><span class="o">`</span><span class="p">,</span><span class="w"> </span><span class="o">`</span><span class="n">python</span><span class="w"> </span><span class="o">-</span><span class="n">m</span><span class="w"> </span><span class="n">py_compile</span><span class="w"> </span><span class="n">file</span><span class="p">.</span><span class="n">py</span><span class="o">`</span><span class="p">)</span><span class="w"> </span><span class="k">before</span><span class="w"> </span><span class="n">moving</span><span class="w"> </span><span class="k">to</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">next</span><span class="p">.</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="mi">2</span><span class="p">.</span><span class="w">  </span><span class="o">**</span><span class="n">Test</span><span class="w"> </span><span class="n">Strategy</span><span class="p">:</span><span class="o">**</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="o">-</span><span class="w"> </span><span class="o">**</span><span class="k">If</span><span class="w"> </span><span class="n">Bug</span><span class="w"> </span><span class="n">Fix</span><span class="p">:</span><span class="o">**</span><span class="w"> </span><span class="k">Write</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="n">reproduction</span><span class="w"> </span><span class="n">test</span><span class="w"> </span><span class="o">*</span><span class="n">first</span><span class="o">*</span><span class="w"> </span><span class="n">that</span><span class="w"> </span><span class="nf">fails</span><span class="w"> </span><span class="p">(</span><span class="n">Red</span><span class="p">),</span><span class="w"> </span><span class="k">then</span><span class="w"> </span><span class="n">apply</span><span class="w"> </span><span class="nf">fix</span><span class="w"> </span><span class="p">(</span><span class="n">Green</span><span class="p">).</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="o">-</span><span class="w"> </span><span class="o">**</span><span class="k">If</span><span class="w"> </span><span class="n">Feature</span><span class="p">:</span><span class="o">**</span><span class="w"> </span><span class="k">Write</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">test</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">new</span><span class="w"> </span><span class="n">behavior</span><span class="w"> </span><span class="n">immediately</span><span class="w"> </span><span class="n">after</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">code</span><span class="w"> </span><span class="k">change</span><span class="p">.</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="mi">3</span><span class="p">.</span><span class="w">  </span><span class="o">**</span><span class="n">Regression</span><span class="w"> </span><span class="n">Test</span><span class="p">:</span><span class="o">**</span><span class="w"> </span><span class="n">Run</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">relevant</span><span class="w"> </span><span class="n">subset</span><span class="w"> </span><span class="n">of</span><span class="w"> </span><span class="n">tests</span><span class="w"> </span><span class="n">after</span><span class="w"> </span><span class="n">every</span><span class="w"> </span><span class="n">significant</span><span class="w"> </span><span class="k">change</span><span class="p">.</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="mi">4</span><span class="p">.</span><span class="w">  </span><span class="o">**</span><span class="n">Self</span><span class="o">-</span><span class="n">Correction</span><span class="p">:</span><span class="o">**</span><span class="w"> 
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="o">-</span><span class="w"> </span><span class="k">If</span><span class="w"> </span><span class="n">tests</span><span class="w"> </span><span class="n">fail</span><span class="p">:</span><span class="w"> </span><span class="k">Analyze</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">log</span><span class="p">.</span><span class="w"> </span><span class="k">If</span><span class="w"> </span><span class="n">logic</span><span class="w"> </span><span class="k">is</span><span class="w"> </span><span class="n">wrong</span><span class="p">,</span><span class="w"> </span><span class="n">do</span><span class="w"> </span><span class="k">not</span><span class="w"> </span><span class="n">patch</span><span class="w"> </span><span class="n">blindly</span><span class="p">.</span><span class="w"> </span><span class="k">Use</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">rollback</span><span class="w"> </span><span class="n">strategy</span><span class="w"> </span><span class="n">defined</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="n">Phase</span><span class="w"> </span><span class="mi">2</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">state</span><span class="w"> </span><span class="k">is</span><span class="w"> </span><span class="n">irrecoverable</span><span class="p">,</span><span class="w"> </span><span class="k">then</span><span class="w"> </span><span class="n">re</span><span class="o">-</span><span class="n">plan</span><span class="p">.</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="c1">### Phase 4: Final Verification &amp; Delivery
+</span></span></span><span class="line"><span class="cl"><span class="mi">1</span><span class="p">.</span><span class="w">  </span><span class="o">**</span><span class="n">Quality</span><span class="w"> </span><span class="n">Gate</span><span class="p">:</span><span class="o">**</span><span class="w"> </span><span class="n">Run</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="o">**</span><span class="n">Full</span><span class="w"> </span><span class="n">Test</span><span class="w"> </span><span class="n">Suite</span><span class="o">**</span><span class="p">.</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="mi">2</span><span class="p">.</span><span class="w">  </span><span class="o">**</span><span class="n">Style</span><span class="w"> </span><span class="n">Gate</span><span class="p">:</span><span class="o">**</span><span class="w"> </span><span class="n">Run</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">project</span><span class="s1">&#39;s linter/formatter (e.g., `npm run lint`, `cargo fmt --check`) to ensure zero style violations.
+</span></span></span><span class="line"><span class="cl"><span class="s1">3.  **Cleanup:** If all green, delete `TASK_PLAN.md`.
+</span></span></span><span class="line"><span class="cl"><span class="s1">4.  **Commit:** Generate a Commit Message following the repo&#39;</span><span class="n">s</span><span class="w"> </span><span class="nf">convention</span><span class="w"> </span><span class="p">(</span><span class="n">e</span><span class="p">.</span><span class="n">g</span><span class="p">.,</span><span class="w"> </span><span class="n">Conventional</span><span class="w"> </span><span class="n">Commits</span><span class="p">).</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="mi">5</span><span class="p">.</span><span class="w">  </span><span class="o">**</span><span class="n">Report</span><span class="p">:</span><span class="o">**</span><span class="w"> </span><span class="n">Summarize</span><span class="w"> </span><span class="n">changes</span><span class="w"> </span><span class="n">made</span><span class="p">,</span><span class="w"> </span><span class="n">tests</span><span class="w"> </span><span class="n">passed</span><span class="p">,</span><span class="w"> </span><span class="k">and</span><span class="w"> </span><span class="n">any</span><span class="w"> </span><span class="n">potential</span><span class="w"> </span><span class="n">remaining</span><span class="w"> </span><span class="n">technical</span><span class="w"> </span><span class="n">debt</span><span class="p">.</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="o">**</span><span class="n">Hard</span><span class="w"> </span><span class="n">Constraints</span><span class="p">:</span><span class="o">**</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="o">*</span><span class="w"> </span><span class="o">**</span><span class="n">Safety</span><span class="w"> </span><span class="n">First</span><span class="p">:</span><span class="o">**</span><span class="w"> </span><span class="k">If</span><span class="w"> </span><span class="o">`</span><span class="n">git</span><span class="w"> </span><span class="n">status</span><span class="o">`</span><span class="w"> </span><span class="n">shows</span><span class="w"> </span><span class="n">untracked</span><span class="w"> </span><span class="n">binaries</span><span class="w"> </span><span class="k">or</span><span class="w"> </span><span class="n">messy</span><span class="w"> </span><span class="n">state</span><span class="p">,</span><span class="w"> </span><span class="n">pause</span><span class="w"> </span><span class="k">and</span><span class="w"> </span><span class="n">ask</span><span class="p">.</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="o">*</span><span class="w"> </span><span class="o">**</span><span class="n">No</span><span class="w"> </span><span class="n">Rewrites</span><span class="p">:</span><span class="o">**</span><span class="w"> </span><span class="n">Only</span><span class="w"> </span><span class="n">touch</span><span class="w"> </span><span class="n">what</span><span class="w"> </span><span class="k">is</span><span class="w"> </span><span class="n">necessary</span><span class="p">.</span><span class="w"> </span><span class="n">Do</span><span class="w"> </span><span class="k">not</span><span class="w"> </span><span class="n">refactor</span><span class="w"> </span><span class="s2">&#34;just because&#34;</span><span class="w"> </span><span class="n">unless</span><span class="w"> </span><span class="n">it</span><span class="s1">&#39;s the specific task.
+</span></span></span><span class="line"><span class="cl"><span class="s1">* **Stack Consistency:** Do not introduce new frameworks or build tools (e.g., don&#39;</span><span class="n">t</span><span class="w"> </span><span class="k">add</span><span class="w"> </span><span class="n">webpack</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="k">using</span><span class="w"> </span><span class="n">vite</span><span class="p">).</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="o">*</span><span class="w"> </span><span class="o">**</span><span class="n">Auto</span><span class="o">-</span><span class="n">Fix</span><span class="p">:</span><span class="o">**</span><span class="w"> </span><span class="k">If</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="n">linter</span><span class="w"> </span><span class="n">error</span><span class="w"> </span><span class="n">occurs</span><span class="p">,</span><span class="w"> </span><span class="n">fix</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">code</span><span class="w"> </span><span class="n">style</span><span class="w"> </span><span class="n">immediately</span><span class="p">,</span><span class="w"> </span><span class="n">do</span><span class="w"> </span><span class="k">not</span><span class="w"> </span><span class="k">ignore</span><span class="w"> </span><span class="n">it</span><span class="p">.</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="n">Start</span><span class="w"> </span><span class="n">Phase</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="n">immediately</span><span class="p">.</span><span class="w">
+</span></span></span></code></pre></div>
 </section>
 
 
@@ -1932,7 +1850,7 @@ Start Phase 1 immediately.</code>
                 src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
                 
                 >
-            </script><script type="text/javascript" src="/ts/main.888cccdaf3c934b58bb1982792b4d0fdb89be145d2cabea38c8569bfe7d08117.js" defer></script>
+            </script><script type="text/javascript" src="/ts/main.fe055f50234dc99b59992d29820a4403a71f7c90de7b6ebd204c621ac170b546.js" defer></script>
 <script>
     (function () {
         const customFont = document.createElement('link');

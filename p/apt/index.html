@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="zh-cn" dir="ltr">
+<html lang="en-us" dir="ltr">
     <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><meta charset='utf-8'>
 <meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="Advanced Package Tool for Debian-based Linux distributions">
 <title>Apt</title>
@@ -357,7 +357,7 @@
                     
                     
                         
-                        <img src="/img/avatar_hu_9c50848f93c56cbf.jpeg" width="300"
+                        <img src="/img/avatar_hu_a69ebd3e9749347e.jpeg" width="300"
                             height="296" class="site-logo" loading="lazy" alt="Avatar">
                     
                 
@@ -738,198 +738,128 @@
     >Ubuntu APT Guide</a></li>
 </ul>
 <h2 id="quick-start">Quick Start
-</h2>
-
-
-
-
-<div class="highlight highlight-bash">
-  <pre>
-    <code class="language-bash" data-lang="bash"># Update package index (downloads latest package information)
-sudo apt update
-
-# Upgrade all installed packages to their latest versions
-sudo apt upgrade
-
-# Install a package / include local deb docs
-sudo apt install &lt;package_name&gt;
-
-# Remove a package (keeps configuration files)
-sudo apt remove &lt;package_name&gt;
-
-# Completely remove a package and its configuration files
-sudo apt purge &lt;package_name&gt;
-
-# Search for packages
-apt search &lt;keyword&gt;</code>
-  </pre>
-</div>
-
-<h2 id="common-commands">Common Commands
-</h2>
-
-
-
-
-<div class="highlight highlight-bash">
-  <pre>
-    <code class="language-bash" data-lang="bash"># Update package list and upgrade all packages
-sudo apt update &amp;&amp; sudo apt upgrade -y
-
-# Install multiple packages
-sudo apt install package1 package2 package3
-
-# Install a package without confirmation prompts
-sudo apt install -y &lt;package_name&gt;
-
-# Show package information
-apt show &lt;package_name&gt;
-
-# List all installed packages
-apt list --installed
-
-# List upgradable packages
-apt list --upgradable
-
-# Remove unused dependencies
-sudo apt autoremove
-
-# Clean package cache (removes downloaded .deb files)
-sudo apt clean
-
-# Clean package cache (removes outdated .deb files)
-sudo apt autoclean</code>
-  </pre>
-</div>
-
-<blockquote class="alert alert-note">
+</h2><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># Update package index (downloads latest package information)</span>
+</span></span><span class="line"><span class="cl">sudo apt update
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Upgrade all installed packages to their latest versions</span>
+</span></span><span class="line"><span class="cl">sudo apt upgrade
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Install a package / include local deb docs</span>
+</span></span><span class="line"><span class="cl">sudo apt install &lt;package_name&gt;
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Remove a package (keeps configuration files)</span>
+</span></span><span class="line"><span class="cl">sudo apt remove &lt;package_name&gt;
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Completely remove a package and its configuration files</span>
+</span></span><span class="line"><span class="cl">sudo apt purge &lt;package_name&gt;
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Search for packages</span>
+</span></span><span class="line"><span class="cl">apt search &lt;keyword&gt;
+</span></span></code></pre></div><h2 id="common-commands">Common Commands
+</h2><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># Update package list and upgrade all packages</span>
+</span></span><span class="line"><span class="cl">sudo apt update <span class="o">&amp;&amp;</span> sudo apt upgrade -y
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Install multiple packages</span>
+</span></span><span class="line"><span class="cl">sudo apt install package1 package2 package3
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Install a package without confirmation prompts</span>
+</span></span><span class="line"><span class="cl">sudo apt install -y &lt;package_name&gt;
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Show package information</span>
+</span></span><span class="line"><span class="cl">apt show &lt;package_name&gt;
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># List all installed packages</span>
+</span></span><span class="line"><span class="cl">apt list --installed
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># List upgradable packages</span>
+</span></span><span class="line"><span class="cl">apt list --upgradable
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Remove unused dependencies</span>
+</span></span><span class="line"><span class="cl">sudo apt autoremove
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Clean package cache (removes downloaded .deb files)</span>
+</span></span><span class="line"><span class="cl">sudo apt clean
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Clean package cache (removes outdated .deb files)</span>
+</span></span><span class="line"><span class="cl">sudo apt autoclean
+</span></span></code></pre></div><blockquote class="alert alert-note">
     <p>Always run <code>sudo apt update</code> before installing new packages to ensure you&rsquo;re getting the latest versions.</p></blockquote>
 <h2 id="advanced-commands--features">Advanced Commands &amp; Features
 </h2><h3 id="package-search-and-information">Package Search and Information
-</h3>
-
-
-
-
-<div class="highlight highlight-bash">
-  <pre>
-    <code class="language-bash" data-lang="bash"># Search for packages by name or description
-apt search &lt;keyword&gt;
-
-# Show detailed information about a package
-apt show &lt;package_name&gt;
-
-# List all available versions of a package
-apt list -a &lt;package_name&gt;
-
-# Show installed packages matching a pattern
-apt list --installed | grep &lt;pattern&gt;</code>
-  </pre>
-</div>
-
-<h3 id="package-installation-options">Package Installation Options
-</h3>
-
-
-
-
-<div class="highlight highlight-bash">
-  <pre>
-    <code class="language-bash" data-lang="bash"># Install a specific version of a package
-sudo apt install &lt;package_name&gt;=&lt;version&gt;
-
-# Reinstall a package
-sudo apt reinstall &lt;package_name&gt;
-
-# Simulate an installation (dry run)
-sudo apt install --dry-run &lt;package_name&gt;
-
-# Install recommended packages automatically
-sudo apt install --install-recommends &lt;package_name&gt;
-
-# Install without recommended packages
-sudo apt install --no-install-recommends &lt;package_name&gt;</code>
-  </pre>
-</div>
-
-<h3 id="system-maintenance">System Maintenance
-</h3>
-
-
-
-
-<div class="highlight highlight-bash">
-  <pre>
-    <code class="language-bash" data-lang="bash"># Full system upgrade (may remove/install packages)
-sudo apt full-upgrade
-
-# Fix broken dependencies
-sudo apt --fix-broken install
-
-# Fix missing packages
-sudo apt --fix-missing update
-
-# Download package files without installing
-sudo apt download &lt;package_name&gt;
-
-# Check for broken dependencies
-sudo apt check</code>
-  </pre>
-</div>
-
-<h3 id="repository-management">Repository Management
-</h3>
-
-
-
-
-<div class="highlight highlight-bash">
-  <pre>
-    <code class="language-bash" data-lang="bash"># Add a repository
-sudo add-apt-repository &lt;repository&gt;
-
-# Add a repository without prompting
-sudo add-apt-repository -y &lt;repository&gt;
-
-# Remove a repository
-sudo add-apt-repository --remove &lt;repository&gt;
-
-# List all configured repositories
-apt policy
-
-# Update package list for a specific repository
-sudo apt update -o Dir::Etc::sourcelist=&#34;sources.list.d/&lt;repo&gt;.list&#34; \
-                -o Dir::Etc::sourceparts=&#34;-&#34; \
-                -o APT::Get::List-Cleanup=&#34;0&#34;</code>
-  </pre>
-</div>
-
-<h3 id="package-pinning-holding-package-versions">Package Pinning (Holding Package Versions)
-</h3>
-
-
-
-
-<div class="highlight highlight-bash">
-  <pre>
-    <code class="language-bash" data-lang="bash"># Hold a package at its current version (prevent upgrades)
-sudo apt-mark hold &lt;package_name&gt;
-
-# Unhold a package (allow upgrades again)
-sudo apt-mark unhold &lt;package_name&gt;
-
-# Show held packages
-apt-mark showhold
-
-# Mark a package as automatically installed
-sudo apt-mark auto &lt;package_name&gt;
-
-# Mark a package as manually installed
-sudo apt-mark manual &lt;package_name&gt;</code>
-  </pre>
-</div>
-
-<h2 id="configuration-files">Configuration Files
+</h3><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># Search for packages by name or description</span>
+</span></span><span class="line"><span class="cl">apt search &lt;keyword&gt;
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Show detailed information about a package</span>
+</span></span><span class="line"><span class="cl">apt show &lt;package_name&gt;
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># List all available versions of a package</span>
+</span></span><span class="line"><span class="cl">apt list -a &lt;package_name&gt;
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Show installed packages matching a pattern</span>
+</span></span><span class="line"><span class="cl">apt list --installed <span class="p">|</span> grep &lt;pattern&gt;
+</span></span></code></pre></div><h3 id="package-installation-options">Package Installation Options
+</h3><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># Install a specific version of a package</span>
+</span></span><span class="line"><span class="cl">sudo apt install &lt;package_name&gt;<span class="o">=</span>&lt;version&gt;
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Reinstall a package</span>
+</span></span><span class="line"><span class="cl">sudo apt reinstall &lt;package_name&gt;
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Simulate an installation (dry run)</span>
+</span></span><span class="line"><span class="cl">sudo apt install --dry-run &lt;package_name&gt;
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Install recommended packages automatically</span>
+</span></span><span class="line"><span class="cl">sudo apt install --install-recommends &lt;package_name&gt;
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Install without recommended packages</span>
+</span></span><span class="line"><span class="cl">sudo apt install --no-install-recommends &lt;package_name&gt;
+</span></span></code></pre></div><h3 id="system-maintenance">System Maintenance
+</h3><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># Full system upgrade (may remove/install packages)</span>
+</span></span><span class="line"><span class="cl">sudo apt full-upgrade
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Fix broken dependencies</span>
+</span></span><span class="line"><span class="cl">sudo apt --fix-broken install
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Fix missing packages</span>
+</span></span><span class="line"><span class="cl">sudo apt --fix-missing update
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Download package files without installing</span>
+</span></span><span class="line"><span class="cl">sudo apt download &lt;package_name&gt;
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Check for broken dependencies</span>
+</span></span><span class="line"><span class="cl">sudo apt check
+</span></span></code></pre></div><h3 id="repository-management">Repository Management
+</h3><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># Add a repository</span>
+</span></span><span class="line"><span class="cl">sudo add-apt-repository &lt;repository&gt;
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Add a repository without prompting</span>
+</span></span><span class="line"><span class="cl">sudo add-apt-repository -y &lt;repository&gt;
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Remove a repository</span>
+</span></span><span class="line"><span class="cl">sudo add-apt-repository --remove &lt;repository&gt;
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># List all configured repositories</span>
+</span></span><span class="line"><span class="cl">apt policy
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Update package list for a specific repository</span>
+</span></span><span class="line"><span class="cl">sudo apt update -o Dir::Etc::sourcelist<span class="o">=</span><span class="s2">&#34;sources.list.d/&lt;repo&gt;.list&#34;</span> <span class="se">\
+</span></span></span><span class="line"><span class="cl">                -o Dir::Etc::sourceparts<span class="o">=</span><span class="s2">&#34;-&#34;</span> <span class="se">\
+</span></span></span><span class="line"><span class="cl">                -o APT::Get::List-Cleanup<span class="o">=</span><span class="s2">&#34;0&#34;</span>
+</span></span></code></pre></div><h3 id="package-pinning-holding-package-versions">Package Pinning (Holding Package Versions)
+</h3><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># Hold a package at its current version (prevent upgrades)</span>
+</span></span><span class="line"><span class="cl">sudo apt-mark hold &lt;package_name&gt;
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Unhold a package (allow upgrades again)</span>
+</span></span><span class="line"><span class="cl">sudo apt-mark unhold &lt;package_name&gt;
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Show held packages</span>
+</span></span><span class="line"><span class="cl">apt-mark showhold
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Mark a package as automatically installed</span>
+</span></span><span class="line"><span class="cl">sudo apt-mark auto &lt;package_name&gt;
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Mark a package as manually installed</span>
+</span></span><span class="line"><span class="cl">sudo apt-mark manual &lt;package_name&gt;
+</span></span></code></pre></div><h2 id="configuration-files">Configuration Files
 </h2><p>APT configuration files are located in <code>/etc/apt/</code>:</p>
 <ul>
 <li><code>/etc/apt/sources.list</code> - Main repository configuration</li>
@@ -953,68 +883,28 @@ sudo apt-mark manual &lt;package_name&gt;</code>
 </h3><ol>
 <li>
 <p><strong>GPG Errors</strong>:</p>
-
-
-
-
-
-<div class="highlight highlight-bash">
-  <pre>
-    <code class="language-bash" data-lang="bash"># Fix missing GPG keys
-sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys &lt;KEY_ID&gt;</code>
-  </pre>
-</div>
-
-</li>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># Fix missing GPG keys</span>
+</span></span><span class="line"><span class="cl">sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys &lt;KEY_ID&gt;
+</span></span></code></pre></div></li>
 <li>
 <p><strong>Repository Issues</strong>:</p>
-
-
-
-
-
-<div class="highlight highlight-bash">
-  <pre>
-    <code class="language-bash" data-lang="bash"># Fix repository errors
-sudo apt clean
-sudo apt update --fix-missing</code>
-  </pre>
-</div>
-
-</li>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># Fix repository errors</span>
+</span></span><span class="line"><span class="cl">sudo apt clean
+</span></span><span class="line"><span class="cl">sudo apt update --fix-missing
+</span></span></code></pre></div></li>
 <li>
 <p><strong>Broken Packages</strong>:</p>
-
-
-
-
-
-<div class="highlight highlight-bash">
-  <pre>
-    <code class="language-bash" data-lang="bash"># Fix broken dependencies
-sudo apt --fix-broken install
-sudo dpkg --configure -a</code>
-  </pre>
-</div>
-
-</li>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># Fix broken dependencies</span>
+</span></span><span class="line"><span class="cl">sudo apt --fix-broken install
+</span></span><span class="line"><span class="cl">sudo dpkg --configure -a
+</span></span></code></pre></div></li>
 <li>
 <p><strong>Lock Errors</strong>:</p>
-
-
-
-
-
-<div class="highlight highlight-bash">
-  <pre>
-    <code class="language-bash" data-lang="bash"># Remove lock files (only if no other apt process is running)
-sudo rm /var/lib/apt/lists/lock
-sudo rm /var/cache/apt/archives/lock
-sudo rm /var/lib/dpkg/lock*</code>
-  </pre>
-</div>
-
-</li>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># Remove lock files (only if no other apt process is running)</span>
+</span></span><span class="line"><span class="cl">sudo rm /var/lib/apt/lists/lock
+</span></span><span class="line"><span class="cl">sudo rm /var/cache/apt/archives/lock
+</span></span><span class="line"><span class="cl">sudo rm /var/lib/dpkg/lock*
+</span></span></code></pre></div></li>
 </ol>
 <blockquote class="alert alert-tip">
     <p>Always be cautious when removing lock files. Make sure no other package manager is running.</p></blockquote>
@@ -1338,7 +1228,7 @@ sudo rm /var/lib/dpkg/lock*</code>
                 src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
                 
                 >
-            </script><script type="text/javascript" src="/ts/main.888cccdaf3c934b58bb1982792b4d0fdb89be145d2cabea38c8569bfe7d08117.js" defer></script>
+            </script><script type="text/javascript" src="/ts/main.fe055f50234dc99b59992d29820a4403a71f7c90de7b6ebd204c621ac170b546.js" defer></script>
 <script>
     (function () {
         const customFont = document.createElement('link');

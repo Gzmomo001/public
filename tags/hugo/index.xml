@@ -5,7 +5,7 @@
         <link>http://localhost:1313/tags/hugo/</link>
         <description>Recent content in Hugo on Henry Zhang</description>
         <generator>Hugo -- gohugo.io</generator>
-        <language>zh-cn</language>
+        <language>en-us</language>
         <copyright>blog@mail.henry070.org</copyright>
         <lastBuildDate>Tue, 25 Nov 2025 18:20:14 +0800</lastBuildDate><atom:link href="http://localhost:1313/tags/hugo/index.xml" rel="self" type="application/rss+xml" /><item>
         <title>Stack theme hugo 字体设置</title>

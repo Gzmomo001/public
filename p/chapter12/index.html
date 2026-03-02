@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="zh-cn" dir="ltr">
+<html lang="en-us" dir="ltr">
     <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><meta charset='utf-8'>
 <meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="Exception handling and text I/O">
 <title>Chapter12</title>
@@ -357,7 +357,7 @@
                     
                     
                         
-                        <img src="/img/avatar_hu_9c50848f93c56cbf.jpeg" width="300"
+                        <img src="/img/avatar_hu_a69ebd3e9749347e.jpeg" width="300"
                             height="296" class="site-logo" loading="lazy" alt="Avatar">
                     
                 
@@ -711,7 +711,7 @@
 
 
                 <time>
-                    May 26, 2025 03:12 &#43;0800
+                    May 26, 2025 03:12 CST
                 </time>
             </div>
     </footer>
@@ -737,73 +737,53 @@
 </ol>
 <h2 id="使用-if-来处理异常">使用 if 来处理异常
 </h2><p>if 语句是处理简单的异常的一种方式.</p>
-
-
-
-
-
-<div class="highlight highlight-java">
-  <pre>
-    <code class="language-java" data-lang="java">public static int quotient(int num1, int num2) {
-    if(num2 == 0) {
-        System.out.println(&#34;Divisor cannot be zero&#34;);
-        System.exit(1);
-        //这个代码可以直接让程序退出并返回1.
-    }
-    ···
-}</code>
-  </pre>
-</div>
-
-<h2 id="try-catch-语句">try catch 语句
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kd">public</span><span class="w"> </span><span class="kd">static</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="nf">quotient</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">num1</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">num2</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="k">if</span><span class="p">(</span><span class="n">num2</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">0</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&#34;Divisor cannot be zero&#34;</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">System</span><span class="p">.</span><span class="na">exit</span><span class="p">(</span><span class="n">1</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="c1">//这个代码可以直接让程序退出并返回1.</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="err">···</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="p">}</span><span class="w">
+</span></span></span></code></pre></div><h2 id="try-catch-语句">try catch 语句
 </h2><p>这里引入一个新的语法, 这个语法的作用是, 当程序在执行 try 语句块中的代码的时候, 如果出现了异常, 那么程序会跳转到 catch 语句块中执行代码.</p>
 <p>建议直接将示例代码复制到 IDE 中进行测试, 这样可以帮助你更好的理解这个语法.</p>
-
-
-
-
-
-<div class="highlight highlight-java">
-  <pre>
-    <code class="language-java" data-lang="java">class QuotientWithException {
-    public static int quotient(int numerator, int denominator) {
-        if(denominator == 0) {
-            throw new ArithmeticException(&#34;Divisor cannot be zero&#34;);
-            //如果分母为零则抛出异常.
-        }
-        return numerator / denominator;
-    }
-
-    public static void main(String[] args) {
-        Scanner input = new Scanner(System.in);
-        System.out.print(&#34;Enter two integers: &#34;);
-        int number1 = input.nextInt();
-        int number2 = input.nextInt();
-        try {
-            int result = quotient(number1, number2);
-            System.out.println(number1 &#43; &#34; / &#34; &#43; number2 &#43; &#34; is &#34; &#43; result);
-        }
-        catch(ArithmeticException ex) {
-            System.out.println(ex.getMessage());
-            //如果catch到的是算术异常则打印方法中异常记录的消息.
-        }
-        catch(Exception ex) {
-            System.out.println(&#34;Exception: &#34; &#43; ex.getMessage());
-            //可以使用多个catch来捕获不同的错误
-        }
-        finally{
-            System.out.println(&#34;Finally&#34;);
-            //不管错误是否被catch抓取, 程序都会执行finally语句块中的代码.
-        }
-        //finally一般用于才捕获错误之后释放资源.
-        System.out.println(&#34;Execution continues&#34;);
-    }
-}</code>
-  </pre>
-</div>
-
-<h2 id="exception-types--错误类型">Exception Types | 错误类型
-</h2><img src="/p/chapter12/exception_hu_821cfc0c383d1a10.png" width="1200" height="474" alt="exception types">
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kd">class</span> <span class="nc">QuotientWithException</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kd">static</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="nf">quotient</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">numerator</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">denominator</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="k">if</span><span class="p">(</span><span class="n">denominator</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">0</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="k">throw</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">ArithmeticException</span><span class="p">(</span><span class="s">&#34;Divisor cannot be zero&#34;</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="c1">//如果分母为零则抛出异常.</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">numerator</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">denominator</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kd">static</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">main</span><span class="p">(</span><span class="n">String</span><span class="o">[]</span><span class="w"> </span><span class="n">args</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">Scanner</span><span class="w"> </span><span class="n">input</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">Scanner</span><span class="p">(</span><span class="n">System</span><span class="p">.</span><span class="na">in</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">print</span><span class="p">(</span><span class="s">&#34;Enter two integers: &#34;</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="kt">int</span><span class="w"> </span><span class="n">number1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">input</span><span class="p">.</span><span class="na">nextInt</span><span class="p">();</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="kt">int</span><span class="w"> </span><span class="n">number2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">input</span><span class="p">.</span><span class="na">nextInt</span><span class="p">();</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="k">try</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="kt">int</span><span class="w"> </span><span class="n">result</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">quotient</span><span class="p">(</span><span class="n">number1</span><span class="p">,</span><span class="w"> </span><span class="n">number2</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="n">number1</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="s">&#34; / &#34;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">number2</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="s">&#34; is &#34;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">result</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="k">catch</span><span class="p">(</span><span class="n">ArithmeticException</span><span class="w"> </span><span class="n">ex</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="n">ex</span><span class="p">.</span><span class="na">getMessage</span><span class="p">());</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="c1">//如果catch到的是算术异常则打印方法中异常记录的消息.</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="k">catch</span><span class="p">(</span><span class="n">Exception</span><span class="w"> </span><span class="n">ex</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&#34;Exception: &#34;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">ex</span><span class="p">.</span><span class="na">getMessage</span><span class="p">());</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="c1">//可以使用多个catch来捕获不同的错误</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="k">finally</span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&#34;Finally&#34;</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="c1">//不管错误是否被catch抓取, 程序都会执行finally语句块中的代码.</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="c1">//finally一般用于才捕获错误之后释放资源.</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&#34;Execution continues&#34;</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="p">}</span><span class="w">
+</span></span></span></code></pre></div><h2 id="exception-types--错误类型">Exception Types | 错误类型
+</h2><img src="/p/chapter12/exception_hu_2d775bea792e44c0.png" width="1200" height="474" alt="exception types">
 <p>在 Java 中， Throwable 是所有异常和错误的根类。所有通过 throw 抛出的异常必须继承自 Throwable 。其直接子类包括：</p>
 <h3 id="error">Error
 </h3><h4 id="linkageerror">LinkageError
@@ -914,163 +894,83 @@
 </ul>
 <h2 id="more-on-exception-handling--错误处理进阶">More on Exception handling | 错误处理进阶
 </h2><p>当我们我们定义的一个方法可能会抛出异常的时候, 我们可以在方法的声明中使用 throws 关键字来告诉调用者这个方法可能会抛出什么异常.</p>
-
-
-
-
-
-<div class="highlight highlight-java">
-  <pre>
-    <code class="language-java" data-lang="java">method() throws Exception, ..., ExceptionN {
-    if (an error occurs) {
-        throw new Exception();
-    }
-}</code>
-  </pre>
-</div>
-
-<blockquote class="alert alert-note">
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="n">method</span><span class="p">()</span><span class="w"> </span><span class="kd">throws</span><span class="w"> </span><span class="n">Exception</span><span class="p">,</span><span class="w"> </span><span class="p">...,</span><span class="w"> </span><span class="n">ExceptionN</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">an</span><span class="w"> </span><span class="n">error</span><span class="w"> </span><span class="n">occurs</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="k">throw</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">Exception</span><span class="p">();</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="p">}</span><span class="w">
+</span></span></span></code></pre></div><blockquote class="alert alert-note">
     <p>当你我们使用 try catch 语句的时候, 如果要定义多个 catch, 那么前面的 catch 的异常类型必须是后面的异常类型的子类, 或者同级.</p></blockquote>
 <h3 id="rethrowing-exceptions--重新抛出异常">Rethrowing Exceptions | 重新抛出异常
 </h3><p>当我们在某处代码中捕获到异常的时候, 但是在此处并无法处理异常, 或者想要在这里先记录异常信息, 方便维护. 我们就能在捕获到异常后, 进行一些操作后将异常重新抛出.</p>
-
-
-
-
-
-<div class="highlight highlight-java">
-  <pre>
-    <code class="language-java" data-lang="java">try {
-    statements;
-}
-catch (TheException ex) {
-    perform operations before exits;
-    throw ex;
-}</code>
-  </pre>
-</div>
-
-<h3 id="defining-custom-exceptions--自定义异常">Defining Custom Exceptions | 自定义异常
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="k">try</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">statements</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="k">catch</span><span class="w"> </span><span class="p">(</span><span class="n">TheException</span><span class="w"> </span><span class="n">ex</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">perform</span><span class="w"> </span><span class="n">operations</span><span class="w"> </span><span class="n">before</span><span class="w"> </span><span class="n">exits</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="k">throw</span><span class="w"> </span><span class="n">ex</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="p">}</span><span class="w">
+</span></span></span></code></pre></div><h3 id="defining-custom-exceptions--自定义异常">Defining Custom Exceptions | 自定义异常
 </h3><p>当我们想要捕捉 java 中没有定义的异常的时候, 我们可以自定义异常. 我们只需要定一个类继承 Exception 类即可.</p>
-
-
-
-
-
-<div class="highlight highlight-java">
-  <pre>
-    <code class="language-java" data-lang="java">class MyException extends Exception {
-    public MyException() {
-        super();
-    }
-    public MyException(String message) {
-        super(message);
-    }
-}</code>
-  </pre>
-</div>
-
-<h2 id="the-file-class--文件类">The File Class | 文件类
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kd">class</span> <span class="nc">MyException</span><span class="w"> </span><span class="kd">extends</span><span class="w"> </span><span class="n">Exception</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="nf">MyException</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="kd">super</span><span class="p">();</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="nf">MyException</span><span class="p">(</span><span class="n">String</span><span class="w"> </span><span class="n">message</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="kd">super</span><span class="p">(</span><span class="n">message</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="p">}</span><span class="w">
+</span></span></span></code></pre></div><h2 id="the-file-class--文件类">The File Class | 文件类
 </h2><h3 id="导入类">导入类
-</h3>
-
-
-
-
-<div class="highlight highlight-java">
-  <pre>
-    <code class="language-java" data-lang="java">import java.io.File;</code>
-  </pre>
-</div>
-
-<h3 id="类的构造-和-方法">类的构造 和 方法
-</h3>
-
-
-
-
-<div class="highlight highlight-java">
-  <pre>
-    <code class="language-java" data-lang="java">File file = new File(pathname: String);
-// path 可以是一个文件的路径, 也可以是一个文件夹的路径.
-
-File file = new File(parent: String, child: String);
-// path 可以是一个文件的路径, 也可以是一个文件夹的路径.
-
-File file = new File(parent: File, child: String);
-// parent is file class</code>
-  </pre>
-</div>
-
-<blockquote class="alert alert-note">
+</h3><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kn">import</span><span class="w"> </span><span class="nn">java.io.File</span><span class="p">;</span><span class="w">
+</span></span></span></code></pre></div><h3 id="类的构造-和-方法">类的构造 和 方法
+</h3><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="n">File</span><span class="w"> </span><span class="n">file</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">File</span><span class="p">(</span><span class="n">pathname</span><span class="p">:</span><span class="w"> </span><span class="n">String</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="c1">// path 可以是一个文件的路径, 也可以是一个文件夹的路径.</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="n">File</span><span class="w"> </span><span class="n">file</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">File</span><span class="p">(</span><span class="n">parent</span><span class="p">:</span><span class="w"> </span><span class="n">String</span><span class="p">,</span><span class="w"> </span><span class="n">child</span><span class="p">:</span><span class="w"> </span><span class="n">String</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="c1">// path 可以是一个文件的路径, 也可以是一个文件夹的路径.</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="n">File</span><span class="w"> </span><span class="n">file</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">File</span><span class="p">(</span><span class="n">parent</span><span class="p">:</span><span class="w"> </span><span class="n">File</span><span class="p">,</span><span class="w"> </span><span class="n">child</span><span class="p">:</span><span class="w"> </span><span class="n">String</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="c1">// parent is file class</span><span class="w">
+</span></span></span></code></pre></div><blockquote class="alert alert-note">
     <ol>
 <li>使用第一种的构造器的时候主要是创建的文件单一, 功能简单, 或者目录明确.</li>
 <li>对于第二第三种构造器主要是用于需要在某一个目录下进行多次的文件编辑时使用.</li>
 </ol></blockquote>
-
-
-
-
-
-<div class="highlight highlight-java">
-  <pre>
-    <code class="language-java" data-lang="java">file.exists(); // &#43; boolean
-file.isDirectory(); // &#43; boolean
-file.isFile(); // &#43; boolean
-file.length(); // &#43; boolean
-file.getName(); // &#43; String
-file.getPath(); // &#43; String
-file.getParent(); // &#43; String
-file.lastModified(); // &#43; long
-file.length(); // &#43; long
-file.listFiles(); // &#43; File[]
-file.delete(); // &#43; boolean
-file.renameTO(dest: File); // &#43; boolean
-file.mkdir(); // &#43; boolean
-file.mkdirs(); // &#43; boolean 与mkdir不同的是, 如果父目录不存在, 该方法也会创建父目录.</code>
-  </pre>
-</div>
-
-<h2 id="printwriter-类">PrintWriter 类
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="n">file</span><span class="p">.</span><span class="na">exists</span><span class="p">();</span><span class="w"> </span><span class="c1">// + boolean</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="n">file</span><span class="p">.</span><span class="na">isDirectory</span><span class="p">();</span><span class="w"> </span><span class="c1">// + boolean</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="n">file</span><span class="p">.</span><span class="na">isFile</span><span class="p">();</span><span class="w"> </span><span class="c1">// + boolean</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="n">file</span><span class="p">.</span><span class="na">length</span><span class="p">();</span><span class="w"> </span><span class="c1">// + boolean</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="n">file</span><span class="p">.</span><span class="na">getName</span><span class="p">();</span><span class="w"> </span><span class="c1">// + String</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="n">file</span><span class="p">.</span><span class="na">getPath</span><span class="p">();</span><span class="w"> </span><span class="c1">// + String</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="n">file</span><span class="p">.</span><span class="na">getParent</span><span class="p">();</span><span class="w"> </span><span class="c1">// + String</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="n">file</span><span class="p">.</span><span class="na">lastModified</span><span class="p">();</span><span class="w"> </span><span class="c1">// + long</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="n">file</span><span class="p">.</span><span class="na">length</span><span class="p">();</span><span class="w"> </span><span class="c1">// + long</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="n">file</span><span class="p">.</span><span class="na">listFiles</span><span class="p">();</span><span class="w"> </span><span class="c1">// + File[]</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="n">file</span><span class="p">.</span><span class="na">delete</span><span class="p">();</span><span class="w"> </span><span class="c1">// + boolean</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="n">file</span><span class="p">.</span><span class="na">renameTO</span><span class="p">(</span><span class="n">dest</span><span class="p">:</span><span class="w"> </span><span class="n">File</span><span class="p">);</span><span class="w"> </span><span class="c1">// + boolean</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="n">file</span><span class="p">.</span><span class="na">mkdir</span><span class="p">();</span><span class="w"> </span><span class="c1">// + boolean</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="n">file</span><span class="p">.</span><span class="na">mkdirs</span><span class="p">();</span><span class="w"> </span><span class="c1">// + boolean 与mkdir不同的是, 如果父目录不存在, 该方法也会创建父目录.</span><span class="w">
+</span></span></span></code></pre></div><h2 id="printwriter-类">PrintWriter 类
 </h2><h3 id="导入类-和-构造">导入类 和 构造
-</h3>
-
-
-
-
-<div class="highlight highlight-java">
-  <pre>
-    <code class="language-java" data-lang="java">import java.io.PrintWriter;
-
-PrintWriter writer = new PrintWriter(file: File);
-// 使用File对象创建PrintWriter
-
-PrintWriter writer = new PrintWriter(fileName: String);
-// 使用文件名创建PrintWriter
-
-PrintWriter writer = new PrintWriter(outputStream: OutputStream);
-// 使用输出流创建PrintWriter</code>
-  </pre>
-</div>
-
-<h4 id="method--方法">method | 方法
-</h4>
-
-
-
-
-<div class="highlight highlight-java">
-  <pre>
-    <code class="language-java" data-lang="java">writer.print(value: any); // 打印任意类型数据
-writer.println(value: any); // 打印数据并换行
-writer.printf(format: String, args: Object...); // 格式化输出
-writer.flush(); // 强制刷新缓冲区
-writer.close(); // 关闭流
-writer.checkError(); // 检查是否有错误发生</code>
-  </pre>
-</div>
-
-<blockquote class="alert alert-note">
+</h3><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kn">import</span><span class="w"> </span><span class="nn">java.io.PrintWriter</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="n">PrintWriter</span><span class="w"> </span><span class="n">writer</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">PrintWriter</span><span class="p">(</span><span class="n">file</span><span class="p">:</span><span class="w"> </span><span class="n">File</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="c1">// 使用File对象创建PrintWriter</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="n">PrintWriter</span><span class="w"> </span><span class="n">writer</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">PrintWriter</span><span class="p">(</span><span class="n">fileName</span><span class="p">:</span><span class="w"> </span><span class="n">String</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="c1">// 使用文件名创建PrintWriter</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="n">PrintWriter</span><span class="w"> </span><span class="n">writer</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">PrintWriter</span><span class="p">(</span><span class="n">outputStream</span><span class="p">:</span><span class="w"> </span><span class="n">OutputStream</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="c1">// 使用输出流创建PrintWriter</span><span class="w">
+</span></span></span></code></pre></div><h4 id="method--方法">method | 方法
+</h4><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="n">writer</span><span class="p">.</span><span class="na">print</span><span class="p">(</span><span class="n">value</span><span class="p">:</span><span class="w"> </span><span class="n">any</span><span class="p">);</span><span class="w"> </span><span class="c1">// 打印任意类型数据</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="n">writer</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="n">value</span><span class="p">:</span><span class="w"> </span><span class="n">any</span><span class="p">);</span><span class="w"> </span><span class="c1">// 打印数据并换行</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="n">writer</span><span class="p">.</span><span class="na">printf</span><span class="p">(</span><span class="n">format</span><span class="p">:</span><span class="w"> </span><span class="n">String</span><span class="p">,</span><span class="w"> </span><span class="n">args</span><span class="p">:</span><span class="w"> </span><span class="n">Object</span><span class="p">...);</span><span class="w"> </span><span class="c1">// 格式化输出</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="n">writer</span><span class="p">.</span><span class="na">flush</span><span class="p">();</span><span class="w"> </span><span class="c1">// 强制刷新缓冲区</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="n">writer</span><span class="p">.</span><span class="na">close</span><span class="p">();</span><span class="w"> </span><span class="c1">// 关闭流</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="n">writer</span><span class="p">.</span><span class="na">checkError</span><span class="p">();</span><span class="w"> </span><span class="c1">// 检查是否有错误发生</span><span class="w">
+</span></span></span></code></pre></div><blockquote class="alert alert-note">
     <p>有了这些知识, 结合之前学到了 Scanner 类, 我们只需要将构造器的参数改为 File 类传入 Scanner 类就能使用之前所学的方法.</p></blockquote>
 <h2 id="reading-data-from-the-web">Reading Data from the web
 </h2><p>这里包含了一些爬虫知识</p>
@@ -1183,7 +1083,7 @@ writer.checkError(); // 检查是否有错误发生</code>
         
         
             <div class="article-image">
-                <img src="/p/linux_system_service-linux-%E4%B9%8B-%E7%B3%BB%E7%BB%9F%E6%9C%8D%E5%8A%A1/image.a0523778934542ff44b5192a799567da_hu_120e934acdd88e76.png" 
+                <img src="/p/linux_system_service-linux-%E4%B9%8B-%E7%B3%BB%E7%BB%9F%E6%9C%8D%E5%8A%A1/image.a0523778934542ff44b5192a799567da_hu_f544c73e53d7c9e0.png" 
                         width="250" 
                         height="150" 
                         loading="lazy"
@@ -1207,7 +1107,7 @@ writer.checkError(); // 检查是否有错误发生</code>
         
         
             <div class="article-image">
-                <img src="/p/mc%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%90%AD%E5%BB%BA-%E5%8A%A0%E5%85%A5/image.c12f1808aab9c5464ee244812cb30b95_hu_86d91d7056630acc.png" 
+                <img src="/p/mc%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%90%AD%E5%BB%BA-%E5%8A%A0%E5%85%A5/image.c12f1808aab9c5464ee244812cb30b95_hu_9642f2f494a86841.png" 
                         width="250" 
                         height="150" 
                         loading="lazy"
@@ -1227,18 +1127,23 @@ writer.checkError(); // 检查是否有错误发生</code>
             
                 
 <article class="has-image">
-    <a href="/p/ubuntu%E8%BF%9C%E7%A8%8B%E6%A1%8C%E9%9D%A2/">
+    <a href="/p/hugo_notes/">
         
         
             <div class="article-image">
-                
-                    <img src="/default.jpeg" loading="lazy" data-key="" data-hash="/default.jpeg"/>
+                <img src="/p/hugo_notes/1.8e7fe11288f3247c5acac91e5854cb03_hu_6400a91b00c94a46.jpeg" 
+                        width="250" 
+                        height="150" 
+                        loading="lazy"
+                        alt="Featured image of post Hugo_notes"
+                        
+                        data-hash="md5-jn/hEojzJHxayskeWFTLAw==">
                 
             </div>
         
 
         <div class="article-details">
-            <h2 class="article-title">ubuntu远程桌面</h2>
+            <h2 class="article-title">Hugo_notes</h2>
         </div>
     </a>
 </article>
@@ -1406,7 +1311,7 @@ writer.checkError(); // 检查是否有错误发生</code>
                 src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
                 
                 >
-            </script><script type="text/javascript" src="/ts/main.888cccdaf3c934b58bb1982792b4d0fdb89be145d2cabea38c8569bfe7d08117.js" defer></script>
+            </script><script type="text/javascript" src="/ts/main.fe055f50234dc99b59992d29820a4403a71f7c90de7b6ebd204c621ac170b546.js" defer></script>
 <script>
     (function () {
         const customFont = document.createElement('link');

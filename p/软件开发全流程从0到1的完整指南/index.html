@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="zh-cn" dir="ltr">
+<html lang="en-us" dir="ltr">
     <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><meta charset='utf-8'>
 <meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="站在程序员和产品经理的角度，深入了解软件开发生命周期(SDLC)，掌握企业级项目的标准开发流程">
 <title>软件开发全流程：从0到1的完整指南</title>
@@ -10,7 +10,7 @@
 <meta property='og:description' content="站在程序员和产品经理的角度，深入了解软件开发生命周期(SDLC)，掌握企业级项目的标准开发流程">
 <meta property='og:url' content='http://localhost:1313/p/%E8%BD%AF%E4%BB%B6%E5%BC%80%E5%8F%91%E5%85%A8%E6%B5%81%E7%A8%8B%E4%BB%8E0%E5%88%B01%E7%9A%84%E5%AE%8C%E6%95%B4%E6%8C%87%E5%8D%97/'>
 <meta property='og:site_name' content='Henry Zhang'>
-<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='开发流程' /><meta property='article:tag' content='项目管理' /><meta property='article:tag' content='软件工程' /><meta property='article:tag' content='SDLC' /><meta property='article:published_time' content='2026-01-12T01:30:46&#43;08:00'/><meta property='article:modified_time' content='2026-01-11T17:57:55&#43;00:00'/><meta property='og:image' content='http://localhost:1313/default.jpeg' />
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='开发流程' /><meta property='article:tag' content='项目管理' /><meta property='article:tag' content='软件工程' /><meta property='article:tag' content='SDLC' /><meta property='article:published_time' content='2026-01-12T01:30:46&#43;08:00'/><meta property='article:modified_time' content='2026-01-12T01:57:55&#43;08:00'/><meta property='og:image' content='http://localhost:1313/default.jpeg' />
 <meta name="twitter:title" content="软件开发全流程：从0到1的完整指南">
 <meta name="twitter:description" content="站在程序员和产品经理的角度，深入了解软件开发生命周期(SDLC)，掌握企业级项目的标准开发流程"><meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:image" content='http://localhost:1313/default.jpeg' />
@@ -357,7 +357,7 @@
                     
                     
                         
-                        <img src="/img/avatar_hu_9c50848f93c56cbf.jpeg" width="300"
+                        <img src="/img/avatar_hu_a69ebd3e9749347e.jpeg" width="300"
                             height="296" class="site-logo" loading="lazy" alt="Avatar">
                     
                 
@@ -795,7 +795,7 @@
 
 
                 <time>
-                    Jan 11, 2026 17:57 UTC
+                    Jan 12, 2026 01:57 CST
                 </time>
             </div>
     </footer>
@@ -910,37 +910,25 @@
 <h3 id="程序员-dev-的职责-1">程序员 (Dev) 的职责
 </h3><h4 id="后端开发技术架构设计">后端开发：技术架构设计
 </h4><p>🏗️ <strong>系统架构设计</strong></p>
-
-
-
-
-  
-
-
-<div class="highlight highlight-text">
-  <pre>
-    <code class="language-text" data-lang="text">┌─────────────┐
-│   前端      │
-│  (Web/App)  │
-└──────┬──────┘
-       │ HTTPS
-┌──────▼──────┐
-│  API Gateway │  ← 负载均衡、限流、鉴权
-└──────┬──────┘
-       │
-┌──────▼──────┐    ┌─────────────┐
-│  业务服务   │ ──▶│  数据库     │
-│  (后端)     │    │  (MySQL/PG) │
-└──────┬──────┘    └─────────────┘
-       │
-┌──────▼──────┐    ┌─────────────┐
-│  缓存层     │    │  消息队列   │
-│  (Redis)    │    │  (RabbitMQ) │
-└─────────────┘    └─────────────┘</code>
-  </pre>
-</div>
-
-<p>🗄️ <strong>数据库设计</strong></p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">┌─────────────┐
+</span></span><span class="line"><span class="cl">│   前端      │
+</span></span><span class="line"><span class="cl">│  (Web/App)  │
+</span></span><span class="line"><span class="cl">└──────┬──────┘
+</span></span><span class="line"><span class="cl">       │ HTTPS
+</span></span><span class="line"><span class="cl">┌──────▼──────┐
+</span></span><span class="line"><span class="cl">│  API Gateway │  ← 负载均衡、限流、鉴权
+</span></span><span class="line"><span class="cl">└──────┬──────┘
+</span></span><span class="line"><span class="cl">       │
+</span></span><span class="line"><span class="cl">┌──────▼──────┐    ┌─────────────┐
+</span></span><span class="line"><span class="cl">│  业务服务   │ ──▶│  数据库     │
+</span></span><span class="line"><span class="cl">│  (后端)     │    │  (MySQL/PG) │
+</span></span><span class="line"><span class="cl">└──────┬──────┘    └─────────────┘
+</span></span><span class="line"><span class="cl">       │
+</span></span><span class="line"><span class="cl">┌──────▼──────┐    ┌─────────────┐
+</span></span><span class="line"><span class="cl">│  缓存层     │    │  消息队列   │
+</span></span><span class="line"><span class="cl">│  (Redis)    │    │  (RabbitMQ) │
+</span></span><span class="line"><span class="cl">└─────────────┘    └─────────────┘
+</span></span></code></pre></div><p>🗄️ <strong>数据库设计</strong></p>
 <ul>
 <li>设计ER图（实体关系图）</li>
 <li>定义表结构、字段类型、索引策略</li>
@@ -989,159 +977,79 @@
 <h3 id="程序员-dev-的职责-2">程序员 (Dev) 的职责
 </h3><h4 id="后端开发流程">后端开发流程
 </h4><p>1️⃣ <strong>搭建项目脚手架</strong></p>
-
-
-
-
-
-<div class="highlight highlight-bash">
-  <pre>
-    <code class="language-bash" data-lang="bash"># Python &#43; FastAPI 示例
-mkdir myproject &amp;&amp; cd myproject
-python -m venv venv
-source venv/bin/activate
-pip install fastapi uvicorn sqlalchemy</code>
-  </pre>
-</div>
-
-<p>2️⃣ <strong>数据库建表与迁移</strong></p>
-
-
-
-
-
-<div class="highlight highlight-sql">
-  <pre>
-    <code class="language-sql" data-lang="sql">CREATE TABLE users (
-    id SERIAL PRIMARY KEY,
-    username VARCHAR(50) UNIQUE NOT NULL,
-    email VARCHAR(100) UNIQUE NOT NULL,
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-);</code>
-  </pre>
-</div>
-
-<p>3️⃣ <strong>实现API接口</strong></p>
-
-
-
-
-
-<div class="highlight highlight-python">
-  <pre>
-    <code class="language-python" data-lang="python">from fastapi import FastAPI
-from pydantic import BaseModel
-
-app = FastAPI()
-
-class User(BaseModel):
-    username: str
-    email: str
-
-@app.post(&#34;/users&#34;)
-async def create_user(user: User):
-    # 业务逻辑实现
-    return {&#34;message&#34;: &#34;User created successfully&#34;}</code>
-  </pre>
-</div>
-
-<p>4️⃣ <strong>单元测试编写</strong></p>
-
-
-
-
-
-<div class="highlight highlight-python">
-  <pre>
-    <code class="language-python" data-lang="python">import pytest
-
-def test_create_user():
-    user = User(username=&#34;test&#34;, email=&#34;test@example.com&#34;)
-    assert user.username == &#34;test&#34;</code>
-  </pre>
-</div>
-
-<h4 id="前端开发流程">前端开发流程
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># Python + FastAPI 示例</span>
+</span></span><span class="line"><span class="cl">mkdir myproject <span class="o">&amp;&amp;</span> <span class="nb">cd</span> myproject
+</span></span><span class="line"><span class="cl">python -m venv venv
+</span></span><span class="line"><span class="cl"><span class="nb">source</span> venv/bin/activate
+</span></span><span class="line"><span class="cl">pip install fastapi uvicorn sqlalchemy
+</span></span></code></pre></div><p>2️⃣ <strong>数据库建表与迁移</strong></p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="k">CREATE</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">users</span><span class="w"> </span><span class="p">(</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">id</span><span class="w"> </span><span class="nb">SERIAL</span><span class="w"> </span><span class="k">PRIMARY</span><span class="w"> </span><span class="k">KEY</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">username</span><span class="w"> </span><span class="nb">VARCHAR</span><span class="p">(</span><span class="mi">50</span><span class="p">)</span><span class="w"> </span><span class="k">UNIQUE</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">email</span><span class="w"> </span><span class="nb">VARCHAR</span><span class="p">(</span><span class="mi">100</span><span class="p">)</span><span class="w"> </span><span class="k">UNIQUE</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">created_at</span><span class="w"> </span><span class="k">TIMESTAMP</span><span class="w"> </span><span class="k">DEFAULT</span><span class="w"> </span><span class="k">CURRENT_TIMESTAMP</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="p">);</span><span class="w">
+</span></span></span></code></pre></div><p>3️⃣ <strong>实现API接口</strong></p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">fastapi</span> <span class="kn">import</span> <span class="n">FastAPI</span>
+</span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">pydantic</span> <span class="kn">import</span> <span class="n">BaseModel</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">app</span> <span class="o">=</span> <span class="n">FastAPI</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">User</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="n">username</span><span class="p">:</span> <span class="nb">str</span>
+</span></span><span class="line"><span class="cl">    <span class="n">email</span><span class="p">:</span> <span class="nb">str</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nd">@app.post</span><span class="p">(</span><span class="s2">&#34;/users&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="k">async</span> <span class="k">def</span> <span class="nf">create_user</span><span class="p">(</span><span class="n">user</span><span class="p">:</span> <span class="n">User</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="c1"># 业务逻辑实现</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="p">{</span><span class="s2">&#34;message&#34;</span><span class="p">:</span> <span class="s2">&#34;User created successfully&#34;</span><span class="p">}</span>
+</span></span></code></pre></div><p>4️⃣ <strong>单元测试编写</strong></p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">pytest</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">test_create_user</span><span class="p">():</span>
+</span></span><span class="line"><span class="cl">    <span class="n">user</span> <span class="o">=</span> <span class="n">User</span><span class="p">(</span><span class="n">username</span><span class="o">=</span><span class="s2">&#34;test&#34;</span><span class="p">,</span> <span class="n">email</span><span class="o">=</span><span class="s2">&#34;test@example.com&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="k">assert</span> <span class="n">user</span><span class="o">.</span><span class="n">username</span> <span class="o">==</span> <span class="s2">&#34;test&#34;</span>
+</span></span></code></pre></div><h4 id="前端开发流程">前端开发流程
 </h4><p>1️⃣ <strong>初始化项目</strong></p>
-
-
-
-
-
-<div class="highlight highlight-bash">
-  <pre>
-    <code class="language-bash" data-lang="bash"># React &#43; Vite 示例
-npm create vite@latest myapp -- --template react
-cd myapp
-npm install
-npm run dev</code>
-  </pre>
-</div>
-
-<p>2️⃣ <strong>组件开发</strong></p>
-
-
-
-
-
-<div class="highlight highlight-jsx">
-  <pre>
-    <code class="language-jsx" data-lang="jsx">function Button({ children, onClick }) {
-  return (
-    &lt;button onClick={onClick} className=&#34;btn&#34;&gt;
-      {children}
-    &lt;/button&gt;
-  );
-}</code>
-  </pre>
-</div>
-
-<p>3️⃣ <strong>页面集成</strong></p>
-
-
-
-
-
-<div class="highlight highlight-jsx">
-  <pre>
-    <code class="language-jsx" data-lang="jsx">function HomePage() {
-  return (
-    &lt;div&gt;
-      &lt;h1&gt;Welcome&lt;/h1&gt;
-      &lt;Button onClick={() =&gt; alert(&#39;Clicked&#39;)}&gt;
-        Click Me
-      &lt;/Button&gt;
-    &lt;/div&gt;
-  );
-}</code>
-  </pre>
-</div>
-
-<p>4️⃣ <strong>状态管理与API调用</strong></p>
-
-
-
-
-
-<div class="highlight highlight-jsx">
-  <pre>
-    <code class="language-jsx" data-lang="jsx">import { useState, useEffect } from &#39;react&#39;;
-
-function UserList() {
-  const [users, setUsers] = useState([]);
-
-  useEffect(() =&gt; {
-    fetch(&#39;/api/users&#39;)
-      .then(res =&gt; res.json())
-      .then(data =&gt; setUsers(data));
-  }, []);
-
-  return &lt;ul&gt;{users.map(u =&gt; &lt;li key={u.id}&gt;{u.name}&lt;/li&gt;)}&lt;/ul&gt;;
-}</code>
-  </pre>
-</div>
-
-<h4 id="前后端联调">前后端联调
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># React + Vite 示例</span>
+</span></span><span class="line"><span class="cl">npm create vite@latest myapp -- --template react
+</span></span><span class="line"><span class="cl"><span class="nb">cd</span> myapp
+</span></span><span class="line"><span class="cl">npm install
+</span></span><span class="line"><span class="cl">npm run dev
+</span></span></code></pre></div><p>2️⃣ <strong>组件开发</strong></p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-jsx" data-lang="jsx"><span class="line"><span class="cl"><span class="kd">function</span> <span class="nx">Button</span><span class="p">({</span> <span class="nx">children</span><span class="p">,</span> <span class="nx">onClick</span> <span class="p">})</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="k">return</span> <span class="p">(</span>
+</span></span><span class="line"><span class="cl">    <span class="p">&lt;</span><span class="nt">button</span> <span class="na">onClick</span><span class="o">=</span><span class="p">{</span><span class="nx">onClick</span><span class="p">}</span> <span class="na">className</span><span class="o">=</span><span class="s">&#34;btn&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">      <span class="p">{</span><span class="nx">children</span><span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">&lt;/</span><span class="nt">button</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p>3️⃣ <strong>页面集成</strong></p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-jsx" data-lang="jsx"><span class="line"><span class="cl"><span class="kd">function</span> <span class="nx">HomePage</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="k">return</span> <span class="p">(</span>
+</span></span><span class="line"><span class="cl">    <span class="p">&lt;</span><span class="nt">div</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">      <span class="p">&lt;</span><span class="nt">h1</span><span class="p">&gt;</span><span class="nx">Welcome</span><span class="p">&lt;/</span><span class="nt">h1</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">      <span class="p">&lt;</span><span class="nt">Button</span> <span class="na">onClick</span><span class="o">=</span><span class="p">{()</span> <span class="p">=&gt;</span> <span class="nx">alert</span><span class="p">(</span><span class="s1">&#39;Clicked&#39;</span><span class="p">)}&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">Click</span> <span class="nx">Me</span>
+</span></span><span class="line"><span class="cl">      <span class="p">&lt;/</span><span class="nt">Button</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p>4️⃣ <strong>状态管理与API调用</strong></p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-jsx" data-lang="jsx"><span class="line"><span class="cl"><span class="kr">import</span> <span class="p">{</span> <span class="nx">useState</span><span class="p">,</span> <span class="nx">useEffect</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;react&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">function</span> <span class="nx">UserList</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="kr">const</span> <span class="p">[</span><span class="nx">users</span><span class="p">,</span> <span class="nx">setUsers</span><span class="p">]</span> <span class="o">=</span> <span class="nx">useState</span><span class="p">([]);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="nx">useEffect</span><span class="p">(()</span> <span class="p">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">fetch</span><span class="p">(</span><span class="s1">&#39;/api/users&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">      <span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="nx">res</span> <span class="p">=&gt;</span> <span class="nx">res</span><span class="p">.</span><span class="nx">json</span><span class="p">())</span>
+</span></span><span class="line"><span class="cl">      <span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="nx">data</span> <span class="p">=&gt;</span> <span class="nx">setUsers</span><span class="p">(</span><span class="nx">data</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl">  <span class="p">},</span> <span class="p">[]);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="k">return</span> <span class="p">&lt;</span><span class="nt">ul</span><span class="p">&gt;{</span><span class="nx">users</span><span class="p">.</span><span class="nx">map</span><span class="p">(</span><span class="nx">u</span> <span class="p">=&gt;</span> <span class="p">&lt;</span><span class="nt">li</span> <span class="na">key</span><span class="o">=</span><span class="p">{</span><span class="nx">u</span><span class="p">.</span><span class="nx">id</span><span class="p">}&gt;{</span><span class="nx">u</span><span class="p">.</span><span class="nx">name</span><span class="p">}&lt;/</span><span class="nt">li</span><span class="p">&gt;)}&lt;/</span><span class="nt">ul</span><span class="p">&gt;;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><h4 id="前后端联调">前后端联调
 </h4><p>🔗 <strong>接口联调流程</strong></p>
 <ol>
 <li>后端部署测试环境，提供API文档</li>
@@ -1204,45 +1112,25 @@ function UserList() {
 <h3 id="程序员-dev-的职责-3">程序员 (Dev) 的职责
 </h3><h4 id="-单元测试-unit-testing">🧪 单元测试 (Unit Testing)
 </h4><p>对最小的代码单元（函数、类、方法）进行测试。</p>
-
-
-
-
-
-<div class="highlight highlight-python">
-  <pre>
-    <code class="language-python" data-lang="python"># 示例：测试一个计算器函数
-def add(a, b):
-    return a &#43; b
-
-# 测试用例
-def test_add():
-    assert add(1, 2) == 3
-    assert add(-1, 1) == 0
-    assert add(0, 0) == 0</code>
-  </pre>
-</div>
-
-<p><strong>覆盖率目标</strong>：通常要求单元测试覆盖率达到 70%-80%</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1"># 示例：测试一个计算器函数</span>
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">add</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">a</span> <span class="o">+</span> <span class="n">b</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 测试用例</span>
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">test_add</span><span class="p">():</span>
+</span></span><span class="line"><span class="cl">    <span class="k">assert</span> <span class="n">add</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span> <span class="o">==</span> <span class="mi">3</span>
+</span></span><span class="line"><span class="cl">    <span class="k">assert</span> <span class="n">add</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span>
+</span></span><span class="line"><span class="cl">    <span class="k">assert</span> <span class="n">add</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span>
+</span></span></code></pre></div><p><strong>覆盖率目标</strong>：通常要求单元测试覆盖率达到 70%-80%</p>
 <h4 id="-集成测试-integration-testing">🔗 集成测试 (Integration Testing)
 </h4><p>测试多个模块协同工作时的正确性。</p>
-
-
-
-
-
-<div class="highlight highlight-python">
-  <pre>
-    <code class="language-python" data-lang="python">def test_create_order_and_deduct_inventory():
-    # 创建订单
-    order = create_order(user_id=1, product_id=100, quantity=2)
-    # 验证库存是否正确扣减
-    inventory = get_inventory(product_id=100)
-    assert inventory.stock == 98</code>
-  </pre>
-</div>
-
-<h4 id="-自测流程">🐛 自测流程
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">test_create_order_and_deduct_inventory</span><span class="p">():</span>
+</span></span><span class="line"><span class="cl">    <span class="c1"># 创建订单</span>
+</span></span><span class="line"><span class="cl">    <span class="n">order</span> <span class="o">=</span> <span class="n">create_order</span><span class="p">(</span><span class="n">user_id</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">product_id</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">quantity</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="c1"># 验证库存是否正确扣减</span>
+</span></span><span class="line"><span class="cl">    <span class="n">inventory</span> <span class="o">=</span> <span class="n">get_inventory</span><span class="p">(</span><span class="n">product_id</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="k">assert</span> <span class="n">inventory</span><span class="o">.</span><span class="n">stock</span> <span class="o">==</span> <span class="mi">98</span>
+</span></span></code></pre></div><h4 id="-自测流程">🐛 自测流程
 </h4><ol>
 <li><strong>主流程测试</strong>：确保核心功能路径无阻塞</li>
 <li><strong>边界情况测试</strong>：空值、超长输入、负数等</li>
@@ -1288,60 +1176,28 @@ def test_add():
 <h3 id="程序员-dev-的职责-4">程序员 (Dev) 的职责
 </h3><h4 id="-部署准备">📦 部署准备
 </h4><p><strong>环境配置</strong></p>
-
-
-
-
-
-<div class="highlight highlight-bash">
-  <pre>
-    <code class="language-bash" data-lang="bash"># 生产环境配置
-export NODE_ENV=production
-export DATABASE_URL=postgresql://...
-export API_KEY=***</code>
-  </pre>
-</div>
-
-<p><strong>构建打包</strong></p>
-
-
-
-
-
-<div class="highlight highlight-bash">
-  <pre>
-    <code class="language-bash" data-lang="bash"># 前端构建
-npm run build
-# 后端打包
-mvn clean package</code>
-  </pre>
-</div>
-
-<h4 id="-发布策略">🚀 发布策略
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># 生产环境配置</span>
+</span></span><span class="line"><span class="cl"><span class="nb">export</span> <span class="nv">NODE_ENV</span><span class="o">=</span>production
+</span></span><span class="line"><span class="cl"><span class="nb">export</span> <span class="nv">DATABASE_URL</span><span class="o">=</span>postgresql://...
+</span></span><span class="line"><span class="cl"><span class="nb">export</span> <span class="nv">API_KEY</span><span class="o">=</span>***
+</span></span></code></pre></div><p><strong>构建打包</strong></p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># 前端构建</span>
+</span></span><span class="line"><span class="cl">npm run build
+</span></span><span class="line"><span class="cl"><span class="c1"># 后端打包</span>
+</span></span><span class="line"><span class="cl">mvn clean package
+</span></span></code></pre></div><h4 id="-发布策略">🚀 发布策略
 </h4><p><strong>1. 蓝绿部署 (Blue-Green Deployment)</strong></p>
-
-
-
-
-  
-
-
-<div class="highlight highlight-text">
-  <pre>
-    <code class="language-text" data-lang="text">┌─────────────┐         ┌─────────────┐
-│   负载均衡   │ ──────▶ │  蓝色环境   │ (当前生产)
-│   (Nginx)   │         │  (v1.0)    │
-└─────────────┘         └─────────────┘
-                              │
-                              ▼ 切换流量
-                        ┌─────────────┐
-                        │  绿色环境   │ (新版本)
-                        │  (v1.1)    │
-                        └─────────────┘</code>
-  </pre>
-</div>
-
-<p><strong>2. 滚动发布 (Rolling Update)</strong></p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">┌─────────────┐         ┌─────────────┐
+</span></span><span class="line"><span class="cl">│   负载均衡   │ ──────▶ │  蓝色环境   │ (当前生产)
+</span></span><span class="line"><span class="cl">│   (Nginx)   │         │  (v1.0)    │
+</span></span><span class="line"><span class="cl">└─────────────┘         └─────────────┘
+</span></span><span class="line"><span class="cl">                              │
+</span></span><span class="line"><span class="cl">                              ▼ 切换流量
+</span></span><span class="line"><span class="cl">                        ┌─────────────┐
+</span></span><span class="line"><span class="cl">                        │  绿色环境   │ (新版本)
+</span></span><span class="line"><span class="cl">                        │  (v1.1)    │
+</span></span><span class="line"><span class="cl">                        └─────────────┘
+</span></span></code></pre></div><p><strong>2. 滚动发布 (Rolling Update)</strong></p>
 <ul>
 <li>逐个替换实例，保证服务始终可用</li>
 <li>Kubernetes默认策略</li>
@@ -1353,22 +1209,12 @@ mvn clean package</code>
 <li>逐步扩大流量比例：5% → 20% → 50% → 100%</li>
 </ul>
 <h4 id="-监控与日志">🔍 监控与日志
-</h4>
-
-
-
-
-<div class="highlight highlight-bash">
-  <pre>
-    <code class="language-bash" data-lang="bash"># 实时监控日志
-tail -f /var/log/app.log
-
-# 监控错误率
-# 使用Sentry、New Relic等工具</code>
-  </pre>
-</div>
-
-<p><strong>关键指标监控</strong></p>
+</h4><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># 实时监控日志</span>
+</span></span><span class="line"><span class="cl">tail -f /var/log/app.log
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 监控错误率</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 使用Sentry、New Relic等工具</span>
+</span></span></code></pre></div><p><strong>关键指标监控</strong></p>
 <ul>
 <li><strong>QPS</strong> (每秒请求数)</li>
 <li><strong>响应时间</strong> (P50、P95、P99)</li>
@@ -1377,24 +1223,14 @@ tail -f /var/log/app.log
 </ul>
 <h4 id="-回滚准备">🔄 回滚准备
 </h4><p><strong>一键回滚脚本</strong></p>
-
-
-
-
-
-<div class="highlight highlight-bash">
-  <pre>
-    <code class="language-bash" data-lang="bash"># Docker回滚示例
-docker rollback myapp
-
-# Git回滚示例
-git revert HEAD
-npm run build
-npm run deploy</code>
-  </pre>
-</div>
-
-<h3 id="产品经理-pm-的职责-4">产品经理 (PM) 的职责
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># Docker回滚示例</span>
+</span></span><span class="line"><span class="cl">docker rollback myapp
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Git回滚示例</span>
+</span></span><span class="line"><span class="cl">git revert HEAD
+</span></span><span class="line"><span class="cl">npm run build
+</span></span><span class="line"><span class="cl">npm run deploy
+</span></span></code></pre></div><h3 id="产品经理-pm-的职责-4">产品经理 (PM) 的职责
 </h3><h4 id="-发布准备">📢 发布准备
 </h4><ul>
 <li>准备<strong>发布公告</strong>（App Store、网站Banner、邮件通知）</li>
@@ -1512,20 +1348,8 @@ npm run deploy</code>
 </h2><h3 id="小型团队-1-5人">小型团队 (1-5人)
 </h3><p><strong>特点</strong>：快速灵活，沟通成本低</p>
 <p><strong>推荐模式</strong>：<strong>简化敏捷流程</strong></p>
-
-
-
-
-  
-
-
-<div class="highlight highlight-text">
-  <pre>
-    <code class="language-text" data-lang="text">需求讨论 → 快速设计 → 并行开发 → 互测 → 直接上线</code>
-  </pre>
-</div>
-
-<p><strong>工具</strong>：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">需求讨论 → 快速设计 → 并行开发 → 互测 → 直接上线
+</span></span></code></pre></div><p><strong>工具</strong>：</p>
 <ul>
 <li>项目管理：Trello、Notion</li>
 <li>代码管理：Git + GitHub</li>
@@ -1534,26 +1358,14 @@ npm run deploy</code>
 <h3 id="中型团队-5-20人">中型团队 (5-20人)
 </h3><p><strong>特点</strong>：需要协作规范，分工明确</p>
 <p><strong>推荐模式</strong>：<strong>Scrum敏捷开发</strong></p>
-
-
-
-
-  
-
-
-<div class="highlight highlight-text">
-  <pre>
-    <code class="language-text" data-lang="text">Sprint规划会 (2周)
-  ↓
-每日站会 (15分钟)
-  ↓
-Sprint评审会 (演示成果)
-  ↓
-回顾会 (总结改进)</code>
-  </pre>
-</div>
-
-<p><strong>角色</strong>：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">Sprint规划会 (2周)
+</span></span><span class="line"><span class="cl">  ↓
+</span></span><span class="line"><span class="cl">每日站会 (15分钟)
+</span></span><span class="line"><span class="cl">  ↓
+</span></span><span class="line"><span class="cl">Sprint评审会 (演示成果)
+</span></span><span class="line"><span class="cl">  ↓
+</span></span><span class="line"><span class="cl">回顾会 (总结改进)
+</span></span></code></pre></div><p><strong>角色</strong>：</p>
 <ul>
 <li><strong>Product Owner</strong>：负责需求优先级</li>
 <li><strong>Scrum Master</strong>：负责流程管理</li>
@@ -1845,6 +1657,34 @@ Sprint评审会 (演示成果)
 
     
 
+<aside class="related-content--wrapper">
+    <h2 class="section-title">相关文章</h2>
+    <div class="related-content">
+        <div class="flex article-list--tile">
+            
+                
+<article class="has-image">
+    <a href="/p/vs-code-dev-containers-%E5%AE%8C%E5%85%A8%E6%8C%87%E5%8D%97%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E7%B2%BE%E9%80%9A/">
+        
+        
+            <div class="article-image">
+                
+                    <img src="/default.jpeg" loading="lazy" data-key="" data-hash="/default.jpeg"/>
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">VS Code Dev Containers 完全指南：从入门到精通</h2>
+        </div>
+    </a>
+</article>
+
+            
+        </div>
+    </div>
+</aside>
+
      
     
         
@@ -2003,7 +1843,7 @@ Sprint评审会 (演示成果)
                 src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
                 
                 >
-            </script><script type="text/javascript" src="/ts/main.888cccdaf3c934b58bb1982792b4d0fdb89be145d2cabea38c8569bfe7d08117.js" defer></script>
+            </script><script type="text/javascript" src="/ts/main.fe055f50234dc99b59992d29820a4403a71f7c90de7b6ebd204c621ac170b546.js" defer></script>
 <script>
     (function () {
         const customFont = document.createElement('link');

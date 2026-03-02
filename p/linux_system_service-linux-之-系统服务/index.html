@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="zh-cn" dir="ltr">
+<html lang="en-us" dir="ltr">
     <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><meta charset='utf-8'>
 <meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="什么是系统服务(service) 简单理解就是开机自启动的程序或者脚本, 会常驻在系统的内存中.\n对于现在的大部分的 linux 发行版, 系统服务通常使用 systemd 进行管理.\n三种配置文件 系统: dir: /usr/lib/systemd/system/ 这里存放着系统自带的服务单元, 如 apt. 一般不建议随便乱动这里的服务, 除非你知道自己在干什么. 运行时: dir: /run/systemd/system/ 临时服务, 一般可其他服务或者用户行为启动的临时服务. 在系统重启后清空 管理员: dir: /etc/systemd/system/ 用户自定义的服务, 管理员系统服务优先级高于系统服务, 意味着它会覆盖系统中相同的服务. 如果我们想添加自己的系统服务, 建议都放在管理员服务目录下.\n">
 <title>Linux_system_service | Linux 之 系统服务</title>
@@ -357,7 +357,7 @@
                     
                     
                         
-                        <img src="/img/avatar_hu_9c50848f93c56cbf.jpeg" width="300"
+                        <img src="/img/avatar_hu_a69ebd3e9749347e.jpeg" width="300"
                             height="296" class="site-logo" loading="lazy" alt="Avatar">
                     
                 
@@ -613,8 +613,8 @@
     <header class="article-header">
         <div class="article-image">
             <a href="/p/linux_system_service-linux-%E4%B9%8B-%E7%B3%BB%E7%BB%9F%E6%9C%8D%E5%8A%A1/">
-                <img src="/p/linux_system_service-linux-%E4%B9%8B-%E7%B3%BB%E7%BB%9F%E6%9C%8D%E5%8A%A1/image_hu_9817b173a9eccc88.png"
-                        srcset="/p/linux_system_service-linux-%E4%B9%8B-%E7%B3%BB%E7%BB%9F%E6%9C%8D%E5%8A%A1/image_hu_9817b173a9eccc88.png 800w, /p/linux_system_service-linux-%E4%B9%8B-%E7%B3%BB%E7%BB%9F%E6%9C%8D%E5%8A%A1/image_hu_5c99add6931ef06a.png 1600w"
+                <img src="/p/linux_system_service-linux-%E4%B9%8B-%E7%B3%BB%E7%BB%9F%E6%9C%8D%E5%8A%A1/image_hu_5728aa4c7ee8d166.png"
+                        srcset="/p/linux_system_service-linux-%E4%B9%8B-%E7%B3%BB%E7%BB%9F%E6%9C%8D%E5%8A%A1/image_hu_5728aa4c7ee8d166.png 800w, /p/linux_system_service-linux-%E4%B9%8B-%E7%B3%BB%E7%BB%9F%E6%9C%8D%E5%8A%A1/image_hu_a80a36cdec0264e6.png 1600w"
                         width="800" 
                         height="400" 
                         loading="lazy"
@@ -687,7 +687,7 @@
 
 
                 <time>
-                    Jun 13, 2025 20:08 &#43;0800
+                    Jun 13, 2025 20:08 CST
                 </time>
             </div>
     </footer>
@@ -738,23 +738,13 @@
 <h3 id="核心结构">核心结构
 </h3><h4 id="unit"><code>Unit</code>
 </h4><p>用于定义服务的元信息(meta data)和依赖.</p>
-
-
-
-
-
-<div class="highlight highlight-service">
-  <pre>
-    <code class="language-service" data-lang="service">[Unit]
-Description=My Service
-Documentation=https://example.org/docs/my-service
-After=network.target #这里需要定义这个服务在哪个服务之后启动
-Wants=network.target #弱依赖
-Requires=network.target #强依赖</code>
-  </pre>
-</div>
-
-<p>常见的系统服务目标（可以在 After 中使用）：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-service" data-lang="service"><span class="line"><span class="cl"><span class="k">[Unit]</span>
+</span></span><span class="line"><span class="cl"><span class="na">Description</span><span class="o">=</span><span class="s">My Service</span>
+</span></span><span class="line"><span class="cl"><span class="na">Documentation</span><span class="o">=</span><span class="s">https://example.org/docs/my-service</span>
+</span></span><span class="line"><span class="cl"><span class="na">After</span><span class="o">=</span><span class="s">network.target #这里需要定义这个服务在哪个服务之后启动</span>
+</span></span><span class="line"><span class="cl"><span class="na">Wants</span><span class="o">=</span><span class="s">network.target #弱依赖</span>
+</span></span><span class="line"><span class="cl"><span class="na">Requires</span><span class="o">=</span><span class="s">network.target #强依赖</span>
+</span></span></code></pre></div><p>常见的系统服务目标（可以在 After 中使用）：</p>
 <ul>
 <li><code>basic.target</code>: 基础系统初始化完成</li>
 <li><code>network.target</code>: 网络已启动</li>
@@ -768,18 +758,8 @@ Requires=network.target #强依赖</code>
 <li><code>bluetooth.target</code>: 蓝牙服务</li>
 </ul>
 <p>也可以直接指定其他具体的服务，例如：</p>
-
-
-
-
-
-<div class="highlight highlight-service">
-  <pre>
-    <code class="language-service" data-lang="service">After=mysql.service redis.service</code>
-  </pre>
-</div>
-
-<p>服务依赖关系选项：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-service" data-lang="service"><span class="line"><span class="cl"><span class="na">After</span><span class="o">=</span><span class="s">mysql.service redis.service</span>
+</span></span></code></pre></div><p>服务依赖关系选项：</p>
 <ul>
 <li><code>Requires=</code>: 强依赖，如果依赖的服务启动失败，该服务也会失败</li>
 <li><code>Wants=</code>: 弱依赖，依赖服务的启动状态不影响本服务</li>
@@ -790,40 +770,20 @@ Requires=network.target #强依赖</code>
 <li><code>After=</code>: 在指定服务之后启动</li>
 </ul>
 <p>示例：</p>
-
-
-
-
-
-<div class="highlight highlight-service">
-  <pre>
-    <code class="language-service" data-lang="service">Wants=redis.service
-After=network.target redis.service
-Conflicts=apache2.service</code>
-  </pre>
-</div>
-
-<h4 id="service"><code>Service</code>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-service" data-lang="service"><span class="line"><span class="cl"><span class="na">Wants</span><span class="o">=</span><span class="s">redis.service</span>
+</span></span><span class="line"><span class="cl"><span class="na">After</span><span class="o">=</span><span class="s">network.target redis.service</span>
+</span></span><span class="line"><span class="cl"><span class="na">Conflicts</span><span class="o">=</span><span class="s">apache2.service</span>
+</span></span></code></pre></div><h4 id="service"><code>Service</code>
 </h4><p>定义服务的行为</p>
-
-
-
-
-
-<div class="highlight highlight-service">
-  <pre>
-    <code class="language-service" data-lang="service">[Service]
-Type = simple
-ExecStart = /usr/bin/redis-server /etc/redis/redis.conf
-Restart = always
-User = redis
-Group = redis
-Environment = e.g. PATH=/usr/bin
-WorkingDirectory = /etc/redis</code>
-  </pre>
-</div>
-
-<p>Service 块的主要配置项：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-service" data-lang="service"><span class="line"><span class="cl"><span class="k">[Service]</span>
+</span></span><span class="line"><span class="cl"><span class="na">Type </span><span class="o">=</span><span class="s"> simple</span>
+</span></span><span class="line"><span class="cl"><span class="na">ExecStart </span><span class="o">=</span><span class="s"> /usr/bin/redis-server /etc/redis/redis.conf</span>
+</span></span><span class="line"><span class="cl"><span class="na">Restart </span><span class="o">=</span><span class="s"> always</span>
+</span></span><span class="line"><span class="cl"><span class="na">User </span><span class="o">=</span><span class="s"> redis</span>
+</span></span><span class="line"><span class="cl"><span class="na">Group </span><span class="o">=</span><span class="s"> redis</span>
+</span></span><span class="line"><span class="cl"><span class="na">Environment </span><span class="o">=</span><span class="s"> e.g. PATH=/usr/bin</span>
+</span></span><span class="line"><span class="cl"><span class="na">WorkingDirectory </span><span class="o">=</span><span class="s"> /etc/redis</span>
+</span></span></code></pre></div><p>Service 块的主要配置项：</p>
 <ol>
 <li><code>Type</code>: 服务的启动类型</li>
 </ol>
@@ -831,38 +791,18 @@ WorkingDirectory = /etc/redis</code>
 <li>
 <p><code>simple</code>: 默认值，ExecStart 启动的进~程为主进程，启动后会持续运行。适用于持续运行的服务，如 web 服务器、数据库等。
 示例：</p>
-
-
-
-
-
-<div class="highlight highlight-service">
-  <pre>
-    <code class="language-service" data-lang="service">[Service]
-Type=simple
-ExecStart=/usr/bin/nginx -g &#39;daemon off;&#39;</code>
-  </pre>
-</div>
-
-</li>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-service" data-lang="service"><span class="line"><span class="cl"><span class="k">[Service]</span>
+</span></span><span class="line"><span class="cl"><span class="na">Type</span><span class="o">=</span><span class="s">simple</span>
+</span></span><span class="line"><span class="cl"><span class="na">ExecStart</span><span class="o">=</span><span class="s">/usr/bin/nginx -g &#39;daemon off;&#39;</span>
+</span></span></code></pre></div></li>
 <li>
 <p><code>oneshot</code>: 一次性进程，执行完就退出。适用于只需要执行一次的任务，如系统初始化脚本。通常需要配合 <code>RemainAfterExit=yes</code> 使用，表示进程退出后服务仍然处于活动状态。比如我要执行一个脚本, 那么我可以通过关闭这个服务来关闭这个脚本.
 示例：</p>
-
-
-
-
-
-<div class="highlight highlight-service">
-  <pre>
-    <code class="language-service" data-lang="service">[Service]
-Type=oneshot
-RemainAfterExit=yes
-ExecStart=/usr/local/bin/init-script.sh</code>
-  </pre>
-</div>
-
-</li>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-service" data-lang="service"><span class="line"><span class="cl"><span class="k">[Service]</span>
+</span></span><span class="line"><span class="cl"><span class="na">Type</span><span class="o">=</span><span class="s">oneshot</span>
+</span></span><span class="line"><span class="cl"><span class="na">RemainAfterExit</span><span class="o">=</span><span class="s">yes</span>
+</span></span><span class="line"><span class="cl"><span class="na">ExecStart</span><span class="o">=</span><span class="s">/usr/local/bin/init-script.sh</span>
+</span></span></code></pre></div></li>
 <li>
 <p><code>forking</code>: 服务会 fork，父进程退出后服务启动成功</p>
 </li>
@@ -938,25 +878,15 @@ ExecStart=/usr/local/bin/init-script.sh</code>
 <li><code>DeviceAllow</code>: 设备访问控制，如 <code>DeviceAllow=/dev/sda r</code> 表示只读访问</li>
 </ol>
 <p>示例：</p>
-
-
-
-
-
-<div class="highlight highlight-service">
-  <pre>
-    <code class="language-service" data-lang="service">[Service]
-CPUQuota=200%
-CPUWeight=500
-CPUAffinity=0,1
-MemoryLimit=500M
-LimitNOFILE=65535
-TasksMax=200
-IOWeight=500</code>
-  </pre>
-</div>
-
-<h4 id="install"><code>Install</code>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-service" data-lang="service"><span class="line"><span class="cl"><span class="k">[Service]</span>
+</span></span><span class="line"><span class="cl"><span class="na">CPUQuota</span><span class="o">=</span><span class="s">200%</span>
+</span></span><span class="line"><span class="cl"><span class="na">CPUWeight</span><span class="o">=</span><span class="s">500</span>
+</span></span><span class="line"><span class="cl"><span class="na">CPUAffinity</span><span class="o">=</span><span class="s">0,1</span>
+</span></span><span class="line"><span class="cl"><span class="na">MemoryLimit</span><span class="o">=</span><span class="s">500M</span>
+</span></span><span class="line"><span class="cl"><span class="na">LimitNOFILE</span><span class="o">=</span><span class="s">65535</span>
+</span></span><span class="line"><span class="cl"><span class="na">TasksMax</span><span class="o">=</span><span class="s">200</span>
+</span></span><span class="line"><span class="cl"><span class="na">IOWeight</span><span class="o">=</span><span class="s">500</span>
+</span></span></code></pre></div><h4 id="install"><code>Install</code>
 </h4><p>定义如何将服务安装到系统，主要用于配置服务的自启动行为。常用配置项：</p>
 <ul>
 <li><code>WantedBy</code>: 服务被启用时创建的符号链接的目标。最常用的值是：
@@ -970,54 +900,34 @@ IOWeight=500</code>
 <li><code>Alias</code>: 为服务创建别名</li>
 </ul>
 <p>示例：</p>
-
-
-
-
-
-<div class="highlight highlight-service">
-  <pre>
-    <code class="language-service" data-lang="service">[Install]
-WantedBy=multi-user.target
-Alias=myapp.service
-Also=myapp-logger.service</code>
-  </pre>
-</div>
-
-<p>服务安装相关命令：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-service" data-lang="service"><span class="line"><span class="cl"><span class="k">[Install]</span>
+</span></span><span class="line"><span class="cl"><span class="na">WantedBy</span><span class="o">=</span><span class="s">multi-user.target</span>
+</span></span><span class="line"><span class="cl"><span class="na">Alias</span><span class="o">=</span><span class="s">myapp.service</span>
+</span></span><span class="line"><span class="cl"><span class="na">Also</span><span class="o">=</span><span class="s">myapp-logger.service</span>
+</span></span></code></pre></div><p>服务安装相关命令：</p>
 <ul>
 <li><code>systemctl enable &lt;服务名&gt;</code>: 启用服务（开机自启）</li>
 <li><code>systemctl disable &lt;服务名&gt;</code>: 停用服务</li>
 <li><code>systemctl is-enabled &lt;服务名&gt;</code>: 检查服务是否启用</li>
 </ul>
 <h2 id="我的-mc-服务器系统服务实例">我的 mc 服务器系统服务实例
-</h2>
-
-
-
-
-<div class="highlight highlight-service">
-  <pre>
-    <code class="language-service" data-lang="service">[Unit]
-Description=Minecraft Server
-After=network.target
-
-[Service]
-Type=oneshot
-User=m
-CPUQuota=10000%
-WorkingDirectory=/home/m/桌面/mc_server
-ExecStart=/bin/sh run.sh
-ExecStop=/bin/sh run.sh stop
-RemainAfterExit=yes
-Restart=on-failure
-
-[Install]
-WantedBy=multi-user.target</code>
-  </pre>
-</div>
-
-<h2 id="服务操作--service-operation">服务操作 | Service Operation
+</h2><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-service" data-lang="service"><span class="line"><span class="cl"><span class="k">[Unit]</span>
+</span></span><span class="line"><span class="cl"><span class="na">Description</span><span class="o">=</span><span class="s">Minecraft Server</span>
+</span></span><span class="line"><span class="cl"><span class="na">After</span><span class="o">=</span><span class="s">network.target</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">[Service]</span>
+</span></span><span class="line"><span class="cl"><span class="na">Type</span><span class="o">=</span><span class="s">oneshot</span>
+</span></span><span class="line"><span class="cl"><span class="na">User</span><span class="o">=</span><span class="s">m</span>
+</span></span><span class="line"><span class="cl"><span class="na">CPUQuota</span><span class="o">=</span><span class="s">10000%</span>
+</span></span><span class="line"><span class="cl"><span class="na">WorkingDirectory</span><span class="o">=</span><span class="s">/home/m/桌面/mc_server</span>
+</span></span><span class="line"><span class="cl"><span class="na">ExecStart</span><span class="o">=</span><span class="s">/bin/sh run.sh</span>
+</span></span><span class="line"><span class="cl"><span class="na">ExecStop</span><span class="o">=</span><span class="s">/bin/sh run.sh stop</span>
+</span></span><span class="line"><span class="cl"><span class="na">RemainAfterExit</span><span class="o">=</span><span class="s">yes</span>
+</span></span><span class="line"><span class="cl"><span class="na">Restart</span><span class="o">=</span><span class="s">on-failure</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">[Install]</span>
+</span></span><span class="line"><span class="cl"><span class="na">WantedBy</span><span class="o">=</span><span class="s">multi-user.target</span>
+</span></span></code></pre></div><h2 id="服务操作--service-operation">服务操作 | Service Operation
 </h2><ol>
 <li>启动服务 <code>systemctl start mc.service</code></li>
 <li>开机启动服务 <code>systemctl enable mc.service</code></li>
@@ -1112,7 +1022,7 @@ WantedBy=multi-user.target</code>
         
         
             <div class="article-image">
-                <img src="/p/mc%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%90%AD%E5%BB%BA-%E5%8A%A0%E5%85%A5/image.c12f1808aab9c5464ee244812cb30b95_hu_86d91d7056630acc.png" 
+                <img src="/p/mc%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%90%AD%E5%BB%BA-%E5%8A%A0%E5%85%A5/image.c12f1808aab9c5464ee244812cb30b95_hu_9642f2f494a86841.png" 
                         width="250" 
                         height="150" 
                         loading="lazy"
@@ -1125,25 +1035,6 @@ WantedBy=multi-user.target</code>
 
         <div class="article-details">
             <h2 class="article-title">MC服务器搭建 &amp; 加入</h2>
-        </div>
-    </a>
-</article>
-
-            
-                
-<article class="has-image">
-    <a href="/p/ubuntu%E8%BF%9C%E7%A8%8B%E6%A1%8C%E9%9D%A2/">
-        
-        
-            <div class="article-image">
-                
-                    <img src="/default.jpeg" loading="lazy" data-key="" data-hash="/default.jpeg"/>
-                
-            </div>
-        
-
-        <div class="article-details">
-            <h2 class="article-title">ubuntu远程桌面</h2>
         </div>
     </a>
 </article>
@@ -1182,6 +1073,30 @@ WantedBy=multi-user.target</code>
 
         <div class="article-details">
             <h2 class="article-title">Chapter12</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="/p/hugo_notes/">
+        
+        
+            <div class="article-image">
+                <img src="/p/hugo_notes/1.8e7fe11288f3247c5acac91e5854cb03_hu_6400a91b00c94a46.jpeg" 
+                        width="250" 
+                        height="150" 
+                        loading="lazy"
+                        alt="Featured image of post Hugo_notes"
+                        
+                        data-hash="md5-jn/hEojzJHxayskeWFTLAw==">
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Hugo_notes</h2>
         </div>
     </a>
 </article>
@@ -1349,7 +1264,7 @@ WantedBy=multi-user.target</code>
                 src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
                 
                 >
-            </script><script type="text/javascript" src="/ts/main.888cccdaf3c934b58bb1982792b4d0fdb89be145d2cabea38c8569bfe7d08117.js" defer></script>
+            </script><script type="text/javascript" src="/ts/main.fe055f50234dc99b59992d29820a4403a71f7c90de7b6ebd204c621ac170b546.js" defer></script>
 <script>
     (function () {
         const customFont = document.createElement('link');

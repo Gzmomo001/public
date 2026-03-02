@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="zh-cn" dir="ltr">
+<html lang="en-us" dir="ltr">
     <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><meta charset='utf-8'>
 <meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="这里是我记录 Hugo 这个框架笔记的地方">
 <title>Hugo_notes</title>
@@ -357,7 +357,7 @@
                     
                     
                         
-                        <img src="/img/avatar_hu_9c50848f93c56cbf.jpeg" width="300"
+                        <img src="/img/avatar_hu_a69ebd3e9749347e.jpeg" width="300"
                             height="296" class="site-logo" loading="lazy" alt="Avatar">
                     
                 
@@ -621,8 +621,8 @@
     <header class="article-header">
         <div class="article-image">
             <a href="/p/hugo_notes/">
-                <img src="/p/hugo_notes/1_hu_6cbdad19a7aa5807.jpeg"
-                        srcset="/p/hugo_notes/1_hu_6cbdad19a7aa5807.jpeg 800w, /p/hugo_notes/1_hu_aee2da64d75a7d6b.jpeg 1600w"
+                <img src="/p/hugo_notes/1_hu_4d283313d153e6de.jpeg"
+                        srcset="/p/hugo_notes/1_hu_4d283313d153e6de.jpeg 800w, /p/hugo_notes/1_hu_4750e0ac12cb8940.jpeg 1600w"
                         width="800" 
                         height="395" 
                         loading="lazy"
@@ -699,7 +699,7 @@
 
 
                 <time>
-                    Nov 25, 2025 18:20 &#43;0800
+                    Nov 25, 2025 18:20 CST
                 </time>
             </div>
     </footer>
@@ -737,19 +737,9 @@
 <p>这里是 git 安装的<a class="link" href="https://git-scm.com/downloads"  target="_blank" rel="noopener"
     >文档链接</a>.</p>
 <h3 id="检查-hugo-和-git-是否安装">检查 hugo 和 git 是否安装.
-</h3>
-
-
-
-
-<div class="highlight highlight-bash">
-  <pre>
-    <code class="language-bash" data-lang="bash">hugo version
-git --version</code>
-  </pre>
-</div>
-
-<p>如果成功显示了版本号, 则说明安装成功.</p>
+</h3><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">hugo version
+</span></span><span class="line"><span class="cl">git --version
+</span></span></code></pre></div><p>如果成功显示了版本号, 则说明安装成功.</p>
 <h3 id="顺着官网的文档建立你的第一个本地服务的博客">顺着官网的<a class="link" href="https://gohugo.io/getting-started/quick-start/"  target="_blank" rel="noopener"
     >文档</a>建立你的第一个本地服务的博客
 </h3><blockquote class="alert alert-tip">
@@ -769,42 +759,22 @@ git --version</code>
 <h3 id="大工告成-快去查看你的第一个博客吧">大工告成, 快去查看你的第一个博客吧.
 </h3><p>直接在浏览器中输入&quot;&lt;你的用户名&gt;.github.io&quot;然后回车即可访问你的博客.</p>
 <h2 id="创建新的博客">创建新的博客
-</h2>
-
-
-
-
-<div class="highlight highlight-bash">
-  <pre>
-    <code class="language-bash" data-lang="bash">hugo new content/post/&lt;博客名&gt;.md
-
-hugo new content/post/daliy_blog$(date &#43;%Y-%m-%d).md
-# 这个方法适用于日常博客的发表, 博客名会基于当前的日期创建
-
-hugo new content/post/daliy_blog$(date &#43;%Y-%m-%d)/index.md
-# 这样可以创建博客文件夹, 文件夹下可以放图片等内容
-
-cp static/images/default.jpg content/post/daily_blog$(date &#43;%Y-%m-%d)/</code>
-  </pre>
-</div>
-
-<h2 id="刷新静态文件">刷新静态文件
-</h2>
-
-
-
-
-<div class="highlight highlight-bash">
-  <pre>
-    <code class="language-bash" data-lang="bash">hugo
-# 这个指令会在你的静态文件目录下生成静态文件, 然后你就可以在你的服务器上部署了
-
-hugo server -D
-# 这个指令会打开本地hugo服务, 并在你有修改的时候自动刷新静态文件</code>
-  </pre>
-</div>
-
-<h2 id="md-语法">md 语法
+</h2><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">hugo new content/post/&lt;博客名&gt;.md
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">hugo new content/post/daliy_blog<span class="k">$(</span>date +%Y-%m-%d<span class="k">)</span>.md
+</span></span><span class="line"><span class="cl"><span class="c1"># 这个方法适用于日常博客的发表, 博客名会基于当前的日期创建</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">hugo new content/post/daliy_blog<span class="k">$(</span>date +%Y-%m-%d<span class="k">)</span>/index.md
+</span></span><span class="line"><span class="cl"><span class="c1"># 这样可以创建博客文件夹, 文件夹下可以放图片等内容</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">cp static/images/default.jpg content/post/daily_blog<span class="k">$(</span>date +%Y-%m-%d<span class="k">)</span>/
+</span></span></code></pre></div><h2 id="刷新静态文件">刷新静态文件
+</h2><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">hugo
+</span></span><span class="line"><span class="cl"><span class="c1"># 这个指令会在你的静态文件目录下生成静态文件, 然后你就可以在你的服务器上部署了</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">hugo server -D
+</span></span><span class="line"><span class="cl"><span class="c1"># 这个指令会打开本地hugo服务, 并在你有修改的时候自动刷新静态文件</span>
+</span></span></code></pre></div><h2 id="md-语法">md 语法
 </h2><ol>
 <li>插入一张图片</li>
 </ol>
@@ -838,26 +808,16 @@ hugo server -D
 </h3><h3 id="add-links">add links
 </h3><p>To use this feature, add <code>links</code> section to frontmatter.</p>
 <p>This page&rsquo;s frontmatter:</p>
-
-
-
-
-
-<div class="highlight highlight-yaml">
-  <pre>
-    <code class="language-yaml" data-lang="yaml">links:
-  - title: GitHub
-    description: GitHub is the world&#39;s largest software development platform.
-    website: https://github.com
-    image: https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png
-  - title: TypeScript
-    description: TypeScript is a typed superset of JavaScript that compiles to plain JavaScript.
-    website: https://www.typescriptlang.org
-    image: ts-logo-128.jpg</code>
-  </pre>
-</div>
-
-<p><code>image</code> field accepts both local and external images.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="nt">links</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span>- <span class="nt">title</span><span class="p">:</span><span class="w"> </span><span class="l">GitHub</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="l">GitHub is the world&#39;s largest software development platform.</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">website</span><span class="p">:</span><span class="w"> </span><span class="l">https://github.com</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l">https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span>- <span class="nt">title</span><span class="p">:</span><span class="w"> </span><span class="l">TypeScript</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="l">TypeScript is a typed superset of JavaScript that compiles to plain JavaScript.</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">website</span><span class="p">:</span><span class="w"> </span><span class="l">https://www.typescriptlang.org</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l">ts-logo-128.jpg</span><span class="w">
+</span></span></span></code></pre></div><p><code>image</code> field accepts both local and external images.</p>
 <h2 id="todo">TODO
 </h2><ul>
 <li><input disabled="" type="checkbox"> 配置评论区, <a class="link" href="https://juejin.cn/post/6844903834712539150"  target="_blank" rel="noopener"
@@ -888,74 +848,64 @@ hugo server -D
     >这个部分</a>的操作发现按钮并不能正确的显示出来.几番操作无果之后转向 AI 求助. 最好 AI 给出了一个相对合理的替代方案.</p>
 <h3 id="通过-js-直接画出返回顶部的图标">通过 js 直接画出返回顶部的图标
 </h3><p>只需要在<code>layouts/partials/footer/custom.html</code>下将下面的代码粘贴进去即可</p>
-
-
-
-
-
-<div class="highlight highlight-html">
-  <pre>
-    <code class="language-html" data-lang="html">&lt;style&gt;
-  #backTopBtn {
-    display: none;
-    position: fixed;
-    bottom: 30px;
-    right: 375px;
-    z-index: 99;
-    cursor: pointer;
-    width: 30px;
-    height: 30px;
-    background-color: #666;
-    border-radius: 8px;
-    color: white;
-    text-align: center;
-    line-height: 30px;
-    font-size: 20px;
-  }
-&lt;/style&gt;
-
-&lt;script&gt;
-  /**
-   * 滚动回顶部初始化
-   */
-  function initScrollTop() {
-    let rightSideBar = document.querySelector(&#34;.right-sidebar&#34;);
-    if (!rightSideBar) {
-      return;
-    }
-    // 添加返回顶部按钮到右侧边栏
-    let btn = document.createElement(&#34;div&#34;);
-    btn.id = &#34;backTopBtn&#34;;
-    btn.innerHTML = &#34;↑&#34;;
-    btn.onclick = backToTop;
-    rightSideBar.appendChild(btn);
-    // 滚动监听
-    window.onscroll = function () {
-      // 当网页向下滑动 20px 出现&#34;返回顶部&#34; 按钮
-      if (
-        document.body.scrollTop &gt; 500 ||
-        document.documentElement.scrollTop &gt; 500
-      ) {
-        btn.style.display = &#34;block&#34;;
-      } else {
-        btn.style.display = &#34;none&#34;;
-      }
-    };
-  }
-
-  /**
-   * 返回顶部
-   */
-  function backToTop() {
-    window.scrollTo({ top: 0, behavior: &#34;smooth&#34; });
-  }
-
-  initScrollTop();
-&lt;/script&gt;</code>
-  </pre>
-</div>
-
-
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">style</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">#</span><span class="nn">backTopBtn</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">display</span><span class="p">:</span> <span class="kc">none</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">position</span><span class="p">:</span> <span class="kc">fixed</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">bottom</span><span class="p">:</span> <span class="mi">30</span><span class="kt">px</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">right</span><span class="p">:</span> <span class="mi">375</span><span class="kt">px</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">z-index</span><span class="p">:</span> <span class="mi">99</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">cursor</span><span class="p">:</span> <span class="kc">pointer</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">width</span><span class="p">:</span> <span class="mi">30</span><span class="kt">px</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">height</span><span class="p">:</span> <span class="mi">30</span><span class="kt">px</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">background-color</span><span class="p">:</span> <span class="mh">#666</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">border-radius</span><span class="p">:</span> <span class="mi">8</span><span class="kt">px</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">color</span><span class="p">:</span> <span class="kc">white</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">text-align</span><span class="p">:</span> <span class="kc">center</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">line-height</span><span class="p">:</span> <span class="mi">30</span><span class="kt">px</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">font-size</span><span class="p">:</span> <span class="mi">20</span><span class="kt">px</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">style</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">script</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="cm">/**
+</span></span></span><span class="line"><span class="cl"><span class="cm">   * 滚动回顶部初始化
+</span></span></span><span class="line"><span class="cl"><span class="cm">   */</span>
+</span></span><span class="line"><span class="cl">  <span class="kd">function</span> <span class="nx">initScrollTop</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">let</span> <span class="nx">rightSideBar</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">querySelector</span><span class="p">(</span><span class="s2">&#34;.right-sidebar&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">rightSideBar</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="k">return</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// 添加返回顶部按钮到右侧边栏
+</span></span></span><span class="line"><span class="cl">    <span class="kd">let</span> <span class="nx">btn</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">createElement</span><span class="p">(</span><span class="s2">&#34;div&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">btn</span><span class="p">.</span><span class="nx">id</span> <span class="o">=</span> <span class="s2">&#34;backTopBtn&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">btn</span><span class="p">.</span><span class="nx">innerHTML</span> <span class="o">=</span> <span class="s2">&#34;↑&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">btn</span><span class="p">.</span><span class="nx">onclick</span> <span class="o">=</span> <span class="nx">backToTop</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">rightSideBar</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span><span class="nx">btn</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// 滚动监听
+</span></span></span><span class="line"><span class="cl">    <span class="nb">window</span><span class="p">.</span><span class="nx">onscroll</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="c1">// 当网页向下滑动 20px 出现&#34;返回顶部&#34; 按钮
+</span></span></span><span class="line"><span class="cl">      <span class="k">if</span> <span class="p">(</span>
+</span></span><span class="line"><span class="cl">        <span class="nb">document</span><span class="p">.</span><span class="nx">body</span><span class="p">.</span><span class="nx">scrollTop</span> <span class="o">&gt;</span> <span class="mi">500</span> <span class="o">||</span>
+</span></span><span class="line"><span class="cl">        <span class="nb">document</span><span class="p">.</span><span class="nx">documentElement</span><span class="p">.</span><span class="nx">scrollTop</span> <span class="o">&gt;</span> <span class="mi">500</span>
+</span></span><span class="line"><span class="cl">      <span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">btn</span><span class="p">.</span><span class="nx">style</span><span class="p">.</span><span class="nx">display</span> <span class="o">=</span> <span class="s2">&#34;block&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">      <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">btn</span><span class="p">.</span><span class="nx">style</span><span class="p">.</span><span class="nx">display</span> <span class="o">=</span> <span class="s2">&#34;none&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">      <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">};</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="cm">/**
+</span></span></span><span class="line"><span class="cl"><span class="cm">   * 返回顶部
+</span></span></span><span class="line"><span class="cl"><span class="cm">   */</span>
+</span></span><span class="line"><span class="cl">  <span class="kd">function</span> <span class="nx">backToTop</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">window</span><span class="p">.</span><span class="nx">scrollTo</span><span class="p">({</span> <span class="nx">top</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span> <span class="nx">behavior</span><span class="o">:</span> <span class="s2">&#34;smooth&#34;</span> <span class="p">});</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="nx">initScrollTop</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+</span></span></code></pre></div>
 </section>
 
 
@@ -1043,7 +993,7 @@ hugo server -D
         
         
             <div class="article-image">
-                <img src="/p/linux_system_service-linux-%E4%B9%8B-%E7%B3%BB%E7%BB%9F%E6%9C%8D%E5%8A%A1/image.a0523778934542ff44b5192a799567da_hu_120e934acdd88e76.png" 
+                <img src="/p/linux_system_service-linux-%E4%B9%8B-%E7%B3%BB%E7%BB%9F%E6%9C%8D%E5%8A%A1/image.a0523778934542ff44b5192a799567da_hu_f544c73e53d7c9e0.png" 
                         width="250" 
                         height="150" 
                         loading="lazy"
@@ -1067,7 +1017,7 @@ hugo server -D
         
         
             <div class="article-image">
-                <img src="/p/mc%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%90%AD%E5%BB%BA-%E5%8A%A0%E5%85%A5/image.c12f1808aab9c5464ee244812cb30b95_hu_86d91d7056630acc.png" 
+                <img src="/p/mc%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%90%AD%E5%BB%BA-%E5%8A%A0%E5%85%A5/image.c12f1808aab9c5464ee244812cb30b95_hu_9642f2f494a86841.png" 
                         width="250" 
                         height="150" 
                         loading="lazy"
@@ -1087,25 +1037,6 @@ hugo server -D
             
                 
 <article class="has-image">
-    <a href="/p/ubuntu%E8%BF%9C%E7%A8%8B%E6%A1%8C%E9%9D%A2/">
-        
-        
-            <div class="article-image">
-                
-                    <img src="/default.jpeg" loading="lazy" data-key="" data-hash="/default.jpeg"/>
-                
-            </div>
-        
-
-        <div class="article-details">
-            <h2 class="article-title">ubuntu远程桌面</h2>
-        </div>
-    </a>
-</article>
-
-            
-                
-<article class="has-image">
     <a href="/p/chapter13/">
         
         
@@ -1118,6 +1049,25 @@ hugo server -D
 
         <div class="article-details">
             <h2 class="article-title">Chapter13</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="/p/chapter12/">
+        
+        
+            <div class="article-image">
+                
+                    <img src="/java.png" loading="lazy" data-key="" data-hash="/java.png"/>
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Chapter12</h2>
         </div>
     </a>
 </article>
@@ -1285,7 +1235,7 @@ hugo server -D
                 src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
                 
                 >
-            </script><script type="text/javascript" src="/ts/main.888cccdaf3c934b58bb1982792b4d0fdb89be145d2cabea38c8569bfe7d08117.js" defer></script>
+            </script><script type="text/javascript" src="/ts/main.fe055f50234dc99b59992d29820a4403a71f7c90de7b6ebd204c621ac170b546.js" defer></script>
 <script>
     (function () {
         const customFont = document.createElement('link');

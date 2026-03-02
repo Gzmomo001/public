@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="zh-cn" dir="ltr">
+<html lang="en-us" dir="ltr">
     <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><meta charset='utf-8'>
 <meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="深入理解 Linux 虚拟文件系统（VFS）、inode、文件权限、Ext4 原理以及文件系统操作">
 <title>文件系统：Linux 的数据宫殿</title>
@@ -10,7 +10,7 @@
 <meta property='og:description' content="深入理解 Linux 虚拟文件系统（VFS）、inode、文件权限、Ext4 原理以及文件系统操作">
 <meta property='og:url' content='http://localhost:1313/p/%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9Flinux-%E7%9A%84%E6%95%B0%E6%8D%AE%E5%AE%AB%E6%AE%BF/'>
 <meta property='og:site_name' content='Henry Zhang'>
-<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='linux' /><meta property='article:tag' content='文件系统' /><meta property='article:tag' content='VFS' /><meta property='article:tag' content='inode' /><meta property='article:tag' content='权限管理' /><meta property='article:published_time' content='2026-01-11T01:00:00&#43;08:00'/><meta property='article:modified_time' content='2026-01-11T16:57:00&#43;00:00'/><meta property='og:image' content='http://localhost:1313/default.jpeg' />
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='linux' /><meta property='article:tag' content='文件系统' /><meta property='article:tag' content='VFS' /><meta property='article:tag' content='inode' /><meta property='article:tag' content='权限管理' /><meta property='article:published_time' content='2026-01-11T01:00:00&#43;08:00'/><meta property='article:modified_time' content='2026-01-12T00:57:00&#43;08:00'/><meta property='og:image' content='http://localhost:1313/default.jpeg' />
 <meta name="twitter:title" content="文件系统：Linux 的数据宫殿">
 <meta name="twitter:description" content="深入理解 Linux 虚拟文件系统（VFS）、inode、文件权限、Ext4 原理以及文件系统操作"><meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:image" content='http://localhost:1313/default.jpeg' />
@@ -357,7 +357,7 @@
                     
                     
                         
-                        <img src="/img/avatar_hu_9c50848f93c56cbf.jpeg" width="300"
+                        <img src="/img/avatar_hu_a69ebd3e9749347e.jpeg" width="300"
                             height="296" class="site-logo" loading="lazy" alt="Avatar">
                     
                 
@@ -771,7 +771,7 @@
 
 
                 <time>
-                    Jan 11, 2026 16:57 UTC
+                    Jan 12, 2026 00:57 CST
                 </time>
             </div>
     </footer>
@@ -815,34 +815,24 @@
 </pre>
 
 <h3 id="文件类型">文件类型
-</h3>
-
-
-
-
-<div class="highlight highlight-bash">
-  <pre>
-    <code class="language-bash" data-lang="bash"># 查看文件类型
-ls -la /etc/passwd /dev/sda /dev/tty /bin/bash
-
-# 输出示例：
-# -rw-r--r--  1 root root  2941 Feb  10 10:00 /etc/passwd
-# brw-rw----  1 root disk   8, 0 Feb  10 10:00 /dev/sda
-# crw-rw-rw-  1 root tty   5, 0 Feb  10 10:00 /dev/tty
-# -rwxr-xr-x  1 root root  1.2M Feb  10 10:00 /bin/bash
-
-# 第一个字符表示文件类型：
-# - : 普通文件
-# d : 目录
-# b : 块设备（块设备驱动）
-# c : 字符设备（字符设备驱动）
-# l : 符号链接
-# p : 命名管道（FIFO）
-# s : 套接字</code>
-  </pre>
-</div>
-
-<h2 id="虚拟文件系统vfs">虚拟文件系统（VFS）
+</h3><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># 查看文件类型</span>
+</span></span><span class="line"><span class="cl">ls -la /etc/passwd /dev/sda /dev/tty /bin/bash
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 输出示例：</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># -rw-r--r--  1 root root  2941 Feb  10 10:00 /etc/passwd</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># brw-rw----  1 root disk   8, 0 Feb  10 10:00 /dev/sda</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># crw-rw-rw-  1 root tty   5, 0 Feb  10 10:00 /dev/tty</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># -rwxr-xr-x  1 root root  1.2M Feb  10 10:00 /bin/bash</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 第一个字符表示文件类型：</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># - : 普通文件</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># d : 目录</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># b : 块设备（块设备驱动）</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># c : 字符设备（字符设备驱动）</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># l : 符号链接</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># p : 命名管道（FIFO）</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># s : 套接字</span>
+</span></span></code></pre></div><h2 id="虚拟文件系统vfs">虚拟文件系统（VFS）
 </h2><h3 id="vfs-的作用">VFS 的作用
 </h3><p>VFS 提供了一个统一的文件系统接口，使得 Linux 可以支持多种文件系统：</p>
 <pre class="mermaid">
@@ -874,70 +864,40 @@ ls -la /etc/passwd /dev/sda /dev/tty /bin/bash
 <h3 id="vfs-的四大对象">VFS 的四大对象
 </h3><h4 id="1-超级块super_block">1. 超级块（super_block）
 </h4><p>超级块表示整个文件系统：</p>
-
-
-
-
-
-<div class="highlight highlight-c">
-  <pre>
-    <code class="language-c" data-lang="c">struct super_block {
-    struct list_head s_list;      // 所有超级块的链表
-    dev_t s_dev;                  // 设备标识符
-    unsigned long s_magic;        // 文件系统魔数
-
-    const struct super_operations *s_op;
-    struct file_system_type *s_type;
-
-    struct inode *s_root;         // 根目录 inode
-    // ...
-};</code>
-  </pre>
-</div>
-
-
-
-
-
-
-<div class="highlight highlight-bash">
-  <pre>
-    <code class="language-bash" data-lang="bash"># 查看文件系统超级块信息
-tune2fs -l /dev/sda1
-
-# 查看文件系统魔数
-blkid /dev/sda1</code>
-  </pre>
-</div>
-
-<h4 id="2-索引节点inode">2. 索引节点（inode）
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="k">struct</span> <span class="n">super_block</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">struct</span> <span class="n">list_head</span> <span class="n">s_list</span><span class="p">;</span>      <span class="c1">// 所有超级块的链表
+</span></span></span><span class="line"><span class="cl">    <span class="kt">dev_t</span> <span class="n">s_dev</span><span class="p">;</span>                  <span class="c1">// 设备标识符
+</span></span></span><span class="line"><span class="cl">    <span class="kt">unsigned</span> <span class="kt">long</span> <span class="n">s_magic</span><span class="p">;</span>        <span class="c1">// 文件系统魔数
+</span></span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">const</span> <span class="k">struct</span> <span class="n">super_operations</span> <span class="o">*</span><span class="n">s_op</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">struct</span> <span class="n">file_system_type</span> <span class="o">*</span><span class="n">s_type</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">struct</span> <span class="n">inode</span> <span class="o">*</span><span class="n">s_root</span><span class="p">;</span>         <span class="c1">// 根目录 inode
+</span></span></span><span class="line"><span class="cl">    <span class="c1">// ...
+</span></span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># 查看文件系统超级块信息</span>
+</span></span><span class="line"><span class="cl">tune2fs -l /dev/sda1
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 查看文件系统魔数</span>
+</span></span><span class="line"><span class="cl">blkid /dev/sda1
+</span></span></code></pre></div><h4 id="2-索引节点inode">2. 索引节点（inode）
 </h4><p>inode 存储文件的元数据（<strong>不包含文件名</strong>）：</p>
-
-
-
-
-
-<div class="highlight highlight-c">
-  <pre>
-    <code class="language-c" data-lang="c">struct inode {
-    umode_t i_mode;               // 文件类型和权限
-    uid_t i_uid;                  // 所有者 UID
-    gid_t i_gid;                  // 所属组 GID
-    loff_t i_size;                // 文件大小（字节）
-    struct timespec i_atime;      // 最后访问时间
-    struct timespec i_mtime;      // 最后修改时间
-    struct timespec i_ctime;      // 最后状态改变时间
-
-    struct inode_operations *i_op;
-    struct file_operations *i_fop;
-
-    struct address_space *i_mapping;
-    // ...
-};</code>
-  </pre>
-</div>
-
-<p><strong>inode 包含的信息</strong>：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="k">struct</span> <span class="n">inode</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">umode_t</span> <span class="n">i_mode</span><span class="p">;</span>               <span class="c1">// 文件类型和权限
+</span></span></span><span class="line"><span class="cl">    <span class="kt">uid_t</span> <span class="n">i_uid</span><span class="p">;</span>                  <span class="c1">// 所有者 UID
+</span></span></span><span class="line"><span class="cl">    <span class="kt">gid_t</span> <span class="n">i_gid</span><span class="p">;</span>                  <span class="c1">// 所属组 GID
+</span></span></span><span class="line"><span class="cl">    <span class="kt">loff_t</span> <span class="n">i_size</span><span class="p">;</span>                <span class="c1">// 文件大小（字节）
+</span></span></span><span class="line"><span class="cl">    <span class="k">struct</span> <span class="n">timespec</span> <span class="n">i_atime</span><span class="p">;</span>      <span class="c1">// 最后访问时间
+</span></span></span><span class="line"><span class="cl">    <span class="k">struct</span> <span class="n">timespec</span> <span class="n">i_mtime</span><span class="p">;</span>      <span class="c1">// 最后修改时间
+</span></span></span><span class="line"><span class="cl">    <span class="k">struct</span> <span class="n">timespec</span> <span class="n">i_ctime</span><span class="p">;</span>      <span class="c1">// 最后状态改变时间
+</span></span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">struct</span> <span class="n">inode_operations</span> <span class="o">*</span><span class="n">i_op</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">struct</span> <span class="n">file_operations</span> <span class="o">*</span><span class="n">i_fop</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">struct</span> <span class="n">address_space</span> <span class="o">*</span><span class="n">i_mapping</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// ...
+</span></span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span></code></pre></div><p><strong>inode 包含的信息</strong>：</p>
 <ul>
 <li>文件类型</li>
 <li>权限</li>
@@ -950,206 +910,122 @@ blkid /dev/sda1</code>
 <ul>
 <li>文件名（文件名存储在目录项中）</li>
 </ul>
-
-
-
-
-
-<div class="highlight highlight-bash">
-  <pre>
-    <code class="language-bash" data-lang="bash"># 查看 inode 编号
-ls -i file.txt
-
-# 查看文件 inode 信息
-stat file.txt
-
-# 输出示例：
-#   File: file.txt
-#   Size: 1234       Blocks: 8         IO Block: 4096   regular file
-# Access: (0644/-rw-r--r--)  Uid: ( 1000/   user)   Gid: ( 1000/   user)
-# Access: 2026-01-11 00:00:00.000000000 &#43;0800
-# Modify: 2026-01-10 23:59:59.000000000 &#43;0800
-# Change: 2026-01-10 23:59:59.000000000 &#43;0800
-# Birth: 2026-01-10 00:00:00.000000000 &#43;0800</code>
-  </pre>
-</div>
-
-<h4 id="3-目录项dentry">3. 目录项（dentry）
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># 查看 inode 编号</span>
+</span></span><span class="line"><span class="cl">ls -i file.txt
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 查看文件 inode 信息</span>
+</span></span><span class="line"><span class="cl">stat file.txt
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 输出示例：</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#   File: file.txt</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#   Size: 1234       Blocks: 8         IO Block: 4096   regular file</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Access: (0644/-rw-r--r--)  Uid: ( 1000/   user)   Gid: ( 1000/   user)</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Access: 2026-01-11 00:00:00.000000000 +0800</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Modify: 2026-01-10 23:59:59.000000000 +0800</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Change: 2026-01-10 23:59:59.000000000 +0800</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Birth: 2026-01-10 00:00:00.000000000 +0800</span>
+</span></span></code></pre></div><h4 id="3-目录项dentry">3. 目录项（dentry）
 </h4><p>dentry 将路径名连接到 inode：</p>
-
-
-
-
-
-<div class="highlight highlight-c">
-  <pre>
-    <code class="language-c" data-lang="c">struct dentry {
-    struct dentry *d_parent;      // 父目录
-    struct qstr d_name;           // 文件名
-    struct inode *d_inode;        // 关联的 inode
-
-    unsigned int d_flags;         // 目录项标志
-    struct dentry_operations *d_op;
-    // ...
-};</code>
-  </pre>
-</div>
-
-<p><strong>dentry 缓存（dcache）</strong>：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="k">struct</span> <span class="n">dentry</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">struct</span> <span class="n">dentry</span> <span class="o">*</span><span class="n">d_parent</span><span class="p">;</span>      <span class="c1">// 父目录
+</span></span></span><span class="line"><span class="cl">    <span class="k">struct</span> <span class="n">qstr</span> <span class="n">d_name</span><span class="p">;</span>           <span class="c1">// 文件名
+</span></span></span><span class="line"><span class="cl">    <span class="k">struct</span> <span class="n">inode</span> <span class="o">*</span><span class="n">d_inode</span><span class="p">;</span>        <span class="c1">// 关联的 inode
+</span></span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">d_flags</span><span class="p">;</span>         <span class="c1">// 目录项标志
+</span></span></span><span class="line"><span class="cl">    <span class="k">struct</span> <span class="n">dentry_operations</span> <span class="o">*</span><span class="n">d_op</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// ...
+</span></span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span></code></pre></div><p><strong>dentry 缓存（dcache）</strong>：</p>
 <ul>
 <li>加速路径查找</li>
 <li>最近使用的目录项保持在内存中</li>
 </ul>
-
-
-
-
-
-<div class="highlight highlight-bash">
-  <pre>
-    <code class="language-bash" data-lang="bash"># 清理 dentry 缓存
-sync &amp;&amp; echo 3 &gt; /proc/sys/vm/drop_caches</code>
-  </pre>
-</div>
-
-<h4 id="4-文件file">4. 文件（file）
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># 清理 dentry 缓存</span>
+</span></span><span class="line"><span class="cl">sync <span class="o">&amp;&amp;</span> <span class="nb">echo</span> <span class="m">3</span> &gt; /proc/sys/vm/drop_caches
+</span></span></code></pre></div><h4 id="4-文件file">4. 文件（file）
 </h4><p>file 表示打开的文件：</p>
-
-
-
-
-
-<div class="highlight highlight-c">
-  <pre>
-    <code class="language-c" data-lang="c">struct file {
-    struct path f_path;
-    struct inode *f_inode;        // 关联的 inode
-    const struct file_operations *f_op;
-
-    loff_t f_pos;                 // 当前读写位置
-    struct fown_struct f_owner;
-    // ...
-};</code>
-  </pre>
-</div>
-
-
-
-
-
-
-<div class="highlight highlight-bash">
-  <pre>
-    <code class="language-bash" data-lang="bash"># 查看进程打开的文件
-lsof -p 1234
-
-# 查看某个文件被哪些进程打开
-lsof /var/log/syslog
-
-# /proc 文件系统也提供这些信息
-ls -la /proc/1234/fd/</code>
-  </pre>
-</div>
-
-<h2 id="文件系统布局">文件系统布局
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="k">struct</span> <span class="n">file</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">struct</span> <span class="n">path</span> <span class="n">f_path</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">struct</span> <span class="n">inode</span> <span class="o">*</span><span class="n">f_inode</span><span class="p">;</span>        <span class="c1">// 关联的 inode
+</span></span></span><span class="line"><span class="cl">    <span class="k">const</span> <span class="k">struct</span> <span class="n">file_operations</span> <span class="o">*</span><span class="n">f_op</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="kt">loff_t</span> <span class="n">f_pos</span><span class="p">;</span>                 <span class="c1">// 当前读写位置
+</span></span></span><span class="line"><span class="cl">    <span class="k">struct</span> <span class="n">fown_struct</span> <span class="n">f_owner</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// ...
+</span></span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># 查看进程打开的文件</span>
+</span></span><span class="line"><span class="cl">lsof -p <span class="m">1234</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 查看某个文件被哪些进程打开</span>
+</span></span><span class="line"><span class="cl">lsof /var/log/syslog
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># /proc 文件系统也提供这些信息</span>
+</span></span><span class="line"><span class="cl">ls -la /proc/1234/fd/
+</span></span></code></pre></div><h2 id="文件系统布局">文件系统布局
 </h2><h3 id="ext4-文件系统结构">Ext4 文件系统结构
-</h3>
-
-
-
-  
-
-
-<div class="highlight highlight-text">
-  <pre>
-    <code class="language-text" data-lang="text">┌────────────────────────────────────────────────┐
-│              Boot Sector (引导扇区)            │
-├────────────────────────────────────────────────┤
-│              超级块（Superblock）               │
-│  - 文件系统大小、块数、inode数                 │
-│  - 每1024个块有一个超级块备份                  │
-├────────────────────────────────────────────────┤
-│              组描述符（Group Descriptors）      │
-│  - 块位图、inode位图、inode表的位置            │
-├────────────────────────────────────────────────┤
-│  数据块组 1  │ 数据块组 2  │ ... │ 数据块组 N  │
-│ ┌──────────┐ │ ┌──────────┐ │    │ ┌──────────┐│
-│ │超级块备份│ │ │超级块备份│ │    │ │超级块备份││
-│ ├──────────┤ │ ├──────────┤ │    │ ├──────────┤│
-│ │块位图    │ │ │块位图    │ │    │ │块位图    ││
-│ ├──────────┤ │ ├──────────┤ │    │ ├──────────┤│
-│ │inode位图 │ │ │inode位图 │ │    │ │inode位图 ││
-│ ├──────────┤ │ ├──────────┤ │    │ ├──────────┤│
-│ │inode表   │ │ │inode表   │ │    │ │inode表   ││
-│ ├──────────┤ │ ├──────────┤ │    │ ├──────────┤│
-│ │数据块    │ │ │数据块    │ │    │ │数据块    ││
-│ └──────────┘ │ └──────────┘ │    │ └──────────┘│
-└────────────────────────────────────────────────┘</code>
-  </pre>
-</div>
-
-<h3 id="inode-结构详解">inode 结构详解
+</h3><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">┌────────────────────────────────────────────────┐
+</span></span><span class="line"><span class="cl">│              Boot Sector (引导扇区)            │
+</span></span><span class="line"><span class="cl">├────────────────────────────────────────────────┤
+</span></span><span class="line"><span class="cl">│              超级块（Superblock）               │
+</span></span><span class="line"><span class="cl">│  - 文件系统大小、块数、inode数                 │
+</span></span><span class="line"><span class="cl">│  - 每1024个块有一个超级块备份                  │
+</span></span><span class="line"><span class="cl">├────────────────────────────────────────────────┤
+</span></span><span class="line"><span class="cl">│              组描述符（Group Descriptors）      │
+</span></span><span class="line"><span class="cl">│  - 块位图、inode位图、inode表的位置            │
+</span></span><span class="line"><span class="cl">├────────────────────────────────────────────────┤
+</span></span><span class="line"><span class="cl">│  数据块组 1  │ 数据块组 2  │ ... │ 数据块组 N  │
+</span></span><span class="line"><span class="cl">│ ┌──────────┐ │ ┌──────────┐ │    │ ┌──────────┐│
+</span></span><span class="line"><span class="cl">│ │超级块备份│ │ │超级块备份│ │    │ │超级块备份││
+</span></span><span class="line"><span class="cl">│ ├──────────┤ │ ├──────────┤ │    │ ├──────────┤│
+</span></span><span class="line"><span class="cl">│ │块位图    │ │ │块位图    │ │    │ │块位图    ││
+</span></span><span class="line"><span class="cl">│ ├──────────┤ │ ├──────────┤ │    │ ├──────────┤│
+</span></span><span class="line"><span class="cl">│ │inode位图 │ │ │inode位图 │ │    │ │inode位图 ││
+</span></span><span class="line"><span class="cl">│ ├──────────┤ │ ├──────────┤ │    │ ├──────────┤│
+</span></span><span class="line"><span class="cl">│ │inode表   │ │ │inode表   │ │    │ │inode表   ││
+</span></span><span class="line"><span class="cl">│ ├──────────┤ │ ├──────────┤ │    │ ├──────────┤│
+</span></span><span class="line"><span class="cl">│ │数据块    │ │ │数据块    │ │    │ │数据块    ││
+</span></span><span class="line"><span class="cl">│ └──────────┘ │ └──────────┘ │    │ └──────────┘│
+</span></span><span class="line"><span class="cl">└────────────────────────────────────────────────┘
+</span></span></code></pre></div><h3 id="inode-结构详解">inode 结构详解
 </h3><p>inode 包含指向数据块的指针：</p>
-
-
-
-
-  
-
-
-<div class="highlight highlight-text">
-  <pre>
-    <code class="language-text" data-lang="text">┌────────────────────────────────────┐
-│         inode 结构                 │
-├────────────────────────────────────┤
-│  文件元数据（大小、权限、时间等）  │
-├────────────────────────────────────┤
-│  直接指针 (12个)                   │
-│    - 指向数据块 0-11               │
-├────────────────────────────────────┤
-│  单级间接指针                      │
-│    - 指向一个索引块                │
-│    - 该索引块包含数据块指针        │
-├────────────────────────────────────┤
-│  双级间接指针                      │
-│    - 指向一个索引块                │
-│    - 该索引块指向二级索引块        │
-│    - 二级索引块包含数据块指针      │
-├────────────────────────────────────┤
-│  三级间接指针                      │
-│    - 类似双级，但多一层            │
-└────────────────────────────────────┘
-
-文件大小计算（假设块大小为 4KB）：
-- 直接指针：12 × 4KB = 48KB
-- 单级间接：256 × 4KB = 1MB
-- 双级间接：256 × 256 × 4KB = 256MB
-- 三级间接：256³ × 4KB = 64GB</code>
-  </pre>
-</div>
-
-<h2 id="文件权限">文件权限
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">┌────────────────────────────────────┐
+</span></span><span class="line"><span class="cl">│         inode 结构                 │
+</span></span><span class="line"><span class="cl">├────────────────────────────────────┤
+</span></span><span class="line"><span class="cl">│  文件元数据（大小、权限、时间等）  │
+</span></span><span class="line"><span class="cl">├────────────────────────────────────┤
+</span></span><span class="line"><span class="cl">│  直接指针 (12个)                   │
+</span></span><span class="line"><span class="cl">│    - 指向数据块 0-11               │
+</span></span><span class="line"><span class="cl">├────────────────────────────────────┤
+</span></span><span class="line"><span class="cl">│  单级间接指针                      │
+</span></span><span class="line"><span class="cl">│    - 指向一个索引块                │
+</span></span><span class="line"><span class="cl">│    - 该索引块包含数据块指针        │
+</span></span><span class="line"><span class="cl">├────────────────────────────────────┤
+</span></span><span class="line"><span class="cl">│  双级间接指针                      │
+</span></span><span class="line"><span class="cl">│    - 指向一个索引块                │
+</span></span><span class="line"><span class="cl">│    - 该索引块指向二级索引块        │
+</span></span><span class="line"><span class="cl">│    - 二级索引块包含数据块指针      │
+</span></span><span class="line"><span class="cl">├────────────────────────────────────┤
+</span></span><span class="line"><span class="cl">│  三级间接指针                      │
+</span></span><span class="line"><span class="cl">│    - 类似双级，但多一层            │
+</span></span><span class="line"><span class="cl">└────────────────────────────────────┘
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">文件大小计算（假设块大小为 4KB）：
+</span></span><span class="line"><span class="cl">- 直接指针：12 × 4KB = 48KB
+</span></span><span class="line"><span class="cl">- 单级间接：256 × 4KB = 1MB
+</span></span><span class="line"><span class="cl">- 双级间接：256 × 256 × 4KB = 256MB
+</span></span><span class="line"><span class="cl">- 三级间接：256³ × 4KB = 64GB
+</span></span></code></pre></div><h2 id="文件权限">文件权限
 </h2><h3 id="权限模型">权限模型
 </h3><p>Linux 使用传统的 Unix 权限模型：</p>
-
-
-
-
-
-<div class="highlight highlight-bash">
-  <pre>
-    <code class="language-bash" data-lang="bash">-rw-r--r--  1 user group 1234 Jan 10 10:00 file.txt
-││││││││││
-│││││││││└─ 其他用户权限（r--）
-│││││││└──── 组用户权限（r--）
-│││││└─────── 所有者权限（rw-）
-│││└───────── 文件类型（- = 普通文件）
-│└────────── 特殊权限位
-└─────────── ACL 或 SELinux 上下文</code>
-  </pre>
-</div>
-
-<p><strong>权限类型</strong>：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">-rw-r--r--  <span class="m">1</span> user group <span class="m">1234</span> Jan <span class="m">10</span> 10:00 file.txt
+</span></span><span class="line"><span class="cl">││││││││││
+</span></span><span class="line"><span class="cl">│││││││││└─ 其他用户权限（r--）
+</span></span><span class="line"><span class="cl">│││││││└──── 组用户权限（r--）
+</span></span><span class="line"><span class="cl">│││││└─────── 所有者权限（rw-）
+</span></span><span class="line"><span class="cl">│││└───────── 文件类型（- <span class="o">=</span> 普通文件）
+</span></span><span class="line"><span class="cl">│└────────── 特殊权限位
+</span></span><span class="line"><span class="cl">└─────────── ACL 或 SELinux 上下文
+</span></span></code></pre></div><p><strong>权限类型</strong>：</p>
 <ul>
 <li><strong>r（read）</strong>：读取</li>
 <li><strong>w（write）</strong>：写入</li>
@@ -1163,436 +1039,266 @@ ls -la /proc/1234/fd/</code>
 </ul>
 <h3 id="权限表示">权限表示
 </h3><h4 id="符号模式">符号模式
-</h4>
-
-
-
-
-<div class="highlight highlight-bash">
-  <pre>
-    <code class="language-bash" data-lang="bash"># 查看权限
-ls -l file.txt
-
-# 修改权限
-chmod u&#43;x file.txt      # 所有者添加执行权限
-chmod go-w file.txt     # 组和其他移除写入权限
-chmod a=r file.txt      # 所有用户设置为只读
-
-# 常用组合
-chmod 755 script.sh     # rwxr-xr-x
-chmod 644 file.txt      # rw-r--r--
-chmod 600 secret.key    # rw-------（私密文件）</code>
-  </pre>
-</div>
-
-<h4 id="数字模式">数字模式
-</h4>
-
-
-
-
-<div class="highlight highlight-bash">
-  <pre>
-    <code class="language-bash" data-lang="bash"># 权限位计算
-r = 4
-w = 2
-x = 1
-- = 0
-
-# 示例
-rwxr-xr-- = 754
-│││││││││
-││││││││└─ 其他：4 (r--)
-││││││└──── 组：5 (r-x)
-││││└─────── 所有者：7 (rwx)
-
-# 常用权限值
-644 (rw-r--r--)  # 普通文件
-755 (rwxr-xr-x)  # 可执行文件/目录
-600 (rw-------)  # 私密文件
-640 (rw-r-----)  # 组共享文件</code>
-  </pre>
-</div>
-
-<h3 id="目录权限">目录权限
-</h3>
-
-
-
-
-<div class="highlight highlight-bash">
-  <pre>
-    <code class="language-bash" data-lang="bash"># 目录权限含义
-r (read)    # 可以列出目录内容
-w (write)   # 可以创建/删除文件（需要 x 权限）
-x (execute) # 可以进入目录（cd）
-
-# 示例
-drwxr-xr-x  2 user group 4096 Jan 10 10:00 documents
-│││││││││
-││││││││└─ 其他：r-x（可以进入，但不能写入）
-││││││└──── 组：r-x（可以进入，但不能写入）
-││││└─────── 所有者：rwx（完全控制）</code>
-  </pre>
-</div>
-
-<blockquote class="alert alert-warning">
+</h4><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># 查看权限</span>
+</span></span><span class="line"><span class="cl">ls -l file.txt
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 修改权限</span>
+</span></span><span class="line"><span class="cl">chmod u+x file.txt      <span class="c1"># 所有者添加执行权限</span>
+</span></span><span class="line"><span class="cl">chmod go-w file.txt     <span class="c1"># 组和其他移除写入权限</span>
+</span></span><span class="line"><span class="cl">chmod <span class="nv">a</span><span class="o">=</span>r file.txt      <span class="c1"># 所有用户设置为只读</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 常用组合</span>
+</span></span><span class="line"><span class="cl">chmod <span class="m">755</span> script.sh     <span class="c1"># rwxr-xr-x</span>
+</span></span><span class="line"><span class="cl">chmod <span class="m">644</span> file.txt      <span class="c1"># rw-r--r--</span>
+</span></span><span class="line"><span class="cl">chmod <span class="m">600</span> secret.key    <span class="c1"># rw-------（私密文件）</span>
+</span></span></code></pre></div><h4 id="数字模式">数字模式
+</h4><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># 权限位计算</span>
+</span></span><span class="line"><span class="cl"><span class="nv">r</span> <span class="o">=</span> <span class="m">4</span>
+</span></span><span class="line"><span class="cl"><span class="nv">w</span> <span class="o">=</span> <span class="m">2</span>
+</span></span><span class="line"><span class="cl"><span class="nv">x</span> <span class="o">=</span> <span class="m">1</span>
+</span></span><span class="line"><span class="cl">- <span class="o">=</span> <span class="m">0</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 示例</span>
+</span></span><span class="line"><span class="cl">rwxr-xr-- <span class="o">=</span> <span class="m">754</span>
+</span></span><span class="line"><span class="cl">│││││││││
+</span></span><span class="line"><span class="cl">││││││││└─ 其他：4 <span class="o">(</span>r--<span class="o">)</span>
+</span></span><span class="line"><span class="cl">││││││└──── 组：5 <span class="o">(</span>r-x<span class="o">)</span>
+</span></span><span class="line"><span class="cl">││││└─────── 所有者：7 <span class="o">(</span>rwx<span class="o">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 常用权限值</span>
+</span></span><span class="line"><span class="cl"><span class="m">644</span> <span class="o">(</span>rw-r--r--<span class="o">)</span>  <span class="c1"># 普通文件</span>
+</span></span><span class="line"><span class="cl"><span class="m">755</span> <span class="o">(</span>rwxr-xr-x<span class="o">)</span>  <span class="c1"># 可执行文件/目录</span>
+</span></span><span class="line"><span class="cl"><span class="m">600</span> <span class="o">(</span>rw-------<span class="o">)</span>  <span class="c1"># 私密文件</span>
+</span></span><span class="line"><span class="cl"><span class="m">640</span> <span class="o">(</span>rw-r-----<span class="o">)</span>  <span class="c1"># 组共享文件</span>
+</span></span></code></pre></div><h3 id="目录权限">目录权限
+</h3><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># 目录权限含义</span>
+</span></span><span class="line"><span class="cl">r <span class="o">(</span><span class="nb">read</span><span class="o">)</span>    <span class="c1"># 可以列出目录内容</span>
+</span></span><span class="line"><span class="cl">w <span class="o">(</span>write<span class="o">)</span>   <span class="c1"># 可以创建/删除文件（需要 x 权限）</span>
+</span></span><span class="line"><span class="cl">x <span class="o">(</span>execute<span class="o">)</span> <span class="c1"># 可以进入目录（cd）</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 示例</span>
+</span></span><span class="line"><span class="cl">drwxr-xr-x  <span class="m">2</span> user group <span class="m">4096</span> Jan <span class="m">10</span> 10:00 documents
+</span></span><span class="line"><span class="cl">│││││││││
+</span></span><span class="line"><span class="cl">││││││││└─ 其他：r-x（可以进入，但不能写入）
+</span></span><span class="line"><span class="cl">││││││└──── 组：r-x（可以进入，但不能写入）
+</span></span><span class="line"><span class="cl">││││└─────── 所有者：rwx（完全控制）
+</span></span></code></pre></div><blockquote class="alert alert-warning">
     <p>删除文件需要<strong>父目录的写权限</strong>，而不是文件本身的权限！</p></blockquote>
 <h3 id="特殊权限">特殊权限
 </h3><h4 id="suidset-user-id">SUID（Set User ID）
-</h4>
-
-
-
-
-<div class="highlight highlight-bash">
-  <pre>
-    <code class="language-bash" data-lang="bash"># 以文件所有者身份运行
-chmod u&#43;s /usr/bin/passwd
-# 或
-chmod 4755 /usr/bin/passwd
-
-# 示例：passwd 命令
--rwsr-xr-x  1 root root  68K Jan 10 10:00 /usr/bin/passwd
-#           ^
-#           s 代替了 x，表示设置了 SUID
-
-# 作用：普通用户运行 passwd 时，临时获得 root 权限
-# 从而可以修改 /etc/shadow 文件</code>
-  </pre>
-</div>
-
-<h4 id="sgidset-group-id">SGID（Set Group ID）
-</h4>
-
-
-
-
-<div class="highlight highlight-bash">
-  <pre>
-    <code class="language-bash" data-lang="bash"># 在目录中创建的文件继承目录的组
-chmod g&#43;s /shared/project
-# 或
-chmod 2755 /shared/project
-
-# 示例
-drwxrwsr-x  2 user project 4096 Jan 10 10:00 /shared/project
-#           ^
-#           s 表示设置了 SGID</code>
-  </pre>
-</div>
-
-<h4 id="sticky-bit">Sticky Bit
-</h4>
-
-
-
-
-<div class="highlight highlight-bash">
-  <pre>
-    <code class="language-bash" data-lang="bash"># 只有文件所有者才能删除文件
-chmod &#43;t /tmp
-# 或
-chmod 1777 /tmp
-
-# 示例
-drwxrwxrwt  10 root root 4096 Jan 10 10:00 /tmp
-#            ^
-#            t 表示设置了 sticky bit
-
-# 作用：在 /tmp 中，用户只能删除自己的文件</code>
-  </pre>
-</div>
-
-<h3 id="默认权限umask">默认权限（umask）
-</h3>
-
-
-
-
-<div class="highlight highlight-bash">
-  <pre>
-    <code class="language-bash" data-lang="bash"># 查看当前 umask
-umask
-# 输出：0002
-
-# umask 从权限中&#34;减去&#34;这些位
-# 文件默认权限：666 - umask = 664 (rw-rw-r--)
-# 目录默认权限：777 - umask = 775 (rwxrwxr-x)
-
-# 设置 umask
-umask 022              # 新文件权限 644 (rw-r--r--)
-umask 077              # 新文件权限 600 (rw-------)
-
-# 永久设置（在 ~/.bashrc 中）
-echo &#39;umask 027&#39; &gt;&gt; ~/.bashrc</code>
-  </pre>
-</div>
-
-<h2 id="文件操作命令">文件操作命令
+</h4><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># 以文件所有者身份运行</span>
+</span></span><span class="line"><span class="cl">chmod u+s /usr/bin/passwd
+</span></span><span class="line"><span class="cl"><span class="c1"># 或</span>
+</span></span><span class="line"><span class="cl">chmod <span class="m">4755</span> /usr/bin/passwd
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 示例：passwd 命令</span>
+</span></span><span class="line"><span class="cl">-rwsr-xr-x  <span class="m">1</span> root root  68K Jan <span class="m">10</span> 10:00 /usr/bin/passwd
+</span></span><span class="line"><span class="cl"><span class="c1">#           ^</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#           s 代替了 x，表示设置了 SUID</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 作用：普通用户运行 passwd 时，临时获得 root 权限</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 从而可以修改 /etc/shadow 文件</span>
+</span></span></code></pre></div><h4 id="sgidset-group-id">SGID（Set Group ID）
+</h4><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># 在目录中创建的文件继承目录的组</span>
+</span></span><span class="line"><span class="cl">chmod g+s /shared/project
+</span></span><span class="line"><span class="cl"><span class="c1"># 或</span>
+</span></span><span class="line"><span class="cl">chmod <span class="m">2755</span> /shared/project
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 示例</span>
+</span></span><span class="line"><span class="cl">drwxrwsr-x  <span class="m">2</span> user project <span class="m">4096</span> Jan <span class="m">10</span> 10:00 /shared/project
+</span></span><span class="line"><span class="cl"><span class="c1">#           ^</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#           s 表示设置了 SGID</span>
+</span></span></code></pre></div><h4 id="sticky-bit">Sticky Bit
+</h4><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># 只有文件所有者才能删除文件</span>
+</span></span><span class="line"><span class="cl">chmod +t /tmp
+</span></span><span class="line"><span class="cl"><span class="c1"># 或</span>
+</span></span><span class="line"><span class="cl">chmod <span class="m">1777</span> /tmp
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 示例</span>
+</span></span><span class="line"><span class="cl">drwxrwxrwt  <span class="m">10</span> root root <span class="m">4096</span> Jan <span class="m">10</span> 10:00 /tmp
+</span></span><span class="line"><span class="cl"><span class="c1">#            ^</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#            t 表示设置了 sticky bit</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 作用：在 /tmp 中，用户只能删除自己的文件</span>
+</span></span></code></pre></div><h3 id="默认权限umask">默认权限（umask）
+</h3><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># 查看当前 umask</span>
+</span></span><span class="line"><span class="cl"><span class="nb">umask</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 输出：0002</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># umask 从权限中&#34;减去&#34;这些位</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 文件默认权限：666 - umask = 664 (rw-rw-r--)</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 目录默认权限：777 - umask = 775 (rwxrwxr-x)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 设置 umask</span>
+</span></span><span class="line"><span class="cl"><span class="nb">umask</span> <span class="m">022</span>              <span class="c1"># 新文件权限 644 (rw-r--r--)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">umask</span> <span class="m">077</span>              <span class="c1"># 新文件权限 600 (rw-------)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 永久设置（在 ~/.bashrc 中）</span>
+</span></span><span class="line"><span class="cl"><span class="nb">echo</span> <span class="s1">&#39;umask 027&#39;</span> &gt;&gt; ~/.bashrc
+</span></span></code></pre></div><h2 id="文件操作命令">文件操作命令
 </h2><h3 id="基础操作">基础操作
-</h3>
-
-
-
-
-<div class="highlight highlight-bash">
-  <pre>
-    <code class="language-bash" data-lang="bash"># 创建文件
-touch file.txt                 # 创建空文件
-echo &#34;Hello&#34; &gt; file.txt        # 创建并写入内容
-cat &gt; file.txt &lt;&lt; EOF         # 多行输入
-Line 1
-Line 2
-EOF
-
-# 复制文件
-cp file1.txt file2.txt         # 复制
-cp -r dir1 dir2                # 递归复制目录
-cp -p file.txt backup.txt      # 保留属性
-cp -i file.txt target.txt      # 覆盖前确认
-
-# 移动/重命名
-mv old.txt new.txt             # 重命名
-mv file.txt /tmp/              # 移动
-
-# 删除文件
-rm file.txt                    # 删除
-rm -r dir/                     # 递归删除目录
-rm -i file.txt                 # 确认删除
-rm -f file.txt                 # 强制删除</code>
-  </pre>
-</div>
-
-<h3 id="查找文件">查找文件
-</h3>
-
-
-
-
-<div class="highlight highlight-bash">
-  <pre>
-    <code class="language-bash" data-lang="bash"># find：按条件查找
-find /home -name &#34;*.txt&#34;                    # 按名称查找
-find /home -type f -name &#34;*.conf&#34;          # 查找文件
-find /home -type d -name &#34;log&#34;             # 查找目录
-find /home -size &#43;100M                     # 查找大于100MB的文件
-find /home -mtime -7                       # 查找7天内修改的文件
-find /home -user john                      # 查找john拥有的文件
-find /home -perm 777                       # 查找777权限的文件
-
-# locate：快速查找（使用数据库）
-locate nginx.conf
-sudo updatedb                              # 更新数据库
-
-# which：查找命令位置
-which python3
-whereis python3                            # 查找二进制、源码、手册页</code>
-  </pre>
-</div>
-
-<h3 id="文件内容查看">文件内容查看
-</h3>
-
-
-
-
-<div class="highlight highlight-bash">
-  <pre>
-    <code class="language-bash" data-lang="bash"># 查看文件
-cat file.txt                  # 显示全部
-less file.txt                 # 分页查看（推荐）
-more file.txt                 # 简单分页
-
-# 查看部分
-head -n 10 file.txt           # 前10行
-tail -n 10 file.txt           # 后10行
-tail -f /var/log/syslog       # 实时查看日志
-
-# 查看特定行
-sed -n &#39;10,20p&#39; file.txt      # 第10-20行
-
-# 查找内容
-grep &#34;error&#34; file.txt
-grep -r &#34;TODO&#34; ./             # 递归搜索目录
-grep -i &#34;hello&#34; file.txt      # 忽略大小写
-grep -n &#34;pattern&#34; file.txt    # 显示行号
-grep -v &#34;comment&#34; file.txt    # 反向匹配</code>
-  </pre>
-</div>
-
-<h2 id="文件系统操作">文件系统操作
+</h3><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># 创建文件</span>
+</span></span><span class="line"><span class="cl">touch file.txt                 <span class="c1"># 创建空文件</span>
+</span></span><span class="line"><span class="cl"><span class="nb">echo</span> <span class="s2">&#34;Hello&#34;</span> &gt; file.txt        <span class="c1"># 创建并写入内容</span>
+</span></span><span class="line"><span class="cl">cat &gt; file.txt <span class="s">&lt;&lt; EOF         # 多行输入
+</span></span></span><span class="line"><span class="cl"><span class="s">Line 1
+</span></span></span><span class="line"><span class="cl"><span class="s">Line 2
+</span></span></span><span class="line"><span class="cl"><span class="s">EOF</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 复制文件</span>
+</span></span><span class="line"><span class="cl">cp file1.txt file2.txt         <span class="c1"># 复制</span>
+</span></span><span class="line"><span class="cl">cp -r dir1 dir2                <span class="c1"># 递归复制目录</span>
+</span></span><span class="line"><span class="cl">cp -p file.txt backup.txt      <span class="c1"># 保留属性</span>
+</span></span><span class="line"><span class="cl">cp -i file.txt target.txt      <span class="c1"># 覆盖前确认</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 移动/重命名</span>
+</span></span><span class="line"><span class="cl">mv old.txt new.txt             <span class="c1"># 重命名</span>
+</span></span><span class="line"><span class="cl">mv file.txt /tmp/              <span class="c1"># 移动</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 删除文件</span>
+</span></span><span class="line"><span class="cl">rm file.txt                    <span class="c1"># 删除</span>
+</span></span><span class="line"><span class="cl">rm -r dir/                     <span class="c1"># 递归删除目录</span>
+</span></span><span class="line"><span class="cl">rm -i file.txt                 <span class="c1"># 确认删除</span>
+</span></span><span class="line"><span class="cl">rm -f file.txt                 <span class="c1"># 强制删除</span>
+</span></span></code></pre></div><h3 id="查找文件">查找文件
+</h3><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># find：按条件查找</span>
+</span></span><span class="line"><span class="cl">find /home -name <span class="s2">&#34;*.txt&#34;</span>                    <span class="c1"># 按名称查找</span>
+</span></span><span class="line"><span class="cl">find /home -type f -name <span class="s2">&#34;*.conf&#34;</span>          <span class="c1"># 查找文件</span>
+</span></span><span class="line"><span class="cl">find /home -type d -name <span class="s2">&#34;log&#34;</span>             <span class="c1"># 查找目录</span>
+</span></span><span class="line"><span class="cl">find /home -size +100M                     <span class="c1"># 查找大于100MB的文件</span>
+</span></span><span class="line"><span class="cl">find /home -mtime -7                       <span class="c1"># 查找7天内修改的文件</span>
+</span></span><span class="line"><span class="cl">find /home -user john                      <span class="c1"># 查找john拥有的文件</span>
+</span></span><span class="line"><span class="cl">find /home -perm <span class="m">777</span>                       <span class="c1"># 查找777权限的文件</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># locate：快速查找（使用数据库）</span>
+</span></span><span class="line"><span class="cl">locate nginx.conf
+</span></span><span class="line"><span class="cl">sudo updatedb                              <span class="c1"># 更新数据库</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># which：查找命令位置</span>
+</span></span><span class="line"><span class="cl">which python3
+</span></span><span class="line"><span class="cl">whereis python3                            <span class="c1"># 查找二进制、源码、手册页</span>
+</span></span></code></pre></div><h3 id="文件内容查看">文件内容查看
+</h3><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># 查看文件</span>
+</span></span><span class="line"><span class="cl">cat file.txt                  <span class="c1"># 显示全部</span>
+</span></span><span class="line"><span class="cl">less file.txt                 <span class="c1"># 分页查看（推荐）</span>
+</span></span><span class="line"><span class="cl">more file.txt                 <span class="c1"># 简单分页</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 查看部分</span>
+</span></span><span class="line"><span class="cl">head -n <span class="m">10</span> file.txt           <span class="c1"># 前10行</span>
+</span></span><span class="line"><span class="cl">tail -n <span class="m">10</span> file.txt           <span class="c1"># 后10行</span>
+</span></span><span class="line"><span class="cl">tail -f /var/log/syslog       <span class="c1"># 实时查看日志</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 查看特定行</span>
+</span></span><span class="line"><span class="cl">sed -n <span class="s1">&#39;10,20p&#39;</span> file.txt      <span class="c1"># 第10-20行</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 查找内容</span>
+</span></span><span class="line"><span class="cl">grep <span class="s2">&#34;error&#34;</span> file.txt
+</span></span><span class="line"><span class="cl">grep -r <span class="s2">&#34;TODO&#34;</span> ./             <span class="c1"># 递归搜索目录</span>
+</span></span><span class="line"><span class="cl">grep -i <span class="s2">&#34;hello&#34;</span> file.txt      <span class="c1"># 忽略大小写</span>
+</span></span><span class="line"><span class="cl">grep -n <span class="s2">&#34;pattern&#34;</span> file.txt    <span class="c1"># 显示行号</span>
+</span></span><span class="line"><span class="cl">grep -v <span class="s2">&#34;comment&#34;</span> file.txt    <span class="c1"># 反向匹配</span>
+</span></span></code></pre></div><h2 id="文件系统操作">文件系统操作
 </h2><h3 id="挂载mount">挂载（mount）
-</h3>
-
-
-
-
-<div class="highlight highlight-bash">
-  <pre>
-    <code class="language-bash" data-lang="bash"># 查看挂载情况
-mount                          # 列出所有挂载点
-df -h                          # 显示磁盘使用情况
-
-# 挂载文件系统
-sudo mount /dev/sdb1 /mnt/data
-sudo mount -t ext4 /dev/sdb1 /mnt/data
-
-# 挂载 ISO 镜像
-sudo mount -o loop image.iso /mnt
-
-# 挂载 NFS
-sudo mount -t nfs server:/share /mnt/nfs
-
-# 卸载
-sudo umount /mnt/data
-
-# /etc/fstab：开机自动挂载
-# &lt;设备&gt;      &lt;挂载点&gt;   &lt;类型&gt;  &lt;选项&gt;              &lt;dump&gt; &lt;pass&gt;
-UUID=xxx    /           ext4    errors=remount-ro   0      1
-/dev/sdb1   /mnt/data   ext4    defaults           0      2</code>
-  </pre>
-</div>
-
-<h3 id="磁盘空间管理">磁盘空间管理
-</h3>
-
-
-
-
-<div class="highlight highlight-bash">
-  <pre>
-    <code class="language-bash" data-lang="bash"># 查看磁盘使用
-df -h                          # 人类可读格式
-df -i                          # 查看 inode 使用情况
-
-# 查看目录大小
-du -sh /home/user              # 目录总大小
-du -h --max-depth=1 /home/user  # 一级子目录大小
-du -sh * | sort -hr             # 按大小排序
-
-# 查找大文件
-find /home -type f -size &#43;100M -exec ls -lh {} \;
-
-# 清理空间
-sudo apt clean                 # 清理 apt 缓存
-sudo journalctl --vacuum-time=7d  # 保留7天日志</code>
-  </pre>
-</div>
-
-<h2 id="符号链接和硬链接">符号链接和硬链接
+</h3><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># 查看挂载情况</span>
+</span></span><span class="line"><span class="cl">mount                          <span class="c1"># 列出所有挂载点</span>
+</span></span><span class="line"><span class="cl">df -h                          <span class="c1"># 显示磁盘使用情况</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 挂载文件系统</span>
+</span></span><span class="line"><span class="cl">sudo mount /dev/sdb1 /mnt/data
+</span></span><span class="line"><span class="cl">sudo mount -t ext4 /dev/sdb1 /mnt/data
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 挂载 ISO 镜像</span>
+</span></span><span class="line"><span class="cl">sudo mount -o loop image.iso /mnt
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 挂载 NFS</span>
+</span></span><span class="line"><span class="cl">sudo mount -t nfs server:/share /mnt/nfs
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 卸载</span>
+</span></span><span class="line"><span class="cl">sudo umount /mnt/data
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># /etc/fstab：开机自动挂载</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># &lt;设备&gt;      &lt;挂载点&gt;   &lt;类型&gt;  &lt;选项&gt;              &lt;dump&gt; &lt;pass&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="nv">UUID</span><span class="o">=</span>xxx    /           ext4    <span class="nv">errors</span><span class="o">=</span>remount-ro   <span class="m">0</span>      <span class="m">1</span>
+</span></span><span class="line"><span class="cl">/dev/sdb1   /mnt/data   ext4    defaults           <span class="m">0</span>      <span class="m">2</span>
+</span></span></code></pre></div><h3 id="磁盘空间管理">磁盘空间管理
+</h3><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># 查看磁盘使用</span>
+</span></span><span class="line"><span class="cl">df -h                          <span class="c1"># 人类可读格式</span>
+</span></span><span class="line"><span class="cl">df -i                          <span class="c1"># 查看 inode 使用情况</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 查看目录大小</span>
+</span></span><span class="line"><span class="cl">du -sh /home/user              <span class="c1"># 目录总大小</span>
+</span></span><span class="line"><span class="cl">du -h --max-depth<span class="o">=</span><span class="m">1</span> /home/user  <span class="c1"># 一级子目录大小</span>
+</span></span><span class="line"><span class="cl">du -sh * <span class="p">|</span> sort -hr             <span class="c1"># 按大小排序</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 查找大文件</span>
+</span></span><span class="line"><span class="cl">find /home -type f -size +100M -exec ls -lh <span class="o">{}</span> <span class="se">\;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 清理空间</span>
+</span></span><span class="line"><span class="cl">sudo apt clean                 <span class="c1"># 清理 apt 缓存</span>
+</span></span><span class="line"><span class="cl">sudo journalctl --vacuum-time<span class="o">=</span>7d  <span class="c1"># 保留7天日志</span>
+</span></span></code></pre></div><h2 id="符号链接和硬链接">符号链接和硬链接
 </h2><h3 id="硬链接">硬链接
-</h3>
-
-
-
-
-<div class="highlight highlight-bash">
-  <pre>
-    <code class="language-bash" data-lang="bash"># 创建硬链接
-ln original.txt link.txt
-
-# 特点：
-# 1. 指向同一个 inode
-# 2. 同一个文件的不同名字
-# 3. 不能跨文件系统
-# 4. 不能链接目录
-# 5. 删除原文件，链接仍然有效
-
-# 查看
-ls -li original.txt link.txt
-# 123456 -rw-r--r-- 2 user user ... original.txt
-# 123456 -rw-r--r-- 2 user user ... link.txt
-#        ↑                  ↑
-#      相同 inode        硬链接计数</code>
-  </pre>
-</div>
-
-<h3 id="符号链接软链接">符号链接（软链接）
-</h3>
-
-
-
-
-<div class="highlight highlight-bash">
-  <pre>
-    <code class="language-bash" data-lang="bash"># 创建符号链接
-ln -s /path/to/original symlink
-
-# 特点：
-# 1. 指向路径，不是 inode
-# 2. 有自己的 inode
-# 3. 可以跨文件系统
-# 4. 可以链接目录
-# 5. 删除原文件，链接失效
-
-# 查看
-ls -la symlink
-# lrwxrwxrwx 1 user user 13 Jan 10 10:00 symlink -&gt; /path/to/original
-#          ↑
-#      l 表示符号链接</code>
-  </pre>
-</div>
-
-<h2 id="实战技巧">实战技巧
+</h3><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># 创建硬链接</span>
+</span></span><span class="line"><span class="cl">ln original.txt link.txt
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 特点：</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 1. 指向同一个 inode</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 2. 同一个文件的不同名字</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 3. 不能跨文件系统</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 4. 不能链接目录</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 5. 删除原文件，链接仍然有效</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 查看</span>
+</span></span><span class="line"><span class="cl">ls -li original.txt link.txt
+</span></span><span class="line"><span class="cl"><span class="c1"># 123456 -rw-r--r-- 2 user user ... original.txt</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 123456 -rw-r--r-- 2 user user ... link.txt</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#        ↑                  ↑</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#      相同 inode        硬链接计数</span>
+</span></span></code></pre></div><h3 id="符号链接软链接">符号链接（软链接）
+</h3><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># 创建符号链接</span>
+</span></span><span class="line"><span class="cl">ln -s /path/to/original symlink
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 特点：</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 1. 指向路径，不是 inode</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 2. 有自己的 inode</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 3. 可以跨文件系统</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 4. 可以链接目录</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 5. 删除原文件，链接失效</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 查看</span>
+</span></span><span class="line"><span class="cl">ls -la symlink
+</span></span><span class="line"><span class="cl"><span class="c1"># lrwxrwxrwx 1 user user 13 Jan 10 10:00 symlink -&gt; /path/to/original</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#          ↑</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#      l 表示符号链接</span>
+</span></span></code></pre></div><h2 id="实战技巧">实战技巧
 </h2><h3 id="批量重命名">批量重命名
-</h3>
-
-
-
-
-<div class="highlight highlight-bash">
-  <pre>
-    <code class="language-bash" data-lang="bash"># 使用 rename 命令
-rename &#39;s/old/new/&#39; *.txt      # 将所有 old 替换为 new
-rename &#39;y/a-z/A-Z/&#39; *.txt      # 转换为大写
-
-# 使用 bash 循环
-for f in *.jpg; do
-    mv &#34;$f&#34; &#34;prefix_${f}&#34;
-done</code>
-  </pre>
-</div>
-
-<h3 id="查找并删除">查找并删除
-</h3>
-
-
-
-
-<div class="highlight highlight-bash">
-  <pre>
-    <code class="language-bash" data-lang="bash"># 查找并删除空文件
-find . -type f -empty -delete
-
-# 查找并删除旧文件
-find /tmp -type f -mtime &#43;30 -delete
-
-# 查找并删除大于100MB的文件
-find . -type f -size &#43;100M -exec rm {} \;</code>
-  </pre>
-</div>
-
-<h3 id="文件备份">文件备份
-</h3>
-
-
-
-
-<div class="highlight highlight-bash">
-  <pre>
-    <code class="language-bash" data-lang="bash"># 创建带时间戳的备份
-cp file.txt file_$(date &#43;%Y%m%d_%H%M%S).txt
-
-# 使用 rsync 同步
-rsync -av --progress /src/ /dst/
-
-# 保留权限、时间戳、所有者
-cp -p source.txt backup.txt</code>
-  </pre>
-</div>
-
-<h2 id="总结">总结
+</h3><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># 使用 rename 命令</span>
+</span></span><span class="line"><span class="cl">rename <span class="s1">&#39;s/old/new/&#39;</span> *.txt      <span class="c1"># 将所有 old 替换为 new</span>
+</span></span><span class="line"><span class="cl">rename <span class="s1">&#39;y/a-z/A-Z/&#39;</span> *.txt      <span class="c1"># 转换为大写</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 使用 bash 循环</span>
+</span></span><span class="line"><span class="cl"><span class="k">for</span> f in *.jpg<span class="p">;</span> <span class="k">do</span>
+</span></span><span class="line"><span class="cl">    mv <span class="s2">&#34;</span><span class="nv">$f</span><span class="s2">&#34;</span> <span class="s2">&#34;prefix_</span><span class="si">${</span><span class="nv">f</span><span class="si">}</span><span class="s2">&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="k">done</span>
+</span></span></code></pre></div><h3 id="查找并删除">查找并删除
+</h3><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># 查找并删除空文件</span>
+</span></span><span class="line"><span class="cl">find . -type f -empty -delete
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 查找并删除旧文件</span>
+</span></span><span class="line"><span class="cl">find /tmp -type f -mtime +30 -delete
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 查找并删除大于100MB的文件</span>
+</span></span><span class="line"><span class="cl">find . -type f -size +100M -exec rm <span class="o">{}</span> <span class="se">\;</span>
+</span></span></code></pre></div><h3 id="文件备份">文件备份
+</h3><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># 创建带时间戳的备份</span>
+</span></span><span class="line"><span class="cl">cp file.txt file_<span class="k">$(</span>date +%Y%m%d_%H%M%S<span class="k">)</span>.txt
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 使用 rsync 同步</span>
+</span></span><span class="line"><span class="cl">rsync -av --progress /src/ /dst/
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 保留权限、时间戳、所有者</span>
+</span></span><span class="line"><span class="cl">cp -p source.txt backup.txt
+</span></span></code></pre></div><h2 id="总结">总结
 </h2><p>文件系统是 Linux 的核心概念。通过这篇文章，我们学习了：</p>
 <h3 id="核心概念">核心概念
 </h3><ol>
@@ -1955,7 +1661,7 @@ cp -p source.txt backup.txt</code>
                 src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
                 
                 >
-            </script><script type="text/javascript" src="/ts/main.888cccdaf3c934b58bb1982792b4d0fdb89be145d2cabea38c8569bfe7d08117.js" defer></script>
+            </script><script type="text/javascript" src="/ts/main.fe055f50234dc99b59992d29820a4403a71f7c90de7b6ebd204c621ac170b546.js" defer></script>
 <script>
     (function () {
         const customFont = document.createElement('link');

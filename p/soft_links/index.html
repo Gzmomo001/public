@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="zh-cn" dir="ltr">
+<html lang="en-us" dir="ltr">
     <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><meta charset='utf-8'>
 <meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="软连接 在系统中我们往往可能需要在一个项目中使用项目之外的一些文件，但是这个文件又不在这项目的根目录在。大部分人往往都选择直接将需要的文件拷贝到项目的路目中。但是这样既浪费时间又浪费系统的存储空间。尔软连接的出现就是为了解决这一问题。我们可以直接通过命令创建一个软连接。让目标文件或者文件夹的替身出现在我们的项目目录下。这样我们就可以在不使用绝对路径的情况下使用该路径了。\n">
 <title>Soft_links</title>
@@ -357,7 +357,7 @@
                     
                     
                         
-                        <img src="/img/avatar_hu_9c50848f93c56cbf.jpeg" width="300"
+                        <img src="/img/avatar_hu_a69ebd3e9749347e.jpeg" width="300"
                             height="296" class="site-logo" loading="lazy" alt="Avatar">
                     
                 
@@ -599,8 +599,8 @@
     <header class="article-header">
         <div class="article-image">
             <a href="/p/soft_links/">
-                <img src="/p/soft_links/link_hu_bc6cd4d2edb2c0ab.png"
-                        srcset="/p/soft_links/link_hu_bc6cd4d2edb2c0ab.png 800w, /p/soft_links/link_hu_966cbcc918bd386f.png 1600w"
+                <img src="/p/soft_links/link_hu_5f51bee6ca23e727.png"
+                        srcset="/p/soft_links/link_hu_5f51bee6ca23e727.png 800w, /p/soft_links/link_hu_c9fe90fc6aae65c7.png 1600w"
                         width="800" 
                         height="800" 
                         loading="lazy"
@@ -679,7 +679,7 @@
 
 
                 <time>
-                    Aug 06, 2025 03:39 &#43;0800
+                    Aug 06, 2025 03:39 CST
                 </time>
             </div>
     </footer>
@@ -701,29 +701,19 @@
 <li>在 linux 我们可以使用&rsquo;man ln&rsquo;就能查看 ln 的使用手册</li>
 </ol>
 <p>这里列举一些常用的&rsquo;ln&rsquo; 命令</p>
-
-
-
-
-
-<div class="highlight highlight-bash">
-  <pre>
-    <code class="language-bash" data-lang="bash"># Create a symbolic link to a file or directory:
-# 会在路标路径下创建一个原路径同名的文件或者文件夹
-ln --symbolic /path/to/file_or_directory path/to/symlink
-
-#Overwrite an existing symbolic link to point to a different file:
-ln --symbolic --force /path/to/new_file path/to/symlink
-
-# Create a hard link to a file:
-ln /path/to/file path/to/hardlink
-
-# Delete a symbolic link:
-rm path/to/symlink</code>
-  </pre>
-</div>
-
-<blockquote class="alert alert-tips">
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># Create a symbolic link to a file or directory:</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 会在路标路径下创建一个原路径同名的文件或者文件夹</span>
+</span></span><span class="line"><span class="cl">ln --symbolic /path/to/file_or_directory path/to/symlink
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#Overwrite an existing symbolic link to point to a different file:</span>
+</span></span><span class="line"><span class="cl">ln --symbolic --force /path/to/new_file path/to/symlink
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Create a hard link to a file:</span>
+</span></span><span class="line"><span class="cl">ln /path/to/file path/to/hardlink
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Delete a symbolic link:</span>
+</span></span><span class="line"><span class="cl">rm path/to/symlink
+</span></span></code></pre></div><blockquote class="alert alert-tips">
     <p>如果链接是相对路径，那这个相对是路径应该是相对于软连接目标目录的路径
 ###<a class="link" href="https://www.gnu.org/software/coreutils/manual/html_node/ln-invocation.html"  target="_blank" rel="noopener"
     >官方文档链接</a></p></blockquote>
@@ -1047,7 +1037,7 @@ rm path/to/symlink</code>
                 src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
                 
                 >
-            </script><script type="text/javascript" src="/ts/main.888cccdaf3c934b58bb1982792b4d0fdb89be145d2cabea38c8569bfe7d08117.js" defer></script>
+            </script><script type="text/javascript" src="/ts/main.fe055f50234dc99b59992d29820a4403a71f7c90de7b6ebd204c621ac170b546.js" defer></script>
 <script>
     (function () {
         const customFont = document.createElement('link');

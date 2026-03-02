@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="zh-cn" dir="ltr">
+<html lang="en-us" dir="ltr">
     <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><meta charset='utf-8'>
 <meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="Model Context Protocol">
 <title>Mcp</title>
@@ -357,7 +357,7 @@
                     
                     
                         
-                        <img src="/img/avatar_hu_9c50848f93c56cbf.jpeg" width="300"
+                        <img src="/img/avatar_hu_a69ebd3e9749347e.jpeg" width="300"
                             height="296" class="site-logo" loading="lazy" alt="Avatar">
                     
                 
@@ -615,8 +615,8 @@
     <header class="article-header">
         <div class="article-image">
             <a href="/p/mcp/">
-                <img src="/p/mcp/mcp-blog-cover_hu_ea10ff9d61246a4c.png"
-                        srcset="/p/mcp/mcp-blog-cover_hu_ea10ff9d61246a4c.png 800w, /p/mcp/mcp-blog-cover_hu_d7ff6987c47d4393.png 1600w"
+                <img src="/p/mcp/mcp-blog-cover_hu_f61aaa132e5318f8.png"
+                        srcset="/p/mcp/mcp-blog-cover_hu_f61aaa132e5318f8.png 800w, /p/mcp/mcp-blog-cover_hu_e037018b4bf6faa5.png 1600w"
                         width="800" 
                         height="446" 
                         loading="lazy"
@@ -744,52 +744,32 @@
 <li>获取文件元数据(大小、修改时间等)</li>
 <li>移动和重命名文件</li>
 </ul>
-
-
-
-
-
-<div class="highlight highlight-bash">
-  <pre>
-    <code class="language-bash" data-lang="bash"># 示例配置文件
-{
-  &#34;mcpServers&#34;: {
-    &#34;filesystem&#34;: {
-      &#34;command&#34;: &#34;npx&#34;,
-      &#34;args&#34;: [&#34;-y&#34;, &#34;@modelcontextprotocol/server-filesystem&#34;, &#34;/path/to/allowed/directory&#34;]
-    }
-  }
-}</code>
-  </pre>
-</div>
-
-<h2 id="google">google
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># 示例配置文件</span>
+</span></span><span class="line"><span class="cl"><span class="o">{</span>
+</span></span><span class="line"><span class="cl">  <span class="s2">&#34;mcpServers&#34;</span>: <span class="o">{</span>
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;filesystem&#34;</span>: <span class="o">{</span>
+</span></span><span class="line"><span class="cl">      <span class="s2">&#34;command&#34;</span>: <span class="s2">&#34;npx&#34;</span>,
+</span></span><span class="line"><span class="cl">      <span class="s2">&#34;args&#34;</span>: <span class="o">[</span><span class="s2">&#34;-y&#34;</span>, <span class="s2">&#34;@modelcontextprotocol/server-filesystem&#34;</span>, <span class="s2">&#34;/path/to/allowed/directory&#34;</span><span class="o">]</span>
+</span></span><span class="line"><span class="cl">    <span class="o">}</span>
+</span></span><span class="line"><span class="cl">  <span class="o">}</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span></code></pre></div><h2 id="google">google
 </h2><p>这里包含了谷歌官方提供的mcp服务. 包括google workspace, cloud storage 等</p>
 <p><a class="link" href="https://github.com/google/mcp"  target="_blank" rel="noopener"
     >仓库链接</a></p>
 <h3 id="配置google-mcp服务">配置Google MCP服务
-</h3>
-
-
-
-
-<div class="highlight highlight-json">
-  <pre>
-    <code class="language-json" data-lang="json">{
-  &#34;mcpServers&#34;: {
-    &#34;google-workspace&#34;: {
-      &#34;command&#34;: &#34;npx&#34;,
-      &#34;args&#34;: [&#34;-y&#34;, &#34;@google/mcp-server-workspace&#34;],
-      &#34;env&#34;: {
-        &#34;GOOGLE_APPLICATION_CREDENTIALS&#34;: &#34;/path/to/credentials.json&#34;
-      }
-    }
-  }
-}</code>
-  </pre>
-</div>
-
-<h3 id="google-workspace"><a class="link" href="https://github.com/gemini-cli-extensions/workspace"  target="_blank" rel="noopener"
+</h3><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;mcpServers&#34;</span><span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;google-workspace&#34;</span><span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;command&#34;</span><span class="p">:</span> <span class="s2">&#34;npx&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;args&#34;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&#34;-y&#34;</span><span class="p">,</span> <span class="s2">&#34;@google/mcp-server-workspace&#34;</span><span class="p">],</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;env&#34;</span><span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&#34;GOOGLE_APPLICATION_CREDENTIALS&#34;</span><span class="p">:</span> <span class="s2">&#34;/path/to/credentials.json&#34;</span>
+</span></span><span class="line"><span class="cl">      <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><h3 id="google-workspace"><a class="link" href="https://github.com/gemini-cli-extensions/workspace"  target="_blank" rel="noopener"
     >google workspace</a>
 </h3><p>包括slide, docs, sheets, Calendar 和 Gmail.</p>
 <p>通过这个mcp你可以访问你谷歌账户中的文档, 日历和邮箱等. 包括查询某个具体的文档, 新增文档, 查询当天的计划, 查看邮箱等.</p>
@@ -804,19 +784,9 @@
 <h3 id="cloud-storage"><a class="link" href="https://github.com/googleapis/gcloud-mcp/tree/main/packages/storage-mcp"  target="_blank" rel="noopener"
     >cloud storage</a>
 </h3><p>提供与Google Cloud Storage的集成能力:</p>
-
-
-
-
-
-<div class="highlight highlight-bash">
-  <pre>
-    <code class="language-bash" data-lang="bash"># 安装Cloud Storage MCP
-npm install -g @google/gcloud-mcp-storage</code>
-  </pre>
-</div>
-
-<p><strong>核心功能:</strong></p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># 安装Cloud Storage MCP</span>
+</span></span><span class="line"><span class="cl">npm install -g @google/gcloud-mcp-storage
+</span></span></code></pre></div><p><strong>核心功能:</strong></p>
 <ul>
 <li>📦 存储桶管理: 创建、删除、列出存储桶</li>
 <li>📁 文件操作: 上传、下载、删除对象</li>
@@ -1157,7 +1127,7 @@ npm install -g @google/gcloud-mcp-storage</code>
                 src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
                 
                 >
-            </script><script type="text/javascript" src="/ts/main.888cccdaf3c934b58bb1982792b4d0fdb89be145d2cabea38c8569bfe7d08117.js" defer></script>
+            </script><script type="text/javascript" src="/ts/main.fe055f50234dc99b59992d29820a4403a71f7c90de7b6ebd204c621ac170b546.js" defer></script>
 <script>
     (function () {
         const customFont = document.createElement('link');

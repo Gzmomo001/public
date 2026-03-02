@@ -5,7 +5,7 @@
         <link>http://localhost:1313/tags/java/</link>
         <description>Recent content in Java on Henry Zhang</description>
         <generator>Hugo -- gohugo.io</generator>
-        <language>zh-cn</language>
+        <language>en-us</language>
         <copyright>blog@mail.henry070.org</copyright>
         <lastBuildDate>Mon, 26 May 2025 03:12:25 +0800</lastBuildDate><atom:link href="http://localhost:1313/tags/java/index.xml" rel="self" type="application/rss+xml" /><item>
         <title>Chapter13</title>
@@ -49,7 +49,8 @@
 
 &lt;div class=&#34;highlight highlight-java&#34;&gt;
   &lt;pre&gt;
-    &lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;abstract class Course&amp;lt;T&amp;gt; {
+    &lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;
+abstract class Course&amp;lt;T&amp;gt; {
     protected String courseTime;
     protected String courseLocation;
     protected List&amp;lt;T&amp;gt; students;
@@ -309,7 +310,7 @@ class Dog implements Animal {
 &lt;/div&gt;
 
 &lt;h2 id=&#34;exception-types--错误类型&#34;&gt;Exception Types | 错误类型
-&lt;/h2&gt;&lt;img src=&#34;http://localhost:1313/p/chapter12/exception_hu_821cfc0c383d1a10.png&#34; width=&#34;1200&#34; height=&#34;474&#34; alt=&#34;exception types&#34;&gt;
+&lt;/h2&gt;&lt;img src=&#34;http://localhost:1313/p/chapter12/exception_hu_2d775bea792e44c0.png&#34; width=&#34;1200&#34; height=&#34;474&#34; alt=&#34;exception types&#34;&gt;
 &lt;p&gt;在 Java 中， Throwable 是所有异常和错误的根类。所有通过 throw 抛出的异常必须继承自 Throwable 。其直接子类包括：&lt;/p&gt;
 &lt;h3 id=&#34;error&#34;&gt;Error
 &lt;/h3&gt;&lt;h4 id=&#34;linkageerror&#34;&gt;LinkageError

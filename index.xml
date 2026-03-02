@@ -5,7 +5,7 @@
         <link>http://localhost:1313/</link>
         <description>Recent content on Henry Zhang</description>
         <generator>Hugo -- gohugo.io</generator>
-        <language>zh-cn</language>
+        <language>en-us</language>
         <copyright>blog@mail.henry070.org</copyright><atom:link href="http://localhost:1313/index.xml" rel="self" type="application/rss+xml" /><item>
         <title>SuperClaude 入门到精进：从零掌握 AI 辅助开发框架</title>
         <link>http://localhost:1313/p/superclaude-%E5%85%A5%E9%97%A8%E5%88%B0%E7%B2%BE%E8%BF%9B%E4%BB%8E%E9%9B%B6%E6%8E%8C%E6%8F%A1-ai-%E8%BE%85%E5%8A%A9%E5%BC%80%E5%8F%91%E6%A1%86%E6%9E%B6/</link>
@@ -4277,6 +4277,665 @@ git worktree remove ../hotfix-demo&lt;/code&gt;
 &lt;hr&gt;
 &lt;p&gt;&lt;strong&gt;Happy Coding! 🚀&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;记住：工具是为了提升效率，选择适合你的工作流程最重要。Git Worktree 不是银弹，但在多任务并行场景下，它能显著提升开发体验。&lt;/p&gt;
+</description>
+        </item>
+        <item>
+        <title>VS Code Dev Containers 完全指南：从入门到精通</title>
+        <link>http://localhost:1313/p/vs-code-dev-containers-%E5%AE%8C%E5%85%A8%E6%8C%87%E5%8D%97%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E7%B2%BE%E9%80%9A/</link>
+        <pubDate>Mon, 12 Jan 2026 00:00:00 +0800</pubDate>
+        
+        <guid>http://localhost:1313/p/vs-code-dev-containers-%E5%AE%8C%E5%85%A8%E6%8C%87%E5%8D%97%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E7%B2%BE%E9%80%9A/</guid>
+        <description>&lt;img src="http://localhost:1313/default.jpeg" alt="Featured image of post VS Code Dev Containers 完全指南：从入门到精通" /&gt;&lt;h2 id=&#34;什么是-dev-containers&#34;&gt;什么是 Dev Containers？
+&lt;/h2&gt;&lt;p&gt;VS Code Dev Containers（开发容器）是一种让您能够在容器中使用代码库的开发工具。它允许您：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;隔离开发环境&lt;/strong&gt;：每个项目都有独立、一致的开发环境&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;消除环境配置问题&lt;/strong&gt;：不再需要手动安装依赖和工具&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;跨平台一致性&lt;/strong&gt;：团队成员使用相同的容器配置，确保环境一致&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;快速切换项目&lt;/strong&gt;：在不同项目间切换时无需重新配置环境&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;核心优势&#34;&gt;核心优势
+&lt;/h3&gt;
+&lt;div style=&#34;text-align: center;&#34;&gt;
+    &lt;strong&gt;&amp;ldquo;一次配置，处处运行&amp;rdquo;&lt;/strong&gt;
+&lt;/div&gt;
+&lt;blockquote class=&#34;alert alert-note&#34;&gt;
+    &lt;p&gt;Dev Containers 基于 Docker 技术，但您不需要深入了解 Docker 也能使用它。VS Code 提供了友好的界面和预设配置，让容器化开发变得简单。&lt;/p&gt;&lt;/blockquote&gt;
+&lt;h3 id=&#34;架构概览&#34;&gt;架构概览
+&lt;/h3&gt;&lt;pre class=&#34;mermaid&#34;&gt;
+  flowchart TB
+    A[VS Code] --&amp;gt; B[Dev Container Extension]
+    B --&amp;gt; C[Docker Engine]
+    C --&amp;gt; D[Dev Container]
+    D --&amp;gt; E[开发环境]
+    E --&amp;gt; F[源代码]
+    E --&amp;gt; G[工具和扩展]
+    E --&amp;gt; H[运行时依赖]
+
+    style A fill:#007acc,color:#fff
+    style B fill:#6c757d,color:#fff
+    style C fill:#2496ed,color:#fff
+    style D fill:#6db33f,color:#fff
+    style E fill:#e67e22,color:#fff
+&lt;/pre&gt;
+
+&lt;h3 id=&#34;典型使用场景&#34;&gt;典型使用场景
+&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;团队协作&lt;/strong&gt;：新成员只需克隆代码并打开 Dev Container，即可立即开始开发&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;多版本测试&lt;/strong&gt;：在不同版本的 Node.js、Python 等环境中测试代码&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;微服务开发&lt;/strong&gt;：同时运行多个服务容器，每个服务独立开发&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;学习新技术&lt;/strong&gt;：在隔离环境中尝试新技术栈，不影响宿主机&lt;/li&gt;
+&lt;/ul&gt;
+&lt;hr&gt;
+&lt;h2 id=&#34;快速上手&#34;&gt;快速上手
+&lt;/h2&gt;&lt;h3 id=&#34;前置要求&#34;&gt;前置要求
+&lt;/h3&gt;&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;安装 Docker Desktop&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;https://www.docker.com/products/docker-desktop/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;macOS 版本&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;https://www.docker.com/products/docker-desktop/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;Windows 版本&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;https://docs.docker.com/engine/install/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;Linux 版本&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;安装 VS Code&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;下载 &lt;a class=&#34;link&#34; href=&#34;https://code.visualstudio.com/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;VS Code&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;安装 Dev Container 扩展&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;在 VS Code 扩展市场搜索 &amp;ldquo;Dev Containers&amp;rdquo;&lt;/li&gt;
+&lt;li&gt;或直接访问 &lt;a class=&#34;link&#34; href=&#34;https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-containers&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;Dev Containers 扩展页面&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h3 id=&#34;使用预定义容器&#34;&gt;使用预定义容器
+&lt;/h3&gt;&lt;p&gt;最简单的方式是使用 Microsoft 提供的预定义容器配置：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;打开 VS Code&lt;/li&gt;
+&lt;li&gt;使用 &lt;code&gt;Ctrl+Shift+P&lt;/code&gt;（或 &lt;code&gt;Cmd+Shift+P&lt;/code&gt;）打开命令面板&lt;/li&gt;
+&lt;li&gt;输入 &amp;ldquo;Dev Containers: Add Dev Container Configuration Files&amp;hellip;&amp;rdquo;&lt;/li&gt;
+&lt;li&gt;选择您需要的开发环境（如 Node.js、Python、Java 等）&lt;/li&gt;
+&lt;li&gt;VS Code 会自动创建 &lt;code&gt;.devcontainer&lt;/code&gt; 目录和配置文件&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h3 id=&#34;初次体验&#34;&gt;初次体验
+&lt;/h3&gt;&lt;div class=&#34;video-wrapper&#34;&gt;
+    &lt;iframe loading=&#34;lazy&#34; 
+            src=&#34;https://www.youtube.com/embed/b1RavPr_878&#34; 
+            allowfullscreen 
+            title=&#34;YouTube Video&#34;
+    &gt;
+    &lt;/iframe&gt;
+&lt;/div&gt;
+
+&lt;blockquote class=&#34;alert alert-tip&#34;&gt;
+    &lt;p&gt;视频展示了如何快速创建和使用您的第一个 Dev Container。即使您没有 Docker 经验，也能在几分钟内启动完整的开发环境。&lt;/p&gt;&lt;/blockquote&gt;
+&lt;h3 id=&#34;工作流程&#34;&gt;工作流程
+&lt;/h3&gt;&lt;pre class=&#34;mermaid&#34;&gt;
+  sequenceDiagram
+    participant User as 开发者
+    participant VSCode as VS Code
+    participant Docker as Docker
+    participant Container as 容器
+
+    User-&amp;gt;&amp;gt;VSCode: 打开项目文件夹
+    VSCode-&amp;gt;&amp;gt;Docker: 请求创建容器
+    Docker-&amp;gt;&amp;gt;Container: 启动容器
+    Container-&amp;gt;&amp;gt;VSCode: 连接就绪
+    VSCode-&amp;gt;&amp;gt;User: 显示开发环境
+    User-&amp;gt;&amp;gt;VSCode: 开始编码
+&lt;/pre&gt;
+
+&lt;hr&gt;
+&lt;h2 id=&#34;自定义配置&#34;&gt;自定义配置
+&lt;/h2&gt;&lt;h3 id=&#34;理解-devcontainerjson&#34;&gt;理解 devcontainer.json
+&lt;/h3&gt;&lt;p&gt;&lt;code&gt;.devcontainer/devcontainer.json&lt;/code&gt; 是 Dev Containers 的核心配置文件，定义了容器的行为和配置。&lt;/p&gt;
+&lt;h4 id=&#34;基本结构示例&#34;&gt;基本结构示例
+&lt;/h4&gt;
+
+
+
+
+&lt;div class=&#34;highlight highlight-json&#34;&gt;
+  &lt;pre&gt;
+    &lt;code class=&#34;language-json&#34; data-lang=&#34;json&#34;&gt;{
+  &amp;#34;name&amp;#34;: &amp;#34;My Node.js Project&amp;#34;,
+  &amp;#34;image&amp;#34;: &amp;#34;mcr.microsoft.com/devcontainers/javascript-node:20&amp;#34;,
+  &amp;#34;features&amp;#34;: {
+    &amp;#34;ghcr.io/devcontainers/features/node:1&amp;#34;: {}
+  },
+  &amp;#34;customizations&amp;#34;: {
+    &amp;#34;vscode&amp;#34;: {
+      &amp;#34;extensions&amp;#34;: [&amp;#34;dbaeumer.vscode-eslint&amp;#34;, &amp;#34;esbenp.prettier-vscode&amp;#34;]
+    }
+  },
+  &amp;#34;postCreateCommand&amp;#34;: &amp;#34;npm install&amp;#34;,
+  &amp;#34;forwardPorts&amp;#34;: [3000],
+  &amp;#34;remoteUser&amp;#34;: &amp;#34;vscode&amp;#34;
+}&lt;/code&gt;
+  &lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h4 id=&#34;关键配置项说明&#34;&gt;关键配置项说明
+&lt;/h4&gt;&lt;table&gt;
+  &lt;thead&gt;
+      &lt;tr&gt;
+          &lt;th&gt;配置项&lt;/th&gt;
+          &lt;th&gt;说明&lt;/th&gt;
+          &lt;th&gt;示例&lt;/th&gt;
+      &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+      &lt;tr&gt;
+          &lt;td&gt;&lt;code&gt;name&lt;/code&gt;&lt;/td&gt;
+          &lt;td&gt;容器显示名称&lt;/td&gt;
+          &lt;td&gt;&lt;code&gt;&amp;quot;My Project&amp;quot;&lt;/code&gt;&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;&lt;code&gt;image&lt;/code&gt;&lt;/td&gt;
+          &lt;td&gt;基础镜像&lt;/td&gt;
+          &lt;td&gt;&lt;code&gt;&amp;quot;mcr.microsoft.com/devcontainers/base:ubuntu&amp;quot;&lt;/code&gt;&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;&lt;code&gt;build.dockerfile&lt;/code&gt;&lt;/td&gt;
+          &lt;td&gt;自定义 Dockerfile 路径&lt;/td&gt;
+          &lt;td&gt;&lt;code&gt;&amp;quot;Dockerfile&amp;quot;&lt;/code&gt;&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;&lt;code&gt;features&lt;/code&gt;&lt;/td&gt;
+          &lt;td&gt;Dev Containers Features&lt;/td&gt;
+          &lt;td&gt;See below&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;&lt;code&gt;customizations&lt;/code&gt;&lt;/td&gt;
+          &lt;td&gt;VS Code 扩展和设置&lt;/td&gt;
+          &lt;td&gt;See below&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;&lt;code&gt;postCreateCommand&lt;/code&gt;&lt;/td&gt;
+          &lt;td&gt;容器创建后执行的命令&lt;/td&gt;
+          &lt;td&gt;&lt;code&gt;&amp;quot;npm install&amp;quot;&lt;/code&gt;&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;&lt;code&gt;forwardPorts&lt;/code&gt;&lt;/td&gt;
+          &lt;td&gt;自动转发的端口&lt;/td&gt;
+          &lt;td&gt;&lt;code&gt;[3000, 8080]&lt;/code&gt;&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;&lt;code&gt;mounts&lt;/code&gt;&lt;/td&gt;
+          &lt;td&gt;挂载卷&lt;/td&gt;
+          &lt;td&gt;&lt;code&gt;[&amp;quot;source=${localWorkspaceFolder}/../data,target=/data&amp;quot;]&lt;/code&gt;&lt;/td&gt;
+      &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+&lt;h3 id=&#34;使用-dockerfile&#34;&gt;使用 Dockerfile
+&lt;/h3&gt;&lt;p&gt;当预定义镜像无法满足需求时，可以使用自定义 Dockerfile：&lt;/p&gt;
+
+
+
+
+
+&lt;div class=&#34;highlight highlight-dockerfile&#34;&gt;
+  &lt;pre&gt;
+    &lt;code class=&#34;language-dockerfile&#34; data-lang=&#34;dockerfile&#34;&gt;FROM mcr.microsoft.com/devcontainers/base:ubuntu
+
+# 安装 Node.js
+RUN apt-get update &amp;amp;&amp;amp; export DEBIAN_FRONTEND=noninteractive \
+    &amp;amp;&amp;amp; apt-get -y install --no-install-recommends nodejs npm
+
+# 安装额外的工具
+RUN apt-get install -y git curl vim
+
+# 设置默认工作目录
+WORKDIR /workspace
+
+# 切换到非 root 用户
+USER vscode&lt;/code&gt;
+  &lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;对应的 devcontainer.json：&lt;/p&gt;
+
+
+
+
+
+&lt;div class=&#34;highlight highlight-json&#34;&gt;
+  &lt;pre&gt;
+    &lt;code class=&#34;language-json&#34; data-lang=&#34;json&#34;&gt;{
+  &amp;#34;name&amp;#34;: &amp;#34;My Custom Container&amp;#34;,
+  &amp;#34;build&amp;#34;: {
+    &amp;#34;dockerfile&amp;#34;: &amp;#34;Dockerfile&amp;#34;,
+    &amp;#34;context&amp;#34;: &amp;#34;..&amp;#34;
+  },
+  &amp;#34;customizations&amp;#34;: {
+    &amp;#34;vscode&amp;#34;: {
+      &amp;#34;extensions&amp;#34;: [&amp;#34;ms-python.python&amp;#34;]
+    }
+  }
+}&lt;/code&gt;
+  &lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;blockquote class=&#34;alert alert-warn&#34;&gt;
+    &lt;p&gt;使用自定义 Dockerfile 时，确保安装了 &lt;code&gt;sudo&lt;/code&gt; 并创建了 &lt;code&gt;vscode&lt;/code&gt; 用户，否则 Dev Container 扩展可能无法正常工作。&lt;/p&gt;&lt;/blockquote&gt;
+&lt;h3 id=&#34;docker-compose-集成&#34;&gt;Docker Compose 集成
+&lt;/h3&gt;&lt;p&gt;对于需要多个容器的复杂应用（如前端 + 后端 + 数据库），使用 Docker Compose：&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;docker-compose.yml&lt;/strong&gt;:&lt;/p&gt;
+
+
+
+
+
+&lt;div class=&#34;highlight highlight-yaml&#34;&gt;
+  &lt;pre&gt;
+    &lt;code class=&#34;language-yaml&#34; data-lang=&#34;yaml&#34;&gt;version: &amp;#39;3.8&amp;#39;
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - ../..:/workspaces:cached
+    command: sleep infinity
+    network_mode: service:db
+
+  db:
+    image: postgres:15
+    restart: unless-stopped
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: development
+
+volumes:
+  postgres-data:&lt;/code&gt;
+  &lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;&lt;strong&gt;.devcontainer/devcontainer.json&lt;/strong&gt;:&lt;/p&gt;
+
+
+
+
+
+&lt;div class=&#34;highlight highlight-json&#34;&gt;
+  &lt;pre&gt;
+    &lt;code class=&#34;language-json&#34; data-lang=&#34;json&#34;&gt;{
+  &amp;#34;name&amp;#34;: &amp;#34;Multi-Container Project&amp;#34;,
+  &amp;#34;dockerComposeFile&amp;#34;: &amp;#34;docker-compose.yml&amp;#34;,
+  &amp;#34;service&amp;#34;: &amp;#34;app&amp;#34;,
+  &amp;#34;workspaceFolder&amp;#34;: &amp;#34;/workspaces/${localWorkspaceFolderBasename}&amp;#34;
+}&lt;/code&gt;
+  &lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h3 id=&#34;使用-features&#34;&gt;使用 Features
+&lt;/h3&gt;&lt;p&gt;Dev Containers Features 是可重用的配置单元，简化了常见工具的安装：&lt;/p&gt;
+
+
+
+
+
+&lt;div class=&#34;highlight highlight-json&#34;&gt;
+  &lt;pre&gt;
+    &lt;code class=&#34;language-json&#34; data-lang=&#34;json&#34;&gt;{
+  &amp;#34;name&amp;#34;: &amp;#34;Full-Stack Project&amp;#34;,
+  &amp;#34;image&amp;#34;: &amp;#34;mcr.microsoft.com/devcontainers/base:ubuntu&amp;#34;,
+  &amp;#34;features&amp;#34;: {
+    &amp;#34;ghcr.io/devcontainers/features/node:1&amp;#34;: {
+      &amp;#34;version&amp;#34;: &amp;#34;lts&amp;#34;
+    },
+    &amp;#34;ghcr.io/devcontainers/features/python:1&amp;#34;: {
+      &amp;#34;version&amp;#34;: &amp;#34;latest&amp;#34;
+    },
+    &amp;#34;ghcr.io/devcontainers/features/docker-in-docker:2&amp;#34;: {},
+    &amp;#34;ghcr.io/devcontainers/features/git:1&amp;#34;: {}
+  }
+}&lt;/code&gt;
+  &lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;blockquote class=&#34;alert alert-note&#34;&gt;
+    &lt;p&gt;浏览更多 &lt;a class=&#34;link&#34; href=&#34;https://github.com/devcontainers/features&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;Dev Containers Features&lt;/a&gt; 来发现可用的功能模块。&lt;/p&gt;&lt;/blockquote&gt;
+&lt;hr&gt;
+&lt;h2 id=&#34;高级功能&#34;&gt;高级功能
+&lt;/h2&gt;&lt;h3 id=&#34;多容器工作区&#34;&gt;多容器工作区
+&lt;/h3&gt;&lt;p&gt;当您需要在多个容器中同时工作时（如微服务架构），可以创建多容器配置：&lt;/p&gt;
+
+
+
+
+
+&lt;div class=&#34;highlight highlight-json&#34;&gt;
+  &lt;pre&gt;
+    &lt;code class=&#34;language-json&#34; data-lang=&#34;json&#34;&gt;{
+  &amp;#34;name&amp;#34;: &amp;#34;Microservices Workspace&amp;#34;,
+  &amp;#34;dockerComposeFile&amp;#34;: &amp;#34;docker-compose.yml&amp;#34;,
+  &amp;#34;service&amp;#34;: &amp;#34;web&amp;#34;,
+  &amp;#34;workspaceFolder&amp;#34;: &amp;#34;/workspace&amp;#34;,
+  &amp;#34;services&amp;#34;: {
+    &amp;#34;web&amp;#34;: &amp;#34;Frontend Service&amp;#34;,
+    &amp;#34;api&amp;#34;: &amp;#34;Backend API&amp;#34;,
+    &amp;#34;db&amp;#34;: &amp;#34;Database&amp;#34;
+  }
+}&lt;/code&gt;
+  &lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h3 id=&#34;dev-container-模板&#34;&gt;Dev Container 模板
+&lt;/h3&gt;&lt;p&gt;使用社区贡献的 Dev Container 模板：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;访问 &lt;a class=&#34;link&#34; href=&#34;https://containers.dev/templates&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;containers.dev/templates&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;搜索您需要的模板（如 Python、Go、Rust 等）&lt;/li&gt;
+&lt;li&gt;一键添加到项目中&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h3 id=&#34;端口转发&#34;&gt;端口转发
+&lt;/h3&gt;&lt;p&gt;自动或手动转发容器端口到宿主机：&lt;/p&gt;
+
+
+
+
+
+&lt;div class=&#34;highlight highlight-json&#34;&gt;
+  &lt;pre&gt;
+    &lt;code class=&#34;language-json&#34; data-lang=&#34;json&#34;&gt;{
+  &amp;#34;forwardPorts&amp;#34;: [3000, 8080, 5432],
+  &amp;#34;portsAttributes&amp;#34;: {
+    &amp;#34;3000&amp;#34;: {
+      &amp;#34;label&amp;#34;: &amp;#34;Application&amp;#34;,
+      &amp;#34;onAutoForward&amp;#34;: &amp;#34;notify&amp;#34;
+    },
+    &amp;#34;5432&amp;#34;: {
+      &amp;#34;label&amp;#34;: &amp;#34;Database&amp;#34;,
+      &amp;#34;onAutoForward&amp;#34;: &amp;#34;silent&amp;#34;
+    }
+  }
+}&lt;/code&gt;
+  &lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h3 id=&#34;挂载卷&#34;&gt;挂载卷
+&lt;/h3&gt;&lt;p&gt;共享文件和目录：&lt;/p&gt;
+
+
+
+
+
+&lt;div class=&#34;highlight highlight-json&#34;&gt;
+  &lt;pre&gt;
+    &lt;code class=&#34;language-json&#34; data-lang=&#34;json&#34;&gt;{
+  &amp;#34;mounts&amp;#34;: [
+    &amp;#34;source=${localWorkspaceFolder}/../data,target=/data,type=bind,consistency=cached&amp;#34;,
+    &amp;#34;source=/var/run/docker.sock,target=/var/run/docker.sock,type=bind&amp;#34;
+  ]
+}&lt;/code&gt;
+  &lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h3 id=&#34;环境变量&#34;&gt;环境变量
+&lt;/h3&gt;&lt;p&gt;设置容器环境变量：&lt;/p&gt;
+
+
+
+
+
+&lt;div class=&#34;highlight highlight-json&#34;&gt;
+  &lt;pre&gt;
+    &lt;code class=&#34;language-json&#34; data-lang=&#34;json&#34;&gt;{
+  &amp;#34;containerEnv&amp;#34;: {
+    &amp;#34;NODE_ENV&amp;#34;: &amp;#34;development&amp;#34;,
+    &amp;#34;API_ENDPOINT&amp;#34;: &amp;#34;http://localhost:8080&amp;#34;,
+    &amp;#34;DEBUG&amp;#34;: &amp;#34;myapp:*&amp;#34;
+  },
+  &amp;#34;remoteEnv&amp;#34;: {
+    &amp;#34;PATH&amp;#34;: &amp;#34;${containerEnv:PATH}:/custom/bin&amp;#34;
+  }
+}&lt;/code&gt;
+  &lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h3 id=&#34;生命周期脚本&#34;&gt;生命周期脚本
+&lt;/h3&gt;&lt;p&gt;在不同阶段执行命令：&lt;/p&gt;
+
+
+
+
+
+&lt;div class=&#34;highlight highlight-json&#34;&gt;
+  &lt;pre&gt;
+    &lt;code class=&#34;language-json&#34; data-lang=&#34;json&#34;&gt;{
+  &amp;#34;initializeCommand&amp;#34;: &amp;#34;echo &amp;#39;初始化命令在宿主机运行&amp;#39;&amp;#34;,
+  &amp;#34;onCreateCommand&amp;#34;: &amp;#34;echo &amp;#39;容器创建后运行&amp;#39;&amp;#34;,
+  &amp;#34;updateContentCommand&amp;#34;: &amp;#34;echo &amp;#39;每次容器启动时运行&amp;#39;&amp;#34;,
+  &amp;#34;postCreateCommand&amp;#34;: &amp;#34;npm install &amp;amp;&amp;amp; npm run setup&amp;#34;,
+  &amp;#34;postStartCommand&amp;#34;: &amp;#34;npm run dev&amp;#34;,
+  &amp;#34;postAttachCommand&amp;#34;: &amp;#34;echo &amp;#39;连接到容器后运行&amp;#39;&amp;#34;
+}&lt;/code&gt;
+  &lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;hr&gt;
+&lt;h2 id=&#34;最佳实践与技巧&#34;&gt;最佳实践与技巧
+&lt;/h2&gt;&lt;h3 id=&#34;性能优化&#34;&gt;性能优化
+&lt;/h3&gt;&lt;div class=&#34;video-wrapper&#34;&gt;
+    &lt;iframe loading=&#34;lazy&#34; 
+            src=&#34;https://www.youtube.com/embed/xTZfJ5LLA5A&#34; 
+            allowfullscreen 
+            title=&#34;YouTube Video&#34;
+    &gt;
+    &lt;/iframe&gt;
+&lt;/div&gt;
+
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;使用卷缓存&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Linux/macOS: 使用 &lt;code&gt;cached&lt;/code&gt; 或 &lt;code&gt;delegated&lt;/code&gt; 选项&lt;/li&gt;
+&lt;li&gt;Windows: 使用 WSL2 后端以提高性能&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;减少文件监听&lt;/strong&gt;&lt;/p&gt;
+
+
+
+
+
+&lt;div class=&#34;highlight highlight-json&#34;&gt;
+  &lt;pre&gt;
+    &lt;code class=&#34;language-json&#34; data-lang=&#34;json&#34;&gt;{
+  &amp;#34;settings&amp;#34;: {
+    &amp;#34;files.watcherExclude&amp;#34;: {
+      &amp;#34;**/node_modules/**&amp;#34;: true,
+      &amp;#34;**/dist/**&amp;#34;: true
+    }
+  }
+}&lt;/code&gt;
+  &lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;使用 .devcontainerignore&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;类似 .gitignore，避免复制不必要的文件到容器中&lt;/li&gt;
+&lt;li&gt;忽略 &lt;code&gt;node_modules&lt;/code&gt;、&lt;code&gt;dist&lt;/code&gt;、&lt;code&gt;.git&lt;/code&gt; 等目录&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h3 id=&#34;常见问题排查&#34;&gt;常见问题排查
+&lt;/h3&gt;&lt;blockquote class=&#34;alert alert-error&#34;&gt;
+    &lt;p&gt;&lt;strong&gt;容器无法启动？&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;检查 Docker Desktop 是否运行&lt;/li&gt;
+&lt;li&gt;查看 VS Code 输出面板的 &amp;ldquo;Dev Containers&amp;rdquo; 日志&lt;/li&gt;
+&lt;li&gt;尝试重建容器：&amp;ldquo;Dev Containers: Rebuild Container&amp;rdquo;&lt;/li&gt;
+&lt;/ul&gt;&lt;/blockquote&gt;
+&lt;blockquote class=&#34;alert alert-warn&#34;&gt;
+    &lt;p&gt;&lt;strong&gt;端口无法访问？&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;检查防火墙设置&lt;/li&gt;
+&lt;li&gt;确认应用监听 &lt;code&gt;0.0.0.0&lt;/code&gt; 而非 &lt;code&gt;127.0.0.1&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;使用 &amp;ldquo;Dev Containers: Forward Port from Container&amp;rdquo; 手动转发&lt;/li&gt;
+&lt;/ul&gt;&lt;/blockquote&gt;
+&lt;blockquote class=&#34;alert alert-error&#34;&gt;
+    &lt;p&gt;&lt;strong&gt;扩展无法安装？&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;检查网络连接&lt;/li&gt;
+&lt;li&gt;尝试在 &lt;code&gt;customizations.vscode.extensions&lt;/code&gt; 中声明&lt;/li&gt;
+&lt;/ul&gt;&lt;/blockquote&gt;
+
+
+
+
+
+&lt;div class=&#34;highlight highlight-json&#34;&gt;
+  &lt;pre&gt;
+    &lt;code class=&#34;language-json&#34; data-lang=&#34;json&#34;&gt;&amp;#34;customizations&amp;#34;: {
+  &amp;#34;vscode&amp;#34;: {
+    &amp;#34;extensions&amp;#34;: [&amp;#34;publisher.extension-name&amp;#34;]
+  }
+}&lt;/code&gt;
+  &lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h3 id=&#34;安全考虑&#34;&gt;安全考虑
+&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;避免在镜像中存储敏感信息&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;使用非 root 用户运行容器&lt;/strong&gt;（&lt;code&gt;remoteUser&lt;/code&gt; 配置）&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;定期更新基础镜像&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;限制容器权限&lt;/strong&gt;（不使用 &lt;code&gt;--privileged&lt;/code&gt;）&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;团队协作建议&#34;&gt;团队协作建议
+&lt;/h3&gt;&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;将 .devcontainer 提交到版本控制&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;确保所有团队成员使用相同的配置&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;编写详细的 README&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;说明如何使用 Dev Container&lt;/li&gt;
+&lt;li&gt;列出包含的工具和扩展&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;使用一致的 Node.js/Python 版本&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;在 devcontainer.json 中指定版本&lt;/li&gt;
+&lt;li&gt;使用 .nvmrc 或 requirements.txt 锁定版本&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;hr&gt;
+&lt;h2 id=&#34;视频教程资源&#34;&gt;视频教程资源
+&lt;/h2&gt;&lt;h3 id=&#34;英文教程&#34;&gt;英文教程
+&lt;/h3&gt;&lt;div class=&#34;video-wrapper&#34;&gt;
+    &lt;iframe loading=&#34;lazy&#34; 
+            src=&#34;https://www.youtube.com/embed/_lXwZ6KkVsM&#34; 
+            allowfullscreen 
+            title=&#34;YouTube Video&#34;
+    &gt;
+    &lt;/iframe&gt;
+&lt;/div&gt;
+
+&lt;p&gt;&lt;strong&gt;官方资源&lt;/strong&gt;：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;https://code.visualstudio.com/docs/devcontainers/containers&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;Dev Containers 官方文档&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;https://code.visualstudio.com/docs/devcontainers/tutorial&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;Dev Containers 官方教程&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;https://www.youtube.com/playlist?list=PLj6YeMhvp2S6GjVyDHTPp8tLOR0xLGLYb&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;官方 YouTube 播放列表&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;中文教程&#34;&gt;中文教程
+&lt;/h3&gt;
+
+
+
+
+
+    &lt;p&gt;Bilibili 视频av号或BV号错误！请检查视频av号或BV号是否正确&lt;/p&gt;
+    &lt;p&gt;当前视频av或BV号：，视频分P：1&lt;/p&gt;
+
+
+&lt;div class=&#34;video-wrapper&#34;&gt;
+    &lt;iframe src=&#34;https://player.bilibili.com/player.html?as_wide=1&amp;amp;high_quality=1&amp;amp;page=1&amp;&#34;
+            scrolling=&#34;no&#34;
+            frameborder=&#34;no&#34;
+            framespacing=&#34;0&#34;
+            allowfullscreen=&#34;true&#34;
+    &gt;
+    &lt;/iframe&gt;
+&lt;/div&gt;
+
+&lt;p&gt;&lt;strong&gt;推荐视频&lt;/strong&gt;：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;https://www.bilibili.com/video/BV13T411G7LY/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;VS Code 轻松使用 Docker 容器&lt;/a&gt; - 基础入门&lt;/li&gt;
+&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;https://www.bilibili.com/video/BV1X14y1h77S/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;使用 VS Code 的 Remote Container 打造 Java 开发环境&lt;/a&gt; - Java 实践&lt;/li&gt;
+&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;https://www.bilibili.com/video/BV1uw411j7RP/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;在宿主机编辑和运行 docker 内的 python 代码&lt;/a&gt; - Python 开发&lt;/li&gt;
+&lt;/ol&gt;
+&lt;hr&gt;
+&lt;h2 id=&#34;参考资源&#34;&gt;参考资源
+&lt;/h2&gt;&lt;h3 id=&#34;官方文档&#34;&gt;官方文档
+&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;https://code.visualstudio.com/docs/devcontainers/containers&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;Dev Containers 概览&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;https://code.visualstudio.com/docs/devcontainers/create-dev-container#_devcontainerjson-properties&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;devcontainer.json 属性参考&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;https://containers.dev/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;Dev Containers 规范&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;社区文章&#34;&gt;社区文章
+&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;https://juejin.cn/post/7358744954615611418&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;掘金：VSCode 调试远程服务器上面的 Docker 容器&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;https://www.mintimate.cn/2025/11/09/aioDevContainer/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;Mintimate：告别环境配置烦恼&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;工具与扩展&#34;&gt;工具与扩展
+&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;https://github.com/devcontainers/features&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;Dev Containers Features&lt;/a&gt; - 社区维护的 Features 集合&lt;/li&gt;
+&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;https://containers.dev/templates&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;Dev Container Templates&lt;/a&gt; - 官方模板库&lt;/li&gt;
+&lt;/ul&gt;
+&lt;hr&gt;
+&lt;h2 id=&#34;总结&#34;&gt;总结
+&lt;/h2&gt;&lt;p&gt;VS Code Dev Containers 为现代开发提供了强大而灵活的环境管理方案：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;✅ &lt;strong&gt;一键启动&lt;/strong&gt;：无需手动配置环境&lt;/li&gt;
+&lt;li&gt;✅ &lt;strong&gt;一致性&lt;/strong&gt;：团队成员使用相同的开发环境&lt;/li&gt;
+&lt;li&gt;✅ &lt;strong&gt;隔离性&lt;/strong&gt;：不影响宿主机环境&lt;/li&gt;
+&lt;li&gt;✅ &lt;strong&gt;可移植性&lt;/strong&gt;：配置文件可版本控制&lt;/li&gt;
+&lt;li&gt;✅ &lt;strong&gt;灵活性&lt;/strong&gt;：支持任意编程语言和工具&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;无论您是个人开发者还是团队成员，Dev Containers 都能显著提升开发效率和项目协作体验。&lt;/p&gt;
+
+&lt;div style=&#34;text-align: center;&#34;&gt;
+    &lt;strong&gt;开始使用 Dev Containers，让开发环境配置成为历史！&lt;/strong&gt;
+&lt;/div&gt;
+&lt;hr&gt;
+&lt;p&gt;&lt;strong&gt;最后更新&lt;/strong&gt;：2026-01-12
+&lt;strong&gt;相关标签&lt;/strong&gt;：#vscode #devcontainers #docker #development #教程&lt;/p&gt;
 </description>
         </item>
         <item>
@@ -14029,7 +14688,7 @@ sudo rm /var/lib/dpkg/lock*&lt;/code&gt;
 &lt;p&gt;&lt;img src=&#34;http://localhost:1313/p/git/jojos-killer.gif&#34;
 	width=&#34;464&#34;
 	height=&#34;258&#34;
-	srcset=&#34;http://localhost:1313/p/git/jojos-killer_hu_113ff57fcf33b172.gif 480w, http://localhost:1313/p/git/jojos-killer_hu_49e2041d9bb05d24.gif 1024w&#34;
+	srcset=&#34;http://localhost:1313/p/git/jojos-killer_hu_e5fcf31d63d0f58e.gif 480w, http://localhost:1313/p/git/jojos-killer_hu_5e55566e1a98829f.gif 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;败者食尘&#34;
@@ -14577,7 +15236,7 @@ git checkout -b fix/image-loading    # 比如你要修 bug&lt;/code&gt;
 &lt;p&gt;&lt;img src=&#34;http://localhost:1313/p/%E7%A7%91%E5%AD%A6%E4%B8%8A%E7%BD%91%E9%85%8D%E7%BD%AE%E6%95%99%E7%A8%8B-%E8%8A%82%E7%82%B9%E6%90%AD%E5%BB%BA/win1.jpg&#34;
 	width=&#34;1044&#34;
 	height=&#34;634&#34;
-	srcset=&#34;http://localhost:1313/p/%E7%A7%91%E5%AD%A6%E4%B8%8A%E7%BD%91%E9%85%8D%E7%BD%AE%E6%95%99%E7%A8%8B-%E8%8A%82%E7%82%B9%E6%90%AD%E5%BB%BA/win1_hu_9a6ef8efacf44485.jpg 480w, http://localhost:1313/p/%E7%A7%91%E5%AD%A6%E4%B8%8A%E7%BD%91%E9%85%8D%E7%BD%AE%E6%95%99%E7%A8%8B-%E8%8A%82%E7%82%B9%E6%90%AD%E5%BB%BA/win1_hu_c1dc58a06ca091a.jpg 1024w&#34;
+	srcset=&#34;http://localhost:1313/p/%E7%A7%91%E5%AD%A6%E4%B8%8A%E7%BD%91%E9%85%8D%E7%BD%AE%E6%95%99%E7%A8%8B-%E8%8A%82%E7%82%B9%E6%90%AD%E5%BB%BA/win1_hu_a25224771b7e0955.jpg 480w, http://localhost:1313/p/%E7%A7%91%E5%AD%A6%E4%B8%8A%E7%BD%91%E9%85%8D%E7%BD%AE%E6%95%99%E7%A8%8B-%E8%8A%82%E7%82%B9%E6%90%AD%E5%BB%BA/win1_hu_1f21c1a2faf34543.jpg 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;下载下来之后解压文件夹, 并把它放在你记得的文件位置即可&#34;
@@ -14591,7 +15250,7 @@ git checkout -b fix/image-loading    # 比如你要修 bug&lt;/code&gt;
 &lt;p&gt;&lt;img src=&#34;http://localhost:1313/p/%E7%A7%91%E5%AD%A6%E4%B8%8A%E7%BD%91%E9%85%8D%E7%BD%AE%E6%95%99%E7%A8%8B-%E8%8A%82%E7%82%B9%E6%90%AD%E5%BB%BA/win4.jpg&#34;
 	width=&#34;1044&#34;
 	height=&#34;678&#34;
-	srcset=&#34;http://localhost:1313/p/%E7%A7%91%E5%AD%A6%E4%B8%8A%E7%BD%91%E9%85%8D%E7%BD%AE%E6%95%99%E7%A8%8B-%E8%8A%82%E7%82%B9%E6%90%AD%E5%BB%BA/win4_hu_73072d8f97059ea.jpg 480w, http://localhost:1313/p/%E7%A7%91%E5%AD%A6%E4%B8%8A%E7%BD%91%E9%85%8D%E7%BD%AE%E6%95%99%E7%A8%8B-%E8%8A%82%E7%82%B9%E6%90%AD%E5%BB%BA/win4_hu_2257914782d53857.jpg 1024w&#34;
+	srcset=&#34;http://localhost:1313/p/%E7%A7%91%E5%AD%A6%E4%B8%8A%E7%BD%91%E9%85%8D%E7%BD%AE%E6%95%99%E7%A8%8B-%E8%8A%82%E7%82%B9%E6%90%AD%E5%BB%BA/win4_hu_b7f8e812f84ce366.jpg 480w, http://localhost:1313/p/%E7%A7%91%E5%AD%A6%E4%B8%8A%E7%BD%91%E9%85%8D%E7%BD%AE%E6%95%99%E7%A8%8B-%E8%8A%82%E7%82%B9%E6%90%AD%E5%BB%BA/win4_hu_c4029b1bf784698.jpg 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;之后可以选择创建快捷方式到桌面上方便以后打开&#34;
@@ -14605,7 +15264,7 @@ git checkout -b fix/image-loading    # 比如你要修 bug&lt;/code&gt;
 &lt;p&gt;&lt;img src=&#34;http://localhost:1313/p/%E7%A7%91%E5%AD%A6%E4%B8%8A%E7%BD%91%E9%85%8D%E7%BD%AE%E6%95%99%E7%A8%8B-%E8%8A%82%E7%82%B9%E6%90%AD%E5%BB%BA/win3.jpg&#34;
 	width=&#34;1482&#34;
 	height=&#34;953&#34;
-	srcset=&#34;http://localhost:1313/p/%E7%A7%91%E5%AD%A6%E4%B8%8A%E7%BD%91%E9%85%8D%E7%BD%AE%E6%95%99%E7%A8%8B-%E8%8A%82%E7%82%B9%E6%90%AD%E5%BB%BA/win3_hu_52283cd0435a0081.jpg 480w, http://localhost:1313/p/%E7%A7%91%E5%AD%A6%E4%B8%8A%E7%BD%91%E9%85%8D%E7%BD%AE%E6%95%99%E7%A8%8B-%E8%8A%82%E7%82%B9%E6%90%AD%E5%BB%BA/win3_hu_7974fe239a362a14.jpg 1024w&#34;
+	srcset=&#34;http://localhost:1313/p/%E7%A7%91%E5%AD%A6%E4%B8%8A%E7%BD%91%E9%85%8D%E7%BD%AE%E6%95%99%E7%A8%8B-%E8%8A%82%E7%82%B9%E6%90%AD%E5%BB%BA/win3_hu_b3a4b5386557bdfa.jpg 480w, http://localhost:1313/p/%E7%A7%91%E5%AD%A6%E4%B8%8A%E7%BD%91%E9%85%8D%E7%BD%AE%E6%95%99%E7%A8%8B-%E8%8A%82%E7%82%B9%E6%90%AD%E5%BB%BA/win3_hu_4f656f00ad8f3213.jpg 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;双击后或者使用管理员模式打开后点击左上角的配置项并从剪切板导入(提前将我提供的节点复制到剪切板)&#34;
@@ -14619,7 +15278,7 @@ git checkout -b fix/image-loading    # 比如你要修 bug&lt;/code&gt;
 &lt;p&gt;&lt;img src=&#34;http://localhost:1313/p/%E7%A7%91%E5%AD%A6%E4%B8%8A%E7%BD%91%E9%85%8D%E7%BD%AE%E6%95%99%E7%A8%8B-%E8%8A%82%E7%82%B9%E6%90%AD%E5%BB%BA/win5.jpg&#34;
 	width=&#34;1495&#34;
 	height=&#34;844&#34;
-	srcset=&#34;http://localhost:1313/p/%E7%A7%91%E5%AD%A6%E4%B8%8A%E7%BD%91%E9%85%8D%E7%BD%AE%E6%95%99%E7%A8%8B-%E8%8A%82%E7%82%B9%E6%90%AD%E5%BB%BA/win5_hu_39f25f4cd088e248.jpg 480w, http://localhost:1313/p/%E7%A7%91%E5%AD%A6%E4%B8%8A%E7%BD%91%E9%85%8D%E7%BD%AE%E6%95%99%E7%A8%8B-%E8%8A%82%E7%82%B9%E6%90%AD%E5%BB%BA/win5_hu_372e73bb276acbc3.jpg 1024w&#34;
+	srcset=&#34;http://localhost:1313/p/%E7%A7%91%E5%AD%A6%E4%B8%8A%E7%BD%91%E9%85%8D%E7%BD%AE%E6%95%99%E7%A8%8B-%E8%8A%82%E7%82%B9%E6%90%AD%E5%BB%BA/win5_hu_a4bdcad09cf671a3.jpg 480w, http://localhost:1313/p/%E7%A7%91%E5%AD%A6%E4%B8%8A%E7%BD%91%E9%85%8D%E7%BD%AE%E6%95%99%E7%A8%8B-%E8%8A%82%E7%82%B9%E6%90%AD%E5%BB%BA/win5_hu_23d375bfc8cf880.jpg 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;将添加进来的节点设置为活动配置文件(右下角路由模式为白名单模式)&#34;
@@ -14633,7 +15292,7 @@ git checkout -b fix/image-loading    # 比如你要修 bug&lt;/code&gt;
 &lt;p&gt;&lt;img src=&#34;http://localhost:1313/p/%E7%A7%91%E5%AD%A6%E4%B8%8A%E7%BD%91%E9%85%8D%E7%BD%AE%E6%95%99%E7%A8%8B-%E8%8A%82%E7%82%B9%E6%90%AD%E5%BB%BA/win6.jpg&#34;
 	width=&#34;696&#34;
 	height=&#34;786&#34;
-	srcset=&#34;http://localhost:1313/p/%E7%A7%91%E5%AD%A6%E4%B8%8A%E7%BD%91%E9%85%8D%E7%BD%AE%E6%95%99%E7%A8%8B-%E8%8A%82%E7%82%B9%E6%90%AD%E5%BB%BA/win6_hu_d9850a81728f497b.jpg 480w, http://localhost:1313/p/%E7%A7%91%E5%AD%A6%E4%B8%8A%E7%BD%91%E9%85%8D%E7%BD%AE%E6%95%99%E7%A8%8B-%E8%8A%82%E7%82%B9%E6%90%AD%E5%BB%BA/win6_hu_69ef5c87b199cbb3.jpg 1024w&#34;
+	srcset=&#34;http://localhost:1313/p/%E7%A7%91%E5%AD%A6%E4%B8%8A%E7%BD%91%E9%85%8D%E7%BD%AE%E6%95%99%E7%A8%8B-%E8%8A%82%E7%82%B9%E6%90%AD%E5%BB%BA/win6_hu_909220de9ae96da7.jpg 480w, http://localhost:1313/p/%E7%A7%91%E5%AD%A6%E4%B8%8A%E7%BD%91%E9%85%8D%E7%BD%AE%E6%95%99%E7%A8%8B-%E8%8A%82%E7%82%B9%E6%90%AD%E5%BB%BA/win6_hu_be6d54efc05df6f0.jpg 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;右键点击桌面右下角的应用图表并设置为pac模式就完成基本的设置了&#34;
@@ -14657,7 +15316,7 @@ git checkout -b fix/image-loading    # 比如你要修 bug&lt;/code&gt;
 &lt;p&gt;&lt;img src=&#34;http://localhost:1313/p/%E7%A7%91%E5%AD%A6%E4%B8%8A%E7%BD%91%E9%85%8D%E7%BD%AE%E6%95%99%E7%A8%8B-%E8%8A%82%E7%82%B9%E6%90%AD%E5%BB%BA/mac1.jpg&#34;
 	width=&#34;1152&#34;
 	height=&#34;892&#34;
-	srcset=&#34;http://localhost:1313/p/%E7%A7%91%E5%AD%A6%E4%B8%8A%E7%BD%91%E9%85%8D%E7%BD%AE%E6%95%99%E7%A8%8B-%E8%8A%82%E7%82%B9%E6%90%AD%E5%BB%BA/mac1_hu_b51c9304a8d201e1.jpg 480w, http://localhost:1313/p/%E7%A7%91%E5%AD%A6%E4%B8%8A%E7%BD%91%E9%85%8D%E7%BD%AE%E6%95%99%E7%A8%8B-%E8%8A%82%E7%82%B9%E6%90%AD%E5%BB%BA/mac1_hu_e77ff801d65af922.jpg 1024w&#34;
+	srcset=&#34;http://localhost:1313/p/%E7%A7%91%E5%AD%A6%E4%B8%8A%E7%BD%91%E9%85%8D%E7%BD%AE%E6%95%99%E7%A8%8B-%E8%8A%82%E7%82%B9%E6%90%AD%E5%BB%BA/mac1_hu_ceb3716e690eb226.jpg 480w, http://localhost:1313/p/%E7%A7%91%E5%AD%A6%E4%B8%8A%E7%BD%91%E9%85%8D%E7%BD%AE%E6%95%99%E7%A8%8B-%E8%8A%82%E7%82%B9%E6%90%AD%E5%BB%BA/mac1_hu_670ad82187b0488d.jpg 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;安装并打开小火箭之后点击按钮从剪切板导入我提供的节点(节点链接需要提前复制到剪切板)&#34;
@@ -14671,7 +15330,7 @@ git checkout -b fix/image-loading    # 比如你要修 bug&lt;/code&gt;
 &lt;p&gt;&lt;img src=&#34;http://localhost:1313/p/%E7%A7%91%E5%AD%A6%E4%B8%8A%E7%BD%91%E9%85%8D%E7%BD%AE%E6%95%99%E7%A8%8B-%E8%8A%82%E7%82%B9%E6%90%AD%E5%BB%BA/mac2.jpg&#34;
 	width=&#34;1164&#34;
 	height=&#34;908&#34;
-	srcset=&#34;http://localhost:1313/p/%E7%A7%91%E5%AD%A6%E4%B8%8A%E7%BD%91%E9%85%8D%E7%BD%AE%E6%95%99%E7%A8%8B-%E8%8A%82%E7%82%B9%E6%90%AD%E5%BB%BA/mac2_hu_4de5646745ca1c64.jpg 480w, http://localhost:1313/p/%E7%A7%91%E5%AD%A6%E4%B8%8A%E7%BD%91%E9%85%8D%E7%BD%AE%E6%95%99%E7%A8%8B-%E8%8A%82%E7%82%B9%E6%90%AD%E5%BB%BA/mac2_hu_39072c7feea3bff3.jpg 1024w&#34;
+	srcset=&#34;http://localhost:1313/p/%E7%A7%91%E5%AD%A6%E4%B8%8A%E7%BD%91%E9%85%8D%E7%BD%AE%E6%95%99%E7%A8%8B-%E8%8A%82%E7%82%B9%E6%90%AD%E5%BB%BA/mac2_hu_79231d96bb3b9ef0.jpg 480w, http://localhost:1313/p/%E7%A7%91%E5%AD%A6%E4%B8%8A%E7%BD%91%E9%85%8D%E7%BD%AE%E6%95%99%E7%A8%8B-%E8%8A%82%E7%82%B9%E6%90%AD%E5%BB%BA/mac2_hu_6f222d8b2d83b992.jpg 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;点击第二栏的config, 点击右上角的加号软件会提示输入url. 此时把下面的url粘贴到上面&#34;
@@ -14689,7 +15348,7 @@ git checkout -b fix/image-loading    # 比如你要修 bug&lt;/code&gt;
 &lt;p&gt;&lt;img src=&#34;http://localhost:1313/p/%E7%A7%91%E5%AD%A6%E4%B8%8A%E7%BD%91%E9%85%8D%E7%BD%AE%E6%95%99%E7%A8%8B-%E8%8A%82%E7%82%B9%E6%90%AD%E5%BB%BA/mac3.jpg&#34;
 	width=&#34;320&#34;
 	height=&#34;668&#34;
-	srcset=&#34;http://localhost:1313/p/%E7%A7%91%E5%AD%A6%E4%B8%8A%E7%BD%91%E9%85%8D%E7%BD%AE%E6%95%99%E7%A8%8B-%E8%8A%82%E7%82%B9%E6%90%AD%E5%BB%BA/mac3_hu_e744499e9414634b.jpg 480w, http://localhost:1313/p/%E7%A7%91%E5%AD%A6%E4%B8%8A%E7%BD%91%E9%85%8D%E7%BD%AE%E6%95%99%E7%A8%8B-%E8%8A%82%E7%82%B9%E6%90%AD%E5%BB%BA/mac3_hu_4a12c1e5d771db06.jpg 1024w&#34;
+	srcset=&#34;http://localhost:1313/p/%E7%A7%91%E5%AD%A6%E4%B8%8A%E7%BD%91%E9%85%8D%E7%BD%AE%E6%95%99%E7%A8%8B-%E8%8A%82%E7%82%B9%E6%90%AD%E5%BB%BA/mac3_hu_8f604898a93487a5.jpg 480w, http://localhost:1313/p/%E7%A7%91%E5%AD%A6%E4%B8%8A%E7%BD%91%E9%85%8D%E7%BD%AE%E6%95%99%E7%A8%8B-%E8%8A%82%E7%82%B9%E6%90%AD%E5%BB%BA/mac3_hu_ba0be976fcb2435b.jpg 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;导入规则后点击使用该规则&#34;
@@ -14703,7 +15362,7 @@ git checkout -b fix/image-loading    # 比如你要修 bug&lt;/code&gt;
 &lt;p&gt;&lt;img src=&#34;http://localhost:1313/p/%E7%A7%91%E5%AD%A6%E4%B8%8A%E7%BD%91%E9%85%8D%E7%BD%AE%E6%95%99%E7%A8%8B-%E8%8A%82%E7%82%B9%E6%90%AD%E5%BB%BA/mac4.jpg&#34;
 	width=&#34;804&#34;
 	height=&#34;736&#34;
-	srcset=&#34;http://localhost:1313/p/%E7%A7%91%E5%AD%A6%E4%B8%8A%E7%BD%91%E9%85%8D%E7%BD%AE%E6%95%99%E7%A8%8B-%E8%8A%82%E7%82%B9%E6%90%AD%E5%BB%BA/mac4_hu_11d47162b0e7edca.jpg 480w, http://localhost:1313/p/%E7%A7%91%E5%AD%A6%E4%B8%8A%E7%BD%91%E9%85%8D%E7%BD%AE%E6%95%99%E7%A8%8B-%E8%8A%82%E7%82%B9%E6%90%AD%E5%BB%BA/mac4_hu_4eefbc227c271365.jpg 1024w&#34;
+	srcset=&#34;http://localhost:1313/p/%E7%A7%91%E5%AD%A6%E4%B8%8A%E7%BD%91%E9%85%8D%E7%BD%AE%E6%95%99%E7%A8%8B-%E8%8A%82%E7%82%B9%E6%90%AD%E5%BB%BA/mac4_hu_cce549b97f718a7.jpg 480w, http://localhost:1313/p/%E7%A7%91%E5%AD%A6%E4%B8%8A%E7%BD%91%E9%85%8D%E7%BD%AE%E6%95%99%E7%A8%8B-%E8%8A%82%E7%82%B9%E6%90%AD%E5%BB%BA/mac4_hu_2555beb088346128.jpg 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;最后回到home点击选择节点,routing 选择 config, 打开开关就大功告成了&#34;
@@ -15832,15 +16491,6 @@ rm path/to/symlink&lt;/code&gt;
 </description>
         </item>
         <item>
-        <title>How2ReadArticle</title>
-        <link>http://localhost:1313/p/how2readarticle/</link>
-        <pubDate>Mon, 30 Jun 2025 23:02:15 +0800</pubDate>
-        
-        <guid>http://localhost:1313/p/how2readarticle/</guid>
-        <description>&lt;img src="http://localhost:1313/default.jepg" alt="Featured image of post How2ReadArticle" /&gt;&lt;h1 id=&#34;如何正确的打开文献阅读之路&#34;&gt;如何正确的打开文献阅读之路
-&lt;/h1&gt;</description>
-        </item>
-        <item>
         <title>Linux_system_service | Linux 之 系统服务</title>
         <link>http://localhost:1313/p/linux_system_service-linux-%E4%B9%8B-%E7%B3%BB%E7%BB%9F%E6%9C%8D%E5%8A%A1/</link>
         <pubDate>Fri, 13 Jun 2025 15:47:20 +0800</pubDate>
@@ -16289,11 +16939,11 @@ WantedBy=multi-user.target&lt;/code&gt;
 &lt;h3 id=&#34;1-如何加入我的模组服务器-建议直接使用后面的整合包安装-更稳定也更方便&#34;&gt;&lt;del&gt;1. 如何加入我的模组服务器&lt;/del&gt; 建议直接使用后面的整合包安装, 更稳定也更方便.
 &lt;/h3&gt;&lt;h4 id=&#34;安装-1182forge-4030-版本&#34;&gt;安装 1.18.2+forge 40.3.0 版本
 &lt;/h4&gt;&lt;p&gt;&lt;code&gt;点击下载&lt;/code&gt;
-&lt;img src=&#34;http://localhost:1313/p/mc%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%90%AD%E5%BB%BA-%E5%8A%A0%E5%85%A5/v1_hu_736a98c9bbf842a4.png&#34; width=&#34;1200&#34; height=&#34;898&#34; alt=&#34;exception types&#34;&gt;&lt;/p&gt;
+&lt;img src=&#34;http://localhost:1313/p/mc%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%90%AD%E5%BB%BA-%E5%8A%A0%E5%85%A5/v1_hu_334a43f613cc0b87.png&#34; width=&#34;1200&#34; height=&#34;898&#34; alt=&#34;exception types&#34;&gt;&lt;/p&gt;
 &lt;p&gt;&lt;code&gt;选择18.2+forge 40.3.0版本&lt;/code&gt;&lt;/p&gt;
-&lt;img src=&#34;http://localhost:1313/p/mc%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%90%AD%E5%BB%BA-%E5%8A%A0%E5%85%A5/v2_hu_276dd84c915b4521.png&#34; width=&#34;1200&#34; height=&#34;905&#34; alt=&#34;exception types&#34;&gt;
-&lt;img src=&#34;http://localhost:1313/p/mc%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%90%AD%E5%BB%BA-%E5%8A%A0%E5%85%A5/v3_hu_2f591b8eca54f1be.png&#34; width=&#34;1200&#34; height=&#34;904&#34; alt=&#34;exception types&#34;&gt;
-&lt;img src=&#34;http://localhost:1313/p/mc%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%90%AD%E5%BB%BA-%E5%8A%A0%E5%85%A5/v4_hu_a75a7d96e3be6c51.png&#34; width=&#34;1200&#34; height=&#34;899&#34; alt=&#34;exception types&#34;&gt;
+&lt;img src=&#34;http://localhost:1313/p/mc%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%90%AD%E5%BB%BA-%E5%8A%A0%E5%85%A5/v2_hu_767ad3472e6db833.png&#34; width=&#34;1200&#34; height=&#34;905&#34; alt=&#34;exception types&#34;&gt;
+&lt;img src=&#34;http://localhost:1313/p/mc%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%90%AD%E5%BB%BA-%E5%8A%A0%E5%85%A5/v3_hu_d5de7db7ba11914e.png&#34; width=&#34;1200&#34; height=&#34;904&#34; alt=&#34;exception types&#34;&gt;
+&lt;img src=&#34;http://localhost:1313/p/mc%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%90%AD%E5%BB%BA-%E5%8A%A0%E5%85%A5/v4_hu_f51fb87ad3d6d4c6.png&#34; width=&#34;1200&#34; height=&#34;899&#34; alt=&#34;exception types&#34;&gt;
 &lt;h4 id=&#34;安装模组&#34;&gt;安装模组
 &lt;/h4&gt;&lt;ol&gt;
 &lt;li&gt;下载我的模组和材质包.&lt;/li&gt;
@@ -16306,14 +16956,14 @@ WantedBy=multi-user.target&lt;/code&gt;
 &lt;li&gt;压缩包下载后解压, 会有两种文件: zip, jar. zip 对应的是材质包, jar 是模组.
 点击版本管理&lt;/li&gt;
 &lt;/ol&gt;
-&lt;img src=&#34;http://localhost:1313/p/mc%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%90%AD%E5%BB%BA-%E5%8A%A0%E5%85%A5/main_hu_cd62cbf18f0f3bf5.png&#34; width=&#34;1200&#34; height=&#34;913&#34; alt=&#34;exception types&#34;&gt;
+&lt;img src=&#34;http://localhost:1313/p/mc%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%90%AD%E5%BB%BA-%E5%8A%A0%E5%85%A5/main_hu_58c6b993e09d892a.png&#34; width=&#34;1200&#34; height=&#34;913&#34; alt=&#34;exception types&#34;&gt;
 &lt;ol start=&#34;3&#34;&gt;
 &lt;li&gt;在模组拦选择添加模组, 选择刚刚下载的包里的&lt;code&gt;jar&lt;/code&gt;文件.&lt;/li&gt;
 &lt;/ol&gt;
-&lt;img src=&#34;http://localhost:1313/p/mc%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%90%AD%E5%BB%BA-%E5%8A%A0%E5%85%A5/v5_hu_41c2e29e2930d7df.png&#34; width=&#34;1200&#34; height=&#34;911&#34; alt=&#34;exception types&#34;&gt;
+&lt;img src=&#34;http://localhost:1313/p/mc%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%90%AD%E5%BB%BA-%E5%8A%A0%E5%85%A5/v5_hu_5840638b18fd56fd.png&#34; width=&#34;1200&#34; height=&#34;911&#34; alt=&#34;exception types&#34;&gt;
 &lt;h4 id=&#34;安装光影&#34;&gt;安装光影
 &lt;/h4&gt;&lt;p&gt;在浏览中选择打开资源包文件夹, 然后添加下载文件夹中的&lt;code&gt;zip&lt;/code&gt;文件.
-&lt;img src=&#34;http://localhost:1313/p/mc%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%90%AD%E5%BB%BA-%E5%8A%A0%E5%85%A5/v6_hu_a6b4669caa9893f7.png&#34; width=&#34;1200&#34; height=&#34;909&#34; alt=&#34;exception types&#34;&gt;&lt;/p&gt;
+&lt;img src=&#34;http://localhost:1313/p/mc%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%90%AD%E5%BB%BA-%E5%8A%A0%E5%85%A5/v6_hu_8b9b084a24e21732.png&#34; width=&#34;1200&#34; height=&#34;909&#34; alt=&#34;exception types&#34;&gt;&lt;/p&gt;
 &lt;h4 id=&#34;整合包安装游戏不带启动器版本&#34;&gt;整合包安装游戏(不带启动器版本)
 &lt;/h4&gt;&lt;p&gt;&lt;code&gt;该方法已淘汰, 请勿使用该方法&lt;/code&gt;&lt;/p&gt;
 &lt;p&gt;使用 HMCL 的整合包安装功能, 直接一次性安装好所有模组和材质包.&lt;/p&gt;
@@ -16322,7 +16972,7 @@ WantedBy=multi-user.target&lt;/code&gt;
 &lt;ol start=&#34;2&#34;&gt;
 &lt;li&gt;
 &lt;p&gt;点击安装整合包
-&lt;img src=&#34;http://localhost:1313/p/mc%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%90%AD%E5%BB%BA-%E5%8A%A0%E5%85%A5/p1_hu_a3107bb23487123e.png&#34; width=&#34;1200&#34; height=&#34;901&#34; alt=&#34;exception types&#34;&gt;&lt;/p&gt;
+&lt;img src=&#34;http://localhost:1313/p/mc%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%90%AD%E5%BB%BA-%E5%8A%A0%E5%85%A5/p1_hu_616bc55b66b31d20.png&#34; width=&#34;1200&#34; height=&#34;901&#34; alt=&#34;exception types&#34;&gt;&lt;/p&gt;
 &lt;/li&gt;
 &lt;li&gt;
 &lt;p&gt;从本地安装整合包, 并选择下载好的 zip 整合包.&lt;/p&gt;
@@ -16341,7 +16991,7 @@ WantedBy=multi-user.target&lt;/code&gt;
 &lt;li&gt;选择版本.&lt;/li&gt;
 &lt;li&gt;点击 Installer 安装稳定版&lt;/li&gt;
 &lt;/ol&gt;
-&lt;img src=&#34;http://localhost:1313/p/mc%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%90%AD%E5%BB%BA-%E5%8A%A0%E5%85%A5/d_hu_7c67ad27a83df608.png&#34; width=&#34;1200&#34; height=&#34;916&#34; alt=&#34;exception types&#34;&gt;
+&lt;img src=&#34;http://localhost:1313/p/mc%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%90%AD%E5%BB%BA-%E5%8A%A0%E5%85%A5/d_hu_31bfa53b7f807a8d.png&#34; width=&#34;1200&#34; height=&#34;916&#34; alt=&#34;exception types&#34;&gt;
 &lt;ol start=&#34;4&#34;&gt;
 &lt;li&gt;下载完成之后看到 jar 结尾的文件说明成功下载.&lt;/li&gt;
 &lt;/ol&gt;
@@ -16461,7 +17111,7 @@ java -jar forge-1.18.2-40.3.0-installer.jar --installServer&lt;/code&gt;
 &lt;li&gt;在 cploar 服务启动之后在网页中打开服务器的&lt;code&gt;9200&lt;/code&gt;端口.&lt;/li&gt;
 &lt;li&gt;设置映射.&lt;/li&gt;
 &lt;/ol&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:1313/p/mc%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%90%AD%E5%BB%BA-%E5%8A%A0%E5%85%A5/port_hu_6ba287f842e76ffa.png&#34; width=&#34;1200&#34; height=&#34;472&#34; alt=&#34;exception types&#34;&gt;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/p/mc%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%90%AD%E5%BB%BA-%E5%8A%A0%E5%85%A5/port_hu_978793072fc3bdad.png&#34; width=&#34;1200&#34; height=&#34;472&#34; alt=&#34;exception types&#34;&gt;
 仿照图片中的设置配置映射.&lt;/p&gt;
 &lt;blockquote class=&#34;alert alert-note&#34;&gt;
     &lt;p&gt;对于 forge, 服务器开启后默认端口为 25565, 如果想修改监听端口可以修改 properties 里的端口设置.&lt;/p&gt;&lt;/blockquote&gt;
@@ -16472,30 +17122,6 @@ java -jar forge-1.18.2-40.3.0-installer.jar --installServer&lt;/code&gt;
 &lt;p&gt;服务器地址就是 &lt;code&gt;tcp://11.tcp.vip.cpolar.cn:11627&lt;/code&gt;&lt;/p&gt;
 &lt;/li&gt;
 &lt;/ol&gt;
-</description>
-        </item>
-        <item>
-        <title>ubuntu远程桌面</title>
-        <link>http://localhost:1313/p/ubuntu%E8%BF%9C%E7%A8%8B%E6%A1%8C%E9%9D%A2/</link>
-        <pubDate>Sun, 08 Jun 2025 22:16:17 +0800</pubDate>
-        
-        <guid>http://localhost:1313/p/ubuntu%E8%BF%9C%E7%A8%8B%E6%A1%8C%E9%9D%A2/</guid>
-        <description>&lt;img src="http://localhost:1313/default.jpeg" alt="Featured image of post ubuntu远程桌面" /&gt;&lt;h2 id=&#34;前言&#34;&gt;前言
-&lt;/h2&gt;&lt;p&gt;本教程基于 ubuntu, 请确保的 ubuntu 系统大于 20.
-这里参考阿里提供的&lt;a class=&#34;link&#34; href=&#34;https://developer.aliyun.com/article/762186&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
-    &gt;方案&lt;/a&gt;&lt;/p&gt;
-&lt;h2 id=&#34;&#34;&gt;
-&lt;/h2&gt;
-
-
-
-
-&lt;div class=&#34;highlight highlight-bash&#34;&gt;
-  &lt;pre&gt;
-    &lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;sudo apt install vino&lt;/code&gt;
-  &lt;/pre&gt;
-&lt;/div&gt;
-
 </description>
         </item>
         <item>
@@ -16629,7 +17255,8 @@ java -jar forge-1.18.2-40.3.0-installer.jar --installServer&lt;/code&gt;
 
 &lt;div class=&#34;highlight highlight-java&#34;&gt;
   &lt;pre&gt;
-    &lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;abstract class Course&amp;lt;T&amp;gt; {
+    &lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;
+abstract class Course&amp;lt;T&amp;gt; {
     protected String courseTime;
     protected String courseLocation;
     protected List&amp;lt;T&amp;gt; students;
@@ -16889,7 +17516,7 @@ class Dog implements Animal {
 &lt;/div&gt;
 
 &lt;h2 id=&#34;exception-types--错误类型&#34;&gt;Exception Types | 错误类型
-&lt;/h2&gt;&lt;img src=&#34;http://localhost:1313/p/chapter12/exception_hu_821cfc0c383d1a10.png&#34; width=&#34;1200&#34; height=&#34;474&#34; alt=&#34;exception types&#34;&gt;
+&lt;/h2&gt;&lt;img src=&#34;http://localhost:1313/p/chapter12/exception_hu_2d775bea792e44c0.png&#34; width=&#34;1200&#34; height=&#34;474&#34; alt=&#34;exception types&#34;&gt;
 &lt;p&gt;在 Java 中， Throwable 是所有异常和错误的根类。所有通过 throw 抛出的异常必须继承自 Throwable 。其直接子类包括：&lt;/p&gt;
 &lt;h3 id=&#34;error&#34;&gt;Error
 &lt;/h3&gt;&lt;h4 id=&#34;linkageerror&#34;&gt;LinkageError
@@ -17780,36 +18407,6 @@ Collections.reverse(list);&lt;/code&gt;
 </description>
         </item>
         <item>
-        <title>Daliy_blog2025 05 22</title>
-        <link>http://localhost:1313/p/daliy_blog2025-05-22/</link>
-        <pubDate>Thu, 22 May 2025 23:40:31 +0800</pubDate>
-        
-        <guid>http://localhost:1313/p/daliy_blog2025-05-22/</guid>
-        <description>&lt;img src="http://localhost:1313/default.gif" alt="Featured image of post Daliy_blog2025 05 22" /&gt;&lt;h1 id=&#34;日常记录&#34;&gt;日常记录
-&lt;/h1&gt;&lt;h2 id=&#34;关于自己&#34;&gt;关于自己
-&lt;/h2&gt;&lt;p&gt;昨天晚上搞博客搞的太上头, 一不小心又熬到 4.多 🥹. 然后今天睡到下午才起床, 真是得不偿失啊啊啊啊. 但我这种性格就是, 很多时候如果不把一件事做完就是不会停下来. 直到我把这件事做到某一个我想对满意的阶段的时候我可能才会开始休息. 简直就是先天牛马圣体.下周大大小小的考试就基本都考完了, 所以, 这几天再撑一下吧 🫠.&lt;/p&gt;
-&lt;h2 id=&#34;关于考试&#34;&gt;关于考试
-&lt;/h2&gt;&lt;p&gt;距离高数的期末考还有两天, 今天已经看了一整天的高数视频了. 也不知道自己学没学进去, 但聊胜于无嘛. &lt;a class=&#34;link&#34; href=&#34;https://www.bilibili.com/video/BV1zr421F7UN?spm_id_from=333.788.videopod.episodes&amp;amp;vd_source=fbc2a846bae010cde7c33a4fbe6c2e57&amp;amp;p=4&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
-    &gt;Kari&lt;/a&gt;老师的视频确实感觉已经比国内大部分大学教授讲的都要好了. 逻辑比较清晰, 也都是按照思维导图来复习. 很适合我这种 visual memory 的人.&lt;/p&gt;
-&lt;p&gt;目前为止的复习进度也还是比较紧张, 2231 专业课 java 我已经很久都没有看, 也没有 coding 了. 不过大部分的内容其实也都是记忆的东西. 这种一般花个半天时间就搞定了. 其实比较担心的还是我的两门数学考试, 和 2920 计算机系统架构. 数学考试的备考感觉是没有尽头的. 因为总会有更难的题型给你做, 你的熟练度也基本没有上线. 所以数学的复习还是不能太上头, 不然就像是时间黑洞一样吞噬你的时间.😇 很容易把其他事情耽误了.&lt;/p&gt;
-&lt;h2 id=&#34;final-project&#34;&gt;Final project
-&lt;/h2&gt;&lt;p&gt;期末的那个论文到目前的情况确实是差强人意了, 一开始我就低估了这个领域的强度和我们小组的执行能力. 布置出去的任务基本都要延迟几天才能完成, 这还是挺扰乱原本的计划的. 这个项目原本要做的实验也是时间的原因没有做成, 而且小组里似乎也只有我有这个代码能力. 本来的设想是我来完成我们项目的代码部分, 然后我的小组成员能帮我完成论文. 但我也没有提前了解他们对这领域的了解, 最后出于他们的执行力, 和了解程度. 我打算论文还是我自己来执手. 所以, 项目的代码部分就只能学期结束之后再继续推进了.&lt;/p&gt;
-&lt;h2 id=&#34;今天最后的一点任务&#34;&gt;今天最后的一点任务
-&lt;/h2&gt;&lt;p&gt;当我开始写这个博客的时候已经快 12.了. 但事情总是做不完的. 今晚也不能再熬怎么晚了. 所以今晚就最后再完成两个任务吧.&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;input checked=&#34;&#34; disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 完善我的博客内容, 由于博客是昨天才匆忙搭建完的. 对这个项目的熟悉程度也不够. 希望今天能在完善博客的时候, 顺便也能熟悉一下这个项目的使用.
-&lt;ul&gt;
-&lt;li&gt;&lt;input checked=&#34;&#34; disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 换头像&lt;/li&gt;
-&lt;li&gt;&lt;input checked=&#34;&#34; disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 配置文件的配置过一遍&lt;/li&gt;
-&lt;li&gt;&lt;input checked=&#34;&#34; disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 添加博客默认图片&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;li&gt;&lt;input checked=&#34;&#34; disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 完成我们论文的初稿, 即使论文目前还有很多漏洞. 但是船大难掉头, 目前先考虑论文写完, 先是一个完整的论文再说. 毕竟明晚就是 ddl 了, 也没有办法再去做论文的重构了.(发现 ddl 是第二天 12. 明天起来交作业)&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;好的又要吧论文拖到明天了 😅&lt;/p&gt;
-</description>
-        </item>
-        <item>
         <title>Hugo_notes</title>
         <link>http://localhost:1313/p/hugo_notes/</link>
         <pubDate>Thu, 22 May 2025 23:29:01 +0800</pubDate>
@@ -18162,7 +18759,7 @@ hugo server -D
 &lt;/h2&gt;&lt;p&gt;&lt;img src=&#34;http://localhost:1313/p/test-chinese/florian-klauer-nptLmg6jqDo-unsplash.jpg&#34;
 	width=&#34;667&#34;
 	height=&#34;1000&#34;
-	srcset=&#34;http://localhost:1313/p/test-chinese/florian-klauer-nptLmg6jqDo-unsplash_hu_e98fca2b4272416e.jpg 480w, http://localhost:1313/p/test-chinese/florian-klauer-nptLmg6jqDo-unsplash_hu_e3d37c9ded115b12.jpg 1024w&#34;
+	srcset=&#34;http://localhost:1313/p/test-chinese/florian-klauer-nptLmg6jqDo-unsplash_hu_7b8a06820e6d5c.jpg 480w, http://localhost:1313/p/test-chinese/florian-klauer-nptLmg6jqDo-unsplash_hu_a347f10e565b40ff.jpg 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;Photo by Florian Klauer on Unsplash&#34;
@@ -18175,7 +18772,7 @@ hugo server -D
 &gt;  &lt;img src=&#34;http://localhost:1313/p/test-chinese/luca-bravo-alS7ewQ41M8-unsplash.jpg&#34;
 	width=&#34;1000&#34;
 	height=&#34;667&#34;
-	srcset=&#34;http://localhost:1313/p/test-chinese/luca-bravo-alS7ewQ41M8-unsplash_hu_e13c58d5189f892c.jpg 480w, http://localhost:1313/p/test-chinese/luca-bravo-alS7ewQ41M8-unsplash_hu_8fc948b7ee525251.jpg 1024w&#34;
+	srcset=&#34;http://localhost:1313/p/test-chinese/luca-bravo-alS7ewQ41M8-unsplash_hu_258fc4da0cfc7de9.jpg 480w, http://localhost:1313/p/test-chinese/luca-bravo-alS7ewQ41M8-unsplash_hu_d415bcea096fe061.jpg 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;Photo by Luca Bravo on Unsplash&#34;
@@ -18189,7 +18786,7 @@ hugo server -D
 &lt;p&gt;&lt;img src=&#34;http://localhost:1313/p/test-chinese/helena-hertz-wWZzXlDpMog-unsplash.jpg&#34;
 	width=&#34;1000&#34;
 	height=&#34;750&#34;
-	srcset=&#34;http://localhost:1313/p/test-chinese/helena-hertz-wWZzXlDpMog-unsplash_hu_503c0ebcc5245e10.jpg 480w, http://localhost:1313/p/test-chinese/helena-hertz-wWZzXlDpMog-unsplash_hu_48c98de55fb3c999.jpg 1024w&#34;
+	srcset=&#34;http://localhost:1313/p/test-chinese/helena-hertz-wWZzXlDpMog-unsplash_hu_dfbb0c559c3df461.jpg 480w, http://localhost:1313/p/test-chinese/helena-hertz-wWZzXlDpMog-unsplash_hu_212d0718b8e99eaa.jpg 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;Photo by Helena Hertz on Unsplash&#34;
@@ -18202,7 +18799,7 @@ hugo server -D
 &gt;  &lt;img src=&#34;http://localhost:1313/p/test-chinese/hudai-gayiran-3Od_VKcDEAA-unsplash.jpg&#34;
 	width=&#34;667&#34;
 	height=&#34;1000&#34;
-	srcset=&#34;http://localhost:1313/p/test-chinese/hudai-gayiran-3Od_VKcDEAA-unsplash_hu_f81a3588c5c4a663.jpg 480w, http://localhost:1313/p/test-chinese/hudai-gayiran-3Od_VKcDEAA-unsplash_hu_1c52ba2a4ad7b9a0.jpg 1024w&#34;
+	srcset=&#34;http://localhost:1313/p/test-chinese/hudai-gayiran-3Od_VKcDEAA-unsplash_hu_41819e288bf4a8c0.jpg 480w, http://localhost:1313/p/test-chinese/hudai-gayiran-3Od_VKcDEAA-unsplash_hu_1277885c87f69490.jpg 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;Photo by Hudai Gayiran on Unsplash&#34;

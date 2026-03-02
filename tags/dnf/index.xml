@@ -5,9 +5,9 @@
         <link>http://localhost:1313/tags/dnf/</link>
         <description>Recent content in Dnf on Henry Zhang</description>
         <generator>Hugo -- gohugo.io</generator>
-        <language>zh-cn</language>
+        <language>en-us</language>
         <copyright>blog@mail.henry070.org</copyright>
-        <lastBuildDate>Sun, 11 Jan 2026 16:57:00 +0000</lastBuildDate><atom:link href="http://localhost:1313/tags/dnf/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Mon, 12 Jan 2026 00:57:00 +0800</lastBuildDate><atom:link href="http://localhost:1313/tags/dnf/index.xml" rel="self" type="application/rss+xml" /><item>
         <title>软件包管理：Linux 的应用商店</title>
         <link>http://localhost:1313/p/%E8%BD%AF%E4%BB%B6%E5%8C%85%E7%AE%A1%E7%90%86linux-%E7%9A%84%E5%BA%94%E7%94%A8%E5%95%86%E5%BA%97/</link>
         <pubDate>Sun, 11 Jan 2026 03:00:00 +0800</pubDate>

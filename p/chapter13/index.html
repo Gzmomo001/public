@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="zh-cn" dir="ltr">
+<html lang="en-us" dir="ltr">
     <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><meta charset='utf-8'>
 <meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="Abstract class and interface | 抽象类和接口">
 <title>Chapter13</title>
@@ -357,7 +357,7 @@
                     
                     
                         
-                        <img src="/img/avatar_hu_9c50848f93c56cbf.jpeg" width="300"
+                        <img src="/img/avatar_hu_a69ebd3e9749347e.jpeg" width="300"
                             height="296" class="site-logo" loading="lazy" alt="Avatar">
                     
                 
@@ -693,7 +693,7 @@
 
 
                 <time>
-                    May 26, 2025 03:12 &#43;0800
+                    May 26, 2025 03:12 CST
                 </time>
             </div>
     </footer>
@@ -736,75 +736,55 @@
 <h3 id="代码示例">代码示例
 </h3><p>其实抽象类的定义就只需要在可实例化的类签名添加<code>abstract</code>关键词就好了</p>
 <div id="link"></div>
-
-
-
-
-
-<div class="highlight highlight-java">
-  <pre>
-    <code class="language-java" data-lang="java">abstract class Course&lt;T&gt; {
-    protected String courseTime;
-    protected String courseLocation;
-    protected List&lt;T&gt; students;
-    //这里是一个泛型后面的章节会提到
-    protected String instructor;
-
-    public Course(String courseTime, String courseLocation, String instructor) {
-        this.courseTime = courseTime;
-        this.courseLocation = courseLocation;
-        this.students = new ArrayList&lt;&gt;();
-        this.instructor = instructor;
-    }
-    // 即使是抽象类也需要构造器
-
-    public abstract void startClass();
-    public abstract void endClass();
-    //这里是抽象类的一个特点, 可以只声明一种方法而不写其具体的实现.
-
-    public void addStudent(T student) {
-        students.add(student);
-    }
-
-    public void removeStudent(T student) {
-        students.remove(student);
-    }
-
-    public void changeInstructor(String newInstructor) {
-        this.instructor = newInstructor;
-    }
-}</code>
-  </pre>
-</div>
-
-<h3 id="抽象类的子类">抽象类的子类
-</h3>
-
-
-
-
-<div class="highlight highlight-java">
-  <pre>
-    <code class="language-java" data-lang="java">class ProgrammingCourse extends Course&lt;String&gt; {
-    // 可以看到这里将String传入了泛型, 那父类中的对应位置就会编译为String
-    public ProgrammingCourse(String courseTime, String courseLocation, String instructor) {
-        super(courseTime, courseLocation, instructor);
-    }
-
-    @Override
-    public void startClass() {
-        System.out.println(&#34;Programming class started at &#34; &#43; courseTime);
-    }
-
-    @Override
-    public void endClass() {
-        System.out.println(&#34;Programming class ended at &#34; &#43; courseTime);
-    }
-}</code>
-  </pre>
-</div>
-
-<blockquote class="alert alert-note">
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kd">abstract</span><span class="w"> </span><span class="kd">class</span> <span class="nc">Course</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">protected</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="n">courseTime</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">protected</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="n">courseLocation</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">protected</span><span class="w"> </span><span class="n">List</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="w"> </span><span class="n">students</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="c1">//这里是一个泛型后面的章节会提到</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">protected</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="n">instructor</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="nf">Course</span><span class="p">(</span><span class="n">String</span><span class="w"> </span><span class="n">courseTime</span><span class="p">,</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="n">courseLocation</span><span class="p">,</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="n">instructor</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="k">this</span><span class="p">.</span><span class="na">courseTime</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">courseTime</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="k">this</span><span class="p">.</span><span class="na">courseLocation</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">courseLocation</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="k">this</span><span class="p">.</span><span class="na">students</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">ArrayList</span><span class="o">&lt;&gt;</span><span class="p">();</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="k">this</span><span class="p">.</span><span class="na">instructor</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">instructor</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="c1">// 即使是抽象类也需要构造器</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kd">abstract</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">startClass</span><span class="p">();</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kd">abstract</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">endClass</span><span class="p">();</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="c1">//这里是抽象类的一个特点, 可以只声明一种方法而不写其具体的实现.</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">addStudent</span><span class="p">(</span><span class="n">T</span><span class="w"> </span><span class="n">student</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">students</span><span class="p">.</span><span class="na">add</span><span class="p">(</span><span class="n">student</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">removeStudent</span><span class="p">(</span><span class="n">T</span><span class="w"> </span><span class="n">student</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">students</span><span class="p">.</span><span class="na">remove</span><span class="p">(</span><span class="n">student</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">changeInstructor</span><span class="p">(</span><span class="n">String</span><span class="w"> </span><span class="n">newInstructor</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="k">this</span><span class="p">.</span><span class="na">instructor</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">newInstructor</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="p">}</span><span class="w">
+</span></span></span></code></pre></div><h3 id="抽象类的子类">抽象类的子类
+</h3><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kd">class</span> <span class="nc">ProgrammingCourse</span><span class="w"> </span><span class="kd">extends</span><span class="w"> </span><span class="n">Course</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="c1">// 可以看到这里将String传入了泛型, 那父类中的对应位置就会编译为String</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="nf">ProgrammingCourse</span><span class="p">(</span><span class="n">String</span><span class="w"> </span><span class="n">courseTime</span><span class="p">,</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="n">courseLocation</span><span class="p">,</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="n">instructor</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="kd">super</span><span class="p">(</span><span class="n">courseTime</span><span class="p">,</span><span class="w"> </span><span class="n">courseLocation</span><span class="p">,</span><span class="w"> </span><span class="n">instructor</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nd">@Override</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">startClass</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&#34;Programming class started at &#34;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">courseTime</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nd">@Override</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">endClass</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&#34;Programming class ended at &#34;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">courseTime</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="p">}</span><span class="w">
+</span></span></span></code></pre></div><blockquote class="alert alert-note">
     <p>这里有一些课本中零碎的细节</p>
 <ol>
 <li>抽象类的子类必须要完成父类的抽象方法, 除非它自己也是抽象的. 📚</li>
@@ -858,54 +838,34 @@
 </ul></blockquote>
 <h3 id="如果我们要在接口中定义默认方法的实现怎么办">如果我们要在接口中定义默认方法的实现怎么办
 </h3><p>这个时候我们就可以使用<code>default</code>关键字定义这个方法的默认实现.</p>
-
-
-
-
-
-<div class="highlight highlight-java">
-  <pre>
-    <code class="language-java" data-lang="java">public interface A {
-    default void doSomething(){
-        //doSomething
-    }
-
-    static void do(){
-        // implement
-    }
-    //静态方法一定要定义
-}</code>
-  </pre>
-</div>
-
-<h4 id="接口的使用">接口的使用
-</h4>
-
-
-
-
-<div class="highlight highlight-java">
-  <pre>
-    <code class="language-java" data-lang="java">public interface Animal {
-    void makeSound();
-    void eat();
-}
-
-class Dog implements Animal {
-    @Override
-    public void makeSound() {
-        System.out.println(&#34;Woof!&#34;);
-    }
-
-    @Override
-    public void eat() {
-        System.out.println(&#34;Dog is eating.&#34;);
-    }
-}</code>
-  </pre>
-</div>
-
-<h2 id="native-关键字">native 关键字
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kd">public</span><span class="w"> </span><span class="kd">interface</span> <span class="nc">A</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="k">default</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">doSomething</span><span class="p">(){</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="c1">//doSomething</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">static</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">do</span><span class="p">(){</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="c1">// implement</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="c1">//静态方法一定要定义</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="p">}</span><span class="w">
+</span></span></span></code></pre></div><h4 id="接口的使用">接口的使用
+</h4><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kd">public</span><span class="w"> </span><span class="kd">interface</span> <span class="nc">Animal</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="nf">makeSound</span><span class="p">();</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="nf">eat</span><span class="p">();</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="kd">class</span> <span class="nc">Dog</span><span class="w"> </span><span class="kd">implements</span><span class="w"> </span><span class="n">Animal</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nd">@Override</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">makeSound</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&#34;Woof!&#34;</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nd">@Override</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">eat</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&#34;Dog is eating.&#34;</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="p">}</span><span class="w">
+</span></span></span></code></pre></div><h2 id="native-关键字">native 关键字
 </h2><p>这个关键字首次在第 13 章中出现 ✨。<code>native</code>是一个方法修饰符，主要用于：</p>
 <p>🔌 <strong>跨语言调用</strong>：允许 Java 代码调用其他语言(如 C/C++)编写的函数
 ⚡ <strong>性能优化</strong>：某些底层操作使用原生语言实现效率更高</p>
@@ -1024,7 +984,7 @@ class Dog implements Animal {
         
         
             <div class="article-image">
-                <img src="/p/linux_system_service-linux-%E4%B9%8B-%E7%B3%BB%E7%BB%9F%E6%9C%8D%E5%8A%A1/image.a0523778934542ff44b5192a799567da_hu_120e934acdd88e76.png" 
+                <img src="/p/linux_system_service-linux-%E4%B9%8B-%E7%B3%BB%E7%BB%9F%E6%9C%8D%E5%8A%A1/image.a0523778934542ff44b5192a799567da_hu_f544c73e53d7c9e0.png" 
                         width="250" 
                         height="150" 
                         loading="lazy"
@@ -1048,7 +1008,7 @@ class Dog implements Animal {
         
         
             <div class="article-image">
-                <img src="/p/mc%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%90%AD%E5%BB%BA-%E5%8A%A0%E5%85%A5/image.c12f1808aab9c5464ee244812cb30b95_hu_86d91d7056630acc.png" 
+                <img src="/p/mc%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%90%AD%E5%BB%BA-%E5%8A%A0%E5%85%A5/image.c12f1808aab9c5464ee244812cb30b95_hu_9642f2f494a86841.png" 
                         width="250" 
                         height="150" 
                         loading="lazy"
@@ -1068,18 +1028,23 @@ class Dog implements Animal {
             
                 
 <article class="has-image">
-    <a href="/p/ubuntu%E8%BF%9C%E7%A8%8B%E6%A1%8C%E9%9D%A2/">
+    <a href="/p/hugo_notes/">
         
         
             <div class="article-image">
-                
-                    <img src="/default.jpeg" loading="lazy" data-key="" data-hash="/default.jpeg"/>
+                <img src="/p/hugo_notes/1.8e7fe11288f3247c5acac91e5854cb03_hu_6400a91b00c94a46.jpeg" 
+                        width="250" 
+                        height="150" 
+                        loading="lazy"
+                        alt="Featured image of post Hugo_notes"
+                        
+                        data-hash="md5-jn/hEojzJHxayskeWFTLAw==">
                 
             </div>
         
 
         <div class="article-details">
-            <h2 class="article-title">ubuntu远程桌面</h2>
+            <h2 class="article-title">Hugo_notes</h2>
         </div>
     </a>
 </article>
@@ -1247,7 +1212,7 @@ class Dog implements Animal {
                 src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
                 
                 >
-            </script><script type="text/javascript" src="/ts/main.888cccdaf3c934b58bb1982792b4d0fdb89be145d2cabea38c8569bfe7d08117.js" defer></script>
+            </script><script type="text/javascript" src="/ts/main.fe055f50234dc99b59992d29820a4403a71f7c90de7b6ebd204c621ac170b546.js" defer></script>
 <script>
     (function () {
         const customFont = document.createElement('link');

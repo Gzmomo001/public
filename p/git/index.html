@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="zh-cn" dir="ltr">
+<html lang="en-us" dir="ltr">
     <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><meta charset='utf-8'>
 <meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="版本控制工具">
 <title>Git</title>
@@ -357,7 +357,7 @@
                     
                     
                         
-                        <img src="/img/avatar_hu_9c50848f93c56cbf.jpeg" width="300"
+                        <img src="/img/avatar_hu_a69ebd3e9749347e.jpeg" width="300"
                             height="296" class="site-logo" loading="lazy" alt="Avatar">
                     
                 
@@ -631,8 +631,8 @@
     <header class="article-header">
         <div class="article-image">
             <a href="/p/git/">
-                <img src="/p/git/git_hu_f98e014342dae49.png"
-                        srcset="/p/git/git_hu_f98e014342dae49.png 800w, /p/git/git_hu_f0ae85bade81d2cc.png 1600w"
+                <img src="/p/git/git_hu_318d63d1d091c7f3.png"
+                        srcset="/p/git/git_hu_318d63d1d091c7f3.png 800w, /p/git/git_hu_d948df0c2fa9ee60.png 1600w"
                         width="800" 
                         height="800" 
                         loading="lazy"
@@ -730,7 +730,7 @@
 <p><img src="/p/git/jojos-killer.gif"
 	width="464"
 	height="258"
-	srcset="/p/git/jojos-killer_hu_113ff57fcf33b172.gif 480w, /p/git/jojos-killer_hu_49e2041d9bb05d24.gif 1024w"
+	srcset="/p/git/jojos-killer_hu_e5fcf31d63d0f58e.gif 480w, /p/git/jojos-killer_hu_5e55566e1a98829f.gif 1024w"
 	loading="lazy"
 	
 		alt="败者食尘"
@@ -752,194 +752,114 @@
 </div>
 
 <h2 id="quick-start">Quick start
-</h2>
-
-
-
-
-<div class="highlight highlight-bash">
-  <pre>
-    <code class="language-bash" data-lang="bash"># ubuntu/debian
-apt install git
-
-# mac
-brew install git
-
-# Configuration
-git config --global user.name &#34;Your Name&#34;
-git config --global user.email &#34;your.email@example.com&#34;
-
-#initialization | it will create a hidden folder which is called .git
-git init</code>
-  </pre>
-</div>
-
-<h2 id="common-command">Common command
-</h2>
-
-
-
-
-<div class="highlight highlight-bash">
-  <pre>
-    <code class="language-bash" data-lang="bash"># check status
-git status
-
-# add all file of this folder
-git add .
-
-# simple commit
-git commit -m &#34;&lt;commit info&gt;&#34;
-
-# check commit history | type q to quit
-git log
-
-# connet to remote repository | orgin: set the name of the remote repo
-git remote add origin &lt;url of remote repository&gt;
-
-# switch to the main branch
-git branch -M main
-
-# push to the remote repo | when you use git push it will push to the defualt repo that your pulled before.
-git push -u origin main | git push
-
-# pull the latest version of the remote repo
-git pull</code>
-  </pre>
-</div>
-
-<blockquote class="alert alert-note">
+</h2><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># ubuntu/debian</span>
+</span></span><span class="line"><span class="cl">apt install git
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># mac</span>
+</span></span><span class="line"><span class="cl">brew install git
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Configuration</span>
+</span></span><span class="line"><span class="cl">git config --global user.name <span class="s2">&#34;Your Name&#34;</span>
+</span></span><span class="line"><span class="cl">git config --global user.email <span class="s2">&#34;your.email@example.com&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#initialization | it will create a hidden folder which is called .git</span>
+</span></span><span class="line"><span class="cl">git init
+</span></span></code></pre></div><h2 id="common-command">Common command
+</h2><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># check status</span>
+</span></span><span class="line"><span class="cl">git status
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># add all file of this folder</span>
+</span></span><span class="line"><span class="cl">git add .
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># simple commit</span>
+</span></span><span class="line"><span class="cl">git commit -m <span class="s2">&#34;&lt;commit info&gt;&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># check commit history | type q to quit</span>
+</span></span><span class="line"><span class="cl">git log
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># connet to remote repository | orgin: set the name of the remote repo</span>
+</span></span><span class="line"><span class="cl">git remote add origin &lt;url of remote repository&gt;
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># switch to the main branch</span>
+</span></span><span class="line"><span class="cl">git branch -M main
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># push to the remote repo | when you use git push it will push to the defualt repo that your pulled before.</span>
+</span></span><span class="line"><span class="cl">git push -u origin main <span class="p">|</span> git push
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># pull the latest version of the remote repo</span>
+</span></span><span class="line"><span class="cl">git pull
+</span></span></code></pre></div><blockquote class="alert alert-note">
     <p>.gitignore: you can create a this file and fill the files or dict that you do not want to push on remote.</p></blockquote>
-
-
-
-
-
-<div class="highlight highlight-bash">
-  <pre>
-    <code class="language-bash" data-lang="bash"># add all the changes to the this commit and commit it with only one line code
-git commit -am &#34;args&#34;
-
-# clone a remote repo | clone a remote repo
-git clone &lt;url&gt;
-
-# fetch
-git fetch &lt;url&gt; </code>
-  </pre>
-</div>
-
-<p>当你要使用私有远程仓库的时候,就需要验证你的个人信息,确保你有权利访问这个远程仓库. 这个时候就需要使用ssh生成一对密钥对, 然后将公钥放在远程仓库上. 有关这方面的知识如果不是很明白可以先去学学ssh相关的内容.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># add all the changes to the this commit and commit it with only one line code</span>
+</span></span><span class="line"><span class="cl">git commit -am <span class="s2">&#34;args&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># clone a remote repo | clone a remote repo</span>
+</span></span><span class="line"><span class="cl">git clone &lt;url&gt;
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># fetch</span>
+</span></span><span class="line"><span class="cl">git fetch &lt;url&gt; 
+</span></span></code></pre></div><p>当你要使用私有远程仓库的时候,就需要验证你的个人信息,确保你有权利访问这个远程仓库. 这个时候就需要使用ssh生成一对密钥对, 然后将公钥放在远程仓库上. 有关这方面的知识如果不是很明白可以先去学学ssh相关的内容.</p>
 <h2 id="advance-command--feature">Advance command &amp; feature
 </h2><h3 id="git-checkout">git checkout
 </h3><ol>
 <li>切换分支 | 创建切换到新分支</li>
 </ol>
-
-
-
-
-
-<div class="highlight highlight-bash">
-  <pre>
-    <code class="language-bash" data-lang="bash">git checkout -b &lt;branch_name&gt;
-# 创建并移动到新分支
-
-git branch &lt;branch_name&gt;
-git checkout &lt;branch_name&gt;
-# 这两行等等效上面这行</code>
-  </pre>
-</div>
-
-<ol start="3">
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">git checkout -b &lt;branch_name&gt;
+</span></span><span class="line"><span class="cl"><span class="c1"># 创建并移动到新分支</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">git branch &lt;branch_name&gt;
+</span></span><span class="line"><span class="cl">git checkout &lt;branch_name&gt;
+</span></span><span class="line"><span class="cl"><span class="c1"># 这两行等等效上面这行</span>
+</span></span></code></pre></div><ol start="3">
 <li>放弃当前未保存的修改</li>
 </ol>
-
-
-
-
-
-<div class="highlight highlight-bash">
-  <pre>
-    <code class="language-bash" data-lang="bash">git checkout -- &lt;file_name&gt;
-# 放弃该文件的修改并回滚到上一次提交的状态</code>
-  </pre>
-</div>
-
-<ol start="4">
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">git checkout -- &lt;file_name&gt;
+</span></span><span class="line"><span class="cl"><span class="c1"># 放弃该文件的修改并回滚到上一次提交的状态</span>
+</span></span></code></pre></div><ol start="4">
 <li>查看历史提交</li>
 </ol>
-
-
-
-
-
-<div class="highlight highlight-bash">
-  <pre>
-    <code class="language-bash" data-lang="bash">git checkout -b &lt;commit_id&gt;
-# 提交历史id 可以通过git log 查看或者gui查看</code>
-  </pre>
-</div>
-
-<h3 id="git-stash">git stash
-</h3>
-
-
-
-
-<div class="highlight highlight-bash">
-  <pre>
-    <code class="language-bash" data-lang="bash">git stash
-git stash save &#34;&lt;comment&gt;&#34;
-# 存档当前的更改并回到最新一次提交的状态 | archive the modification and roll back to the latest commit
-
-git stash list
-git stash list 
-# 查看存档
-
-git stash pop stash@{&lt;id&gt;} 
-git stash pop stash@{&lt;id&gt;} 
-git stash pop
-# 将缓存剪切出来
-
-git stash apply stash@{&lt;id&gt;}
-git stash apply stash@{&lt;id&gt;}
-git stash apply
-# 将缓存复制出来
-
-git stash clear
-#清空缓存</code>
-  </pre>
-</div>
-
-<h3 id="git-reset">git reset
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">git checkout -b &lt;commit_id&gt;
+</span></span><span class="line"><span class="cl"><span class="c1"># 提交历史id 可以通过git log 查看或者gui查看</span>
+</span></span></code></pre></div><h3 id="git-stash">git stash
+</h3><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">git stash
+</span></span><span class="line"><span class="cl">git stash save <span class="s2">&#34;&lt;comment&gt;&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 存档当前的更改并回到最新一次提交的状态 | archive the modification and roll back to the latest commit</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">git stash list
+</span></span><span class="line"><span class="cl">git stash list 
+</span></span><span class="line"><span class="cl"><span class="c1"># 查看存档</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">git stash pop stash@<span class="o">{</span>&lt;id&gt;<span class="o">}</span> 
+</span></span><span class="line"><span class="cl">git stash pop stash@<span class="o">{</span>&lt;id&gt;<span class="o">}</span> 
+</span></span><span class="line"><span class="cl">git stash pop
+</span></span><span class="line"><span class="cl"><span class="c1"># 将缓存剪切出来</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">git stash apply stash@<span class="o">{</span>&lt;id&gt;<span class="o">}</span>
+</span></span><span class="line"><span class="cl">git stash apply stash@<span class="o">{</span>&lt;id&gt;<span class="o">}</span>
+</span></span><span class="line"><span class="cl">git stash apply
+</span></span><span class="line"><span class="cl"><span class="c1"># 将缓存复制出来</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">git stash clear
+</span></span><span class="line"><span class="cl"><span class="c1">#清空缓存</span>
+</span></span></code></pre></div><h3 id="git-reset">git reset
 </h3><p><code>git reset</code> 命令用于将当前分支的HEAD指针重置到指定的提交状态。它有三种常用模式：</p>
-
-
-
-
-
-<div class="highlight highlight-bash">
-  <pre>
-    <code class="language-bash" data-lang="bash"># 撤销最后一次的提交
-git reset --soft HEAD~1
-
-# 软重置 - 保留工作区和暂存区的更改
-git reset --soft &lt;commit_id&gt;
-# 仅移动HEAD指针到指定提交，不改变工作区和暂存区
-
-# 混合重置(默认) - 保留工作区更改，但清空暂存区
-git reset --mixed &lt;commit_id&gt;
-# 或者简写为
-git reset &lt;commit_id&gt;
-# 移动HEAD指针，并重置暂存区，但保留工作区更改
-
-# 硬重置 - 丢弃所有更改
-git reset --hard &lt;commit_id&gt;
-# 移动HEAD指针，重置暂存区和工作区，丢弃所有更改</code>
-  </pre>
-</div>
-
-<p>使用场景：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># 撤销最后一次的提交</span>
+</span></span><span class="line"><span class="cl">git reset --soft HEAD~1
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 软重置 - 保留工作区和暂存区的更改</span>
+</span></span><span class="line"><span class="cl">git reset --soft &lt;commit_id&gt;
+</span></span><span class="line"><span class="cl"><span class="c1"># 仅移动HEAD指针到指定提交，不改变工作区和暂存区</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 混合重置(默认) - 保留工作区更改，但清空暂存区</span>
+</span></span><span class="line"><span class="cl">git reset --mixed &lt;commit_id&gt;
+</span></span><span class="line"><span class="cl"><span class="c1"># 或者简写为</span>
+</span></span><span class="line"><span class="cl">git reset &lt;commit_id&gt;
+</span></span><span class="line"><span class="cl"><span class="c1"># 移动HEAD指针，并重置暂存区，但保留工作区更改</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 硬重置 - 丢弃所有更改</span>
+</span></span><span class="line"><span class="cl">git reset --hard &lt;commit_id&gt;
+</span></span><span class="line"><span class="cl"><span class="c1"># 移动HEAD指针，重置暂存区和工作区，丢弃所有更改</span>
+</span></span></code></pre></div><p>使用场景：</p>
 <ul>
 <li>撤销最近的提交</li>
 <li>合并多个提交为一个</li>
@@ -948,58 +868,28 @@ git reset --hard &lt;commit_id&gt;
 <h3 id="git-merge--官方文档">git merge | <a class="link" href="https://git-scm.com/docs/git-merge"  target="_blank" rel="noopener"
     >官方文档</a>
 </h3><p><code>git merge</code> 命令用于将一个或多个分支的更改合并到当前分支：</p>
-
-
-
-
-
-<div class="highlight highlight-bash">
-  <pre>
-    <code class="language-bash" data-lang="bash"># 合并指定分支到当前分支
-git merge &lt;branch_name&gt;
-
-# 创建合并提交，即使快进合并可用
-git merge --no-ff &lt;branch_name&gt;
-
-# 合并时产生一个squash提交，不保留原分支的提交历史
-git merge --squash &lt;branch_name&gt;</code>
-  </pre>
-</div>
-
-<h3 id="git-rebase--官方文档">git rebase | <a class="link" href="https://git-scm.com/docs/git-rebase"  target="_blank" rel="noopener"
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># 合并指定分支到当前分支</span>
+</span></span><span class="line"><span class="cl">git merge &lt;branch_name&gt;
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 创建合并提交，即使快进合并可用</span>
+</span></span><span class="line"><span class="cl">git merge --no-ff &lt;branch_name&gt;
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 合并时产生一个squash提交，不保留原分支的提交历史</span>
+</span></span><span class="line"><span class="cl">git merge --squash &lt;branch_name&gt;
+</span></span></code></pre></div><h3 id="git-rebase--官方文档">git rebase | <a class="link" href="https://git-scm.com/docs/git-rebase"  target="_blank" rel="noopener"
     >官方文档</a>
 </h3><p><code>git rebase</code> 用于将一系列提交&quot;变基&quot;到另一个基础提交上。通俗地说，它会把你的提交历史&quot;移动&quot;到另一个分支的最新提交之后，使得提交历史看起来更线性、更整洁。</p>
-
-
-
-
-
-<div class="highlight highlight-bash">
-  <pre>
-    <code class="language-bash" data-lang="bash"># 将当前分支的提交应用到 &lt;base_branch&gt; 的顶部
-git rebase &lt;base_branch&gt;
-
-# 例如，你在 feature 分支上，想把 main 分支的最新更改合并进来
-git checkout feature
-git rebase main</code>
-  </pre>
-</div>
-
-<p><strong>交互式 Rebase (<code>-i</code>)</strong></p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># 将当前分支的提交应用到 &lt;base_branch&gt; 的顶部</span>
+</span></span><span class="line"><span class="cl">git rebase &lt;base_branch&gt;
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 例如，你在 feature 分支上，想把 main 分支的最新更改合并进来</span>
+</span></span><span class="line"><span class="cl">git checkout feature
+</span></span><span class="line"><span class="cl">git rebase main
+</span></span></code></pre></div><p><strong>交互式 Rebase (<code>-i</code>)</strong></p>
 <p>这是一个非常强大的功能，允许你修改、合并、重新排序或删除一系列提交。e.g. 在某一个提交中有一个提交没有意义需要删除中间的某个提交.</p>
-
-
-
-
-
-<div class="highlight highlight-bash">
-  <pre>
-    <code class="language-bash" data-lang="bash"># 重新整理最近的3个提交
-git rebase -i HEAD~3</code>
-  </pre>
-</div>
-
-<p>执行后会打开一个编辑器，显示这3个提交，你可以执行以下操作：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># 重新整理最近的3个提交</span>
+</span></span><span class="line"><span class="cl">git rebase -i HEAD~3
+</span></span></code></pre></div><p>执行后会打开一个编辑器，显示这3个提交，你可以执行以下操作：</p>
 <ul>
 <li><code>pick</code>：保留提交（默认）</li>
 <li><code>reword</code>：修改提交信息</li>
@@ -1073,24 +963,12 @@ git rebase -i HEAD~3</code>
 <h4 id="如何识别冲突">如何识别冲突
 </h4><p>当冲突发生时，Git 会停止当前操作并通知你。你可以通过 <code>git status</code> 命令查看哪些文件处于冲突状态。</p>
 <p>在冲突的文件中，Git 会插入特殊的标记来指示冲突的部分：</p>
-
-
-
-
-  
-
-
-<div class="highlight highlight-text">
-  <pre>
-    <code class="language-text" data-lang="text">&lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD
-// 这是你当前分支（HEAD）的更改
-=======
-// 这是你正在合并（或变基）的分支的更改
-&gt;&gt;&gt;&gt;&gt;&gt;&gt; branch-name-or-commit-id</code>
-  </pre>
-</div>
-
-<ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">&lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD
+</span></span><span class="line"><span class="cl">// 这是你当前分支（HEAD）的更改
+</span></span><span class="line"><span class="cl">=======
+</span></span><span class="line"><span class="cl">// 这是你正在合并（或变基）的分支的更改
+</span></span><span class="line"><span class="cl">&gt;&gt;&gt;&gt;&gt;&gt;&gt; branch-name-or-commit-id
+</span></span></code></pre></div><ul>
 <li><code>&lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD</code> 到 <code>=======</code> 之间的内容是当前分支（你的工作）的更改。</li>
 <li><code>=======</code> 到 <code>&gt;&gt;&gt;&gt;&gt;&gt;&gt; branch-name-or-commit-id</code> 之间的内容是你正在合并/变基的分支（传入的更改）的更改。</li>
 </ul>
@@ -1153,34 +1031,14 @@ git rebase -i HEAD~3</code>
 </h4><p>在你把 <code>aider</code> 分支合并到 <code>main</code> 之后，标准的下一轮开发动作如下：</p>
 <h5 id="step-1-删除旧分支-清理战场">Step 1: 删除旧分支 (清理战场)
 </h5><p>既然 <code>aider</code> 里的代码已经进 <code>main</code> 了，它就没用了。</p>
-
-
-
-
-
-<div class="highlight highlight-bash">
-  <pre>
-    <code class="language-bash" data-lang="bash">git branch -d aider</code>
-  </pre>
-</div>
-
-<p><em>(注：如果代码还没合并，Git 会阻止你删除。如果已合并，<code>-d</code> 会安全删除。)</em></p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">git branch -d aider
+</span></span></code></pre></div><p><em>(注：如果代码还没合并，Git 会阻止你删除。如果已合并，<code>-d</code> 会安全删除。)</em></p>
 <h5 id="step-2-创建新分支-开始新征程">Step 2: 创建新分支 (开始新征程)
 </h5><p>根据你要做的新任务，起一个有意义的名字。</p>
-
-
-
-
-
-<div class="highlight highlight-bash">
-  <pre>
-    <code class="language-bash" data-lang="bash">git checkout -b feat/add-search-bar  # 比如你要做搜索功能
-# 或者
-git checkout -b fix/image-loading    # 比如你要修 bug</code>
-  </pre>
-</div>
-
-<h4 id="3-如何给分支起个好名字">3. 如何给分支起个好名字？
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">git checkout -b feat/add-search-bar  <span class="c1"># 比如你要做搜索功能</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 或者</span>
+</span></span><span class="line"><span class="cl">git checkout -b fix/image-loading    <span class="c1"># 比如你要修 bug</span>
+</span></span></code></pre></div><h4 id="3-如何给分支起个好名字">3. 如何给分支起个好名字？
 </h4><p>既然要频繁创建新分支，起名就很关键。推荐使用 <code>前缀/描述</code> 的格式：</p>
 <ul>
 <li><strong>feat/</strong> (feature): 开发新功能
@@ -1545,7 +1403,7 @@ git checkout -b fix/image-loading    # 比如你要修 bug</code>
                 src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
                 
                 >
-            </script><script type="text/javascript" src="/ts/main.888cccdaf3c934b58bb1982792b4d0fdb89be145d2cabea38c8569bfe7d08117.js" defer></script>
+            </script><script type="text/javascript" src="/ts/main.fe055f50234dc99b59992d29820a4403a71f7c90de7b6ebd204c621ac170b546.js" defer></script>
 <script>
     (function () {
         const customFont = document.createElement('link');

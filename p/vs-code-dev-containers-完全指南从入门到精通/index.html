@@ -1,0 +1,1756 @@
+<!DOCTYPE html>
+<html lang="en-us" dir="ltr">
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="全面介绍 VS Code Dev Containers 开发容器，包括基础概念、快速上手、自定义配置和高级功能">
+<title>VS Code Dev Containers 完全指南：从入门到精通</title>
+
+<link rel='canonical' href='http://localhost:1313/p/vs-code-dev-containers-%E5%AE%8C%E5%85%A8%E6%8C%87%E5%8D%97%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E7%B2%BE%E9%80%9A/'>
+
+<link rel="stylesheet" href="/scss/style.min.69ed452c4f70aa0bd98aa7f62758389d29493390c2f090e74cf1c607d4445e3e.css"><meta property='og:title' content="VS Code Dev Containers 完全指南：从入门到精通">
+<meta property='og:description' content="全面介绍 VS Code Dev Containers 开发容器，包括基础概念、快速上手、自定义配置和高级功能">
+<meta property='og:url' content='http://localhost:1313/p/vs-code-dev-containers-%E5%AE%8C%E5%85%A8%E6%8C%87%E5%8D%97%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E7%B2%BE%E9%80%9A/'>
+<meta property='og:site_name' content='Henry Zhang'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='vscode' /><meta property='article:tag' content='devcontainers' /><meta property='article:tag' content='docker' /><meta property='article:tag' content='development' /><meta property='article:tag' content='教程' /><meta property='article:published_time' content='2026-01-12T00:00:00&#43;08:00'/><meta property='article:modified_time' content='2026-01-12T10:55:02&#43;08:00'/><meta property='og:image' content='http://localhost:1313/default.jpeg' />
+<meta name="twitter:title" content="VS Code Dev Containers 完全指南：从入门到精通">
+<meta name="twitter:description" content="全面介绍 VS Code Dev Containers 开发容器，包括基础概念、快速上手、自定义配置和高级功能"><meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content='http://localhost:1313/default.jpeg' />
+    <link rel="shortcut icon" href="/favicon.ico" />
+
+
+<script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+<script>
+  
+  function getCurrentTheme() {
+    const colorSchemeKey = 'StackColorScheme';
+    const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+    const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+    
+    if (colorSchemeItem === 'dark' || (colorSchemeItem === 'auto' && supportDarkMode)) {
+      return 'dark';
+    } else {
+      return 'light';
+    }
+  }
+
+  
+  function logThemeInfo() {
+    const colorSchemeKey = 'StackColorScheme';
+    const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+    const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+    const documentScheme = document.documentElement.dataset.scheme;
+    
+    console.log('[Mermaid] Theme Detection:', {
+      localStorage: colorSchemeItem,
+      systemDark: supportDarkMode,
+      documentScheme: documentScheme,
+      calculatedTheme: getCurrentTheme()
+    });
+  }
+
+  
+  function initializeMermaid() {
+    const currentTheme = getCurrentTheme();
+    
+    if (currentTheme === 'dark') {
+      
+      mermaid.initialize({
+        startOnLoad: false,
+        theme: 'dark',
+        themeVariables: {
+          
+          primaryColor: '#4a5568',
+          primaryTextColor: '#f7fafc',
+          primaryBorderColor: '#63b3ed',
+          lineColor: '#e2e8f0',
+          secondaryColor: '#2d3748',
+          tertiaryColor: '#1a202c',
+          background: '#1a202c',
+          
+          
+          fillType0: '#2d3748',
+          fillType1: '#4a5568',
+          fillType2: '#4299e1',
+          clusterBkg: '#2d3748',
+          clusterBorder: '#4a5568',
+          nodeBorder: '#e2e8f0',
+          mainBkg: '#4a5568',
+          altBkg: '#2d3748',
+          
+          
+          labelBackground: '#2d3748',
+          edgeLabelBackground: '#2d3748',
+          titleColor: '#f7fafc',
+          
+          
+          actorBkg: '#2d3748',
+          actorBorder: '#4a5568',
+          actorTextColor: '#e2e8f0',
+          actorLine: '#4a5568',
+          signalColor: '#e2e8f0',
+          signalTextColor: '#e2e8f0',
+          noteBkgColor: '#4a5568',
+          noteBorderColor: '#4a5568',
+          noteTextColor: '#e2e8f0',
+          activationBorderColor: '#4299e1',
+          activationBkgColor: '#2d3748',
+          
+          
+          sectionBkgColor: '#2d3748',
+          altSectionBkgColor: '#4a5568',
+          sectionBorderColor: '#4a5568',
+          taskBkgColor: '#4299e1',
+          taskBorderColor: '#63b3ed',
+          taskTextColor: '#ffffff',
+          activeTaskBkgColor: '#48bb78',
+          activeTaskBorderColor: '#38a169',
+          doneTaskBkgColor: '#2d3748',
+          doneTaskBorderColor: '#4a5568',
+          critBkgColor: '#f56565',
+          critBorderColor: '#e53e3e',
+          critTextColor: '#ffffff',
+          
+          
+          pie1: '#4299e1',
+          pie2: '#48bb78',
+          pie3: '#ed8936',
+          pie4: '#9f7aea',
+          pie5: '#ed64a6',
+          pie6: '#38b2ac',
+          pie7: '#f6ad55',
+          pie8: '#68d391',
+          pie9: '#63b3ed',
+          pie10: '#b794f4',
+          pieTitleTextSize: '24px',
+          pieSectionTextSize: '16px',
+          pieOuterStrokeWidth: '2px',
+          pieStroke: '#1a202c',
+          pieOpacity: '1',
+          
+          
+          classText: '#f7fafc',
+          classTitle: '#f7fafc',
+          
+          
+          stateBkg: '#2d3748',
+          stateBorder: '#4a5568',
+          labelColor: '#f7fafc',
+          stateLabel: '#f7fafc',
+          stateText: '#f7fafc',
+          transitionLabel: '#f7fafc',
+          
+          
+          entityBkg: '#2d3748',
+          entityBorder: '#4a5568',
+          attributeBkg: '#2d3748',
+          attributeBorder: '#4a5568',
+          relationshipText: '#f7fafc',
+          
+          
+          gridColor: '#4a5568',
+          scaleBarColor: '#4a5568',
+          barColor: '#4299e1',
+          barBorderColor: '#63b3ed',
+          todayLineColor: '#f6ad55',
+          
+          
+          git0: '#4299e1',
+          git1: '#48bb78',
+          git2: '#ed8936',
+          git3: '#9f7aea',
+          git4: '#ed64a6',
+          git5: '#38b2ac',
+          git6: '#f6ad55',
+          git7: '#68d391',
+          gitInv0: '#2d3748',
+          gitInv1: '#2d3748',
+          gitInv2: '#2d3748',
+          gitInv3: '#2d3748',
+          gitInv4: '#2d3748',
+          gitInv5: '#2d3748',
+          gitInv6: '#2d3748',
+          gitInv7: '#2d3748',
+          
+          
+          mindmapPrimary: '#4299e1',
+          mindmapSecondary: '#48bb78',
+          mindmapTertiary: '#ed8936',
+          
+          
+          errorTextColor: '#fc8181',
+          warningTextColor: '#f6ad55',
+          infoTextColor: '#63b3ed',
+          
+          
+          edgeLabelBackground: '#1a202c',
+          
+          
+          edgeLabelBackground: '#2d3748',
+          
+          
+          classLabel: '#f7fafc',
+          dividerColor: '#4a5568',
+          
+          
+          dividerColor: '#4a5568',
+          
+          
+          dividerColor: '#4a5568',
+          
+          
+          fontFamily: '"Douyin Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
+          fontSize: '16px'
+        },
+        fontFamily: '"Douyin Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
+        fontSize: 16,
+        flowchart: {
+          useMaxWidth: true,
+          htmlLabels: true,
+          curve: 'basis'
+        },
+        sequence: {
+          useMaxWidth: true
+        },
+        journey: {
+          useMaxWidth: true
+        },
+        pie: {
+          useMaxWidth: true
+        },
+        gantt: {
+          useMaxWidth: true
+        },
+        git: {
+          useMaxWidth: true
+        },
+        mindmap: {
+          useMaxWidth: true
+        }
+      });
+    } else {
+      
+      mermaid.initialize({
+        startOnLoad: false,
+        theme: 'default',
+        themeVariables: {
+          primaryColor: '#007bff',
+          primaryTextColor: '#333',
+          primaryBorderColor: '#007bff',
+          lineColor: '#666',
+          secondaryColor: '#f8f9fa',
+          tertiaryColor: '#e9ecef'
+        },
+        fontFamily: '"Douyin Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
+        fontSize: 16,
+        flowchart: {
+          useMaxWidth: true,
+          htmlLabels: true,
+          curve: 'basis'
+        }
+      });
+    }
+    
+    
+    document.querySelectorAll('.mermaid').forEach(function(element) {
+      if (!element.dataset.original) {
+        element.dataset.original = element.textContent.trim();
+      }
+    });
+    
+    
+    return mermaid.run();
+  }
+
+  
+  document.addEventListener('DOMContentLoaded', function() {
+    
+    initializeMermaid();
+    
+    
+    logThemeInfo();
+    
+    
+    const darkModeToggle = document.getElementById('dark-mode-toggle');
+    if (darkModeToggle) {
+      darkModeToggle.addEventListener('click', function() {
+        
+        document.querySelectorAll('.mermaid').forEach(function(element) {
+          element.classList.add('reloading');
+        });
+        
+        
+        setTimeout(function() {
+          
+          document.querySelectorAll('.mermaid').forEach(function(element) {
+            
+            if (!element.dataset.original) {
+              element.dataset.original = element.textContent.trim();
+            }
+            
+            
+            element.innerHTML = '';
+            
+            
+            element.textContent = element.dataset.original;
+            
+            
+            element.removeAttribute('data-processed');
+          });
+          
+          
+          console.log('[Mermaid] Theme changed, reinitializing...');
+          
+          
+          initializeMermaid().then(function() {
+            
+            document.querySelectorAll('.mermaid').forEach(function(element) {
+              element.classList.remove('reloading');
+            });
+          });
+        }, 250);
+      });
+    }
+  });
+</script>
+<link rel='stylesheet' href='https://chinese-fonts-cdn.deno.dev/packages/dymh/dist/DouyinSansBold/result.css' />
+
+
+    </head>
+    <body class="
+    article-page
+    ">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky ">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="切换菜单">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header>
+        
+            
+            <figure class="site-avatar">
+                <a href="/">
+                
+                    
+                    
+                    
+                        
+                        <img src="/img/avatar_hu_a69ebd3e9749347e.jpeg" width="300"
+                            height="296" class="site-logo" loading="lazy" alt="Avatar">
+                    
+                
+                </a>
+                
+                    <span class="emoji">🤓</span>
+                
+            </figure>
+            
+        
+        
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/">Henry Zhang</a></h1>
+            <h2 class="site-description">Driven by Wonder, Powered by Knowledge.🤓</h2>
+        </div>
+    </header><ol class="menu-social">
+            
+                <li>
+                    <a 
+                        href='https://github.com/Gzmomo001'
+                        target="_blank"
+                        title="GitHub"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+        </ol><ol class="menu" id="main-menu">
+        
+        
+        
+        <li >
+            <a href='/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="5 12 3 12 12 3 21 12 19 12" />
+  <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
+  <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
+</svg>
+
+
+
+                
+                <span>Home</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/about-me/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="7" r="4" />
+  <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
+</svg>
+
+
+
+                
+                <span>About me</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/archives/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <rect x="3" y="4" width="18" height="4" rx="2" />
+  <path d="M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-10" />
+  <line x1="10" y1="12" x2="14" y2="12" />
+</svg>
+
+
+
+                
+                <span>Archives</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/search/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="10" cy="10" r="7" />
+  <line x1="21" y1="21" x2="15" y2="15" />
+</svg>
+
+
+
+                
+                <span>Search</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/some-useful-links/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-link" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5" />
+  <path d="M14 10a3.5 3.5 0 0 0 -5 0l-4 4a3.5 3.5 0 0 0 5 5l.5 -.5" />
+</svg>
+
+
+
+                
+                <span>Some Useful Links</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/update-logs/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                
+                <span>Update Logs</span>
+            </a>
+        </li>
+        
+        <li class="menu-bottom-section">
+            <ol class="menu">
+
+                
+                    <li id="dark-mode-toggle">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <span>暗色模式</span>
+                    </li>
+                
+            </ol>
+        </li>
+    </ol>
+</aside>
+
+    <aside class="sidebar right-sidebar sticky">
+        
+        
+            
+        
+
+        
+        
+            
+                
+                    
+    <section class="widget archives">
+        <div class="widget-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+        </div>
+        <h2 class="widget-title section-title">目录</h2>
+        
+        <div class="widget--toc">
+            <nav id="TableOfContents">
+  <ol>
+    <li>
+      <ol>
+        <li><a href="#什么是-dev-containers">什么是 Dev Containers？</a>
+          <ol>
+            <li><a href="#核心优势">核心优势</a></li>
+            <li><a href="#架构概览">架构概览</a></li>
+            <li><a href="#典型使用场景">典型使用场景</a></li>
+          </ol>
+        </li>
+        <li><a href="#快速上手">快速上手</a>
+          <ol>
+            <li><a href="#前置要求">前置要求</a></li>
+            <li><a href="#使用预定义容器">使用预定义容器</a></li>
+            <li><a href="#初次体验">初次体验</a></li>
+            <li><a href="#工作流程">工作流程</a></li>
+          </ol>
+        </li>
+        <li><a href="#自定义配置">自定义配置</a>
+          <ol>
+            <li><a href="#理解-devcontainerjson">理解 devcontainer.json</a>
+              <ol>
+                <li><a href="#基本结构示例">基本结构示例</a></li>
+                <li><a href="#关键配置项说明">关键配置项说明</a></li>
+              </ol>
+            </li>
+            <li><a href="#使用-dockerfile">使用 Dockerfile</a></li>
+            <li><a href="#docker-compose-集成">Docker Compose 集成</a></li>
+            <li><a href="#使用-features">使用 Features</a></li>
+          </ol>
+        </li>
+        <li><a href="#高级功能">高级功能</a>
+          <ol>
+            <li><a href="#多容器工作区">多容器工作区</a></li>
+            <li><a href="#dev-container-模板">Dev Container 模板</a></li>
+            <li><a href="#端口转发">端口转发</a></li>
+            <li><a href="#挂载卷">挂载卷</a></li>
+            <li><a href="#环境变量">环境变量</a></li>
+            <li><a href="#生命周期脚本">生命周期脚本</a></li>
+          </ol>
+        </li>
+        <li><a href="#最佳实践与技巧">最佳实践与技巧</a>
+          <ol>
+            <li><a href="#性能优化">性能优化</a></li>
+            <li><a href="#常见问题排查">常见问题排查</a></li>
+            <li><a href="#安全考虑">安全考虑</a></li>
+            <li><a href="#团队协作建议">团队协作建议</a></li>
+          </ol>
+        </li>
+        <li><a href="#视频教程资源">视频教程资源</a>
+          <ol>
+            <li><a href="#英文教程">英文教程</a></li>
+            <li><a href="#中文教程">中文教程</a></li>
+          </ol>
+        </li>
+        <li><a href="#参考资源">参考资源</a>
+          <ol>
+            <li><a href="#官方文档">官方文档</a></li>
+            <li><a href="#社区文章">社区文章</a></li>
+            <li><a href="#工具与扩展">工具与扩展</a></li>
+          </ol>
+        </li>
+        <li><a href="#总结">总结</a></li>
+      </ol>
+    </li>
+  </ol>
+</nav>
+        </div>
+    </section>
+
+                
+            
+        
+    </aside>
+
+
+
+            <main class="main full-width">
+    <article class="has-image main-article">
+    <header class="article-header">
+        <div class="article-image">
+            <a href="/p/vs-code-dev-containers-%E5%AE%8C%E5%85%A8%E6%8C%87%E5%8D%97%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E7%B2%BE%E9%80%9A/">
+                
+                    <img src="/default.jpeg" loading="lazy" alt="Featured image of post VS Code Dev Containers 完全指南：从入门到精通" />
+                
+            </a>
+        </div>
+    
+
+    <div class="article-details">
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/p/vs-code-dev-containers-%E5%AE%8C%E5%85%A8%E6%8C%87%E5%8D%97%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E7%B2%BE%E9%80%9A/">VS Code Dev Containers 完全指南：从入门到精通</a>
+        </h2>
+    
+        
+        <h3 class="article-subtitle">
+            全面介绍 VS Code Dev Containers 开发容器，包括基础概念、快速上手、自定义配置和高级功能
+        </h3>
+        
+    </div>
+
+    
+    
+    
+    
+    <footer class="article-time">
+        <div class="article-metadata">
+            
+            <div class="article-category">
+                
+                    
+                    
+                    <a href="/categories/%E6%8A%80%E6%9C%AF%E5%88%86%E4%BA%AB/" class="category-link" style="background-color: #242492; color: #ffffff;">
+                        技术分享
+                    </a>
+                
+            </div>
+            
+
+            
+            <div class="article-tags">
+                
+                    
+                    
+                    <a href="/tags/vscode/" class="tag-link" style="color: #ffffff; border: 1px solid #defb21; background-color: #defb2120;">
+                        #Vscode
+                    </a>
+                
+                    
+                    
+                    <a href="/tags/devcontainers/" class="tag-link" style="color: #ffffff; border: 1px solid #be2f02; background-color: #be2f0220;">
+                        #Devcontainers
+                    </a>
+                
+                    
+                    
+                    <a href="/tags/docker/" class="tag-link" style="color: #ffffff; border: 1px solid #9f1141; background-color: #9f114120;">
+                        #Docker
+                    </a>
+                
+                    
+                    
+                    <a href="/tags/development/" class="tag-link" style="color: #ffffff; border: 1px solid #4c17aa; background-color: #4c17aa20;">
+                        #Development
+                    </a>
+                
+                    
+                    
+                    <a href="/tags/%E6%95%99%E7%A8%8B/" class="tag-link" style="color: #ffffff; border: 1px solid #b6edf3; background-color: #b6edf320;">
+                        #教程
+                    </a>
+                
+            </div>
+            
+        </div>
+
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">2026-01-12</time>
+            </div>
+        <div class="article-lastmod">
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+                <time>
+                    Jan 12, 2026 10:55 CST
+                </time>
+            </div>
+    </footer>
+    
+
+    
+</div>
+
+</header>
+
+    <section class="article-content">
+    
+    
+    <h2 id="什么是-dev-containers">什么是 Dev Containers？
+</h2><p>VS Code Dev Containers（开发容器）是一种让您能够在容器中使用代码库的开发工具。它允许您：</p>
+<ul>
+<li><strong>隔离开发环境</strong>：每个项目都有独立、一致的开发环境</li>
+<li><strong>消除环境配置问题</strong>：不再需要手动安装依赖和工具</li>
+<li><strong>跨平台一致性</strong>：团队成员使用相同的容器配置，确保环境一致</li>
+<li><strong>快速切换项目</strong>：在不同项目间切换时无需重新配置环境</li>
+</ul>
+<h3 id="核心优势">核心优势
+</h3>
+<div style="text-align: center;">
+    <strong>&ldquo;一次配置，处处运行&rdquo;</strong>
+</div>
+<blockquote class="alert alert-note">
+    <p>Dev Containers 基于 Docker 技术，但您不需要深入了解 Docker 也能使用它。VS Code 提供了友好的界面和预设配置，让容器化开发变得简单。</p></blockquote>
+<h3 id="架构概览">架构概览
+</h3><pre class="mermaid">
+  flowchart TB
+    A[VS Code] --&gt; B[Dev Container Extension]
+    B --&gt; C[Docker Engine]
+    C --&gt; D[Dev Container]
+    D --&gt; E[开发环境]
+    E --&gt; F[源代码]
+    E --&gt; G[工具和扩展]
+    E --&gt; H[运行时依赖]
+
+    style A fill:#007acc,color:#fff
+    style B fill:#6c757d,color:#fff
+    style C fill:#2496ed,color:#fff
+    style D fill:#6db33f,color:#fff
+    style E fill:#e67e22,color:#fff
+</pre>
+
+<h3 id="典型使用场景">典型使用场景
+</h3><ul>
+<li><strong>团队协作</strong>：新成员只需克隆代码并打开 Dev Container，即可立即开始开发</li>
+<li><strong>多版本测试</strong>：在不同版本的 Node.js、Python 等环境中测试代码</li>
+<li><strong>微服务开发</strong>：同时运行多个服务容器，每个服务独立开发</li>
+<li><strong>学习新技术</strong>：在隔离环境中尝试新技术栈，不影响宿主机</li>
+</ul>
+<hr>
+<h2 id="快速上手">快速上手
+</h2><h3 id="前置要求">前置要求
+</h3><ol>
+<li>
+<p><strong>安装 Docker Desktop</strong></p>
+<ul>
+<li><a class="link" href="https://www.docker.com/products/docker-desktop/"  target="_blank" rel="noopener"
+    >macOS 版本</a></li>
+<li><a class="link" href="https://www.docker.com/products/docker-desktop/"  target="_blank" rel="noopener"
+    >Windows 版本</a></li>
+<li><a class="link" href="https://docs.docker.com/engine/install/"  target="_blank" rel="noopener"
+    >Linux 版本</a></li>
+</ul>
+</li>
+<li>
+<p><strong>安装 VS Code</strong></p>
+<ul>
+<li>下载 <a class="link" href="https://code.visualstudio.com/"  target="_blank" rel="noopener"
+    >VS Code</a></li>
+</ul>
+</li>
+<li>
+<p><strong>安装 Dev Container 扩展</strong></p>
+<ul>
+<li>在 VS Code 扩展市场搜索 &ldquo;Dev Containers&rdquo;</li>
+<li>或直接访问 <a class="link" href="https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-containers"  target="_blank" rel="noopener"
+    >Dev Containers 扩展页面</a></li>
+</ul>
+</li>
+</ol>
+<h3 id="使用预定义容器">使用预定义容器
+</h3><p>最简单的方式是使用 Microsoft 提供的预定义容器配置：</p>
+<ol>
+<li>打开 VS Code</li>
+<li>使用 <code>Ctrl+Shift+P</code>（或 <code>Cmd+Shift+P</code>）打开命令面板</li>
+<li>输入 &ldquo;Dev Containers: Add Dev Container Configuration Files&hellip;&rdquo;</li>
+<li>选择您需要的开发环境（如 Node.js、Python、Java 等）</li>
+<li>VS Code 会自动创建 <code>.devcontainer</code> 目录和配置文件</li>
+</ol>
+<h3 id="初次体验">初次体验
+</h3><div class="video-wrapper">
+    <iframe loading="lazy" 
+            src="https://www.youtube.com/embed/b1RavPr_878" 
+            allowfullscreen 
+            title="YouTube Video"
+    >
+    </iframe>
+</div>
+
+<blockquote class="alert alert-tip">
+    <p>视频展示了如何快速创建和使用您的第一个 Dev Container。即使您没有 Docker 经验，也能在几分钟内启动完整的开发环境。</p></blockquote>
+<h3 id="工作流程">工作流程
+</h3><pre class="mermaid">
+  sequenceDiagram
+    participant User as 开发者
+    participant VSCode as VS Code
+    participant Docker as Docker
+    participant Container as 容器
+
+    User-&gt;&gt;VSCode: 打开项目文件夹
+    VSCode-&gt;&gt;Docker: 请求创建容器
+    Docker-&gt;&gt;Container: 启动容器
+    Container-&gt;&gt;VSCode: 连接就绪
+    VSCode-&gt;&gt;User: 显示开发环境
+    User-&gt;&gt;VSCode: 开始编码
+</pre>
+
+<hr>
+<h2 id="自定义配置">自定义配置
+</h2><h3 id="理解-devcontainerjson">理解 devcontainer.json
+</h3><p><code>.devcontainer/devcontainer.json</code> 是 Dev Containers 的核心配置文件，定义了容器的行为和配置。</p>
+<h4 id="基本结构示例">基本结构示例
+</h4><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;name&#34;</span><span class="p">:</span> <span class="s2">&#34;My Node.js Project&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;image&#34;</span><span class="p">:</span> <span class="s2">&#34;mcr.microsoft.com/devcontainers/javascript-node:20&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;features&#34;</span><span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;ghcr.io/devcontainers/features/node:1&#34;</span><span class="p">:</span> <span class="p">{}</span>
+</span></span><span class="line"><span class="cl">  <span class="p">},</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;customizations&#34;</span><span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;vscode&#34;</span><span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;extensions&#34;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&#34;dbaeumer.vscode-eslint&#34;</span><span class="p">,</span> <span class="s2">&#34;esbenp.prettier-vscode&#34;</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="p">},</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;postCreateCommand&#34;</span><span class="p">:</span> <span class="s2">&#34;npm install&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;forwardPorts&#34;</span><span class="p">:</span> <span class="p">[</span><span class="mi">3000</span><span class="p">],</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;remoteUser&#34;</span><span class="p">:</span> <span class="s2">&#34;vscode&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><h4 id="关键配置项说明">关键配置项说明
+</h4><div class="table-wrapper"><table>
+  <thead>
+      <tr>
+          <th>配置项</th>
+          <th>说明</th>
+          <th>示例</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td><code>name</code></td>
+          <td>容器显示名称</td>
+          <td><code>&quot;My Project&quot;</code></td>
+      </tr>
+      <tr>
+          <td><code>image</code></td>
+          <td>基础镜像</td>
+          <td><code>&quot;mcr.microsoft.com/devcontainers/base:ubuntu&quot;</code></td>
+      </tr>
+      <tr>
+          <td><code>build.dockerfile</code></td>
+          <td>自定义 Dockerfile 路径</td>
+          <td><code>&quot;Dockerfile&quot;</code></td>
+      </tr>
+      <tr>
+          <td><code>features</code></td>
+          <td>Dev Containers Features</td>
+          <td>See below</td>
+      </tr>
+      <tr>
+          <td><code>customizations</code></td>
+          <td>VS Code 扩展和设置</td>
+          <td>See below</td>
+      </tr>
+      <tr>
+          <td><code>postCreateCommand</code></td>
+          <td>容器创建后执行的命令</td>
+          <td><code>&quot;npm install&quot;</code></td>
+      </tr>
+      <tr>
+          <td><code>forwardPorts</code></td>
+          <td>自动转发的端口</td>
+          <td><code>[3000, 8080]</code></td>
+      </tr>
+      <tr>
+          <td><code>mounts</code></td>
+          <td>挂载卷</td>
+          <td><code>[&quot;source=${localWorkspaceFolder}/../data,target=/data&quot;]</code></td>
+      </tr>
+  </tbody>
+</table></div>
+<h3 id="使用-dockerfile">使用 Dockerfile
+</h3><p>当预定义镜像无法满足需求时，可以使用自定义 Dockerfile：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-dockerfile" data-lang="dockerfile"><span class="line"><span class="cl"><span class="k">FROM</span><span class="w"> </span><span class="s">mcr.microsoft.com/devcontainers/base:ubuntu</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="c"># 安装 Node.js</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="k">RUN</span> apt-get update <span class="o">&amp;&amp;</span> <span class="nb">export</span> <span class="nv">DEBIAN_FRONTEND</span><span class="o">=</span>noninteractive <span class="se">\
+</span></span></span><span class="line"><span class="cl">    <span class="o">&amp;&amp;</span> apt-get -y install --no-install-recommends nodejs npm<span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="c"># 安装额外的工具</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="k">RUN</span> apt-get install -y git curl vim<span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="c"># 设置默认工作目录</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="k">WORKDIR</span><span class="w"> </span><span class="s">/workspace</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="c"># 切换到非 root 用户</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="k">USER</span><span class="w"> </span><span class="s">vscode</span><span class="err">
+</span></span></span></code></pre></div><p>对应的 devcontainer.json：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;name&#34;</span><span class="p">:</span> <span class="s2">&#34;My Custom Container&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;build&#34;</span><span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;dockerfile&#34;</span><span class="p">:</span> <span class="s2">&#34;Dockerfile&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;context&#34;</span><span class="p">:</span> <span class="s2">&#34;..&#34;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">},</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;customizations&#34;</span><span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;vscode&#34;</span><span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;extensions&#34;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&#34;ms-python.python&#34;</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><blockquote class="alert alert-warn">
+    <p>使用自定义 Dockerfile 时，确保安装了 <code>sudo</code> 并创建了 <code>vscode</code> 用户，否则 Dev Container 扩展可能无法正常工作。</p></blockquote>
+<h3 id="docker-compose-集成">Docker Compose 集成
+</h3><p>对于需要多个容器的复杂应用（如前端 + 后端 + 数据库），使用 Docker Compose：</p>
+<p><strong>docker-compose.yml</strong>:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="nt">version</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;3.8&#39;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="nt">services</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">app</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">build</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">context</span><span class="p">:</span><span class="w"> </span><span class="l">.</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">dockerfile</span><span class="p">:</span><span class="w"> </span><span class="l">Dockerfile</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">volumes</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="l">../..:/workspaces:cached</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">command</span><span class="p">:</span><span class="w"> </span><span class="l">sleep infinity</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">network_mode</span><span class="p">:</span><span class="w"> </span><span class="l">service:db</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">db</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l">postgres:15</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">restart</span><span class="p">:</span><span class="w"> </span><span class="l">unless-stopped</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">volumes</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="l">postgres-data:/var/lib/postgresql/data</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">environment</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">POSTGRES_USER</span><span class="p">:</span><span class="w"> </span><span class="l">postgres</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">POSTGRES_PASSWORD</span><span class="p">:</span><span class="w"> </span><span class="l">postgres</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">POSTGRES_DB</span><span class="p">:</span><span class="w"> </span><span class="l">development</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="nt">volumes</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">postgres-data</span><span class="p">:</span><span class="w">
+</span></span></span></code></pre></div><p><strong>.devcontainer/devcontainer.json</strong>:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;name&#34;</span><span class="p">:</span> <span class="s2">&#34;Multi-Container Project&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;dockerComposeFile&#34;</span><span class="p">:</span> <span class="s2">&#34;docker-compose.yml&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;service&#34;</span><span class="p">:</span> <span class="s2">&#34;app&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;workspaceFolder&#34;</span><span class="p">:</span> <span class="s2">&#34;/workspaces/${localWorkspaceFolderBasename}&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><h3 id="使用-features">使用 Features
+</h3><p>Dev Containers Features 是可重用的配置单元，简化了常见工具的安装：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;name&#34;</span><span class="p">:</span> <span class="s2">&#34;Full-Stack Project&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;image&#34;</span><span class="p">:</span> <span class="s2">&#34;mcr.microsoft.com/devcontainers/base:ubuntu&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;features&#34;</span><span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;ghcr.io/devcontainers/features/node:1&#34;</span><span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;version&#34;</span><span class="p">:</span> <span class="s2">&#34;lts&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">},</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;ghcr.io/devcontainers/features/python:1&#34;</span><span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;version&#34;</span><span class="p">:</span> <span class="s2">&#34;latest&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">},</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;ghcr.io/devcontainers/features/docker-in-docker:2&#34;</span><span class="p">:</span> <span class="p">{},</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;ghcr.io/devcontainers/features/git:1&#34;</span><span class="p">:</span> <span class="p">{}</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><blockquote class="alert alert-note">
+    <p>浏览更多 <a class="link" href="https://github.com/devcontainers/features"  target="_blank" rel="noopener"
+    >Dev Containers Features</a> 来发现可用的功能模块。</p></blockquote>
+<hr>
+<h2 id="高级功能">高级功能
+</h2><h3 id="多容器工作区">多容器工作区
+</h3><p>当您需要在多个容器中同时工作时（如微服务架构），可以创建多容器配置：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;name&#34;</span><span class="p">:</span> <span class="s2">&#34;Microservices Workspace&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;dockerComposeFile&#34;</span><span class="p">:</span> <span class="s2">&#34;docker-compose.yml&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;service&#34;</span><span class="p">:</span> <span class="s2">&#34;web&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;workspaceFolder&#34;</span><span class="p">:</span> <span class="s2">&#34;/workspace&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;services&#34;</span><span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;web&#34;</span><span class="p">:</span> <span class="s2">&#34;Frontend Service&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;api&#34;</span><span class="p">:</span> <span class="s2">&#34;Backend API&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;db&#34;</span><span class="p">:</span> <span class="s2">&#34;Database&#34;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><h3 id="dev-container-模板">Dev Container 模板
+</h3><p>使用社区贡献的 Dev Container 模板：</p>
+<ol>
+<li>访问 <a class="link" href="https://containers.dev/templates"  target="_blank" rel="noopener"
+    >containers.dev/templates</a></li>
+<li>搜索您需要的模板（如 Python、Go、Rust 等）</li>
+<li>一键添加到项目中</li>
+</ol>
+<h3 id="端口转发">端口转发
+</h3><p>自动或手动转发容器端口到宿主机：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;forwardPorts&#34;</span><span class="p">:</span> <span class="p">[</span><span class="mi">3000</span><span class="p">,</span> <span class="mi">8080</span><span class="p">,</span> <span class="mi">5432</span><span class="p">],</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;portsAttributes&#34;</span><span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;3000&#34;</span><span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;label&#34;</span><span class="p">:</span> <span class="s2">&#34;Application&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;onAutoForward&#34;</span><span class="p">:</span> <span class="s2">&#34;notify&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">},</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;5432&#34;</span><span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;label&#34;</span><span class="p">:</span> <span class="s2">&#34;Database&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;onAutoForward&#34;</span><span class="p">:</span> <span class="s2">&#34;silent&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><h3 id="挂载卷">挂载卷
+</h3><p>共享文件和目录：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;mounts&#34;</span><span class="p">:</span> <span class="p">[</span>
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;source=${localWorkspaceFolder}/../data,target=/data,type=bind,consistency=cached&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;source=/var/run/docker.sock,target=/var/run/docker.sock,type=bind&#34;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><h3 id="环境变量">环境变量
+</h3><p>设置容器环境变量：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;containerEnv&#34;</span><span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;NODE_ENV&#34;</span><span class="p">:</span> <span class="s2">&#34;development&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;API_ENDPOINT&#34;</span><span class="p">:</span> <span class="s2">&#34;http://localhost:8080&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;DEBUG&#34;</span><span class="p">:</span> <span class="s2">&#34;myapp:*&#34;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">},</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;remoteEnv&#34;</span><span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;PATH&#34;</span><span class="p">:</span> <span class="s2">&#34;${containerEnv:PATH}:/custom/bin&#34;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><h3 id="生命周期脚本">生命周期脚本
+</h3><p>在不同阶段执行命令：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;initializeCommand&#34;</span><span class="p">:</span> <span class="s2">&#34;echo &#39;初始化命令在宿主机运行&#39;&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;onCreateCommand&#34;</span><span class="p">:</span> <span class="s2">&#34;echo &#39;容器创建后运行&#39;&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;updateContentCommand&#34;</span><span class="p">:</span> <span class="s2">&#34;echo &#39;每次容器启动时运行&#39;&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;postCreateCommand&#34;</span><span class="p">:</span> <span class="s2">&#34;npm install &amp;&amp; npm run setup&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;postStartCommand&#34;</span><span class="p">:</span> <span class="s2">&#34;npm run dev&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;postAttachCommand&#34;</span><span class="p">:</span> <span class="s2">&#34;echo &#39;连接到容器后运行&#39;&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><hr>
+<h2 id="最佳实践与技巧">最佳实践与技巧
+</h2><h3 id="性能优化">性能优化
+</h3><div class="video-wrapper">
+    <iframe loading="lazy" 
+            src="https://www.youtube.com/embed/xTZfJ5LLA5A" 
+            allowfullscreen 
+            title="YouTube Video"
+    >
+    </iframe>
+</div>
+
+<ol>
+<li>
+<p><strong>使用卷缓存</strong></p>
+<ul>
+<li>Linux/macOS: 使用 <code>cached</code> 或 <code>delegated</code> 选项</li>
+<li>Windows: 使用 WSL2 后端以提高性能</li>
+</ul>
+</li>
+<li>
+<p><strong>减少文件监听</strong></p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;settings&#34;</span><span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;files.watcherExclude&#34;</span><span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;**/node_modules/**&#34;</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;**/dist/**&#34;</span><span class="p">:</span> <span class="kc">true</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div></li>
+<li>
+<p><strong>使用 .devcontainerignore</strong></p>
+<ul>
+<li>类似 .gitignore，避免复制不必要的文件到容器中</li>
+<li>忽略 <code>node_modules</code>、<code>dist</code>、<code>.git</code> 等目录</li>
+</ul>
+</li>
+</ol>
+<h3 id="常见问题排查">常见问题排查
+</h3><blockquote class="alert alert-error">
+    <p><strong>容器无法启动？</strong></p>
+<ul>
+<li>检查 Docker Desktop 是否运行</li>
+<li>查看 VS Code 输出面板的 &ldquo;Dev Containers&rdquo; 日志</li>
+<li>尝试重建容器：&ldquo;Dev Containers: Rebuild Container&rdquo;</li>
+</ul></blockquote>
+<blockquote class="alert alert-warn">
+    <p><strong>端口无法访问？</strong></p>
+<ul>
+<li>检查防火墙设置</li>
+<li>确认应用监听 <code>0.0.0.0</code> 而非 <code>127.0.0.1</code></li>
+<li>使用 &ldquo;Dev Containers: Forward Port from Container&rdquo; 手动转发</li>
+</ul></blockquote>
+<blockquote class="alert alert-error">
+    <p><strong>扩展无法安装？</strong></p>
+<ul>
+<li>检查网络连接</li>
+<li>尝试在 <code>customizations.vscode.extensions</code> 中声明</li>
+</ul></blockquote>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="line"><span class="cl"><span class="s2">&#34;customizations&#34;</span><span class="err">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;vscode&#34;</span><span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;extensions&#34;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&#34;publisher.extension-name&#34;</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><h3 id="安全考虑">安全考虑
+</h3><ul>
+<li><strong>避免在镜像中存储敏感信息</strong></li>
+<li><strong>使用非 root 用户运行容器</strong>（<code>remoteUser</code> 配置）</li>
+<li><strong>定期更新基础镜像</strong></li>
+<li><strong>限制容器权限</strong>（不使用 <code>--privileged</code>）</li>
+</ul>
+<h3 id="团队协作建议">团队协作建议
+</h3><ol>
+<li>
+<p><strong>将 .devcontainer 提交到版本控制</strong></p>
+<ul>
+<li>确保所有团队成员使用相同的配置</li>
+</ul>
+</li>
+<li>
+<p><strong>编写详细的 README</strong></p>
+<ul>
+<li>说明如何使用 Dev Container</li>
+<li>列出包含的工具和扩展</li>
+</ul>
+</li>
+<li>
+<p><strong>使用一致的 Node.js/Python 版本</strong></p>
+<ul>
+<li>在 devcontainer.json 中指定版本</li>
+<li>使用 .nvmrc 或 requirements.txt 锁定版本</li>
+</ul>
+</li>
+</ol>
+<hr>
+<h2 id="视频教程资源">视频教程资源
+</h2><h3 id="英文教程">英文教程
+</h3><div class="video-wrapper">
+    <iframe loading="lazy" 
+            src="https://www.youtube.com/embed/_lXwZ6KkVsM" 
+            allowfullscreen 
+            title="YouTube Video"
+    >
+    </iframe>
+</div>
+
+<p><strong>官方资源</strong>：</p>
+<ul>
+<li><a class="link" href="https://code.visualstudio.com/docs/devcontainers/containers"  target="_blank" rel="noopener"
+    >Dev Containers 官方文档</a></li>
+<li><a class="link" href="https://code.visualstudio.com/docs/devcontainers/tutorial"  target="_blank" rel="noopener"
+    >Dev Containers 官方教程</a></li>
+<li><a class="link" href="https://www.youtube.com/playlist?list=PLj6YeMhvp2S6GjVyDHTPp8tLOR0xLGLYb"  target="_blank" rel="noopener"
+    >官方 YouTube 播放列表</a></li>
+</ul>
+<h3 id="中文教程">中文教程
+</h3>
+
+
+
+
+
+    <p>Bilibili 视频av号或BV号错误！请检查视频av号或BV号是否正确</p>
+    <p>当前视频av或BV号：，视频分P：1</p>
+
+
+<div class="video-wrapper">
+    <iframe src="https://player.bilibili.com/player.html?as_wide=1&amp;high_quality=1&amp;page=1&"
+            scrolling="no"
+            frameborder="no"
+            framespacing="0"
+            allowfullscreen="true"
+    >
+    </iframe>
+</div>
+
+<p><strong>推荐视频</strong>：</p>
+<ol>
+<li><a class="link" href="https://www.bilibili.com/video/BV13T411G7LY/"  target="_blank" rel="noopener"
+    >VS Code 轻松使用 Docker 容器</a> - 基础入门</li>
+<li><a class="link" href="https://www.bilibili.com/video/BV1X14y1h77S/"  target="_blank" rel="noopener"
+    >使用 VS Code 的 Remote Container 打造 Java 开发环境</a> - Java 实践</li>
+<li><a class="link" href="https://www.bilibili.com/video/BV1uw411j7RP/"  target="_blank" rel="noopener"
+    >在宿主机编辑和运行 docker 内的 python 代码</a> - Python 开发</li>
+</ol>
+<hr>
+<h2 id="参考资源">参考资源
+</h2><h3 id="官方文档">官方文档
+</h3><ul>
+<li><a class="link" href="https://code.visualstudio.com/docs/devcontainers/containers"  target="_blank" rel="noopener"
+    >Dev Containers 概览</a></li>
+<li><a class="link" href="https://code.visualstudio.com/docs/devcontainers/create-dev-container#_devcontainerjson-properties"  target="_blank" rel="noopener"
+    >devcontainer.json 属性参考</a></li>
+<li><a class="link" href="https://containers.dev/"  target="_blank" rel="noopener"
+    >Dev Containers 规范</a></li>
+</ul>
+<h3 id="社区文章">社区文章
+</h3><ul>
+<li><a class="link" href="https://juejin.cn/post/7358744954615611418"  target="_blank" rel="noopener"
+    >掘金：VSCode 调试远程服务器上面的 Docker 容器</a></li>
+<li><a class="link" href="https://www.mintimate.cn/2025/11/09/aioDevContainer/"  target="_blank" rel="noopener"
+    >Mintimate：告别环境配置烦恼</a></li>
+</ul>
+<h3 id="工具与扩展">工具与扩展
+</h3><ul>
+<li><a class="link" href="https://github.com/devcontainers/features"  target="_blank" rel="noopener"
+    >Dev Containers Features</a> - 社区维护的 Features 集合</li>
+<li><a class="link" href="https://containers.dev/templates"  target="_blank" rel="noopener"
+    >Dev Container Templates</a> - 官方模板库</li>
+</ul>
+<hr>
+<h2 id="总结">总结
+</h2><p>VS Code Dev Containers 为现代开发提供了强大而灵活的环境管理方案：</p>
+<ul>
+<li>✅ <strong>一键启动</strong>：无需手动配置环境</li>
+<li>✅ <strong>一致性</strong>：团队成员使用相同的开发环境</li>
+<li>✅ <strong>隔离性</strong>：不影响宿主机环境</li>
+<li>✅ <strong>可移植性</strong>：配置文件可版本控制</li>
+<li>✅ <strong>灵活性</strong>：支持任意编程语言和工具</li>
+</ul>
+<p>无论您是个人开发者还是团队成员，Dev Containers 都能显著提升开发效率和项目协作体验。</p>
+
+<div style="text-align: center;">
+    <strong>开始使用 Dev Containers，让开发环境配置成为历史！</strong>
+</div>
+<hr>
+<p><strong>最后更新</strong>：2026-01-12
+<strong>相关标签</strong>：#vscode #devcontainers #docker #development #教程</p>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+
+    
+    <section class="article-copyright">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <path d="M14.5 9a3.5 4 0 1 0 0 6" />
+</svg>
+
+
+
+        <span>A winner is just a loser who tried one more time.</span>
+    </section>
+    
+
+    
+</footer>
+
+
+    
+        <link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css"integrity="sha384-n8MVd4RsNIU0tAv4ct0nTaAbDJwPJzDEaqSD1odI&#43;WdtXRGWt2kTvGFasHpSy3SV"crossorigin="anonymous"
+            ><script 
+                src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"integrity="sha384-XjKyOOlGwcjNTAIQHIpgOno0Hl1YQqzUOEleOLALmuqehneUG&#43;vnGctmUb0ZY0l8"crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"integrity="sha384-&#43;VBxd3r6XgURycqtZ117nYw44OOcIax56Z4dCRWbxyPt0Koah1uHoK0o4&#43;/RRE05"crossorigin="anonymous"
+                defer
+                >
+            </script><script>
+    window.addEventListener("DOMContentLoaded", () => {
+	const mainArticleElement = document.querySelector(".main-article");
+        renderMathInElement(mainArticleElement, {
+            delimiters: [
+                { left: "$$", right: "$$", display: true },
+                { left: "$", right: "$", display: false },
+                { left: "\\(", right: "\\)", display: false },
+                { left: "\\[", right: "\\]", display: true }
+            ],
+            ignoredClasses: ["gist"]
+        });})
+</script>
+
+    
+</article>
+
+    
+
+    
+
+<aside class="related-content--wrapper">
+    <h2 class="section-title">相关文章</h2>
+    <div class="related-content">
+        <div class="flex article-list--tile">
+            
+                
+<article class="has-image">
+    <a href="/p/%E8%BD%AF%E4%BB%B6%E5%BC%80%E5%8F%91%E5%85%A8%E6%B5%81%E7%A8%8B%E4%BB%8E0%E5%88%B01%E7%9A%84%E5%AE%8C%E6%95%B4%E6%8C%87%E5%8D%97/">
+        
+        
+            <div class="article-image">
+                
+                    <img src="/default.jpeg" loading="lazy" data-key="" data-hash="/default.jpeg"/>
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">软件开发全流程：从0到1的完整指南</h2>
+        </div>
+    </a>
+</article>
+
+            
+        </div>
+    </div>
+</aside>
+
+     
+    
+        
+    <script
+    src="https://giscus.app/client.js"
+    data-repo="Gzmomo001/Gzmomo001.github.io"
+    data-repo-id="R_kgDOOuLpRA"
+    data-category="General"
+    data-category-id="DIC_kwDOOuLpRM4Cr0Pz"
+    data-mapping="pathname"
+    data-strict="0"
+    data-reactions-enabled="1"
+    data-emit-metadata="0"
+    data-input-position="top"
+    data-theme="light"
+    data-lang="en"
+    data-loading=""
+    crossorigin="anonymous"
+    async
+></script>
+<script>
+    function setGiscusTheme(theme) {
+        let giscus = document.querySelector("iframe.giscus-frame");
+        if (giscus) {
+            giscus.contentWindow.postMessage(
+                {
+                    giscus: {
+                        setConfig: {
+                            theme: theme,
+                        },
+                    },
+                },
+                "https://giscus.app"
+            );
+        }
+    }
+
+    (function () {
+        addEventListener("message", (e) => {
+            if (event.origin !== "https://giscus.app") return;
+            handler();
+        });
+        window.addEventListener("onColorSchemeChange", handler);
+
+        function handler() {
+            if (document.documentElement.dataset.scheme === "light") {
+                setGiscusTheme('light');
+            } else {
+                setGiscusTheme('dark_dimmed');
+            }
+        }
+    })();
+</script>
+
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+            2025 - 
+        
+        2026 blog@mail.henry070.org
+    </section>
+    
+    <section class="powerby">
+        
+            Robust AI <br/>
+        使用 <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> 构建 <br />
+        主题 <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.30.0">Stack</a></b> 由 <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a> 设计
+    </section>
+</footer>
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css"crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css"crossorigin="anonymous"
+            >
+
+            </main>
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
+                
+                >
+            </script><script type="text/javascript" src="/ts/main.fe055f50234dc99b59992d29820a4403a71f7c90de7b6ebd204c621ac170b546.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+<style>
+    #TableOfContents > ul, ol {
+        ul, ol {
+            display: none;
+        }
+        .open {
+            display: block;
+        }
+    }
+</style>
+
+<script>
+    function initTocHide() {
+        
+        let toc = document.querySelector(".widget--toc");
+        if (!toc) {
+            return;
+        }
+        
+        window.addEventListener('scroll', function() {
+            
+            let openUl = document.querySelectorAll(".open");
+            if (openUl.length > 0) {
+              openUl.forEach((ul) => {
+                ul.classList.remove("open")
+              })
+            }
+            
+            let currentLi = document.querySelector(".active-class");
+            if (!currentLi) {
+                return
+            }
+            
+            if (currentLi.children.length > 1) {
+                currentLi.children[1].classList.add("open")
+            }
+            
+            let ul = currentLi.parentElement;
+            do {
+                ul.classList.add("open");
+                ul = ul.parentElement.parentElement
+            } while (ul !== undefined && (ul.localName === 'ul' || ul.localName === 'ol'))
+        });
+    }
+    initTocHide()
+</script>
+
+<style>
+    #backTopBtn {
+        display: none;
+        position: fixed;
+        bottom: 30px;
+         
+        z-index: 99;
+        cursor: pointer;
+        width: 40px;
+        height: 40px;
+        background-color: #666;
+        border-radius: 50%;
+        text-align: center;
+        line-height: 40px;
+        font-size: 25px;
+        color: white;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+        transition: background-color 0.3s;
+    }
+    
+    #backTopBtn:hover {
+        background-color: #333;
+    }
+    
+    #backTopBtn .arrow-icon {
+        display: none;
+    }
+    
+    #backTopBtn .backtop-svg {
+        width: 24px;
+        height: 24px;
+        margin: 8px;
+        fill: white;
+    }
+</style>
+
+
+<script>
+    
+
+    function initScrollTop() {
+        let rightSideBar = document.querySelector(".right-sidebar");
+        if (!rightSideBar) {
+            return;
+        }
+        
+        let btn = document.createElement("div");
+        btn.id = "backTopBtn";
+        btn.innerHTML = '<span class="arrow-icon"></span>' +
+                        '<svg class="backtop-svg" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="15764">' +
+                        '<path d="M512 938.666667c-59.733333 0-123.733333-2.133333-185.6-4.266667l-32-2.133333c-108.8-6.4-194.133333-91.733333-200.533333-200.533334C87.466667 648.533333 85.333333 576 85.333333 512c0-59.733333 2.133333-125.866667 6.4-202.666667v-17.066666c6.4-108.8 91.733333-194.133333 200.533334-200.533334 76.8-4.266667 149.333333-6.4 219.733333-6.4 59.733333 0 123.733333 2.133333 185.6 4.266667l32 2.133333c108.8 6.4 194.133333 91.733333 200.533333 200.533334 6.4 83.2 8.533333 155.733333 8.533334 219.733333 0 59.733333-2.133333 125.866667-6.4 202.666667v17.066666c-6.4 108.8-91.733333 194.133333-200.533334 200.533334-76.8 4.266667-149.333333 6.4-219.733333 6.4z m0-224c17.066667 0 32-14.933333 32-32V430.933333l96 96c12.8 12.8 32 12.8 44.8 0 12.8-12.8 12.8-32 0-44.8l-153.6-153.6c-6.4-6.4-8.533333-8.533333-12.8-8.533333-4.266667-2.133333-8.533333-2.133333-10.666667 0-4.266667 0-6.4 2.133333-10.666666 6.4l-2.133334 2.133333-153.6 153.6c-12.8 12.8-12.8 32 0 44.8 12.8 12.8 32 12.8 44.8 0l96-96V682.666667c-2.133333 17.066667 12.8 32 29.866667 32z" fill="#ffffff" p-id="15765"></path>' +
+                        '</svg>';
+        btn.onclick = backToTop;
+        rightSideBar.appendChild(btn);
+        
+        window.onscroll = function() {
+            
+            if (document.body.scrollTop > 700 || document.documentElement.scrollTop > 700) {
+                btn.style.display = "block";
+            } else {
+                btn.style.display = "none";
+            }
+        };
+    }
+
+    
+
+    function backToTop(){
+        window.scrollTo({ top: 0, behavior: "smooth" })
+    }
+
+    initScrollTop();
+</script>
+
+<style>
+    .highlight {
+         
+        max-height: 1000px;
+        overflow: hidden;
+    }
+
+    .code-show {
+        max-height: none !important;
+    }
+
+    .code-more-box {
+        width: 100%;
+        padding-top: 120px;  
+        background-image: linear-gradient(
+            to bottom,
+            rgba(4, 6, 5, 0) 0%,
+            rgba(4, 6, 5, 0.4) 40%,
+            rgba(4, 6, 5, 0.8) 100%
+        );
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        z-index: 1;
+    }
+
+    .code-more-btn {
+        display: block;
+        margin: auto;
+        width: 44px;
+        height: 22px;
+        background: #5f5f5f;
+        border-top-left-radius: 8px;
+        border-top-right-radius: 8px;
+        padding-top: 6px;
+        cursor: pointer;
+    }
+
+    .code-more-img {
+        cursor: pointer !important;
+        display: block;
+        margin: auto;
+        width: 22px;
+        height: 16px;
+    }
+</style>
+
+<script>
+  function initCodeMoreBox() {
+    let codeBlocks = document.querySelectorAll(".highlight");
+    if (!codeBlocks) {
+      return;
+    }
+    codeBlocks.forEach(codeBlock => {
+      
+      if (codeBlock.scrollHeight <= codeBlock.clientHeight) {
+        return;
+      }
+      
+      
+      let codeMoreBox = document.createElement('div');
+      codeMoreBox.classList.add('code-more-box');
+      
+      let codeMoreBtn = document.createElement('span');
+      codeMoreBtn.classList.add('code-more-btn');
+      codeMoreBtn.addEventListener('click', () => {
+        codeBlock.classList.add('code-show');
+        codeMoreBox.style.display = 'none';
+        
+        window.dispatchEvent(new Event('resize'))
+      })
+      
+      let img = document.createElement('img');
+      img.classList.add('code-more-img');
+      img.src = "http://localhost:1313/icons/down.png"
+      
+      codeMoreBtn.appendChild(img);
+      codeMoreBox.appendChild(codeMoreBtn);
+      codeBlock.appendChild(codeMoreBox)
+    })
+  }
+  
+  initCodeMoreBox();
+</script>
+
+
+
+    </body>
+</html>

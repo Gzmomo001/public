@@ -5,9 +5,9 @@
         <link>http://localhost:1313/tags/git/</link>
         <description>Recent content in Git on Henry Zhang</description>
         <generator>Hugo -- gohugo.io</generator>
-        <language>zh-cn</language>
+        <language>en-us</language>
         <copyright>blog@mail.henry070.org</copyright>
-        <lastBuildDate>Sun, 11 Jan 2026 18:44:44 +0000</lastBuildDate><atom:link href="http://localhost:1313/tags/git/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Mon, 12 Jan 2026 02:44:44 +0800</lastBuildDate><atom:link href="http://localhost:1313/tags/git/index.xml" rel="self" type="application/rss+xml" /><item>
         <title>Git Worktree：并行开发的利器</title>
         <link>http://localhost:1313/p/git-worktree/</link>
         <pubDate>Mon, 12 Jan 2026 00:00:00 +0800</pubDate>
@@ -1169,7 +1169,7 @@ git filter-repo --strip-blobs-bigger-than 100M&lt;/code&gt;
 &lt;p&gt;&lt;img src=&#34;http://localhost:1313/p/git/jojos-killer.gif&#34;
 	width=&#34;464&#34;
 	height=&#34;258&#34;
-	srcset=&#34;http://localhost:1313/p/git/jojos-killer_hu_113ff57fcf33b172.gif 480w, http://localhost:1313/p/git/jojos-killer_hu_49e2041d9bb05d24.gif 1024w&#34;
+	srcset=&#34;http://localhost:1313/p/git/jojos-killer_hu_e5fcf31d63d0f58e.gif 480w, http://localhost:1313/p/git/jojos-killer_hu_5e55566e1a98829f.gif 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;败者食尘&#34;

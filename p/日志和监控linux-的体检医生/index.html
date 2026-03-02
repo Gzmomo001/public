@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="zh-cn" dir="ltr">
+<html lang="en-us" dir="ltr">
     <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><meta charset='utf-8'>
 <meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="掌握 Linux 系统日志、journald、rsyslog、系统监控工具以及性能分析方法">
 <title>日志和监控：Linux 的体检医生</title>
@@ -10,7 +10,7 @@
 <meta property='og:description' content="掌握 Linux 系统日志、journald、rsyslog、系统监控工具以及性能分析方法">
 <meta property='og:url' content='http://localhost:1313/p/%E6%97%A5%E5%BF%97%E5%92%8C%E7%9B%91%E6%8E%A7linux-%E7%9A%84%E4%BD%93%E6%A3%80%E5%8C%BB%E7%94%9F/'>
 <meta property='og:site_name' content='Henry Zhang'>
-<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='linux' /><meta property='article:tag' content='日志管理' /><meta property='article:tag' content='系统监控' /><meta property='article:tag' content='性能分析' /><meta property='article:published_time' content='2026-01-11T02:00:00&#43;08:00'/><meta property='article:modified_time' content='2026-01-11T16:57:00&#43;00:00'/><meta property='og:image' content='http://localhost:1313/default.jpeg' />
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='linux' /><meta property='article:tag' content='日志管理' /><meta property='article:tag' content='系统监控' /><meta property='article:tag' content='性能分析' /><meta property='article:published_time' content='2026-01-11T02:00:00&#43;08:00'/><meta property='article:modified_time' content='2026-01-12T00:57:00&#43;08:00'/><meta property='og:image' content='http://localhost:1313/default.jpeg' />
 <meta name="twitter:title" content="日志和监控：Linux 的体检医生">
 <meta name="twitter:description" content="掌握 Linux 系统日志、journald、rsyslog、系统监控工具以及性能分析方法"><meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:image" content='http://localhost:1313/default.jpeg' />
@@ -357,7 +357,7 @@
                     
                     
                         
-                        <img src="/img/avatar_hu_9c50848f93c56cbf.jpeg" width="300"
+                        <img src="/img/avatar_hu_a69ebd3e9749347e.jpeg" width="300"
                             height="296" class="site-logo" loading="lazy" alt="Avatar">
                     
                 
@@ -738,7 +738,7 @@
 
 
                 <time>
-                    Jan 11, 2026 16:57 UTC
+                    Jan 12, 2026 00:57 CST
                 </time>
             </div>
     </footer>
@@ -773,49 +773,29 @@
 </pre>
 
 <h3 id="日志位置">日志位置
-</h3>
-
-
-
-
-<div class="highlight highlight-bash">
-  <pre>
-    <code class="language-bash" data-lang="bash"># 传统 syslog 日志位置
-/var/log/syslog          # 系统日志（Debian/Ubuntu）
-/var/log/messages        # 系统日志（RHEL/CentOS）
-/var/log/auth.log        # 认证日志
-/var/log/kern.log        # 内核日志
-/var/log/boot.log        # 启动日志
-/var/log/dmesg           # 启动时的内核消息
-
-# 应用日志
-/var/log/nginx/          # Nginx 日志
-/var/log/apache2/        # Apache 日志
-/var/log/mysql/          # MySQL 日志</code>
-  </pre>
-</div>
-
-<h3 id="日志级别">日志级别
-</h3>
-
-
-
-
-<div class="highlight highlight-bash">
-  <pre>
-    <code class="language-bash" data-lang="bash"># 严重程度从高到低：
-0 - emerg   # 紧急，系统不可用
-1 - alert   # 必须立即采取措施
-2 - crit    # 严重情况
-3 - err     # 错误
-4 - warning # 警告
-5 - notice  # 正常但重要
-6 - info    # 信息性消息
-7 - debug   # 调试信息</code>
-  </pre>
-</div>
-
-<h2 id="journald">journald
+</h3><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># 传统 syslog 日志位置</span>
+</span></span><span class="line"><span class="cl">/var/log/syslog          <span class="c1"># 系统日志（Debian/Ubuntu）</span>
+</span></span><span class="line"><span class="cl">/var/log/messages        <span class="c1"># 系统日志（RHEL/CentOS）</span>
+</span></span><span class="line"><span class="cl">/var/log/auth.log        <span class="c1"># 认证日志</span>
+</span></span><span class="line"><span class="cl">/var/log/kern.log        <span class="c1"># 内核日志</span>
+</span></span><span class="line"><span class="cl">/var/log/boot.log        <span class="c1"># 启动日志</span>
+</span></span><span class="line"><span class="cl">/var/log/dmesg           <span class="c1"># 启动时的内核消息</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 应用日志</span>
+</span></span><span class="line"><span class="cl">/var/log/nginx/          <span class="c1"># Nginx 日志</span>
+</span></span><span class="line"><span class="cl">/var/log/apache2/        <span class="c1"># Apache 日志</span>
+</span></span><span class="line"><span class="cl">/var/log/mysql/          <span class="c1"># MySQL 日志</span>
+</span></span></code></pre></div><h3 id="日志级别">日志级别
+</h3><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># 严重程度从高到低：</span>
+</span></span><span class="line"><span class="cl"><span class="m">0</span> - emerg   <span class="c1"># 紧急，系统不可用</span>
+</span></span><span class="line"><span class="cl"><span class="m">1</span> - alert   <span class="c1"># 必须立即采取措施</span>
+</span></span><span class="line"><span class="cl"><span class="m">2</span> - crit    <span class="c1"># 严重情况</span>
+</span></span><span class="line"><span class="cl"><span class="m">3</span> - err     <span class="c1"># 错误</span>
+</span></span><span class="line"><span class="cl"><span class="m">4</span> - warning <span class="c1"># 警告</span>
+</span></span><span class="line"><span class="cl"><span class="m">5</span> - notice  <span class="c1"># 正常但重要</span>
+</span></span><span class="line"><span class="cl"><span class="m">6</span> - info    <span class="c1"># 信息性消息</span>
+</span></span><span class="line"><span class="cl"><span class="m">7</span> - debug   <span class="c1"># 调试信息</span>
+</span></span></code></pre></div><h2 id="journald">journald
 </h2><h3 id="journald-简介">journald 简介
 </h3><p>journald 是 systemd 提供的日志服务，替代了传统的 syslog：</p>
 <pre class="mermaid">
@@ -831,483 +811,323 @@
 </pre>
 
 <h3 id="journalctl-命令">journalctl 命令
-</h3>
-
-
-
-
-<div class="highlight highlight-bash">
-  <pre>
-    <code class="language-bash" data-lang="bash"># 查看所有日志
-sudo journalctl
-
-# 查看最新日志
-sudo journalctl -e
-
-# 实时跟踪日志
-sudo journalctl -f
-
-# 查看内核日志
-sudo journalctl -k
-
-# 查看特定单元的日志
-sudo journalctl -u nginx
-sudo journalctl -u sshd
-
-# 查看最近1小时的日志
-sudo journalctl --since &#34;1 hour ago&#34;
-
-# 查看特定时间段的日志
-sudo journalctl --since &#34;2026-01-10 00:00:00&#34; --until &#34;2026-01-11 00:00:00&#34;
-
-# 按优先级过滤
-sudo journalctl -p err        # 错误级别
-sudo journalctl -p notice     # 通知及以上级别
-
-# 显示详细的可读格式
-sudo journalctl -o verbose
-sudo journalctl -o json       # JSON 格式
-
-# 限制输出行数
-sudo journalctl -n 50         # 最近50行
-sudo journalctl --since today | tail -n 100</code>
-  </pre>
-</div>
-
-<h3 id="持久化日志">持久化日志
-</h3>
-
-
-
-
-<div class="highlight highlight-bash">
-  <pre>
-    <code class="language-bash" data-lang="bash"># 检查日志存储方式
-sudo journalctl --header | grep Storage
-# Storage: auto（默认，有 /var/log/journal 则持久化）
-
-# 创建持久化存储
-sudo mkdir -p /var/log/journal
-sudo systemd-tmpfiles --create --prefix /var/log/journal
-sudo systemctl restart systemd-journald
-
-# 设置日志大小限制
-sudo nano /etc/systemd/journald.conf
-# SystemMaxUse=500M
-# RuntimeMaxUse=100M</code>
-  </pre>
-</div>
-
-<h2 id="rsyslog">rsyslog
+</h3><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># 查看所有日志</span>
+</span></span><span class="line"><span class="cl">sudo journalctl
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 查看最新日志</span>
+</span></span><span class="line"><span class="cl">sudo journalctl -e
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 实时跟踪日志</span>
+</span></span><span class="line"><span class="cl">sudo journalctl -f
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 查看内核日志</span>
+</span></span><span class="line"><span class="cl">sudo journalctl -k
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 查看特定单元的日志</span>
+</span></span><span class="line"><span class="cl">sudo journalctl -u nginx
+</span></span><span class="line"><span class="cl">sudo journalctl -u sshd
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 查看最近1小时的日志</span>
+</span></span><span class="line"><span class="cl">sudo journalctl --since <span class="s2">&#34;1 hour ago&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 查看特定时间段的日志</span>
+</span></span><span class="line"><span class="cl">sudo journalctl --since <span class="s2">&#34;2026-01-10 00:00:00&#34;</span> --until <span class="s2">&#34;2026-01-11 00:00:00&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 按优先级过滤</span>
+</span></span><span class="line"><span class="cl">sudo journalctl -p err        <span class="c1"># 错误级别</span>
+</span></span><span class="line"><span class="cl">sudo journalctl -p notice     <span class="c1"># 通知及以上级别</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 显示详细的可读格式</span>
+</span></span><span class="line"><span class="cl">sudo journalctl -o verbose
+</span></span><span class="line"><span class="cl">sudo journalctl -o json       <span class="c1"># JSON 格式</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 限制输出行数</span>
+</span></span><span class="line"><span class="cl">sudo journalctl -n <span class="m">50</span>         <span class="c1"># 最近50行</span>
+</span></span><span class="line"><span class="cl">sudo journalctl --since today <span class="p">|</span> tail -n <span class="m">100</span>
+</span></span></code></pre></div><h3 id="持久化日志">持久化日志
+</h3><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># 检查日志存储方式</span>
+</span></span><span class="line"><span class="cl">sudo journalctl --header <span class="p">|</span> grep Storage
+</span></span><span class="line"><span class="cl"><span class="c1"># Storage: auto（默认，有 /var/log/journal 则持久化）</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 创建持久化存储</span>
+</span></span><span class="line"><span class="cl">sudo mkdir -p /var/log/journal
+</span></span><span class="line"><span class="cl">sudo systemd-tmpfiles --create --prefix /var/log/journal
+</span></span><span class="line"><span class="cl">sudo systemctl restart systemd-journald
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 设置日志大小限制</span>
+</span></span><span class="line"><span class="cl">sudo nano /etc/systemd/journald.conf
+</span></span><span class="line"><span class="cl"><span class="c1"># SystemMaxUse=500M</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># RuntimeMaxUse=100M</span>
+</span></span></code></pre></div><h2 id="rsyslog">rsyslog
 </h2><h3 id="rsyslog-简介">rsyslog 简介
 </h3><p>rsyslog 是传统的 syslog 守护进程，功能强大：</p>
-
-
-
-
-
-<div class="highlight highlight-bash">
-  <pre>
-    <code class="language-bash" data-lang="bash"># 检查 rsyslog 状态
-sudo systemctl status rsyslog
-
-# 配置文件
-/etc/rsyslog.conf           # 主配置文件
-/etc/rsyslog.d/*.conf       # 额外配置</code>
-  </pre>
-</div>
-
-<h3 id="配置示例">配置示例
-</h3>
-
-
-
-
-<div class="highlight highlight-bash">
-  <pre>
-    <code class="language-bash" data-lang="bash"># /etc/rsyslog.d/myapp.conf
-
-# 记录特定应用的日志
-if $programname == &#39;myapp&#39; then /var/log/myapp.log
-&amp; stop
-
-# 记录到远程服务器
-*.* @@192.168.1.100:514
-
-# 根据严重程度记录
-*.err /var/log/errors.log
-*.warn /var/log/warnings.log</code>
-  </pre>
-</div>
-
-<h3 id="日志轮转logrotate">日志轮转（logrotate）
-</h3>
-
-
-
-
-<div class="highlight highlight-bash">
-  <pre>
-    <code class="language-bash" data-lang="bash"># 配置文件
-/etc/logrotate.conf          # 全局配置
-/etc/logrotate.d/*           # 应用配置
-
-# 查看特定配置
-cat /etc/logrotate.d/nginx
-
-# 示例配置
-/var/log/nginx/*.log {
-    daily                   # 每天轮转
-    missingok               # 文件不存在不报错
-    rotate 14               # 保留14天
-    compress                # 压缩旧日志
-    delaycompress           # 延迟一天压缩
-    notifempty              # 空文件不轮转
-    create 0640 www-data adm
-    sharedscripts
-    postrotate
-        [ -f /var/run/nginx.pid ] &amp;&amp; kill -USR1 `cat /var/run/nginx.pid`
-    endscript
-}
-
-# 手动执行
-sudo logrotate -f /etc/logrotate.conf
-
-# 调试模式
-sudo logrotate -d /etc/logrotate.conf</code>
-  </pre>
-</div>
-
-<h2 id="系统监控工具">系统监控工具
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># 检查 rsyslog 状态</span>
+</span></span><span class="line"><span class="cl">sudo systemctl status rsyslog
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 配置文件</span>
+</span></span><span class="line"><span class="cl">/etc/rsyslog.conf           <span class="c1"># 主配置文件</span>
+</span></span><span class="line"><span class="cl">/etc/rsyslog.d/*.conf       <span class="c1"># 额外配置</span>
+</span></span></code></pre></div><h3 id="配置示例">配置示例
+</h3><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># /etc/rsyslog.d/myapp.conf</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 记录特定应用的日志</span>
+</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="nv">$programname</span> <span class="o">==</span> <span class="s1">&#39;myapp&#39;</span> <span class="k">then</span> /var/log/myapp.log
+</span></span><span class="line"><span class="cl"><span class="p">&amp;</span> stop
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 记录到远程服务器</span>
+</span></span><span class="line"><span class="cl">*.* @@192.168.1.100:514
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 根据严重程度记录</span>
+</span></span><span class="line"><span class="cl">*.err /var/log/errors.log
+</span></span><span class="line"><span class="cl">*.warn /var/log/warnings.log
+</span></span></code></pre></div><h3 id="日志轮转logrotate">日志轮转（logrotate）
+</h3><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># 配置文件</span>
+</span></span><span class="line"><span class="cl">/etc/logrotate.conf          <span class="c1"># 全局配置</span>
+</span></span><span class="line"><span class="cl">/etc/logrotate.d/*           <span class="c1"># 应用配置</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 查看特定配置</span>
+</span></span><span class="line"><span class="cl">cat /etc/logrotate.d/nginx
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 示例配置</span>
+</span></span><span class="line"><span class="cl">/var/log/nginx/*.log <span class="o">{</span>
+</span></span><span class="line"><span class="cl">    daily                   <span class="c1"># 每天轮转</span>
+</span></span><span class="line"><span class="cl">    missingok               <span class="c1"># 文件不存在不报错</span>
+</span></span><span class="line"><span class="cl">    rotate <span class="m">14</span>               <span class="c1"># 保留14天</span>
+</span></span><span class="line"><span class="cl">    compress                <span class="c1"># 压缩旧日志</span>
+</span></span><span class="line"><span class="cl">    delaycompress           <span class="c1"># 延迟一天压缩</span>
+</span></span><span class="line"><span class="cl">    notifempty              <span class="c1"># 空文件不轮转</span>
+</span></span><span class="line"><span class="cl">    create <span class="m">0640</span> www-data adm
+</span></span><span class="line"><span class="cl">    sharedscripts
+</span></span><span class="line"><span class="cl">    postrotate
+</span></span><span class="line"><span class="cl">        <span class="o">[</span> -f /var/run/nginx.pid <span class="o">]</span> <span class="o">&amp;&amp;</span> <span class="nb">kill</span> -USR1 <span class="sb">`</span>cat /var/run/nginx.pid<span class="sb">`</span>
+</span></span><span class="line"><span class="cl">    endscript
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 手动执行</span>
+</span></span><span class="line"><span class="cl">sudo logrotate -f /etc/logrotate.conf
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 调试模式</span>
+</span></span><span class="line"><span class="cl">sudo logrotate -d /etc/logrotate.conf
+</span></span></code></pre></div><h2 id="系统监控工具">系统监控工具
 </h2><h3 id="tophtop">top/htop
-</h3>
-
-
-
-
-<div class="highlight highlight-bash">
-  <pre>
-    <code class="language-bash" data-lang="bash"># top
-top
-# 按 P：按 CPU 排序
-# 按 M：按内存排序
-# 按 T：按时间排序
-# 按 k：杀死进程
-# 按 r：renice
-
-# htop（更友好）
-htop
-# F1-F10：功能键
-# /：搜索进程
-# F9：调整优先级
-# F6：排序方式</code>
-  </pre>
-</div>
-
-<h3 id="vmstat">vmstat
-</h3>
-
-
-
-
-<div class="highlight highlight-bash">
-  <pre>
-    <code class="language-bash" data-lang="bash"># 虚拟内存统计
-vmstat 2 5                 # 每2秒输出一次，共5次
-
-# 输出解释：
-# procs -----------memory---------- ---swap-- -----io---- -system-- ------cpu-----
-# r  b   swpd   free   buff  cache   si   so    bi    bo   in   cs us sy id wa st
-# 1  0      0 123456  12345 234567    0    0     2     3   10   20  5  2 92  1  0
-
-# r: 等待运行的进程数
-# b: 不可中断睡眠的进程数
-# swpd: 使用的交换空间
-# free: 空闲内存
-# buff: 缓冲区
-# cache: 缓存
-# si/so: 换入/换出
-# bi/bo: 块输入/输出
-# cs: 上下文切换
-# us/sy/id/wa: 用户/系统/空闲/等待 CPU 时间</code>
-  </pre>
-</div>
-
-<h3 id="iostat">iostat
-</h3>
-
-
-
-
-<div class="highlight highlight-bash">
-  <pre>
-    <code class="language-bash" data-lang="bash"># 安装
-sudo apt install sysstat
-
-# I/O 统计
-iostat -x 2 3
-
-# 输出解释：
-# avg-cpu:  %user   %nice %system %iowait  %steal   %idle
-#            5.23    0.00    2.15    1.05    0.00   91.57
-
-# Device:         rrqm/s   wrqm/s     r/s     w/s    rMB/s    wMB/s avgrq-sz avgqu-sz   await r_await w_await  svctm  %util
-# sda               0.10     5.20   10.50   20.30     0.50     1.20    80.00     0.50   15.20   10.50   16.30   2.50   7.75
-
-# rrqm/s: 每秒合并的读请求数
-# wrqm/s: 每秒合并的写请求数
-# r/s: 每秒读请求数
-# w/s: 每秒写请求数
-# await: 平均 I/O 等待时间
-# %util: 设备利用率</code>
-  </pre>
-</div>
-
-<h3 id="pidstat">pidstat
-</h3>
-
-
-
-
-<div class="highlight highlight-bash">
-  <pre>
-    <code class="language-bash" data-lang="bash"># 进程统计
-pidstat 2 5                 # 每2秒输出一次，共5次
-
-# CPU 使用
-pidstat -u -p 1234 1
-
-# 内存使用
-pidstat -r -p 1234 1
-
-# 上下文切换
-pidstat -w -p 1234 1
-
-# 线程统计
-pidstat -t -p 1234 1</code>
-  </pre>
-</div>
-
-<h3 id="ssnetstat">ss/netstat
-</h3>
-
-
-
-
-<div class="highlight highlight-bash">
-  <pre>
-    <code class="language-bash" data-lang="bash"># 网络统计
-ss -s                      # 套接字摘要
-ss -tunlp                  # 所有监听端口
-ss -tunlp | grep :80       # 查找特定端口
-
-# netstat（旧工具）
-netstat -tunlp             # 所有监听端口
-netstat -an                # 所有连接
-netstat -s                 # 统计信息</code>
-  </pre>
-</div>
-
-<h2 id="性能分析">性能分析
+</h3><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># top</span>
+</span></span><span class="line"><span class="cl">top
+</span></span><span class="line"><span class="cl"><span class="c1"># 按 P：按 CPU 排序</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 按 M：按内存排序</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 按 T：按时间排序</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 按 k：杀死进程</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 按 r：renice</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># htop（更友好）</span>
+</span></span><span class="line"><span class="cl">htop
+</span></span><span class="line"><span class="cl"><span class="c1"># F1-F10：功能键</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># /：搜索进程</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># F9：调整优先级</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># F6：排序方式</span>
+</span></span></code></pre></div><h3 id="vmstat">vmstat
+</h3><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># 虚拟内存统计</span>
+</span></span><span class="line"><span class="cl">vmstat <span class="m">2</span> <span class="m">5</span>                 <span class="c1"># 每2秒输出一次，共5次</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 输出解释：</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># procs -----------memory---------- ---swap-- -----io---- -system-- ------cpu-----</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># r  b   swpd   free   buff  cache   si   so    bi    bo   in   cs us sy id wa st</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 1  0      0 123456  12345 234567    0    0     2     3   10   20  5  2 92  1  0</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># r: 等待运行的进程数</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># b: 不可中断睡眠的进程数</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># swpd: 使用的交换空间</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># free: 空闲内存</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># buff: 缓冲区</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># cache: 缓存</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># si/so: 换入/换出</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># bi/bo: 块输入/输出</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># cs: 上下文切换</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># us/sy/id/wa: 用户/系统/空闲/等待 CPU 时间</span>
+</span></span></code></pre></div><h3 id="iostat">iostat
+</h3><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># 安装</span>
+</span></span><span class="line"><span class="cl">sudo apt install sysstat
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># I/O 统计</span>
+</span></span><span class="line"><span class="cl">iostat -x <span class="m">2</span> <span class="m">3</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 输出解释：</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># avg-cpu:  %user   %nice %system %iowait  %steal   %idle</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#            5.23    0.00    2.15    1.05    0.00   91.57</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Device:         rrqm/s   wrqm/s     r/s     w/s    rMB/s    wMB/s avgrq-sz avgqu-sz   await r_await w_await  svctm  %util</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># sda               0.10     5.20   10.50   20.30     0.50     1.20    80.00     0.50   15.20   10.50   16.30   2.50   7.75</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># rrqm/s: 每秒合并的读请求数</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># wrqm/s: 每秒合并的写请求数</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># r/s: 每秒读请求数</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># w/s: 每秒写请求数</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># await: 平均 I/O 等待时间</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># %util: 设备利用率</span>
+</span></span></code></pre></div><h3 id="pidstat">pidstat
+</h3><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># 进程统计</span>
+</span></span><span class="line"><span class="cl">pidstat <span class="m">2</span> <span class="m">5</span>                 <span class="c1"># 每2秒输出一次，共5次</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># CPU 使用</span>
+</span></span><span class="line"><span class="cl">pidstat -u -p <span class="m">1234</span> <span class="m">1</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 内存使用</span>
+</span></span><span class="line"><span class="cl">pidstat -r -p <span class="m">1234</span> <span class="m">1</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 上下文切换</span>
+</span></span><span class="line"><span class="cl">pidstat -w -p <span class="m">1234</span> <span class="m">1</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 线程统计</span>
+</span></span><span class="line"><span class="cl">pidstat -t -p <span class="m">1234</span> <span class="m">1</span>
+</span></span></code></pre></div><h3 id="ssnetstat">ss/netstat
+</h3><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># 网络统计</span>
+</span></span><span class="line"><span class="cl">ss -s                      <span class="c1"># 套接字摘要</span>
+</span></span><span class="line"><span class="cl">ss -tunlp                  <span class="c1"># 所有监听端口</span>
+</span></span><span class="line"><span class="cl">ss -tunlp <span class="p">|</span> grep :80       <span class="c1"># 查找特定端口</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># netstat（旧工具）</span>
+</span></span><span class="line"><span class="cl">netstat -tunlp             <span class="c1"># 所有监听端口</span>
+</span></span><span class="line"><span class="cl">netstat -an                <span class="c1"># 所有连接</span>
+</span></span><span class="line"><span class="cl">netstat -s                 <span class="c1"># 统计信息</span>
+</span></span></code></pre></div><h2 id="性能分析">性能分析
 </h2><h3 id="cpu-性能">CPU 性能
-</h3>
-
-
-
-
-<div class="highlight highlight-bash">
-  <pre>
-    <code class="language-bash" data-lang="bash"># 检查 CPU 数量
-nproc
-lscpu
-
-# 查看 CPU 使用率
-top -bn1 | grep &#34;Cpu(s)&#34;
-mpstat -P ALL 1
-
-# 找出 CPU 消耗高的进程
-ps aux --sort=-%cpu | head -10
-
-# 查看每个 CPU 的负载
-mpstat -P ALL 1 5
-
-# 检查 CPU 亲和性
-taskset -c -p 1234</code>
-  </pre>
-</div>
-
-<h3 id="内存性能">内存性能
-</h3>
-
-
-
-
-<div class="highlight highlight-bash">
-  <pre>
-    <code class="language-bash" data-lang="bash"># 查看内存使用
-free -h
-cat /proc/meminfo
-
-# 查看进程内存使用
-ps aux --sort=-%mem | head -10
-smem -s memory             # 更准确的内存统计
-
-# 检查内存泄漏
-valgrind --leak-check=full ./myapp
-
-# 交换空间使用
-swapon -s
-vmstat 1 5 | grep si</code>
-  </pre>
-</div>
-
-<h3 id="磁盘-io">磁盘 I/O
-</h3>
-
-
-
-
-<div class="highlight highlight-bash">
-  <pre>
-    <code class="language-bash" data-lang="bash"># 查看磁盘使用
-df -h
-du -sh * | sort -hr | head -10
-
-# 磁盘 I/O 性能
-iostat -x 1 5
-
-# 查找 I/O 密集的进程
-iotop
-pidstat -d 1
-
-# 磁盘速度测试
-dd if=/dev/zero of=testfile bs=1G count=1 oflag=direct</code>
-  </pre>
-</div>
-
-<h3 id="网络性能">网络性能
-</h3>
-
-
-
-
-<div class="highlight highlight-bash">
-  <pre>
-    <code class="language-bash" data-lang="bash"># 网络带宽
-iftop                     # 实时带宽使用
-nethogs                   # 按进程显示
-speedtest-cli             # 网速测试
-
-# 网络连接统计
-ss -s
-netstat -an | wc -l
-
-# 抓包分析
-tcpdump -i eth0 -w capture.pcap
-wireshark capture.pcap</code>
-  </pre>
-</div>
-
-<h2 id="实战脚本">实战脚本
+</h3><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># 检查 CPU 数量</span>
+</span></span><span class="line"><span class="cl">nproc
+</span></span><span class="line"><span class="cl">lscpu
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 查看 CPU 使用率</span>
+</span></span><span class="line"><span class="cl">top -bn1 <span class="p">|</span> grep <span class="s2">&#34;Cpu(s)&#34;</span>
+</span></span><span class="line"><span class="cl">mpstat -P ALL <span class="m">1</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 找出 CPU 消耗高的进程</span>
+</span></span><span class="line"><span class="cl">ps aux --sort<span class="o">=</span>-%cpu <span class="p">|</span> head -10
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 查看每个 CPU 的负载</span>
+</span></span><span class="line"><span class="cl">mpstat -P ALL <span class="m">1</span> <span class="m">5</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 检查 CPU 亲和性</span>
+</span></span><span class="line"><span class="cl">taskset -c -p <span class="m">1234</span>
+</span></span></code></pre></div><h3 id="内存性能">内存性能
+</h3><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># 查看内存使用</span>
+</span></span><span class="line"><span class="cl">free -h
+</span></span><span class="line"><span class="cl">cat /proc/meminfo
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 查看进程内存使用</span>
+</span></span><span class="line"><span class="cl">ps aux --sort<span class="o">=</span>-%mem <span class="p">|</span> head -10
+</span></span><span class="line"><span class="cl">smem -s memory             <span class="c1"># 更准确的内存统计</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 检查内存泄漏</span>
+</span></span><span class="line"><span class="cl">valgrind --leak-check<span class="o">=</span>full ./myapp
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 交换空间使用</span>
+</span></span><span class="line"><span class="cl">swapon -s
+</span></span><span class="line"><span class="cl">vmstat <span class="m">1</span> <span class="m">5</span> <span class="p">|</span> grep si
+</span></span></code></pre></div><h3 id="磁盘-io">磁盘 I/O
+</h3><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># 查看磁盘使用</span>
+</span></span><span class="line"><span class="cl">df -h
+</span></span><span class="line"><span class="cl">du -sh * <span class="p">|</span> sort -hr <span class="p">|</span> head -10
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 磁盘 I/O 性能</span>
+</span></span><span class="line"><span class="cl">iostat -x <span class="m">1</span> <span class="m">5</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 查找 I/O 密集的进程</span>
+</span></span><span class="line"><span class="cl">iotop
+</span></span><span class="line"><span class="cl">pidstat -d <span class="m">1</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 磁盘速度测试</span>
+</span></span><span class="line"><span class="cl">dd <span class="k">if</span><span class="o">=</span>/dev/zero <span class="nv">of</span><span class="o">=</span>testfile <span class="nv">bs</span><span class="o">=</span>1G <span class="nv">count</span><span class="o">=</span><span class="m">1</span> <span class="nv">oflag</span><span class="o">=</span>direct
+</span></span></code></pre></div><h3 id="网络性能">网络性能
+</h3><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># 网络带宽</span>
+</span></span><span class="line"><span class="cl">iftop                     <span class="c1"># 实时带宽使用</span>
+</span></span><span class="line"><span class="cl">nethogs                   <span class="c1"># 按进程显示</span>
+</span></span><span class="line"><span class="cl">speedtest-cli             <span class="c1"># 网速测试</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 网络连接统计</span>
+</span></span><span class="line"><span class="cl">ss -s
+</span></span><span class="line"><span class="cl">netstat -an <span class="p">|</span> wc -l
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 抓包分析</span>
+</span></span><span class="line"><span class="cl">tcpdump -i eth0 -w capture.pcap
+</span></span><span class="line"><span class="cl">wireshark capture.pcap
+</span></span></code></pre></div><h2 id="实战脚本">实战脚本
 </h2><h3 id="系统健康检查">系统健康检查
-</h3>
-
-
-
-
-<div class="highlight highlight-bash">
-  <pre>
-    <code class="language-bash" data-lang="bash">#!/bin/bash
-# health_check.sh
-
-echo &#34;=== System Health Check ===&#34;
-echo &#34;Time: $(date)&#34;
-echo &#34;&#34;
-
-# CPU 使用率
-echo &#34;--- CPU Usage ---&#34;
-CPU_IDLE=$(top -bn1 | grep &#34;Cpu(s)&#34; | awk &#39;{print $8}&#39; | cut -d&#39;%&#39; -f1)
-CPU_USED=$(echo &#34;100 - $CPU_IDLE&#34; | bc)
-echo &#34;CPU Used: ${CPU_USED}%&#34;
-
-if (( $(echo &#34;$CPU_USED &gt; 80&#34; | bc -l) )); then
-    echo &#34;⚠️  WARNING: High CPU usage!&#34;
-fi
-
-# 内存使用
-echo &#34;&#34;
-echo &#34;--- Memory Usage ---&#34;
-MEM_INFO=$(free -m | awk &#39;NR==2{printf &#34;%.2f&#34;, $3*100/$2}&#39;)
-echo &#34;Memory Used: ${MEM_INFO}%&#34;
-
-if (( $(echo &#34;$MEM_INFO &gt; 80&#34; | bc -l) )); then
-    echo &#34;⚠️  WARNING: High memory usage!&#34;
-fi
-
-# 磁盘使用
-echo &#34;&#34;
-echo &#34;--- Disk Usage ---&#34;
-df -h | grep -E &#39;^/dev/&#39; | while read line; do
-    USAGE=$(echo $line | awk &#39;{print $5}&#39; | cut -d&#39;%&#39; -f1)
-    MOUNT=$(echo $line | awk &#39;{print $6}&#39;)
-
-    echo &#34;$MOUNT: ${USAGE}%&#34;
-
-    if [ $USAGE -gt 80 ]; then
-        echo &#34;⚠️  WARNING: $MOUNT is ${USAGE}% full!&#34;
-    fi
-done
-
-# 系统负载
-echo &#34;&#34;
-echo &#34;--- System Load ---&#34;
-UPTIME=$(uptime | awk -F&#39;load average:&#39; &#39;{print $2}&#39;)
-echo &#34;Load Average:$UPTIME&#34;
-
-# 错误日志
-echo &#34;&#34;
-echo &#34;--- Recent Errors ---&#34;
-journalctl -p err -n 5 --no-pager</code>
-  </pre>
-</div>
-
-<h3 id="性能监控脚本">性能监控脚本
-</h3>
-
-
-
-
-<div class="highlight highlight-bash">
-  <pre>
-    <code class="language-bash" data-lang="bash">#!/bin/bash
-# performance_monitor.sh
-
-OUTPUT_FILE=&#34;performance_$(date &#43;%Y%m%d_%H%M%S).log&#34;
-
-echo &#34;Timestamp,CPU%,Memory%,Disk%,Network_RX,Network_TX&#34; &gt; $OUTPUT_FILE
-
-while true; do
-    # CPU
-    CPU=$(top -bn1 | grep &#34;Cpu(s)&#34; | awk &#39;{print $2}&#39; | cut -d&#39;%&#39; -f1)
-
-    # Memory
-    MEM=$(free | awk &#39;NR==2{printf &#34;%.2f&#34;, $3*100/$2}&#39;)
-
-    # Disk (根分区)
-    DISK=$(df / | awk &#39;NR==2{print $5}&#39; | cut -d&#39;%&#39; -f1)
-
-    # Network
-    NET_RX=$(cat /sys/class/net/eth0/statistics/rx_bytes)
-    NET_TX=$(cat /sys/class/net/eth0/statistics/tx_bytes)
-
-    echo &#34;$(date &#43;%s),$CPU,$MEM,$DISK,$NET_RX,$NET_TX&#34; &gt;&gt; $OUTPUT_FILE
-
-    sleep 1
-done</code>
-  </pre>
-</div>
-
-<h2 id="总结">总结
+</h3><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="cp">#!/bin/bash
+</span></span></span><span class="line"><span class="cl"><span class="c1"># health_check.sh</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nb">echo</span> <span class="s2">&#34;=== System Health Check ===&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="nb">echo</span> <span class="s2">&#34;Time: </span><span class="k">$(</span>date<span class="k">)</span><span class="s2">&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="nb">echo</span> <span class="s2">&#34;&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># CPU 使用率</span>
+</span></span><span class="line"><span class="cl"><span class="nb">echo</span> <span class="s2">&#34;--- CPU Usage ---&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="nv">CPU_IDLE</span><span class="o">=</span><span class="k">$(</span>top -bn1 <span class="p">|</span> grep <span class="s2">&#34;Cpu(s)&#34;</span> <span class="p">|</span> awk <span class="s1">&#39;{print $8}&#39;</span> <span class="p">|</span> cut -d<span class="s1">&#39;%&#39;</span> -f1<span class="k">)</span>
+</span></span><span class="line"><span class="cl"><span class="nv">CPU_USED</span><span class="o">=</span><span class="k">$(</span><span class="nb">echo</span> <span class="s2">&#34;100 - </span><span class="nv">$CPU_IDLE</span><span class="s2">&#34;</span> <span class="p">|</span> bc<span class="k">)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">echo</span> <span class="s2">&#34;CPU Used: </span><span class="si">${</span><span class="nv">CPU_USED</span><span class="si">}</span><span class="s2">%&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="o">((</span> <span class="k">$(</span><span class="nb">echo</span> <span class="s2">&#34;</span><span class="nv">$CPU_USED</span><span class="s2"> &gt; 80&#34;</span> <span class="p">|</span> bc -l<span class="k">)</span> <span class="o">))</span><span class="p">;</span> <span class="k">then</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">echo</span> <span class="s2">&#34;⚠️  WARNING: High CPU usage!&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="k">fi</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 内存使用</span>
+</span></span><span class="line"><span class="cl"><span class="nb">echo</span> <span class="s2">&#34;&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="nb">echo</span> <span class="s2">&#34;--- Memory Usage ---&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="nv">MEM_INFO</span><span class="o">=</span><span class="k">$(</span>free -m <span class="p">|</span> awk <span class="s1">&#39;NR==2{printf &#34;%.2f&#34;, $3*100/$2}&#39;</span><span class="k">)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">echo</span> <span class="s2">&#34;Memory Used: </span><span class="si">${</span><span class="nv">MEM_INFO</span><span class="si">}</span><span class="s2">%&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="o">((</span> <span class="k">$(</span><span class="nb">echo</span> <span class="s2">&#34;</span><span class="nv">$MEM_INFO</span><span class="s2"> &gt; 80&#34;</span> <span class="p">|</span> bc -l<span class="k">)</span> <span class="o">))</span><span class="p">;</span> <span class="k">then</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">echo</span> <span class="s2">&#34;⚠️  WARNING: High memory usage!&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="k">fi</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 磁盘使用</span>
+</span></span><span class="line"><span class="cl"><span class="nb">echo</span> <span class="s2">&#34;&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="nb">echo</span> <span class="s2">&#34;--- Disk Usage ---&#34;</span>
+</span></span><span class="line"><span class="cl">df -h <span class="p">|</span> grep -E <span class="s1">&#39;^/dev/&#39;</span> <span class="p">|</span> <span class="k">while</span> <span class="nb">read</span> line<span class="p">;</span> <span class="k">do</span>
+</span></span><span class="line"><span class="cl">    <span class="nv">USAGE</span><span class="o">=</span><span class="k">$(</span><span class="nb">echo</span> <span class="nv">$line</span> <span class="p">|</span> awk <span class="s1">&#39;{print $5}&#39;</span> <span class="p">|</span> cut -d<span class="s1">&#39;%&#39;</span> -f1<span class="k">)</span>
+</span></span><span class="line"><span class="cl">    <span class="nv">MOUNT</span><span class="o">=</span><span class="k">$(</span><span class="nb">echo</span> <span class="nv">$line</span> <span class="p">|</span> awk <span class="s1">&#39;{print $6}&#39;</span><span class="k">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="nb">echo</span> <span class="s2">&#34;</span><span class="nv">$MOUNT</span><span class="s2">: </span><span class="si">${</span><span class="nv">USAGE</span><span class="si">}</span><span class="s2">%&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="o">[</span> <span class="nv">$USAGE</span> -gt <span class="m">80</span> <span class="o">]</span><span class="p">;</span> <span class="k">then</span>
+</span></span><span class="line"><span class="cl">        <span class="nb">echo</span> <span class="s2">&#34;⚠️  WARNING: </span><span class="nv">$MOUNT</span><span class="s2"> is </span><span class="si">${</span><span class="nv">USAGE</span><span class="si">}</span><span class="s2">% full!&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">fi</span>
+</span></span><span class="line"><span class="cl"><span class="k">done</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 系统负载</span>
+</span></span><span class="line"><span class="cl"><span class="nb">echo</span> <span class="s2">&#34;&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="nb">echo</span> <span class="s2">&#34;--- System Load ---&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="nv">UPTIME</span><span class="o">=</span><span class="k">$(</span>uptime <span class="p">|</span> awk -F<span class="s1">&#39;load average:&#39;</span> <span class="s1">&#39;{print $2}&#39;</span><span class="k">)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">echo</span> <span class="s2">&#34;Load Average:</span><span class="nv">$UPTIME</span><span class="s2">&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 错误日志</span>
+</span></span><span class="line"><span class="cl"><span class="nb">echo</span> <span class="s2">&#34;&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="nb">echo</span> <span class="s2">&#34;--- Recent Errors ---&#34;</span>
+</span></span><span class="line"><span class="cl">journalctl -p err -n <span class="m">5</span> --no-pager
+</span></span></code></pre></div><h3 id="性能监控脚本">性能监控脚本
+</h3><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="cp">#!/bin/bash
+</span></span></span><span class="line"><span class="cl"><span class="c1"># performance_monitor.sh</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nv">OUTPUT_FILE</span><span class="o">=</span><span class="s2">&#34;performance_</span><span class="k">$(</span>date +%Y%m%d_%H%M%S<span class="k">)</span><span class="s2">.log&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nb">echo</span> <span class="s2">&#34;Timestamp,CPU%,Memory%,Disk%,Network_RX,Network_TX&#34;</span> &gt; <span class="nv">$OUTPUT_FILE</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">while</span> true<span class="p">;</span> <span class="k">do</span>
+</span></span><span class="line"><span class="cl">    <span class="c1"># CPU</span>
+</span></span><span class="line"><span class="cl">    <span class="nv">CPU</span><span class="o">=</span><span class="k">$(</span>top -bn1 <span class="p">|</span> grep <span class="s2">&#34;Cpu(s)&#34;</span> <span class="p">|</span> awk <span class="s1">&#39;{print $2}&#39;</span> <span class="p">|</span> cut -d<span class="s1">&#39;%&#39;</span> -f1<span class="k">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1"># Memory</span>
+</span></span><span class="line"><span class="cl">    <span class="nv">MEM</span><span class="o">=</span><span class="k">$(</span>free <span class="p">|</span> awk <span class="s1">&#39;NR==2{printf &#34;%.2f&#34;, $3*100/$2}&#39;</span><span class="k">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1"># Disk (根分区)</span>
+</span></span><span class="line"><span class="cl">    <span class="nv">DISK</span><span class="o">=</span><span class="k">$(</span>df / <span class="p">|</span> awk <span class="s1">&#39;NR==2{print $5}&#39;</span> <span class="p">|</span> cut -d<span class="s1">&#39;%&#39;</span> -f1<span class="k">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1"># Network</span>
+</span></span><span class="line"><span class="cl">    <span class="nv">NET_RX</span><span class="o">=</span><span class="k">$(</span>cat /sys/class/net/eth0/statistics/rx_bytes<span class="k">)</span>
+</span></span><span class="line"><span class="cl">    <span class="nv">NET_TX</span><span class="o">=</span><span class="k">$(</span>cat /sys/class/net/eth0/statistics/tx_bytes<span class="k">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="nb">echo</span> <span class="s2">&#34;</span><span class="k">$(</span>date +%s<span class="k">)</span><span class="s2">,</span><span class="nv">$CPU</span><span class="s2">,</span><span class="nv">$MEM</span><span class="s2">,</span><span class="nv">$DISK</span><span class="s2">,</span><span class="nv">$NET_RX</span><span class="s2">,</span><span class="nv">$NET_TX</span><span class="s2">&#34;</span> &gt;&gt; <span class="nv">$OUTPUT_FILE</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    sleep <span class="m">1</span>
+</span></span><span class="line"><span class="cl"><span class="k">done</span>
+</span></span></code></pre></div><h2 id="总结">总结
 </h2><p>日志和监控是系统管理的关键技能。通过这篇文章，我们学习了：</p>
 <h3 id="核心工具">核心工具
 </h3><ol>
@@ -1669,7 +1489,7 @@ done</code>
                 src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
                 
                 >
-            </script><script type="text/javascript" src="/ts/main.888cccdaf3c934b58bb1982792b4d0fdb89be145d2cabea38c8569bfe7d08117.js" defer></script>
+            </script><script type="text/javascript" src="/ts/main.fe055f50234dc99b59992d29820a4403a71f7c90de7b6ebd204c621ac170b546.js" defer></script>
 <script>
     (function () {
         const customFont = document.createElement('link');

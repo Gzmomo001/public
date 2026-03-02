@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="zh-cn" dir="ltr">
+<html lang="en-us" dir="ltr">
     <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><meta charset='utf-8'>
 <meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="HTML Cheat Sheet">
 <title>HTML</title>
@@ -357,7 +357,7 @@
                     
                     
                         
-                        <img src="/img/avatar_hu_9c50848f93c56cbf.jpeg" width="300"
+                        <img src="/img/avatar_hu_a69ebd3e9749347e.jpeg" width="300"
                             height="296" class="site-logo" loading="lazy" alt="Avatar">
                     
                 
@@ -596,8 +596,8 @@
     <header class="article-header">
         <div class="article-image">
             <a href="/p/html/">
-                <img src="/p/html/html_hu_133397c92af589c9.png"
-                        srcset="/p/html/html_hu_133397c92af589c9.png 800w, /p/html/html_hu_a608d64f56e1ab0a.png 1600w"
+                <img src="/p/html/html_hu_6ad1b60ffceff9e0.png"
+                        srcset="/p/html/html_hu_6ad1b60ffceff9e0.png 800w, /p/html/html_hu_322161dad559359d.png 1600w"
                         width="800" 
                         height="800" 
                         loading="lazy"
@@ -680,7 +680,7 @@
 
 
                 <time>
-                    Nov 23, 2025 00:53 &#43;0800
+                    Nov 23, 2025 00:53 CST
                 </time>
             </div>
     </footer>
@@ -695,205 +695,185 @@
     
     
     <h2 id="cheat-sheet-of-html">Cheat Sheet of HTML
-</h2>
-
-
-
-
-<div class="highlight highlight-html">
-  <pre>
-    <code class="language-html" data-lang="html">&lt;!DOCTYPE html&gt;
-&lt;html&gt; 
-    &lt;head&gt;
-        &lt;title&gt;HTML Cheat Sheet&lt;/title&gt;
-    &lt;/head&gt;
-    &lt;body&gt;
-        &lt;!-- Headings, this is what comments look like --&gt;
-         &lt;h1&gt;h1&lt;/h1&gt;
-         &lt;h2&gt;h2&lt;/h2&gt;
-         &lt;h3&gt;h3&lt;/h3&gt;
-         &lt;h4&gt;h4&lt;/h4&gt;
-         &lt;h5&gt;h5&lt;/h5&gt;
-         &lt;h6&gt;h6&lt;/h6&gt;
-         
-         &lt;!-- body --&gt;
-        &lt;p&gt;
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. &lt;strong&gt;Repellendus repellat ab adipisci consequuntur excepturi nisi&lt;/strong&gt;, pariatur vel distinctio dolore voluptates quia facilis esse provident &lt;em&gt;itaque eum quaerat tempora quis aut.&lt;/em&gt;
-        &lt;/p&gt;
-
-        &lt;p&gt;
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. &lt;a href=&#34;http://bilibili.com&#34; target=&#34;_blank&#34;&gt;Repellendus repellat ab adipisci consequuntur excepturi nisi&lt;/a&gt;, pariatur vel distinctio dolore voluptates quia facilis esse provident itaque eum quaerat tempora quis aut.
-        &lt;/p&gt;
-
-        &lt;!-- list --&gt;
-         &lt;ul&gt;
-             &lt;li&gt;list item 1&lt;/li&gt;
-             &lt;li&gt;list item 2&lt;/li&gt;
-             &lt;li&gt;list item 3&lt;/li&gt;
-         &lt;/ul&gt;
-
-         &lt;!-- list with numbers --&gt;
-         &lt;ol&gt;
-             &lt;li&gt;list item 1&lt;/li&gt;
-             &lt;li&gt;list item 2&lt;/li&gt;
-             &lt;li&gt;list item 3&lt;/li&gt;
-         &lt;/ol&gt;
-
-         &lt;!-- table --&gt;
-          &lt;table&gt;
-              &lt;tr&gt;
-                &lt;!-- th: heading --&gt;
-                  &lt;th&gt;name&lt;/th&gt;
-                  &lt;th&gt;age&lt;/th&gt;
-              &lt;/tr&gt;
-              &lt;tr&gt;
-                &lt;!-- ta: data --&gt;
-                  &lt;td&gt;john&lt;/td&gt;
-                  &lt;td&gt;20&lt;/td&gt;
-              &lt;/tr&gt;
-              &lt;tr&gt;
-                  &lt;td&gt;jane&lt;/td&gt;
-                  &lt;td&gt;21&lt;/td&gt;
-              &lt;/tr&gt;
-          &lt;/table&gt;
-
-          &lt;form action=&#34;process.php&#34; method=&#34;POST&#34;&gt;
-            &lt;!-- div can break the elements to separate lines --&gt;
-            &lt;div&gt;
-                &lt;label&gt;first name&lt;/label&gt;
-                &lt;input type=&#34;text&#34; name=&#34;firstname&#34; placeholder=&#34;enter first name&#34;&gt;
-            &lt;/div&gt;
-            &lt;!-- br: break line --&gt;
-            &lt;br&gt;
-            &lt;div&gt;
-                &lt;label&gt;last name&lt;/label&gt;
-                &lt;input type=&#34;text&#34; name=&#34;lastname&#34;&gt;
-            &lt;/div&gt;
-            &lt;br&gt;
-            &lt;div&gt;
-                &lt;label&gt;email&lt;/label&gt;
-                &lt;input type=&#34;emial&#34; name=&#34;email&#34;&gt;
-            &lt;/div&gt;
-            &lt;br&gt;
-            &lt;div&gt;
-                &lt;label&gt;message&lt;/label&gt;
-                &lt;textarea name=&#34;message&#34; id=&#34;&#34;&gt;&lt;/textarea&gt;
-            &lt;/div&gt;
-            &lt;br&gt;
-            &lt;div&gt;
-                &lt;label&gt;gender&lt;/label&gt;
-                &lt;select name=&#34;gender&#34; id=&#34;&#34;&gt;
-                    &lt;option value=&#34;male&#34;&gt;male&lt;/option&gt;
-                    &lt;option value=&#34;female&#34;&gt;female&lt;/option&gt;
-                &lt;/select&gt;
-            &lt;/div&gt;
-            &lt;br&gt;
-            &lt;div&gt;
-                &lt;label&gt;age&lt;/label&gt;
-                &lt;input type=&#34;number&#34; name=&#34;age&#34; value=&#34;18&#34;&gt;
-            &lt;/div&gt;
-            &lt;br&gt;
-            &lt;div&gt;
-                &lt;label&gt;birthday&lt;/label&gt;
-                &lt;input type=&#34;date&#34; name=&#34;birthday&#34; value=&#34;18&#34;&gt;
-            &lt;/div&gt;
-            &lt;br&gt;
-            &lt;input type=&#34;submit&#34; name=&#34;submit&#34; value=&#34;submit&#34;&#34;&gt;
-          &lt;/form&gt;
-
-          &lt;button&gt;click me&lt;/button&gt;
-          &lt;a href=&#34;html.png&#34;&gt;
-            &lt;img src=&#34;html.png&#34; alt=&#34;Sample Image&#34; width=&#34;200&#34;&gt;
-          &lt;/a&gt;
-
-          &lt;blockquote cite=&#34;https://traversymedia.com&#34;&gt;
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Esse commodi provident illum quibusdam repellat rem tenetur totam voluptates vitae accusantium pariatur modi minima velit illo necessitatibus ad, distinctio quis odit.
-          &lt;/blockquote&gt;
-
-          &lt;p&gt;
-            &lt;abbr title=&#34;World Wide Web&#34;&gt;WWW&lt;/abbr&gt; is awesome!
-          &lt;/p&gt;
-
-          &lt;p&gt;
-            &lt;cite&gt;HTML crash course&lt;/cite&gt; by Brad Traversy
-          &lt;/p&gt;
-    &lt;/body&gt;
-&lt;/html&gt;</code>
-  </pre>
-</div>
-
-<h2 id="blog-type">Blog type
-</h2>
-
-
-
-
-<div class="highlight highlight-html">
-  <pre>
-    <code class="language-html" data-lang="html">&lt;!DOCTYPE html&gt;
-&lt;html&gt; 
-    &lt;head&gt;
-        &lt;title&gt;HTML blog&lt;/title&gt;
-        &lt;meta name=&#34;description&#34; content=&#34;Awesome blog by Henry&#34;&gt;&lt;/meta&gt;
-        &lt;meta name=&#34;keywords&#34; content=&#34;blog, web, demo&#34;&gt;&lt;/meta&gt;
-        &lt;style type=&#34;text/css&#34;&gt;
-                #main-header{
-                    text-align: center;
-                    background-color: black;
-                    color: white;
-                    padding: 10px;
-                }
-                #main-footer{
-                    text-align: center;
-                    background-color: grey;
-                    color: white;
-                    padding: 10px;
-                }
-        &lt;/style&gt;
-    &lt;/head&gt;
-    &lt;body&gt;
-        &lt;header id=&#34;main-header&#34;&gt;
-            &lt;h1&gt;Welcome to my blog&lt;/h1&gt;
-        &lt;/header&gt;
-
-        &lt;a href=&#34;index.html&#34;&gt;Go to index&lt;/a&gt;
-
-        &lt;section&gt;
-            &lt;article class=&#34;post&#34;&gt;
-                &lt;h3&gt;Blog Post 1&lt;/h3&gt;
-                &lt;p&gt;
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit. &lt;strong&gt;Repellendus repellat ab adipisci consequuntur excepturi nisi&lt;/strong&gt;, pariatur vel distinctio dolore voluptates quia facilis esse provident &lt;em&gt;itaque eum quaerat tempora quis aut.&lt;/em&gt;
-                &lt;/p&gt;
-                &lt;small&gt;Post my Henry on Aug 10&lt;/small&gt;
-
-                &lt;h3&gt;Blog Post 2&lt;/h3&gt;
-                &lt;p&gt;
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit. &lt;strong&gt;Repellendus repellat ab adipisci consequuntur excepturi nisi&lt;/strong&gt;, pariatur vel distinctio dolore voluptates quia facilis esse provident &lt;em&gt;itaque eum quaerat tempora quis aut.&lt;/em&gt;
-                &lt;/p&gt;
-                &lt;small&gt;Post my Henry on Aug 10&lt;/small&gt;
-            &lt;/article&gt;
-        &lt;/section&gt;
-
-        &lt;aside&gt;
-            &lt;h3&gt;Catergories&lt;/h3&gt;
-            &lt;nav&gt;
-                &lt;ul&gt;
-                    &lt;li&gt;&lt;a href=&#34;#&#34;&gt;Category 1&lt;/a&gt;&lt;/li&gt;
-                    &lt;li&gt;&lt;a href=&#34;#&#34;&gt;Category 2&lt;/a&gt;&lt;/li&gt;
-                    &lt;li&gt;&lt;a href=&#34;#&#34;&gt;Category 3&lt;/a&gt;&lt;/li&gt;
-                &lt;/ul&gt;
-            &lt;/nav&gt;
-        &lt;/aside&gt;
-
-        &lt;footer id=&#34;main-footer&#34;&gt;
-            &lt;p&gt;Copyright &amp;copy; 2021&lt;/p&gt;
-        &lt;/footer&gt;
-    &lt;/body&gt;
-&lt;/html&gt;</code>
-  </pre>
-</div>
-
-
+</h2><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="cp">&lt;!DOCTYPE html&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">html</span><span class="p">&gt;</span> 
+</span></span><span class="line"><span class="cl">    <span class="p">&lt;</span><span class="nt">head</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">&lt;</span><span class="nt">title</span><span class="p">&gt;</span>HTML Cheat Sheet<span class="p">&lt;/</span><span class="nt">title</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">&lt;/</span><span class="nt">head</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">&lt;</span><span class="nt">body</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="c">&lt;!-- Headings, this is what comments look like --&gt;</span>
+</span></span><span class="line"><span class="cl">         <span class="p">&lt;</span><span class="nt">h1</span><span class="p">&gt;</span>h1<span class="p">&lt;/</span><span class="nt">h1</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">         <span class="p">&lt;</span><span class="nt">h2</span><span class="p">&gt;</span>h2<span class="p">&lt;/</span><span class="nt">h2</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">         <span class="p">&lt;</span><span class="nt">h3</span><span class="p">&gt;</span>h3<span class="p">&lt;/</span><span class="nt">h3</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">         <span class="p">&lt;</span><span class="nt">h4</span><span class="p">&gt;</span>h4<span class="p">&lt;/</span><span class="nt">h4</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">         <span class="p">&lt;</span><span class="nt">h5</span><span class="p">&gt;</span>h5<span class="p">&lt;/</span><span class="nt">h5</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">         <span class="p">&lt;</span><span class="nt">h6</span><span class="p">&gt;</span>h6<span class="p">&lt;/</span><span class="nt">h6</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">         
+</span></span><span class="line"><span class="cl">         <span class="c">&lt;!-- body --&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">            Lorem ipsum dolor sit amet consectetur adipisicing elit. <span class="p">&lt;</span><span class="nt">strong</span><span class="p">&gt;</span>Repellendus repellat ab adipisci consequuntur excepturi nisi<span class="p">&lt;/</span><span class="nt">strong</span><span class="p">&gt;</span>, pariatur vel distinctio dolore voluptates quia facilis esse provident <span class="p">&lt;</span><span class="nt">em</span><span class="p">&gt;</span>itaque eum quaerat tempora quis aut.<span class="p">&lt;/</span><span class="nt">em</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">            Lorem ipsum dolor sit amet consectetur adipisicing elit. <span class="p">&lt;</span><span class="nt">a</span> <span class="na">href</span><span class="o">=</span><span class="s">&#34;http://bilibili.com&#34;</span> <span class="na">target</span><span class="o">=</span><span class="s">&#34;_blank&#34;</span><span class="p">&gt;</span>Repellendus repellat ab adipisci consequuntur excepturi nisi<span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;</span>, pariatur vel distinctio dolore voluptates quia facilis esse provident itaque eum quaerat tempora quis aut.
+</span></span><span class="line"><span class="cl">        <span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="c">&lt;!-- list --&gt;</span>
+</span></span><span class="line"><span class="cl">         <span class="p">&lt;</span><span class="nt">ul</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">             <span class="p">&lt;</span><span class="nt">li</span><span class="p">&gt;</span>list item 1<span class="p">&lt;/</span><span class="nt">li</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">             <span class="p">&lt;</span><span class="nt">li</span><span class="p">&gt;</span>list item 2<span class="p">&lt;/</span><span class="nt">li</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">             <span class="p">&lt;</span><span class="nt">li</span><span class="p">&gt;</span>list item 3<span class="p">&lt;/</span><span class="nt">li</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">         <span class="p">&lt;/</span><span class="nt">ul</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">         <span class="c">&lt;!-- list with numbers --&gt;</span>
+</span></span><span class="line"><span class="cl">         <span class="p">&lt;</span><span class="nt">ol</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">             <span class="p">&lt;</span><span class="nt">li</span><span class="p">&gt;</span>list item 1<span class="p">&lt;/</span><span class="nt">li</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">             <span class="p">&lt;</span><span class="nt">li</span><span class="p">&gt;</span>list item 2<span class="p">&lt;/</span><span class="nt">li</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">             <span class="p">&lt;</span><span class="nt">li</span><span class="p">&gt;</span>list item 3<span class="p">&lt;/</span><span class="nt">li</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">         <span class="p">&lt;/</span><span class="nt">ol</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">         <span class="c">&lt;!-- table --&gt;</span>
+</span></span><span class="line"><span class="cl">          <span class="p">&lt;</span><span class="nt">table</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">              <span class="p">&lt;</span><span class="nt">tr</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">                <span class="c">&lt;!-- th: heading --&gt;</span>
+</span></span><span class="line"><span class="cl">                  <span class="p">&lt;</span><span class="nt">th</span><span class="p">&gt;</span>name<span class="p">&lt;/</span><span class="nt">th</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">                  <span class="p">&lt;</span><span class="nt">th</span><span class="p">&gt;</span>age<span class="p">&lt;/</span><span class="nt">th</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">              <span class="p">&lt;/</span><span class="nt">tr</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">              <span class="p">&lt;</span><span class="nt">tr</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">                <span class="c">&lt;!-- ta: data --&gt;</span>
+</span></span><span class="line"><span class="cl">                  <span class="p">&lt;</span><span class="nt">td</span><span class="p">&gt;</span>john<span class="p">&lt;/</span><span class="nt">td</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">                  <span class="p">&lt;</span><span class="nt">td</span><span class="p">&gt;</span>20<span class="p">&lt;/</span><span class="nt">td</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">              <span class="p">&lt;/</span><span class="nt">tr</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">              <span class="p">&lt;</span><span class="nt">tr</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">                  <span class="p">&lt;</span><span class="nt">td</span><span class="p">&gt;</span>jane<span class="p">&lt;/</span><span class="nt">td</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">                  <span class="p">&lt;</span><span class="nt">td</span><span class="p">&gt;</span>21<span class="p">&lt;/</span><span class="nt">td</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">              <span class="p">&lt;/</span><span class="nt">tr</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">          <span class="p">&lt;/</span><span class="nt">table</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">          <span class="p">&lt;</span><span class="nt">form</span> <span class="na">action</span><span class="o">=</span><span class="s">&#34;process.php&#34;</span> <span class="na">method</span><span class="o">=</span><span class="s">&#34;POST&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">            <span class="c">&lt;!-- div can break the elements to separate lines --&gt;</span>
+</span></span><span class="line"><span class="cl">            <span class="p">&lt;</span><span class="nt">div</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">                <span class="p">&lt;</span><span class="nt">label</span><span class="p">&gt;</span>first name<span class="p">&lt;/</span><span class="nt">label</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">                <span class="p">&lt;</span><span class="nt">input</span> <span class="na">type</span><span class="o">=</span><span class="s">&#34;text&#34;</span> <span class="na">name</span><span class="o">=</span><span class="s">&#34;firstname&#34;</span> <span class="na">placeholder</span><span class="o">=</span><span class="s">&#34;enter first name&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">            <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">            <span class="c">&lt;!-- br: break line --&gt;</span>
+</span></span><span class="line"><span class="cl">            <span class="p">&lt;</span><span class="nt">br</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">            <span class="p">&lt;</span><span class="nt">div</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">                <span class="p">&lt;</span><span class="nt">label</span><span class="p">&gt;</span>last name<span class="p">&lt;/</span><span class="nt">label</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">                <span class="p">&lt;</span><span class="nt">input</span> <span class="na">type</span><span class="o">=</span><span class="s">&#34;text&#34;</span> <span class="na">name</span><span class="o">=</span><span class="s">&#34;lastname&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">            <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">            <span class="p">&lt;</span><span class="nt">br</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">            <span class="p">&lt;</span><span class="nt">div</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">                <span class="p">&lt;</span><span class="nt">label</span><span class="p">&gt;</span>email<span class="p">&lt;/</span><span class="nt">label</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">                <span class="p">&lt;</span><span class="nt">input</span> <span class="na">type</span><span class="o">=</span><span class="s">&#34;emial&#34;</span> <span class="na">name</span><span class="o">=</span><span class="s">&#34;email&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">            <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">            <span class="p">&lt;</span><span class="nt">br</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">            <span class="p">&lt;</span><span class="nt">div</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">                <span class="p">&lt;</span><span class="nt">label</span><span class="p">&gt;</span>message<span class="p">&lt;/</span><span class="nt">label</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">                <span class="p">&lt;</span><span class="nt">textarea</span> <span class="na">name</span><span class="o">=</span><span class="s">&#34;message&#34;</span> <span class="na">id</span><span class="o">=</span><span class="s">&#34;&#34;</span><span class="p">&gt;&lt;/</span><span class="nt">textarea</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">            <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">            <span class="p">&lt;</span><span class="nt">br</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">            <span class="p">&lt;</span><span class="nt">div</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">                <span class="p">&lt;</span><span class="nt">label</span><span class="p">&gt;</span>gender<span class="p">&lt;/</span><span class="nt">label</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">                <span class="p">&lt;</span><span class="nt">select</span> <span class="na">name</span><span class="o">=</span><span class="s">&#34;gender&#34;</span> <span class="na">id</span><span class="o">=</span><span class="s">&#34;&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">                    <span class="p">&lt;</span><span class="nt">option</span> <span class="na">value</span><span class="o">=</span><span class="s">&#34;male&#34;</span><span class="p">&gt;</span>male<span class="p">&lt;/</span><span class="nt">option</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">                    <span class="p">&lt;</span><span class="nt">option</span> <span class="na">value</span><span class="o">=</span><span class="s">&#34;female&#34;</span><span class="p">&gt;</span>female<span class="p">&lt;/</span><span class="nt">option</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">                <span class="p">&lt;/</span><span class="nt">select</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">            <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">            <span class="p">&lt;</span><span class="nt">br</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">            <span class="p">&lt;</span><span class="nt">div</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">                <span class="p">&lt;</span><span class="nt">label</span><span class="p">&gt;</span>age<span class="p">&lt;/</span><span class="nt">label</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">                <span class="p">&lt;</span><span class="nt">input</span> <span class="na">type</span><span class="o">=</span><span class="s">&#34;number&#34;</span> <span class="na">name</span><span class="o">=</span><span class="s">&#34;age&#34;</span> <span class="na">value</span><span class="o">=</span><span class="s">&#34;18&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">            <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">            <span class="p">&lt;</span><span class="nt">br</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">            <span class="p">&lt;</span><span class="nt">div</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">                <span class="p">&lt;</span><span class="nt">label</span><span class="p">&gt;</span>birthday<span class="p">&lt;/</span><span class="nt">label</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">                <span class="p">&lt;</span><span class="nt">input</span> <span class="na">type</span><span class="o">=</span><span class="s">&#34;date&#34;</span> <span class="na">name</span><span class="o">=</span><span class="s">&#34;birthday&#34;</span> <span class="na">value</span><span class="o">=</span><span class="s">&#34;18&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">            <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">            <span class="p">&lt;</span><span class="nt">br</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">            <span class="p">&lt;</span><span class="nt">input</span> <span class="na">type</span><span class="o">=</span><span class="s">&#34;submit&#34;</span> <span class="na">name</span><span class="o">=</span><span class="s">&#34;submit&#34;</span> <span class="na">value</span><span class="o">=</span><span class="s">&#34;submit&#34;</span><span class="err">&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">          <span class="p">&lt;/</span><span class="nt">form</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">          <span class="p">&lt;</span><span class="nt">button</span><span class="p">&gt;</span>click me<span class="p">&lt;/</span><span class="nt">button</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">          <span class="p">&lt;</span><span class="nt">a</span> <span class="na">href</span><span class="o">=</span><span class="s">&#34;html.png&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">            <span class="p">&lt;</span><span class="nt">img</span> <span class="na">src</span><span class="o">=</span><span class="s">&#34;html.png&#34;</span> <span class="na">alt</span><span class="o">=</span><span class="s">&#34;Sample Image&#34;</span> <span class="na">width</span><span class="o">=</span><span class="s">&#34;200&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">          <span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">          <span class="p">&lt;</span><span class="nt">blockquote</span> <span class="na">cite</span><span class="o">=</span><span class="s">&#34;https://traversymedia.com&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">            Lorem ipsum dolor sit amet consectetur adipisicing elit. Esse commodi provident illum quibusdam repellat rem tenetur totam voluptates vitae accusantium pariatur modi minima velit illo necessitatibus ad, distinctio quis odit.
+</span></span><span class="line"><span class="cl">          <span class="p">&lt;/</span><span class="nt">blockquote</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">          <span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">            <span class="p">&lt;</span><span class="nt">abbr</span> <span class="na">title</span><span class="o">=</span><span class="s">&#34;World Wide Web&#34;</span><span class="p">&gt;</span>WWW<span class="p">&lt;/</span><span class="nt">abbr</span><span class="p">&gt;</span> is awesome!
+</span></span><span class="line"><span class="cl">          <span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">          <span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">            <span class="p">&lt;</span><span class="nt">cite</span><span class="p">&gt;</span>HTML crash course<span class="p">&lt;/</span><span class="nt">cite</span><span class="p">&gt;</span> by Brad Traversy
+</span></span><span class="line"><span class="cl">          <span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">&lt;/</span><span class="nt">body</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">html</span><span class="p">&gt;</span>
+</span></span></code></pre></div><h2 id="blog-type">Blog type
+</h2><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="cp">&lt;!DOCTYPE html&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">html</span><span class="p">&gt;</span> 
+</span></span><span class="line"><span class="cl">    <span class="p">&lt;</span><span class="nt">head</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">&lt;</span><span class="nt">title</span><span class="p">&gt;</span>HTML blog<span class="p">&lt;/</span><span class="nt">title</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">&lt;</span><span class="nt">meta</span> <span class="na">name</span><span class="o">=</span><span class="s">&#34;description&#34;</span> <span class="na">content</span><span class="o">=</span><span class="s">&#34;Awesome blog by Henry&#34;</span><span class="p">&gt;&lt;/</span><span class="nt">meta</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">&lt;</span><span class="nt">meta</span> <span class="na">name</span><span class="o">=</span><span class="s">&#34;keywords&#34;</span> <span class="na">content</span><span class="o">=</span><span class="s">&#34;blog, web, demo&#34;</span><span class="p">&gt;&lt;/</span><span class="nt">meta</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">&lt;</span><span class="nt">style</span> <span class="na">type</span><span class="o">=</span><span class="s">&#34;text/css&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">                <span class="p">#</span><span class="nn">main-header</span><span class="p">{</span>
+</span></span><span class="line"><span class="cl">                    <span class="k">text-align</span><span class="p">:</span> <span class="kc">center</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">                    <span class="k">background-color</span><span class="p">:</span> <span class="kc">black</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">                    <span class="k">color</span><span class="p">:</span> <span class="kc">white</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">                    <span class="k">padding</span><span class="p">:</span> <span class="mi">10</span><span class="kt">px</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">                <span class="p">}</span>
+</span></span><span class="line"><span class="cl">                <span class="p">#</span><span class="nn">main-footer</span><span class="p">{</span>
+</span></span><span class="line"><span class="cl">                    <span class="k">text-align</span><span class="p">:</span> <span class="kc">center</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">                    <span class="k">background-color</span><span class="p">:</span> <span class="kc">grey</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">                    <span class="k">color</span><span class="p">:</span> <span class="kc">white</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">                    <span class="k">padding</span><span class="p">:</span> <span class="mi">10</span><span class="kt">px</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">                <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="p">&lt;/</span><span class="nt">style</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">&lt;/</span><span class="nt">head</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">&lt;</span><span class="nt">body</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">&lt;</span><span class="nt">header</span> <span class="na">id</span><span class="o">=</span><span class="s">&#34;main-header&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">            <span class="p">&lt;</span><span class="nt">h1</span><span class="p">&gt;</span>Welcome to my blog<span class="p">&lt;/</span><span class="nt">h1</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">&lt;/</span><span class="nt">header</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="p">&lt;</span><span class="nt">a</span> <span class="na">href</span><span class="o">=</span><span class="s">&#34;index.html&#34;</span><span class="p">&gt;</span>Go to index<span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="p">&lt;</span><span class="nt">section</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">            <span class="p">&lt;</span><span class="nt">article</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;post&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">                <span class="p">&lt;</span><span class="nt">h3</span><span class="p">&gt;</span>Blog Post 1<span class="p">&lt;/</span><span class="nt">h3</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">                <span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">                    Lorem ipsum dolor sit amet consectetur adipisicing elit. <span class="p">&lt;</span><span class="nt">strong</span><span class="p">&gt;</span>Repellendus repellat ab adipisci consequuntur excepturi nisi<span class="p">&lt;/</span><span class="nt">strong</span><span class="p">&gt;</span>, pariatur vel distinctio dolore voluptates quia facilis esse provident <span class="p">&lt;</span><span class="nt">em</span><span class="p">&gt;</span>itaque eum quaerat tempora quis aut.<span class="p">&lt;/</span><span class="nt">em</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">                <span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">                <span class="p">&lt;</span><span class="nt">small</span><span class="p">&gt;</span>Post my Henry on Aug 10<span class="p">&lt;/</span><span class="nt">small</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">                <span class="p">&lt;</span><span class="nt">h3</span><span class="p">&gt;</span>Blog Post 2<span class="p">&lt;/</span><span class="nt">h3</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">                <span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">                    Lorem ipsum dolor sit amet consectetur adipisicing elit. <span class="p">&lt;</span><span class="nt">strong</span><span class="p">&gt;</span>Repellendus repellat ab adipisci consequuntur excepturi nisi<span class="p">&lt;/</span><span class="nt">strong</span><span class="p">&gt;</span>, pariatur vel distinctio dolore voluptates quia facilis esse provident <span class="p">&lt;</span><span class="nt">em</span><span class="p">&gt;</span>itaque eum quaerat tempora quis aut.<span class="p">&lt;/</span><span class="nt">em</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">                <span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">                <span class="p">&lt;</span><span class="nt">small</span><span class="p">&gt;</span>Post my Henry on Aug 10<span class="p">&lt;/</span><span class="nt">small</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">            <span class="p">&lt;/</span><span class="nt">article</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">&lt;/</span><span class="nt">section</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="p">&lt;</span><span class="nt">aside</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">            <span class="p">&lt;</span><span class="nt">h3</span><span class="p">&gt;</span>Catergories<span class="p">&lt;/</span><span class="nt">h3</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">            <span class="p">&lt;</span><span class="nt">nav</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">                <span class="p">&lt;</span><span class="nt">ul</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">                    <span class="p">&lt;</span><span class="nt">li</span><span class="p">&gt;&lt;</span><span class="nt">a</span> <span class="na">href</span><span class="o">=</span><span class="s">&#34;#&#34;</span><span class="p">&gt;</span>Category 1<span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;&lt;/</span><span class="nt">li</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">                    <span class="p">&lt;</span><span class="nt">li</span><span class="p">&gt;&lt;</span><span class="nt">a</span> <span class="na">href</span><span class="o">=</span><span class="s">&#34;#&#34;</span><span class="p">&gt;</span>Category 2<span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;&lt;/</span><span class="nt">li</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">                    <span class="p">&lt;</span><span class="nt">li</span><span class="p">&gt;&lt;</span><span class="nt">a</span> <span class="na">href</span><span class="o">=</span><span class="s">&#34;#&#34;</span><span class="p">&gt;</span>Category 3<span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;&lt;/</span><span class="nt">li</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">                <span class="p">&lt;/</span><span class="nt">ul</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">            <span class="p">&lt;/</span><span class="nt">nav</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">&lt;/</span><span class="nt">aside</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="p">&lt;</span><span class="nt">footer</span> <span class="na">id</span><span class="o">=</span><span class="s">&#34;main-footer&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">            <span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>Copyright <span class="ni">&amp;copy;</span> 2021<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">&lt;/</span><span class="nt">footer</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">&lt;/</span><span class="nt">body</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">html</span><span class="p">&gt;</span>
+</span></span></code></pre></div>
 </section>
 
 
@@ -981,7 +961,7 @@
         
         
             <div class="article-image">
-                <img src="/p/css/css.b848d5d9bb221592064de0f356f61676_hu_b7c3baf7be297be1.png" 
+                <img src="/p/css/css.b848d5d9bb221592064de0f356f61676_hu_cfce9e67edbb4af3.png" 
                         width="250" 
                         height="150" 
                         loading="lazy"
@@ -1218,7 +1198,7 @@
                 src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
                 
                 >
-            </script><script type="text/javascript" src="/ts/main.888cccdaf3c934b58bb1982792b4d0fdb89be145d2cabea38c8569bfe7d08117.js" defer></script>
+            </script><script type="text/javascript" src="/ts/main.fe055f50234dc99b59992d29820a4403a71f7c90de7b6ebd204c621ac170b546.js" defer></script>
 <script>
     (function () {
         const customFont = document.createElement('link');

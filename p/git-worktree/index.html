@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="zh-cn" dir="ltr">
+<html lang="en-us" dir="ltr">
     <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><meta charset='utf-8'>
 <meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="掌握Git worktree功能，轻松管理多个分支的开发工作流，告别频繁切换分支的烦恼">
 <title>Git Worktree：并行开发的利器</title>
@@ -10,7 +10,7 @@
 <meta property='og:description' content="掌握Git worktree功能，轻松管理多个分支的开发工作流，告别频繁切换分支的烦恼">
 <meta property='og:url' content='http://localhost:1313/p/git-worktree/'>
 <meta property='og:site_name' content='Henry Zhang'>
-<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='git' /><meta property='article:tag' content='worktree' /><meta property='article:tag' content='version-control' /><meta property='article:tag' content='development' /><meta property='article:published_time' content='2026-01-12T00:00:00&#43;08:00'/><meta property='article:modified_time' content='2026-01-11T18:44:44&#43;00:00'/><meta property='og:image' content='http://localhost:1313/git.png' />
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='git' /><meta property='article:tag' content='worktree' /><meta property='article:tag' content='version-control' /><meta property='article:tag' content='development' /><meta property='article:published_time' content='2026-01-12T00:00:00&#43;08:00'/><meta property='article:modified_time' content='2026-01-12T02:44:44&#43;08:00'/><meta property='og:image' content='http://localhost:1313/git.png' />
 <meta name="twitter:title" content="Git Worktree：并行开发的利器">
 <meta name="twitter:description" content="掌握Git worktree功能，轻松管理多个分支的开发工作流，告别频繁切换分支的烦恼"><meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:image" content='http://localhost:1313/git.png' />
@@ -357,7 +357,7 @@
                     
                     
                         
-                        <img src="/img/avatar_hu_9c50848f93c56cbf.jpeg" width="300"
+                        <img src="/img/avatar_hu_a69ebd3e9749347e.jpeg" width="300"
                             height="296" class="site-logo" loading="lazy" alt="Avatar">
                     
                 
@@ -766,7 +766,7 @@
 
 
                 <time>
-                    Jan 11, 2026 18:44 UTC
+                    Jan 12, 2026 02:44 CST
                 </time>
             </div>
     </footer>
@@ -830,126 +830,66 @@
 </h2><h3 id="创建-worktree">创建 Worktree
 </h3><p><strong>语法</strong>：<code>git worktree add &lt;路径&gt; &lt;分支名&gt;</code></p>
 <p><strong>示例</strong>：</p>
-
-
-
-
-
-<div class="highlight highlight-bash">
-  <pre>
-    <code class="language-bash" data-lang="bash"># 1. 创建新分支并在新目录中工作
-git worktree add ../feature-login feature/login
-# 会在上级目录创建 feature-login 文件夹，并检出到 feature/login 分支
-
-# 2. 基于现有分支创建 worktree
-git worktree add ../hotfix-hotbug hotfix/critical-bug
-# 如果分支已存在，直接检出
-
-# 3. 基于特定提交创建 worktree（用于临时实验）
-git worktree add ../temp-experiment HEAD~3
-# 创建一个临时工作目录，基于3次提交前的代码
-
-# 4. 创建 detached HEAD worktree（用于代码考古）
-git worktree add ../old-code a1b2c3d
-# 基于指定 commit hash 创建</code>
-  </pre>
-</div>
-
-<h3 id="查看-worktree-列表">查看 Worktree 列表
-</h3>
-
-
-
-
-<div class="highlight highlight-bash">
-  <pre>
-    <code class="language-bash" data-lang="bash"># 列出所有 worktree
-git worktree list
-
-# 输出示例：
-# /Users/username/project                1234567 [main]
-# /Users/username/feature-login           abcdef0 [feature/login]
-# /Users/username/hotfix-hotbug           9876543 [hotfix/critical-bug]</code>
-  </pre>
-</div>
-
-<h3 id="删除-worktree">删除 Worktree
-</h3>
-
-
-
-
-<div class="highlight highlight-bash">
-  <pre>
-    <code class="language-bash" data-lang="bash"># 方法1：使用 git worktree remove（推荐）
-git worktree remove ../feature-login
-# 会同时删除目录和 worktree 引用
-
-# 方法2：手动删除目录后清理
-rm -rf ../feature-login
-git worktree prune
-# prune 会清理没有对应目录的 worktree 引用
-
-# 方法3：删除 worktree 引用但保留目录（极少使用）
-git worktree lock ../feature-login
-git worktree unlock ../feature-login</code>
-  </pre>
-</div>
-
-<h3 id="移动-worktree">移动 Worktree
-</h3>
-
-
-
-
-<div class="highlight highlight-bash">
-  <pre>
-    <code class="language-bash" data-lang="bash"># 将 worktree 移动到新位置（Git 2.17&#43;）
-git worktree move ../feature-login ../new-location/feature-login</code>
-  </pre>
-</div>
-
-<hr>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># 1. 创建新分支并在新目录中工作</span>
+</span></span><span class="line"><span class="cl">git worktree add ../feature-login feature/login
+</span></span><span class="line"><span class="cl"><span class="c1"># 会在上级目录创建 feature-login 文件夹，并检出到 feature/login 分支</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 2. 基于现有分支创建 worktree</span>
+</span></span><span class="line"><span class="cl">git worktree add ../hotfix-hotbug hotfix/critical-bug
+</span></span><span class="line"><span class="cl"><span class="c1"># 如果分支已存在，直接检出</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 3. 基于特定提交创建 worktree（用于临时实验）</span>
+</span></span><span class="line"><span class="cl">git worktree add ../temp-experiment HEAD~3
+</span></span><span class="line"><span class="cl"><span class="c1"># 创建一个临时工作目录，基于3次提交前的代码</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 4. 创建 detached HEAD worktree（用于代码考古）</span>
+</span></span><span class="line"><span class="cl">git worktree add ../old-code a1b2c3d
+</span></span><span class="line"><span class="cl"><span class="c1"># 基于指定 commit hash 创建</span>
+</span></span></code></pre></div><h3 id="查看-worktree-列表">查看 Worktree 列表
+</h3><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># 列出所有 worktree</span>
+</span></span><span class="line"><span class="cl">git worktree list
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 输出示例：</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># /Users/username/project                1234567 [main]</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># /Users/username/feature-login           abcdef0 [feature/login]</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># /Users/username/hotfix-hotbug           9876543 [hotfix/critical-bug]</span>
+</span></span></code></pre></div><h3 id="删除-worktree">删除 Worktree
+</h3><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># 方法1：使用 git worktree remove（推荐）</span>
+</span></span><span class="line"><span class="cl">git worktree remove ../feature-login
+</span></span><span class="line"><span class="cl"><span class="c1"># 会同时删除目录和 worktree 引用</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 方法2：手动删除目录后清理</span>
+</span></span><span class="line"><span class="cl">rm -rf ../feature-login
+</span></span><span class="line"><span class="cl">git worktree prune
+</span></span><span class="line"><span class="cl"><span class="c1"># prune 会清理没有对应目录的 worktree 引用</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 方法3：删除 worktree 引用但保留目录（极少使用）</span>
+</span></span><span class="line"><span class="cl">git worktree lock ../feature-login
+</span></span><span class="line"><span class="cl">git worktree unlock ../feature-login
+</span></span></code></pre></div><h3 id="移动-worktree">移动 Worktree
+</h3><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># 将 worktree 移动到新位置（Git 2.17+）</span>
+</span></span><span class="line"><span class="cl">git worktree move ../feature-login ../new-location/feature-login
+</span></span></code></pre></div><hr>
 <h2 id="实际应用场景">实际应用场景
 </h2><h3 id="场景-1hotfix-救火最常用">场景 1：Hotfix 救火（最常用）
 </h3><p><strong>问题</strong>：正在开发功能，突然需要紧急修复线上bug</p>
 <p><strong>传统方式</strong>：</p>
-
-
-
-
-
-<div class="highlight highlight-bash">
-  <pre>
-    <code class="language-bash" data-lang="bash"># 在 feature 分支上
-git stash
-git checkout main
-git checkout -b hotfix/critical-bug
-# 修复、测试、部署
-git checkout feature/login
-git stash pop
-# 继续开发</code>
-  </pre>
-</div>
-
-<p><strong>Worktree 方式</strong>：</p>
-
-
-
-
-
-<div class="highlight highlight-bash">
-  <pre>
-    <code class="language-bash" data-lang="bash"># 在 feature 分支上（保持不动）
-git worktree add ../hotfix-emergency hotfix/critical-bug
-cd ../hotfix-emergency
-# 修复、测试、部署（完全不影响 feature 分支）
-cd ../project  # 回到原来的工作目录
-# 继续开发，代码原封不动</code>
-  </pre>
-</div>
-
-<p><strong>优势</strong>：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># 在 feature 分支上</span>
+</span></span><span class="line"><span class="cl">git stash
+</span></span><span class="line"><span class="cl">git checkout main
+</span></span><span class="line"><span class="cl">git checkout -b hotfix/critical-bug
+</span></span><span class="line"><span class="cl"><span class="c1"># 修复、测试、部署</span>
+</span></span><span class="line"><span class="cl">git checkout feature/login
+</span></span><span class="line"><span class="cl">git stash pop
+</span></span><span class="line"><span class="cl"><span class="c1"># 继续开发</span>
+</span></span></code></pre></div><p><strong>Worktree 方式</strong>：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># 在 feature 分支上（保持不动）</span>
+</span></span><span class="line"><span class="cl">git worktree add ../hotfix-emergency hotfix/critical-bug
+</span></span><span class="line"><span class="cl"><span class="nb">cd</span> ../hotfix-emergency
+</span></span><span class="line"><span class="cl"><span class="c1"># 修复、测试、部署（完全不影响 feature 分支）</span>
+</span></span><span class="line"><span class="cl"><span class="nb">cd</span> ../project  <span class="c1"># 回到原来的工作目录</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 继续开发，代码原封不动</span>
+</span></span></code></pre></div><p><strong>优势</strong>：</p>
 <ul>
 <li>✅ 无需 stash，避免忘记恢复代码</li>
 <li>✅ feature 分支的 IDE 状态、终端历史都保留</li>
@@ -957,73 +897,43 @@ cd ../project  # 回到原来的工作目录
 </ul>
 <h3 id="场景-2代码评审">场景 2：代码评审
 </h3><p><strong>问题</strong>：需要 review 同事的 PR，但不想切换分支</p>
-
-
-
-
-
-<div class="highlight highlight-bash">
-  <pre>
-    <code class="language-bash" data-lang="bash"># 为 PR 创建一个专门的 worktree
-git worktree add ../review-pr-123 origin/pr/123
-cd ../review-pr-123
-
-# 在新终端/IDE 中打开
-code ../review-pr-123
-
-# 本地运行、测试、修改
-# 完全不影响当前工作目录</code>
-  </pre>
-</div>
-
-<p><strong>优势</strong>：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># 为 PR 创建一个专门的 worktree</span>
+</span></span><span class="line"><span class="cl">git worktree add ../review-pr-123 origin/pr/123
+</span></span><span class="line"><span class="cl"><span class="nb">cd</span> ../review-pr-123
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 在新终端/IDE 中打开</span>
+</span></span><span class="line"><span class="cl">code ../review-pr-123
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 本地运行、测试、修改</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 完全不影响当前工作目录</span>
+</span></span></code></pre></div><p><strong>优势</strong>：</p>
 <ul>
 <li>✅ 多个 IDE 窗口同时打开不同代码</li>
 <li>✅ 并行测试多个 PR</li>
 <li>✅ review 完成直接删除</li>
 </ul>
 <h3 id="场景-3并行构建和测试">场景 3：并行构建和测试
-</h3>
-
-
-
-
-<div class="highlight highlight-bash">
-  <pre>
-    <code class="language-bash" data-lang="bash"># 主工作目录：开发
-# worktree 1：生产环境构建
-git worktree add ../build-production main
-cd ../build-production
-npm run build:prod
-
-# worktree 2：测试环境
-git worktree add ../test-environment develop
-cd ../test-environment
-npm run test:e2e
-
-# 所有任务并行运行，互不干扰</code>
-  </pre>
-</div>
-
-<h3 id="场景-4长期实验">场景 4：长期实验
+</h3><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># 主工作目录：开发</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># worktree 1：生产环境构建</span>
+</span></span><span class="line"><span class="cl">git worktree add ../build-production main
+</span></span><span class="line"><span class="cl"><span class="nb">cd</span> ../build-production
+</span></span><span class="line"><span class="cl">npm run build:prod
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># worktree 2：测试环境</span>
+</span></span><span class="line"><span class="cl">git worktree add ../test-environment develop
+</span></span><span class="line"><span class="cl"><span class="nb">cd</span> ../test-environment
+</span></span><span class="line"><span class="cl">npm run test:e2e
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 所有任务并行运行，互不干扰</span>
+</span></span></code></pre></div><h3 id="场景-4长期实验">场景 4：长期实验
 </h3><p><strong>问题</strong>：尝试一个大胆的重构，但不想影响主分支</p>
-
-
-
-
-
-<div class="highlight highlight-bash">
-  <pre>
-    <code class="language-bash" data-lang="bash">git worktree add ../experiment-big-refactor experiment/big-refactor
-cd ../experiment-big-refactor
-
-# 大胆修改、测试
-# 如果失败：直接删除目录，不影响主仓库
-# 如果成功：合并回主分支</code>
-  </pre>
-</div>
-
-<p><strong>优势</strong>：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">git worktree add ../experiment-big-refactor experiment/big-refactor
+</span></span><span class="line"><span class="cl"><span class="nb">cd</span> ../experiment-big-refactor
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 大胆修改、测试</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 如果失败：直接删除目录，不影响主仓库</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 如果成功：合并回主分支</span>
+</span></span></code></pre></div><p><strong>优势</strong>：</p>
 <ul>
 <li>✅ 实验性代码完全隔离</li>
 <li>✅ 可以随时放弃，无需 rebase/reset</li>
@@ -1107,70 +1017,40 @@ cd ../experiment-big-refactor
 <h2 id="最佳实践">最佳实践
 </h2><h3 id="1-命名规范">1. 命名规范
 </h3><p><strong>目录结构建议</strong>：</p>
-
-
-
-
-
-<div class="highlight highlight-bash">
-  <pre>
-    <code class="language-bash" data-lang="bash"># 方式1：按类型组织
-git worktree add ../feature/user-auth feature/user-auth
-git worktree add ../hotfix/login-bug hotfix/login-bug
-git worktree add ../experiment/new-ui experiment/new-ui
-
-# 方式2：统一放在 worktrees 目录
-mkdir worktrees
-git worktree add worktrees/feature-user-auth feature/user-auth
-git worktree add worktrees/hotfix-critical hotfix/critical</code>
-  </pre>
-</div>
-
-<h3 id="2-定期清理">2. 定期清理
-</h3>
-
-
-
-
-<div class="highlight highlight-bash">
-  <pre>
-    <code class="language-bash" data-lang="bash"># 定期查看所有 worktree
-git worktree list
-
-# 合并完成后删除
-git worktree remove ../feature-completed
-
-# 清理无效引用
-git worktree prune</code>
-  </pre>
-</div>
-
-<h3 id="3-vs-code-多根工作区">3. VS Code 多根工作区
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># 方式1：按类型组织</span>
+</span></span><span class="line"><span class="cl">git worktree add ../feature/user-auth feature/user-auth
+</span></span><span class="line"><span class="cl">git worktree add ../hotfix/login-bug hotfix/login-bug
+</span></span><span class="line"><span class="cl">git worktree add ../experiment/new-ui experiment/new-ui
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 方式2：统一放在 worktrees 目录</span>
+</span></span><span class="line"><span class="cl">mkdir worktrees
+</span></span><span class="line"><span class="cl">git worktree add worktrees/feature-user-auth feature/user-auth
+</span></span><span class="line"><span class="cl">git worktree add worktrees/hotfix-critical hotfix/critical
+</span></span></code></pre></div><h3 id="2-定期清理">2. 定期清理
+</h3><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># 定期查看所有 worktree</span>
+</span></span><span class="line"><span class="cl">git worktree list
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 合并完成后删除</span>
+</span></span><span class="line"><span class="cl">git worktree remove ../feature-completed
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 清理无效引用</span>
+</span></span><span class="line"><span class="cl">git worktree prune
+</span></span></code></pre></div><h3 id="3-vs-code-多根工作区">3. VS Code 多根工作区
 </h3><p>创建 <code>.vscode/workspace.code-workspace</code>：</p>
-
-
-
-
-
-<div class="highlight highlight-json">
-  <pre>
-    <code class="language-json" data-lang="json">{
-  &#34;folders&#34;: [
-    {
-      &#34;path&#34;: &#34;../project&#34;
-    },
-    {
-      &#34;path&#34;: &#34;../feature-login&#34;
-    },
-    {
-      &#34;path&#34;: &#34;../hotfix-emergency&#34;
-    }
-  ]
-}</code>
-  </pre>
-</div>
-
-<p>这样可以在一个 VS Code 窗口中同时管理多个 worktree！</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;folders&#34;</span><span class="p">:</span> <span class="p">[</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;path&#34;</span><span class="p">:</span> <span class="s2">&#34;../project&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">},</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;path&#34;</span><span class="p">:</span> <span class="s2">&#34;../feature-login&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">},</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;path&#34;</span><span class="p">:</span> <span class="s2">&#34;../hotfix-emergency&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p>这样可以在一个 VS Code 窗口中同时管理多个 worktree！</p>
 <h3 id="4-避免的坑">4. 避免的坑
 </h3><p>⚠️ <strong>不要手动编辑 <code>.git/worktrees</code></strong></p>
 <ul>
@@ -1195,217 +1075,105 @@ git worktree prune</code>
 <hr>
 <h2 id="与工作流集成">与工作流集成
 </h2><h3 id="git-flow--worktree">Git Flow + Worktree
-</h3>
-
-
-
-
-<div class="highlight highlight-bash">
-  <pre>
-    <code class="language-bash" data-lang="bash">project/
-├── .git                    # 主仓库
-├── main/                   # 主分支工作目录（当前）
-├── develop/                # 开发分支 worktree
-├── feature-user-auth/      # 功能分支 worktree
-├── hotfix-critical-bug/    # 紧急修复 worktree
-└── release-v1.2/           # 发布分支 worktree</code>
-  </pre>
-</div>
-
-<p><strong>工作流程</strong>：</p>
-
-
-
-
-
-<div class="highlight highlight-bash">
-  <pre>
-    <code class="language-bash" data-lang="bash"># 主工作目录在 main 分支
-
-# 创建 develop worktree（长期保留）
-git worktree add ../develop develop
-
-# 创建功能 worktree
-git worktree add ../feature-user-auth feature/user-auth
-cd ../feature-user-auth
-# 开发功能...
-
-# 突发 hotfix
-git worktree add ../hotfix-critical hotfix/critical
-cd ../hotfix-critical
-# 修复、部署...
-
-# 合并后清理
-git worktree remove ../feature-user-auth</code>
-  </pre>
-</div>
-
-<h3 id="github-flow--worktree">GitHub Flow + Worktree
-</h3>
-
-
-
-
-<div class="highlight highlight-bash">
-  <pre>
-    <code class="language-bash" data-lang="bash"># 主分支长期 worktree
-git worktree add ../main-main main
-
-# 为每个 PR 创建 worktree
-git worktree add ../pr-123 origin/pr/123
-cd ../pr-123
-# 测试、review...
-
-# PR 合并后删除
-git worktree remove ../pr-123</code>
-  </pre>
-</div>
-
-<hr>
+</h3><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">project/
+</span></span><span class="line"><span class="cl">├── .git                    <span class="c1"># 主仓库</span>
+</span></span><span class="line"><span class="cl">├── main/                   <span class="c1"># 主分支工作目录（当前）</span>
+</span></span><span class="line"><span class="cl">├── develop/                <span class="c1"># 开发分支 worktree</span>
+</span></span><span class="line"><span class="cl">├── feature-user-auth/      <span class="c1"># 功能分支 worktree</span>
+</span></span><span class="line"><span class="cl">├── hotfix-critical-bug/    <span class="c1"># 紧急修复 worktree</span>
+</span></span><span class="line"><span class="cl">└── release-v1.2/           <span class="c1"># 发布分支 worktree</span>
+</span></span></code></pre></div><p><strong>工作流程</strong>：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># 主工作目录在 main 分支</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 创建 develop worktree（长期保留）</span>
+</span></span><span class="line"><span class="cl">git worktree add ../develop develop
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 创建功能 worktree</span>
+</span></span><span class="line"><span class="cl">git worktree add ../feature-user-auth feature/user-auth
+</span></span><span class="line"><span class="cl"><span class="nb">cd</span> ../feature-user-auth
+</span></span><span class="line"><span class="cl"><span class="c1"># 开发功能...</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 突发 hotfix</span>
+</span></span><span class="line"><span class="cl">git worktree add ../hotfix-critical hotfix/critical
+</span></span><span class="line"><span class="cl"><span class="nb">cd</span> ../hotfix-critical
+</span></span><span class="line"><span class="cl"><span class="c1"># 修复、部署...</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 合并后清理</span>
+</span></span><span class="line"><span class="cl">git worktree remove ../feature-user-auth
+</span></span></code></pre></div><h3 id="github-flow--worktree">GitHub Flow + Worktree
+</h3><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># 主分支长期 worktree</span>
+</span></span><span class="line"><span class="cl">git worktree add ../main-main main
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 为每个 PR 创建 worktree</span>
+</span></span><span class="line"><span class="cl">git worktree add ../pr-123 origin/pr/123
+</span></span><span class="line"><span class="cl"><span class="nb">cd</span> ../pr-123
+</span></span><span class="line"><span class="cl"><span class="c1"># 测试、review...</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># PR 合并后删除</span>
+</span></span><span class="line"><span class="cl">git worktree remove ../pr-123
+</span></span></code></pre></div><hr>
 <h2 id="进阶技巧">进阶技巧
 </h2><h3 id="1-bare-仓库--worktree">1. Bare 仓库 + Worktree
 </h3><p>适用于服务器或 CI/CD 环境：</p>
-
-
-
-
-
-<div class="highlight highlight-bash">
-  <pre>
-    <code class="language-bash" data-lang="bash"># 创建 bare 仓库（没有工作目录）
-git clone --bare https://github.com/user/repo.git repo.git
-
-# 从 bare 仓库创建 worktree
-cd repo.git
-git worktree add /var/www/html main
-git worktree add /var/www/staging develop
-
-# 更新所有 worktree
-git worktree list | awk &#39;{print $1}&#39; | xargs -I {} git -C {} pull</code>
-  </pre>
-</div>
-
-<h3 id="2-自动化脚本">2. 自动化脚本
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># 创建 bare 仓库（没有工作目录）</span>
+</span></span><span class="line"><span class="cl">git clone --bare https://github.com/user/repo.git repo.git
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 从 bare 仓库创建 worktree</span>
+</span></span><span class="line"><span class="cl"><span class="nb">cd</span> repo.git
+</span></span><span class="line"><span class="cl">git worktree add /var/www/html main
+</span></span><span class="line"><span class="cl">git worktree add /var/www/staging develop
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 更新所有 worktree</span>
+</span></span><span class="line"><span class="cl">git worktree list <span class="p">|</span> awk <span class="s1">&#39;{print $1}&#39;</span> <span class="p">|</span> xargs -I <span class="o">{}</span> git -C <span class="o">{}</span> pull
+</span></span></code></pre></div><h3 id="2-自动化脚本">2. 自动化脚本
 </h3><p><strong>快速创建 feature worktree</strong>：</p>
-
-
-
-
-
-<div class="highlight highlight-bash">
-  <pre>
-    <code class="language-bash" data-lang="bash">#!/bin/bash
-# ~/bin/git-feature
-if [ -z &#34;$1&#34; ]; then
-  echo &#34;Usage: git-feature &lt;branch-name&gt;&#34;
-  exit 1
-fi
-
-git worktree add &#34;../feature-$1&#34; &#34;feature/$1&#34;
-cd &#34;../feature-$1&#34; || exit
-echo &#34;✓ Created worktree for feature/$1&#34;</code>
-  </pre>
-</div>
-
-<p>使用：</p>
-
-
-
-
-
-<div class="highlight highlight-bash">
-  <pre>
-    <code class="language-bash" data-lang="bash">chmod &#43;x ~/bin/git-feature
-git-feature user-auth  # 等同于 git worktree add ../feature-user-auth feature/user-auth</code>
-  </pre>
-</div>
-
-<h3 id="3-并行测试脚本">3. 并行测试脚本
-</h3>
-
-
-
-
-<div class="highlight highlight-bash">
-  <pre>
-    <code class="language-bash" data-lang="bash">#!/bin/bash
-# 在所有 worktree 中运行测试
-for dir in ../*/; do
-  if [ -f &#34;$dir/package.json&#34; ]; then
-    echo &#34;Testing in $dir&#34;
-    (cd &#34;$dir&#34; &amp;&amp; npm test)
-  fi
-done</code>
-  </pre>
-</div>
-
-<hr>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="cp">#!/bin/bash
+</span></span></span><span class="line"><span class="cl"><span class="c1"># ~/bin/git-feature</span>
+</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="o">[</span> -z <span class="s2">&#34;</span><span class="nv">$1</span><span class="s2">&#34;</span> <span class="o">]</span><span class="p">;</span> <span class="k">then</span>
+</span></span><span class="line"><span class="cl">  <span class="nb">echo</span> <span class="s2">&#34;Usage: git-feature &lt;branch-name&gt;&#34;</span>
+</span></span><span class="line"><span class="cl">  <span class="nb">exit</span> <span class="m">1</span>
+</span></span><span class="line"><span class="cl"><span class="k">fi</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">git worktree add <span class="s2">&#34;../feature-</span><span class="nv">$1</span><span class="s2">&#34;</span> <span class="s2">&#34;feature/</span><span class="nv">$1</span><span class="s2">&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="nb">cd</span> <span class="s2">&#34;../feature-</span><span class="nv">$1</span><span class="s2">&#34;</span> <span class="o">||</span> <span class="nb">exit</span>
+</span></span><span class="line"><span class="cl"><span class="nb">echo</span> <span class="s2">&#34;✓ Created worktree for feature/</span><span class="nv">$1</span><span class="s2">&#34;</span>
+</span></span></code></pre></div><p>使用：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">chmod +x ~/bin/git-feature
+</span></span><span class="line"><span class="cl">git-feature user-auth  <span class="c1"># 等同于 git worktree add ../feature-user-auth feature/user-auth</span>
+</span></span></code></pre></div><h3 id="3-并行测试脚本">3. 并行测试脚本
+</h3><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="cp">#!/bin/bash
+</span></span></span><span class="line"><span class="cl"><span class="c1"># 在所有 worktree 中运行测试</span>
+</span></span><span class="line"><span class="cl"><span class="k">for</span> dir in ../*/<span class="p">;</span> <span class="k">do</span>
+</span></span><span class="line"><span class="cl">  <span class="k">if</span> <span class="o">[</span> -f <span class="s2">&#34;</span><span class="nv">$dir</span><span class="s2">/package.json&#34;</span> <span class="o">]</span><span class="p">;</span> <span class="k">then</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">echo</span> <span class="s2">&#34;Testing in </span><span class="nv">$dir</span><span class="s2">&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="o">(</span><span class="nb">cd</span> <span class="s2">&#34;</span><span class="nv">$dir</span><span class="s2">&#34;</span> <span class="o">&amp;&amp;</span> npm <span class="nb">test</span><span class="o">)</span>
+</span></span><span class="line"><span class="cl">  <span class="k">fi</span>
+</span></span><span class="line"><span class="cl"><span class="k">done</span>
+</span></span></code></pre></div><hr>
 <h2 id="常见问题排查">常见问题排查
 </h2><h3 id="问题-1stale-worktree-引用">问题 1：Stale worktree 引用
 </h3><p><strong>现象</strong>：<code>git worktree list</code> 显示已删除的目录</p>
 <p><strong>解决</strong>：</p>
-
-
-
-
-
-<div class="highlight highlight-bash">
-  <pre>
-    <code class="language-bash" data-lang="bash">git worktree prune</code>
-  </pre>
-</div>
-
-<h3 id="问题-2worktree-被锁定">问题 2：Worktree 被锁定
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">git worktree prune
+</span></span></code></pre></div><h3 id="问题-2worktree-被锁定">问题 2：Worktree 被锁定
 </h3><p><strong>现象</strong>：无法删除 worktree，提示 &ldquo;locked&rdquo;</p>
 <p><strong>解决</strong>：</p>
-
-
-
-
-
-<div class="highlight highlight-bash">
-  <pre>
-    <code class="language-bash" data-lang="bash"># 先解锁
-git worktree unlock ../problematic-worktree
-
-# 再删除
-git worktree remove ../problematic-worktree</code>
-  </pre>
-</div>
-
-<h3 id="问题-3找不到-git-目录">问题 3：找不到 <code>.git</code> 目录
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># 先解锁</span>
+</span></span><span class="line"><span class="cl">git worktree unlock ../problematic-worktree
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 再删除</span>
+</span></span><span class="line"><span class="cl">git worktree remove ../problematic-worktree
+</span></span></code></pre></div><h3 id="问题-3找不到-git-目录">问题 3：找不到 <code>.git</code> 目录
 </h3><p><strong>现象</strong>：worktree 目录中没有 <code>.git</code> 文件夹</p>
 <p><strong>解释</strong>：这是正常的！worktree 目录中有一个 <code>.git</code> <strong>文件</strong>（不是文件夹），内容是：</p>
-
-
-
-
-  
-
-
-<div class="highlight highlight-text">
-  <pre>
-    <code class="language-text" data-lang="text">gitdir: /path/to/main/.git/worktrees/worktree-name</code>
-  </pre>
-</div>
-
-<h3 id="问题-4配置冲突">问题 4：配置冲突
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">gitdir: /path/to/main/.git/worktrees/worktree-name
+</span></span></code></pre></div><h3 id="问题-4配置冲突">问题 4：配置冲突
 </h3><p><strong>现象</strong>：不同 worktree 中需要不同的 Git 配置</p>
 <p><strong>解决</strong>：使用条件包含（Git 2.13+）</p>
-
-
-
-
-
-<div class="highlight highlight-bash">
-  <pre>
-    <code class="language-bash" data-lang="bash"># ~/.gitconfig
-[includeIf &#34;gitdir:~/project/&#34;]
-  path = ~/.gitconfig-project</code>
-  </pre>
-</div>
-
-<hr>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># ~/.gitconfig</span>
+</span></span><span class="line"><span class="cl"><span class="o">[</span>includeIf <span class="s2">&#34;gitdir:~/project/&#34;</span><span class="o">]</span>
+</span></span><span class="line"><span class="cl">  <span class="nv">path</span> <span class="o">=</span> ~/.gitconfig-project
+</span></span></code></pre></div><hr>
 <h2 id="工具推荐">工具推荐
 </h2><h3 id="gui-工具支持">GUI 工具支持
 </h3><ul>
@@ -1415,24 +1183,14 @@ git worktree remove ../problematic-worktree</code>
 <li><strong>Tower</strong>：支持 worktree 创建和管理</li>
 </ul>
 <h3 id="命令行增强">命令行增强
-</h3>
-
-
-
-
-<div class="highlight highlight-bash">
-  <pre>
-    <code class="language-bash" data-lang="bash"># 创建别名
-git config --global alias.wt &#39;worktree&#39;
-
-# 使用：
-git wt list          # 列出 worktree
-git wt add ../f f    # 添加 worktree
-git wt rm ../f       # 删除 worktree</code>
-  </pre>
-</div>
-
-<hr>
+</h3><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># 创建别名</span>
+</span></span><span class="line"><span class="cl">git config --global alias.wt <span class="s1">&#39;worktree&#39;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 使用：</span>
+</span></span><span class="line"><span class="cl">git wt list          <span class="c1"># 列出 worktree</span>
+</span></span><span class="line"><span class="cl">git wt add ../f f    <span class="c1"># 添加 worktree</span>
+</span></span><span class="line"><span class="cl">git wt rm ../f       <span class="c1"># 删除 worktree</span>
+</span></span></code></pre></div><hr>
 <h2 id="总结">总结
 </h2><p>Git Worktree 是一个被低估的强大功能，特别适合以下场景：</p>
 <p>✅ <strong>需要频繁切换分支</strong>时
@@ -1476,43 +1234,33 @@ git wt rm ../f       # 删除 worktree</code>
 <hr>
 <h2 id="实战练习">实战练习
 </h2><p>想快速上手？试试这个练习：</p>
-
-
-
-
-
-<div class="highlight highlight-bash">
-  <pre>
-    <code class="language-bash" data-lang="bash"># 1. 克隆一个测试仓库
-git clone https://github.com/user/test-repo.git
-cd test-repo
-
-# 2. 创建第一个 worktree
-git worktree add ../feature-demo feature/demo
-cd ../feature-demo
-echo &#34;Feature demo&#34; &gt; demo.txt
-git add demo.txt
-git commit -m &#34;Add demo feature&#34;
-
-# 3. 回到主目录，创建第二个 worktree
-cd ../test-repo
-git worktree add ../hotfix-demo hotfix/demo
-cd ../hotfix-demo
-echo &#34;Hotfix demo&#34; &gt; hotfix.txt
-git add hotfix.txt
-git commit -m &#34;Add hotfix&#34;
-
-# 4. 查看所有 worktree
-cd ../test-repo
-git worktree list
-
-# 5. 清理
-git worktree remove ../feature-demo
-git worktree remove ../hotfix-demo</code>
-  </pre>
-</div>
-
-<hr>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># 1. 克隆一个测试仓库</span>
+</span></span><span class="line"><span class="cl">git clone https://github.com/user/test-repo.git
+</span></span><span class="line"><span class="cl"><span class="nb">cd</span> test-repo
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 2. 创建第一个 worktree</span>
+</span></span><span class="line"><span class="cl">git worktree add ../feature-demo feature/demo
+</span></span><span class="line"><span class="cl"><span class="nb">cd</span> ../feature-demo
+</span></span><span class="line"><span class="cl"><span class="nb">echo</span> <span class="s2">&#34;Feature demo&#34;</span> &gt; demo.txt
+</span></span><span class="line"><span class="cl">git add demo.txt
+</span></span><span class="line"><span class="cl">git commit -m <span class="s2">&#34;Add demo feature&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 3. 回到主目录，创建第二个 worktree</span>
+</span></span><span class="line"><span class="cl"><span class="nb">cd</span> ../test-repo
+</span></span><span class="line"><span class="cl">git worktree add ../hotfix-demo hotfix/demo
+</span></span><span class="line"><span class="cl"><span class="nb">cd</span> ../hotfix-demo
+</span></span><span class="line"><span class="cl"><span class="nb">echo</span> <span class="s2">&#34;Hotfix demo&#34;</span> &gt; hotfix.txt
+</span></span><span class="line"><span class="cl">git add hotfix.txt
+</span></span><span class="line"><span class="cl">git commit -m <span class="s2">&#34;Add hotfix&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 4. 查看所有 worktree</span>
+</span></span><span class="line"><span class="cl"><span class="nb">cd</span> ../test-repo
+</span></span><span class="line"><span class="cl">git worktree list
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 5. 清理</span>
+</span></span><span class="line"><span class="cl">git worktree remove ../feature-demo
+</span></span><span class="line"><span class="cl">git worktree remove ../hotfix-demo
+</span></span></code></pre></div><hr>
 <p><strong>Happy Coding! 🚀</strong></p>
 <p>记住：工具是为了提升效率，选择适合你的工作流程最重要。Git Worktree 不是银弹，但在多任务并行场景下，它能显著提升开发体验。</p>
 
@@ -1759,7 +1507,7 @@ git worktree remove ../hotfix-demo</code>
                 src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
                 
                 >
-            </script><script type="text/javascript" src="/ts/main.888cccdaf3c934b58bb1982792b4d0fdb89be145d2cabea38c8569bfe7d08117.js" defer></script>
+            </script><script type="text/javascript" src="/ts/main.fe055f50234dc99b59992d29820a4403a71f7c90de7b6ebd204c621ac170b546.js" defer></script>
 <script>
     (function () {
         const customFont = document.createElement('link');

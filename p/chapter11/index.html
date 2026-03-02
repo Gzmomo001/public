@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="zh-cn" dir="ltr">
+<html lang="en-us" dir="ltr">
     <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><meta charset='utf-8'>
 <meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="继承 和 多态(java)">
 <title>Chapter11</title>
@@ -357,7 +357,7 @@
                     
                     
                         
-                        <img src="/img/avatar_hu_9c50848f93c56cbf.jpeg" width="300"
+                        <img src="/img/avatar_hu_a69ebd3e9749347e.jpeg" width="300"
                             height="296" class="site-logo" loading="lazy" alt="Avatar">
                     
                 
@@ -731,7 +731,7 @@
 
 
                 <time>
-                    May 26, 2025 03:12 &#43;0800
+                    May 26, 2025 03:12 CST
                 </time>
             </div>
     </footer>
@@ -759,37 +759,27 @@
 <li>通过这样的方法可以大大减少代码的冗余.提高代码的复用性.</li>
 </ol>
 <h3 id="具体实现">具体实现
-</h3>
-
-
-
-
-<div class="highlight highlight-java">
-  <pre>
-    <code class="language-java" data-lang="java">public class Person {
-    private String name;
-    private int age;
-    private String gender;
-
-    public Person(String name, int age, String gender) {
-        this.name = name;
-        this.age = age;
-        this.gender = gender;
-    }
-}
-
-public class Student extends Person {
-    private String major;
-    public Student(String name, int age, String gender, String major) {
-        super(name, age, gender);
-        // 在这里, 我们的super keyword 的作用就是调用父类的构造器.
-        this.major = major;
-    }
-}</code>
-  </pre>
-</div>
-
-<blockquote class="alert alert-tip">
+</h3><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">Person</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="n">name</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">age</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="n">gender</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="nf">Person</span><span class="p">(</span><span class="n">String</span><span class="w"> </span><span class="n">name</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">age</span><span class="p">,</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="n">gender</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="k">this</span><span class="p">.</span><span class="na">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">name</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="k">this</span><span class="p">.</span><span class="na">age</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">age</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="k">this</span><span class="p">.</span><span class="na">gender</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">gender</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">Student</span><span class="w"> </span><span class="kd">extends</span><span class="w"> </span><span class="n">Person</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="n">major</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="nf">Student</span><span class="p">(</span><span class="n">String</span><span class="w"> </span><span class="n">name</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">age</span><span class="p">,</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="n">gender</span><span class="p">,</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="n">major</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="kd">super</span><span class="p">(</span><span class="n">name</span><span class="p">,</span><span class="w"> </span><span class="n">age</span><span class="p">,</span><span class="w"> </span><span class="n">gender</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="c1">// 在这里, 我们的super keyword 的作用就是调用父类的构造器.</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="k">this</span><span class="p">.</span><span class="na">major</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">major</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="p">}</span><span class="w">
+</span></span></span></code></pre></div><blockquote class="alert alert-tip">
     <ol>
 <li>如果这里的构造器没有调用父类的构造器, 那么编译器会会在编译的时候在该构造器的最前面先调用父类的无参构造器.</li>
 <li>当父类使用 final 关键字的时候, 则无法定义其子类</li>
@@ -807,22 +797,12 @@ public class Student extends Person {
 </h4><ol>
 <li>当你需要子类的方法的时候但是却不需要子类的变量的时候.</li>
 </ol>
-
-
-
-
-
-<div class="highlight highlight-java">
-  <pre>
-    <code class="language-java" data-lang="java">// 向上转型示例
-Student student = new Student(&#34;张三&#34;, 20, &#34;男&#34;, &#34;计算机科学&#34;);
-Person person = student; // 自动向上转型
-// 或者显式写法
-Person person2 = (Person)student; // 效果相同</code>
-  </pre>
-</div>
-
-<blockquote class="alert alert-tip">
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="c1">// 向上转型示例</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="n">Student</span><span class="w"> </span><span class="n">student</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">Student</span><span class="p">(</span><span class="s">&#34;张三&#34;</span><span class="p">,</span><span class="w"> </span><span class="n">20</span><span class="p">,</span><span class="w"> </span><span class="s">&#34;男&#34;</span><span class="p">,</span><span class="w"> </span><span class="s">&#34;计算机科学&#34;</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="n">Person</span><span class="w"> </span><span class="n">person</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">student</span><span class="p">;</span><span class="w"> </span><span class="c1">// 自动向上转型</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="c1">// 或者显式写法</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="n">Person</span><span class="w"> </span><span class="n">person2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">Person</span><span class="p">)</span><span class="n">student</span><span class="p">;</span><span class="w"> </span><span class="c1">// 效果相同</span><span class="w">
+</span></span></span></code></pre></div><blockquote class="alert alert-tip">
     <p>当<code>子类</code>想临时使用<code>父类</code>的某个方法的时候可以仿照这个例子调用: &ldquo;((father)child).method();&rdquo;</p></blockquote>
 <h3 id="向下转型downcasting">向下转型（Downcasting）
 </h3><p>能够向下转型的几种情况.</p>
@@ -830,33 +810,23 @@ Person person2 = (Person)student; // 效果相同</code>
 <li>new 类的时候使用的是子类, 但是当作了父类来使用.</li>
 <li>或者在继承类上转换, 例如: person -&gt; faculty -&gt; teacher 这三个类. 当 new 的类是 teacher, 但是被当作 person 使用的时候, 那 person 类就能转型为 faculty.</li>
 </ol>
-
-
-
-
-
-<div class="highlight highlight-java">
-  <pre>
-    <code class="language-java" data-lang="java">// 向下转型示例
-Person person = new Student(&#34;李四&#34;, 19, &#34;女&#34;, &#34;数学&#34;); // 首先向上转型
-Student student = (Student)person; // 向下转型
-
-// 错误的向下转型示例
-Person person2 = new Person(&#34;王五&#34;, 25, &#34;男&#34;);
-Student student2 = (Student)person2; // 运行时会抛出 ClassCastException
-
-// 转型前错误检查能有效避免运行错误
-if (person instanceof Student) {
-    // instanceof这个关键字能检查实例是否属于某个指定的类.
-    Student student = (Student)person;
-    System.out.println(&#34;专业：&#34; &#43; student.getMajor());
-} else {
-    System.out.println(&#34;这个人不是学生&#34;);
-}</code>
-  </pre>
-</div>
-
-<blockquote>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="c1">// 向下转型示例</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="n">Person</span><span class="w"> </span><span class="n">person</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">Student</span><span class="p">(</span><span class="s">&#34;李四&#34;</span><span class="p">,</span><span class="w"> </span><span class="n">19</span><span class="p">,</span><span class="w"> </span><span class="s">&#34;女&#34;</span><span class="p">,</span><span class="w"> </span><span class="s">&#34;数学&#34;</span><span class="p">);</span><span class="w"> </span><span class="c1">// 首先向上转型</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="n">Student</span><span class="w"> </span><span class="n">student</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">Student</span><span class="p">)</span><span class="n">person</span><span class="p">;</span><span class="w"> </span><span class="c1">// 向下转型</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="c1">// 错误的向下转型示例</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="n">Person</span><span class="w"> </span><span class="n">person2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">Person</span><span class="p">(</span><span class="s">&#34;王五&#34;</span><span class="p">,</span><span class="w"> </span><span class="n">25</span><span class="p">,</span><span class="w"> </span><span class="s">&#34;男&#34;</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="n">Student</span><span class="w"> </span><span class="n">student2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">Student</span><span class="p">)</span><span class="n">person2</span><span class="p">;</span><span class="w"> </span><span class="c1">// 运行时会抛出 ClassCastException</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="c1">// 转型前错误检查能有效避免运行错误</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">person</span><span class="w"> </span><span class="k">instanceof</span><span class="w"> </span><span class="n">Student</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="c1">// instanceof这个关键字能检查实例是否属于某个指定的类.</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">Student</span><span class="w"> </span><span class="n">student</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">Student</span><span class="p">)</span><span class="n">person</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&#34;专业：&#34;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">student</span><span class="p">.</span><span class="na">getMajor</span><span class="p">());</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&#34;这个人不是学生&#34;</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="p">}</span><span class="w">
+</span></span></span></code></pre></div><blockquote>
 <p>关于 &ldquo;instanceof&rdquo; 关键字: 检查的是该类在创建时的 new 的类是否属于某个类链条上.</p>
 </blockquote>
 <h2 id="nest-class--嵌套类非大纲">Nest class | 嵌套类(非大纲)
@@ -869,56 +839,36 @@ if (person instanceof Student) {
 </h3><ol>
 <li>能够访问外部类的所有成员.</li>
 </ol>
-
-
-
-
-
-<div class="highlight highlight-java">
-  <pre>
-    <code class="language-java" data-lang="java">public class OuterClass {
-    private String msg = &#34;Hello&#34;;
-
-    // 非静态内部类
-    class InnerClass {
-        public void display() {
-            // 可以访问外部类的所有成员
-            System.out.println(msg);
-        }
-    }
-}</code>
-  </pre>
-</div>
-
-<h3 id="静态嵌套类-static-nested-class">静态嵌套类 (Static Nested Class)
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">OuterClass</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="n">msg</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#34;Hello&#34;</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="c1">// 非静态内部类</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">class</span> <span class="nc">InnerClass</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="kd">public</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">display</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="c1">// 可以访问外部类的所有成员</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="n">msg</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="p">}</span><span class="w">
+</span></span></span></code></pre></div><h3 id="静态嵌套类-static-nested-class">静态嵌套类 (Static Nested Class)
 </h3><ol>
 <li>静态嵌套类不能直接访问内部的静态成员. 当前示例代码中的静态子类就无法访问<code>num</code>这个变量.</li>
 <li>静态嵌套类虽然无法访问外部类的非静态成员, 但是可以访问该类内部的成员. 比如示例代码中的<code>a</code>.</li>
 </ol>
-
-
-
-
-
-<div class="highlight highlight-java">
-  <pre>
-    <code class="language-java" data-lang="java">public class OuterClass {
-    private static String msg = &#34;Hello&#34;;
-    private int num = 10;
-
-    // 静态嵌套类
-    static class StaticNestedClass {
-        int a = 10;
-        public void display() {
-            // 可以访问外部类的静态成员
-            System.out.println(msg);
-        }
-    }
-}</code>
-  </pre>
-</div>
-
-<h2 id="overriding-methods--方法重写">Overriding Methods | 方法重写
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">OuterClass</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="kd">static</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="n">msg</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#34;Hello&#34;</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">num</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">10</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="c1">// 静态嵌套类</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">static</span><span class="w"> </span><span class="kd">class</span> <span class="nc">StaticNestedClass</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="kt">int</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">10</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="kd">public</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">display</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="c1">// 可以访问外部类的静态成员</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="n">msg</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="p">}</span><span class="w">
+</span></span></span></code></pre></div><h2 id="overriding-methods--方法重写">Overriding Methods | 方法重写
 </h2><p>当一个学生类想要调用<code>toString</code>方法输出自己的信息的时候, <code>person</code>类的<code>toString</code>方法可能并没有涉及到学生类新<code>data field</code>, 比如年纪, 学号等. 这个时候就是方法重写大展拳脚的时候了.</p>
 <ol>
 <li>在子类中, 我们可以使用<code>@Override</code>签名来重写父类的方法.</li>
@@ -929,30 +879,20 @@ if (person instanceof Student) {
 </ul>
 </li>
 </ol>
-
-
-
-
-
-<div class="highlight highlight-java">
-  <pre>
-    <code class="language-java" data-lang="java">class father{
-    void methodA{
-        System.out.println(&#34;This is A&#34;)
-    }
-}
-
-class children{
-    @override
-    // 其实这里不使用这个签名方法也能顺利重写, 但为了代码规范还是建议在重写的方法前添加这个签名
-    void methodA{
-        System.out.println(&#34;This is also A&#34;)
-    }
-}</code>
-  </pre>
-</div>
-
-<p>比如之前章节学的, 当我们使用<code>wrapper class</code>的时候, 不管是什么类型的类, 我们都可以使用相同的<code>compareTo</code>方法.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kd">class</span> <span class="nc">father</span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="n">methodA</span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&#34;This is A&#34;</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="kd">class</span> <span class="nc">children</span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nd">@override</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="c1">// 其实这里不使用这个签名方法也能顺利重写, 但为了代码规范还是建议在重写的方法前添加这个签名</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="n">methodA</span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&#34;This is also A&#34;</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="p">}</span><span class="w">
+</span></span></span></code></pre></div><p>比如之前章节学的, 当我们使用<code>wrapper class</code>的时候, 不管是什么类型的类, 我们都可以使用相同的<code>compareTo</code>方法.</p>
 <blockquote class="alert alert-tip">
     <p>方法重写的前提是父类的方法没有使用 final 关键字. 使用 final 关键字的方法无法被子类重写, 这样做可以防止一些关键的方法被错误的重写, 能让子类的代码更加规范.</p></blockquote>
 <h3 id="overriding-vs-overloading">Overriding vs. Overloading
@@ -992,172 +932,82 @@ class children{
 <h4 id="重写规范">重写规范
 </h4><p>当你重写这个方法的时候传入的参数一定是 object 类.
 示例:</p>
-
-
-
-
-
-<div class="highlight highlight-java">
-  <pre>
-    <code class="language-java" data-lang="java">@override
-public boolean equals(Object circle) {
-    return this.radius == ((Circle)circle).radius;
-    }</code>
-  </pre>
-</div>
-
-<h2 id="the-arraylist-class">The ArrayList Class
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="nd">@override</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="kd">public</span><span class="w"> </span><span class="kt">boolean</span><span class="w"> </span><span class="nf">equals</span><span class="p">(</span><span class="n">Object</span><span class="w"> </span><span class="n">circle</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="k">this</span><span class="p">.</span><span class="na">radius</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="p">((</span><span class="n">Circle</span><span class="p">)</span><span class="n">circle</span><span class="p">).</span><span class="na">radius</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
+</span></span></span></code></pre></div><h2 id="the-arraylist-class">The ArrayList Class
 </h2><ol>
 <li>容量是动态的</li>
 </ol>
 <h3 id="创建">创建
-</h3>
-
-
-
-
-<div class="highlight highlight-java">
-  <pre>
-    <code class="language-java" data-lang="java">// 创建一个空的 ArrayList
-ArrayList&lt;String&gt; list1 = new ArrayList&lt;&gt;();
-
-// 创建一个指定初始容量的 ArrayList
-ArrayList&lt;Integer&gt; list2 = new ArrayList&lt;&gt;(10);
-
-// 从其他集合创建 ArrayList
-ArrayList&lt;Double&gt; list3 = new ArrayList&lt;&gt;(Arrays.asList(1.1, 2.2, 3.3));</code>
-  </pre>
-</div>
-
-<blockquote class="alert alert-tip">
+</h3><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="c1">// 创建一个空的 ArrayList</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="n">ArrayList</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span><span class="w"> </span><span class="n">list1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">ArrayList</span><span class="o">&lt;&gt;</span><span class="p">();</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="c1">// 创建一个指定初始容量的 ArrayList</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="n">ArrayList</span><span class="o">&lt;</span><span class="n">Integer</span><span class="o">&gt;</span><span class="w"> </span><span class="n">list2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">ArrayList</span><span class="o">&lt;&gt;</span><span class="p">(</span><span class="n">10</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="c1">// 从其他集合创建 ArrayList</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="n">ArrayList</span><span class="o">&lt;</span><span class="n">Double</span><span class="o">&gt;</span><span class="w"> </span><span class="n">list3</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">ArrayList</span><span class="o">&lt;&gt;</span><span class="p">(</span><span class="n">Arrays</span><span class="p">.</span><span class="na">asList</span><span class="p">(</span><span class="n">1</span><span class="p">.</span><span class="na">1</span><span class="p">,</span><span class="w"> </span><span class="n">2</span><span class="p">.</span><span class="na">2</span><span class="p">,</span><span class="w"> </span><span class="n">3</span><span class="p">.</span><span class="na">3</span><span class="p">));</span><span class="w">
+</span></span></span></code></pre></div><blockquote class="alert alert-tip">
     <p>&lsquo;&lt;&gt;&lsquo;是泛型, 目前知道知道括号里填什么类型的 wrapper 类, 这个数组就会存储什么类型的变量.</p></blockquote>
 <h3 id="add">add
-</h3>
-
-
-
-
-<div class="highlight highlight-java">
-  <pre>
-    <code class="language-java" data-lang="java">// 在列表末尾添加元素
-list.add(element);           // 返回 boolean
-
-// 在指定位置插入元素
-list.add(index, element);    // void 返回
-
-// 添加多个元素
-list.addAll(collection);     // 返回 boolean
-list.addAll(index, collection); // 返回 boolean</code>
-  </pre>
-</div>
-
-<h3 id="visit">visit
-</h3>
-
-
-
-
-<div class="highlight highlight-java">
-  <pre>
-    <code class="language-java" data-lang="java">// 获取指定位置的元素
-Element element = list.get(index);
-
-// 获取第一次出现的位置
-int index = list.indexOf(element);
-
-// 获取最后一次出现的位置
-int lastIndex = list.lastIndexOf(element);</code>
-  </pre>
-</div>
-
-<h3 id="modify">modify
-</h3>
-
-
-
-
-<div class="highlight highlight-java">
-  <pre>
-    <code class="language-java" data-lang="java">// 替换指定位置的元素
-Element oldElement = list.set(index, newElement);</code>
-  </pre>
-</div>
-
-<h3 id="delete">delete
-</h3>
-
-
-
-
-<div class="highlight highlight-java">
-  <pre>
-    <code class="language-java" data-lang="java">// 删除指定位置的元素
-Element removedElement = list.remove(index);
-
-// 删除第一次出现的指定元素
-boolean isRemoved = list.remove(element);
-
-// 删除所有元素
-list.clear();</code>
-  </pre>
-</div>
-
-<h3 id="query">query
-</h3>
-
-
-
-
-<div class="highlight highlight-java">
-  <pre>
-    <code class="language-java" data-lang="java">// 检查是否包含某个元素
-boolean contains = list.contains(element);
-
-// 检查是否为空
-boolean isEmpty = list.isEmpty();
-
-// 获取列表大小
-int size = list.size();</code>
-  </pre>
-</div>
-
-<h3 id="transfer">transfer
-</h3>
-
-
-
-
-<div class="highlight highlight-java">
-  <pre>
-    <code class="language-java" data-lang="java">// 转换为数组
-Object[] array = list.toArray();
-String[] stringArray = list.toArray(new String[0]);
-
-// 获取子列表（视图）
-List&lt;E&gt; subList = list.subList(fromIndex, toIndex);</code>
-  </pre>
-</div>
-
-<h3 id="sort">sort
-</h3>
-
-
-
-
-<div class="highlight highlight-java">
-  <pre>
-    <code class="language-java" data-lang="java">// 排序（使用自然顺序）
-Collections.sort(list);
-
-// 使用自定义比较器排序
-Collections.sort(list, comparator);
-
-// 反转列表
-Collections.reverse(list);</code>
-  </pre>
-</div>
-
-<blockquote class="alert alert-tip">
+</h3><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="c1">// 在列表末尾添加元素</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="n">list</span><span class="p">.</span><span class="na">add</span><span class="p">(</span><span class="n">element</span><span class="p">);</span><span class="w">           </span><span class="c1">// 返回 boolean</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="c1">// 在指定位置插入元素</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="n">list</span><span class="p">.</span><span class="na">add</span><span class="p">(</span><span class="n">index</span><span class="p">,</span><span class="w"> </span><span class="n">element</span><span class="p">);</span><span class="w">    </span><span class="c1">// void 返回</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="c1">// 添加多个元素</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="n">list</span><span class="p">.</span><span class="na">addAll</span><span class="p">(</span><span class="n">collection</span><span class="p">);</span><span class="w">     </span><span class="c1">// 返回 boolean</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="n">list</span><span class="p">.</span><span class="na">addAll</span><span class="p">(</span><span class="n">index</span><span class="p">,</span><span class="w"> </span><span class="n">collection</span><span class="p">);</span><span class="w"> </span><span class="c1">// 返回 boolean</span><span class="w">
+</span></span></span></code></pre></div><h3 id="visit">visit
+</h3><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="c1">// 获取指定位置的元素</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="n">Element</span><span class="w"> </span><span class="n">element</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">list</span><span class="p">.</span><span class="na">get</span><span class="p">(</span><span class="n">index</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="c1">// 获取第一次出现的位置</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="kt">int</span><span class="w"> </span><span class="n">index</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">list</span><span class="p">.</span><span class="na">indexOf</span><span class="p">(</span><span class="n">element</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="c1">// 获取最后一次出现的位置</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="kt">int</span><span class="w"> </span><span class="n">lastIndex</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">list</span><span class="p">.</span><span class="na">lastIndexOf</span><span class="p">(</span><span class="n">element</span><span class="p">);</span><span class="w">
+</span></span></span></code></pre></div><h3 id="modify">modify
+</h3><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="c1">// 替换指定位置的元素</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="n">Element</span><span class="w"> </span><span class="n">oldElement</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">list</span><span class="p">.</span><span class="na">set</span><span class="p">(</span><span class="n">index</span><span class="p">,</span><span class="w"> </span><span class="n">newElement</span><span class="p">);</span><span class="w">
+</span></span></span></code></pre></div><h3 id="delete">delete
+</h3><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="c1">// 删除指定位置的元素</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="n">Element</span><span class="w"> </span><span class="n">removedElement</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">list</span><span class="p">.</span><span class="na">remove</span><span class="p">(</span><span class="n">index</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="c1">// 删除第一次出现的指定元素</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="kt">boolean</span><span class="w"> </span><span class="n">isRemoved</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">list</span><span class="p">.</span><span class="na">remove</span><span class="p">(</span><span class="n">element</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="c1">// 删除所有元素</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="n">list</span><span class="p">.</span><span class="na">clear</span><span class="p">();</span><span class="w">
+</span></span></span></code></pre></div><h3 id="query">query
+</h3><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="c1">// 检查是否包含某个元素</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="kt">boolean</span><span class="w"> </span><span class="n">contains</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">list</span><span class="p">.</span><span class="na">contains</span><span class="p">(</span><span class="n">element</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="c1">// 检查是否为空</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="kt">boolean</span><span class="w"> </span><span class="n">isEmpty</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">list</span><span class="p">.</span><span class="na">isEmpty</span><span class="p">();</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="c1">// 获取列表大小</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="kt">int</span><span class="w"> </span><span class="n">size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">list</span><span class="p">.</span><span class="na">size</span><span class="p">();</span><span class="w">
+</span></span></span></code></pre></div><h3 id="transfer">transfer
+</h3><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="c1">// 转换为数组</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="n">Object</span><span class="o">[]</span><span class="w"> </span><span class="n">array</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">list</span><span class="p">.</span><span class="na">toArray</span><span class="p">();</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="n">String</span><span class="o">[]</span><span class="w"> </span><span class="n">stringArray</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">list</span><span class="p">.</span><span class="na">toArray</span><span class="p">(</span><span class="k">new</span><span class="w"> </span><span class="n">String</span><span class="o">[</span><span class="n">0</span><span class="o">]</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="c1">// 获取子列表（视图）</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="n">List</span><span class="o">&lt;</span><span class="n">E</span><span class="o">&gt;</span><span class="w"> </span><span class="n">subList</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">list</span><span class="p">.</span><span class="na">subList</span><span class="p">(</span><span class="n">fromIndex</span><span class="p">,</span><span class="w"> </span><span class="n">toIndex</span><span class="p">);</span><span class="w">
+</span></span></span></code></pre></div><h3 id="sort">sort
+</h3><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="c1">// 排序（使用自然顺序）</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="n">Collections</span><span class="p">.</span><span class="na">sort</span><span class="p">(</span><span class="n">list</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="c1">// 使用自定义比较器排序</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="n">Collections</span><span class="p">.</span><span class="na">sort</span><span class="p">(</span><span class="n">list</span><span class="p">,</span><span class="w"> </span><span class="n">comparator</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="c1">// 反转列表</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="n">Collections</span><span class="p">.</span><span class="na">reverse</span><span class="p">(</span><span class="n">list</span><span class="p">);</span><span class="w">
+</span></span></span></code></pre></div><blockquote class="alert alert-tip">
     <p>这个类并不线程安全, 这意味着当多个线程同时操作这个类的时候可能会出现一些问题. 另外虽然这个类的容量的可变的, 但还是尽量在一开始就把容量定义好. 因为当类需要自己扩增容量的时候会影响性能.</p></blockquote>
 
 </section>
@@ -1479,7 +1329,7 @@ Collections.reverse(list);</code>
                 src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
                 
                 >
-            </script><script type="text/javascript" src="/ts/main.888cccdaf3c934b58bb1982792b4d0fdb89be145d2cabea38c8569bfe7d08117.js" defer></script>
+            </script><script type="text/javascript" src="/ts/main.fe055f50234dc99b59992d29820a4403a71f7c90de7b6ebd204c621ac170b546.js" defer></script>
 <script>
     (function () {
         const customFont = document.createElement('link');

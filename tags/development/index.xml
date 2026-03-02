@@ -5,9 +5,9 @@
         <link>http://localhost:1313/tags/development/</link>
         <description>Recent content in Development on Henry Zhang</description>
         <generator>Hugo -- gohugo.io</generator>
-        <language>zh-cn</language>
+        <language>en-us</language>
         <copyright>blog@mail.henry070.org</copyright>
-        <lastBuildDate>Sun, 11 Jan 2026 18:44:44 +0000</lastBuildDate><atom:link href="http://localhost:1313/tags/development/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Mon, 12 Jan 2026 10:55:02 +0800</lastBuildDate><atom:link href="http://localhost:1313/tags/development/index.xml" rel="self" type="application/rss+xml" /><item>
         <title>Git Worktree：并行开发的利器</title>
         <link>http://localhost:1313/p/git-worktree/</link>
         <pubDate>Mon, 12 Jan 2026 00:00:00 +0800</pubDate>
@@ -748,6 +748,665 @@ git worktree remove ../hotfix-demo&lt;/code&gt;
 &lt;hr&gt;
 &lt;p&gt;&lt;strong&gt;Happy Coding! 🚀&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;记住：工具是为了提升效率，选择适合你的工作流程最重要。Git Worktree 不是银弹，但在多任务并行场景下，它能显著提升开发体验。&lt;/p&gt;
+</description>
+        </item>
+        <item>
+        <title>VS Code Dev Containers 完全指南：从入门到精通</title>
+        <link>http://localhost:1313/p/vs-code-dev-containers-%E5%AE%8C%E5%85%A8%E6%8C%87%E5%8D%97%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E7%B2%BE%E9%80%9A/</link>
+        <pubDate>Mon, 12 Jan 2026 00:00:00 +0800</pubDate>
+        
+        <guid>http://localhost:1313/p/vs-code-dev-containers-%E5%AE%8C%E5%85%A8%E6%8C%87%E5%8D%97%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E7%B2%BE%E9%80%9A/</guid>
+        <description>&lt;img src="http://localhost:1313/default.jpeg" alt="Featured image of post VS Code Dev Containers 完全指南：从入门到精通" /&gt;&lt;h2 id=&#34;什么是-dev-containers&#34;&gt;什么是 Dev Containers？
+&lt;/h2&gt;&lt;p&gt;VS Code Dev Containers（开发容器）是一种让您能够在容器中使用代码库的开发工具。它允许您：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;隔离开发环境&lt;/strong&gt;：每个项目都有独立、一致的开发环境&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;消除环境配置问题&lt;/strong&gt;：不再需要手动安装依赖和工具&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;跨平台一致性&lt;/strong&gt;：团队成员使用相同的容器配置，确保环境一致&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;快速切换项目&lt;/strong&gt;：在不同项目间切换时无需重新配置环境&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;核心优势&#34;&gt;核心优势
+&lt;/h3&gt;
+&lt;div style=&#34;text-align: center;&#34;&gt;
+    &lt;strong&gt;&amp;ldquo;一次配置，处处运行&amp;rdquo;&lt;/strong&gt;
+&lt;/div&gt;
+&lt;blockquote class=&#34;alert alert-note&#34;&gt;
+    &lt;p&gt;Dev Containers 基于 Docker 技术，但您不需要深入了解 Docker 也能使用它。VS Code 提供了友好的界面和预设配置，让容器化开发变得简单。&lt;/p&gt;&lt;/blockquote&gt;
+&lt;h3 id=&#34;架构概览&#34;&gt;架构概览
+&lt;/h3&gt;&lt;pre class=&#34;mermaid&#34;&gt;
+  flowchart TB
+    A[VS Code] --&amp;gt; B[Dev Container Extension]
+    B --&amp;gt; C[Docker Engine]
+    C --&amp;gt; D[Dev Container]
+    D --&amp;gt; E[开发环境]
+    E --&amp;gt; F[源代码]
+    E --&amp;gt; G[工具和扩展]
+    E --&amp;gt; H[运行时依赖]
+
+    style A fill:#007acc,color:#fff
+    style B fill:#6c757d,color:#fff
+    style C fill:#2496ed,color:#fff
+    style D fill:#6db33f,color:#fff
+    style E fill:#e67e22,color:#fff
+&lt;/pre&gt;
+
+&lt;h3 id=&#34;典型使用场景&#34;&gt;典型使用场景
+&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;团队协作&lt;/strong&gt;：新成员只需克隆代码并打开 Dev Container，即可立即开始开发&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;多版本测试&lt;/strong&gt;：在不同版本的 Node.js、Python 等环境中测试代码&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;微服务开发&lt;/strong&gt;：同时运行多个服务容器，每个服务独立开发&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;学习新技术&lt;/strong&gt;：在隔离环境中尝试新技术栈，不影响宿主机&lt;/li&gt;
+&lt;/ul&gt;
+&lt;hr&gt;
+&lt;h2 id=&#34;快速上手&#34;&gt;快速上手
+&lt;/h2&gt;&lt;h3 id=&#34;前置要求&#34;&gt;前置要求
+&lt;/h3&gt;&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;安装 Docker Desktop&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;https://www.docker.com/products/docker-desktop/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;macOS 版本&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;https://www.docker.com/products/docker-desktop/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;Windows 版本&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;https://docs.docker.com/engine/install/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;Linux 版本&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;安装 VS Code&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;下载 &lt;a class=&#34;link&#34; href=&#34;https://code.visualstudio.com/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;VS Code&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;安装 Dev Container 扩展&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;在 VS Code 扩展市场搜索 &amp;ldquo;Dev Containers&amp;rdquo;&lt;/li&gt;
+&lt;li&gt;或直接访问 &lt;a class=&#34;link&#34; href=&#34;https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-containers&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;Dev Containers 扩展页面&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h3 id=&#34;使用预定义容器&#34;&gt;使用预定义容器
+&lt;/h3&gt;&lt;p&gt;最简单的方式是使用 Microsoft 提供的预定义容器配置：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;打开 VS Code&lt;/li&gt;
+&lt;li&gt;使用 &lt;code&gt;Ctrl+Shift+P&lt;/code&gt;（或 &lt;code&gt;Cmd+Shift+P&lt;/code&gt;）打开命令面板&lt;/li&gt;
+&lt;li&gt;输入 &amp;ldquo;Dev Containers: Add Dev Container Configuration Files&amp;hellip;&amp;rdquo;&lt;/li&gt;
+&lt;li&gt;选择您需要的开发环境（如 Node.js、Python、Java 等）&lt;/li&gt;
+&lt;li&gt;VS Code 会自动创建 &lt;code&gt;.devcontainer&lt;/code&gt; 目录和配置文件&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h3 id=&#34;初次体验&#34;&gt;初次体验
+&lt;/h3&gt;&lt;div class=&#34;video-wrapper&#34;&gt;
+    &lt;iframe loading=&#34;lazy&#34; 
+            src=&#34;https://www.youtube.com/embed/b1RavPr_878&#34; 
+            allowfullscreen 
+            title=&#34;YouTube Video&#34;
+    &gt;
+    &lt;/iframe&gt;
+&lt;/div&gt;
+
+&lt;blockquote class=&#34;alert alert-tip&#34;&gt;
+    &lt;p&gt;视频展示了如何快速创建和使用您的第一个 Dev Container。即使您没有 Docker 经验，也能在几分钟内启动完整的开发环境。&lt;/p&gt;&lt;/blockquote&gt;
+&lt;h3 id=&#34;工作流程&#34;&gt;工作流程
+&lt;/h3&gt;&lt;pre class=&#34;mermaid&#34;&gt;
+  sequenceDiagram
+    participant User as 开发者
+    participant VSCode as VS Code
+    participant Docker as Docker
+    participant Container as 容器
+
+    User-&amp;gt;&amp;gt;VSCode: 打开项目文件夹
+    VSCode-&amp;gt;&amp;gt;Docker: 请求创建容器
+    Docker-&amp;gt;&amp;gt;Container: 启动容器
+    Container-&amp;gt;&amp;gt;VSCode: 连接就绪
+    VSCode-&amp;gt;&amp;gt;User: 显示开发环境
+    User-&amp;gt;&amp;gt;VSCode: 开始编码
+&lt;/pre&gt;
+
+&lt;hr&gt;
+&lt;h2 id=&#34;自定义配置&#34;&gt;自定义配置
+&lt;/h2&gt;&lt;h3 id=&#34;理解-devcontainerjson&#34;&gt;理解 devcontainer.json
+&lt;/h3&gt;&lt;p&gt;&lt;code&gt;.devcontainer/devcontainer.json&lt;/code&gt; 是 Dev Containers 的核心配置文件，定义了容器的行为和配置。&lt;/p&gt;
+&lt;h4 id=&#34;基本结构示例&#34;&gt;基本结构示例
+&lt;/h4&gt;
+
+
+
+
+&lt;div class=&#34;highlight highlight-json&#34;&gt;
+  &lt;pre&gt;
+    &lt;code class=&#34;language-json&#34; data-lang=&#34;json&#34;&gt;{
+  &amp;#34;name&amp;#34;: &amp;#34;My Node.js Project&amp;#34;,
+  &amp;#34;image&amp;#34;: &amp;#34;mcr.microsoft.com/devcontainers/javascript-node:20&amp;#34;,
+  &amp;#34;features&amp;#34;: {
+    &amp;#34;ghcr.io/devcontainers/features/node:1&amp;#34;: {}
+  },
+  &amp;#34;customizations&amp;#34;: {
+    &amp;#34;vscode&amp;#34;: {
+      &amp;#34;extensions&amp;#34;: [&amp;#34;dbaeumer.vscode-eslint&amp;#34;, &amp;#34;esbenp.prettier-vscode&amp;#34;]
+    }
+  },
+  &amp;#34;postCreateCommand&amp;#34;: &amp;#34;npm install&amp;#34;,
+  &amp;#34;forwardPorts&amp;#34;: [3000],
+  &amp;#34;remoteUser&amp;#34;: &amp;#34;vscode&amp;#34;
+}&lt;/code&gt;
+  &lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h4 id=&#34;关键配置项说明&#34;&gt;关键配置项说明
+&lt;/h4&gt;&lt;table&gt;
+  &lt;thead&gt;
+      &lt;tr&gt;
+          &lt;th&gt;配置项&lt;/th&gt;
+          &lt;th&gt;说明&lt;/th&gt;
+          &lt;th&gt;示例&lt;/th&gt;
+      &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+      &lt;tr&gt;
+          &lt;td&gt;&lt;code&gt;name&lt;/code&gt;&lt;/td&gt;
+          &lt;td&gt;容器显示名称&lt;/td&gt;
+          &lt;td&gt;&lt;code&gt;&amp;quot;My Project&amp;quot;&lt;/code&gt;&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;&lt;code&gt;image&lt;/code&gt;&lt;/td&gt;
+          &lt;td&gt;基础镜像&lt;/td&gt;
+          &lt;td&gt;&lt;code&gt;&amp;quot;mcr.microsoft.com/devcontainers/base:ubuntu&amp;quot;&lt;/code&gt;&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;&lt;code&gt;build.dockerfile&lt;/code&gt;&lt;/td&gt;
+          &lt;td&gt;自定义 Dockerfile 路径&lt;/td&gt;
+          &lt;td&gt;&lt;code&gt;&amp;quot;Dockerfile&amp;quot;&lt;/code&gt;&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;&lt;code&gt;features&lt;/code&gt;&lt;/td&gt;
+          &lt;td&gt;Dev Containers Features&lt;/td&gt;
+          &lt;td&gt;See below&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;&lt;code&gt;customizations&lt;/code&gt;&lt;/td&gt;
+          &lt;td&gt;VS Code 扩展和设置&lt;/td&gt;
+          &lt;td&gt;See below&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;&lt;code&gt;postCreateCommand&lt;/code&gt;&lt;/td&gt;
+          &lt;td&gt;容器创建后执行的命令&lt;/td&gt;
+          &lt;td&gt;&lt;code&gt;&amp;quot;npm install&amp;quot;&lt;/code&gt;&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;&lt;code&gt;forwardPorts&lt;/code&gt;&lt;/td&gt;
+          &lt;td&gt;自动转发的端口&lt;/td&gt;
+          &lt;td&gt;&lt;code&gt;[3000, 8080]&lt;/code&gt;&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;&lt;code&gt;mounts&lt;/code&gt;&lt;/td&gt;
+          &lt;td&gt;挂载卷&lt;/td&gt;
+          &lt;td&gt;&lt;code&gt;[&amp;quot;source=${localWorkspaceFolder}/../data,target=/data&amp;quot;]&lt;/code&gt;&lt;/td&gt;
+      &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+&lt;h3 id=&#34;使用-dockerfile&#34;&gt;使用 Dockerfile
+&lt;/h3&gt;&lt;p&gt;当预定义镜像无法满足需求时，可以使用自定义 Dockerfile：&lt;/p&gt;
+
+
+
+
+
+&lt;div class=&#34;highlight highlight-dockerfile&#34;&gt;
+  &lt;pre&gt;
+    &lt;code class=&#34;language-dockerfile&#34; data-lang=&#34;dockerfile&#34;&gt;FROM mcr.microsoft.com/devcontainers/base:ubuntu
+
+# 安装 Node.js
+RUN apt-get update &amp;amp;&amp;amp; export DEBIAN_FRONTEND=noninteractive \
+    &amp;amp;&amp;amp; apt-get -y install --no-install-recommends nodejs npm
+
+# 安装额外的工具
+RUN apt-get install -y git curl vim
+
+# 设置默认工作目录
+WORKDIR /workspace
+
+# 切换到非 root 用户
+USER vscode&lt;/code&gt;
+  &lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;对应的 devcontainer.json：&lt;/p&gt;
+
+
+
+
+
+&lt;div class=&#34;highlight highlight-json&#34;&gt;
+  &lt;pre&gt;
+    &lt;code class=&#34;language-json&#34; data-lang=&#34;json&#34;&gt;{
+  &amp;#34;name&amp;#34;: &amp;#34;My Custom Container&amp;#34;,
+  &amp;#34;build&amp;#34;: {
+    &amp;#34;dockerfile&amp;#34;: &amp;#34;Dockerfile&amp;#34;,
+    &amp;#34;context&amp;#34;: &amp;#34;..&amp;#34;
+  },
+  &amp;#34;customizations&amp;#34;: {
+    &amp;#34;vscode&amp;#34;: {
+      &amp;#34;extensions&amp;#34;: [&amp;#34;ms-python.python&amp;#34;]
+    }
+  }
+}&lt;/code&gt;
+  &lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;blockquote class=&#34;alert alert-warn&#34;&gt;
+    &lt;p&gt;使用自定义 Dockerfile 时，确保安装了 &lt;code&gt;sudo&lt;/code&gt; 并创建了 &lt;code&gt;vscode&lt;/code&gt; 用户，否则 Dev Container 扩展可能无法正常工作。&lt;/p&gt;&lt;/blockquote&gt;
+&lt;h3 id=&#34;docker-compose-集成&#34;&gt;Docker Compose 集成
+&lt;/h3&gt;&lt;p&gt;对于需要多个容器的复杂应用（如前端 + 后端 + 数据库），使用 Docker Compose：&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;docker-compose.yml&lt;/strong&gt;:&lt;/p&gt;
+
+
+
+
+
+&lt;div class=&#34;highlight highlight-yaml&#34;&gt;
+  &lt;pre&gt;
+    &lt;code class=&#34;language-yaml&#34; data-lang=&#34;yaml&#34;&gt;version: &amp;#39;3.8&amp;#39;
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - ../..:/workspaces:cached
+    command: sleep infinity
+    network_mode: service:db
+
+  db:
+    image: postgres:15
+    restart: unless-stopped
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: development
+
+volumes:
+  postgres-data:&lt;/code&gt;
+  &lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;&lt;strong&gt;.devcontainer/devcontainer.json&lt;/strong&gt;:&lt;/p&gt;
+
+
+
+
+
+&lt;div class=&#34;highlight highlight-json&#34;&gt;
+  &lt;pre&gt;
+    &lt;code class=&#34;language-json&#34; data-lang=&#34;json&#34;&gt;{
+  &amp;#34;name&amp;#34;: &amp;#34;Multi-Container Project&amp;#34;,
+  &amp;#34;dockerComposeFile&amp;#34;: &amp;#34;docker-compose.yml&amp;#34;,
+  &amp;#34;service&amp;#34;: &amp;#34;app&amp;#34;,
+  &amp;#34;workspaceFolder&amp;#34;: &amp;#34;/workspaces/${localWorkspaceFolderBasename}&amp;#34;
+}&lt;/code&gt;
+  &lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h3 id=&#34;使用-features&#34;&gt;使用 Features
+&lt;/h3&gt;&lt;p&gt;Dev Containers Features 是可重用的配置单元，简化了常见工具的安装：&lt;/p&gt;
+
+
+
+
+
+&lt;div class=&#34;highlight highlight-json&#34;&gt;
+  &lt;pre&gt;
+    &lt;code class=&#34;language-json&#34; data-lang=&#34;json&#34;&gt;{
+  &amp;#34;name&amp;#34;: &amp;#34;Full-Stack Project&amp;#34;,
+  &amp;#34;image&amp;#34;: &amp;#34;mcr.microsoft.com/devcontainers/base:ubuntu&amp;#34;,
+  &amp;#34;features&amp;#34;: {
+    &amp;#34;ghcr.io/devcontainers/features/node:1&amp;#34;: {
+      &amp;#34;version&amp;#34;: &amp;#34;lts&amp;#34;
+    },
+    &amp;#34;ghcr.io/devcontainers/features/python:1&amp;#34;: {
+      &amp;#34;version&amp;#34;: &amp;#34;latest&amp;#34;
+    },
+    &amp;#34;ghcr.io/devcontainers/features/docker-in-docker:2&amp;#34;: {},
+    &amp;#34;ghcr.io/devcontainers/features/git:1&amp;#34;: {}
+  }
+}&lt;/code&gt;
+  &lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;blockquote class=&#34;alert alert-note&#34;&gt;
+    &lt;p&gt;浏览更多 &lt;a class=&#34;link&#34; href=&#34;https://github.com/devcontainers/features&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;Dev Containers Features&lt;/a&gt; 来发现可用的功能模块。&lt;/p&gt;&lt;/blockquote&gt;
+&lt;hr&gt;
+&lt;h2 id=&#34;高级功能&#34;&gt;高级功能
+&lt;/h2&gt;&lt;h3 id=&#34;多容器工作区&#34;&gt;多容器工作区
+&lt;/h3&gt;&lt;p&gt;当您需要在多个容器中同时工作时（如微服务架构），可以创建多容器配置：&lt;/p&gt;
+
+
+
+
+
+&lt;div class=&#34;highlight highlight-json&#34;&gt;
+  &lt;pre&gt;
+    &lt;code class=&#34;language-json&#34; data-lang=&#34;json&#34;&gt;{
+  &amp;#34;name&amp;#34;: &amp;#34;Microservices Workspace&amp;#34;,
+  &amp;#34;dockerComposeFile&amp;#34;: &amp;#34;docker-compose.yml&amp;#34;,
+  &amp;#34;service&amp;#34;: &amp;#34;web&amp;#34;,
+  &amp;#34;workspaceFolder&amp;#34;: &amp;#34;/workspace&amp;#34;,
+  &amp;#34;services&amp;#34;: {
+    &amp;#34;web&amp;#34;: &amp;#34;Frontend Service&amp;#34;,
+    &amp;#34;api&amp;#34;: &amp;#34;Backend API&amp;#34;,
+    &amp;#34;db&amp;#34;: &amp;#34;Database&amp;#34;
+  }
+}&lt;/code&gt;
+  &lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h3 id=&#34;dev-container-模板&#34;&gt;Dev Container 模板
+&lt;/h3&gt;&lt;p&gt;使用社区贡献的 Dev Container 模板：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;访问 &lt;a class=&#34;link&#34; href=&#34;https://containers.dev/templates&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;containers.dev/templates&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;搜索您需要的模板（如 Python、Go、Rust 等）&lt;/li&gt;
+&lt;li&gt;一键添加到项目中&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h3 id=&#34;端口转发&#34;&gt;端口转发
+&lt;/h3&gt;&lt;p&gt;自动或手动转发容器端口到宿主机：&lt;/p&gt;
+
+
+
+
+
+&lt;div class=&#34;highlight highlight-json&#34;&gt;
+  &lt;pre&gt;
+    &lt;code class=&#34;language-json&#34; data-lang=&#34;json&#34;&gt;{
+  &amp;#34;forwardPorts&amp;#34;: [3000, 8080, 5432],
+  &amp;#34;portsAttributes&amp;#34;: {
+    &amp;#34;3000&amp;#34;: {
+      &amp;#34;label&amp;#34;: &amp;#34;Application&amp;#34;,
+      &amp;#34;onAutoForward&amp;#34;: &amp;#34;notify&amp;#34;
+    },
+    &amp;#34;5432&amp;#34;: {
+      &amp;#34;label&amp;#34;: &amp;#34;Database&amp;#34;,
+      &amp;#34;onAutoForward&amp;#34;: &amp;#34;silent&amp;#34;
+    }
+  }
+}&lt;/code&gt;
+  &lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h3 id=&#34;挂载卷&#34;&gt;挂载卷
+&lt;/h3&gt;&lt;p&gt;共享文件和目录：&lt;/p&gt;
+
+
+
+
+
+&lt;div class=&#34;highlight highlight-json&#34;&gt;
+  &lt;pre&gt;
+    &lt;code class=&#34;language-json&#34; data-lang=&#34;json&#34;&gt;{
+  &amp;#34;mounts&amp;#34;: [
+    &amp;#34;source=${localWorkspaceFolder}/../data,target=/data,type=bind,consistency=cached&amp;#34;,
+    &amp;#34;source=/var/run/docker.sock,target=/var/run/docker.sock,type=bind&amp;#34;
+  ]
+}&lt;/code&gt;
+  &lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h3 id=&#34;环境变量&#34;&gt;环境变量
+&lt;/h3&gt;&lt;p&gt;设置容器环境变量：&lt;/p&gt;
+
+
+
+
+
+&lt;div class=&#34;highlight highlight-json&#34;&gt;
+  &lt;pre&gt;
+    &lt;code class=&#34;language-json&#34; data-lang=&#34;json&#34;&gt;{
+  &amp;#34;containerEnv&amp;#34;: {
+    &amp;#34;NODE_ENV&amp;#34;: &amp;#34;development&amp;#34;,
+    &amp;#34;API_ENDPOINT&amp;#34;: &amp;#34;http://localhost:8080&amp;#34;,
+    &amp;#34;DEBUG&amp;#34;: &amp;#34;myapp:*&amp;#34;
+  },
+  &amp;#34;remoteEnv&amp;#34;: {
+    &amp;#34;PATH&amp;#34;: &amp;#34;${containerEnv:PATH}:/custom/bin&amp;#34;
+  }
+}&lt;/code&gt;
+  &lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h3 id=&#34;生命周期脚本&#34;&gt;生命周期脚本
+&lt;/h3&gt;&lt;p&gt;在不同阶段执行命令：&lt;/p&gt;
+
+
+
+
+
+&lt;div class=&#34;highlight highlight-json&#34;&gt;
+  &lt;pre&gt;
+    &lt;code class=&#34;language-json&#34; data-lang=&#34;json&#34;&gt;{
+  &amp;#34;initializeCommand&amp;#34;: &amp;#34;echo &amp;#39;初始化命令在宿主机运行&amp;#39;&amp;#34;,
+  &amp;#34;onCreateCommand&amp;#34;: &amp;#34;echo &amp;#39;容器创建后运行&amp;#39;&amp;#34;,
+  &amp;#34;updateContentCommand&amp;#34;: &amp;#34;echo &amp;#39;每次容器启动时运行&amp;#39;&amp;#34;,
+  &amp;#34;postCreateCommand&amp;#34;: &amp;#34;npm install &amp;amp;&amp;amp; npm run setup&amp;#34;,
+  &amp;#34;postStartCommand&amp;#34;: &amp;#34;npm run dev&amp;#34;,
+  &amp;#34;postAttachCommand&amp;#34;: &amp;#34;echo &amp;#39;连接到容器后运行&amp;#39;&amp;#34;
+}&lt;/code&gt;
+  &lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;hr&gt;
+&lt;h2 id=&#34;最佳实践与技巧&#34;&gt;最佳实践与技巧
+&lt;/h2&gt;&lt;h3 id=&#34;性能优化&#34;&gt;性能优化
+&lt;/h3&gt;&lt;div class=&#34;video-wrapper&#34;&gt;
+    &lt;iframe loading=&#34;lazy&#34; 
+            src=&#34;https://www.youtube.com/embed/xTZfJ5LLA5A&#34; 
+            allowfullscreen 
+            title=&#34;YouTube Video&#34;
+    &gt;
+    &lt;/iframe&gt;
+&lt;/div&gt;
+
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;使用卷缓存&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Linux/macOS: 使用 &lt;code&gt;cached&lt;/code&gt; 或 &lt;code&gt;delegated&lt;/code&gt; 选项&lt;/li&gt;
+&lt;li&gt;Windows: 使用 WSL2 后端以提高性能&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;减少文件监听&lt;/strong&gt;&lt;/p&gt;
+
+
+
+
+
+&lt;div class=&#34;highlight highlight-json&#34;&gt;
+  &lt;pre&gt;
+    &lt;code class=&#34;language-json&#34; data-lang=&#34;json&#34;&gt;{
+  &amp;#34;settings&amp;#34;: {
+    &amp;#34;files.watcherExclude&amp;#34;: {
+      &amp;#34;**/node_modules/**&amp;#34;: true,
+      &amp;#34;**/dist/**&amp;#34;: true
+    }
+  }
+}&lt;/code&gt;
+  &lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;使用 .devcontainerignore&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;类似 .gitignore，避免复制不必要的文件到容器中&lt;/li&gt;
+&lt;li&gt;忽略 &lt;code&gt;node_modules&lt;/code&gt;、&lt;code&gt;dist&lt;/code&gt;、&lt;code&gt;.git&lt;/code&gt; 等目录&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h3 id=&#34;常见问题排查&#34;&gt;常见问题排查
+&lt;/h3&gt;&lt;blockquote class=&#34;alert alert-error&#34;&gt;
+    &lt;p&gt;&lt;strong&gt;容器无法启动？&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;检查 Docker Desktop 是否运行&lt;/li&gt;
+&lt;li&gt;查看 VS Code 输出面板的 &amp;ldquo;Dev Containers&amp;rdquo; 日志&lt;/li&gt;
+&lt;li&gt;尝试重建容器：&amp;ldquo;Dev Containers: Rebuild Container&amp;rdquo;&lt;/li&gt;
+&lt;/ul&gt;&lt;/blockquote&gt;
+&lt;blockquote class=&#34;alert alert-warn&#34;&gt;
+    &lt;p&gt;&lt;strong&gt;端口无法访问？&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;检查防火墙设置&lt;/li&gt;
+&lt;li&gt;确认应用监听 &lt;code&gt;0.0.0.0&lt;/code&gt; 而非 &lt;code&gt;127.0.0.1&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;使用 &amp;ldquo;Dev Containers: Forward Port from Container&amp;rdquo; 手动转发&lt;/li&gt;
+&lt;/ul&gt;&lt;/blockquote&gt;
+&lt;blockquote class=&#34;alert alert-error&#34;&gt;
+    &lt;p&gt;&lt;strong&gt;扩展无法安装？&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;检查网络连接&lt;/li&gt;
+&lt;li&gt;尝试在 &lt;code&gt;customizations.vscode.extensions&lt;/code&gt; 中声明&lt;/li&gt;
+&lt;/ul&gt;&lt;/blockquote&gt;
+
+
+
+
+
+&lt;div class=&#34;highlight highlight-json&#34;&gt;
+  &lt;pre&gt;
+    &lt;code class=&#34;language-json&#34; data-lang=&#34;json&#34;&gt;&amp;#34;customizations&amp;#34;: {
+  &amp;#34;vscode&amp;#34;: {
+    &amp;#34;extensions&amp;#34;: [&amp;#34;publisher.extension-name&amp;#34;]
+  }
+}&lt;/code&gt;
+  &lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h3 id=&#34;安全考虑&#34;&gt;安全考虑
+&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;避免在镜像中存储敏感信息&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;使用非 root 用户运行容器&lt;/strong&gt;（&lt;code&gt;remoteUser&lt;/code&gt; 配置）&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;定期更新基础镜像&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;限制容器权限&lt;/strong&gt;（不使用 &lt;code&gt;--privileged&lt;/code&gt;）&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;团队协作建议&#34;&gt;团队协作建议
+&lt;/h3&gt;&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;将 .devcontainer 提交到版本控制&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;确保所有团队成员使用相同的配置&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;编写详细的 README&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;说明如何使用 Dev Container&lt;/li&gt;
+&lt;li&gt;列出包含的工具和扩展&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;使用一致的 Node.js/Python 版本&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;在 devcontainer.json 中指定版本&lt;/li&gt;
+&lt;li&gt;使用 .nvmrc 或 requirements.txt 锁定版本&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;hr&gt;
+&lt;h2 id=&#34;视频教程资源&#34;&gt;视频教程资源
+&lt;/h2&gt;&lt;h3 id=&#34;英文教程&#34;&gt;英文教程
+&lt;/h3&gt;&lt;div class=&#34;video-wrapper&#34;&gt;
+    &lt;iframe loading=&#34;lazy&#34; 
+            src=&#34;https://www.youtube.com/embed/_lXwZ6KkVsM&#34; 
+            allowfullscreen 
+            title=&#34;YouTube Video&#34;
+    &gt;
+    &lt;/iframe&gt;
+&lt;/div&gt;
+
+&lt;p&gt;&lt;strong&gt;官方资源&lt;/strong&gt;：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;https://code.visualstudio.com/docs/devcontainers/containers&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;Dev Containers 官方文档&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;https://code.visualstudio.com/docs/devcontainers/tutorial&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;Dev Containers 官方教程&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;https://www.youtube.com/playlist?list=PLj6YeMhvp2S6GjVyDHTPp8tLOR0xLGLYb&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;官方 YouTube 播放列表&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;中文教程&#34;&gt;中文教程
+&lt;/h3&gt;
+
+
+
+
+
+    &lt;p&gt;Bilibili 视频av号或BV号错误！请检查视频av号或BV号是否正确&lt;/p&gt;
+    &lt;p&gt;当前视频av或BV号：，视频分P：1&lt;/p&gt;
+
+
+&lt;div class=&#34;video-wrapper&#34;&gt;
+    &lt;iframe src=&#34;https://player.bilibili.com/player.html?as_wide=1&amp;amp;high_quality=1&amp;amp;page=1&amp;&#34;
+            scrolling=&#34;no&#34;
+            frameborder=&#34;no&#34;
+            framespacing=&#34;0&#34;
+            allowfullscreen=&#34;true&#34;
+    &gt;
+    &lt;/iframe&gt;
+&lt;/div&gt;
+
+&lt;p&gt;&lt;strong&gt;推荐视频&lt;/strong&gt;：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;https://www.bilibili.com/video/BV13T411G7LY/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;VS Code 轻松使用 Docker 容器&lt;/a&gt; - 基础入门&lt;/li&gt;
+&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;https://www.bilibili.com/video/BV1X14y1h77S/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;使用 VS Code 的 Remote Container 打造 Java 开发环境&lt;/a&gt; - Java 实践&lt;/li&gt;
+&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;https://www.bilibili.com/video/BV1uw411j7RP/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;在宿主机编辑和运行 docker 内的 python 代码&lt;/a&gt; - Python 开发&lt;/li&gt;
+&lt;/ol&gt;
+&lt;hr&gt;
+&lt;h2 id=&#34;参考资源&#34;&gt;参考资源
+&lt;/h2&gt;&lt;h3 id=&#34;官方文档&#34;&gt;官方文档
+&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;https://code.visualstudio.com/docs/devcontainers/containers&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;Dev Containers 概览&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;https://code.visualstudio.com/docs/devcontainers/create-dev-container#_devcontainerjson-properties&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;devcontainer.json 属性参考&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;https://containers.dev/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;Dev Containers 规范&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;社区文章&#34;&gt;社区文章
+&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;https://juejin.cn/post/7358744954615611418&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;掘金：VSCode 调试远程服务器上面的 Docker 容器&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;https://www.mintimate.cn/2025/11/09/aioDevContainer/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;Mintimate：告别环境配置烦恼&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;工具与扩展&#34;&gt;工具与扩展
+&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;https://github.com/devcontainers/features&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;Dev Containers Features&lt;/a&gt; - 社区维护的 Features 集合&lt;/li&gt;
+&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;https://containers.dev/templates&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;Dev Container Templates&lt;/a&gt; - 官方模板库&lt;/li&gt;
+&lt;/ul&gt;
+&lt;hr&gt;
+&lt;h2 id=&#34;总结&#34;&gt;总结
+&lt;/h2&gt;&lt;p&gt;VS Code Dev Containers 为现代开发提供了强大而灵活的环境管理方案：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;✅ &lt;strong&gt;一键启动&lt;/strong&gt;：无需手动配置环境&lt;/li&gt;
+&lt;li&gt;✅ &lt;strong&gt;一致性&lt;/strong&gt;：团队成员使用相同的开发环境&lt;/li&gt;
+&lt;li&gt;✅ &lt;strong&gt;隔离性&lt;/strong&gt;：不影响宿主机环境&lt;/li&gt;
+&lt;li&gt;✅ &lt;strong&gt;可移植性&lt;/strong&gt;：配置文件可版本控制&lt;/li&gt;
+&lt;li&gt;✅ &lt;strong&gt;灵活性&lt;/strong&gt;：支持任意编程语言和工具&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;无论您是个人开发者还是团队成员，Dev Containers 都能显著提升开发效率和项目协作体验。&lt;/p&gt;
+
+&lt;div style=&#34;text-align: center;&#34;&gt;
+    &lt;strong&gt;开始使用 Dev Containers，让开发环境配置成为历史！&lt;/strong&gt;
+&lt;/div&gt;
+&lt;hr&gt;
+&lt;p&gt;&lt;strong&gt;最后更新&lt;/strong&gt;：2026-01-12
+&lt;strong&gt;相关标签&lt;/strong&gt;：#vscode #devcontainers #docker #development #教程&lt;/p&gt;
 </description>
         </item>
         

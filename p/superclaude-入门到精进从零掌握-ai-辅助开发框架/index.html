@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="zh-cn" dir="ltr">
+<html lang="en-us" dir="ltr">
     <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><meta charset='utf-8'>
 <meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="全面的 SuperClaude 框架教程，从快速开始到高级模式，帮助你掌握 AI 辅助开发的强大工具。包含完整的实战项目和最佳实践指南。">
 <title>SuperClaude 入门到精进：从零掌握 AI 辅助开发框架</title>
@@ -10,7 +10,7 @@
 <meta property='og:description' content="全面的 SuperClaude 框架教程，从快速开始到高级模式，帮助你掌握 AI 辅助开发的强大工具。包含完整的实战项目和最佳实践指南。">
 <meta property='og:url' content='http://localhost:1313/p/superclaude-%E5%85%A5%E9%97%A8%E5%88%B0%E7%B2%BE%E8%BF%9B%E4%BB%8E%E9%9B%B6%E6%8E%8C%E6%8F%A1-ai-%E8%BE%85%E5%8A%A9%E5%BC%80%E5%8F%91%E6%A1%86%E6%9E%B6/'>
 <meta property='og:site_name' content='Henry Zhang'>
-<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='Claude Code' /><meta property='article:tag' content='SuperClaude' /><meta property='article:tag' content='AI' /><meta property='article:tag' content='开发工具' /><meta property='article:tag' content='Vibe Coding' /><meta property='article:published_time' content='2026-01-12T01:30:46&#43;08:00'/><meta property='article:modified_time' content='2026-01-11T17:48:07&#43;00:00'/><meta property='og:image' content='http://localhost:1313/default.jpeg' />
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='Claude Code' /><meta property='article:tag' content='SuperClaude' /><meta property='article:tag' content='AI' /><meta property='article:tag' content='开发工具' /><meta property='article:tag' content='Vibe Coding' /><meta property='article:published_time' content='2026-01-12T01:30:46&#43;08:00'/><meta property='article:modified_time' content='2026-01-12T01:48:07&#43;08:00'/><meta property='og:image' content='http://localhost:1313/default.jpeg' />
 <meta name="twitter:title" content="SuperClaude 入门到精进：从零掌握 AI 辅助开发框架">
 <meta name="twitter:description" content="全面的 SuperClaude 框架教程，从快速开始到高级模式，帮助你掌握 AI 辅助开发的强大工具。包含完整的实战项目和最佳实践指南。"><meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:image" content='http://localhost:1313/default.jpeg' />
@@ -357,7 +357,7 @@
                     
                     
                         
-                        <img src="/img/avatar_hu_9c50848f93c56cbf.jpeg" width="300"
+                        <img src="/img/avatar_hu_a69ebd3e9749347e.jpeg" width="300"
                             height="296" class="site-logo" loading="lazy" alt="Avatar">
                     
                 
@@ -869,7 +869,7 @@
 
 
                 <time>
-                    Jan 11, 2026 17:48 UTC
+                    Jan 12, 2026 01:48 CST
                 </time>
             </div>
     </footer>
@@ -979,98 +979,48 @@ sc_version = &ldquo;4.1.5&rdquo;</p>
 </h2><h3 id="21-安装方法">2.1 安装方法
 </h3><p>SuperClaude 支持三种安装方式，选择最适合你的：</p>
 <h4 id="方法一pipx推荐">方法一：pipx（推荐）
-</h4>
-
-
-
-
-<div class="highlight highlight-bash">
-  <pre>
-    <code class="language-bash" data-lang="bash">pipx install SuperClaude &amp;&amp; SuperClaude install</code>
-  </pre>
-</div>
-
-<p><strong>优势</strong>：隔离环境，不污染系统 Python</p>
+</h4><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">pipx install SuperClaude <span class="o">&amp;&amp;</span> SuperClaude install
+</span></span></code></pre></div><p><strong>优势</strong>：隔离环境，不污染系统 Python</p>
 <h4 id="方法二pip">方法二：pip
-</h4>
-
-
-
-
-<div class="highlight highlight-bash">
-  <pre>
-    <code class="language-bash" data-lang="bash">pip install SuperClaude &amp;&amp; SuperClaude install</code>
-  </pre>
-</div>
-
-<p><strong>适用</strong>：已熟悉 Python 包管理的开发者</p>
+</h4><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">pip install SuperClaude <span class="o">&amp;&amp;</span> SuperClaude install
+</span></span></code></pre></div><p><strong>适用</strong>：已熟悉 Python 包管理的开发者</p>
 <h4 id="方法三npm">方法三：npm
-</h4>
-
-
-
-
-<div class="highlight highlight-bash">
-  <pre>
-    <code class="language-bash" data-lang="bash">npm install -g @bifrost_inc/superclaude &amp;&amp; superclaude install</code>
-  </pre>
-</div>
-
-<p><strong>适用</strong>：前端开发者或 Node.js 生态系统用户</p>
+</h4><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">npm install -g @bifrost_inc/superclaude <span class="o">&amp;&amp;</span> superclaude install
+</span></span></code></pre></div><p><strong>适用</strong>：前端开发者或 Node.js 生态系统用户</p>
 <h3 id="22-验证安装">2.2 验证安装
 </h3><p>安装完成后，在 Claude Code 中测试以下命令：</p>
-
-
-
-
-
-<div class="highlight highlight-bash">
-  <pre>
-    <code class="language-bash" data-lang="bash"># 交互式需求发现
-/sc:brainstorm &#34;我想开发一个任务管理 Web 应用&#34;
-
-# 分析现有代码
-/sc:analyze src/
-
-# 生成实现方案
-/sc:implement &#34;用户认证系统&#34;</code>
-  </pre>
-</div>
-
-<p>如果这些命令能够正常工作并产生预期响应，说明安装成功！</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># 交互式需求发现</span>
+</span></span><span class="line"><span class="cl">/sc:brainstorm <span class="s2">&#34;我想开发一个任务管理 Web 应用&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 分析现有代码</span>
+</span></span><span class="line"><span class="cl">/sc:analyze src/
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 生成实现方案</span>
+</span></span><span class="line"><span class="cl">/sc:implement <span class="s2">&#34;用户认证系统&#34;</span>
+</span></span></code></pre></div><p>如果这些命令能够正常工作并产生预期响应，说明安装成功！</p>
 <h3 id="23-第一个项目体验">2.3 第一个项目体验
 </h3><p>让我们通过一个完整的开发流程体验 SuperClaude 的强大能力：</p>
-
-
-
-
-
-<div class="highlight highlight-bash">
-  <pre>
-    <code class="language-bash" data-lang="bash"># 1️⃣ 需求探索
-/sc:brainstorm &#34;电商网站&#34;
-
-# 2️⃣ 加载项目上下文（如果已有代码）
-/sc:load src/
-
-# 3️⃣ 架构分析
-/sc:analyze --focus architecture
-
-# 4️⃣ 生成实施路线图
-/sc:workflow &#34;支付集成&#34;
-
-# 5️⃣ 构建功能
-/sc:implement &#34;Stripe 结账&#34;
-
-# 6️⃣ 测试验证
-/sc:test --coverage
-
-# 7️⃣ 保存会话进度
-/sc:save &#34;支付功能完成&#34;</code>
-  </pre>
-</div>
-
-<p><strong>预期效果</strong>：每个命令都会触发对应的专家角色，生成结构化、专业化的响应，完全不同于简单的问答模式。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># 1️⃣ 需求探索</span>
+</span></span><span class="line"><span class="cl">/sc:brainstorm <span class="s2">&#34;电商网站&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 2️⃣ 加载项目上下文（如果已有代码）</span>
+</span></span><span class="line"><span class="cl">/sc:load src/
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 3️⃣ 架构分析</span>
+</span></span><span class="line"><span class="cl">/sc:analyze --focus architecture
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 4️⃣ 生成实施路线图</span>
+</span></span><span class="line"><span class="cl">/sc:workflow <span class="s2">&#34;支付集成&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 5️⃣ 构建功能</span>
+</span></span><span class="line"><span class="cl">/sc:implement <span class="s2">&#34;Stripe 结账&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 6️⃣ 测试验证</span>
+</span></span><span class="line"><span class="cl">/sc:test --coverage
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 7️⃣ 保存会话进度</span>
+</span></span><span class="line"><span class="cl">/sc:save <span class="s2">&#34;支付功能完成&#34;</span>
+</span></span></code></pre></div><p><strong>预期效果</strong>：每个命令都会触发对应的专家角色，生成结构化、专业化的响应，完全不同于简单的问答模式。</p>
 <hr>
 <h2 id="第三部分核心命令详解21-个命令">第三部分：核心命令详解（21 个命令）
 </h2><p>SuperClaude 的 21 个核心命令覆盖了软件开发的完整生命周期。让我们按功能类别深入了解它们。</p>
@@ -1078,37 +1028,17 @@ sc_version = &ldquo;4.1.5&rdquo;</p>
 </h3><h4 id="-scbuild---智能项目构建">🎯 <code>/sc:build</code> - 智能项目构建
 </h4><p><strong>功能</strong>：自动检测框架并优化构建过程</p>
 <p><strong>基础用法</strong>：</p>
-
-
-
-
-
-<div class="highlight highlight-bash">
-  <pre>
-    <code class="language-bash" data-lang="bash">/sc:build my-project/</code>
-  </pre>
-</div>
-
-<p><strong>高级用法</strong>：</p>
-
-
-
-
-
-<div class="highlight highlight-bash">
-  <pre>
-    <code class="language-bash" data-lang="bash"># 自动检测框架并验证配置
-/sc:build react-app/ --validate
-
-# 生产构建（优化、压缩）
-/sc:build --prod --optimize
-
-# 指定框架类型
-/sc:build vue-app/ --framework vue</code>
-  </pre>
-</div>
-
-<p><strong>使用场景</strong>：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">/sc:build my-project/
+</span></span></code></pre></div><p><strong>高级用法</strong>：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># 自动检测框架并验证配置</span>
+</span></span><span class="line"><span class="cl">/sc:build react-app/ --validate
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 生产构建（优化、压缩）</span>
+</span></span><span class="line"><span class="cl">/sc:build --prod --optimize
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 指定框架类型</span>
+</span></span><span class="line"><span class="cl">/sc:build vue-app/ --framework vue
+</span></span></code></pre></div><p><strong>使用场景</strong>：</p>
 <ul>
 <li>🆕 新项目初始化</li>
 <li>🔧 自动检测框架（React, Vue, Next.js, Svelte 等）</li>
@@ -1124,37 +1054,17 @@ sc_version = &ldquo;4.1.5&rdquo;</p>
 <h4 id="-scimplement---特性实现">🎯 <code>/sc:implement</code> - 特性实现
 </h4><p><strong>功能</strong>：从需求到代码的完整实现，自动选择专家角色</p>
 <p><strong>基础用法</strong>：</p>
-
-
-
-
-
-<div class="highlight highlight-bash">
-  <pre>
-    <code class="language-bash" data-lang="bash">/sc:implement &#34;用户登录功能&#34;</code>
-  </pre>
-</div>
-
-<p><strong>高级用法</strong>：</p>
-
-
-
-
-
-<div class="highlight highlight-bash">
-  <pre>
-    <code class="language-bash" data-lang="bash"># 指定专家角色
-/sc:implement &#34;REST API&#34; --persona backend
-
-# 带测试实现
-/sc:implement &#34;数据验证&#34; --with-tests
-
-# 指定技术栈
-/sc:implement &#34;用户认证&#34; --stack nextjs --with-tests</code>
-  </pre>
-</div>
-
-<p><strong>使用场景</strong>：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">/sc:implement <span class="s2">&#34;用户登录功能&#34;</span>
+</span></span></code></pre></div><p><strong>高级用法</strong>：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># 指定专家角色</span>
+</span></span><span class="line"><span class="cl">/sc:implement <span class="s2">&#34;REST API&#34;</span> --persona backend
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 带测试实现</span>
+</span></span><span class="line"><span class="cl">/sc:implement <span class="s2">&#34;数据验证&#34;</span> --with-tests
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 指定技术栈</span>
+</span></span><span class="line"><span class="cl">/sc:implement <span class="s2">&#34;用户认证&#34;</span> --stack nextjs --with-tests
+</span></span></code></pre></div><p><strong>使用场景</strong>：</p>
 <ul>
 <li>✨ 从用户故事到代码实现</li>
 <li>🎨 自动选择合适的架构模式</li>
@@ -1162,92 +1072,62 @@ sc_version = &ldquo;4.1.5&rdquo;</p>
 <li>🧪 包含单元测试和集成测试</li>
 </ul>
 <p><strong>代码示例</strong>：</p>
-
-
-
-
-
-<div class="highlight highlight-typescript">
-  <pre>
-    <code class="language-typescript" data-lang="typescript">// 输入: /sc:implement &#34;用户登录&#34; --with-tests
-
-// SuperClaude 会生成：
-// 1. 类型定义
-interface LoginCredentials {
-  email: string;
-  password: string;
-}
-
-interface AuthResponse {
-  token: string;
-  user: User;
-}
-
-// 2. API 函数
-export async function login(credentials: LoginCredentials): Promise&lt;AuthResponse&gt; {
-  const response = await fetch(&#39;/api/auth/login&#39;, {
-    method: &#39;POST&#39;,
-    headers: { &#39;Content-Type&#39;: &#39;application/json&#39; },
-    body: JSON.stringify(credentials),
-  });
-
-  if (!response.ok) {
-    throw new Error(&#39;登录失败&#39;);
-  }
-
-  return response.json();
-}
-
-// 3. 测试用例
-describe(&#39;login&#39;, () =&gt; {
-  it(&#39;should authenticate user with valid credentials&#39;, async () =&gt; {
-    const result = await login({
-      email: &#39;user@example.com&#39;,
-      password: &#39;password123&#39;,
-    });
-
-    expect(result).toHaveProperty(&#39;token&#39;);
-    expect(result).toHaveProperty(&#39;user&#39;);
-  });
-});</code>
-  </pre>
-</div>
-
-<hr>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-typescript" data-lang="typescript"><span class="line"><span class="cl"><span class="c1">// 输入: /sc:implement &#34;用户登录&#34; --with-tests
+</span></span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// SuperClaude 会生成：
+</span></span></span><span class="line"><span class="cl"><span class="c1">// 1. 类型定义
+</span></span></span><span class="line"><span class="cl"><span class="kr">interface</span> <span class="nx">LoginCredentials</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">email</span>: <span class="kt">string</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">password</span>: <span class="kt">string</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kr">interface</span> <span class="nx">AuthResponse</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">token</span>: <span class="kt">string</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">user</span>: <span class="kt">User</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// 2. API 函数
+</span></span></span><span class="line"><span class="cl"><span class="kr">export</span> <span class="kr">async</span> <span class="kd">function</span> <span class="nx">login</span><span class="p">(</span><span class="nx">credentials</span>: <span class="kt">LoginCredentials</span><span class="p">)</span><span class="o">:</span> <span class="nx">Promise</span><span class="p">&lt;</span><span class="nt">AuthResponse</span><span class="p">&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="kr">const</span> <span class="nx">response</span> <span class="o">=</span> <span class="k">await</span> <span class="nx">fetch</span><span class="p">(</span><span class="s1">&#39;/api/auth/login&#39;</span><span class="p">,</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">method</span><span class="o">:</span> <span class="s1">&#39;POST&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">headers</span><span class="o">:</span> <span class="p">{</span> <span class="s1">&#39;Content-Type&#39;</span><span class="o">:</span> <span class="s1">&#39;application/json&#39;</span> <span class="p">},</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">body</span>: <span class="kt">JSON.stringify</span><span class="p">(</span><span class="nx">credentials</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl">  <span class="p">});</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">response</span><span class="p">.</span><span class="nx">ok</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">throw</span> <span class="k">new</span> <span class="nb">Error</span><span class="p">(</span><span class="s1">&#39;登录失败&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="k">return</span> <span class="nx">response</span><span class="p">.</span><span class="nx">json</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// 3. 测试用例
+</span></span></span><span class="line"><span class="cl"><span class="nx">describe</span><span class="p">(</span><span class="s1">&#39;login&#39;</span><span class="p">,</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">it</span><span class="p">(</span><span class="s1">&#39;should authenticate user with valid credentials&#39;</span><span class="p">,</span> <span class="kr">async</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kr">const</span> <span class="nx">result</span> <span class="o">=</span> <span class="k">await</span> <span class="nx">login</span><span class="p">({</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">email</span><span class="o">:</span> <span class="s1">&#39;user@example.com&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">password</span><span class="o">:</span> <span class="s1">&#39;password123&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="p">});</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="nx">expect</span><span class="p">(</span><span class="nx">result</span><span class="p">).</span><span class="nx">toHaveProperty</span><span class="p">(</span><span class="s1">&#39;token&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">expect</span><span class="p">(</span><span class="nx">result</span><span class="p">).</span><span class="nx">toHaveProperty</span><span class="p">(</span><span class="s1">&#39;user&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="p">});</span>
+</span></span><span class="line"><span class="cl"><span class="p">});</span>
+</span></span></code></pre></div><hr>
 <h4 id="-scdesign---系统设计">🎯 <code>/sc:design</code> - 系统设计
 </h4><p><strong>功能</strong>：创建架构图和设计规范</p>
 <p><strong>基础用法</strong>：</p>
-
-
-
-
-
-<div class="highlight highlight-bash">
-  <pre>
-    <code class="language-bash" data-lang="bash">/sc:design &#34;微服务架构&#34;</code>
-  </pre>
-</div>
-
-<p><strong>高级用法</strong>：</p>
-
-
-
-
-
-<div class="highlight highlight-bash">
-  <pre>
-    <code class="language-bash" data-lang="bash"># 架构设计
-/sc:design &#34;系统架构&#34; --type architecture
-
-# 组件设计
-/sc:design &#34;用户管理组件&#34; --type component
-
-# API 设计（生成 OpenAPI 规范）
-/sc:design &#34;GraphQL API&#34; --format openapi</code>
-  </pre>
-</div>
-
-<p><strong>输出内容</strong>：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">/sc:design <span class="s2">&#34;微服务架构&#34;</span>
+</span></span></code></pre></div><p><strong>高级用法</strong>：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># 架构设计</span>
+</span></span><span class="line"><span class="cl">/sc:design <span class="s2">&#34;系统架构&#34;</span> --type architecture
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 组件设计</span>
+</span></span><span class="line"><span class="cl">/sc:design <span class="s2">&#34;用户管理组件&#34;</span> --type component
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># API 设计（生成 OpenAPI 规范）</span>
+</span></span><span class="line"><span class="cl">/sc:design <span class="s2">&#34;GraphQL API&#34;</span> --format openapi
+</span></span></code></pre></div><p><strong>输出内容</strong>：</p>
 <ul>
 <li>📊 架构图（Mermaid 格式）</li>
 <li>📋 设计文档</li>
@@ -1259,130 +1139,60 @@ describe(&#39;login&#39;, () =&gt; {
 </h3><h4 id="-scanalyze---全面代码分析">🔍 <code>/sc:analyze</code> - 全面代码分析
 </h4><p>这是 SuperClaude 最强大的命令之一，支持多维度、多深度的代码分析。</p>
 <p><strong>基础用法</strong>：</p>
-
-
-
-
-
-<div class="highlight highlight-bash">
-  <pre>
-    <code class="language-bash" data-lang="bash">/sc:analyze auth.js</code>
-  </pre>
-</div>
-
-<p><strong>思考深度梯度</strong>：</p>
-
-
-
-
-
-<div class="highlight highlight-bash">
-  <pre>
-    <code class="language-bash" data-lang="bash">/sc:analyze codebase/ --think           # ~4K tokens，多文件分析
-/sc:analyze codebase/ --think-hard      # ~10K tokens，深度架构分析
-/sc:analyze codebase/ --ultrathink      # ~32K tokens，最大深度分析</code>
-  </pre>
-</div>
-
-<p><strong>专注特定方面</strong>：</p>
-
-
-
-
-
-<div class="highlight highlight-bash">
-  <pre>
-    <code class="language-bash" data-lang="bash"># 安全分析
-/sc:analyze api/ --focus security
-
-# 性能分析
-/sc:analyze component/ --focus performance
-
-# 代码质量
-/sc:analyze code/ --focus quality
-
-# 可维护性
-/sc:analyze legacy/ --focus maintainability</code>
-  </pre>
-</div>
-
-<p><strong>多角色视角</strong>：</p>
-
-
-
-
-
-<div class="highlight highlight-bash">
-  <pre>
-    <code class="language-bash" data-lang="bash"># 架构师视角
-/sc:analyze design/ --persona-architect
-
-# 安全专家视角
-/sc:analyze auth/ --persona-security
-
-# 性能专家视角
-/sc:analyze db/ --persona-performance
-
-# QA 视角
-/sc:analyze code/ --persona-qa</code>
-  </pre>
-</div>
-
-<p><strong>实际案例</strong>：</p>
-
-
-
-
-
-<div class="highlight highlight-bash">
-  <pre>
-    <code class="language-bash" data-lang="bash"># 输入
-/sc:analyze api/auth.js --focus security --think-hard
-
-# 输出包括：
-# 1. 安全漏洞识别（SQL 注入、XSS、CSRF）
-# 2. 依赖项安全审计
-# 3. 敏感数据处理检查
-# 4. 认证/授权机制评估
-# 5. 安全改进建议（带优先级）</code>
-  </pre>
-</div>
-
-<hr>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">/sc:analyze auth.js
+</span></span></code></pre></div><p><strong>思考深度梯度</strong>：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">/sc:analyze codebase/ --think           <span class="c1"># ~4K tokens，多文件分析</span>
+</span></span><span class="line"><span class="cl">/sc:analyze codebase/ --think-hard      <span class="c1"># ~10K tokens，深度架构分析</span>
+</span></span><span class="line"><span class="cl">/sc:analyze codebase/ --ultrathink      <span class="c1"># ~32K tokens，最大深度分析</span>
+</span></span></code></pre></div><p><strong>专注特定方面</strong>：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># 安全分析</span>
+</span></span><span class="line"><span class="cl">/sc:analyze api/ --focus security
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 性能分析</span>
+</span></span><span class="line"><span class="cl">/sc:analyze component/ --focus performance
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 代码质量</span>
+</span></span><span class="line"><span class="cl">/sc:analyze code/ --focus quality
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 可维护性</span>
+</span></span><span class="line"><span class="cl">/sc:analyze legacy/ --focus maintainability
+</span></span></code></pre></div><p><strong>多角色视角</strong>：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># 架构师视角</span>
+</span></span><span class="line"><span class="cl">/sc:analyze design/ --persona-architect
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 安全专家视角</span>
+</span></span><span class="line"><span class="cl">/sc:analyze auth/ --persona-security
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 性能专家视角</span>
+</span></span><span class="line"><span class="cl">/sc:analyze db/ --persona-performance
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># QA 视角</span>
+</span></span><span class="line"><span class="cl">/sc:analyze code/ --persona-qa
+</span></span></code></pre></div><p><strong>实际案例</strong>：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># 输入</span>
+</span></span><span class="line"><span class="cl">/sc:analyze api/auth.js --focus security --think-hard
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 输出包括：</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 1. 安全漏洞识别（SQL 注入、XSS、CSRF）</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 2. 依赖项安全审计</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 3. 敏感数据处理检查</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 4. 认证/授权机制评估</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 5. 安全改进建议（带优先级）</span>
+</span></span></code></pre></div><hr>
 <h4 id="-sctroubleshoot---问题排查">🔍 <code>/sc:troubleshoot</code> - 问题排查
 </h4><p><strong>功能</strong>：系统化诊断，为错误提供逐步解决方案</p>
 <p><strong>基础用法</strong>：</p>
-
-
-
-
-
-<div class="highlight highlight-bash">
-  <pre>
-    <code class="language-bash" data-lang="bash">/sc:troubleshoot &#34;登录失败&#34;</code>
-  </pre>
-</div>
-
-<p><strong>高级用法</strong>：</p>
-
-
-
-
-
-<div class="highlight highlight-bash">
-  <pre>
-    <code class="language-bash" data-lang="bash"># 带日志分析
-/sc:troubleshoot &#34;500 错误&#34; --logs logs/error.log
-
-# 系统化诊断
-/sc:troubleshoot &#34;内存泄漏&#34; --diagnose
-
-# 指定环境
-/sc:troubleshoot &#34;生产环境崩溃&#34; --env production</code>
-  </pre>
-</div>
-
-<p><strong>诊断流程</strong>：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">/sc:troubleshoot <span class="s2">&#34;登录失败&#34;</span>
+</span></span></code></pre></div><p><strong>高级用法</strong>：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># 带日志分析</span>
+</span></span><span class="line"><span class="cl">/sc:troubleshoot <span class="s2">&#34;500 错误&#34;</span> --logs logs/error.log
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 系统化诊断</span>
+</span></span><span class="line"><span class="cl">/sc:troubleshoot <span class="s2">&#34;内存泄漏&#34;</span> --diagnose
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 指定环境</span>
+</span></span><span class="line"><span class="cl">/sc:troubleshoot <span class="s2">&#34;生产环境崩溃&#34;</span> --env production
+</span></span></code></pre></div><p><strong>诊断流程</strong>：</p>
 <ol>
 <li>📊 收集错误信息和上下文</li>
 <li>🔍 分析根本原因</li>
@@ -1394,37 +1204,17 @@ describe(&#39;login&#39;, () =&gt; {
 <h4 id="-scexplain---教学式解释">🔍 <code>/sc:explain</code> - 教学式解释
 </h4><p><strong>功能</strong>：帮助理解复杂代码或概念，导师模式</p>
 <p><strong>基础用法</strong>：</p>
-
-
-
-
-
-<div class="highlight highlight-bash">
-  <pre>
-    <code class="language-bash" data-lang="bash">/sc:explain complex-function.js</code>
-  </pre>
-</div>
-
-<p><strong>高级用法</strong>：</p>
-
-
-
-
-
-<div class="highlight highlight-bash">
-  <pre>
-    <code class="language-bash" data-lang="bash"># 概念讲解
-/sc:explain &#34;GraphQL vs REST&#34;
-
-# 导师模式（详细、互动式）
-/sc:explain React Hooks --persona-mentor --verbose
-
-# 深度技术讲解
-/sc:explain &#34;JavaScript 事件循环&#34; --depth advanced</code>
-  </pre>
-</div>
-
-<p><strong>解释风格</strong>：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">/sc:explain complex-function.js
+</span></span></code></pre></div><p><strong>高级用法</strong>：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># 概念讲解</span>
+</span></span><span class="line"><span class="cl">/sc:explain <span class="s2">&#34;GraphQL vs REST&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 导师模式（详细、互动式）</span>
+</span></span><span class="line"><span class="cl">/sc:explain React Hooks --persona-mentor --verbose
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 深度技术讲解</span>
+</span></span><span class="line"><span class="cl">/sc:explain <span class="s2">&#34;JavaScript 事件循环&#34;</span> --depth advanced
+</span></span></code></pre></div><p><strong>解释风格</strong>：</p>
 <ul>
 <li>📚 从基础概念开始</li>
 <li>🎨 使用图表和类比</li>
@@ -1437,128 +1227,68 @@ describe(&#39;login&#39;, () =&gt; {
 </h3><h4 id="-scimprove---代码优化">✨ <code>/sc:improve</code> - 代码优化
 </h4><p><strong>功能</strong>：自动应用最佳实践，优化代码质量</p>
 <p><strong>基础用法</strong>：</p>
-
-
-
-
-
-<div class="highlight highlight-bash">
-  <pre>
-    <code class="language-bash" data-lang="bash">/sc:improve code.js</code>
-  </pre>
-</div>
-
-<p><strong>安全模式（推荐用于生产代码）</strong>：</p>
-
-
-
-
-
-<div class="highlight highlight-bash">
-  <pre>
-    <code class="language-bash" data-lang="bash"># 预览模式（先看会发生什么）
-/sc:improve code.js --preview
-
-# 安全模式（只应用安全更改）
-/sc:improve production-auth/ --safe-mode --validate
-
-# 性能优化
-/sc:improve app.js --type performance --benchmark</code>
-  </pre>
-</div>
-
-<p><strong>优化类型</strong>：</p>
-
-
-
-
-
-<div class="highlight highlight-bash">
-  <pre>
-    <code class="language-bash" data-lang="bash"># 性能优化
-/sc:improve --type performance
-
-# 代码质量
-/sc:improve --type quality
-
-# 可读性
-/sc:improve --type readability
-
-# 安全性
-/sc:improve --type security</code>
-  </pre>
-</div>
-
-<p><strong>优化示例</strong>：</p>
-
-
-
-
-
-<div class="highlight highlight-javascript">
-  <pre>
-    <code class="language-javascript" data-lang="javascript">// 优化前
-const getUserData = async (id) =&gt; {
-  const user = await db.query(&#39;SELECT * FROM users WHERE id = &#39; &#43; id);
-  const posts = await db.query(&#39;SELECT * FROM posts WHERE userId = &#39; &#43; id);
-  const comments = await db.query(&#39;SELECT * FROM comments WHERE userId = &#39; &#43; id);
-  return { user, posts, comments };
-};
-
-// 优化后（使用 /sc:improve --type performance）
-const getUserData = async (id: number) =&gt; {
-  // 使用参数化查询防止 SQL 注入
-  const [user, posts, comments] = await Promise.all([
-    db.query(&#39;SELECT * FROM users WHERE id = $1&#39;, [id]),
-    db.query(&#39;SELECT * FROM posts WHERE userId = $1&#39;, [id]),
-    db.query(&#39;SELECT * FROM comments WHERE userId = $1&#39;, [id]),
-  ]);
-
-  // 只返回必要的字段
-  return {
-    user: sanitizeUser(user),
-    posts: posts.map(sanitizePost),
-    comments: comments.map(sanitizeComment),
-  };
-};</code>
-  </pre>
-</div>
-
-<hr>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">/sc:improve code.js
+</span></span></code></pre></div><p><strong>安全模式（推荐用于生产代码）</strong>：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># 预览模式（先看会发生什么）</span>
+</span></span><span class="line"><span class="cl">/sc:improve code.js --preview
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 安全模式（只应用安全更改）</span>
+</span></span><span class="line"><span class="cl">/sc:improve production-auth/ --safe-mode --validate
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 性能优化</span>
+</span></span><span class="line"><span class="cl">/sc:improve app.js --type performance --benchmark
+</span></span></code></pre></div><p><strong>优化类型</strong>：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># 性能优化</span>
+</span></span><span class="line"><span class="cl">/sc:improve --type performance
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 代码质量</span>
+</span></span><span class="line"><span class="cl">/sc:improve --type quality
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 可读性</span>
+</span></span><span class="line"><span class="cl">/sc:improve --type readability
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 安全性</span>
+</span></span><span class="line"><span class="cl">/sc:improve --type security
+</span></span></code></pre></div><p><strong>优化示例</strong>：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="c1">// 优化前
+</span></span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">getUserData</span> <span class="o">=</span> <span class="kr">async</span> <span class="p">(</span><span class="nx">id</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="kr">const</span> <span class="nx">user</span> <span class="o">=</span> <span class="kr">await</span> <span class="nx">db</span><span class="p">.</span><span class="nx">query</span><span class="p">(</span><span class="s1">&#39;SELECT * FROM users WHERE id = &#39;</span> <span class="o">+</span> <span class="nx">id</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="kr">const</span> <span class="nx">posts</span> <span class="o">=</span> <span class="kr">await</span> <span class="nx">db</span><span class="p">.</span><span class="nx">query</span><span class="p">(</span><span class="s1">&#39;SELECT * FROM posts WHERE userId = &#39;</span> <span class="o">+</span> <span class="nx">id</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="kr">const</span> <span class="nx">comments</span> <span class="o">=</span> <span class="kr">await</span> <span class="nx">db</span><span class="p">.</span><span class="nx">query</span><span class="p">(</span><span class="s1">&#39;SELECT * FROM comments WHERE userId = &#39;</span> <span class="o">+</span> <span class="nx">id</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="k">return</span> <span class="p">{</span> <span class="nx">user</span><span class="p">,</span> <span class="nx">posts</span><span class="p">,</span> <span class="nx">comments</span> <span class="p">};</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// 优化后（使用 /sc:improve --type performance）
+</span></span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">getUserData</span> <span class="o">=</span> <span class="kr">async</span> <span class="p">(</span><span class="nx">id</span><span class="o">:</span> <span class="nx">number</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="c1">// 使用参数化查询防止 SQL 注入
+</span></span></span><span class="line"><span class="cl">  <span class="kr">const</span> <span class="p">[</span><span class="nx">user</span><span class="p">,</span> <span class="nx">posts</span><span class="p">,</span> <span class="nx">comments</span><span class="p">]</span> <span class="o">=</span> <span class="kr">await</span> <span class="nb">Promise</span><span class="p">.</span><span class="nx">all</span><span class="p">([</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">db</span><span class="p">.</span><span class="nx">query</span><span class="p">(</span><span class="s1">&#39;SELECT * FROM users WHERE id = $1&#39;</span><span class="p">,</span> <span class="p">[</span><span class="nx">id</span><span class="p">]),</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">db</span><span class="p">.</span><span class="nx">query</span><span class="p">(</span><span class="s1">&#39;SELECT * FROM posts WHERE userId = $1&#39;</span><span class="p">,</span> <span class="p">[</span><span class="nx">id</span><span class="p">]),</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">db</span><span class="p">.</span><span class="nx">query</span><span class="p">(</span><span class="s1">&#39;SELECT * FROM comments WHERE userId = $1&#39;</span><span class="p">,</span> <span class="p">[</span><span class="nx">id</span><span class="p">]),</span>
+</span></span><span class="line"><span class="cl">  <span class="p">]);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="c1">// 只返回必要的字段
+</span></span></span><span class="line"><span class="cl">  <span class="k">return</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">user</span><span class="o">:</span> <span class="nx">sanitizeUser</span><span class="p">(</span><span class="nx">user</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">posts</span><span class="o">:</span> <span class="nx">posts</span><span class="p">.</span><span class="nx">map</span><span class="p">(</span><span class="nx">sanitizePost</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">comments</span><span class="o">:</span> <span class="nx">comments</span><span class="p">.</span><span class="nx">map</span><span class="p">(</span><span class="nx">sanitizeComment</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl">  <span class="p">};</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span></code></pre></div><hr>
 <h4 id="-sccleanup---技术债务清理">✨ <code>/sc:cleanup</code> - 技术债务清理
 </h4><p><strong>功能</strong>：清理冗余代码、未使用的依赖、过时的模式</p>
 <p><strong>基础用法</strong>：</p>
-
-
-
-
-
-<div class="highlight highlight-bash">
-  <pre>
-    <code class="language-bash" data-lang="bash">/sc:cleanup legacy/</code>
-  </pre>
-</div>
-
-<p><strong>波模式（系统性改进）</strong>：</p>
-
-
-
-
-
-<div class="highlight highlight-bash">
-  <pre>
-    <code class="language-bash" data-lang="bash"># 自动模式（分析后自动清理）
-/sc:cleanup old-code/ --wave-mode auto
-
-# 系统模式（分阶段、可回滚）
-/sc:cleanup old-code/ --wave-mode systematic
-
-# 交互模式（每个更改前询问）
-/sc:cleanup old-code/ --wave-mode interactive</code>
-  </pre>
-</div>
-
-<p><strong>清理内容</strong>：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">/sc:cleanup legacy/
+</span></span></code></pre></div><p><strong>波模式（系统性改进）</strong>：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># 自动模式（分析后自动清理）</span>
+</span></span><span class="line"><span class="cl">/sc:cleanup old-code/ --wave-mode auto
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 系统模式（分阶段、可回滚）</span>
+</span></span><span class="line"><span class="cl">/sc:cleanup old-code/ --wave-mode systematic
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 交互模式（每个更改前询问）</span>
+</span></span><span class="line"><span class="cl">/sc:cleanup old-code/ --wave-mode interactive
+</span></span></code></pre></div><p><strong>清理内容</strong>：</p>
 <ul>
 <li>🗑️ 未使用的变量和函数</li>
 <li>📦 未使用的依赖包</li>
@@ -1570,47 +1300,27 @@ const getUserData = async (id: number) =&gt; {
 <h4 id="-sctest---测试执行">✨ <code>/sc:test</code> - 测试执行
 </h4><p><strong>功能</strong>：全面的测试策略和执行</p>
 <p><strong>测试类型</strong>：</p>
-
-
-
-
-
-<div class="highlight highlight-bash">
-  <pre>
-    <code class="language-bash" data-lang="bash"># 单元测试
-/sc:test --type unit
-
-# 集成测试
-/sc:test --type integration
-
-# E2E 测试（使用 Playwright）
-/sc:test e2e --playwright
-
-# 安全测试
-/sc:test --type security
-
-# 性能测试
-/sc:test --type performance</code>
-  </pre>
-</div>
-
-<p><strong>覆盖率</strong>：</p>
-
-
-
-
-
-<div class="highlight highlight-bash">
-  <pre>
-    <code class="language-bash" data-lang="bash"># 带覆盖率报告
-/sc:test --coverage
-
-# 设置覆盖率目标
-/sc:test --coverage --threshold 80</code>
-  </pre>
-</div>
-
-<p><strong>测试框架集成</strong>：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># 单元测试</span>
+</span></span><span class="line"><span class="cl">/sc:test --type unit
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 集成测试</span>
+</span></span><span class="line"><span class="cl">/sc:test --type integration
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># E2E 测试（使用 Playwright）</span>
+</span></span><span class="line"><span class="cl">/sc:test e2e --playwright
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 安全测试</span>
+</span></span><span class="line"><span class="cl">/sc:test --type security
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 性能测试</span>
+</span></span><span class="line"><span class="cl">/sc:test --type performance
+</span></span></code></pre></div><p><strong>覆盖率</strong>：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># 带覆盖率报告</span>
+</span></span><span class="line"><span class="cl">/sc:test --coverage
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 设置覆盖率目标</span>
+</span></span><span class="line"><span class="cl">/sc:test --coverage --threshold <span class="m">80</span>
+</span></span></code></pre></div><p><strong>测试框架集成</strong>：</p>
 <ul>
 <li>Vitest / Jest</li>
 <li>Playwright / Cypress</li>
@@ -1622,37 +1332,17 @@ const getUserData = async (id: number) =&gt; {
 </h3><h4 id="-scworkflow---工作流生成">📋 <code>/sc:workflow</code> - 工作流生成
 </h4><p><strong>功能</strong>：从 PRD 或需求生成结构化实施步骤</p>
 <p><strong>基础用法</strong>：</p>
-
-
-
-
-
-<div class="highlight highlight-bash">
-  <pre>
-    <code class="language-bash" data-lang="bash">/sc:workflow &#34;用户注册功能&#34;</code>
-  </pre>
-</div>
-
-<p><strong>高级用法</strong>：</p>
-
-
-
-
-
-<div class="highlight highlight-bash">
-  <pre>
-    <code class="language-bash" data-lang="bash"># 从 PRD 文件生成
-/sc:workflow --from prd.md
-
-# 指定开发方法论
-/sc:workflow &#34;支付集成&#34; --methodology scrum
-
-# 生成甘特图
-/sc:workflow &#34;项目启动&#34; --gantt</code>
-  </pre>
-</div>
-
-<p><strong>输出内容</strong>：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">/sc:workflow <span class="s2">&#34;用户注册功能&#34;</span>
+</span></span></code></pre></div><p><strong>高级用法</strong>：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># 从 PRD 文件生成</span>
+</span></span><span class="line"><span class="cl">/sc:workflow --from prd.md
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 指定开发方法论</span>
+</span></span><span class="line"><span class="cl">/sc:workflow <span class="s2">&#34;支付集成&#34;</span> --methodology scrum
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 生成甘特图</span>
+</span></span><span class="line"><span class="cl">/sc:workflow <span class="s2">&#34;项目启动&#34;</span> --gantt
+</span></span></code></pre></div><p><strong>输出内容</strong>：</p>
 <ul>
 <li>📝 任务分解（WBS）</li>
 <li>⏱️ 时间估算</li>
@@ -1664,61 +1354,21 @@ const getUserData = async (id: number) =&gt; {
 <h4 id="-sctask---任务执行">📋 <code>/sc:task</code> - 任务执行
 </h4><p><strong>功能</strong>：执行复杂任务，支持委托模式</p>
 <p><strong>基础用法</strong>：</p>
-
-
-
-
-
-<div class="highlight highlight-bash">
-  <pre>
-    <code class="language-bash" data-lang="bash">/sc:task &#34;重构认证系统&#34;</code>
-  </pre>
-</div>
-
-<p><strong>委托模式</strong>：</p>
-
-
-
-
-
-<div class="highlight highlight-bash">
-  <pre>
-    <code class="language-bash" data-lang="bash"># 自动委托（并行处理）
-/sc:task &#34;代码审查&#34; --delegate auto
-
-# 手动委托
-/sc:task &#34;性能优化&#34; --delegate parallel</code>
-  </pre>
-</div>
-
-<hr>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">/sc:task <span class="s2">&#34;重构认证系统&#34;</span>
+</span></span></code></pre></div><p><strong>委托模式</strong>：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># 自动委托（并行处理）</span>
+</span></span><span class="line"><span class="cl">/sc:task <span class="s2">&#34;代码审查&#34;</span> --delegate auto
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 手动委托</span>
+</span></span><span class="line"><span class="cl">/sc:task <span class="s2">&#34;性能优化&#34;</span> --delegate parallel
+</span></span></code></pre></div><hr>
 <h4 id="-scgit---git-操作">📋 <code>/sc:git</code> - Git 操作
 </h4><p><strong>功能</strong>：智能提交和分支策略</p>
 <p><strong>智能提交</strong>：</p>
-
-
-
-
-
-<div class="highlight highlight-bash">
-  <pre>
-    <code class="language-bash" data-lang="bash">/sc:git --smart-commit</code>
-  </pre>
-</div>
-
-<p><strong>分支策略</strong>：</p>
-
-
-
-
-
-<div class="highlight highlight-bash">
-  <pre>
-    <code class="language-bash" data-lang="bash">/sc:git --branch-strategy gitflow</code>
-  </pre>
-</div>
-
-<p><strong>生成的提交信息</strong>：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">/sc:git --smart-commit
+</span></span></code></pre></div><p><strong>分支策略</strong>：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">/sc:git --branch-strategy gitflow
+</span></span></code></pre></div><p><strong>生成的提交信息</strong>：</p>
 <ul>
 <li>遵循 Conventional Commits 规范</li>
 <li>自动分析更改内容</li>
@@ -1729,30 +1379,10 @@ const getUserData = async (id: number) =&gt; {
 </h3><h4 id="-scbrainstorm---需求发现">🧠 <code>/sc:brainstorm</code> - 需求发现
 </h4><p><strong>功能</strong>：交互式需求探索，Socratic 对话</p>
 <p><strong>基础用法</strong>：</p>
-
-
-
-
-
-<div class="highlight highlight-bash">
-  <pre>
-    <code class="language-bash" data-lang="bash">/sc:brainstorm &#34;项目管理应用&#34;</code>
-  </pre>
-</div>
-
-<p><strong>深度探索</strong>：</p>
-
-
-
-
-
-<div class="highlight highlight-bash">
-  <pre>
-    <code class="language-bash" data-lang="bash">/sc:brainstorm &#34;SaaS 平台&#34; --depth deep</code>
-  </pre>
-</div>
-
-<p><strong>探索维度</strong>：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">/sc:brainstorm <span class="s2">&#34;项目管理应用&#34;</span>
+</span></span></code></pre></div><p><strong>深度探索</strong>：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">/sc:brainstorm <span class="s2">&#34;SaaS 平台&#34;</span> --depth deep
+</span></span></code></pre></div><p><strong>探索维度</strong>：</p>
 <ul>
 <li>💡 功能需求</li>
 <li>🎯 用户场景</li>
@@ -1767,99 +1397,39 @@ const getUserData = async (id: number) =&gt; {
 <h4 id="-sclearn---学习资源">🧠 <code>/sc:learn</code> - 学习资源
 </h4><p><strong>功能</strong>：获取学习路径和官方文档参考</p>
 <p><strong>基础用法</strong>：</p>
-
-
-
-
-
-<div class="highlight highlight-bash">
-  <pre>
-    <code class="language-bash" data-lang="bash">/sc:learn &#34;React Server Components&#34;</code>
-  </pre>
-</div>
-
-<p><strong>高级用法</strong>：</p>
-
-
-
-
-
-<div class="highlight highlight-bash">
-  <pre>
-    <code class="language-bash" data-lang="bash"># 获取官方文档
-/sc:learn --docs
-
-# 生成学习路径
-/sc:learn &#34;TypeScript&#34; --roadmap
-
-# 获取最佳实践
-/sc:learn &#34;Next.js&#34; --best-practices</code>
-  </pre>
-</div>
-
-<hr>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">/sc:learn <span class="s2">&#34;React Server Components&#34;</span>
+</span></span></code></pre></div><p><strong>高级用法</strong>：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># 获取官方文档</span>
+</span></span><span class="line"><span class="cl">/sc:learn --docs
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 生成学习路径</span>
+</span></span><span class="line"><span class="cl">/sc:learn <span class="s2">&#34;TypeScript&#34;</span> --roadmap
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 获取最佳实践</span>
+</span></span><span class="line"><span class="cl">/sc:learn <span class="s2">&#34;Next.js&#34;</span> --best-practices
+</span></span></code></pre></div><hr>
 <h3 id="36-其他重要命令">3.6 其他重要命令
 </h3><h4 id="-scload---加载项目上下文">📂 <code>/sc:load</code> - 加载项目上下文
 </h4><p><strong>功能</strong>：导入项目结构，生成上下文摘要</p>
 <p><strong>基础用法</strong>：</p>
-
-
-
-
-
-<div class="highlight highlight-bash">
-  <pre>
-    <code class="language-bash" data-lang="bash">/sc:load src/</code>
-  </pre>
-</div>
-
-<p><strong>深度加载</strong>：</p>
-
-
-
-
-
-<div class="highlight highlight-bash">
-  <pre>
-    <code class="language-bash" data-lang="bash"># 深度加载（生成摘要）
-/sc:load --deep --summary
-
-# 指定范围
-/sc:load components/ --scope module
-
-# 排除目录
-/sc:load src/ --exclude node_modules,dist</code>
-  </pre>
-</div>
-
-<hr>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">/sc:load src/
+</span></span></code></pre></div><p><strong>深度加载</strong>：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># 深度加载（生成摘要）</span>
+</span></span><span class="line"><span class="cl">/sc:load --deep --summary
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 指定范围</span>
+</span></span><span class="line"><span class="cl">/sc:load components/ --scope module
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 排除目录</span>
+</span></span><span class="line"><span class="cl">/sc:load src/ --exclude node_modules,dist
+</span></span></code></pre></div><hr>
 <h4 id="-scsave---保存会话">💾 <code>/sc:save</code> - 保存会话
 </h4><p><strong>功能</strong>：持久化会话上下文，便于后续恢复</p>
 <p><strong>基础用法</strong>：</p>
-
-
-
-
-
-<div class="highlight highlight-bash">
-  <pre>
-    <code class="language-bash" data-lang="bash">/sc:save &#34;功能开发完成&#34;</code>
-  </pre>
-</div>
-
-<p><strong>带标签保存</strong>：</p>
-
-
-
-
-
-<div class="highlight highlight-bash">
-  <pre>
-    <code class="language-bash" data-lang="bash">/sc:save &#34;bug 修复&#34; --tags fix,auth,critical</code>
-  </pre>
-</div>
-
-<p><strong>会话管理</strong>：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">/sc:save <span class="s2">&#34;功能开发完成&#34;</span>
+</span></span></code></pre></div><p><strong>带标签保存</strong>：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">/sc:save <span class="s2">&#34;bug 修复&#34;</span> --tags fix,auth,critical
+</span></span></code></pre></div><p><strong>会话管理</strong>：</p>
 <ul>
 <li>自动保存对话历史</li>
 <li>保存项目上下文</li>
@@ -1870,123 +1440,53 @@ const getUserData = async (id: number) =&gt; {
 <h4 id="-scindex---项目文档生成">📑 <code>/sc:index</code> - 项目文档生成
 </h4><p><strong>功能</strong>：生成项目索引和知识库</p>
 <p><strong>基础用法</strong>：</p>
-
-
-
-
-
-<div class="highlight highlight-bash">
-  <pre>
-    <code class="language-bash" data-lang="bash">/sc:index</code>
-  </pre>
-</div>
-
-<p><strong>生成类型</strong>：</p>
-
-
-
-
-
-<div class="highlight highlight-bash">
-  <pre>
-    <code class="language-bash" data-lang="bash"># 项目索引
-/sc:index --type project
-
-# 知识库
-/sc:index --type knowledge-base
-
-# API 文档
-/sc:index --type api</code>
-  </pre>
-</div>
-
-<hr>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">/sc:index
+</span></span></code></pre></div><p><strong>生成类型</strong>：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># 项目索引</span>
+</span></span><span class="line"><span class="cl">/sc:index --type project
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 知识库</span>
+</span></span><span class="line"><span class="cl">/sc:index --type knowledge-base
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># API 文档</span>
+</span></span><span class="line"><span class="cl">/sc:index --type api
+</span></span></code></pre></div><hr>
 <h4 id="-scdocument---文档生成">📄 <code>/sc:document</code> - 文档生成
 </h4><p><strong>功能</strong>：为代码生成各类文档</p>
 <p><strong>基础用法</strong>：</p>
-
-
-
-
-
-<div class="highlight highlight-bash">
-  <pre>
-    <code class="language-bash" data-lang="bash">/sc:document Button.jsx</code>
-  </pre>
-</div>
-
-<p><strong>文档类型</strong>：</p>
-
-
-
-
-
-<div class="highlight highlight-bash">
-  <pre>
-    <code class="language-bash" data-lang="bash"># 组件文档
-/sc:document Button.jsx --type component
-
-# API 文档（OpenAPI）
-/sc:document api/ --type openapi
-
-# 指南文档
-/sc:document features/ --type guide
-
-# README
-/sc:document --type readme</code>
-  </pre>
-</div>
-
-<hr>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">/sc:document Button.jsx
+</span></span></code></pre></div><p><strong>文档类型</strong>：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># 组件文档</span>
+</span></span><span class="line"><span class="cl">/sc:document Button.jsx --type component
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># API 文档（OpenAPI）</span>
+</span></span><span class="line"><span class="cl">/sc:document api/ --type openapi
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 指南文档</span>
+</span></span><span class="line"><span class="cl">/sc:document features/ --type guide
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># README</span>
+</span></span><span class="line"><span class="cl">/sc:document --type readme
+</span></span></code></pre></div><hr>
 <h4 id="-screcommend---命令推荐">🎯 <code>/sc:recommend</code> - 命令推荐
 </h4><p><strong>功能</strong>：获取最适合当前任务的命令建议</p>
 <p><strong>基础用法</strong>：</p>
-
-
-
-
-
-<div class="highlight highlight-bash">
-  <pre>
-    <code class="language-bash" data-lang="bash">/sc:recommend &#34;重构代码&#34;</code>
-  </pre>
-</div>
-
-<p><strong>列出所有推荐命令</strong>：</p>
-
-
-
-
-
-<div class="highlight highlight-bash">
-  <pre>
-    <code class="language-bash" data-lang="bash">/sc:recommend --list</code>
-  </pre>
-</div>
-
-<hr>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">/sc:recommend <span class="s2">&#34;重构代码&#34;</span>
+</span></span></code></pre></div><p><strong>列出所有推荐命令</strong>：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">/sc:recommend --list
+</span></span></code></pre></div><hr>
 <h4 id="-schelp---帮助信息">❓ <code>/sc:help</code> - 帮助信息
 </h4><p><strong>功能</strong>：查看命令详情和使用方法</p>
 <p><strong>基础用法</strong>：</p>
-
-
-
-
-
-<div class="highlight highlight-bash">
-  <pre>
-    <code class="language-bash" data-lang="bash">/sc:help
-
-# 查看特定命令
-/sc:help /sc:implement
-
-# 按类别查看
-/sc:help --category analysis
-/sc:help --category development</code>
-  </pre>
-</div>
-
-<hr>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">/sc:help
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 查看特定命令</span>
+</span></span><span class="line"><span class="cl">/sc:help /sc:implement
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 按类别查看</span>
+</span></span><span class="line"><span class="cl">/sc:help --category analysis
+</span></span><span class="line"><span class="cl">/sc:help --category development
+</span></span></code></pre></div><hr>
 <h2 id="第四部分ai-专家角色系统">第四部分：AI 专家角色系统
 </h2><p>SuperClaude 的 14 个 AI 专家角色是其核心优势之一，每个专家都在特定领域具有深度专精。</p>
 <h3 id="41-专家角色列表">4.1 专家角色列表
@@ -2129,61 +1629,31 @@ const getUserData = async (id: number) =&gt; {
 </table></div>
 <h3 id="42-自动激活-vs-手动指定">4.2 自动激活 vs 手动指定
 </h3><p><strong>自动激活（推荐）</strong>：</p>
-
-
-
-
-
-<div class="highlight highlight-bash">
-  <pre>
-    <code class="language-bash" data-lang="bash"># 分析认证代码 → 自动激活安全专家
-/sc:analyze auth.js
-
-# 分析 React 组件 → 自动激活前端专家
-/sc:analyze Button.jsx
-
-# 分析 API 端点 → 自动激活后端专家
-/sc:analyze api/users.js</code>
-  </pre>
-</div>
-
-<p><strong>手动指定</strong>：</p>
-
-
-
-
-
-<div class="highlight highlight-bash">
-  <pre>
-    <code class="language-bash" data-lang="bash"># 强制使用架构师视角
-/sc:analyze design/ --persona-architect
-
-# 强制使用安全专家视角
-/sc:analyze code/ --persona-security
-
-# 强制使用性能专家视角
-/sc:analyze api/ --persona-performance</code>
-  </pre>
-</div>
-
-<h3 id="43-多角色协作">4.3 多角色协作
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># 分析认证代码 → 自动激活安全专家</span>
+</span></span><span class="line"><span class="cl">/sc:analyze auth.js
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 分析 React 组件 → 自动激活前端专家</span>
+</span></span><span class="line"><span class="cl">/sc:analyze Button.jsx
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 分析 API 端点 → 自动激活后端专家</span>
+</span></span><span class="line"><span class="cl">/sc:analyze api/users.js
+</span></span></code></pre></div><p><strong>手动指定</strong>：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># 强制使用架构师视角</span>
+</span></span><span class="line"><span class="cl">/sc:analyze design/ --persona-architect
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 强制使用安全专家视角</span>
+</span></span><span class="line"><span class="cl">/sc:analyze code/ --persona-security
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 强制使用性能专家视角</span>
+</span></span><span class="line"><span class="cl">/sc:analyze api/ --persona-performance
+</span></span></code></pre></div><h3 id="43-多角色协作">4.3 多角色协作
 </h3><p>通过组合不同专家角色，可以获得多维度的分析：</p>
-
-
-
-
-
-<div class="highlight highlight-bash">
-  <pre>
-    <code class="language-bash" data-lang="bash"># API 设计的多维度评估
-/sc:analyze api/ --persona-architect     # 架构可行性
-/sc:analyze api/ --persona-security      # 安全性
-/sc:analyze api/ --persona-performance   # 性能
-/sc:analyze api/ --persona-qa            # 可测试性</code>
-  </pre>
-</div>
-
-<hr>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># API 设计的多维度评估</span>
+</span></span><span class="line"><span class="cl">/sc:analyze api/ --persona-architect     <span class="c1"># 架构可行性</span>
+</span></span><span class="line"><span class="cl">/sc:analyze api/ --persona-security      <span class="c1"># 安全性</span>
+</span></span><span class="line"><span class="cl">/sc:analyze api/ --persona-performance   <span class="c1"># 性能</span>
+</span></span><span class="line"><span class="cl">/sc:analyze api/ --persona-qa            <span class="c1"># 可测试性</span>
+</span></span></code></pre></div><hr>
 <h2 id="第五部分mcp-服务器集成">第五部分：MCP 服务器集成
 </h2><p>MCP（Model Context Protocol）服务器为 SuperClaude 提供了强大的外部工具集成能力。</p>
 <h3 id="51-可用的-mcp-服务器">5.1 可用的 MCP 服务器
@@ -2230,63 +1700,33 @@ const getUserData = async (id: number) =&gt; {
 </table></div>
 <h3 id="52-自动集成示例">5.2 自动集成示例
 </h3><p><strong>Context7 集成</strong>：</p>
-
-
-
-
-
-<div class="highlight highlight-bash">
-  <pre>
-    <code class="language-bash" data-lang="bash"># 自动查询 React 最佳实践
-/sc:build react-app/
-
-# Context7 会：
-# 1. 查询 React 官方文档
-# 2. 获取最新最佳实践
-# 3. 应用推荐的项目结构
-# 4. 配置推荐的工具链</code>
-  </pre>
-</div>
-
-<p><strong>Sequential 集成</strong>：</p>
-
-
-
-
-
-<div class="highlight highlight-bash">
-  <pre>
-    <code class="language-bash" data-lang="bash"># 自动使用复杂推理
-/sc:troubleshoot &#34;登录失败但无错误日志&#34;
-
-# Sequential 会：
-# 1. 分析可能的错误原因
-# 2. 生成诊断假设
-# 3. 提供验证步骤
-# 4. 逐步排除可能性</code>
-  </pre>
-</div>
-
-<p><strong>Magic 集成</strong>：</p>
-
-
-
-
-
-<div class="highlight highlight-bash">
-  <pre>
-    <code class="language-bash" data-lang="bash"># 自动生成 UI 组件
-/sc:build dashboard
-
-# Magic 会：
-# 1. 分析设计需求
-# 2. 生成组件代码
-# 3. 创建响应式样式
-# 4. 集成到项目中</code>
-  </pre>
-</div>
-
-<h3 id="53-配置-mcp-服务器">5.3 配置 MCP 服务器
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># 自动查询 React 最佳实践</span>
+</span></span><span class="line"><span class="cl">/sc:build react-app/
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Context7 会：</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 1. 查询 React 官方文档</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 2. 获取最新最佳实践</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 3. 应用推荐的项目结构</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 4. 配置推荐的工具链</span>
+</span></span></code></pre></div><p><strong>Sequential 集成</strong>：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># 自动使用复杂推理</span>
+</span></span><span class="line"><span class="cl">/sc:troubleshoot <span class="s2">&#34;登录失败但无错误日志&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Sequential 会：</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 1. 分析可能的错误原因</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 2. 生成诊断假设</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 3. 提供验证步骤</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 4. 逐步排除可能性</span>
+</span></span></code></pre></div><p><strong>Magic 集成</strong>：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># 自动生成 UI 组件</span>
+</span></span><span class="line"><span class="cl">/sc:build dashboard
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Magic 会：</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 1. 分析设计需求</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 2. 生成组件代码</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 3. 创建响应式样式</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 4. 集成到项目中</span>
+</span></span></code></pre></div><h3 id="53-配置-mcp-服务器">5.3 配置 MCP 服务器
 </h3><p>详细的 MCP 服务器配置请参考官方文档：<a class="link" href="https://github.com/SuperClaude-Org/SuperClaude_Framework/blob/master/docs/mcp-setup.md"  target="_blank" rel="noopener"
     >SuperClaude MCP 配置指南</a></p>
 <hr>
@@ -2314,18 +1754,8 @@ const getUserData = async (id: number) =&gt; {
 </ol>
 <h3 id="62-完整开发流程">6.2 完整开发流程
 </h3><h4 id="步骤-1需求发现">步骤 1：需求发现
-</h4>
-
-
-
-
-<div class="highlight highlight-bash">
-  <pre>
-    <code class="language-bash" data-lang="bash">/sc:brainstorm &#34;待办事项应用&#34;</code>
-  </pre>
-</div>
-
-<p><strong>SuperClaude 会引导你探索</strong>：</p>
+</h4><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">/sc:brainstorm <span class="s2">&#34;待办事项应用&#34;</span>
+</span></span></code></pre></div><p><strong>SuperClaude 会引导你探索</strong>：</p>
 <ul>
 <li>核心功能需求</li>
 <li>用户体验设计</li>
@@ -2334,54 +1764,34 @@ const getUserData = async (id: number) =&gt; {
 <li>扩展性考虑</li>
 </ul>
 <p><strong>输出示例</strong>：</p>
-
-
-
-
-
-<div class="highlight highlight-markdown">
-  <pre>
-    <code class="language-markdown" data-lang="markdown">## 需求探索结果
-
-### 核心功能
-- ✅ 任务 CRUD 操作
-- 🏷️ 分类和标签系统
-- 🔍 搜索和过滤
-- 💾 数据持久化
-
-### 用户体验
-- 🎯 简洁直观的界面
-- ⚡ 快速响应
-- 📱 移动端友好
-- 🌙 深色模式支持
-
-### 技术建议
-- React 18（现代特性）
-- TypeScript（类型安全）
-- Zustand（轻量状态管理）
-- Tailwind CSS（快速开发）
-
-### 技术挑战
-- ⚠️ 状态同步
-- ⚠️ 性能优化（大数据量）
-- ⚠️ 离线支持</code>
-  </pre>
-</div>
-
-<hr>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-markdown" data-lang="markdown"><span class="line"><span class="cl"><span class="gu">## 需求探索结果
+</span></span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="gu">### 核心功能
+</span></span></span><span class="line"><span class="cl"><span class="k">-</span> ✅ 任务 CRUD 操作
+</span></span><span class="line"><span class="cl"><span class="k">-</span> 🏷️ 分类和标签系统
+</span></span><span class="line"><span class="cl"><span class="k">-</span> 🔍 搜索和过滤
+</span></span><span class="line"><span class="cl"><span class="k">-</span> 💾 数据持久化
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="gu">### 用户体验
+</span></span></span><span class="line"><span class="cl"><span class="k">-</span> 🎯 简洁直观的界面
+</span></span><span class="line"><span class="cl"><span class="k">-</span> ⚡ 快速响应
+</span></span><span class="line"><span class="cl"><span class="k">-</span> 📱 移动端友好
+</span></span><span class="line"><span class="cl"><span class="k">-</span> 🌙 深色模式支持
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="gu">### 技术建议
+</span></span></span><span class="line"><span class="cl"><span class="k">-</span> React 18（现代特性）
+</span></span><span class="line"><span class="cl"><span class="k">-</span> TypeScript（类型安全）
+</span></span><span class="line"><span class="cl"><span class="k">-</span> Zustand（轻量状态管理）
+</span></span><span class="line"><span class="cl"><span class="k">-</span> Tailwind CSS（快速开发）
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="gu">### 技术挑战
+</span></span></span><span class="line"><span class="cl"><span class="k">-</span> ⚠️ 状态同步
+</span></span><span class="line"><span class="cl"><span class="k">-</span> ⚠️ 性能优化（大数据量）
+</span></span><span class="line"><span class="cl"><span class="k">-</span> ⚠️ 离线支持
+</span></span></code></pre></div><hr>
 <h4 id="步骤-2系统设计">步骤 2：系统设计
-</h4>
-
-
-
-
-<div class="highlight highlight-bash">
-  <pre>
-    <code class="language-bash" data-lang="bash">/sc:design &#34;待办应用架构&#34; --type architecture</code>
-  </pre>
-</div>
-
-<p><strong>设计输出</strong>：</p>
+</h4><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">/sc:design <span class="s2">&#34;待办应用架构&#34;</span> --type architecture
+</span></span></code></pre></div><p><strong>设计输出</strong>：</p>
 <p><strong>组件层次结构</strong>：</p>
 <pre class="mermaid">
   graph TD
@@ -2407,484 +1817,282 @@ const getUserData = async (id: number) =&gt; {
 
 <hr>
 <h4 id="步骤-3项目初始化">步骤 3：项目初始化
-</h4>
-
-
-
-
-<div class="highlight highlight-bash">
-  <pre>
-    <code class="language-bash" data-lang="bash">/sc:build todo-app/ --framework react --with-typescript</code>
-  </pre>
-</div>
-
-<p><strong>生成的项目结构</strong>：</p>
-
-
-
-
-  
-
-
-<div class="highlight highlight-text">
-  <pre>
-    <code class="language-text" data-lang="text">todo-app/
-├── src/
-│   ├── components/          # UI 组件
-│   │   ├── TodoHeader.tsx
-│   │   ├── TodoInput.tsx
-│   │   ├── TodoList.tsx
-│   │   ├── TodoItem.tsx
-│   │   └── TodoFilter.tsx
-│   ├── stores/              # Zustand 状态管理
-│   │   └── todoStore.ts
-│   ├── hooks/               # 自定义 Hooks
-│   │   └── useTodos.ts
-│   ├── utils/               # 工具函数
-│   │   └── storage.ts
-│   ├── types/               # TypeScript 类型
-│   │   └── todo.ts
-│   ├── App.tsx
-│   └── main.tsx
-├── public/
-├── tests/
-│   ├── components/
-│   └── utils/
-├── package.json
-├── tsconfig.json
-├── vite.config.ts
-└── tailwind.config.js</code>
-  </pre>
-</div>
-
-<hr>
+</h4><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">/sc:build todo-app/ --framework react --with-typescript
+</span></span></code></pre></div><p><strong>生成的项目结构</strong>：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">todo-app/
+</span></span><span class="line"><span class="cl">├── src/
+</span></span><span class="line"><span class="cl">│   ├── components/          # UI 组件
+</span></span><span class="line"><span class="cl">│   │   ├── TodoHeader.tsx
+</span></span><span class="line"><span class="cl">│   │   ├── TodoInput.tsx
+</span></span><span class="line"><span class="cl">│   │   ├── TodoList.tsx
+</span></span><span class="line"><span class="cl">│   │   ├── TodoItem.tsx
+</span></span><span class="line"><span class="cl">│   │   └── TodoFilter.tsx
+</span></span><span class="line"><span class="cl">│   ├── stores/              # Zustand 状态管理
+</span></span><span class="line"><span class="cl">│   │   └── todoStore.ts
+</span></span><span class="line"><span class="cl">│   ├── hooks/               # 自定义 Hooks
+</span></span><span class="line"><span class="cl">│   │   └── useTodos.ts
+</span></span><span class="line"><span class="cl">│   ├── utils/               # 工具函数
+</span></span><span class="line"><span class="cl">│   │   └── storage.ts
+</span></span><span class="line"><span class="cl">│   ├── types/               # TypeScript 类型
+</span></span><span class="line"><span class="cl">│   │   └── todo.ts
+</span></span><span class="line"><span class="cl">│   ├── App.tsx
+</span></span><span class="line"><span class="cl">│   └── main.tsx
+</span></span><span class="line"><span class="cl">├── public/
+</span></span><span class="line"><span class="cl">├── tests/
+</span></span><span class="line"><span class="cl">│   ├── components/
+</span></span><span class="line"><span class="cl">│   └── utils/
+</span></span><span class="line"><span class="cl">├── package.json
+</span></span><span class="line"><span class="cl">├── tsconfig.json
+</span></span><span class="line"><span class="cl">├── vite.config.ts
+</span></span><span class="line"><span class="cl">└── tailwind.config.js
+</span></span></code></pre></div><hr>
 <h4 id="步骤-4核心功能实现">步骤 4：核心功能实现
 </h4><h5 id="41-任务数据模型">4.1 任务数据模型
-</h5>
-
-
-
-
-<div class="highlight highlight-bash">
-  <pre>
-    <code class="language-bash" data-lang="bash">/sc:implement &#34;Todo 类型定义和接口&#34; --with-tests</code>
-  </pre>
-</div>
-
-<p><strong>生成的代码</strong>：</p>
-
-
-
-
-
-<div class="highlight highlight-typescript">
-  <pre>
-    <code class="language-typescript" data-lang="typescript">// src/types/todo.ts
-export interface Todo {
-  id: string;
-  title: string;
-  description?: string;
-  completed: boolean;
-  category: string;
-  tags: string[];
-  priority: &#39;low&#39; | &#39;medium&#39; | &#39;high&#39;;
-  createdAt: Date;
-  completedAt?: Date;
-  dueDate?: Date;
-}
-
-export interface TodoFilter {
-  search: string;
-  category: string;
-  tags: string[];
-  status: &#39;all&#39; | &#39;active&#39; | &#39;completed&#39;;
-}
-
-export interface TodoStore {
-  todos: Todo[];
-  filter: TodoFilter;
-  // Actions
-  addTodo: (todo: Omit&lt;Todo, &#39;id&#39; | &#39;createdAt&#39;&gt;) =&gt; void;
-  updateTodo: (id: string, updates: Partial&lt;Todo&gt;) =&gt; void;
-  deleteTodo: (id: string) =&gt; void;
-  toggleTodo: (id: string) =&gt; void;
-  setFilter: (filter: Partial&lt;TodoFilter&gt;) =&gt; void;
-  clearCompleted: () =&gt; void;
-}</code>
-  </pre>
-</div>
-
-<h5 id="42-状态管理">4.2 状态管理
-</h5>
-
-
-
-
-<div class="highlight highlight-bash">
-  <pre>
-    <code class="language-bash" data-lang="bash">/sc:implement &#34;Zustand todo store&#34; --persona-frontend</code>
-  </pre>
-</div>
-
-
-
-
-
-
-<div class="highlight highlight-typescript">
-  <pre>
-    <code class="language-typescript" data-lang="typescript">// src/stores/todoStore.ts
-import { create } from &#39;zustand&#39;;
-import { persist } from &#39;zustand/middleware&#39;;
-import type { Todo, TodoStore } from &#39;../types/todo&#39;;
-
-export const useTodoStore = create&lt;TodoStore&gt;()(
-  persist(
-    (set, get) =&gt; ({
-      todos: [],
-      filter: {
-        search: &#39;&#39;,
-        category: &#39;&#39;,
-        tags: [],
-        status: &#39;all&#39;,
-      },
-
-      addTodo: (todo) =&gt; {
-        const newTodo: Todo = {
-          ...todo,
-          id: crypto.randomUUID(),
-          createdAt: new Date(),
-        };
-        set((state) =&gt; ({ todos: [...state.todos, newTodo] }));
-      },
-
-      updateTodo: (id, updates) =&gt;
-        set((state) =&gt; ({
-          todos: state.todos.map((todo) =&gt;
-            todo.id === id ? { ...todo, ...updates } : todo
-          ),
-        })),
-
-      deleteTodo: (id) =&gt;
-        set((state) =&gt; ({
-          todos: state.todos.filter((todo) =&gt; todo.id !== id),
-        })),
-
-      toggleTodo: (id) =&gt;
-        set((state) =&gt; ({
-          todos: state.todos.map((todo) =&gt;
-            todo.id === id
-              ? {
-                  ...todo,
-                  completed: !todo.completed,
-                  completedAt: !todo.completed ? new Date() : undefined,
-                }
-              : todo
-          ),
-        })),
-
-      setFilter: (filter) =&gt;
-        set((state) =&gt; ({
-          filter: { ...state.filter, ...filter },
-        })),
-
-      clearCompleted: () =&gt;
-        set((state) =&gt; ({
-          todos: state.todos.filter((todo) =&gt; !todo.completed),
-        })),
-    }),
-    {
-      name: &#39;todo-storage&#39;,
-    }
-  )
-);</code>
-  </pre>
-</div>
-
-<h5 id="43-ui-组件">4.3 UI 组件
-</h5>
-
-
-
-
-<div class="highlight highlight-bash">
-  <pre>
-    <code class="language-bash" data-lang="bash">/sc:implement &#34;TodoList 组件&#34; --persona-frontend
-/sc:implement &#34;TodoItem 组件&#34; --persona-frontend
-/sc:implement &#34;AddTodoForm 组件&#34; --persona-frontend</code>
-  </pre>
-</div>
-
-<p><strong>TodoList 组件示例</strong>：</p>
-
-
-
-
-
-<div class="highlight highlight-typescript">
-  <pre>
-    <code class="language-typescript" data-lang="typescript">// src/components/TodoList.tsx
-import { useTodoStore } from &#39;../stores/todoStore&#39;;
-import { TodoItem } from &#39;./TodoItem&#39;;
-import { useMemo } from &#39;react&#39;;
-
-export function TodoList() {
-  const { todos, filter } = useTodoStore();
-
-  const filteredTodos = useMemo(() =&gt; {
-    return todos.filter((todo) =&gt; {
-      // 搜索过滤
-      if (filter.search &amp;&amp; !todo.title.toLowerCase().includes(filter.search.toLowerCase())) {
-        return false;
-      }
-
-      // 分类过滤
-      if (filter.category &amp;&amp; todo.category !== filter.category) {
-        return false;
-      }
-
-      // 状态过滤
-      if (filter.status === &#39;active&#39; &amp;&amp; todo.completed) return false;
-      if (filter.status === &#39;completed&#39; &amp;&amp; !todo.completed) return false;
-
-      return true;
-    });
-  }, [todos, filter]);
-
-  return (
-    &lt;ul className=&#34;space-y-2&#34;&gt;
-      {filteredTodos.map((todo) =&gt; (
-        &lt;TodoItem key={todo.id} todo={todo} /&gt;
-      ))}
-    &lt;/ul&gt;
-  );
-}</code>
-  </pre>
-</div>
-
-<h5 id="44-样式系统">4.4 样式系统
-</h5>
-
-
-
-
-<div class="highlight highlight-bash">
-  <pre>
-    <code class="language-bash" data-lang="bash">/sc:implement &#34;Tailwind 配置和深色模式&#34; --persona-frontend</code>
-  </pre>
-</div>
-
-
-
-
-
-
-<div class="highlight highlight-javascript">
-  <pre>
-    <code class="language-javascript" data-lang="javascript">// tailwind.config.js
-/** @type {import(&#39;tailwindcss&#39;).Config} */
-export default {
-  content: [
-    &#34;./index.html&#34;,
-    &#34;./src/**/*.{js,ts,jsx,tsx}&#34;,
-  ],
-  darkMode: &#39;class&#39;,
-  theme: {
-    extend: {
-      colors: {
-        primary: {
-          50: &#39;#f0f9ff&#39;,
-          100: &#39;#e0f2fe&#39;,
-          500: &#39;#0ea5e9&#39;,
-          600: &#39;#0284c7&#39;,
-          700: &#39;#0369a1&#39;,
-        },
-      },
-    },
-  },
-  plugins: [],
-};</code>
-  </pre>
-</div>
-
-<hr>
+</h5><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">/sc:implement <span class="s2">&#34;Todo 类型定义和接口&#34;</span> --with-tests
+</span></span></code></pre></div><p><strong>生成的代码</strong>：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-typescript" data-lang="typescript"><span class="line"><span class="cl"><span class="c1">// src/types/todo.ts
+</span></span></span><span class="line"><span class="cl"><span class="kr">export</span> <span class="kr">interface</span> <span class="nx">Todo</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">id</span>: <span class="kt">string</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">title</span>: <span class="kt">string</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">description?</span>: <span class="kt">string</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">completed</span>: <span class="kt">boolean</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">category</span>: <span class="kt">string</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">tags</span>: <span class="kt">string</span><span class="p">[];</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">priority</span><span class="o">:</span> <span class="s1">&#39;low&#39;</span> <span class="o">|</span> <span class="s1">&#39;medium&#39;</span> <span class="o">|</span> <span class="s1">&#39;high&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">createdAt</span>: <span class="kt">Date</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">completedAt?</span>: <span class="kt">Date</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">dueDate?</span>: <span class="kt">Date</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kr">export</span> <span class="kr">interface</span> <span class="nx">TodoFilter</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">search</span>: <span class="kt">string</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">category</span>: <span class="kt">string</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">tags</span>: <span class="kt">string</span><span class="p">[];</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">status</span><span class="o">:</span> <span class="s1">&#39;all&#39;</span> <span class="o">|</span> <span class="s1">&#39;active&#39;</span> <span class="o">|</span> <span class="s1">&#39;completed&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kr">export</span> <span class="kr">interface</span> <span class="nx">TodoStore</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">todos</span>: <span class="kt">Todo</span><span class="p">[];</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">filter</span>: <span class="kt">TodoFilter</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="c1">// Actions
+</span></span></span><span class="line"><span class="cl">  <span class="nx">addTodo</span><span class="o">:</span> <span class="p">(</span><span class="nx">todo</span>: <span class="kt">Omit</span><span class="p">&lt;</span><span class="nt">Todo</span><span class="p">,</span> <span class="s1">&#39;id&#39;</span> <span class="err">|</span> <span class="s1">&#39;createdAt&#39;</span><span class="p">&gt;)</span> <span class="o">=&gt;</span> <span class="k">void</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">updateTodo</span><span class="o">:</span> <span class="p">(</span><span class="nx">id</span>: <span class="kt">string</span><span class="p">,</span> <span class="nx">updates</span>: <span class="kt">Partial</span><span class="p">&lt;</span><span class="nt">Todo</span><span class="p">&gt;)</span> <span class="o">=&gt;</span> <span class="k">void</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">deleteTodo</span><span class="o">:</span> <span class="p">(</span><span class="nx">id</span>: <span class="kt">string</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="k">void</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">toggleTodo</span><span class="o">:</span> <span class="p">(</span><span class="nx">id</span>: <span class="kt">string</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="k">void</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">setFilter</span><span class="o">:</span> <span class="p">(</span><span class="nx">filter</span>: <span class="kt">Partial</span><span class="p">&lt;</span><span class="nt">TodoFilter</span><span class="p">&gt;)</span> <span class="o">=&gt;</span> <span class="k">void</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">clearCompleted</span><span class="o">:</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="k">void</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><h5 id="42-状态管理">4.2 状态管理
+</h5><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">/sc:implement <span class="s2">&#34;Zustand todo store&#34;</span> --persona-frontend
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-typescript" data-lang="typescript"><span class="line"><span class="cl"><span class="c1">// src/stores/todoStore.ts
+</span></span></span><span class="line"><span class="cl"><span class="kr">import</span> <span class="p">{</span> <span class="nx">create</span> <span class="p">}</span> <span class="kr">from</span> <span class="s1">&#39;zustand&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kr">import</span> <span class="p">{</span> <span class="nx">persist</span> <span class="p">}</span> <span class="kr">from</span> <span class="s1">&#39;zustand/middleware&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kr">import</span> <span class="kr">type</span> <span class="p">{</span> <span class="nx">Todo</span><span class="p">,</span> <span class="nx">TodoStore</span> <span class="p">}</span> <span class="kr">from</span> <span class="s1">&#39;../types/todo&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kr">export</span> <span class="kr">const</span> <span class="nx">useTodoStore</span> <span class="o">=</span> <span class="nx">create</span><span class="p">&lt;</span><span class="nt">TodoStore</span><span class="p">&gt;()(</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">persist</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">    <span class="p">(</span><span class="kr">set</span><span class="p">,</span> <span class="kr">get</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">({</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">todos</span><span class="o">:</span> <span class="p">[],</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">filter</span><span class="o">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">search</span><span class="o">:</span> <span class="s1">&#39;&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">category</span><span class="o">:</span> <span class="s1">&#39;&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">tags</span><span class="o">:</span> <span class="p">[],</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">status</span><span class="o">:</span> <span class="s1">&#39;all&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="p">},</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">      <span class="nx">addTodo</span><span class="o">:</span> <span class="p">(</span><span class="nx">todo</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="kr">const</span> <span class="nx">newTodo</span>: <span class="kt">Todo</span> <span class="o">=</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">          <span class="p">...</span><span class="nx">todo</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">          <span class="nx">id</span>: <span class="kt">crypto.randomUUID</span><span class="p">(),</span>
+</span></span><span class="line"><span class="cl">          <span class="nx">createdAt</span>: <span class="kt">new</span> <span class="nb">Date</span><span class="p">(),</span>
+</span></span><span class="line"><span class="cl">        <span class="p">};</span>
+</span></span><span class="line"><span class="cl">        <span class="kr">set</span><span class="p">((</span><span class="nx">state</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">({</span> <span class="nx">todos</span><span class="o">:</span> <span class="p">[...</span><span class="nx">state</span><span class="p">.</span><span class="nx">todos</span><span class="p">,</span> <span class="nx">newTodo</span><span class="p">]</span> <span class="p">}));</span>
+</span></span><span class="line"><span class="cl">      <span class="p">},</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">      <span class="nx">updateTodo</span><span class="o">:</span> <span class="p">(</span><span class="nx">id</span><span class="p">,</span> <span class="nx">updates</span><span class="p">)</span> <span class="o">=&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="kr">set</span><span class="p">((</span><span class="nx">state</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">({</span>
+</span></span><span class="line"><span class="cl">          <span class="nx">todos</span>: <span class="kt">state.todos.map</span><span class="p">((</span><span class="nx">todo</span><span class="p">)</span> <span class="o">=&gt;</span>
+</span></span><span class="line"><span class="cl">            <span class="nx">todo</span><span class="p">.</span><span class="nx">id</span> <span class="o">===</span> <span class="nx">id</span> <span class="o">?</span> <span class="p">{</span> <span class="p">...</span><span class="nx">todo</span><span class="p">,</span> <span class="p">...</span><span class="nx">updates</span> <span class="p">}</span> <span class="o">:</span> <span class="nx">todo</span>
+</span></span><span class="line"><span class="cl">          <span class="p">),</span>
+</span></span><span class="line"><span class="cl">        <span class="p">})),</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">      <span class="nx">deleteTodo</span><span class="o">:</span> <span class="p">(</span><span class="nx">id</span><span class="p">)</span> <span class="o">=&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="kr">set</span><span class="p">((</span><span class="nx">state</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">({</span>
+</span></span><span class="line"><span class="cl">          <span class="nx">todos</span>: <span class="kt">state.todos.filter</span><span class="p">((</span><span class="nx">todo</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="nx">todo</span><span class="p">.</span><span class="nx">id</span> <span class="o">!==</span> <span class="nx">id</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl">        <span class="p">})),</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">      <span class="nx">toggleTodo</span><span class="o">:</span> <span class="p">(</span><span class="nx">id</span><span class="p">)</span> <span class="o">=&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="kr">set</span><span class="p">((</span><span class="nx">state</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">({</span>
+</span></span><span class="line"><span class="cl">          <span class="nx">todos</span>: <span class="kt">state.todos.map</span><span class="p">((</span><span class="nx">todo</span><span class="p">)</span> <span class="o">=&gt;</span>
+</span></span><span class="line"><span class="cl">            <span class="nx">todo</span><span class="p">.</span><span class="nx">id</span> <span class="o">===</span> <span class="nx">id</span>
+</span></span><span class="line"><span class="cl">              <span class="o">?</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                  <span class="p">...</span><span class="nx">todo</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                  <span class="nx">completed</span><span class="o">:</span> <span class="o">!</span><span class="nx">todo</span><span class="p">.</span><span class="nx">completed</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                  <span class="nx">completedAt</span><span class="o">:</span> <span class="o">!</span><span class="nx">todo</span><span class="p">.</span><span class="nx">completed</span> <span class="o">?</span> <span class="k">new</span> <span class="nb">Date</span><span class="p">()</span> <span class="o">:</span> <span class="kc">undefined</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                <span class="p">}</span>
+</span></span><span class="line"><span class="cl">              <span class="o">:</span> <span class="nx">todo</span>
+</span></span><span class="line"><span class="cl">          <span class="p">),</span>
+</span></span><span class="line"><span class="cl">        <span class="p">})),</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">      <span class="nx">setFilter</span><span class="o">:</span> <span class="p">(</span><span class="nx">filter</span><span class="p">)</span> <span class="o">=&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="kr">set</span><span class="p">((</span><span class="nx">state</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">({</span>
+</span></span><span class="line"><span class="cl">          <span class="nx">filter</span><span class="o">:</span> <span class="p">{</span> <span class="p">...</span><span class="nx">state</span><span class="p">.</span><span class="nx">filter</span><span class="p">,</span> <span class="p">...</span><span class="nx">filter</span> <span class="p">},</span>
+</span></span><span class="line"><span class="cl">        <span class="p">})),</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">      <span class="nx">clearCompleted</span><span class="o">:</span> <span class="p">()</span> <span class="o">=&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="kr">set</span><span class="p">((</span><span class="nx">state</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">({</span>
+</span></span><span class="line"><span class="cl">          <span class="nx">todos</span>: <span class="kt">state.todos.filter</span><span class="p">((</span><span class="nx">todo</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="o">!</span><span class="nx">todo</span><span class="p">.</span><span class="nx">completed</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl">        <span class="p">})),</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}),</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;todo-storage&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">);</span>
+</span></span></code></pre></div><h5 id="43-ui-组件">4.3 UI 组件
+</h5><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">/sc:implement <span class="s2">&#34;TodoList 组件&#34;</span> --persona-frontend
+</span></span><span class="line"><span class="cl">/sc:implement <span class="s2">&#34;TodoItem 组件&#34;</span> --persona-frontend
+</span></span><span class="line"><span class="cl">/sc:implement <span class="s2">&#34;AddTodoForm 组件&#34;</span> --persona-frontend
+</span></span></code></pre></div><p><strong>TodoList 组件示例</strong>：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-typescript" data-lang="typescript"><span class="line"><span class="cl"><span class="c1">// src/components/TodoList.tsx
+</span></span></span><span class="line"><span class="cl"><span class="kr">import</span> <span class="p">{</span> <span class="nx">useTodoStore</span> <span class="p">}</span> <span class="kr">from</span> <span class="s1">&#39;../stores/todoStore&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kr">import</span> <span class="p">{</span> <span class="nx">TodoItem</span> <span class="p">}</span> <span class="kr">from</span> <span class="s1">&#39;./TodoItem&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kr">import</span> <span class="p">{</span> <span class="nx">useMemo</span> <span class="p">}</span> <span class="kr">from</span> <span class="s1">&#39;react&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kr">export</span> <span class="kd">function</span> <span class="nx">TodoList() {</span>
+</span></span><span class="line"><span class="cl">  <span class="kr">const</span> <span class="p">{</span> <span class="nx">todos</span><span class="p">,</span> <span class="nx">filter</span> <span class="p">}</span> <span class="o">=</span> <span class="nx">useTodoStore</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="kr">const</span> <span class="nx">filteredTodos</span> <span class="o">=</span> <span class="nx">useMemo</span><span class="p">(()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="nx">todos</span><span class="p">.</span><span class="nx">filter</span><span class="p">((</span><span class="nx">todo</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="c1">// 搜索过滤
+</span></span></span><span class="line"><span class="cl">      <span class="k">if</span> <span class="p">(</span><span class="nx">filter</span><span class="p">.</span><span class="nx">search</span> <span class="o">&amp;&amp;</span> <span class="o">!</span><span class="nx">todo</span><span class="p">.</span><span class="nx">title</span><span class="p">.</span><span class="nx">toLowerCase</span><span class="p">().</span><span class="nx">includes</span><span class="p">(</span><span class="nx">filter</span><span class="p">.</span><span class="nx">search</span><span class="p">.</span><span class="nx">toLowerCase</span><span class="p">()))</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="kc">false</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">      <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">      <span class="c1">// 分类过滤
+</span></span></span><span class="line"><span class="cl">      <span class="k">if</span> <span class="p">(</span><span class="nx">filter</span><span class="p">.</span><span class="nx">category</span> <span class="o">&amp;&amp;</span> <span class="nx">todo</span><span class="p">.</span><span class="nx">category</span> <span class="o">!==</span> <span class="nx">filter</span><span class="p">.</span><span class="nx">category</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="kc">false</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">      <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">      <span class="c1">// 状态过滤
+</span></span></span><span class="line"><span class="cl">      <span class="k">if</span> <span class="p">(</span><span class="nx">filter</span><span class="p">.</span><span class="nx">status</span> <span class="o">===</span> <span class="s1">&#39;active&#39;</span> <span class="o">&amp;&amp;</span> <span class="nx">todo</span><span class="p">.</span><span class="nx">completed</span><span class="p">)</span> <span class="k">return</span> <span class="kc">false</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">      <span class="k">if</span> <span class="p">(</span><span class="nx">filter</span><span class="p">.</span><span class="nx">status</span> <span class="o">===</span> <span class="s1">&#39;completed&#39;</span> <span class="o">&amp;&amp;</span> <span class="o">!</span><span class="nx">todo</span><span class="p">.</span><span class="nx">completed</span><span class="p">)</span> <span class="k">return</span> <span class="kc">false</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">      <span class="k">return</span> <span class="kc">true</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">});</span>
+</span></span><span class="line"><span class="cl">  <span class="p">},</span> <span class="p">[</span><span class="nx">todos</span><span class="p">,</span> <span class="nx">filter</span><span class="p">]);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="k">return</span> <span class="p">(</span>
+</span></span><span class="line"><span class="cl">    <span class="p">&lt;</span><span class="nt">ul</span> <span class="na">className</span><span class="o">=</span><span class="s">&#34;space-y-2&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">      <span class="p">{</span><span class="nx">filteredTodos</span><span class="p">.</span><span class="nx">map</span><span class="p">((</span><span class="nx">todo</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">(</span>
+</span></span><span class="line"><span class="cl">        <span class="p">&lt;</span><span class="nt">TodoItem</span> <span class="na">key</span><span class="o">=</span><span class="p">{</span><span class="nx">todo</span><span class="p">.</span><span class="nx">id</span><span class="p">}</span> <span class="na">todo</span><span class="o">=</span><span class="p">{</span><span class="nx">todo</span><span class="p">}</span> <span class="p">/&gt;</span>
+</span></span><span class="line"><span class="cl">      <span class="p">))}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">&lt;/</span><span class="nt">ul</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><h5 id="44-样式系统">4.4 样式系统
+</h5><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">/sc:implement <span class="s2">&#34;Tailwind 配置和深色模式&#34;</span> --persona-frontend
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="c1">// tailwind.config.js
+</span></span></span><span class="line"><span class="cl"><span class="cm">/** @type {import(&#39;tailwindcss&#39;).Config} */</span>
+</span></span><span class="line"><span class="cl"><span class="kr">export</span> <span class="k">default</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">content</span><span class="o">:</span> <span class="p">[</span>
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;./index.html&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;./src/**/*.{js,ts,jsx,tsx}&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="p">],</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">darkMode</span><span class="o">:</span> <span class="s1">&#39;class&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">theme</span><span class="o">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">extend</span><span class="o">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">colors</span><span class="o">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">primary</span><span class="o">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">          <span class="mi">50</span><span class="o">:</span> <span class="s1">&#39;#f0f9ff&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">          <span class="mi">100</span><span class="o">:</span> <span class="s1">&#39;#e0f2fe&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">          <span class="mi">500</span><span class="o">:</span> <span class="s1">&#39;#0ea5e9&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">          <span class="mi">600</span><span class="o">:</span> <span class="s1">&#39;#0284c7&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">          <span class="mi">700</span><span class="o">:</span> <span class="s1">&#39;#0369a1&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="p">},</span>
+</span></span><span class="line"><span class="cl">      <span class="p">},</span>
+</span></span><span class="line"><span class="cl">    <span class="p">},</span>
+</span></span><span class="line"><span class="cl">  <span class="p">},</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">plugins</span><span class="o">:</span> <span class="p">[],</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span></code></pre></div><hr>
 <h4 id="步骤-5功能完善">步骤 5：功能完善
 </h4><h5 id="51-搜索和过滤">5.1 搜索和过滤
-</h5>
-
-
-
-
-<div class="highlight highlight-bash">
-  <pre>
-    <code class="language-bash" data-lang="bash">/sc:implement &#34;搜索过滤功能&#34; --with-tests</code>
-  </pre>
-</div>
-
-<h5 id="52-本地持久化">5.2 本地持久化
-</h5>
-
-
-
-
-<div class="highlight highlight-bash">
-  <pre>
-    <code class="language-bash" data-lang="bash">/sc:implement &#34;localStorage 持久化&#34; --focus performance</code>
-  </pre>
-</div>
-
-<h5 id="53-响应式设计">5.3 响应式设计
-</h5>
-
-
-
-
-<div class="highlight highlight-bash">
-  <pre>
-    <code class="language-bash" data-lang="bash">/sc:implement &#34;移动端适配&#34; --persona-frontend</code>
-  </pre>
-</div>
-
-<hr>
+</h5><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">/sc:implement <span class="s2">&#34;搜索过滤功能&#34;</span> --with-tests
+</span></span></code></pre></div><h5 id="52-本地持久化">5.2 本地持久化
+</h5><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">/sc:implement <span class="s2">&#34;localStorage 持久化&#34;</span> --focus performance
+</span></span></code></pre></div><h5 id="53-响应式设计">5.3 响应式设计
+</h5><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">/sc:implement <span class="s2">&#34;移动端适配&#34;</span> --persona-frontend
+</span></span></code></pre></div><hr>
 <h4 id="步骤-6测试">步骤 6：测试
-</h4>
-
-
-
-
-<div class="highlight highlight-bash">
-  <pre>
-    <code class="language-bash" data-lang="bash">/sc:test --coverage
-/sc:test e2e --playwright</code>
-  </pre>
-</div>
-
-<p><strong>生成的测试示例</strong>：</p>
-
-
-
-
-
-<div class="highlight highlight-typescript">
-  <pre>
-    <code class="language-typescript" data-lang="typescript">// tests/components/TodoItem.test.tsx
-import { describe, it, expect } from &#39;vitest&#39;;
-import { render, screen, fireEvent } from &#39;@testing-library/react&#39;;
-import { TodoItem } from &#39;@/components/TodoItem&#39;;
-import { useTodoStore } from &#39;@/stores/todoStore&#39;;
-
-describe(&#39;TodoItem&#39;, () =&gt; {
-  it(&#39;should render todo title&#39;, () =&gt; {
-    const todo = {
-      id: &#39;1&#39;,
-      title: &#39;Test Todo&#39;,
-      completed: false,
-      category: &#39;personal&#39;,
-      tags: [],
-      priority: &#39;medium&#39; as const,
-      createdAt: new Date(),
-    };
-
-    render(&lt;TodoItem todo={todo} /&gt;);
-    expect(screen.getByText(&#39;Test Todo&#39;)).toBeInTheDocument();
-  });
-
-  it(&#39;should toggle todo completion&#39;, () =&gt; {
-    const todo = {
-      id: &#39;1&#39;,
-      title: &#39;Test Todo&#39;,
-      completed: false,
-      category: &#39;personal&#39;,
-      tags: [],
-      priority: &#39;medium&#39; as const,
-      createdAt: new Date(),
-    };
-
-    render(&lt;TodoItem todo={todo} /&gt;);
-
-    const checkbox = screen.getByRole(&#39;checkbox&#39;);
-    fireEvent.click(checkbox);
-
-    const store = useTodoStore.getState();
-    expect(store.todos.find((t) =&gt; t.id === &#39;1&#39;)?.completed).toBe(true);
-  });
-});</code>
-  </pre>
-</div>
-
-<hr>
+</h4><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">/sc:test --coverage
+</span></span><span class="line"><span class="cl">/sc:test e2e --playwright
+</span></span></code></pre></div><p><strong>生成的测试示例</strong>：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-typescript" data-lang="typescript"><span class="line"><span class="cl"><span class="c1">// tests/components/TodoItem.test.tsx
+</span></span></span><span class="line"><span class="cl"><span class="kr">import</span> <span class="p">{</span> <span class="nx">describe</span><span class="p">,</span> <span class="nx">it</span><span class="p">,</span> <span class="nx">expect</span> <span class="p">}</span> <span class="kr">from</span> <span class="s1">&#39;vitest&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kr">import</span> <span class="p">{</span> <span class="nx">render</span><span class="p">,</span> <span class="nx">screen</span><span class="p">,</span> <span class="nx">fireEvent</span> <span class="p">}</span> <span class="kr">from</span> <span class="s1">&#39;@testing-library/react&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kr">import</span> <span class="p">{</span> <span class="nx">TodoItem</span> <span class="p">}</span> <span class="kr">from</span> <span class="s1">&#39;@/components/TodoItem&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kr">import</span> <span class="p">{</span> <span class="nx">useTodoStore</span> <span class="p">}</span> <span class="kr">from</span> <span class="s1">&#39;@/stores/todoStore&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nx">describe</span><span class="p">(</span><span class="s1">&#39;TodoItem&#39;</span><span class="p">,</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">it</span><span class="p">(</span><span class="s1">&#39;should render todo title&#39;</span><span class="p">,</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kr">const</span> <span class="nx">todo</span> <span class="o">=</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">id</span><span class="o">:</span> <span class="s1">&#39;1&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">title</span><span class="o">:</span> <span class="s1">&#39;Test Todo&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">completed</span>: <span class="kt">false</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">category</span><span class="o">:</span> <span class="s1">&#39;personal&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">tags</span><span class="o">:</span> <span class="p">[],</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">priority</span><span class="o">:</span> <span class="s1">&#39;medium&#39;</span> <span class="kr">as</span> <span class="kr">const</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">createdAt</span>: <span class="kt">new</span> <span class="nb">Date</span><span class="p">(),</span>
+</span></span><span class="line"><span class="cl">    <span class="p">};</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="nx">render</span><span class="p">(&lt;</span><span class="nt">TodoItem</span> <span class="na">todo</span><span class="o">=</span><span class="p">{</span><span class="nx">todo</span><span class="p">}</span> <span class="p">/&gt;);</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">expect</span><span class="p">(</span><span class="nx">screen</span><span class="p">.</span><span class="nx">getByText</span><span class="p">(</span><span class="s1">&#39;Test Todo&#39;</span><span class="p">)).</span><span class="nx">toBeInTheDocument</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">  <span class="p">});</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="nx">it</span><span class="p">(</span><span class="s1">&#39;should toggle todo completion&#39;</span><span class="p">,</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kr">const</span> <span class="nx">todo</span> <span class="o">=</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">id</span><span class="o">:</span> <span class="s1">&#39;1&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">title</span><span class="o">:</span> <span class="s1">&#39;Test Todo&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">completed</span>: <span class="kt">false</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">category</span><span class="o">:</span> <span class="s1">&#39;personal&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">tags</span><span class="o">:</span> <span class="p">[],</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">priority</span><span class="o">:</span> <span class="s1">&#39;medium&#39;</span> <span class="kr">as</span> <span class="kr">const</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">createdAt</span>: <span class="kt">new</span> <span class="nb">Date</span><span class="p">(),</span>
+</span></span><span class="line"><span class="cl">    <span class="p">};</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="nx">render</span><span class="p">(&lt;</span><span class="nt">TodoItem</span> <span class="na">todo</span><span class="o">=</span><span class="p">{</span><span class="nx">todo</span><span class="p">}</span> <span class="p">/&gt;);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="kr">const</span> <span class="nx">checkbox</span> <span class="o">=</span> <span class="nx">screen</span><span class="p">.</span><span class="nx">getByRole</span><span class="p">(</span><span class="s1">&#39;checkbox&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">fireEvent</span><span class="p">.</span><span class="nx">click</span><span class="p">(</span><span class="nx">checkbox</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="kr">const</span> <span class="nx">store</span> <span class="o">=</span> <span class="nx">useTodoStore</span><span class="p">.</span><span class="nx">getState</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">expect</span><span class="p">(</span><span class="nx">store</span><span class="p">.</span><span class="nx">todos</span><span class="p">.</span><span class="nx">find</span><span class="p">((</span><span class="nx">t</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="nx">t</span><span class="p">.</span><span class="nx">id</span> <span class="o">===</span> <span class="s1">&#39;1&#39;</span><span class="p">)</span><span class="o">?</span><span class="p">.</span><span class="nx">completed</span><span class="p">).</span><span class="nx">toBe</span><span class="p">(</span><span class="kc">true</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="p">});</span>
+</span></span><span class="line"><span class="cl"><span class="p">});</span>
+</span></span></code></pre></div><hr>
 <h4 id="步骤-7代码质量检查">步骤 7：代码质量检查
-</h4>
-
-
-
-
-<div class="highlight highlight-bash">
-  <pre>
-    <code class="language-bash" data-lang="bash">/sc:analyze --focus quality
-/sc:analyze --focus security
-/sc:analyze --focus performance --persona-performance</code>
-  </pre>
-</div>
-
-<hr>
+</h4><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">/sc:analyze --focus quality
+</span></span><span class="line"><span class="cl">/sc:analyze --focus security
+</span></span><span class="line"><span class="cl">/sc:analyze --focus performance --persona-performance
+</span></span></code></pre></div><hr>
 <h4 id="步骤-8代码优化">步骤 8：代码优化
-</h4>
-
-
-
-
-<div class="highlight highlight-bash">
-  <pre>
-    <code class="language-bash" data-lang="bash">/sc:improve src/ --type performance --benchmark
-/sc:improve src/ --type quality --validate</code>
-  </pre>
-</div>
-
-<hr>
+</h4><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">/sc:improve src/ --type performance --benchmark
+</span></span><span class="line"><span class="cl">/sc:improve src/ --type quality --validate
+</span></span></code></pre></div><hr>
 <h4 id="步骤-9生产构建">步骤 9：生产构建
-</h4>
-
-
-
-
-<div class="highlight highlight-bash">
-  <pre>
-    <code class="language-bash" data-lang="bash">/sc:build --prod --optimize
-/sc:test --type security</code>
-  </pre>
-</div>
-
-<hr>
+</h4><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">/sc:build --prod --optimize
+</span></span><span class="line"><span class="cl">/sc:test --type security
+</span></span></code></pre></div><hr>
 <h4 id="步骤-10文档生成">步骤 10：文档生成
-</h4>
-
-
-
-
-<div class="highlight highlight-bash">
-  <pre>
-    <code class="language-bash" data-lang="bash">/sc:document components/ --type guide
-/sc:document --type readme
-/sc:index</code>
-  </pre>
-</div>
-
-<hr>
+</h4><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">/sc:document components/ --type guide
+</span></span><span class="line"><span class="cl">/sc:document --type readme
+</span></span><span class="line"><span class="cl">/sc:index
+</span></span></code></pre></div><hr>
 <h4 id="步骤-11部署准备">步骤 11：部署准备
-</h4>
-
-
-
-
-<div class="highlight highlight-bash">
-  <pre>
-    <code class="language-bash" data-lang="bash">/sc:build --static --analyze-bundle
-/sc:git --smart-commit</code>
-  </pre>
-</div>
-
-<h3 id="63-项目时间线">6.3 项目时间线
+</h4><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">/sc:build --static --analyze-bundle
+</span></span><span class="line"><span class="cl">/sc:git --smart-commit
+</span></span></code></pre></div><h3 id="63-项目时间线">6.3 项目时间线
 </h3><div class="table-wrapper"><table>
   <thead>
       <tr>
@@ -2943,139 +2151,89 @@ describe(&#39;TodoItem&#39;, () =&gt; {
 <hr>
 <h2 id="第七部分实战场景与工作流">第七部分：实战场景与工作流
 </h2><h3 id="71-新项目启动工作流">7.1 新项目启动工作流
-</h3>
-
-
-
-
-<div class="highlight highlight-bash">
-  <pre>
-    <code class="language-bash" data-lang="bash"># 1. 需求发现
-/sc:brainstorm &#34;任务管理 SaaS 应用&#34;
-
-# 2. 架构设计
-/sc:design &#34;系统架构&#34; --type architecture
-
-# 3. 项目初始化
-/sc:build task-manager/ --framework nextjs
-
-# 4. 核心功能实现
-/sc:implement &#34;用户认证&#34;
-/sc:implement &#34;任务 CRUD&#34;
-/sc:implement &#34;团队协作&#34;
-
-# 5. 测试
-/sc:test --coverage
-
-# 6. 保存进度
-/sc:save &#34;MVP 完成&#34;</code>
-  </pre>
-</div>
-
-<hr>
+</h3><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># 1. 需求发现</span>
+</span></span><span class="line"><span class="cl">/sc:brainstorm <span class="s2">&#34;任务管理 SaaS 应用&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 2. 架构设计</span>
+</span></span><span class="line"><span class="cl">/sc:design <span class="s2">&#34;系统架构&#34;</span> --type architecture
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 3. 项目初始化</span>
+</span></span><span class="line"><span class="cl">/sc:build task-manager/ --framework nextjs
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 4. 核心功能实现</span>
+</span></span><span class="line"><span class="cl">/sc:implement <span class="s2">&#34;用户认证&#34;</span>
+</span></span><span class="line"><span class="cl">/sc:implement <span class="s2">&#34;任务 CRUD&#34;</span>
+</span></span><span class="line"><span class="cl">/sc:implement <span class="s2">&#34;团队协作&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 5. 测试</span>
+</span></span><span class="line"><span class="cl">/sc:test --coverage
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 6. 保存进度</span>
+</span></span><span class="line"><span class="cl">/sc:save <span class="s2">&#34;MVP 完成&#34;</span>
+</span></span></code></pre></div><hr>
 <h3 id="72-代码审查工作流">7.2 代码审查工作流
-</h3>
-
-
-
-
-<div class="highlight highlight-bash">
-  <pre>
-    <code class="language-bash" data-lang="bash"># 1. 质量分析
-/sc:analyze pr/ --persona-qa --focus quality
-
-# 2. 安全审查
-/sc:analyze pr/ --persona-security --focus security
-
-# 3. 性能检查
-/sc:analyze pr/ --persona-performance --focus performance
-
-# 4. 文档生成
-/sc:document pr/ --type changelog
-
-# 5. 智能提交
-/sc:git --smart-commit</code>
-  </pre>
-</div>
-
-<hr>
+</h3><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># 1. 质量分析</span>
+</span></span><span class="line"><span class="cl">/sc:analyze pr/ --persona-qa --focus quality
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 2. 安全审查</span>
+</span></span><span class="line"><span class="cl">/sc:analyze pr/ --persona-security --focus security
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 3. 性能检查</span>
+</span></span><span class="line"><span class="cl">/sc:analyze pr/ --persona-performance --focus performance
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 4. 文档生成</span>
+</span></span><span class="line"><span class="cl">/sc:document pr/ --type changelog
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 5. 智能提交</span>
+</span></span><span class="line"><span class="cl">/sc:git --smart-commit
+</span></span></code></pre></div><hr>
 <h3 id="73-bug-修复工作流">7.3 Bug 修复工作流
-</h3>
-
-
-
-
-<div class="highlight highlight-bash">
-  <pre>
-    <code class="language-bash" data-lang="bash"># 1. 问题诊断
-/sc:troubleshoot &#34;登录失败&#34; --logs
-
-# 2. 深度分析
-/sc:analyze auth/ --think-hard --focus debugging
-
-# 3. 修复实施
-/sc:implement &#34;修复登录 bug&#34; --safe-mode --validate
-
-# 4. 回归测试
-/sc:test --type unit auth/
-/sc:test e2e --playwright
-
-# 5. 保存
-/sc:save &#34;bug-fix-login&#34;</code>
-  </pre>
-</div>
-
-<hr>
+</h3><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># 1. 问题诊断</span>
+</span></span><span class="line"><span class="cl">/sc:troubleshoot <span class="s2">&#34;登录失败&#34;</span> --logs
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 2. 深度分析</span>
+</span></span><span class="line"><span class="cl">/sc:analyze auth/ --think-hard --focus debugging
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 3. 修复实施</span>
+</span></span><span class="line"><span class="cl">/sc:implement <span class="s2">&#34;修复登录 bug&#34;</span> --safe-mode --validate
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 4. 回归测试</span>
+</span></span><span class="line"><span class="cl">/sc:test --type unit auth/
+</span></span><span class="line"><span class="cl">/sc:test e2e --playwright
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 5. 保存</span>
+</span></span><span class="line"><span class="cl">/sc:save <span class="s2">&#34;bug-fix-login&#34;</span>
+</span></span></code></pre></div><hr>
 <h3 id="74-遗留系统现代化">7.4 遗留系统现代化
-</h3>
-
-
-
-
-<div class="highlight highlight-bash">
-  <pre>
-    <code class="language-bash" data-lang="bash"># 1. 深度架构分析
-/sc:analyze legacy/ --persona-architect --ultrathink
-
-# 2. 现代化规划
-/sc:design modernization-strategy --type architecture
-
-# 3. 迭代改进（波模式）
-/sc:improve legacy/ --wave-mode systematic --safe-mode --loop
-
-# 4. 文档更新
-/sc:index
-/sc:document legacy/ --type guide</code>
-  </pre>
-</div>
-
-<hr>
+</h3><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># 1. 深度架构分析</span>
+</span></span><span class="line"><span class="cl">/sc:analyze legacy/ --persona-architect --ultrathink
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 2. 现代化规划</span>
+</span></span><span class="line"><span class="cl">/sc:design modernization-strategy --type architecture
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 3. 迭代改进（波模式）</span>
+</span></span><span class="line"><span class="cl">/sc:improve legacy/ --wave-mode systematic --safe-mode --loop
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 4. 文档更新</span>
+</span></span><span class="line"><span class="cl">/sc:index
+</span></span><span class="line"><span class="cl">/sc:document legacy/ --type guide
+</span></span></code></pre></div><hr>
 <h3 id="75-安全优先开发">7.5 安全优先开发
-</h3>
-
-
-
-
-<div class="highlight highlight-bash">
-  <pre>
-    <code class="language-bash" data-lang="bash"># 1. 安全设计
-/sc:design &#34;认证系统&#34; --focus security
-
-# 2. 安全实现
-/sc:implement &#34;JWT 认证&#34; --persona-security
-
-# 3. 安全审查
-/sc:analyze auth/ --persona-security --focus security
-
-# 4. 安全测试
-/sc:test --type security
-
-# 5. 合规检查
-/sc:analyze --persona-security --compliance gdpr</code>
-  </pre>
-</div>
-
-<hr>
+</h3><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># 1. 安全设计</span>
+</span></span><span class="line"><span class="cl">/sc:design <span class="s2">&#34;认证系统&#34;</span> --focus security
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 2. 安全实现</span>
+</span></span><span class="line"><span class="cl">/sc:implement <span class="s2">&#34;JWT 认证&#34;</span> --persona-security
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 3. 安全审查</span>
+</span></span><span class="line"><span class="cl">/sc:analyze auth/ --persona-security --focus security
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 4. 安全测试</span>
+</span></span><span class="line"><span class="cl">/sc:test --type security
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 5. 合规检查</span>
+</span></span><span class="line"><span class="cl">/sc:analyze --persona-security --compliance gdpr
+</span></span></code></pre></div><hr>
 <h2 id="第八部分学习路线图4-周精进计划">第八部分：学习路线图（4 周精进计划）
 </h2><h3 id="第-1-周核心命令掌握">第 1 周：核心命令掌握
 </h3><p><strong>学习重点</strong>：</p>
@@ -3161,103 +2319,43 @@ describe(&#39;TodoItem&#39;, () =&gt; {
 <h2 id="第九部分最佳实践与技巧">第九部分：最佳实践与技巧
 </h2><h3 id="91-命令使用习惯">9.1 命令使用习惯
 </h3><h4 id="从简单开始按需添加复杂度">从简单开始，按需添加复杂度
-</h4>
-
-
-
-
-<div class="highlight highlight-bash">
-  <pre>
-    <code class="language-bash" data-lang="bash"># 基础
-/sc:analyze code.js
-
-# 添加深度
-/sc:analyze code.js --think
-
-# 添加文档参考
-/sc:analyze code.js --think --c7</code>
-  </pre>
-</div>
-
-<h4 id="使用安全模式">使用安全模式
-</h4>
-
-
-
-
-<div class="highlight highlight-bash">
-  <pre>
-    <code class="language-bash" data-lang="bash"># 生产代码总是先预览
-/sc:improve production-auth/ --safe-mode --validate --preview</code>
-  </pre>
-</div>
-
-<h4 id="选择适当的作用域">选择适当的作用域
-</h4>
-
-
-
-
-<div class="highlight highlight-bash">
-  <pre>
-    <code class="language-bash" data-lang="bash"># 文件级
-/sc:analyze single-component.js
-
-# 模块级
-/sc:analyze user-auth/
-
-# 项目级
-/sc:analyze --scope project</code>
-  </pre>
-</div>
-
-<hr>
+</h4><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># 基础</span>
+</span></span><span class="line"><span class="cl">/sc:analyze code.js
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 添加深度</span>
+</span></span><span class="line"><span class="cl">/sc:analyze code.js --think
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 添加文档参考</span>
+</span></span><span class="line"><span class="cl">/sc:analyze code.js --think --c7
+</span></span></code></pre></div><h4 id="使用安全模式">使用安全模式
+</h4><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># 生产代码总是先预览</span>
+</span></span><span class="line"><span class="cl">/sc:improve production-auth/ --safe-mode --validate --preview
+</span></span></code></pre></div><h4 id="选择适当的作用域">选择适当的作用域
+</h4><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># 文件级</span>
+</span></span><span class="line"><span class="cl">/sc:analyze single-component.js
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 模块级</span>
+</span></span><span class="line"><span class="cl">/sc:analyze user-auth/
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 项目级</span>
+</span></span><span class="line"><span class="cl">/sc:analyze --scope project
+</span></span></code></pre></div><hr>
 <h3 id="92-效率最大化技巧">9.2 效率最大化技巧
 </h3><h4 id="让自动激活先工作">让自动激活先工作
 </h4><p>先使用基本命令，观察 SuperClaude 如何自动选择工具和专家。只在需要特定视角时才手动覆盖。</p>
 <h4 id="使用预览和安全模式">使用预览和安全模式
-</h4>
-
-
-
-
-<div class="highlight highlight-bash">
-  <pre>
-    <code class="language-bash" data-lang="bash"># 先查看会发生什么
-/sc:improve code.js --preview
-
-# 确认后再应用安全更改
-/sc:improve code.js --safe-mode</code>
-  </pre>
-</div>
-
-<h4 id="大型操作的令牌管理">大型操作的令牌管理
-</h4>
-
-
-
-
-<div class="highlight highlight-bash">
-  <pre>
-    <code class="language-bash" data-lang="bash"># 压缩输出并并行处理
-/sc:analyze huge-codebase/ --uc --delegate auto</code>
-  </pre>
-</div>
-
-<h4 id="使用导师角色学习">使用导师角色学习
-</h4>
-
-
-
-
-<div class="highlight highlight-bash">
-  <pre>
-    <code class="language-bash" data-lang="bash"># 学习新概念时使用导师模式
-/sc:explain GraphQL --persona-mentor --verbose</code>
-  </pre>
-</div>
-
-<hr>
+</h4><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># 先查看会发生什么</span>
+</span></span><span class="line"><span class="cl">/sc:improve code.js --preview
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 确认后再应用安全更改</span>
+</span></span><span class="line"><span class="cl">/sc:improve code.js --safe-mode
+</span></span></code></pre></div><h4 id="大型操作的令牌管理">大型操作的令牌管理
+</h4><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># 压缩输出并并行处理</span>
+</span></span><span class="line"><span class="cl">/sc:analyze huge-codebase/ --uc --delegate auto
+</span></span></code></pre></div><h4 id="使用导师角色学习">使用导师角色学习
+</h4><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># 学习新概念时使用导师模式</span>
+</span></span><span class="line"><span class="cl">/sc:explain GraphQL --persona-mentor --verbose
+</span></span></code></pre></div><hr>
 <h3 id="93-避免常见错误">9.3 避免常见错误
 </h3><ol>
 <li><strong>过度使用高级标志</strong> - 不是所有任务都需要 <code>--ultrathink</code></li>
@@ -3663,7 +2761,7 @@ describe(&#39;TodoItem&#39;, () =&gt; {
                 src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
                 
                 >
-            </script><script type="text/javascript" src="/ts/main.888cccdaf3c934b58bb1982792b4d0fdb89be145d2cabea38c8569bfe7d08117.js" defer></script>
+            </script><script type="text/javascript" src="/ts/main.fe055f50234dc99b59992d29820a4403a71f7c90de7b6ebd204c621ac170b546.js" defer></script>
 <script>
     (function () {
         const customFont = document.createElement('link');

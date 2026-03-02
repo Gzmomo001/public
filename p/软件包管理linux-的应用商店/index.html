@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="zh-cn" dir="ltr">
+<html lang="en-us" dir="ltr">
     <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><meta charset='utf-8'>
 <meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="深入理解 Linux 软件包管理系统，掌握 APT、DNF、Pacman 等包管理器的使用技巧">
 <title>软件包管理：Linux 的应用商店</title>
@@ -10,7 +10,7 @@
 <meta property='og:description' content="深入理解 Linux 软件包管理系统，掌握 APT、DNF、Pacman 等包管理器的使用技巧">
 <meta property='og:url' content='http://localhost:1313/p/%E8%BD%AF%E4%BB%B6%E5%8C%85%E7%AE%A1%E7%90%86linux-%E7%9A%84%E5%BA%94%E7%94%A8%E5%95%86%E5%BA%97/'>
 <meta property='og:site_name' content='Henry Zhang'>
-<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='linux' /><meta property='article:tag' content='包管理' /><meta property='article:tag' content='apt' /><meta property='article:tag' content='dnf' /><meta property='article:tag' content='pacman' /><meta property='article:published_time' content='2026-01-11T03:00:00&#43;08:00'/><meta property='article:modified_time' content='2026-01-11T16:57:00&#43;00:00'/><meta property='og:image' content='http://localhost:1313/default.jpeg' />
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='linux' /><meta property='article:tag' content='包管理' /><meta property='article:tag' content='apt' /><meta property='article:tag' content='dnf' /><meta property='article:tag' content='pacman' /><meta property='article:published_time' content='2026-01-11T03:00:00&#43;08:00'/><meta property='article:modified_time' content='2026-01-12T00:57:00&#43;08:00'/><meta property='og:image' content='http://localhost:1313/default.jpeg' />
 <meta name="twitter:title" content="软件包管理：Linux 的应用商店">
 <meta name="twitter:description" content="深入理解 Linux 软件包管理系统，掌握 APT、DNF、Pacman 等包管理器的使用技巧"><meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:image" content='http://localhost:1313/default.jpeg' />
@@ -357,7 +357,7 @@
                     
                     
                         
-                        <img src="/img/avatar_hu_9c50848f93c56cbf.jpeg" width="300"
+                        <img src="/img/avatar_hu_a69ebd3e9749347e.jpeg" width="300"
                             height="296" class="site-logo" loading="lazy" alt="Avatar">
                     
                 
@@ -754,7 +754,7 @@
 
 
                 <time>
-                    Jan 11, 2026 16:57 UTC
+                    Jan 12, 2026 00:57 CST
                 </time>
             </div>
     </footer>
@@ -803,299 +803,199 @@
 </ul>
 <h2 id="debian-系apt">Debian 系：APT
 </h2><h3 id="apt-基础">APT 基础
-</h3>
-
-
-
-
-<div class="highlight highlight-bash">
-  <pre>
-    <code class="language-bash" data-lang="bash"># 更新软件包列表
-sudo apt update
-
-# 升级所有已安装的软件包
-sudo apt upgrade
-
-# 完整系统升级（包括依赖关系变化）
-sudo apt full-upgrade
-
-# 安装软件
-sudo apt install nginx
-sudo apt install vim git curl
-
-# 删除软件（保留配置）
-sudo apt remove nginx
-
-# 删除软件和配置
-sudo apt purge nginx
-
-# 删除不需要的依赖
-sudo apt autoremove
-
-# 清理下载的包文件
-sudo apt clean
-sudo apt autoclean</code>
-  </pre>
-</div>
-
-<h3 id="软件源配置">软件源配置
-</h3>
-
-
-
-
-<div class="highlight highlight-bash">
-  <pre>
-    <code class="language-bash" data-lang="bash"># 软件源文件
-/etc/apt/sources.list
-/etc/apt/sources.list.d/*.conf
-
-# 查看当前源
-cat /etc/apt/sources.list
-
-# 添加 PPA（Personal Package Archive）
-sudo add-apt-repository ppa:deadsnakes/ppa
-sudo apt update
-
-# 手动添加源
-echo &#39;deb https://example.com/ubuntu jammy main&#39; | sudo tee /etc/apt/sources.list.d/custom.list
-
-# 添加 GPG 密钥
-wget -qO - https://example.com/key.gpg | sudo apt-key add -
-
-# 更新系统后清理旧包
-sudo apt autoremove
-sudo apt autoclean</code>
-  </pre>
-</div>
-
-<h3 id="deb-文件">.deb 文件
-</h3>
-
-
-
-
-<div class="highlight highlight-bash">
-  <pre>
-    <code class="language-bash" data-lang="bash"># 安装 .deb 文件
-sudo dpkg -i package.deb
-
-# 修复依赖问题
-sudo apt install -f
-
-# 查看已安装的包
-dpkg -l | grep nginx
-
-# 查看包信息
-dpkg -I package.deb
-
-# 查看包内容
-dpkg -c package.deb
-
-# 卸载 .deb 包
-sudo dpkg -r package_name
-sudo dpkg -P package_name  # 包括配置文件</code>
-  </pre>
-</div>
-
-<h3 id="常用操作">常用操作
-</h3>
-
-
-
-
-<div class="highlight highlight-bash">
-  <pre>
-    <code class="language-bash" data-lang="bash"># 搜索软件包
-apt search nginx
-apt show nginx           # 查看包详情
-
-# 查看已安装的包
-apt list --installed
-
-# 查看可升级的包
-apt list --upgradable
-
-# 查看包依赖关系
-apt depends nginx
-apt rdepends nginx       # 反向依赖
-
-# 下载但不安装
-apt download nginx
-apt source nginx         # 下载源代码
-
-# 固定软件版本
-sudo apt mark hold nginx     # 禁止升级
-sudo apt mark unhold nginx   # 允许升级</code>
-  </pre>
-</div>
-
-<h2 id="red-hat-系dnf">Red Hat 系：DNF
+</h3><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># 更新软件包列表</span>
+</span></span><span class="line"><span class="cl">sudo apt update
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 升级所有已安装的软件包</span>
+</span></span><span class="line"><span class="cl">sudo apt upgrade
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 完整系统升级（包括依赖关系变化）</span>
+</span></span><span class="line"><span class="cl">sudo apt full-upgrade
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 安装软件</span>
+</span></span><span class="line"><span class="cl">sudo apt install nginx
+</span></span><span class="line"><span class="cl">sudo apt install vim git curl
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 删除软件（保留配置）</span>
+</span></span><span class="line"><span class="cl">sudo apt remove nginx
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 删除软件和配置</span>
+</span></span><span class="line"><span class="cl">sudo apt purge nginx
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 删除不需要的依赖</span>
+</span></span><span class="line"><span class="cl">sudo apt autoremove
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 清理下载的包文件</span>
+</span></span><span class="line"><span class="cl">sudo apt clean
+</span></span><span class="line"><span class="cl">sudo apt autoclean
+</span></span></code></pre></div><h3 id="软件源配置">软件源配置
+</h3><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># 软件源文件</span>
+</span></span><span class="line"><span class="cl">/etc/apt/sources.list
+</span></span><span class="line"><span class="cl">/etc/apt/sources.list.d/*.conf
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 查看当前源</span>
+</span></span><span class="line"><span class="cl">cat /etc/apt/sources.list
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 添加 PPA（Personal Package Archive）</span>
+</span></span><span class="line"><span class="cl">sudo add-apt-repository ppa:deadsnakes/ppa
+</span></span><span class="line"><span class="cl">sudo apt update
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 手动添加源</span>
+</span></span><span class="line"><span class="cl"><span class="nb">echo</span> <span class="s1">&#39;deb https://example.com/ubuntu jammy main&#39;</span> <span class="p">|</span> sudo tee /etc/apt/sources.list.d/custom.list
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 添加 GPG 密钥</span>
+</span></span><span class="line"><span class="cl">wget -qO - https://example.com/key.gpg <span class="p">|</span> sudo apt-key add -
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 更新系统后清理旧包</span>
+</span></span><span class="line"><span class="cl">sudo apt autoremove
+</span></span><span class="line"><span class="cl">sudo apt autoclean
+</span></span></code></pre></div><h3 id="deb-文件">.deb 文件
+</h3><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># 安装 .deb 文件</span>
+</span></span><span class="line"><span class="cl">sudo dpkg -i package.deb
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 修复依赖问题</span>
+</span></span><span class="line"><span class="cl">sudo apt install -f
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 查看已安装的包</span>
+</span></span><span class="line"><span class="cl">dpkg -l <span class="p">|</span> grep nginx
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 查看包信息</span>
+</span></span><span class="line"><span class="cl">dpkg -I package.deb
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 查看包内容</span>
+</span></span><span class="line"><span class="cl">dpkg -c package.deb
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 卸载 .deb 包</span>
+</span></span><span class="line"><span class="cl">sudo dpkg -r package_name
+</span></span><span class="line"><span class="cl">sudo dpkg -P package_name  <span class="c1"># 包括配置文件</span>
+</span></span></code></pre></div><h3 id="常用操作">常用操作
+</h3><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># 搜索软件包</span>
+</span></span><span class="line"><span class="cl">apt search nginx
+</span></span><span class="line"><span class="cl">apt show nginx           <span class="c1"># 查看包详情</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 查看已安装的包</span>
+</span></span><span class="line"><span class="cl">apt list --installed
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 查看可升级的包</span>
+</span></span><span class="line"><span class="cl">apt list --upgradable
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 查看包依赖关系</span>
+</span></span><span class="line"><span class="cl">apt depends nginx
+</span></span><span class="line"><span class="cl">apt rdepends nginx       <span class="c1"># 反向依赖</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 下载但不安装</span>
+</span></span><span class="line"><span class="cl">apt download nginx
+</span></span><span class="line"><span class="cl">apt <span class="nb">source</span> nginx         <span class="c1"># 下载源代码</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 固定软件版本</span>
+</span></span><span class="line"><span class="cl">sudo apt mark hold nginx     <span class="c1"># 禁止升级</span>
+</span></span><span class="line"><span class="cl">sudo apt mark unhold nginx   <span class="c1"># 允许升级</span>
+</span></span></code></pre></div><h2 id="red-hat-系dnf">Red Hat 系：DNF
 </h2><h3 id="dnf-基础">DNF 基础
-</h3>
-
-
-
-
-<div class="highlight highlight-bash">
-  <pre>
-    <code class="language-bash" data-lang="bash"># 安装软件
-sudo dnf install nginx
-
-# 更新软件
-sudo dnf update nginx
-sudo dnf upgrade              # 升级所有软件
-
-# 删除软件
-sudo dnf remove nginx
-sudo dnf erase nginx
-
-# 查找软件
-dnf search nginx
-
-# 查看包信息
-dnf info nginx</code>
-  </pre>
-</div>
-
-<h3 id="仓库配置">仓库配置
-</h3>
-
-
-
-
-<div class="highlight highlight-bash">
-  <pre>
-    <code class="language-bash" data-lang="bash"># 仓库配置目录
-/etc/yum.repos.d/*.repo
-
-# 查看已启用的仓库
-dnf repolist
-
-# 查看所有仓库
-dnf repolist all
-
-# 启用/禁用仓库
-sudo dnf config-manager --set-enabled epel
-sudo dnf config-manager --set-disabled epel
-
-# 添加仓库
-sudo dnf config-manager --add-repo https://download.example.com/repo.rpm
-
-# EPEL（Extra Packages for Enterprise Linux）
-sudo dnf install epel-release</code>
-  </pre>
-</div>
-
-<h3 id="rpm-文件">.rpm 文件
-</h3>
-
-
-
-
-<div class="highlight highlight-bash">
-  <pre>
-    <code class="language-bash" data-lang="bash"># 安装 .rpm 文件
-sudo rpm -ivh package.rpm
-# 或
-sudo dnf localinstall package.rpm
-
-# 查询已安装的包
-rpm -qa | grep nginx
-rpm -qi nginx             # 包信息
-rpm -ql nginx             # 包文件列表
-rpm -qf /bin/nginx        # 查看文件属于哪个包
-
-# 卸载 .rpm 包
-sudo rpm -e nginx
-
-# 验证包
-rpm -V nginx</code>
-  </pre>
-</div>
-
-<h2 id="arch-系pacman">Arch 系：Pacman
+</h3><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># 安装软件</span>
+</span></span><span class="line"><span class="cl">sudo dnf install nginx
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 更新软件</span>
+</span></span><span class="line"><span class="cl">sudo dnf update nginx
+</span></span><span class="line"><span class="cl">sudo dnf upgrade              <span class="c1"># 升级所有软件</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 删除软件</span>
+</span></span><span class="line"><span class="cl">sudo dnf remove nginx
+</span></span><span class="line"><span class="cl">sudo dnf erase nginx
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 查找软件</span>
+</span></span><span class="line"><span class="cl">dnf search nginx
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 查看包信息</span>
+</span></span><span class="line"><span class="cl">dnf info nginx
+</span></span></code></pre></div><h3 id="仓库配置">仓库配置
+</h3><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># 仓库配置目录</span>
+</span></span><span class="line"><span class="cl">/etc/yum.repos.d/*.repo
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 查看已启用的仓库</span>
+</span></span><span class="line"><span class="cl">dnf repolist
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 查看所有仓库</span>
+</span></span><span class="line"><span class="cl">dnf repolist all
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 启用/禁用仓库</span>
+</span></span><span class="line"><span class="cl">sudo dnf config-manager --set-enabled epel
+</span></span><span class="line"><span class="cl">sudo dnf config-manager --set-disabled epel
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 添加仓库</span>
+</span></span><span class="line"><span class="cl">sudo dnf config-manager --add-repo https://download.example.com/repo.rpm
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># EPEL（Extra Packages for Enterprise Linux）</span>
+</span></span><span class="line"><span class="cl">sudo dnf install epel-release
+</span></span></code></pre></div><h3 id="rpm-文件">.rpm 文件
+</h3><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># 安装 .rpm 文件</span>
+</span></span><span class="line"><span class="cl">sudo rpm -ivh package.rpm
+</span></span><span class="line"><span class="cl"><span class="c1"># 或</span>
+</span></span><span class="line"><span class="cl">sudo dnf localinstall package.rpm
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 查询已安装的包</span>
+</span></span><span class="line"><span class="cl">rpm -qa <span class="p">|</span> grep nginx
+</span></span><span class="line"><span class="cl">rpm -qi nginx             <span class="c1"># 包信息</span>
+</span></span><span class="line"><span class="cl">rpm -ql nginx             <span class="c1"># 包文件列表</span>
+</span></span><span class="line"><span class="cl">rpm -qf /bin/nginx        <span class="c1"># 查看文件属于哪个包</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 卸载 .rpm 包</span>
+</span></span><span class="line"><span class="cl">sudo rpm -e nginx
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 验证包</span>
+</span></span><span class="line"><span class="cl">rpm -V nginx
+</span></span></code></pre></div><h2 id="arch-系pacman">Arch 系：Pacman
 </h2><h3 id="pacman-基础">Pacman 基础
-</h3>
-
-
-
-
-<div class="highlight highlight-bash">
-  <pre>
-    <code class="language-bash" data-lang="bash"># 同步包数据库
-sudo pacman -Sy
-
-# 升级系统
-sudo pacman -Syu
-
-# 安装软件
-sudo pacman -S nginx
-
-# 删除软件
-sudo pacman -R nginx          # 保留依赖和配置
-sudo pacman -Rs nginx         # 删除依赖
-sudo pacman -Rns nginx        # 删除依赖和配置
-
-# 搜索软件
-pacman -Ss nginx
-
-# 查看包信息
-pacman -Si nginx
-pacman -Qii nginx             # 已安装包的详细信息</code>
-  </pre>
-</div>
-
-<h3 id="仓库和-aur">仓库和 AUR
-</h3>
-
-
-
-
-<div class="highlight highlight-bash">
-  <pre>
-    <code class="language-bash" data-lang="bash"># 官方仓库
-core - 核心软件
-extra - 额外软件
-community - 社区软件
-
-# 查看包在哪个仓库
-pacman -Ss nginx
-
-# AUR（Arch User Repository）
-# 需要使用 yay 或 paru 等 AUR 助手
-
-# 安装 yay
-sudo pacman -S base-devel git
-git clone https://aur.archlinux.org/yay.git
-cd yay
-makepkg -si
-
-# 使用 yay
-yay -S google-chrome         # 从 AUR 安装
-yay -Syu                     # 升级系统（包括 AUR）
-yay -Ss package             # 搜索包</code>
-  </pre>
-</div>
-
-<h3 id="pkgtarzst-文件">.pkg.tar.zst 文件
-</h3>
-
-
-
-
-<div class="highlight highlight-bash">
-  <pre>
-    <code class="language-bash" data-lang="bash"># 安装本地包文件
-sudo pacman -U package.pkg.tar.zst
-
-# 查看包内容
-pacman -Ql package
-pacman -Qo /path/to/file    # 文件属于哪个包</code>
-  </pre>
-</div>
-
-<h2 id="依赖管理">依赖管理
+</h3><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># 同步包数据库</span>
+</span></span><span class="line"><span class="cl">sudo pacman -Sy
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 升级系统</span>
+</span></span><span class="line"><span class="cl">sudo pacman -Syu
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 安装软件</span>
+</span></span><span class="line"><span class="cl">sudo pacman -S nginx
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 删除软件</span>
+</span></span><span class="line"><span class="cl">sudo pacman -R nginx          <span class="c1"># 保留依赖和配置</span>
+</span></span><span class="line"><span class="cl">sudo pacman -Rs nginx         <span class="c1"># 删除依赖</span>
+</span></span><span class="line"><span class="cl">sudo pacman -Rns nginx        <span class="c1"># 删除依赖和配置</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 搜索软件</span>
+</span></span><span class="line"><span class="cl">pacman -Ss nginx
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 查看包信息</span>
+</span></span><span class="line"><span class="cl">pacman -Si nginx
+</span></span><span class="line"><span class="cl">pacman -Qii nginx             <span class="c1"># 已安装包的详细信息</span>
+</span></span></code></pre></div><h3 id="仓库和-aur">仓库和 AUR
+</h3><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># 官方仓库</span>
+</span></span><span class="line"><span class="cl">core - 核心软件
+</span></span><span class="line"><span class="cl">extra - 额外软件
+</span></span><span class="line"><span class="cl">community - 社区软件
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 查看包在哪个仓库</span>
+</span></span><span class="line"><span class="cl">pacman -Ss nginx
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># AUR（Arch User Repository）</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 需要使用 yay 或 paru 等 AUR 助手</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 安装 yay</span>
+</span></span><span class="line"><span class="cl">sudo pacman -S base-devel git
+</span></span><span class="line"><span class="cl">git clone https://aur.archlinux.org/yay.git
+</span></span><span class="line"><span class="cl"><span class="nb">cd</span> yay
+</span></span><span class="line"><span class="cl">makepkg -si
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 使用 yay</span>
+</span></span><span class="line"><span class="cl">yay -S google-chrome         <span class="c1"># 从 AUR 安装</span>
+</span></span><span class="line"><span class="cl">yay -Syu                     <span class="c1"># 升级系统（包括 AUR）</span>
+</span></span><span class="line"><span class="cl">yay -Ss package             <span class="c1"># 搜索包</span>
+</span></span></code></pre></div><h3 id="pkgtarzst-文件">.pkg.tar.zst 文件
+</h3><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># 安装本地包文件</span>
+</span></span><span class="line"><span class="cl">sudo pacman -U package.pkg.tar.zst
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 查看包内容</span>
+</span></span><span class="line"><span class="cl">pacman -Ql package
+</span></span><span class="line"><span class="cl">pacman -Qo /path/to/file    <span class="c1"># 文件属于哪个包</span>
+</span></span></code></pre></div><h2 id="依赖管理">依赖管理
 </h2><h3 id="依赖类型">依赖类型
 </h3><pre class="mermaid">
   flowchart TD
@@ -1114,263 +1014,163 @@ pacman -Qo /path/to/file    # 文件属于哪个包</code>
 </pre>
 
 <h3 id="查看依赖关系">查看依赖关系
-</h3>
-
-
-
-
-<div class="highlight highlight-bash">
-  <pre>
-    <code class="language-bash" data-lang="bash"># Debian/Ubuntu
-apt depends nginx           # 正向依赖
-apt rdepends nginx          # 反向依赖（被依赖）
-
-# Red Hat/CentOS
-dnf repoquery --requires nginx
-dnf repoquery --whatrequires nginx
-
-# Arch
-pactree nginx               # 依赖树
-pactree -r nginx            # 反向依赖树</code>
-  </pre>
-</div>
-
-<h3 id="解决依赖冲突">解决依赖冲突
-</h3>
-
-
-
-
-<div class="highlight highlight-bash">
-  <pre>
-    <code class="language-bash" data-lang="bash"># 查看冲突的包
-apt show package | grep Conflicts
-
-# 强制安装（不推荐）
-sudo apt install -f
-
-# 使用特定版本
-sudo apt install package=1.0.0
-
-# 锁定版本
-sudo apt-mark hold package</code>
-  </pre>
-</div>
-
-<h2 id="snap-和-flatpak">Snap 和 Flatpak
+</h3><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># Debian/Ubuntu</span>
+</span></span><span class="line"><span class="cl">apt depends nginx           <span class="c1"># 正向依赖</span>
+</span></span><span class="line"><span class="cl">apt rdepends nginx          <span class="c1"># 反向依赖（被依赖）</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Red Hat/CentOS</span>
+</span></span><span class="line"><span class="cl">dnf repoquery --requires nginx
+</span></span><span class="line"><span class="cl">dnf repoquery --whatrequires nginx
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Arch</span>
+</span></span><span class="line"><span class="cl">pactree nginx               <span class="c1"># 依赖树</span>
+</span></span><span class="line"><span class="cl">pactree -r nginx            <span class="c1"># 反向依赖树</span>
+</span></span></code></pre></div><h3 id="解决依赖冲突">解决依赖冲突
+</h3><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># 查看冲突的包</span>
+</span></span><span class="line"><span class="cl">apt show package <span class="p">|</span> grep Conflicts
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 强制安装（不推荐）</span>
+</span></span><span class="line"><span class="cl">sudo apt install -f
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 使用特定版本</span>
+</span></span><span class="line"><span class="cl">sudo apt install <span class="nv">package</span><span class="o">=</span>1.0.0
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 锁定版本</span>
+</span></span><span class="line"><span class="cl">sudo apt-mark hold package
+</span></span></code></pre></div><h2 id="snap-和-flatpak">Snap 和 Flatpak
 </h2><h3 id="snapcanonical">Snap（Canonical）
-</h3>
-
-
-
-
-<div class="highlight highlight-bash">
-  <pre>
-    <code class="language-bash" data-lang="bash"># 安装 snapd
-sudo apt install snapd
-
-# 查找 snap 应用
-snap find chrome
-
-# 安装 snap
-sudo snap install chromium
-sudo snap install chromium --classic  # 经典模式
-
-# 列出已安装的 snap
-snap list
-
-# 更新 snap
-sudo snap refresh chromium
-
-# 删除 snap
-sudo snap remove chromium
-
-# 查看 snap 信息
-snap info chromium</code>
-  </pre>
-</div>
-
-<h3 id="flatpak通用">Flatpak（通用）
-</h3>
-
-
-
-
-<div class="highlight highlight-bash">
-  <pre>
-    <code class="language-bash" data-lang="bash"># 安装 flatpak
-sudo apt install flatpak
-
-# 添加 Flathub 仓库
-flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
-
-# 查找应用
-flatpak search spotify
-
-# 安装应用
-flatpak install flathub com.spotify.Client
-
-# 列出已安装的应用
-flatpak list
-
-# 更新应用
-flatpak update com.spotify.Client
-
-# 删除应用
-flatpak uninstall com.spotify.Client
-
-# 运行应用
-flatpak run com.spotify.Client</code>
-  </pre>
-</div>
-
-<h2 id="appimage">AppImage
-</h2>
-
-
-
-
-<div class="highlight highlight-bash">
-  <pre>
-    <code class="language-bash" data-lang="bash"># 下载 AppImage 文件
-wget https://example.com/app.AppImage
-
-# 赋予执行权限
-chmod &#43;x app.AppImage
-
-# 运行
-./app.AppImage
-
-# 集成到系统（可选）
-./app.AppImage --appimage-extract
-./squashfs-root/AppRun
-
-# 或使用 AppImageLauncher
-sudo apt install appimagelauncher</code>
-  </pre>
-</div>
-
-<h2 id="源码编译">源码编译
+</h3><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># 安装 snapd</span>
+</span></span><span class="line"><span class="cl">sudo apt install snapd
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 查找 snap 应用</span>
+</span></span><span class="line"><span class="cl">snap find chrome
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 安装 snap</span>
+</span></span><span class="line"><span class="cl">sudo snap install chromium
+</span></span><span class="line"><span class="cl">sudo snap install chromium --classic  <span class="c1"># 经典模式</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 列出已安装的 snap</span>
+</span></span><span class="line"><span class="cl">snap list
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 更新 snap</span>
+</span></span><span class="line"><span class="cl">sudo snap refresh chromium
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 删除 snap</span>
+</span></span><span class="line"><span class="cl">sudo snap remove chromium
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 查看 snap 信息</span>
+</span></span><span class="line"><span class="cl">snap info chromium
+</span></span></code></pre></div><h3 id="flatpak通用">Flatpak（通用）
+</h3><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># 安装 flatpak</span>
+</span></span><span class="line"><span class="cl">sudo apt install flatpak
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 添加 Flathub 仓库</span>
+</span></span><span class="line"><span class="cl">flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 查找应用</span>
+</span></span><span class="line"><span class="cl">flatpak search spotify
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 安装应用</span>
+</span></span><span class="line"><span class="cl">flatpak install flathub com.spotify.Client
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 列出已安装的应用</span>
+</span></span><span class="line"><span class="cl">flatpak list
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 更新应用</span>
+</span></span><span class="line"><span class="cl">flatpak update com.spotify.Client
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 删除应用</span>
+</span></span><span class="line"><span class="cl">flatpak uninstall com.spotify.Client
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 运行应用</span>
+</span></span><span class="line"><span class="cl">flatpak run com.spotify.Client
+</span></span></code></pre></div><h2 id="appimage">AppImage
+</h2><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># 下载 AppImage 文件</span>
+</span></span><span class="line"><span class="cl">wget https://example.com/app.AppImage
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 赋予执行权限</span>
+</span></span><span class="line"><span class="cl">chmod +x app.AppImage
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 运行</span>
+</span></span><span class="line"><span class="cl">./app.AppImage
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 集成到系统（可选）</span>
+</span></span><span class="line"><span class="cl">./app.AppImage --appimage-extract
+</span></span><span class="line"><span class="cl">./squashfs-root/AppRun
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 或使用 AppImageLauncher</span>
+</span></span><span class="line"><span class="cl">sudo apt install appimagelauncher
+</span></span></code></pre></div><h2 id="源码编译">源码编译
 </h2><h3 id="基本流程">基本流程
-</h3>
-
-
-
-
-<div class="highlight highlight-bash">
-  <pre>
-    <code class="language-bash" data-lang="bash"># 1. 安装编译工具
-sudo apt install build-essential
-
-# 2. 下载源代码
-wget https://example.com/source.tar.gz
-tar -xf source.tar.gz
-cd source
-
-# 3. 配置
-./configure --prefix=/usr/local
-
-# 4. 编译
-make
-
-# 5. 安装
-sudo make install
-
-# 6. 卸载
-sudo make uninstall</code>
-  </pre>
-</div>
-
-<h3 id="checkinstall创建包">checkinstall（创建包）
-</h3>
-
-
-
-
-<div class="highlight highlight-bash">
-  <pre>
-    <code class="language-bash" data-lang="bash"># 安装 checkinstall
-sudo apt install checkinstall
-
-# 使用 checkinstall 替代 make install
-make
-sudo checkinstall
-
-# 这会创建一个 .deb 包，便于管理</code>
-  </pre>
-</div>
-
-<h2 id="实用技巧">实用技巧
+</h3><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># 1. 安装编译工具</span>
+</span></span><span class="line"><span class="cl">sudo apt install build-essential
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 2. 下载源代码</span>
+</span></span><span class="line"><span class="cl">wget https://example.com/source.tar.gz
+</span></span><span class="line"><span class="cl">tar -xf source.tar.gz
+</span></span><span class="line"><span class="cl"><span class="nb">cd</span> <span class="nb">source</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 3. 配置</span>
+</span></span><span class="line"><span class="cl">./configure --prefix<span class="o">=</span>/usr/local
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 4. 编译</span>
+</span></span><span class="line"><span class="cl">make
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 5. 安装</span>
+</span></span><span class="line"><span class="cl">sudo make install
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 6. 卸载</span>
+</span></span><span class="line"><span class="cl">sudo make uninstall
+</span></span></code></pre></div><h3 id="checkinstall创建包">checkinstall（创建包）
+</h3><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># 安装 checkinstall</span>
+</span></span><span class="line"><span class="cl">sudo apt install checkinstall
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 使用 checkinstall 替代 make install</span>
+</span></span><span class="line"><span class="cl">make
+</span></span><span class="line"><span class="cl">sudo checkinstall
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 这会创建一个 .deb 包，便于管理</span>
+</span></span></code></pre></div><h2 id="实用技巧">实用技巧
 </h2><h3 id="查找命令对应的包">查找命令对应的包
-</h3>
-
-
-
-
-<div class="highlight highlight-bash">
-  <pre>
-    <code class="language-bash" data-lang="bash"># Debian/Ubuntu
-apt search command_name
-apt-file search command_name     # 需要更新数据库：sudo apt update
-
-# Red Hat/CentOS
-dnf provides command_name
-yum whatprovides &#34;*bin/command&#34;
-
-# Arch
-pacman -Fy /usr/bin/command      # 需要更新数据库：sudo pacman -Fy
-pacman -F command</code>
-  </pre>
-</div>
-
-<h3 id="包管理器快捷方式">包管理器快捷方式
-</h3>
-
-
-
-
-<div class="highlight highlight-bash">
-  <pre>
-    <code class="language-bash" data-lang="bash"># APT
-alias apt-upgrade=&#39;sudo apt update &amp;&amp; sudo apt upgrade -y&#39;
-alias apt-install=&#39;sudo apt install -y&#39;
-alias apt-search=&#39;apt search&#39;
-
-# DNF
-alias dnf-upgrade=&#39;sudo dnf upgrade -y&#39;
-alias dnf-install=&#39;sudo dnf install -y&#39;
-
-# Pacman
-alias pac-upgrade=&#39;sudo pacman -Syu&#39;
-alias pac-install=&#39;sudo pacman -S&#39;
-alias pac-remove=&#39;sudo pacman -Rns&#39;</code>
-  </pre>
-</div>
-
-<h3 id="清理系统">清理系统
-</h3>
-
-
-
-
-<div class="highlight highlight-bash">
-  <pre>
-    <code class="language-bash" data-lang="bash"># Debian/Ubuntu
-sudo apt autoremove      # 删除不需要的依赖
-sudo apt autoclean       # 清理旧包文件
-sudo apt clean           # 清理所有包文件
-
-# Red Hat/CentOS
-sudo dnf autoremove
-sudo dnf clean all
-
-# Arch
-sudo pacman -Sc          # 清理未安装的包文件
-sudo pacman -Scc         # 清理所有缓存</code>
-  </pre>
-</div>
-
-<h2 id="总结">总结
+</h3><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># Debian/Ubuntu</span>
+</span></span><span class="line"><span class="cl">apt search command_name
+</span></span><span class="line"><span class="cl">apt-file search command_name     <span class="c1"># 需要更新数据库：sudo apt update</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Red Hat/CentOS</span>
+</span></span><span class="line"><span class="cl">dnf provides command_name
+</span></span><span class="line"><span class="cl">yum whatprovides <span class="s2">&#34;*bin/command&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Arch</span>
+</span></span><span class="line"><span class="cl">pacman -Fy /usr/bin/command      <span class="c1"># 需要更新数据库：sudo pacman -Fy</span>
+</span></span><span class="line"><span class="cl">pacman -F <span class="nb">command</span>
+</span></span></code></pre></div><h3 id="包管理器快捷方式">包管理器快捷方式
+</h3><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># APT</span>
+</span></span><span class="line"><span class="cl"><span class="nb">alias</span> apt-upgrade<span class="o">=</span><span class="s1">&#39;sudo apt update &amp;&amp; sudo apt upgrade -y&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="nb">alias</span> apt-install<span class="o">=</span><span class="s1">&#39;sudo apt install -y&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="nb">alias</span> apt-search<span class="o">=</span><span class="s1">&#39;apt search&#39;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># DNF</span>
+</span></span><span class="line"><span class="cl"><span class="nb">alias</span> dnf-upgrade<span class="o">=</span><span class="s1">&#39;sudo dnf upgrade -y&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="nb">alias</span> dnf-install<span class="o">=</span><span class="s1">&#39;sudo dnf install -y&#39;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Pacman</span>
+</span></span><span class="line"><span class="cl"><span class="nb">alias</span> pac-upgrade<span class="o">=</span><span class="s1">&#39;sudo pacman -Syu&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="nb">alias</span> pac-install<span class="o">=</span><span class="s1">&#39;sudo pacman -S&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="nb">alias</span> pac-remove<span class="o">=</span><span class="s1">&#39;sudo pacman -Rns&#39;</span>
+</span></span></code></pre></div><h3 id="清理系统">清理系统
+</h3><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># Debian/Ubuntu</span>
+</span></span><span class="line"><span class="cl">sudo apt autoremove      <span class="c1"># 删除不需要的依赖</span>
+</span></span><span class="line"><span class="cl">sudo apt autoclean       <span class="c1"># 清理旧包文件</span>
+</span></span><span class="line"><span class="cl">sudo apt clean           <span class="c1"># 清理所有包文件</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Red Hat/CentOS</span>
+</span></span><span class="line"><span class="cl">sudo dnf autoremove
+</span></span><span class="line"><span class="cl">sudo dnf clean all
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Arch</span>
+</span></span><span class="line"><span class="cl">sudo pacman -Sc          <span class="c1"># 清理未安装的包文件</span>
+</span></span><span class="line"><span class="cl">sudo pacman -Scc         <span class="c1"># 清理所有缓存</span>
+</span></span></code></pre></div><h2 id="总结">总结
 </h2><p>软件包管理是 Linux 系统管理的日常任务。通过这篇文章，我们学习了：</p>
 <h3 id="核心技能">核心技能
 </h3><ol>
@@ -1726,7 +1526,7 @@ sudo pacman -Scc         # 清理所有缓存</code>
                 src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
                 
                 >
-            </script><script type="text/javascript" src="/ts/main.888cccdaf3c934b58bb1982792b4d0fdb89be145d2cabea38c8569bfe7d08117.js" defer></script>
+            </script><script type="text/javascript" src="/ts/main.fe055f50234dc99b59992d29820a4403a71f7c90de7b6ebd204c621ac170b546.js" defer></script>
 <script>
     (function () {
         const customFont = document.createElement('link');

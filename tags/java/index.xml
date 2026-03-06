@@ -49,8 +49,7 @@
 
 &lt;div class=&#34;highlight highlight-java&#34;&gt;
   &lt;pre&gt;
-    &lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;
-abstract class Course&amp;lt;T&amp;gt; {
+    &lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;abstract class Course&amp;lt;T&amp;gt; {
     protected String courseTime;
     protected String courseLocation;
     protected List&amp;lt;T&amp;gt; students;

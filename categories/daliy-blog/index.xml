@@ -7,7 +7,73 @@
         <generator>Hugo -- gohugo.io</generator>
         <language>en-us</language>
         <copyright>blog@mail.henry070.org</copyright>
-        <lastBuildDate>Fri, 30 May 2025 06:30:33 +0800</lastBuildDate><atom:link href="http://localhost:1313/categories/daliy-blog/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Wed, 04 Mar 2026 11:11:09 +0800</lastBuildDate><atom:link href="http://localhost:1313/categories/daliy-blog/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>OOAD</title>
+        <link>http://localhost:1313/p/ooad/</link>
+        <pubDate>Wed, 04 Mar 2026 10:03:00 +0800</pubDate>
+        
+        <guid>http://localhost:1313/p/ooad/</guid>
+        <description>&lt;img src="http://localhost:1313/default.jpeg" alt="Featured image of post OOAD" /&gt;&lt;h1 id=&#34;softare-dev-circle&#34;&gt;Softare dev circle
+&lt;/h1&gt;&lt;h2 id=&#34;requirement&#34;&gt;requirement
+&lt;/h2&gt;&lt;ol&gt;
+&lt;li&gt;Business modeling(What should the program achieve)
+&lt;ul&gt;
+&lt;li&gt;for manager&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;System requirement modeling(Anysis feature)
+&lt;ul&gt;
+&lt;li&gt;for designer&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2 id=&#34;analysis&#34;&gt;Analysis
+&lt;/h2&gt;&lt;p&gt;What entities should we need in this program. And clear the realationship of this entities&lt;/p&gt;
+&lt;h2 id=&#34;design&#34;&gt;Design
+&lt;/h2&gt;&lt;h2 id=&#34;specification&#34;&gt;Specification
+&lt;/h2&gt;&lt;h2 id=&#34;implementation&#34;&gt;Implementation
+&lt;/h2&gt;&lt;p&gt;Unit test is included in this process&lt;/p&gt;
+&lt;h2 id=&#34;testing&#34;&gt;Testing
+&lt;/h2&gt;&lt;h2 id=&#34;deployment&#34;&gt;Deployment
+&lt;/h2&gt;&lt;h2 id=&#34;maintenance&#34;&gt;Maintenance
+&lt;/h2&gt;&lt;h1 id=&#34;agile-vs-traditional&#34;&gt;Agile vs. Traditional
+&lt;/h1&gt;</description>
+        </item>
+        <item>
+        <title>COMM_3590</title>
+        <link>http://localhost:1313/p/comm_3590/</link>
+        <pubDate>Wed, 04 Mar 2026 09:13:44 +0800</pubDate>
+        
+        <guid>http://localhost:1313/p/comm_3590/</guid>
+        <description>&lt;img src="http://localhost:1313/default.jpeg" alt="Featured image of post COMM_3590" /&gt;&lt;p&gt;Here are some notes about this course.&lt;/p&gt;
+&lt;h1 id=&#34;how-to-connect-with-audience&#34;&gt;How to connect with audience
+&lt;/h1&gt;&lt;p&gt;There are researches show that only present story when talking to sb, which may make them easiler to understand and memory your speech.&lt;/p&gt;
+&lt;h1 id=&#34;star&#34;&gt;S.T.A.R
+&lt;/h1&gt;&lt;p&gt;Here are base structure of a story&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Situation&lt;/li&gt;
+&lt;li&gt;Task&lt;/li&gt;
+&lt;li&gt;Action&lt;/li&gt;
+&lt;li&gt;Result&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h1 id=&#34;showing-vs-telling-eg&#34;&gt;Showing vs. Telling e.g.
+&lt;/h1&gt;&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;Telling(Not every memorable): In education and learning, review and memorization is not as effective as practice and simulation.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Showing (Story)&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;ol&gt;
+&lt;li&gt;S. Airplane flight training&lt;/li&gt;
+&lt;li&gt;T. Engine warning light&lt;/li&gt;
+&lt;li&gt;A. Practice in a flight simulator vs. written test&lt;/li&gt;
+&lt;li&gt;R. Save Landing vs. crash&lt;/li&gt;
+&lt;/ol&gt;
+</description>
+        </item>
+        <item>
         <title>语言如何影响你的思维</title>
         <link>http://localhost:1313/p/%E8%AF%AD%E8%A8%80%E5%A6%82%E4%BD%95%E5%BD%B1%E5%93%8D%E4%BD%A0%E7%9A%84%E6%80%9D%E7%BB%B4/</link>
         <pubDate>Thu, 29 May 2025 02:41:58 +0800</pubDate>

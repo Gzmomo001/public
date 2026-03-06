@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+    <channel>
+        <title>OS on Henry Zhang</title>
+        <link>http://localhost:1313/categories/os/</link>
+        <description>Recent content in OS on Henry Zhang</description>
+        <generator>Hugo -- gohugo.io</generator>
+        <language>en-us</language>
+        <copyright>blog@mail.henry070.org</copyright>
+        <lastBuildDate>Wed, 04 Mar 2026 13:38:51 +0800</lastBuildDate><atom:link href="http://localhost:1313/categories/os/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>Os_ch1</title>
+        <link>http://localhost:1313/p/os_ch1/</link>
+        <pubDate>Mon, 02 Mar 2026 13:33:00 +0800</pubDate>
+        
+        <guid>http://localhost:1313/p/os_ch1/</guid>
+        <description>&lt;img src="http://localhost:1313/p/os_ch1/opc.png" alt="Featured image of post Os_ch1" /&gt;&lt;h1 id=&#34;abstract-view-of-components-of-computer&#34;&gt;Abstract View of Components of Computer
+&lt;/h1&gt;&lt;h1 id=&#34;what-operating-systems-do&#34;&gt;What Operating Systems Do
+&lt;/h1&gt;&lt;h2 id=&#34;different-perspectives&#34;&gt;Different Perspectives
+&lt;/h2&gt;&lt;p&gt;Operating systems serve different purposes depending on the context and the type of system.&lt;/p&gt;
+&lt;pre class=&#34;mermaid&#34;&gt;
+  mindmap
+  root((OS Perspectives))
+    User View
+      Convenience
+      Ease of Use
+      Performance
+      Resource Utilization Irrelevant
+    System View
+      Resource Allocator
+      Control Program
+      Efficiency
+    System Types
+      Mainframe/Minicomputer
+        Shared Resources
+        Keep Users Happy
+      Workstations
+        Dedicated Resources
+        Shared Server Access
+      Mobile Devices
+        Resource Constrained
+        Usability &amp;amp; Battery Life
+        Touch/Voice UI
+      Embedded Systems
+        Little/No UI
+        No User Intervention
+&lt;/pre&gt;
+
+&lt;h3 id=&#34;user-view&#34;&gt;User View
+&lt;/h3&gt;&lt;p&gt;Users want &lt;strong&gt;convenience&lt;/strong&gt;, &lt;strong&gt;ease of use&lt;/strong&gt;, and &lt;strong&gt;good performance&lt;/strong&gt;. They typically do not care about resource utilization.&lt;/p&gt;
+&lt;h3 id=&#34;system-view&#34;&gt;System View
+&lt;/h3&gt;&lt;p&gt;For shared computers (mainframes, minicomputers), the OS must keep all users happy. In this context, the OS acts as:&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;strong&gt;Resource Allocator&lt;/strong&gt;: Manages and allocates resources (CPU time, memory space, file storage, I/O devices) to specific programs and users.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Control Program&lt;/strong&gt;: Controls the execution of user programs and operations of I/O devices.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h3 id=&#34;specific-system-types&#34;&gt;Specific System Types
+&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Dedicated Systems (Workstations)&lt;/strong&gt;: Users have dedicated resources but frequently use shared resources from servers.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Mobile Devices (Smartphones, Tablets)&lt;/strong&gt;:
+&lt;ul&gt;
+&lt;li&gt;Resource poor.&lt;/li&gt;
+&lt;li&gt;Optimized for &lt;strong&gt;usability&lt;/strong&gt; and &lt;strong&gt;battery life&lt;/strong&gt;.&lt;/li&gt;
+&lt;li&gt;Utilize interfaces like touch screens and voice recognition.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Embedded Systems (Devices, Automobiles)&lt;/strong&gt;:
+&lt;ul&gt;
+&lt;li&gt;Little or no user interface.&lt;/li&gt;
+&lt;li&gt;Run primarily without user intervention.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;organization&#34;&gt;Organization
+&lt;/h2&gt;&lt;h2 id=&#34;starup&#34;&gt;Starup
+&lt;/h2&gt;&lt;ul&gt;
+&lt;li&gt;Bootstrap program: which is loaded at power&lt;/li&gt;
+&lt;li&gt;BIOS: Basic input and output system&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;storage-structure&#34;&gt;Storage Structure
+&lt;/h2&gt;&lt;ul&gt;
+&lt;li&gt;Memory&lt;/li&gt;
+&lt;li&gt;Secondary strorage: Nonvolatile storage&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;NVME(Non-volatile memory express)&lt;/p&gt;
+&lt;h1 id=&#34;&#34;&gt;
+&lt;/h1&gt;&lt;h2 id=&#34;multiprograming&#34;&gt;multiprograming
+&lt;/h2&gt;&lt;h2 id=&#34;multitasking&#34;&gt;multitasking
+&lt;/h2&gt;&lt;h1 id=&#34;dual-mode-and-multi-mode-operation&#34;&gt;Dual-mode and multi-mode operation
+&lt;/h1&gt;&lt;h2 id=&#34;caching&#34;&gt;Caching
+&lt;/h2&gt;&lt;p&gt;Prefomred at many levels of the system&lt;/p&gt;
+</description>
+        </item>
+        
+    </channel>
+</rss>

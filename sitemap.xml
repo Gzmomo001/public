@@ -299,10 +299,10 @@
     <loc>http://localhost:1313/p/css/</loc>
     <lastmod>2025-11-23T00:53:48+08:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/tags/html/</loc>
+    <loc>http://localhost:1313/p/html/</loc>
     <lastmod>2025-11-23T00:53:48+08:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/p/html/</loc>
+    <loc>http://localhost:1313/tags/html/</loc>
     <lastmod>2025-11-23T00:53:48+08:00</lastmod>
   </url><url>
     <loc>http://localhost:1313/p/tmux/</loc>

@@ -1,19 +1,19 @@
 <!DOCTYPE html>
 <html lang="en-us" dir="ltr">
-    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><meta charset='utf-8'>
-<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="Softare dev circle requirement Business modeling(What should the program achieve) for manager System requirement modeling(Anysis feature) for designer Analysis What entities should we need in this program. And clear the realationship of this entities\nDesign Specification Implementation Unit test is included in this process\nTesting Deployment Maintenance Agile vs. Traditional ">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="Softare dev circle requirement Business modeling(What should the program achieve) for manager System requirement modeling(Anysis feature) for designer Analysis What entities should we need in this program. And clear the realationship of this entities\nDesign Specification Implementation Unit test is included in this process\nTesting Deployment Maintenance Agile vs. Traditional Extreme Programming(XP)[https://www.geeksforgeeks.org/software-engineering/software-engineering-extreme-programming-xp/] UML Guideline | UML 建模指南 This section is a complete practical guideline for UML learning and project delivery. 本节是一个可直接用于学习和项目交付的 UML 实战指南。\n">
 <title>OOAD</title>
 
-<link rel='canonical' href='http://localhost:1313/p/ooad/'>
+<link rel='canonical' href='https://blog.henry070.org/p/ooad/'>
 
-<link rel="stylesheet" href="/scss/style.min.69ed452c4f70aa0bd98aa7f62758389d29493390c2f090e74cf1c607d4445e3e.css"><meta property='og:title' content="OOAD">
-<meta property='og:description' content="Softare dev circle requirement Business modeling(What should the program achieve) for manager System requirement modeling(Anysis feature) for designer Analysis What entities should we need in this program. And clear the realationship of this entities\nDesign Specification Implementation Unit test is included in this process\nTesting Deployment Maintenance Agile vs. Traditional ">
-<meta property='og:url' content='http://localhost:1313/p/ooad/'>
+<link rel="stylesheet" href="/scss/style.min.f15f6809de3726c4612af8dbf1dc5af3ceda5b2bc400be61fd7b23efb9569755.css"><meta property='og:title' content="OOAD">
+<meta property='og:description' content="Softare dev circle requirement Business modeling(What should the program achieve) for manager System requirement modeling(Anysis feature) for designer Analysis What entities should we need in this program. And clear the realationship of this entities\nDesign Specification Implementation Unit test is included in this process\nTesting Deployment Maintenance Agile vs. Traditional Extreme Programming(XP)[https://www.geeksforgeeks.org/software-engineering/software-engineering-extreme-programming-xp/] UML Guideline | UML 建模指南 This section is a complete practical guideline for UML learning and project delivery. 本节是一个可直接用于学习和项目交付的 UML 实战指南。\n">
+<meta property='og:url' content='https://blog.henry070.org/p/ooad/'>
 <meta property='og:site_name' content='Henry Zhang'>
-<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='' /><meta property='article:published_time' content='2026-03-04T10:03:00&#43;08:00'/><meta property='article:modified_time' content='2026-03-04T11:11:09&#43;08:00'/><meta property='og:image' content='http://localhost:1313/default.jpeg' />
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='' /><meta property='article:published_time' content='2026-03-04T10:03:00&#43;08:00'/><meta property='article:modified_time' content='2026-04-06T01:25:26&#43;08:00'/><meta property='og:image' content='https://blog.henry070.org/default.jpeg' />
 <meta name="twitter:title" content="OOAD">
-<meta name="twitter:description" content="Softare dev circle requirement Business modeling(What should the program achieve) for manager System requirement modeling(Anysis feature) for designer Analysis What entities should we need in this program. And clear the realationship of this entities\nDesign Specification Implementation Unit test is included in this process\nTesting Deployment Maintenance Agile vs. Traditional "><meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:image" content='http://localhost:1313/default.jpeg' />
+<meta name="twitter:description" content="Softare dev circle requirement Business modeling(What should the program achieve) for manager System requirement modeling(Anysis feature) for designer Analysis What entities should we need in this program. And clear the realationship of this entities\nDesign Specification Implementation Unit test is included in this process\nTesting Deployment Maintenance Agile vs. Traditional Extreme Programming(XP)[https://www.geeksforgeeks.org/software-engineering/software-engineering-extreme-programming-xp/] UML Guideline | UML 建模指南 This section is a complete practical guideline for UML learning and project delivery. 本节是一个可直接用于学习和项目交付的 UML 实战指南。\n"><meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content='https://blog.henry070.org/default.jpeg' />
     <link rel="shortcut icon" href="/favicon.ico" />
 
 
@@ -586,6 +586,65 @@
       </ol>
     </li>
     <li><a href="#agile-vs-traditional">Agile vs. Traditional</a></li>
+    <li><a href="#uml-guideline--uml-建模指南">UML Guideline | UML 建模指南</a>
+      <ol>
+        <li><a href="#scope-and-unified-case--范围与统一案例">Scope and Unified Case | 范围与统一案例</a></li>
+        <li><a href="#modeling-workflow--建模工作流">Modeling Workflow | 建模工作流</a>
+          <ol>
+            <li><a href="#1-use-case-diagram--用例图">1. Use Case Diagram | 用例图</a></li>
+            <li><a href="#2-class-diagram--类图">2. Class Diagram | 类图</a></li>
+            <li><a href="#3-sequence-diagram--时序图">3. Sequence Diagram | 时序图</a></li>
+            <li><a href="#4-activity-diagram--活动图">4. Activity Diagram | 活动图</a></li>
+            <li><a href="#5-state-diagram--状态图">5. State Diagram | 状态图</a></li>
+            <li><a href="#6-component-diagram--组件图">6. Component Diagram | 组件图</a></li>
+            <li><a href="#7-deployment-diagram--部署图">7. Deployment Diagram | 部署图</a></li>
+            <li><a href="#8-object-diagram--对象图">8. Object Diagram | 对象图</a></li>
+            <li><a href="#9-package-diagram--包图">9. Package Diagram | 包图</a></li>
+            <li><a href="#10-composite-structure-diagram--复合结构图">10. Composite Structure Diagram | 复合结构图</a></li>
+            <li><a href="#11-timing-diagram-approximation--时序约束图近似表达">11. Timing Diagram (Approximation) | 时序约束图（近似表达）</a></li>
+            <li><a href="#12-communication-diagram--通信图">12. Communication Diagram | 通信图</a></li>
+            <li><a href="#13-interaction-overview-diagram--交互总览图">13. Interaction Overview Diagram | 交互总览图</a></li>
+          </ol>
+        </li>
+        <li><a href="#common-pitfalls-and-review-checklist--常见问题与检查清单">Common Pitfalls and Review Checklist | 常见问题与检查清单</a></li>
+        <li><a href="#assignment-1">Assignment 1</a>
+          <ol>
+            <li><a href="#milestone">Milestone</a></li>
+          </ol>
+        </li>
+      </ol>
+    </li>
+    <li><a href="#dynamic-analysis">Dynamic Analysis</a>
+      <ol>
+        <li><a href="#key-diagrams">Key Diagrams</a>
+          <ol>
+            <li><a href="#sequence-diagram--时序图">Sequence Diagram | 时序图</a></li>
+            <li><a href="#communication-diagram--通信图">Communication Diagram | 通信图</a></li>
+            <li><a href="#state-diagram--状态图">State Diagram | 状态图</a></li>
+            <li><a href="#activity-diagram--活动图">Activity Diagram | 活动图</a></li>
+          </ol>
+        </li>
+        <li><a href="#dynamic-vs-static-analysis">Dynamic vs. Static Analysis</a></li>
+        <li><a href="#how-to-perform-dynamic-analysis">How to Perform Dynamic Analysis</a></li>
+      </ol>
+    </li>
+    <li><a href="#chapter-6">Chapter 6</a>
+      <ol>
+        <li><a href="#system-requirement-modeling">System requirement modeling</a></li>
+      </ol>
+    </li>
+    <li><a href="#threading">Threading</a>
+      <ol>
+        <li><a href="#thread-pools">Thread pools</a></li>
+        <li><a href="#fork-join-parallelism">Fork-join parallelism</a></li>
+        <li><a href="#grand-central-dispatch-gcd">Grand Central Dispatch (GCD)</a></li>
+        <li><a href="#intel-threading-building-blocks-tbb">Intel Threading Building Blocks (TBB)</a></li>
+        <li><a href="#hyperthreading-by-intel-or-smt">Hyperthreading by Intel or SMT</a></li>
+        <li><a href="#scheduling">Scheduling</a></li>
+        <li><a href="#first-come-first-served-fcfs">First-come, first-served (FCFS)</a></li>
+        <li></li>
+      </ol>
+    </li>
   </ol>
 </nav>
         </div>
@@ -667,7 +726,7 @@
 
 
                 <time>
-                    Mar 04, 2026 11:11 CST
+                    Apr 06, 2026 01:25 CST
                 </time>
             </div>
     </footer>
@@ -705,7 +764,691 @@
 </h2><h2 id="deployment">Deployment
 </h2><h2 id="maintenance">Maintenance
 </h2><h1 id="agile-vs-traditional">Agile vs. Traditional
-</h1>
+</h1><ol>
+<li>Extreme Programming(XP)[https://www.geeksforgeeks.org/software-engineering/software-engineering-extreme-programming-xp/]</li>
+</ol>
+<h1 id="uml-guideline--uml-建模指南">UML Guideline | UML 建模指南
+</h1><p>This section is a complete practical guideline for UML learning and project delivery.
+本节是一个可直接用于学习和项目交付的 UML 实战指南。</p>
+<h2 id="scope-and-unified-case--范围与统一案例">Scope and Unified Case | 范围与统一案例
+</h2><p>Case system: Online Shopping System (customer, admin, payment gateway, warehouse).
+统一案例系统：在线购物系统（客户、管理员、支付网关、仓储系统）。</p>
+<p>Main business flow:
+核心业务流程：</p>
+<ol>
+<li>Customer registers and logs in.</li>
+<li>Customer browses products and adds items to cart.</li>
+<li>Customer places order and pays.</li>
+<li>System checks inventory and ships.</li>
+<li>Admin handles refund and reporting.</li>
+</ol>
+<h2 id="modeling-workflow--建模工作流">Modeling Workflow | 建模工作流
+</h2><p>Recommended order in real projects:
+真实项目推荐顺序：</p>
+<ol>
+<li>Use case diagram (what the system should do).</li>
+<li>Activity and sequence diagrams (how the flow runs).</li>
+<li>Class diagram (core domain structure).</li>
+<li>State diagram (lifecycle-critical objects like Order).</li>
+<li>Component, package, deployment diagrams (architecture and delivery).</li>
+<li>Object, communication, interaction overview, timing (analysis deepening).</li>
+</ol>
+<hr>
+<h3 id="1-use-case-diagram--用例图">1. Use Case Diagram | 用例图
+</h3><p>Purpose:
+用途：</p>
+<ul>
+<li>Define system boundaries, actors, and goals.</li>
+<li>明确系统边界、参与者和目标。</li>
+</ul>
+<p>Detailed case:
+详细案例：</p>
+<ul>
+<li>Customer can register, login, browse products, place order, and request refund.</li>
+<li>Admin can manage products, process refunds, and view reports.</li>
+</ul>
+<pre class="mermaid">
+  flowchart LR
+    Customer((Customer))
+    Admin((Admin))
+    PaymentGateway((Payment Gateway))
+    Warehouse((Warehouse System))
+
+    subgraph ShoppingSystem[Online Shopping System]
+        UC1[Register/Login]
+        UC2[Browse Product]
+        UC3[Place Order]
+        UC4[Pay Order]
+        UC5[Track Shipment]
+        UC6[Request Refund]
+        UC7[Manage Catalog]
+        UC8[Process Refund]
+        UC9[View Dashboard]
+    end
+
+    Customer --&gt; UC1
+    Customer --&gt; UC2
+    Customer --&gt; UC3
+    Customer --&gt; UC4
+    Customer --&gt; UC5
+    Customer --&gt; UC6
+    Admin --&gt; UC7
+    Admin --&gt; UC8
+    Admin --&gt; UC9
+    UC4 --&gt; PaymentGateway
+    UC5 --&gt; Warehouse
+</pre>
+
+<h3 id="2-class-diagram--类图">2. Class Diagram | 类图
+</h3><p>Purpose:
+用途：</p>
+<ul>
+<li>Describe static structure: entities, attributes, operations, and relationships.</li>
+<li>描述静态结构：实体、属性、操作与关系。</li>
+</ul>
+<p>Detailed case:
+详细案例：</p>
+<ul>
+<li><code>User</code> has two roles: customer and admin.</li>
+<li><code>Order</code> is composed of multiple <code>OrderItem</code>.</li>
+<li><code>Order</code> references payment and shipment information.</li>
+</ul>
+<pre class="mermaid">
+  classDiagram
+    class User {
+        +Long id
+        +String email
+        +String passwordHash
+        +login()
+    }
+
+    class Customer {
+        +String level
+        +addToCart(productId, qty)
+    }
+
+    class Admin {
+        +manageCatalog()
+        +approveRefund(orderId)
+    }
+
+    class Product {
+        +Long id
+        +String name
+        +Decimal price
+        +Integer stock
+    }
+
+    class Cart {
+        +Long id
+        +addItem(productId, qty)
+        +clear()
+    }
+
+    class Order {
+        +Long id
+        +String status
+        +Decimal totalAmount
+        +submit()
+        +cancel()
+    }
+
+    class OrderItem {
+        +Long id
+        +Integer qty
+        +Decimal unitPrice
+    }
+
+    class Payment {
+        +Long id
+        +String method
+        +String status
+        +pay()
+        +refund()
+    }
+
+    class Shipment {
+        +Long id
+        +String carrier
+        +String trackingNo
+        +ship()
+        +deliver()
+    }
+
+    User &lt;|-- Customer
+    User &lt;|-- Admin
+    Customer &#34;1&#34; --&gt; &#34;1&#34; Cart
+    Customer &#34;1&#34; --&gt; &#34;0..*&#34; Order
+    Cart &#34;1&#34; --&gt; &#34;0..*&#34; Product
+    Order &#34;1&#34; *-- &#34;1..*&#34; OrderItem
+    OrderItem &#34;*&#34; --&gt; &#34;1&#34; Product
+    Order &#34;1&#34; --&gt; &#34;0..1&#34; Payment
+    Order &#34;1&#34; --&gt; &#34;0..1&#34; Shipment
+</pre>
+
+<h3 id="3-sequence-diagram--时序图">3. Sequence Diagram | 时序图
+</h3><p>Purpose:
+用途：</p>
+<ul>
+<li>Show message sequence among participants in one scenario.</li>
+<li>展示单个场景中参与者之间的消息时序。</li>
+</ul>
+<p>Detailed case:
+详细案例：</p>
+<ul>
+<li>Scenario: customer places order and pays successfully.</li>
+<li>场景：客户下单并支付成功。</li>
+</ul>
+<pre class="mermaid">
+  sequenceDiagram
+    actor C as Customer
+    participant W as WebApp
+    participant O as OrderService
+    participant I as InventoryService
+    participant P as PaymentGateway
+    participant S as ShipmentService
+
+    C-&gt;&gt;W: Checkout(cart)
+    W-&gt;&gt;O: createOrder(cart)
+    O-&gt;&gt;I: reserveStock(items)
+    I--&gt;&gt;O: reserved
+    O--&gt;&gt;W: orderCreated(orderId, amount)
+    W-&gt;&gt;P: pay(orderId, amount)
+    P--&gt;&gt;W: paymentSuccess(txId)
+    W-&gt;&gt;O: confirmPayment(orderId, txId)
+    O-&gt;&gt;S: createShipment(orderId)
+    S--&gt;&gt;O: trackingNo
+    O--&gt;&gt;W: orderConfirmed
+    W--&gt;&gt;C: Show success page
+</pre>
+
+<h3 id="4-activity-diagram--活动图">4. Activity Diagram | 活动图
+</h3><p>Purpose:
+用途：</p>
+<ul>
+<li>Describe workflow, decisions, and exception branches.</li>
+<li>描述流程、分支决策与异常路径。</li>
+</ul>
+<p>Detailed case:
+详细案例：</p>
+<ul>
+<li>Covers checkout, payment success/failure, and stock rollback.</li>
+<li>覆盖结算、支付成功/失败，以及库存回滚。</li>
+</ul>
+<pre class="mermaid">
+  flowchart TD
+    Start((Start)) --&gt; ValidateCart[Validate Cart]
+    ValidateCart --&gt; StockCheck{Stock Available?}
+    StockCheck --&gt;|No| EndNoStock[Show Out-of-Stock]
+    StockCheck --&gt;|Yes| CreateOrder[Create Order]
+    CreateOrder --&gt; Pay{Payment Success?}
+    Pay --&gt;|No| ReleaseStock[Release Reserved Stock]
+    ReleaseStock --&gt; EndFail[Show Payment Failed]
+    Pay --&gt;|Yes| CreateShipment[Create Shipment]
+    CreateShipment --&gt; NotifyUser[Notify Customer]
+    NotifyUser --&gt; EndOK((End))
+</pre>
+
+<h3 id="5-state-diagram--状态图">5. State Diagram | 状态图
+</h3><p>Purpose:
+用途：</p>
+<ul>
+<li>Model lifecycle transitions of a key entity.</li>
+<li>建模关键实体的生命周期状态迁移。</li>
+</ul>
+<p>Detailed case:
+详细案例：</p>
+<ul>
+<li>Entity: <code>Order</code> from creation to completion/refund/cancel.</li>
+<li>对象：<code>Order</code> 从创建到完成/退款/取消。</li>
+</ul>
+<pre class="mermaid">
+  stateDiagram-v2
+    [*] --&gt; Created
+    Created --&gt; AwaitingPayment: Submit
+    AwaitingPayment --&gt; Paid: PaymentConfirmed
+    AwaitingPayment --&gt; Cancelled: PaymentTimeout
+    Paid --&gt; Packed: PickAndPack
+    Packed --&gt; Shipped: HandOverCarrier
+    Shipped --&gt; Delivered: CustomerSign
+    Delivered --&gt; Completed: ConfirmReceipt
+    Delivered --&gt; RefundRequested: RequestRefund
+    RefundRequested --&gt; Refunded: ApproveRefund
+    Cancelled --&gt; [*]
+    Completed --&gt; [*]
+    Refunded --&gt; [*]
+</pre>
+
+<h3 id="6-component-diagram--组件图">6. Component Diagram | 组件图
+</h3><p>Purpose:
+用途：</p>
+<ul>
+<li>Show system modules/services and their dependencies.</li>
+<li>展示系统模块/服务及其依赖关系。</li>
+</ul>
+<p>Detailed case:
+详细案例：</p>
+<ul>
+<li>Frontend depends on API gateway, which routes to order, payment, inventory, and user services.</li>
+<li>前端依赖 API 网关，网关路由到订单、支付、库存、用户服务。</li>
+</ul>
+<pre class="mermaid">
+  flowchart LR
+    FE[Web Frontend]
+    APIGW[API Gateway]
+    UserSvc[User Service]
+    CatalogSvc[Catalog Service]
+    OrderSvc[Order Service]
+    InventorySvc[Inventory Service]
+    PaymentSvc[Payment Service]
+    NotifySvc[Notification Service]
+
+    FE --&gt; APIGW
+    APIGW --&gt; UserSvc
+    APIGW --&gt; CatalogSvc
+    APIGW --&gt; OrderSvc
+    OrderSvc --&gt; InventorySvc
+    OrderSvc --&gt; PaymentSvc
+    OrderSvc --&gt; NotifySvc
+</pre>
+
+<h3 id="7-deployment-diagram--部署图">7. Deployment Diagram | 部署图
+</h3><p>Purpose:
+用途：</p>
+<ul>
+<li>Show runtime nodes, deployed artifacts, and network links.</li>
+<li>展示运行节点、部署产物与网络连接。</li>
+</ul>
+<p>Detailed case:
+详细案例：</p>
+<ul>
+<li>Cloud load balancer routes requests to app containers; services access database and message queue.</li>
+<li>云端负载均衡将请求转发到应用容器；服务访问数据库和消息队列。</li>
+</ul>
+<pre class="mermaid">
+  flowchart LR
+    UserNode((User Browser))
+
+    subgraph Cloud[Cloud VPC]
+        LB[Load Balancer]
+        subgraph AppCluster[App Cluster]
+            WebPod[Web Pod]
+            OrderPod[Order Pod]
+            PaymentPod[Payment Pod]
+        end
+        DB[(MySQL)]
+        MQ[(Message Queue)]
+        Cache[(Redis)]
+    end
+
+    UserNode --&gt; LB
+    LB --&gt; WebPod
+    WebPod --&gt; OrderPod
+    OrderPod --&gt; PaymentPod
+    OrderPod --&gt; DB
+    OrderPod --&gt; MQ
+    WebPod --&gt; Cache
+</pre>
+
+<h3 id="8-object-diagram--对象图">8. Object Diagram | 对象图
+</h3><p>Purpose:
+用途：</p>
+<ul>
+<li>Capture runtime snapshots with concrete instance values.</li>
+<li>捕获运行时快照，展示实例与具体值。</li>
+</ul>
+<p>Detailed case:
+详细案例：</p>
+<ul>
+<li>Snapshot at checkout moment: one customer, one order, two order items.</li>
+<li>结算时刻快照：一个客户、一个订单、两条订单项。</li>
+</ul>
+<pre class="mermaid">
+  classDiagram
+    class customer_1001 {
+        &lt;&lt;instance&gt;&gt;
+        id = 1001
+        name = &#34;Alice&#34;
+        level = &#34;Gold&#34;
+    }
+
+    class order_9001 {
+        &lt;&lt;instance&gt;&gt;
+        id = 9001
+        status = &#34;AwaitingPayment&#34;
+        total = 299.00
+    }
+
+    class item_1 {
+        &lt;&lt;instance&gt;&gt;
+        sku = &#34;KB-001&#34;
+        qty = 1
+        unitPrice = 99.00
+    }
+
+    class item_2 {
+        &lt;&lt;instance&gt;&gt;
+        sku = &#34;MS-002&#34;
+        qty = 2
+        unitPrice = 100.00
+    }
+
+    customer_1001 --&gt; order_9001
+    order_9001 --&gt; item_1
+    order_9001 --&gt; item_2
+</pre>
+
+<h3 id="9-package-diagram--包图">9. Package Diagram | 包图
+</h3><p>Purpose:
+用途：</p>
+<ul>
+<li>Organize model/code into packages and reveal dependencies.</li>
+<li>将模型/代码组织为包，并揭示依赖关系。</li>
+</ul>
+<p>Detailed case:
+详细案例：</p>
+<ul>
+<li>UI depends on Application; Application depends on Domain; Infrastructure supports Application and Domain.</li>
+<li>UI 依赖应用层；应用层依赖领域层；基础设施层支撑应用层与领域层。</li>
+</ul>
+<pre class="mermaid">
+  flowchart TD
+    subgraph Presentation
+        WebUI[Web UI]
+        AdminUI[Admin UI]
+    end
+
+    subgraph Application
+        OrderApp[Order Application]
+        UserApp[User Application]
+    end
+
+    subgraph Domain
+        OrderDomain[Order Domain]
+        ProductDomain[Product Domain]
+        UserDomain[User Domain]
+    end
+
+    subgraph Infrastructure
+        RepoImpl[Repository Impl]
+        PaymentAdapter[Payment Adapter]
+        MQAdapter[MQ Adapter]
+    end
+
+    Presentation --&gt; Application
+    Application --&gt; Domain
+    Infrastructure --&gt; Domain
+    Infrastructure --&gt; Application
+</pre>
+
+<h3 id="10-composite-structure-diagram--复合结构图">10. Composite Structure Diagram | 复合结构图
+</h3><p>Purpose:
+用途：</p>
+<ul>
+<li>Show internal parts and connectors inside one classifier.</li>
+<li>展示一个分类器内部部件与连接器结构。</li>
+</ul>
+<p>Detailed case:
+详细案例：</p>
+<ul>
+<li>Internal design of <code>OrderService</code>: validator, pricing, inventory checker, payment orchestrator.</li>
+<li><code>OrderService</code> 内部结构：校验器、定价器、库存检查器、支付编排器。</li>
+</ul>
+<pre class="mermaid">
+  flowchart TB
+    subgraph OrderService[OrderService Internal Structure]
+        InPort[Order API Port]
+        Validator[Order Validator]
+        Pricing[Pricing Engine]
+        StockChecker[Stock Checker]
+        PaymentOrchestrator[Payment Orchestrator]
+        OutPort[Domain Event Port]
+    end
+
+    InPort --&gt; Validator
+    Validator --&gt; Pricing
+    Pricing --&gt; StockChecker
+    StockChecker --&gt; PaymentOrchestrator
+    PaymentOrchestrator --&gt; OutPort
+</pre>
+
+<h3 id="11-timing-diagram-approximation--时序约束图近似表达">11. Timing Diagram (Approximation) | 时序约束图（近似表达）
+</h3><p>Purpose:
+用途：</p>
+<ul>
+<li>Describe time constraints and timeout behavior.</li>
+<li>描述时间约束与超时行为。</li>
+</ul>
+<p>Detailed case:
+详细案例：</p>
+<ul>
+<li>Payment must complete within 15 minutes, otherwise order is canceled.</li>
+<li>支付必须在 15 分钟内完成，否则订单取消。</li>
+</ul>
+<pre class="mermaid">
+  stateDiagram-v2
+    [*] --&gt; AwaitingPayment
+    AwaitingPayment --&gt; Paid: payment &lt; 15 min
+    AwaitingPayment --&gt; Cancelled: timeout = 15 min
+    Paid --&gt; Processing
+    Processing --&gt; Completed
+    Cancelled --&gt; [*]
+    Completed --&gt; [*]
+</pre>
+
+<h3 id="12-communication-diagram--通信图">12. Communication Diagram | 通信图
+</h3><p>Purpose:
+用途：</p>
+<ul>
+<li>Highlight object collaboration topology and message numbering.</li>
+<li>强调对象协作拓扑和消息编号。</li>
+</ul>
+<p>Detailed case:
+详细案例：</p>
+<ul>
+<li>Checkout collaboration among UI, controller, service, payment adapter, and repository.</li>
+<li>展示结算时 UI、控制器、服务、支付适配器、仓储之间协作。</li>
+</ul>
+<pre class="mermaid">
+  flowchart LR
+    UI[CheckoutPage]
+    C[OrderController]
+    S[OrderService]
+    P[PaymentAdapter]
+    R[OrderRepository]
+
+    UI -- 1: submitOrder() --&gt; C
+    C -- 2: createOrder() --&gt; S
+    S -- 3: pay() --&gt; P
+    P -- 4: paymentResult --&gt; S
+    S -- 5: save(order) --&gt; R
+    S -- 6: result --&gt; C
+    C -- 7: response --&gt; UI
+</pre>
+
+<h3 id="13-interaction-overview-diagram--交互总览图">13. Interaction Overview Diagram | 交互总览图
+</h3><p>Purpose:
+用途：</p>
+<ul>
+<li>Combine multiple interactions into one high-level flow.</li>
+<li>将多个交互场景组合成一个高层流程。</li>
+</ul>
+<p>Detailed case:
+详细案例：</p>
+<ul>
+<li>Main interaction branches: login check, checkout path, and refund path.</li>
+<li>主交互分支：登录校验、下单路径、退款路径。</li>
+</ul>
+<pre class="mermaid">
+  flowchart TD
+    Start[Start] --&gt; Auth{Authenticated?}
+    Auth --&gt;|No| LoginSeq[Sequence: Login]
+    LoginSeq --&gt; Auth
+    Auth --&gt;|Yes| Action{Choose Action}
+    Action --&gt;|Checkout| CheckoutSeq[Sequence: Checkout and Payment]
+    Action --&gt;|Refund| RefundSeq[Sequence: Refund Process]
+    CheckoutSeq --&gt; End[End]
+    RefundSeq --&gt; End
+</pre>
+
+<h2 id="common-pitfalls-and-review-checklist--常见问题与检查清单">Common Pitfalls and Review Checklist | 常见问题与检查清单
+</h2><ol>
+<li>
+<p>Keep diagram scope small and focused.</p>
+</li>
+<li>
+<p>Names should reflect business language, not technical noise.</p>
+</li>
+<li>
+<p>One diagram should answer one key question.</p>
+</li>
+<li>
+<p>Align terms across use case, class, and sequence diagrams.</p>
+</li>
+<li>
+<p>Explicitly model exception paths (timeout, payment failure, stock shortage).</p>
+</li>
+<li>
+<p>图要小而清晰，避免一个图承载过多目标。</p>
+</li>
+<li>
+<p>命名要贴近业务语言，避免技术噪音。</p>
+</li>
+<li>
+<p>一张图回答一个核心问题。</p>
+</li>
+<li>
+<p>用例图、类图、时序图的术语保持一致。</p>
+</li>
+<li>
+<p>必须显式建模异常路径（超时、支付失败、缺货）。</p>
+</li>
+</ol>
+<h2 id="assignment-1">Assignment 1
+</h2><ol>
+<li>Business modeling: A online shopping system
+<ul>
+<li>Project workbook</li>
+<li>Assign team roles</li>
+<li>glossary</li>
+<li>From an informal problem statement</li>
+<li>Business actors(User?)</li>
+<li>Business funcions</li>
+</ul>
+</li>
+<li>System requirement modeling: An online shopping system</li>
+<li>Static analysis(Class diagram): An online shopping system</li>
+<li>dynamic analysis(Sequence diagram): An online shopping system</li>
+<li>System design</li>
+</ol>
+<h3 id="milestone">Milestone
+</h3><ol>
+<li>Read</li>
+<li>Plan</li>
+<li>Organize</li>
+<li>Execute</li>
+<li>Review</li>
+</ol>
+<h1 id="dynamic-analysis">Dynamic Analysis
+</h1><p>Dynamic analysis focuses on the <strong>behavior</strong> and <strong>interactions</strong> of objects over time, complementing static analysis (class diagrams) which only shows structure.</p>
+<h2 id="key-diagrams">Key Diagrams
+</h2><h3 id="sequence-diagram--时序图">Sequence Diagram | 时序图
+</h3><ul>
+<li>Shows message exchange between objects in <strong>chronological order</strong>.</li>
+<li>Best for modeling a single scenario or use case flow.</li>
+<li>Lifelines represent participating objects; arrows represent messages.</li>
+</ul>
+<h3 id="communication-diagram--通信图">Communication Diagram | 通信图
+</h3><ul>
+<li>Emphasizes <strong>object relationships</strong> and message numbering rather than time axis.</li>
+<li>Equivalent information to sequence diagrams but with a different emphasis.</li>
+</ul>
+<h3 id="state-diagram--状态图">State Diagram | 状态图
+</h3><ul>
+<li>Models the <strong>lifecycle</strong> of a single object across all scenarios.</li>
+<li>Useful for entities with complex state transitions (e.g., <code>Order</code>, <code>Payment</code>).</li>
+</ul>
+<h3 id="activity-diagram--活动图">Activity Diagram | 活动图
+</h3><ul>
+<li>Describes <strong>workflow</strong> with decisions, branches, and parallel actions.</li>
+<li>Can model business processes spanning multiple objects.</li>
+</ul>
+<h2 id="dynamic-vs-static-analysis">Dynamic vs. Static Analysis
+</h2><div class="table-wrapper"><table>
+  <thead>
+      <tr>
+          <th>Aspect</th>
+          <th>Static Analysis</th>
+          <th>Dynamic Analysis</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>Focus</td>
+          <td>Structure (classes, attributes, relationships)</td>
+          <td>Behavior (messages, state changes, workflows)</td>
+      </tr>
+      <tr>
+          <td>Key Diagram</td>
+          <td>Class Diagram, Object Diagram</td>
+          <td>Sequence, Communication, State, Activity</td>
+      </tr>
+      <tr>
+          <td>Answers</td>
+          <td>What entities exist?</td>
+          <td>How do they interact over time?</td>
+      </tr>
+      <tr>
+          <td>When</td>
+          <td>Early in analysis phase</td>
+          <td>After static structure is identified</td>
+      </tr>
+  </tbody>
+</table></div>
+<h2 id="how-to-perform-dynamic-analysis">How to Perform Dynamic Analysis
+</h2><ol>
+<li>Identify key scenarios from use cases (e.g., &ldquo;Place Order&rdquo;, &ldquo;Request Refund&rdquo;).</li>
+<li>For each scenario, create a <strong>sequence diagram</strong> showing object interactions.</li>
+<li>For objects with complex lifecycles, create a <strong>state diagram</strong>.</li>
+<li>For workflows with decisions, create an <strong>activity diagram</strong>.</li>
+<li>Validate consistency: ensure all messages in sequence diagrams correspond to operations defined in the class diagram.</li>
+</ol>
+<h1 id="chapter-6">Chapter 6
+</h1><h2 id="system-requirement-modeling">System requirement modeling
+</h2><ul>
+<li>
+<p>Functional requirement: What the system should do
+e.g. An online shopping system should allow users to <code>add items</code> to their cart and checkout.</p>
+</li>
+<li>
+<p>Non-functional requirement: How the system should be
+e.g. An online shopping system should <code>respond</code> to user actions within <code>2 seconds</code>.</p>
+</li>
+<li>
+<p>Use cases: widely considered as the most effective way to capture functional requirements.
+list of steps, typically defining the <code>interactions</code> between a user and the system to achieve a <code>specific goal</code>.</p>
+<ol>
+<li>System use case: A user can <code>add items</code> to their cart.</li>
+<li>Business use case: A user can <code>purchase</code> items from the online store.</li>
+</ol>
+<ul>
+<li>Business(Use case) model contains: 1. Actors list 2. Glossary(行话名词解释) 3. Use cases 4. Communication diagram(Optional) 5. Activity diagram(Optional)</li>
+</ul>
+<ol start="3">
+<li>System use case: A user can <code>checkout</code> their cart.</li>
+</ol>
+</li>
+</ul>
+<h1 id="threading">Threading
+</h1><h2 id="thread-pools">Thread pools
+</h2><h2 id="fork-join-parallelism">Fork-join parallelism
+</h2><h2 id="grand-central-dispatch-gcd">Grand Central Dispatch (GCD)
+</h2><h2 id="intel-threading-building-blocks-tbb">Intel Threading Building Blocks (TBB)
+</h2><h2 id="hyperthreading-by-intel-or-smt">Hyperthreading by Intel or SMT
+</h2><h2 id="scheduling">Scheduling
+</h2><h2 id="first-come-first-served-fcfs">First-come, first-served (FCFS)
+</h2><h2 id="">
+</h2>
 </section>
 
 
@@ -767,6 +1510,25 @@
     <h2 class="section-title">相关文章</h2>
     <div class="related-content">
         <div class="flex article-list--tile">
+            
+                
+<article class="has-image">
+    <a href="/p/psy1000/">
+        
+        
+            <div class="article-image">
+                
+                    <img src="/default.jpeg" loading="lazy" data-key="" data-hash="/default.jpeg"/>
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">PSY1000</h2>
+        </div>
+    </a>
+</article>
+
             
                 
 <article class="has-image">
@@ -1006,7 +1768,7 @@
                 src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
                 
                 >
-            </script><script type="text/javascript" src="/ts/main.fe055f50234dc99b59992d29820a4403a71f7c90de7b6ebd204c621ac170b546.js" defer></script>
+            </script><script type="text/javascript" src="/ts/main.c922af694cc257bf1ecc41c0dd7b0430f9114ec280ccf67cd2c6ad55f5316c4e.js" defer></script>
 <script>
     (function () {
         const customFont = document.createElement('link');
@@ -1214,7 +1976,7 @@
       
       let img = document.createElement('img');
       img.classList.add('code-more-img');
-      img.src = "http://localhost:1313/icons/down.png"
+      img.src = "https://blog.henry070.org/icons/down.png"
       
       codeMoreBtn.appendChild(img);
       codeMoreBox.appendChild(codeMoreBtn);

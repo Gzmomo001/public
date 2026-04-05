@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
     <channel>
         <title>Sample on Henry Zhang</title>
-        <link>http://localhost:1313/tags/sample/</link>
+        <link>https://blog.henry070.org/tags/sample/</link>
         <description>Recent content in Sample on Henry Zhang</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>en-us</language>
         <copyright>blog@mail.henry070.org</copyright>
-        <lastBuildDate>Wed, 24 Dec 2025 13:36:01 -0500</lastBuildDate><atom:link href="http://localhost:1313/tags/sample/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Wed, 24 Dec 2025 13:36:01 -0500</lastBuildDate><atom:link href="https://blog.henry070.org/tags/sample/index.xml" rel="self" type="application/rss+xml" /><item>
         <title>ApexCharts Shortcode Test</title>
-        <link>http://localhost:1313/p/apexcharts-shortcode-test/</link>
+        <link>https://blog.henry070.org/p/apexcharts-shortcode-test/</link>
         <pubDate>Tue, 23 Dec 2025 09:30:46 -0500</pubDate>
         
-        <guid>http://localhost:1313/p/apexcharts-shortcode-test/</guid>
+        <guid>https://blog.henry070.org/p/apexcharts-shortcode-test/</guid>
         <description>&lt;h1 id=&#34;apexcharts-shortcode-测试页面&#34;&gt;ApexCharts Shortcode 测试页面
 &lt;/h1&gt;&lt;p&gt;这是一个测试页面，用于验证修复后的 apexchart shortcode。&lt;/p&gt;
 &lt;h2 id=&#34;基础折线图&#34;&gt;基础折线图

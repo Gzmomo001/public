@@ -2,23 +2,27 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
     <channel>
         <title>OS on Henry Zhang</title>
-        <link>http://localhost:1313/categories/os/</link>
+        <link>https://blog.henry070.org/categories/os/</link>
         <description>Recent content in OS on Henry Zhang</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>en-us</language>
         <copyright>blog@mail.henry070.org</copyright>
-        <lastBuildDate>Wed, 04 Mar 2026 13:38:51 +0800</lastBuildDate><atom:link href="http://localhost:1313/categories/os/index.xml" rel="self" type="application/rss+xml" /><item>
-        <title>Os_ch1</title>
-        <link>http://localhost:1313/p/os_ch1/</link>
+        <lastBuildDate>Mon, 30 Mar 2026 10:26:59 +0800</lastBuildDate><atom:link href="https://blog.henry070.org/categories/os/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>Os</title>
+        <link>https://blog.henry070.org/p/os/</link>
         <pubDate>Mon, 02 Mar 2026 13:33:00 +0800</pubDate>
         
-        <guid>http://localhost:1313/p/os_ch1/</guid>
-        <description>&lt;img src="http://localhost:1313/p/os_ch1/opc.png" alt="Featured image of post Os_ch1" /&gt;&lt;h1 id=&#34;abstract-view-of-components-of-computer&#34;&gt;Abstract View of Components of Computer
-&lt;/h1&gt;&lt;h1 id=&#34;what-operating-systems-do&#34;&gt;What Operating Systems Do
-&lt;/h1&gt;&lt;h2 id=&#34;different-perspectives&#34;&gt;Different Perspectives
-&lt;/h2&gt;&lt;p&gt;Operating systems serve different purposes depending on the context and the type of system.&lt;/p&gt;
-&lt;pre class=&#34;mermaid&#34;&gt;
-  mindmap
+        <guid>https://blog.henry070.org/p/os/</guid>
+        <description>&lt;img src="https://blog.henry070.org/p/os/opc.png" alt="Featured image of post Os" /&gt;&lt;!-- # Abstract View of Components of Computer
+
+# What Operating Systems Do
+
+## Different Perspectives
+
+Operating systems serve different purposes depending on the context and the type of system.
+
+```mermaid
+mindmap
   root((OS Perspectives))
     User View
       Convenience
@@ -38,57 +42,204 @@
         Shared Server Access
       Mobile Devices
         Resource Constrained
-        Usability &amp;amp; Battery Life
+        Usability &amp; Battery Life
         Touch/Voice UI
       Embedded Systems
         Little/No UI
         No User Intervention
+```
+
+### User View
+Users want **convenience**, **ease of use**, and **good performance**. They typically do not care about resource utilization.
+
+### System View
+For shared computers (mainframes, minicomputers), the OS must keep all users happy. In this context, the OS acts as:
+
+&gt; **Resource Allocator**: Manages and allocates resources (CPU time, memory space, file storage, I/O devices) to specific programs and users.
+&gt;
+&gt; **Control Program**: Controls the execution of user programs and operations of I/O devices.
+
+### Specific System Types
+
+*   **Dedicated Systems (Workstations)**: Users have dedicated resources but frequently use shared resources from servers.
+*   **Mobile Devices (Smartphones, Tablets)**:
+    *   Resource poor.
+    *   Optimized for **usability** and **battery life**.
+    *   Utilize interfaces like touch screens and voice recognition.
+*   **Embedded Systems (Devices, Automobiles)**:
+    *   Little or no user interface.
+    *   Run primarily without user intervention.
+
+## Organization
+
+## Starup
+
+- Bootstrap program: which is loaded at power
+- BIOS: Basic input and output system
+
+
+
+## Storage Structure
+
+- Memory
+- Secondary strorage: Nonvolatile storage
+
+NVME(Non-volatile memory express)
+
+#
+
+## multiprograming
+
+## multitasking
+
+# Dual-mode and multi-mode operation
+
+## Caching
+
+Prefomred at many levels of the system
+
+# Batch in
+
+# Pintos
+
+It is a simple instructional operating system framework for the x86 architecture. It is designed for educational purposes to help students understand the concepts of operating systems and how they work.
+
+## Installation
+
+## Prerequisites
+
+- Docker or Podman installed on your machine.
+
+## Steps
+
+1. Pull and run docker image:
+
+```bash
+# if sussfully enter the terminal, type ctrl+D to exit the container
+docker run -it pkuflyingpig/pintos bash
+```
+
+2. Download the (source code)[https://drive.google.com/file/d/1_4s2QGkoKypETyA4bxwDkFJlHYVo5dqx/view?usp=sharing]:
+
+3. Compile the source code:
+
+```bash
+# x86 arch
+docker run -it --rm --name pintos --mount type=bind,source=&lt;path&gt;,target=/home/PKUOS/pintos pkuflyingpig/pintos bash
+# MacOS
+docker run -it --rm --name pintos --platform linux/amd64 --mount type=bind,source=absolute/path/to/pintos/on/your/host/machine,target=/home/PKUOS/pintos pkuflyingpig/pintos bash
+```
+
+or copy below code into dockercompose.yml under the pintos folder and run `docker compose up`:
+
+```yaml
+services:
+  pintos:
+    image: pkuflyingpig/pintos
+    container_name: pintos_dev
+    platform: linux/amd64
+    working_dir: /home/PKUOS/pintos
+    volumes:
+      - .:/home/PKUOS/pintos
+    stdin_open: true
+    tty: true
+    command: bash -c &#34;cd src/threads/ &amp;&amp; make &amp;&amp; cd build &amp;&amp; pintos --&#34;
+```
+
+# Week 3
+
+## Interprocess Communication(IPC)
+
+### Shared Memory
+
+### Message Passing
+
+### Processing comsumption problem
+
+## Synchronization(同步)
+
+1. `Blocking synchronization`: A process is blocked until a certain condition is met.
+2. `Non-blocking synchronization`: A process continues to execute and periodically checks for the condition.
+ --&gt;
+&lt;h1 id=&#34;chapter-3--processes&#34;&gt;Chapter 3 | Processes
+&lt;/h1&gt;&lt;h2 id=&#34;process-concept&#34;&gt;Process Concept
+&lt;/h2&gt;&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;Defination: a &lt;code&gt;program&lt;/code&gt; in execution&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Program code = text section(the code was treat as text before compilation)&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Program counter: indicates the next instruction to execute&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Stack: contains temporary data (e.g. function parameters, return addresses, local variables)&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Data section: contains global variables&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Heap: dynamically allocated memory during runtime&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;blockquote class=&#34;alert alert-tips&#34;&gt;
+    &lt;p&gt;The heap concept in data structures is different from the heap in memory management. The former is a specific data structure, while the latter refers to a region of memory used for dynamic allocation.&lt;/p&gt;&lt;/blockquote&gt;
+&lt;ul&gt;
+&lt;li&gt;Program is &lt;code&gt;passive&lt;/code&gt;, process is &lt;code&gt;active&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;memory-layout-of-a-process&#34;&gt;Memory Layout of a Process
+&lt;/h3&gt;&lt;pre class=&#34;mermaid&#34;&gt;
+  graph TD
+    subgraph Memory_Layout [Process Memory Layout]
+        direction TB
+        High[&amp;#34;High Address&amp;#34;]
+        Stack[&amp;#34;Stack (Function calls, local variables)&amp;#34;]
+        Gap[&amp;#34;&amp;amp;nbsp;&amp;#34;]
+        Heap[&amp;#34;Heap (Dynamic memory allocation)&amp;#34;]
+        Data[&amp;#34;Data Section (Global &amp;amp; Static variables)&amp;#34;]
+        Text[&amp;#34;Text Section (Program code)&amp;#34;]
+        Low[&amp;#34;Low Address&amp;#34;]
+
+        High --- Stack
+        Stack -- &amp;#34;grows down&amp;#34; --&amp;gt; Gap
+        Gap -- &amp;#34;grows up&amp;#34; --- Heap
+        Heap --- Data
+        Data --- Text
+        Text --- Low
+    end
 &lt;/pre&gt;
 
-&lt;h3 id=&#34;user-view&#34;&gt;User View
-&lt;/h3&gt;&lt;p&gt;Users want &lt;strong&gt;convenience&lt;/strong&gt;, &lt;strong&gt;ease of use&lt;/strong&gt;, and &lt;strong&gt;good performance&lt;/strong&gt;. They typically do not care about resource utilization.&lt;/p&gt;
-&lt;h3 id=&#34;system-view&#34;&gt;System View
-&lt;/h3&gt;&lt;p&gt;For shared computers (mainframes, minicomputers), the OS must keep all users happy. In this context, the OS acts as:&lt;/p&gt;
-&lt;blockquote&gt;
-&lt;p&gt;&lt;strong&gt;Resource Allocator&lt;/strong&gt;: Manages and allocates resources (CPU time, memory space, file storage, I/O devices) to specific programs and users.&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;Control Program&lt;/strong&gt;: Controls the execution of user programs and operations of I/O devices.&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;h3 id=&#34;specific-system-types&#34;&gt;Specific System Types
+&lt;h2 id=&#34;process-state&#34;&gt;Process State
+&lt;/h2&gt;&lt;p&gt;As a process executes, it changes state. The lifecycle of a process can be visualized through the following state diagram:&lt;/p&gt;
+&lt;pre class=&#34;mermaid&#34;&gt;
+  stateDiagram-v2
+    [*] --&amp;gt; New
+    New --&amp;gt; Ready: Admitted
+    Ready --&amp;gt; Running: Scheduler dispatch
+    Running --&amp;gt; Ready: Interrupt
+    Running --&amp;gt; Waiting: I/O or event wait
+    Waiting --&amp;gt; Ready: I/O or event completion
+    Running --&amp;gt; Terminated: Exit
+    Terminated --&amp;gt; [*]
+&lt;/pre&gt;
+
+&lt;h3 id=&#34;the-five-states&#34;&gt;The Five States
 &lt;/h3&gt;&lt;ul&gt;
-&lt;li&gt;&lt;strong&gt;Dedicated Systems (Workstations)&lt;/strong&gt;: Users have dedicated resources but frequently use shared resources from servers.&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;Mobile Devices (Smartphones, Tablets)&lt;/strong&gt;:
-&lt;ul&gt;
-&lt;li&gt;Resource poor.&lt;/li&gt;
-&lt;li&gt;Optimized for &lt;strong&gt;usability&lt;/strong&gt; and &lt;strong&gt;battery life&lt;/strong&gt;.&lt;/li&gt;
-&lt;li&gt;Utilize interfaces like touch screens and voice recognition.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;New&lt;/strong&gt;: The process is being created.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Running&lt;/strong&gt;: Instructions are being executed.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Waiting&lt;/strong&gt;: The process is waiting for some event to occur (such as I/O completion or reception of a signal).&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Ready&lt;/strong&gt;: The process is waiting to be assigned to a processor.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Terminated&lt;/strong&gt;: The process has finished execution.&lt;/li&gt;
 &lt;/ul&gt;
-&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;Embedded Systems (Devices, Automobiles)&lt;/strong&gt;:
-&lt;ul&gt;
-&lt;li&gt;Little or no user interface.&lt;/li&gt;
-&lt;li&gt;Run primarily without user intervention.&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h2 id=&#34;organization&#34;&gt;Organization
-&lt;/h2&gt;&lt;h2 id=&#34;starup&#34;&gt;Starup
-&lt;/h2&gt;&lt;ul&gt;
-&lt;li&gt;Bootstrap program: which is loaded at power&lt;/li&gt;
-&lt;li&gt;BIOS: Basic input and output system&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h2 id=&#34;storage-structure&#34;&gt;Storage Structure
-&lt;/h2&gt;&lt;ul&gt;
-&lt;li&gt;Memory&lt;/li&gt;
-&lt;li&gt;Secondary strorage: Nonvolatile storage&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;NVME(Non-volatile memory express)&lt;/p&gt;
-&lt;h1 id=&#34;&#34;&gt;
-&lt;/h1&gt;&lt;h2 id=&#34;multiprograming&#34;&gt;multiprograming
-&lt;/h2&gt;&lt;h2 id=&#34;multitasking&#34;&gt;multitasking
-&lt;/h2&gt;&lt;h1 id=&#34;dual-mode-and-multi-mode-operation&#34;&gt;Dual-mode and multi-mode operation
-&lt;/h1&gt;&lt;h2 id=&#34;caching&#34;&gt;Caching
-&lt;/h2&gt;&lt;p&gt;Prefomred at many levels of the system&lt;/p&gt;
-</description>
+&lt;h2 id=&#34;process-control-block-pcb&#34;&gt;Process Control Block (PCB)
+&lt;/h2&gt;&lt;h2 id=&#34;threads&#34;&gt;Threads
+&lt;/h2&gt;&lt;h2 id=&#34;process-scheduling&#34;&gt;Process Scheduling
+&lt;/h2&gt;&lt;h2 id=&#34;context-switch&#34;&gt;Context Switch
+&lt;/h2&gt;&lt;h2 id=&#34;process-operations&#34;&gt;Process operations
+&lt;/h2&gt;&lt;h3 id=&#34;multitasking-in-mobile-systems&#34;&gt;Multitasking in Mobile Systems
+&lt;/h3&gt;&lt;h3 id=&#34;multiprocess-architecture--chrome-browser&#34;&gt;Multiprocess Architecture – Chrome Browser
+&lt;/h3&gt;</description>
         </item>
         
     </channel>

@@ -2,18 +2,18 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
     <channel>
         <title>技术思考 on Henry Zhang</title>
-        <link>http://localhost:1313/tags/%E6%8A%80%E6%9C%AF%E6%80%9D%E8%80%83/</link>
+        <link>https://blog.henry070.org/tags/%E6%8A%80%E6%9C%AF%E6%80%9D%E8%80%83/</link>
         <description>Recent content in 技术思考 on Henry Zhang</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>en-us</language>
         <copyright>blog@mail.henry070.org</copyright>
-        <lastBuildDate>Mon, 02 Mar 2026 13:07:53 +0800</lastBuildDate><atom:link href="http://localhost:1313/tags/%E6%8A%80%E6%9C%AF%E6%80%9D%E8%80%83/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Mon, 02 Mar 2026 13:07:53 +0800</lastBuildDate><atom:link href="https://blog.henry070.org/tags/%E6%8A%80%E6%9C%AF%E6%80%9D%E8%80%83/index.xml" rel="self" type="application/rss+xml" /><item>
         <title>Vibe Coding：AI 编程革命与程序员的新时代</title>
-        <link>http://localhost:1313/p/vibe-codingai-%E7%BC%96%E7%A8%8B%E9%9D%A9%E5%91%BD%E4%B8%8E%E7%A8%8B%E5%BA%8F%E5%91%98%E7%9A%84%E6%96%B0%E6%97%B6%E4%BB%A3/</link>
+        <link>https://blog.henry070.org/p/vibe-codingai-%E7%BC%96%E7%A8%8B%E9%9D%A9%E5%91%BD%E4%B8%8E%E7%A8%8B%E5%BA%8F%E5%91%98%E7%9A%84%E6%96%B0%E6%97%B6%E4%BB%A3/</link>
         <pubDate>Thu, 08 Jan 2026 08:44:47 -0500</pubDate>
         
-        <guid>http://localhost:1313/p/vibe-codingai-%E7%BC%96%E7%A8%8B%E9%9D%A9%E5%91%BD%E4%B8%8E%E7%A8%8B%E5%BA%8F%E5%91%98%E7%9A%84%E6%96%B0%E6%97%B6%E4%BB%A3/</guid>
-        <description>&lt;img src="http://localhost:1313/default.jpeg" alt="Featured image of post Vibe Coding：AI 编程革命与程序员的新时代" /&gt;&lt;h1 id=&#34;vibe-codingai-编程革命与程序员的新时代&#34;&gt;Vibe Coding：AI 编程革命与程序员的新时代
+        <guid>https://blog.henry070.org/p/vibe-codingai-%E7%BC%96%E7%A8%8B%E9%9D%A9%E5%91%BD%E4%B8%8E%E7%A8%8B%E5%BA%8F%E5%91%98%E7%9A%84%E6%96%B0%E6%97%B6%E4%BB%A3/</guid>
+        <description>&lt;img src="https://blog.henry070.org/default.jpeg" alt="Featured image of post Vibe Coding：AI 编程革命与程序员的新时代" /&gt;&lt;h1 id=&#34;vibe-codingai-编程革命与程序员的新时代&#34;&gt;Vibe Coding：AI 编程革命与程序员的新时代
 &lt;/h1&gt;&lt;h2 id=&#34;引言2025---ai-编程元年&#34;&gt;引言：2025 - AI 编程元年
 &lt;/h2&gt;&lt;p&gt;2025 年 2 月，OpenAI 创始成员之一、前特斯拉人工智能总监 &lt;strong&gt;Andrej Karpathy&lt;/strong&gt; 在 X（Twitter）上发布了一条看似随意的推文，却引爆了整个技术社区对编程未来的讨论。这条推文首次正式提出了 &lt;strong&gt;&amp;ldquo;Vibe Coding&amp;rdquo;&lt;/strong&gt; 这个概念。&lt;/p&gt;
 &lt;blockquote&gt;

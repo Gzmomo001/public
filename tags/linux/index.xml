@@ -2,18 +2,18 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
     <channel>
         <title>Linux on Henry Zhang</title>
-        <link>http://localhost:1313/tags/linux/</link>
+        <link>https://blog.henry070.org/tags/linux/</link>
         <description>Recent content in Linux on Henry Zhang</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>en-us</language>
         <copyright>blog@mail.henry070.org</copyright>
-        <lastBuildDate>Mon, 02 Mar 2026 13:07:53 +0800</lastBuildDate><atom:link href="http://localhost:1313/tags/linux/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Mon, 02 Mar 2026 13:07:53 +0800</lastBuildDate><atom:link href="https://blog.henry070.org/tags/linux/index.xml" rel="self" type="application/rss+xml" /><item>
         <title>软件包管理：Linux 的应用商店</title>
-        <link>http://localhost:1313/p/%E8%BD%AF%E4%BB%B6%E5%8C%85%E7%AE%A1%E7%90%86linux-%E7%9A%84%E5%BA%94%E7%94%A8%E5%95%86%E5%BA%97/</link>
+        <link>https://blog.henry070.org/p/%E8%BD%AF%E4%BB%B6%E5%8C%85%E7%AE%A1%E7%90%86linux-%E7%9A%84%E5%BA%94%E7%94%A8%E5%95%86%E5%BA%97/</link>
         <pubDate>Sun, 11 Jan 2026 03:00:00 +0800</pubDate>
         
-        <guid>http://localhost:1313/p/%E8%BD%AF%E4%BB%B6%E5%8C%85%E7%AE%A1%E7%90%86linux-%E7%9A%84%E5%BA%94%E7%94%A8%E5%95%86%E5%BA%97/</guid>
-        <description>&lt;img src="http://localhost:1313/default.jpeg" alt="Featured image of post 软件包管理：Linux 的应用商店" /&gt;&lt;h1 id=&#34;软件包管理linux-的应用商店&#34;&gt;软件包管理：Linux 的应用商店
+        <guid>https://blog.henry070.org/p/%E8%BD%AF%E4%BB%B6%E5%8C%85%E7%AE%A1%E7%90%86linux-%E7%9A%84%E5%BA%94%E7%94%A8%E5%95%86%E5%BA%97/</guid>
+        <description>&lt;img src="https://blog.henry070.org/default.jpeg" alt="Featured image of post 软件包管理：Linux 的应用商店" /&gt;&lt;h1 id=&#34;软件包管理linux-的应用商店&#34;&gt;软件包管理：Linux 的应用商店
 &lt;/h1&gt;&lt;h2 id=&#34;引言&#34;&gt;引言
 &lt;/h2&gt;&lt;p&gt;软件包管理是 Linux 系统中最日常的任务之一。不同的发行版使用不同的包管理器，但核心概念是相通的。在这篇文章中，我们将系统学习 Linux 的软件包管理系统。&lt;/p&gt;
 &lt;h2 id=&#34;包管理器概述&#34;&gt;包管理器概述
@@ -638,7 +638,7 @@ sudo pacman -Scc         # 清理所有缓存&lt;/code&gt;
 &lt;/blockquote&gt;
 &lt;p&gt;掌握包管理器，让你的 Linux 之旅更加顺畅！&lt;/p&gt;
 &lt;hr&gt;
-&lt;p&gt;&lt;strong&gt;← 返回系列概述&lt;/strong&gt;: &lt;a class=&#34;link&#34; href=&#34;http://localhost:1313/p/linux-%E6%A6%82%E8%BF%B0%E4%BB%8E-unix-%E5%88%B0%E5%BC%80%E6%BA%90%E9%9D%A9%E5%91%BD/&#34; &gt;Linux 概述：从 Unix 到开源革命&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;← 返回系列概述&lt;/strong&gt;: &lt;a class=&#34;link&#34; href=&#34;https://blog.henry070.org/p/linux-%E6%A6%82%E8%BF%B0%E4%BB%8E-unix-%E5%88%B0%E5%BC%80%E6%BA%90%E9%9D%A9%E5%91%BD/&#34; &gt;Linux 概述：从 Unix 到开源革命&lt;/a&gt;&lt;/p&gt;
 &lt;hr&gt;
 &lt;p&gt;&lt;strong&gt;参考资源&lt;/strong&gt;：&lt;/p&gt;
 &lt;ul&gt;
@@ -655,11 +655,11 @@ sudo pacman -Scc         # 清理所有缓存&lt;/code&gt;
         </item>
         <item>
         <title>日志和监控：Linux 的体检医生</title>
-        <link>http://localhost:1313/p/%E6%97%A5%E5%BF%97%E5%92%8C%E7%9B%91%E6%8E%A7linux-%E7%9A%84%E4%BD%93%E6%A3%80%E5%8C%BB%E7%94%9F/</link>
+        <link>https://blog.henry070.org/p/%E6%97%A5%E5%BF%97%E5%92%8C%E7%9B%91%E6%8E%A7linux-%E7%9A%84%E4%BD%93%E6%A3%80%E5%8C%BB%E7%94%9F/</link>
         <pubDate>Sun, 11 Jan 2026 02:00:00 +0800</pubDate>
         
-        <guid>http://localhost:1313/p/%E6%97%A5%E5%BF%97%E5%92%8C%E7%9B%91%E6%8E%A7linux-%E7%9A%84%E4%BD%93%E6%A3%80%E5%8C%BB%E7%94%9F/</guid>
-        <description>&lt;img src="http://localhost:1313/default.jpeg" alt="Featured image of post 日志和监控：Linux 的体检医生" /&gt;&lt;h1 id=&#34;日志和监控linux-的体检医生&#34;&gt;日志和监控：Linux 的体检医生
+        <guid>https://blog.henry070.org/p/%E6%97%A5%E5%BF%97%E5%92%8C%E7%9B%91%E6%8E%A7linux-%E7%9A%84%E4%BD%93%E6%A3%80%E5%8C%BB%E7%94%9F/</guid>
+        <description>&lt;img src="https://blog.henry070.org/default.jpeg" alt="Featured image of post 日志和监控：Linux 的体检医生" /&gt;&lt;h1 id=&#34;日志和监控linux-的体检医生&#34;&gt;日志和监控：Linux 的体检医生
 &lt;/h1&gt;&lt;h2 id=&#34;引言&#34;&gt;引言
 &lt;/h2&gt;&lt;p&gt;日志和监控是 Linux 系统管理的眼睛和耳朵。通过日志，我们可以了解系统发生了什么；通过监控，我们可以知道系统正在做什么。在这篇文章中，我们将系统学习 Linux 的日志管理和系统监控。&lt;/p&gt;
 &lt;h2 id=&#34;系统日志概述&#34;&gt;系统日志概述
@@ -1243,7 +1243,7 @@ done&lt;/code&gt;
 &lt;/blockquote&gt;
 &lt;p&gt;监控和日志管理是系统稳定运行的保障。掌握这些工具，让你的 Linux 系统管理更上一层楼！&lt;/p&gt;
 &lt;hr&gt;
-&lt;p&gt;&lt;strong&gt;← 返回系列概述&lt;/strong&gt;: &lt;a class=&#34;link&#34; href=&#34;http://localhost:1313/p/linux-%E6%A6%82%E8%BF%B0%E4%BB%8E-unix-%E5%88%B0%E5%BC%80%E6%BA%90%E9%9D%A9%E5%91%BD/&#34; &gt;Linux 概述：从 Unix 到开源革命&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;← 返回系列概述&lt;/strong&gt;: &lt;a class=&#34;link&#34; href=&#34;https://blog.henry070.org/p/linux-%E6%A6%82%E8%BF%B0%E4%BB%8E-unix-%E5%88%B0%E5%BC%80%E6%BA%90%E9%9D%A9%E5%91%BD/&#34; &gt;Linux 概述：从 Unix 到开源革命&lt;/a&gt;&lt;/p&gt;
 &lt;hr&gt;
 &lt;p&gt;&lt;strong&gt;参考资源&lt;/strong&gt;：&lt;/p&gt;
 &lt;ul&gt;
@@ -1260,11 +1260,11 @@ done&lt;/code&gt;
         </item>
         <item>
         <title>文件系统：Linux 的数据宫殿</title>
-        <link>http://localhost:1313/p/%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9Flinux-%E7%9A%84%E6%95%B0%E6%8D%AE%E5%AE%AB%E6%AE%BF/</link>
+        <link>https://blog.henry070.org/p/%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9Flinux-%E7%9A%84%E6%95%B0%E6%8D%AE%E5%AE%AB%E6%AE%BF/</link>
         <pubDate>Sun, 11 Jan 2026 01:00:00 +0800</pubDate>
         
-        <guid>http://localhost:1313/p/%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9Flinux-%E7%9A%84%E6%95%B0%E6%8D%AE%E5%AE%AB%E6%AE%BF/</guid>
-        <description>&lt;img src="http://localhost:1313/default.jpeg" alt="Featured image of post 文件系统：Linux 的数据宫殿" /&gt;&lt;h1 id=&#34;文件系统linux-的数据宫殿&#34;&gt;文件系统：Linux 的数据宫殿
+        <guid>https://blog.henry070.org/p/%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9Flinux-%E7%9A%84%E6%95%B0%E6%8D%AE%E5%AE%AB%E6%AE%BF/</guid>
+        <description>&lt;img src="https://blog.henry070.org/default.jpeg" alt="Featured image of post 文件系统：Linux 的数据宫殿" /&gt;&lt;h1 id=&#34;文件系统linux-的数据宫殿&#34;&gt;文件系统：Linux 的数据宫殿
 &lt;/h1&gt;&lt;h2 id=&#34;引言&#34;&gt;引言
 &lt;/h2&gt;&lt;p&gt;文件系统是操作系统中最重要的组成部分之一。在 Linux 中，一切皆文件——普通文件、目录、设备、套接字等都通过文件系统接口访问。在这篇文章中，我们将深入探讨 Linux 文件系统的奥秘。&lt;/p&gt;
 &lt;h2 id=&#34;一切皆文件&#34;&gt;一切皆文件
@@ -2101,7 +2101,7 @@ cp -p source.txt backup.txt&lt;/code&gt;
 &lt;/blockquote&gt;
 &lt;p&gt;理解文件系统是理解 Linux 的关键一步。继续探索，你会发现更多精彩！&lt;/p&gt;
 &lt;hr&gt;
-&lt;p&gt;&lt;strong&gt;← 返回系列概述&lt;/strong&gt;: &lt;a class=&#34;link&#34; href=&#34;http://localhost:1313/p/linux-%E6%A6%82%E8%BF%B0%E4%BB%8E-unix-%E5%88%B0%E5%BC%80%E6%BA%90%E9%9D%A9%E5%91%BD/&#34; &gt;Linux 概述：从 Unix 到开源革命&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;← 返回系列概述&lt;/strong&gt;: &lt;a class=&#34;link&#34; href=&#34;https://blog.henry070.org/p/linux-%E6%A6%82%E8%BF%B0%E4%BB%8E-unix-%E5%88%B0%E5%BC%80%E6%BA%90%E9%9D%A9%E5%91%BD/&#34; &gt;Linux 概述：从 Unix 到开源革命&lt;/a&gt;&lt;/p&gt;
 &lt;hr&gt;
 &lt;p&gt;&lt;strong&gt;参考资源&lt;/strong&gt;：&lt;/p&gt;
 &lt;ul&gt;
@@ -2118,11 +2118,11 @@ cp -p source.txt backup.txt&lt;/code&gt;
         </item>
         <item>
         <title>进程管理：Linux 的生命线</title>
-        <link>http://localhost:1313/p/%E8%BF%9B%E7%A8%8B%E7%AE%A1%E7%90%86linux-%E7%9A%84%E7%94%9F%E5%91%BD%E7%BA%BF/</link>
+        <link>https://blog.henry070.org/p/%E8%BF%9B%E7%A8%8B%E7%AE%A1%E7%90%86linux-%E7%9A%84%E7%94%9F%E5%91%BD%E7%BA%BF/</link>
         <pubDate>Sun, 11 Jan 2026 00:00:00 +0800</pubDate>
         
-        <guid>http://localhost:1313/p/%E8%BF%9B%E7%A8%8B%E7%AE%A1%E7%90%86linux-%E7%9A%84%E7%94%9F%E5%91%BD%E7%BA%BF/</guid>
-        <description>&lt;img src="http://localhost:1313/default.jpeg" alt="Featured image of post 进程管理：Linux 的生命线" /&gt;&lt;h1 id=&#34;进程管理linux-的生命线&#34;&gt;进程管理：Linux 的生命线
+        <guid>https://blog.henry070.org/p/%E8%BF%9B%E7%A8%8B%E7%AE%A1%E7%90%86linux-%E7%9A%84%E7%94%9F%E5%91%BD%E7%BA%BF/</guid>
+        <description>&lt;img src="https://blog.henry070.org/default.jpeg" alt="Featured image of post 进程管理：Linux 的生命线" /&gt;&lt;h1 id=&#34;进程管理linux-的生命线&#34;&gt;进程管理：Linux 的生命线
 &lt;/h1&gt;&lt;h2 id=&#34;引言&#34;&gt;引言
 &lt;/h2&gt;&lt;p&gt;进程是 Linux 系统中正在运行的程序的实例。理解进程管理对于系统管理员、开发者和 DevOps 工程师至关重要。在这篇文章中，我们将深入探讨 Linux 如何创建、调度和管理进程。&lt;/p&gt;
 &lt;h2 id=&#34;什么是进程&#34;&gt;什么是进程？
@@ -2964,7 +2964,7 @@ sudo cgexec -g memory,cpu:myapp ./myapp&lt;/code&gt;
 &lt;/blockquote&gt;
 &lt;p&gt;掌握进程管理是理解 Linux 系统的关键一步。继续深入探索，你会发现更多奥秘！&lt;/p&gt;
 &lt;hr&gt;
-&lt;p&gt;&lt;strong&gt;← 返回系列概述&lt;/strong&gt;: &lt;a class=&#34;link&#34; href=&#34;http://localhost:1313/p/linux-%E6%A6%82%E8%BF%B0%E4%BB%8E-unix-%E5%88%B0%E5%BC%80%E6%BA%90%E9%9D%A9%E5%91%BD/&#34; &gt;Linux 概述：从 Unix 到开源革命&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;← 返回系列概述&lt;/strong&gt;: &lt;a class=&#34;link&#34; href=&#34;https://blog.henry070.org/p/linux-%E6%A6%82%E8%BF%B0%E4%BB%8E-unix-%E5%88%B0%E5%BC%80%E6%BA%90%E9%9D%A9%E5%91%BD/&#34; &gt;Linux 概述：从 Unix 到开源革命&lt;/a&gt;&lt;/p&gt;
 &lt;hr&gt;
 &lt;p&gt;&lt;strong&gt;参考资源&lt;/strong&gt;：&lt;/p&gt;
 &lt;ul&gt;
@@ -2981,11 +2981,11 @@ sudo cgexec -g memory,cpu:myapp ./myapp&lt;/code&gt;
         </item>
         <item>
         <title>Shell 和命令行：Linux 的控制台</title>
-        <link>http://localhost:1313/p/shell-%E5%92%8C%E5%91%BD%E4%BB%A4%E8%A1%8Clinux-%E7%9A%84%E6%8E%A7%E5%88%B6%E5%8F%B0/</link>
+        <link>https://blog.henry070.org/p/shell-%E5%92%8C%E5%91%BD%E4%BB%A4%E8%A1%8Clinux-%E7%9A%84%E6%8E%A7%E5%88%B6%E5%8F%B0/</link>
         <pubDate>Sat, 10 Jan 2026 23:00:00 +0800</pubDate>
         
-        <guid>http://localhost:1313/p/shell-%E5%92%8C%E5%91%BD%E4%BB%A4%E8%A1%8Clinux-%E7%9A%84%E6%8E%A7%E5%88%B6%E5%8F%B0/</guid>
-        <description>&lt;img src="http://localhost:1313/default.jpeg" alt="Featured image of post Shell 和命令行：Linux 的控制台" /&gt;&lt;h1 id=&#34;shell-和命令行linux-的控制台&#34;&gt;Shell 和命令行：Linux 的控制台
+        <guid>https://blog.henry070.org/p/shell-%E5%92%8C%E5%91%BD%E4%BB%A4%E8%A1%8Clinux-%E7%9A%84%E6%8E%A7%E5%88%B6%E5%8F%B0/</guid>
+        <description>&lt;img src="https://blog.henry070.org/default.jpeg" alt="Featured image of post Shell 和命令行：Linux 的控制台" /&gt;&lt;h1 id=&#34;shell-和命令行linux-的控制台&#34;&gt;Shell 和命令行：Linux 的控制台
 &lt;/h1&gt;&lt;h2 id=&#34;引言&#34;&gt;引言
 &lt;/h2&gt;&lt;p&gt;如果说 Linux 内核是汽车的发动机，那么 &lt;strong&gt;Shell&lt;/strong&gt; 就是方向盘和仪表盘。它是用户与操作系统交互的主要界面，是每个 Linux 用户必须掌握的核心技能。在这篇文章中，我们将系统学习 Shell 的方方面面。&lt;/p&gt;
 &lt;h2 id=&#34;什么是-shell&#34;&gt;什么是 Shell？
@@ -4021,7 +4021,7 @@ kill %1             # 结束作业号1&lt;/code&gt;
 &lt;/div&gt;
 
 &lt;h3 id=&#34;screentmux-会话管理&#34;&gt;Screen/Tmux 会话管理
-&lt;/h3&gt;&lt;p&gt;详见 &lt;a class=&#34;link&#34; href=&#34;http://localhost:1313/post/tmux/&#34; &gt;Tmux 博客文章&lt;/a&gt;，这里简要介绍：&lt;/p&gt;
+&lt;/h3&gt;&lt;p&gt;详见 &lt;a class=&#34;link&#34; href=&#34;https://blog.henry070.org/post/tmux/&#34; &gt;Tmux 博客文章&lt;/a&gt;，这里简要介绍：&lt;/p&gt;
 
 
 
@@ -4234,7 +4234,7 @@ fi&lt;/code&gt;
 &lt;/blockquote&gt;
 &lt;p&gt;在下一篇文章中，我们将深入学习 &lt;strong&gt;进程管理&lt;/strong&gt;，了解 Linux 如何管理和调度进程。&lt;/p&gt;
 &lt;hr&gt;
-&lt;p&gt;&lt;strong&gt;← 返回系列概述&lt;/strong&gt;: &lt;a class=&#34;link&#34; href=&#34;http://localhost:1313/p/linux-%E6%A6%82%E8%BF%B0%E4%BB%8E-unix-%E5%88%B0%E5%BC%80%E6%BA%90%E9%9D%A9%E5%91%BD/&#34; &gt;Linux 概述：从 Unix 到开源革命&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;← 返回系列概述&lt;/strong&gt;: &lt;a class=&#34;link&#34; href=&#34;https://blog.henry070.org/p/linux-%E6%A6%82%E8%BF%B0%E4%BB%8E-unix-%E5%88%B0%E5%BC%80%E6%BA%90%E9%9D%A9%E5%91%BD/&#34; &gt;Linux 概述：从 Unix 到开源革命&lt;/a&gt;&lt;/p&gt;
 &lt;hr&gt;
 &lt;p&gt;&lt;strong&gt;参考资源&lt;/strong&gt;：&lt;/p&gt;
 &lt;ul&gt;
@@ -4253,11 +4253,11 @@ fi&lt;/code&gt;
         </item>
         <item>
         <title>Linux 内核架构：操作系统的核心</title>
-        <link>http://localhost:1313/p/linux-%E5%86%85%E6%A0%B8%E6%9E%B6%E6%9E%84%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E7%9A%84%E6%A0%B8%E5%BF%83/</link>
+        <link>https://blog.henry070.org/p/linux-%E5%86%85%E6%A0%B8%E6%9E%B6%E6%9E%84%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E7%9A%84%E6%A0%B8%E5%BF%83/</link>
         <pubDate>Sat, 10 Jan 2026 22:00:00 +0800</pubDate>
         
-        <guid>http://localhost:1313/p/linux-%E5%86%85%E6%A0%B8%E6%9E%B6%E6%9E%84%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E7%9A%84%E6%A0%B8%E5%BF%83/</guid>
-        <description>&lt;img src="http://localhost:1313/default.jpeg" alt="Featured image of post Linux 内核架构：操作系统的核心" /&gt;&lt;h1 id=&#34;linux-内核架构操作系统的核心&#34;&gt;Linux 内核架构：操作系统的核心
+        <guid>https://blog.henry070.org/p/linux-%E5%86%85%E6%A0%B8%E6%9E%B6%E6%9E%84%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E7%9A%84%E6%A0%B8%E5%BF%83/</guid>
+        <description>&lt;img src="https://blog.henry070.org/default.jpeg" alt="Featured image of post Linux 内核架构：操作系统的核心" /&gt;&lt;h1 id=&#34;linux-内核架构操作系统的核心&#34;&gt;Linux 内核架构：操作系统的核心
 &lt;/h1&gt;&lt;h2 id=&#34;引言&#34;&gt;引言
 &lt;/h2&gt;&lt;p&gt;如果说 Linux 操作系统是一辆车，那么**内核（Kernel）**就是这辆车的发动机。它是操作系统的核心，负责管理硬件资源，并为用户程序提供服务。在这篇文章中，我们将深入探讨 Linux 内核的架构和各个子系统。&lt;/p&gt;
 &lt;h2 id=&#34;什么是内核&#34;&gt;什么是内核？
@@ -5046,7 +5046,7 @@ htop                  # 增强版 top&lt;/code&gt;
 &lt;/blockquote&gt;
 &lt;p&gt;理解内核最好的方式就是阅读源代码。推荐从 &lt;code&gt;kernel/&lt;/code&gt; 目录开始，逐步深入各个子系统。&lt;/p&gt;
 &lt;hr&gt;
-&lt;p&gt;&lt;strong&gt;← 返回系列概述&lt;/strong&gt;: &lt;a class=&#34;link&#34; href=&#34;http://localhost:1313/p/linux-%E6%A6%82%E8%BF%B0%E4%BB%8E-unix-%E5%88%B0%E5%BC%80%E6%BA%90%E9%9D%A9%E5%91%BD/&#34; &gt;Linux 概述：从 Unix 到开源革命&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;← 返回系列概述&lt;/strong&gt;: &lt;a class=&#34;link&#34; href=&#34;https://blog.henry070.org/p/linux-%E6%A6%82%E8%BF%B0%E4%BB%8E-unix-%E5%88%B0%E5%BC%80%E6%BA%90%E9%9D%A9%E5%91%BD/&#34; &gt;Linux 概述：从 Unix 到开源革命&lt;/a&gt;&lt;/p&gt;
 &lt;hr&gt;
 &lt;p&gt;&lt;strong&gt;参考资源&lt;/strong&gt;：&lt;/p&gt;
 &lt;ul&gt;
@@ -5065,11 +5065,11 @@ htop                  # 增强版 top&lt;/code&gt;
         </item>
         <item>
         <title>Linux 概述：从 Unix 到开源革命</title>
-        <link>http://localhost:1313/p/linux-%E6%A6%82%E8%BF%B0%E4%BB%8E-unix-%E5%88%B0%E5%BC%80%E6%BA%90%E9%9D%A9%E5%91%BD/</link>
+        <link>https://blog.henry070.org/p/linux-%E6%A6%82%E8%BF%B0%E4%BB%8E-unix-%E5%88%B0%E5%BC%80%E6%BA%90%E9%9D%A9%E5%91%BD/</link>
         <pubDate>Sat, 10 Jan 2026 21:00:48 +0800</pubDate>
         
-        <guid>http://localhost:1313/p/linux-%E6%A6%82%E8%BF%B0%E4%BB%8E-unix-%E5%88%B0%E5%BC%80%E6%BA%90%E9%9D%A9%E5%91%BD/</guid>
-        <description>&lt;img src="http://localhost:1313/default.jpeg" alt="Featured image of post Linux 概述：从 Unix 到开源革命" /&gt;&lt;h1 id=&#34;linux-概述从-unix-到开源革命&#34;&gt;Linux 概述：从 Unix 到开源革命
+        <guid>https://blog.henry070.org/p/linux-%E6%A6%82%E8%BF%B0%E4%BB%8E-unix-%E5%88%B0%E5%BC%80%E6%BA%90%E9%9D%A9%E5%91%BD/</guid>
+        <description>&lt;img src="https://blog.henry070.org/default.jpeg" alt="Featured image of post Linux 概述：从 Unix 到开源革命" /&gt;&lt;h1 id=&#34;linux-概述从-unix-到开源革命&#34;&gt;Linux 概述：从 Unix 到开源革命
 &lt;/h1&gt;&lt;h2 id=&#34;引言&#34;&gt;引言
 &lt;/h2&gt;&lt;p&gt;Linux 是现代技术世界中最重要的操作系统之一。从你手中的 Android 手机到运行互联网的服务器，从超级计算机到嵌入式设备，Linux 无处不在。这篇文章将带你深入了解 Linux 的前世今生。&lt;/p&gt;
 &lt;h2 id=&#34;unix-的诞生1969-1970s&#34;&gt;Unix 的诞生（1969-1970s）
@@ -5453,13 +5453,13 @@ sudo pacman -R nginx      # 删除软件&lt;/code&gt;
 &lt;h2 id=&#34;系列文章导航&#34;&gt;系列文章导航
 &lt;/h2&gt;&lt;p&gt;本系列深入探讨 Linux 操作系统的各个方面：&lt;/p&gt;
 &lt;ol&gt;
-&lt;li&gt;&lt;strong&gt;&lt;a class=&#34;link&#34; href=&#34;http://localhost:1313/p/linux-%E6%A6%82%E8%BF%B0%E4%BB%8E-unix-%E5%88%B0%E5%BC%80%E6%BA%90%E9%9D%A9%E5%91%BD/&#34; &gt;Linux 概述：从 Unix 到开源革命&lt;/a&gt;&lt;/strong&gt; （当前文章）&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;&lt;a class=&#34;link&#34; href=&#34;http://localhost:1313/p/linux-%E5%86%85%E6%A0%B8%E6%9E%B6%E6%9E%84%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E7%9A%84%E6%A0%B8%E5%BF%83/&#34; &gt;Linux 内核架构：操作系统的核心&lt;/a&gt;&lt;/strong&gt; - 用户空间与内核空间、系统调用、五大子系统&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;&lt;a class=&#34;link&#34; href=&#34;http://localhost:1313/p/%E8%BF%9B%E7%A8%8B%E7%AE%A1%E7%90%86linux-%E7%9A%84%E7%94%9F%E5%91%BD%E7%BA%BF/&#34; &gt;进程管理：Linux 的生命线&lt;/a&gt;&lt;/strong&gt; - 进程生命周期、CFS 调度器、进程监控&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;&lt;a class=&#34;link&#34; href=&#34;http://localhost:1313/p/%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9Flinux-%E7%9A%84%E6%95%B0%E6%8D%AE%E5%AE%AB%E6%AE%BF/&#34; &gt;文件系统：数据的管理者&lt;/a&gt;&lt;/strong&gt; - VFS、Ext4、文件权限与管理&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;&lt;a class=&#34;link&#34; href=&#34;http://localhost:1313/p/shell-%E5%92%8C%E5%91%BD%E4%BB%A4%E8%A1%8Clinux-%E7%9A%84%E6%8E%A7%E5%88%B6%E5%8F%B0/&#34; &gt;Shell 和命令行：Linux 的控制台&lt;/a&gt;&lt;/strong&gt; - Bash 基础、管道重定向、脚本编程&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;&lt;a class=&#34;link&#34; href=&#34;http://localhost:1313/p/%E6%97%A5%E5%BF%97%E5%92%8C%E7%9B%91%E6%8E%A7linux-%E7%9A%84%E4%BD%93%E6%A3%80%E5%8C%BB%E7%94%9F/&#34; &gt;日志与监控：系统的体检报告&lt;/a&gt;&lt;/strong&gt; - 系统日志、性能监控、故障排查&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;&lt;a class=&#34;link&#34; href=&#34;http://localhost:1313/p/%E8%BD%AF%E4%BB%B6%E5%8C%85%E7%AE%A1%E7%90%86linux-%E7%9A%84%E5%BA%94%E7%94%A8%E5%95%86%E5%BA%97/&#34; &gt;软件包管理：应用的生态圈&lt;/a&gt;&lt;/strong&gt; - APT/DNF/Pacman、软件源、依赖管理&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;&lt;a class=&#34;link&#34; href=&#34;https://blog.henry070.org/p/linux-%E6%A6%82%E8%BF%B0%E4%BB%8E-unix-%E5%88%B0%E5%BC%80%E6%BA%90%E9%9D%A9%E5%91%BD/&#34; &gt;Linux 概述：从 Unix 到开源革命&lt;/a&gt;&lt;/strong&gt; （当前文章）&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;&lt;a class=&#34;link&#34; href=&#34;https://blog.henry070.org/p/linux-%E5%86%85%E6%A0%B8%E6%9E%B6%E6%9E%84%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E7%9A%84%E6%A0%B8%E5%BF%83/&#34; &gt;Linux 内核架构：操作系统的核心&lt;/a&gt;&lt;/strong&gt; - 用户空间与内核空间、系统调用、五大子系统&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;&lt;a class=&#34;link&#34; href=&#34;https://blog.henry070.org/p/%E8%BF%9B%E7%A8%8B%E7%AE%A1%E7%90%86linux-%E7%9A%84%E7%94%9F%E5%91%BD%E7%BA%BF/&#34; &gt;进程管理：Linux 的生命线&lt;/a&gt;&lt;/strong&gt; - 进程生命周期、CFS 调度器、进程监控&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;&lt;a class=&#34;link&#34; href=&#34;https://blog.henry070.org/p/%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9Flinux-%E7%9A%84%E6%95%B0%E6%8D%AE%E5%AE%AB%E6%AE%BF/&#34; &gt;文件系统：数据的管理者&lt;/a&gt;&lt;/strong&gt; - VFS、Ext4、文件权限与管理&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;&lt;a class=&#34;link&#34; href=&#34;https://blog.henry070.org/p/shell-%E5%92%8C%E5%91%BD%E4%BB%A4%E8%A1%8Clinux-%E7%9A%84%E6%8E%A7%E5%88%B6%E5%8F%B0/&#34; &gt;Shell 和命令行：Linux 的控制台&lt;/a&gt;&lt;/strong&gt; - Bash 基础、管道重定向、脚本编程&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;&lt;a class=&#34;link&#34; href=&#34;https://blog.henry070.org/p/%E6%97%A5%E5%BF%97%E5%92%8C%E7%9B%91%E6%8E%A7linux-%E7%9A%84%E4%BD%93%E6%A3%80%E5%8C%BB%E7%94%9F/&#34; &gt;日志与监控：系统的体检报告&lt;/a&gt;&lt;/strong&gt; - 系统日志、性能监控、故障排查&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;&lt;a class=&#34;link&#34; href=&#34;https://blog.henry070.org/p/%E8%BD%AF%E4%BB%B6%E5%8C%85%E7%AE%A1%E7%90%86linux-%E7%9A%84%E5%BA%94%E7%94%A8%E5%95%86%E5%BA%97/&#34; &gt;软件包管理：应用的生态圈&lt;/a&gt;&lt;/strong&gt; - APT/DNF/Pacman、软件源、依赖管理&lt;/li&gt;
 &lt;/ol&gt;
 &lt;hr&gt;
 &lt;p&gt;&lt;strong&gt;参考资源&lt;/strong&gt;：&lt;/p&gt;
@@ -5479,11 +5479,11 @@ sudo pacman -R nginx      # 删除软件&lt;/code&gt;
         </item>
         <item>
         <title>SHA 校验入门：从原理到实践</title>
-        <link>http://localhost:1313/p/sha-%E6%A0%A1%E9%AA%8C%E5%85%A5%E9%97%A8%E4%BB%8E%E5%8E%9F%E7%90%86%E5%88%B0%E5%AE%9E%E8%B7%B5/</link>
+        <link>https://blog.henry070.org/p/sha-%E6%A0%A1%E9%AA%8C%E5%85%A5%E9%97%A8%E4%BB%8E%E5%8E%9F%E7%90%86%E5%88%B0%E5%AE%9E%E8%B7%B5/</link>
         <pubDate>Fri, 05 Dec 2025 02:31:57 -0500</pubDate>
         
-        <guid>http://localhost:1313/p/sha-%E6%A0%A1%E9%AA%8C%E5%85%A5%E9%97%A8%E4%BB%8E%E5%8E%9F%E7%90%86%E5%88%B0%E5%AE%9E%E8%B7%B5/</guid>
-        <description>&lt;img src="http://localhost:1313/default.jpeg" alt="Featured image of post SHA 校验入门：从原理到实践" /&gt;&lt;h1 id=&#34;sha-校验入门从原理到实践&#34;&gt;SHA 校验入门：从原理到实践
+        <guid>https://blog.henry070.org/p/sha-%E6%A0%A1%E9%AA%8C%E5%85%A5%E9%97%A8%E4%BB%8E%E5%8E%9F%E7%90%86%E5%88%B0%E5%AE%9E%E8%B7%B5/</guid>
+        <description>&lt;img src="https://blog.henry070.org/default.jpeg" alt="Featured image of post SHA 校验入门：从原理到实践" /&gt;&lt;h1 id=&#34;sha-校验入门从原理到实践&#34;&gt;SHA 校验入门：从原理到实践
 &lt;/h1&gt;&lt;p&gt;在数字世界中，我们经常需要下载和传输文件。但你如何能确定下载的文件就是发布者想要你收到的那个，没有被篡改，也没有在传输过程中损坏呢？答案就是 &lt;strong&gt;哈希校验（Hash Validation）&lt;/strong&gt;，而 SHA256 正是其中最常用的一种算法。&lt;/p&gt;
 &lt;p&gt;这篇笔记将带你从零开始，理解 SHA256 的基本原理，并学会在不同操作系统上进行实际操作。&lt;/p&gt;
 &lt;h2 id=&#34;什么是-sha256&#34;&gt;什么是 SHA256？
@@ -5609,11 +5609,11 @@ CertUtil -hashfile D:\Downloads\ubuntu-24.04-desktop-amd64.iso SHA256
         </item>
         <item>
         <title>Apt</title>
-        <link>http://localhost:1313/p/apt/</link>
+        <link>https://blog.henry070.org/p/apt/</link>
         <pubDate>Fri, 05 Dec 2025 01:27:47 -0500</pubDate>
         
-        <guid>http://localhost:1313/p/apt/</guid>
-        <description>&lt;img src="http://localhost:1313/default.jpeg" alt="Featured image of post Apt" /&gt;&lt;h2 id=&#34;reference&#34;&gt;Reference
+        <guid>https://blog.henry070.org/p/apt/</guid>
+        <description>&lt;img src="https://blog.henry070.org/default.jpeg" alt="Featured image of post Apt" /&gt;&lt;h2 id=&#34;reference&#34;&gt;Reference
 &lt;/h2&gt;&lt;div class=&#34;video-wrapper&#34;&gt;
     &lt;iframe loading=&#34;lazy&#34; 
             src=&#34;https://www.youtube.com/embed/j3fOfBwom5k&#34; 
@@ -5919,11 +5919,11 @@ sudo rm /var/lib/dpkg/lock*&lt;/code&gt;
         </item>
         <item>
         <title>Soft_links</title>
-        <link>http://localhost:1313/p/soft_links/</link>
+        <link>https://blog.henry070.org/p/soft_links/</link>
         <pubDate>Thu, 31 Jul 2025 15:38:14 +0800</pubDate>
         
-        <guid>http://localhost:1313/p/soft_links/</guid>
-        <description>&lt;img src="http://localhost:1313/p/soft_links/link.png" alt="Featured image of post Soft_links" /&gt;&lt;h2 id=&#34;软连接&#34;&gt;软连接
+        <guid>https://blog.henry070.org/p/soft_links/</guid>
+        <description>&lt;img src="https://blog.henry070.org/p/soft_links/link.png" alt="Featured image of post Soft_links" /&gt;&lt;h2 id=&#34;软连接&#34;&gt;软连接
 &lt;/h2&gt;&lt;p&gt;在系统中我们往往可能需要在一个项目中使用项目之外的一些文件，但是这个文件又不在这项目的根目录在。大部分人往往都选择直接将需要的文件拷贝到项目的路目中。但是这样既浪费时间又浪费系统的存储空间。尔软连接的出现就是为了解决这一问题。我们可以直接通过命令创建一个软连接。让目标文件或者文件夹的替身出现在我们的项目目录下。这样我们就可以在不使用绝对路径的情况下使用该路径了。&lt;/p&gt;
 &lt;h3 id=&#34;如何使用软连接ln&#34;&gt;如何使用软连接（ln
 &lt;/h3&gt;&lt;p&gt;在 linux 中软连接的是由&amp;rsquo;ln&amp;rsquo;这一指令完成的。&lt;/p&gt;
@@ -5961,11 +5961,11 @@ rm path/to/symlink&lt;/code&gt;
         </item>
         <item>
         <title>Linux_system_service | Linux 之 系统服务</title>
-        <link>http://localhost:1313/p/linux_system_service-linux-%E4%B9%8B-%E7%B3%BB%E7%BB%9F%E6%9C%8D%E5%8A%A1/</link>
+        <link>https://blog.henry070.org/p/linux_system_service-linux-%E4%B9%8B-%E7%B3%BB%E7%BB%9F%E6%9C%8D%E5%8A%A1/</link>
         <pubDate>Fri, 13 Jun 2025 15:47:20 +0800</pubDate>
         
-        <guid>http://localhost:1313/p/linux_system_service-linux-%E4%B9%8B-%E7%B3%BB%E7%BB%9F%E6%9C%8D%E5%8A%A1/</guid>
-        <description>&lt;img src="http://localhost:1313/p/linux_system_service-linux-%E4%B9%8B-%E7%B3%BB%E7%BB%9F%E6%9C%8D%E5%8A%A1/image.png" alt="Featured image of post Linux_system_service | Linux 之 系统服务" /&gt;&lt;h2 id=&#34;什么是系统服务service&#34;&gt;什么是系统服务(service)
+        <guid>https://blog.henry070.org/p/linux_system_service-linux-%E4%B9%8B-%E7%B3%BB%E7%BB%9F%E6%9C%8D%E5%8A%A1/</guid>
+        <description>&lt;img src="https://blog.henry070.org/p/linux_system_service-linux-%E4%B9%8B-%E7%B3%BB%E7%BB%9F%E6%9C%8D%E5%8A%A1/image.png" alt="Featured image of post Linux_system_service | Linux 之 系统服务" /&gt;&lt;h2 id=&#34;什么是系统服务service&#34;&gt;什么是系统服务(service)
 &lt;/h2&gt;&lt;p&gt;简单理解就是开机自启动的程序或者脚本, 会常驻在系统的内存中.&lt;/p&gt;
 &lt;p&gt;对于现在的大部分的 linux 发行版, 系统服务通常使用 systemd 进行管理.&lt;/p&gt;
 &lt;h3 id=&#34;三种配置文件&#34;&gt;三种配置文件

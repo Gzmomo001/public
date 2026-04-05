@@ -2,18 +2,18 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
     <channel>
         <title>命令行 on Henry Zhang</title>
-        <link>http://localhost:1313/tags/%E5%91%BD%E4%BB%A4%E8%A1%8C/</link>
+        <link>https://blog.henry070.org/tags/%E5%91%BD%E4%BB%A4%E8%A1%8C/</link>
         <description>Recent content in 命令行 on Henry Zhang</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>en-us</language>
         <copyright>blog@mail.henry070.org</copyright>
-        <lastBuildDate>Mon, 02 Mar 2026 13:07:53 +0800</lastBuildDate><atom:link href="http://localhost:1313/tags/%E5%91%BD%E4%BB%A4%E8%A1%8C/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Mon, 02 Mar 2026 13:07:53 +0800</lastBuildDate><atom:link href="https://blog.henry070.org/tags/%E5%91%BD%E4%BB%A4%E8%A1%8C/index.xml" rel="self" type="application/rss+xml" /><item>
         <title>Shell 和命令行：Linux 的控制台</title>
-        <link>http://localhost:1313/p/shell-%E5%92%8C%E5%91%BD%E4%BB%A4%E8%A1%8Clinux-%E7%9A%84%E6%8E%A7%E5%88%B6%E5%8F%B0/</link>
+        <link>https://blog.henry070.org/p/shell-%E5%92%8C%E5%91%BD%E4%BB%A4%E8%A1%8Clinux-%E7%9A%84%E6%8E%A7%E5%88%B6%E5%8F%B0/</link>
         <pubDate>Sat, 10 Jan 2026 23:00:00 +0800</pubDate>
         
-        <guid>http://localhost:1313/p/shell-%E5%92%8C%E5%91%BD%E4%BB%A4%E8%A1%8Clinux-%E7%9A%84%E6%8E%A7%E5%88%B6%E5%8F%B0/</guid>
-        <description>&lt;img src="http://localhost:1313/default.jpeg" alt="Featured image of post Shell 和命令行：Linux 的控制台" /&gt;&lt;h1 id=&#34;shell-和命令行linux-的控制台&#34;&gt;Shell 和命令行：Linux 的控制台
+        <guid>https://blog.henry070.org/p/shell-%E5%92%8C%E5%91%BD%E4%BB%A4%E8%A1%8Clinux-%E7%9A%84%E6%8E%A7%E5%88%B6%E5%8F%B0/</guid>
+        <description>&lt;img src="https://blog.henry070.org/default.jpeg" alt="Featured image of post Shell 和命令行：Linux 的控制台" /&gt;&lt;h1 id=&#34;shell-和命令行linux-的控制台&#34;&gt;Shell 和命令行：Linux 的控制台
 &lt;/h1&gt;&lt;h2 id=&#34;引言&#34;&gt;引言
 &lt;/h2&gt;&lt;p&gt;如果说 Linux 内核是汽车的发动机，那么 &lt;strong&gt;Shell&lt;/strong&gt; 就是方向盘和仪表盘。它是用户与操作系统交互的主要界面，是每个 Linux 用户必须掌握的核心技能。在这篇文章中，我们将系统学习 Shell 的方方面面。&lt;/p&gt;
 &lt;h2 id=&#34;什么是-shell&#34;&gt;什么是 Shell？
@@ -1049,7 +1049,7 @@ kill %1             # 结束作业号1&lt;/code&gt;
 &lt;/div&gt;
 
 &lt;h3 id=&#34;screentmux-会话管理&#34;&gt;Screen/Tmux 会话管理
-&lt;/h3&gt;&lt;p&gt;详见 &lt;a class=&#34;link&#34; href=&#34;http://localhost:1313/post/tmux/&#34; &gt;Tmux 博客文章&lt;/a&gt;，这里简要介绍：&lt;/p&gt;
+&lt;/h3&gt;&lt;p&gt;详见 &lt;a class=&#34;link&#34; href=&#34;https://blog.henry070.org/post/tmux/&#34; &gt;Tmux 博客文章&lt;/a&gt;，这里简要介绍：&lt;/p&gt;
 
 
 
@@ -1262,7 +1262,7 @@ fi&lt;/code&gt;
 &lt;/blockquote&gt;
 &lt;p&gt;在下一篇文章中，我们将深入学习 &lt;strong&gt;进程管理&lt;/strong&gt;，了解 Linux 如何管理和调度进程。&lt;/p&gt;
 &lt;hr&gt;
-&lt;p&gt;&lt;strong&gt;← 返回系列概述&lt;/strong&gt;: &lt;a class=&#34;link&#34; href=&#34;http://localhost:1313/p/linux-%E6%A6%82%E8%BF%B0%E4%BB%8E-unix-%E5%88%B0%E5%BC%80%E6%BA%90%E9%9D%A9%E5%91%BD/&#34; &gt;Linux 概述：从 Unix 到开源革命&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;← 返回系列概述&lt;/strong&gt;: &lt;a class=&#34;link&#34; href=&#34;https://blog.henry070.org/p/linux-%E6%A6%82%E8%BF%B0%E4%BB%8E-unix-%E5%88%B0%E5%BC%80%E6%BA%90%E9%9D%A9%E5%91%BD/&#34; &gt;Linux 概述：从 Unix 到开源革命&lt;/a&gt;&lt;/p&gt;
 &lt;hr&gt;
 &lt;p&gt;&lt;strong&gt;参考资源&lt;/strong&gt;：&lt;/p&gt;
 &lt;ul&gt;

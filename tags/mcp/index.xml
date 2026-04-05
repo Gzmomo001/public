@@ -2,18 +2,18 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
     <channel>
         <title>Mcp on Henry Zhang</title>
-        <link>http://localhost:1313/tags/mcp/</link>
+        <link>https://blog.henry070.org/tags/mcp/</link>
         <description>Recent content in Mcp on Henry Zhang</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>en-us</language>
         <copyright>blog@mail.henry070.org</copyright>
-        <lastBuildDate>Wed, 24 Dec 2025 13:36:01 -0500</lastBuildDate><atom:link href="http://localhost:1313/tags/mcp/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Wed, 24 Dec 2025 13:36:01 -0500</lastBuildDate><atom:link href="https://blog.henry070.org/tags/mcp/index.xml" rel="self" type="application/rss+xml" /><item>
         <title>Mcp</title>
-        <link>http://localhost:1313/p/mcp/</link>
+        <link>https://blog.henry070.org/p/mcp/</link>
         <pubDate>Tue, 23 Dec 2025 09:30:47 -0500</pubDate>
         
-        <guid>http://localhost:1313/p/mcp/</guid>
-        <description>&lt;img src="http://localhost:1313/p/mcp/mcp-blog-cover.png" alt="Featured image of post Mcp" /&gt;&lt;h1 id=&#34;what-is-the-model-context-protocol-mcp--why&#34;&gt;What is the Model Context Protocol (MCP)? | why
+        <guid>https://blog.henry070.org/p/mcp/</guid>
+        <description>&lt;img src="https://blog.henry070.org/p/mcp/mcp-blog-cover.png" alt="Featured image of post Mcp" /&gt;&lt;h1 id=&#34;what-is-the-model-context-protocol-mcp--why&#34;&gt;What is the Model Context Protocol (MCP)? | why
 &lt;/h1&gt;&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;https://modelcontextprotocol.io/docs/getting-started/intro&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;参考文档&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;mcp 作为llm的一个重要工具现在基本已经成为了agent中不可或缺的一环. 它连接了语言模型和外部的世界, 就像把人脑通过眼睛耳朵来获取信息, 通过手脚和世界交互一样.&lt;/p&gt;

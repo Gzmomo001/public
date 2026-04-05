@@ -1,0 +1,489 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+    <channel>
+        <title>Node.js on Henry Zhang</title>
+        <link>https://blog.henry070.org/tags/node.js/</link>
+        <description>Recent content in Node.js on Henry Zhang</description>
+        <generator>Hugo -- gohugo.io</generator>
+        <language>en-us</language>
+        <copyright>blog@mail.henry070.org</copyright>
+        <lastBuildDate>Mon, 06 Apr 2026 02:23:56 +0800</lastBuildDate><atom:link href="https://blog.henry070.org/tags/node.js/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>Mac 开发环境管理最佳实践：Homebrew &#43; fnm &#43; corepack &#43; uv</title>
+        <link>https://blog.henry070.org/p/mac-%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83%E7%AE%A1%E7%90%86%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5homebrew--fnm--corepack--uv/</link>
+        <pubDate>Mon, 06 Apr 2026 02:21:02 +0800</pubDate>
+        
+        <guid>https://blog.henry070.org/p/mac-%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83%E7%AE%A1%E7%90%86%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5homebrew--fnm--corepack--uv/</guid>
+        <description>&lt;img src="https://blog.henry070.org/default.jpeg" alt="Featured image of post Mac 开发环境管理最佳实践：Homebrew &#43; fnm &#43; corepack &#43; uv" /&gt;&lt;h1 id=&#34;mac-开发环境管理最佳实践homebrew--fnm--corepack--uv&#34;&gt;Mac 开发环境管理最佳实践：Homebrew + fnm + corepack + uv
+&lt;/h1&gt;&lt;p&gt;作为 CPS 专业的学生，你的 Mac 就是你最重要的生产工具。不同课程需要不同版本的 Node.js 和 Python，如果全局安装一个大版本，另一门课的项目可能直接跑不起来。这篇文章会带你用 &lt;strong&gt;四个工具&lt;/strong&gt; 搭建一套干净、可复现、互不冲突的开发环境。&lt;/p&gt;
+&lt;h2 id=&#34;整体架构&#34;&gt;整体架构
+&lt;/h2&gt;&lt;p&gt;先把全局图景放在脑海里，我们使用的工具链是这样的：&lt;/p&gt;
+&lt;pre class=&#34;mermaid&#34;&gt;
+  flowchart TB
+    subgraph 基础层
+        HB[Homebrew&amp;lt;br/&amp;gt;macOS 包管理器]
+    end
+
+    subgraph 运行时管理层
+        FNM[fnm&amp;lt;br/&amp;gt;Node.js 版本管理]
+        UV[uv&amp;lt;br/&amp;gt;Python 版本管理]
+    end
+
+    subgraph 包管理器层
+        CP[corepack&amp;lt;br/&amp;gt;pnpm/yarn 代理]
+        PIP[uv 内置&amp;lt;br/&amp;gt;pip/venv 替代]
+    end
+
+    subgraph 项目层
+        PJ1[项目 A&amp;lt;br/&amp;gt;Node 18 + Python 3.11]
+        PJ2[项目 B&amp;lt;br/&amp;gt;Node 20 + Python 3.12]
+    end
+
+    HB --&amp;gt; FNM
+    HB --&amp;gt; UV
+    FNM --&amp;gt; CP
+    CP --&amp;gt; PJ1
+    CP --&amp;gt; PJ2
+    FNM --&amp;gt; PJ1
+    FNM --&amp;gt; PJ2
+    UV --&amp;gt; PIP
+    PIP --&amp;gt; PJ1
+    PIP --&amp;gt; PJ2
+&lt;/pre&gt;
+
+&lt;p&gt;核心理念：&lt;strong&gt;每一层只管一件事&lt;/strong&gt;，版本切换在项目级别自动生效。&lt;/p&gt;
+&lt;h2 id=&#34;第一步安装-homebrew--一切的起点&#34;&gt;第一步：安装 Homebrew —— 一切的起点
+&lt;/h2&gt;&lt;p&gt;Homebrew 是 macOS 事实上的包管理器，后面所有的工具都通过它安装。&lt;/p&gt;
+
+
+
+
+
+&lt;div class=&#34;highlight highlight-bash&#34;&gt;
+  &lt;pre&gt;
+    &lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;/bin/bash -c &amp;#34;$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)&amp;#34;&lt;/code&gt;
+  &lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;安装完成后，根据终端提示把 Homebrew 加入 PATH。如果你用的是 zsh（macOS 默认）：&lt;/p&gt;
+
+
+
+
+
+&lt;div class=&#34;highlight highlight-bash&#34;&gt;
+  &lt;pre&gt;
+    &lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;echo &amp;#39;eval &amp;#34;$(/opt/homebrew/bin/brew shellenv)&amp;#34;&amp;#39; &amp;gt;&amp;gt; ~/.zshrc
+source ~/.zshrc&lt;/code&gt;
+  &lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;验证安装：&lt;/p&gt;
+
+
+
+
+
+&lt;div class=&#34;highlight highlight-bash&#34;&gt;
+  &lt;pre&gt;
+    &lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;brew --version&lt;/code&gt;
+  &lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;&lt;strong&gt;类比&lt;/strong&gt;：把 Homebrew 想象成你 Mac 上的「App Store 命令行版」。后面要装什么工具，一行命令搞定。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h2 id=&#34;第二步fnm--轻量级-nodejs-版本管理器&#34;&gt;第二步：fnm —— 轻量级 Node.js 版本管理器
+&lt;/h2&gt;&lt;h3 id=&#34;为什么不用-nvm&#34;&gt;为什么不用 nvm？
+&lt;/h3&gt;&lt;p&gt;&lt;code&gt;nvm&lt;/code&gt; 是最老牌的 Node.js 版本管理器，但它有两个痛点：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;strong&gt;慢&lt;/strong&gt;：每次打开终端都要 &lt;code&gt;source&lt;/code&gt; 一大段 shell 脚本，明显拖慢启动速度。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;纯 Shell 实现&lt;/strong&gt;：不支持 Windows，团队协作时配置不统一。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;&lt;code&gt;fnm&lt;/code&gt;（Fast Node Manager）用 Rust 编写，启动速度快 40 倍以上，且支持跨平台。&lt;/p&gt;
+&lt;h3 id=&#34;安装&#34;&gt;安装
+&lt;/h3&gt;
+
+
+
+
+&lt;div class=&#34;highlight highlight-bash&#34;&gt;
+  &lt;pre&gt;
+    &lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;brew install fnm&lt;/code&gt;
+  &lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;然后在 &lt;code&gt;~/.zshrc&lt;/code&gt; 中添加初始化：&lt;/p&gt;
+
+
+
+
+
+&lt;div class=&#34;highlight highlight-bash&#34;&gt;
+  &lt;pre&gt;
+    &lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;echo &amp;#39;eval &amp;#34;$(fnm env --use-on-cd --shell zsh)&amp;#34;&amp;#39; &amp;gt;&amp;gt; ~/.zshrc
+source ~/.zshrc&lt;/code&gt;
+  &lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;&lt;code&gt;--use-on-cd&lt;/code&gt; 是关键参数：当你 &lt;code&gt;cd&lt;/code&gt; 进一个包含 &lt;code&gt;.node-version&lt;/code&gt; 或 &lt;code&gt;.nvmrc&lt;/code&gt; 的项目目录时，fnm 会&lt;strong&gt;自动切换&lt;/strong&gt;到对应版本。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h3 id=&#34;常用操作&#34;&gt;常用操作
+&lt;/h3&gt;
+
+
+
+
+&lt;div class=&#34;highlight highlight-bash&#34;&gt;
+  &lt;pre&gt;
+    &lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;# 安装最新的 LTS 版本
+fnm install --lts
+
+# 安装指定版本
+fnm install 20
+fnm install 18
+
+# 查看已安装的版本
+fnm list
+
+# 切换版本
+fnm use 20
+
+# 设置默认版本
+fnm default 20
+
+# 在项目中固定 Node 版本（进入项目目录后执行）
+echo &amp;#34;20&amp;#34; &amp;gt; .node-version&lt;/code&gt;
+  &lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h3 id=&#34;验证&#34;&gt;验证
+&lt;/h3&gt;
+
+
+
+
+&lt;div class=&#34;highlight highlight-bash&#34;&gt;
+  &lt;pre&gt;
+    &lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;node --version   # 应该显示 v20.x.x
+npm --version    # 应该显示 10.x.x&lt;/code&gt;
+  &lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h2 id=&#34;第三步corepack--零安装使用-pnpm&#34;&gt;第三步：corepack —— 零安装使用 pnpm
+&lt;/h2&gt;&lt;h3 id=&#34;为什么用-pnpm-而不是-npm&#34;&gt;为什么用 pnpm 而不是 npm？
+&lt;/h3&gt;&lt;table&gt;
+  &lt;thead&gt;
+      &lt;tr&gt;
+          &lt;th&gt;特性&lt;/th&gt;
+          &lt;th&gt;npm&lt;/th&gt;
+          &lt;th&gt;pnpm&lt;/th&gt;
+      &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+      &lt;tr&gt;
+          &lt;td&gt;磁盘占用&lt;/td&gt;
+          &lt;td&gt;每个项目独立存储&lt;/td&gt;
+          &lt;td&gt;全局内容寻址存储，硬链接共享&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;安装速度&lt;/td&gt;
+          &lt;td&gt;较慢&lt;/td&gt;
+          &lt;td&gt;显著更快&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;幽灵依赖&lt;/td&gt;
+          &lt;td&gt;有（扁平化 node_modules）&lt;/td&gt;
+          &lt;td&gt;无（严格的依赖隔离）&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;Monorepo 支持&lt;/td&gt;
+          &lt;td&gt;需要 workspaces&lt;/td&gt;
+          &lt;td&gt;原生支持&lt;/td&gt;
+      &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;对 CPS 学生来说，&lt;strong&gt;pnpm 的严格依赖管理&lt;/strong&gt;能帮你避免很多「在我电脑上能跑」的经典问题。&lt;/p&gt;
+&lt;h3 id=&#34;启用-corepack&#34;&gt;启用 corepack
+&lt;/h3&gt;&lt;p&gt;Corepack 是 Node.js 官方的包管理器代理，&lt;strong&gt;不需要单独安装&lt;/strong&gt;，它随 Node.js 一起发布。你只需要启用它：&lt;/p&gt;
+
+
+
+
+
+&lt;div class=&#34;highlight highlight-bash&#34;&gt;
+  &lt;pre&gt;
+    &lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;corepack enable&lt;/code&gt;
+  &lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;这会在你的 PATH 中注册 &lt;code&gt;pnpm&lt;/code&gt;、&lt;code&gt;yarn&lt;/code&gt; 等命令的代理。当你运行 &lt;code&gt;pnpm&lt;/code&gt; 时，corepack 会根据项目 &lt;code&gt;package.json&lt;/code&gt; 中的 &lt;code&gt;&amp;quot;packageManager&amp;quot;&lt;/code&gt; 字段自动下载并使用正确版本。&lt;/p&gt;
+&lt;h3 id=&#34;在项目中使用&#34;&gt;在项目中使用
+&lt;/h3&gt;
+
+
+
+
+&lt;div class=&#34;highlight highlight-bash&#34;&gt;
+  &lt;pre&gt;
+    &lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;# 使用 pnpm 初始化项目
+pnpm init
+
+# 固定 pnpm 版本（推荐，确保团队一致性）
+corepack use pnpm@latest
+# 这会在 package.json 中写入类似：
+# &amp;#34;packageManager&amp;#34;: &amp;#34;pnpm@9.15.1&amp;#34;
+
+# 安装依赖
+pnpm install
+
+# 添加依赖
+pnpm add express
+pnpm add -D typescript&lt;/code&gt;
+  &lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h3 id=&#34;常用-pnpm-命令速查&#34;&gt;常用 pnpm 命令速查
+&lt;/h3&gt;
+
+
+
+
+&lt;div class=&#34;highlight highlight-bash&#34;&gt;
+  &lt;pre&gt;
+    &lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;pnpm add &amp;lt;pkg&amp;gt;          # 添加依赖
+pnpm add -D &amp;lt;pkg&amp;gt;       # 添加开发依赖
+pnpm run &amp;lt;script&amp;gt;       # 运行脚本
+pnpm exec &amp;lt;cmd&amp;gt;         # 在项目上下文中执行命令
+pnpm store prune        # 清理未引用的缓存包&lt;/code&gt;
+  &lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h2 id=&#34;第四步uv--极速-python-环境管理&#34;&gt;第四步：uv —— 极速 Python 环境管理
+&lt;/h2&gt;&lt;h3 id=&#34;为什么不用-conda--pyenv&#34;&gt;为什么不用 conda / pyenv？
+&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;conda&lt;/strong&gt;：重量级，base 环境容易污染，启动慢。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;pyenv&lt;/strong&gt;：编译安装 Python，在 macOS 上经常遇到 OpenSSL 编译问题。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;uv&lt;/strong&gt;：Astral 团队（Ruff 的创建者）出品，用 Rust 编写，安装 Python &lt;strong&gt;快 10-100 倍&lt;/strong&gt;，内置虚拟环境和包管理功能。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;安装-1&#34;&gt;安装
+&lt;/h3&gt;
+
+
+
+
+&lt;div class=&#34;highlight highlight-bash&#34;&gt;
+  &lt;pre&gt;
+    &lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;brew install uv&lt;/code&gt;
+  &lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h3 id=&#34;管理-python-版本&#34;&gt;管理 Python 版本
+&lt;/h3&gt;
+
+
+
+
+&lt;div class=&#34;highlight highlight-bash&#34;&gt;
+  &lt;pre&gt;
+    &lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;# 安装最新的 Python 3.12
+uv python install 3.12
+
+# 安装多个版本
+uv python install 3.11 3.12 3.13
+
+# 查看已安装的版本
+uv python list --only-installed
+
+# 查看可安装的版本
+uv python list&lt;/code&gt;
+  &lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h3 id=&#34;为每个项目创建独立环境&#34;&gt;为每个项目创建独立环境
+&lt;/h3&gt;
+
+
+
+
+&lt;div class=&#34;highlight highlight-bash&#34;&gt;
+  &lt;pre&gt;
+    &lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;# 进入项目目录
+mkdir my-project &amp;amp;&amp;amp; cd my-project
+
+# 初始化项目（会创建 .python-version 和 pyproject.toml）
+uv init
+
+# 指定 Python 版本
+uv python pin 3.12
+
+# 创建虚拟环境并安装依赖
+uv add flask
+uv add --dev pytest
+
+# 同步依赖（类似 pnpm install）
+uv sync&lt;/code&gt;
+  &lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;&lt;strong&gt;关键概念&lt;/strong&gt;：&lt;code&gt;uv python pin&lt;/code&gt; 会在项目目录生成 &lt;code&gt;.python-version&lt;/code&gt; 文件，确保任何人 clone 这个项目后运行 &lt;code&gt;uv sync&lt;/code&gt; 都能获得完全一致的环境。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h3 id=&#34;常用-uv-命令速查&#34;&gt;常用 uv 命令速查
+&lt;/h3&gt;
+
+
+
+
+&lt;div class=&#34;highlight highlight-bash&#34;&gt;
+  &lt;pre&gt;
+    &lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;uv init                  # 初始化新项目
+uv add &amp;lt;pkg&amp;gt;             # 添加依赖
+uv add --dev &amp;lt;pkg&amp;gt;       # 添加开发依赖
+uv remove &amp;lt;pkg&amp;gt;          # 移除依赖
+uv sync                  # 同步环境（安装所有依赖）
+uv run &amp;lt;cmd&amp;gt;             # 在虚拟环境中运行命令
+uv python pin &amp;lt;version&amp;gt;  # 固定 Python 版本
+uv python install &amp;lt;ver&amp;gt;  # 安装 Python 版本&lt;/code&gt;
+  &lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h2 id=&#34;第五步项目级工作流示范&#34;&gt;第五步：项目级工作流示范
+&lt;/h2&gt;&lt;p&gt;假设你这学期有两门课，分别需要不同的技术栈：&lt;/p&gt;
+&lt;pre class=&#34;mermaid&#34;&gt;
+  flowchart LR
+    subgraph &amp;#34;Web 开发课&amp;#34;
+        A[.node-version: 20] --&amp;gt; B[package.json&amp;lt;br/&amp;gt;packageManager: pnpm@9]
+        A --&amp;gt; C[.python-version: 3.12]
+    end
+
+    subgraph &amp;#34;数据科学课&amp;#34;
+        D[.node-version: 18] --&amp;gt; E[package.json&amp;lt;br/&amp;gt;packageManager: pnpm@9]
+        D --&amp;gt; F[.python-version: 3.11]
+    end
+&lt;/pre&gt;
+
+&lt;h3 id=&#34;web-开发课项目&#34;&gt;Web 开发课项目
+&lt;/h3&gt;
+
+
+
+
+&lt;div class=&#34;highlight highlight-bash&#34;&gt;
+  &lt;pre&gt;
+    &lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;mkdir web-course-project &amp;amp;&amp;amp; cd web-course-project
+
+# Node 环境
+echo &amp;#34;20&amp;#34; &amp;gt; .node-version
+fnm install &amp;amp;&amp;amp; fnm use
+corepack enable
+pnpm init
+corepack use pnpm@latest
+
+# Python 环境
+uv init
+uv python pin 3.12
+uv add flask&lt;/code&gt;
+  &lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h3 id=&#34;数据科学课项目&#34;&gt;数据科学课项目
+&lt;/h3&gt;
+
+
+
+
+&lt;div class=&#34;highlight highlight-bash&#34;&gt;
+  &lt;pre&gt;
+    &lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;mkdir data-course-project &amp;amp;&amp;amp; cd data-course-project
+
+# Node 环境
+echo &amp;#34;18&amp;#34; &amp;gt; .node-version
+fnm install &amp;amp;&amp;amp; fnm use
+
+# Python 环境
+uv init
+uv python pin 3.11
+uv add numpy pandas matplotlib&lt;/code&gt;
+  &lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;当你 &lt;code&gt;cd&lt;/code&gt; 切换项目目录时，fnm 和 uv 会&lt;strong&gt;自动&lt;/strong&gt;切换到对应版本，无需任何手动操作。&lt;/p&gt;
+&lt;h2 id=&#34;常见问题&#34;&gt;常见问题
+&lt;/h2&gt;&lt;h3 id=&#34;qfnm-和-corepack-会冲突吗&#34;&gt;Q：fnm 和 corepack 会冲突吗？
+&lt;/h3&gt;&lt;p&gt;不会。fnm 管理 Node.js 二进制文件，corepack 管理包管理器（pnpm/yarn）。它们分工明确，互不干扰。&lt;/p&gt;
+&lt;h3 id=&#34;quv-能替代-pip-吗&#34;&gt;Q：uv 能替代 pip 吗？
+&lt;/h3&gt;&lt;p&gt;能。&lt;code&gt;uv add&lt;/code&gt; 和 &lt;code&gt;uv pip install&lt;/code&gt; 都可以安装包，但推荐使用 &lt;code&gt;uv add&lt;/code&gt;，因为它会自动更新 &lt;code&gt;pyproject.toml&lt;/code&gt; 和 &lt;code&gt;uv.lock&lt;/code&gt;，保证可复现性。&lt;/p&gt;
+&lt;h3 id=&#34;q要不要把-node_modules-和-venv-加入-gitignore&#34;&gt;Q：要不要把 node_modules 和 .venv 加入 .gitignore？
+&lt;/h3&gt;&lt;p&gt;&lt;strong&gt;必须&lt;/strong&gt;。这两个目录应该永远在 &lt;code&gt;.gitignore&lt;/code&gt; 中：&lt;/p&gt;
+
+
+
+
+
+&lt;div class=&#34;highlight highlight-gitignore&#34;&gt;
+  &lt;pre&gt;
+    &lt;code class=&#34;language-gitignore&#34; data-lang=&#34;gitignore&#34;&gt;node_modules/
+.venv/
+__pycache__/&lt;/code&gt;
+  &lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;依赖锁定文件（&lt;code&gt;pnpm-lock.yaml&lt;/code&gt;、&lt;code&gt;uv.lock&lt;/code&gt;）&lt;strong&gt;必须&lt;/strong&gt;提交到 Git，它们是环境可复现的保证。&lt;/p&gt;
+&lt;h3 id=&#34;qhomebrew-cask-是什么&#34;&gt;Q：Homebrew Cask 是什么？
+&lt;/h3&gt;&lt;p&gt;&lt;code&gt;brew install&lt;/code&gt; 安装命令行工具，&lt;code&gt;brew install --cask&lt;/code&gt; 安装 GUI 应用（如 VS Code、Docker Desktop）。两者都通过 Homebrew 管理。&lt;/p&gt;
+
+
+
+
+
+&lt;div class=&#34;highlight highlight-bash&#34;&gt;
+  &lt;pre&gt;
+    &lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;brew install --cask visual-studio-code
+brew install --cask docker&lt;/code&gt;
+  &lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h2 id=&#34;总结&#34;&gt;总结
+&lt;/h2&gt;&lt;table&gt;
+  &lt;thead&gt;
+      &lt;tr&gt;
+          &lt;th&gt;工具&lt;/th&gt;
+          &lt;th&gt;管理什么&lt;/th&gt;
+          &lt;th&gt;安装方式&lt;/th&gt;
+          &lt;th&gt;版本固定文件&lt;/th&gt;
+      &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+      &lt;tr&gt;
+          &lt;td&gt;Homebrew&lt;/td&gt;
+          &lt;td&gt;系统级 CLI 工具&lt;/td&gt;
+          &lt;td&gt;&lt;code&gt;brew install&lt;/code&gt;&lt;/td&gt;
+          &lt;td&gt;Brewfile（可选）&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;fnm&lt;/td&gt;
+          &lt;td&gt;Node.js 版本&lt;/td&gt;
+          &lt;td&gt;&lt;code&gt;brew install fnm&lt;/code&gt;&lt;/td&gt;
+          &lt;td&gt;&lt;code&gt;.node-version&lt;/code&gt;&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;corepack&lt;/td&gt;
+          &lt;td&gt;pnpm/yarn 版本&lt;/td&gt;
+          &lt;td&gt;&lt;code&gt;corepack enable&lt;/code&gt;&lt;/td&gt;
+          &lt;td&gt;&lt;code&gt;package.json&lt;/code&gt; 中的 &lt;code&gt;packageManager&lt;/code&gt;&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;uv&lt;/td&gt;
+          &lt;td&gt;Python 版本 + 包&lt;/td&gt;
+          &lt;td&gt;&lt;code&gt;brew install uv&lt;/code&gt;&lt;/td&gt;
+          &lt;td&gt;&lt;code&gt;.python-version&lt;/code&gt; + &lt;code&gt;uv.lock&lt;/code&gt;&lt;/td&gt;
+      &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;记住这个原则：&lt;strong&gt;每个项目都有自己的版本文件，工具根据文件自动切换，全局永远保持干净&lt;/strong&gt;。这样无论你有多少门课、多少个项目，环境都不会打架。&lt;/p&gt;
+</description>
+        </item>
+        
+    </channel>
+</rss>

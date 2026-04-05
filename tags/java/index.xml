@@ -2,18 +2,18 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
     <channel>
         <title>Java on Henry Zhang</title>
-        <link>http://localhost:1313/tags/java/</link>
+        <link>https://blog.henry070.org/tags/java/</link>
         <description>Recent content in Java on Henry Zhang</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>en-us</language>
         <copyright>blog@mail.henry070.org</copyright>
-        <lastBuildDate>Mon, 26 May 2025 03:12:25 +0800</lastBuildDate><atom:link href="http://localhost:1313/tags/java/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Mon, 26 May 2025 03:12:25 +0800</lastBuildDate><atom:link href="https://blog.henry070.org/tags/java/index.xml" rel="self" type="application/rss+xml" /><item>
         <title>Chapter13</title>
-        <link>http://localhost:1313/p/chapter13/</link>
+        <link>https://blog.henry070.org/p/chapter13/</link>
         <pubDate>Mon, 26 May 2025 00:42:23 +0800</pubDate>
         
-        <guid>http://localhost:1313/p/chapter13/</guid>
-        <description>&lt;img src="http://localhost:1313/java.png" alt="Featured image of post Chapter13" /&gt;&lt;h2 id=&#34;前言&#34;&gt;前言
+        <guid>https://blog.henry070.org/p/chapter13/</guid>
+        <description>&lt;img src="https://blog.henry070.org/java.png" alt="Featured image of post Chapter13" /&gt;&lt;h2 id=&#34;前言&#34;&gt;前言
 &lt;/h2&gt;&lt;p&gt;回顾上上个章节当中讲到的遗产(inheritance)的概念, 我们可以通过创建一个类的子类来继承其 datafield 和 methods. 并且这个类也可以单独创建实例. 而抽象类就是一种特殊的父类.&lt;/p&gt;
 &lt;h2 id=&#34;抽象类&#34;&gt;抽象类
 &lt;/h2&gt;&lt;p&gt;就跟刚刚讲到的一样, 抽象类其实就是一个特殊的父类, 作为一个父类它无法实例化. 而是要通过创建其子类然后才能实例化.&lt;/p&gt;
@@ -227,11 +227,11 @@ class Dog implements Animal {
         </item>
         <item>
         <title>Chapter12</title>
-        <link>http://localhost:1313/p/chapter12/</link>
+        <link>https://blog.henry070.org/p/chapter12/</link>
         <pubDate>Sun, 25 May 2025 15:21:54 +0800</pubDate>
         
-        <guid>http://localhost:1313/p/chapter12/</guid>
-        <description>&lt;img src="http://localhost:1313/java.png" alt="Featured image of post Chapter12" /&gt;&lt;h2 id=&#34;情景&#34;&gt;情景
+        <guid>https://blog.henry070.org/p/chapter12/</guid>
+        <description>&lt;img src="https://blog.henry070.org/java.png" alt="Featured image of post Chapter12" /&gt;&lt;h2 id=&#34;情景&#34;&gt;情景
 &lt;/h2&gt;&lt;ol&gt;
 &lt;li&gt;随着我们的代码复杂度的增长, 很多时候我们无法完全避免程序在运行的过程中出错. 很多时候会出现程序在执行某些不重要的代码的时候报错,然后整个程序直接停止.&lt;/li&gt;
 &lt;li&gt;整个项目的代码量过大导致使用 debug 功能修复代码的时候效率过低.&lt;/li&gt;
@@ -309,7 +309,7 @@ class Dog implements Animal {
 &lt;/div&gt;
 
 &lt;h2 id=&#34;exception-types--错误类型&#34;&gt;Exception Types | 错误类型
-&lt;/h2&gt;&lt;img src=&#34;http://localhost:1313/p/chapter12/exception_hu_2d775bea792e44c0.png&#34; width=&#34;1200&#34; height=&#34;474&#34; alt=&#34;exception types&#34;&gt;
+&lt;/h2&gt;&lt;img src=&#34;https://blog.henry070.org/p/chapter12/exception_hu_2d775bea792e44c0.png&#34; width=&#34;1200&#34; height=&#34;474&#34; alt=&#34;exception types&#34;&gt;
 &lt;p&gt;在 Java 中， Throwable 是所有异常和错误的根类。所有通过 throw 抛出的异常必须继承自 Throwable 。其直接子类包括：&lt;/p&gt;
 &lt;h3 id=&#34;error&#34;&gt;Error
 &lt;/h3&gt;&lt;h4 id=&#34;linkageerror&#34;&gt;LinkageError
@@ -586,11 +586,11 @@ writer.checkError(); // 检查是否有错误发生&lt;/code&gt;
         </item>
         <item>
         <title>Chapter11</title>
-        <link>http://localhost:1313/p/chapter11/</link>
+        <link>https://blog.henry070.org/p/chapter11/</link>
         <pubDate>Sat, 24 May 2025 21:05:41 +0800</pubDate>
         
-        <guid>http://localhost:1313/p/chapter11/</guid>
-        <description>&lt;img src="http://localhost:1313/java.png" alt="Featured image of post Chapter11" /&gt;&lt;h1 id=&#34;继承-和-多态java&#34;&gt;继承 和 多态(java)
+        <guid>https://blog.henry070.org/p/chapter11/</guid>
+        <description>&lt;img src="https://blog.henry070.org/java.png" alt="Featured image of post Chapter11" /&gt;&lt;h1 id=&#34;继承-和-多态java&#34;&gt;继承 和 多态(java)
 &lt;/h1&gt;&lt;p&gt;这个章节是基于类的延伸&lt;/p&gt;
 &lt;h2 id=&#34;子类和父类&#34;&gt;子类和父类
 &lt;/h2&gt;&lt;p&gt;在 java 中有一个关键字叫 &amp;rsquo;extends&amp;rsquo;，意思是扩展， 这个关键字可以定义一个类的延伸类, 并具有所有原先类的方法(method)和变量(data field)。&lt;/p&gt;

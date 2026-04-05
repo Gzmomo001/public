@@ -2,18 +2,18 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
     <channel>
         <title>Git on Henry Zhang</title>
-        <link>http://localhost:1313/tags/git/</link>
+        <link>https://blog.henry070.org/tags/git/</link>
         <description>Recent content in Git on Henry Zhang</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>en-us</language>
         <copyright>blog@mail.henry070.org</copyright>
-        <lastBuildDate>Mon, 02 Mar 2026 13:07:53 +0800</lastBuildDate><atom:link href="http://localhost:1313/tags/git/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Mon, 02 Mar 2026 13:07:53 +0800</lastBuildDate><atom:link href="https://blog.henry070.org/tags/git/index.xml" rel="self" type="application/rss+xml" /><item>
         <title>Git Worktree：并行开发的利器</title>
-        <link>http://localhost:1313/p/git-worktree/</link>
+        <link>https://blog.henry070.org/p/git-worktree/</link>
         <pubDate>Mon, 12 Jan 2026 00:00:00 +0800</pubDate>
         
-        <guid>http://localhost:1313/p/git-worktree/</guid>
-        <description>&lt;img src="http://localhost:1313/git.png" alt="Featured image of post Git Worktree：并行开发的利器" /&gt;&lt;h2 id=&#34;前言&#34;&gt;前言
+        <guid>https://blog.henry070.org/p/git-worktree/</guid>
+        <description>&lt;img src="https://blog.henry070.org/git.png" alt="Featured image of post Git Worktree：并行开发的利器" /&gt;&lt;h2 id=&#34;前言&#34;&gt;前言
 &lt;/h2&gt;&lt;p&gt;想象一下这个场景：你正在一个复杂的 &lt;code&gt;feature/user-auth&lt;/code&gt; 分支上开发新功能，代码改了一半，还没提交。突然产品经理跑过来说：&amp;ldquo;线上有个严重bug需要马上修复！&amp;rdquo;&lt;/p&gt;
 &lt;p&gt;按照传统的 Git 工作流，你需要：&lt;/p&gt;
 &lt;ol&gt;
@@ -688,9 +688,9 @@ git wt rm ../f       # 删除 worktree&lt;/code&gt;
 &lt;/ul&gt;
 &lt;h3 id=&#34;相关文章&#34;&gt;相关文章
 &lt;/h3&gt;&lt;ul&gt;
-&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;http://localhost:1313/p/git/&#34; &gt;Git 版本控制完整指南&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;http://localhost:1313/p/dev_flow/&#34; &gt;软件开发全流程：从0到1的完整指南&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;http://localhost:1313/p/linux-shell-basics/&#34; &gt;Linux Shell 基础&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;https://blog.henry070.org/p/git/&#34; &gt;Git 版本控制完整指南&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;https://blog.henry070.org/p/dev_flow/&#34; &gt;软件开发全流程：从0到1的完整指南&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;https://blog.henry070.org/p/linux-shell-basics/&#34; &gt;Linux Shell 基础&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;h3 id=&#34;视频教程&#34;&gt;视频教程
 &lt;/h3&gt;&lt;p&gt;如果你想深入了解 Git 的高级用法，推荐观看：&lt;/p&gt;
@@ -752,11 +752,11 @@ git worktree remove ../hotfix-demo&lt;/code&gt;
         </item>
         <item>
         <title>使用 BFG Repo Cleaner 从 Git 历史中彻底删除大文件</title>
-        <link>http://localhost:1313/p/%E4%BD%BF%E7%94%A8-bfg-repo-cleaner-%E4%BB%8E-git-%E5%8E%86%E5%8F%B2%E4%B8%AD%E5%BD%BB%E5%BA%95%E5%88%A0%E9%99%A4%E5%A4%A7%E6%96%87%E4%BB%B6/</link>
+        <link>https://blog.henry070.org/p/%E4%BD%BF%E7%94%A8-bfg-repo-cleaner-%E4%BB%8E-git-%E5%8E%86%E5%8F%B2%E4%B8%AD%E5%BD%BB%E5%BA%95%E5%88%A0%E9%99%A4%E5%A4%A7%E6%96%87%E4%BB%B6/</link>
         <pubDate>Fri, 09 Jan 2026 22:06:31 +0800</pubDate>
         
-        <guid>http://localhost:1313/p/%E4%BD%BF%E7%94%A8-bfg-repo-cleaner-%E4%BB%8E-git-%E5%8E%86%E5%8F%B2%E4%B8%AD%E5%BD%BB%E5%BA%95%E5%88%A0%E9%99%A4%E5%A4%A7%E6%96%87%E4%BB%B6/</guid>
-        <description>&lt;img src="http://localhost:1313/default.jpeg" alt="Featured image of post 使用 BFG Repo Cleaner 从 Git 历史中彻底删除大文件" /&gt;&lt;h2 id=&#34;前言&#34;&gt;前言
+        <guid>https://blog.henry070.org/p/%E4%BD%BF%E7%94%A8-bfg-repo-cleaner-%E4%BB%8E-git-%E5%8E%86%E5%8F%B2%E4%B8%AD%E5%BD%BB%E5%BA%95%E5%88%A0%E9%99%A4%E5%A4%A7%E6%96%87%E4%BB%B6/</guid>
+        <description>&lt;img src="https://blog.henry070.org/default.jpeg" alt="Featured image of post 使用 BFG Repo Cleaner 从 Git 历史中彻底删除大文件" /&gt;&lt;h2 id=&#34;前言&#34;&gt;前言
 &lt;/h2&gt;&lt;p&gt;在使用 Git 进行版本控制时，我们可能会不小心将一些大文件（如编译产物、数据集、安装包等）提交到仓库中。即使后来删除了这些文件，它们仍然存在于 Git 的历史记录中，导致仓库体积臃肿，克隆和拉取变得缓慢。&lt;/p&gt;
 &lt;p&gt;本文将介绍 &lt;strong&gt;BFG Repo Cleaner&lt;/strong&gt; —— 一个比 &lt;code&gt;git-filter-branch&lt;/code&gt; 更简单、更快的工具，用于清理 Git 仓库历史中的大文件和敏感信息。&lt;/p&gt;
 &lt;h2 id=&#34;什么是-bfg-repo-cleaner&#34;&gt;什么是 BFG Repo Cleaner？
@@ -1158,18 +1158,18 @@ git filter-repo --strip-blobs-bigger-than 100M&lt;/code&gt;
         </item>
         <item>
         <title>Git</title>
-        <link>http://localhost:1313/p/git/</link>
+        <link>https://blog.henry070.org/p/git/</link>
         <pubDate>Tue, 25 Nov 2025 17:43:06 +0800</pubDate>
         
-        <guid>http://localhost:1313/p/git/</guid>
-        <description>&lt;img src="http://localhost:1313/p/git/git.png" alt="Featured image of post Git" /&gt;&lt;h2 id=&#34;hook&#34;&gt;Hook
+        <guid>https://blog.henry070.org/p/git/</guid>
+        <description>&lt;img src="https://blog.henry070.org/p/git/git.png" alt="Featured image of post Git" /&gt;&lt;h2 id=&#34;hook&#34;&gt;Hook
 &lt;/h2&gt;&lt;p&gt;想象你写了一晚上的论文, 但是不小心被小组成员改坏了. 或者debug发现bug越来越多以至于无法修复, 整个项目基本要推倒重来. 上诉这种类似的情况其实屡见不鲜. 不只是计算机专业的同学会遇到, 其他非专业同学在编辑ppt, word, 或者设计工程图的时候也一样会遇到类似的问题. 而git的出现就是为了解决这一类的问题.&lt;/p&gt;
 &lt;h2 id=&#34;feature&#34;&gt;Feature
 &lt;/h2&gt;&lt;p&gt;git 作为版本控制工具最基本的功能就是管理文件版本. 可以将每一次文件的修改都记录起来. 当项目发生不可挽回的错误的时候. 只要.git文件夹还在就能发动败者食尘功能直接将时间会回滚到上一次提交的时候. 除此之外还提供了团队协作的功能. 不同的团队成员可以在同一个仓库下的不同brach对项目进行迭代又不会相互影响.&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:1313/p/git/jojos-killer.gif&#34;
+&lt;p&gt;&lt;img src=&#34;https://blog.henry070.org/p/git/jojos-killer.gif&#34;
 	width=&#34;464&#34;
 	height=&#34;258&#34;
-	srcset=&#34;http://localhost:1313/p/git/jojos-killer_hu_e5fcf31d63d0f58e.gif 480w, http://localhost:1313/p/git/jojos-killer_hu_5e55566e1a98829f.gif 1024w&#34;
+	srcset=&#34;https://blog.henry070.org/p/git/jojos-killer_hu_e5fcf31d63d0f58e.gif 480w, https://blog.henry070.org/p/git/jojos-killer_hu_5e55566e1a98829f.gif 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;败者食尘&#34;
@@ -1660,9 +1660,9 @@ git checkout -b fix/image-loading    # 比如你要修 bug&lt;/code&gt;
 &lt;hr&gt;
 &lt;h2 id=&#34;相关文章&#34;&gt;相关文章
 &lt;/h2&gt;&lt;ul&gt;
-&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;http://localhost:1313/p/git-worktree/&#34; &gt;Git Worktree：并行开发的利器&lt;/a&gt; - 学习如何使用 Git worktree 进行多分支并行开发，告别频繁切换分支的烦恼&lt;/li&gt;
-&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;http://localhost:1313/p/%e4%bd%bf%e7%94%a8-bfg-repo-cleaner-%e4%bb%8e-git-%e5%8e%86%e5%8f%b2%e4%b8%ad%e5%bd%bb%e5%ba%95%e5%88%a0%e9%99%a4%e5%a4%a7%e6%96%87%e4%bb%b6/&#34; &gt;使用 BFG Repo Cleaner 从 Git 历史中彻底删除大文件&lt;/a&gt; - 清理 Git 仓库历史中的大文件，减小仓库体积&lt;/li&gt;
-&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;http://localhost:1313/p/dev_flow/&#34; &gt;软件开发全流程：从0到1的完整指南&lt;/a&gt; - 深入了解企业级软件开发的完整生命周期&lt;/li&gt;
+&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;https://blog.henry070.org/p/git-worktree/&#34; &gt;Git Worktree：并行开发的利器&lt;/a&gt; - 学习如何使用 Git worktree 进行多分支并行开发，告别频繁切换分支的烦恼&lt;/li&gt;
+&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;https://blog.henry070.org/p/%e4%bd%bf%e7%94%a8-bfg-repo-cleaner-%e4%bb%8e-git-%e5%8e%86%e5%8f%b2%e4%b8%ad%e5%bd%bb%e5%ba%95%e5%88%a0%e9%99%a4%e5%a4%a7%e6%96%87%e4%bb%b6/&#34; &gt;使用 BFG Repo Cleaner 从 Git 历史中彻底删除大文件&lt;/a&gt; - 清理 Git 仓库历史中的大文件，减小仓库体积&lt;/li&gt;
+&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;https://blog.henry070.org/p/dev_flow/&#34; &gt;软件开发全流程：从0到1的完整指南&lt;/a&gt; - 深入了解企业级软件开发的完整生命周期&lt;/li&gt;
 &lt;/ul&gt;
 </description>
         </item>

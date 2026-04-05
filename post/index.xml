@@ -2,18 +2,504 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
     <channel>
         <title>Posts on Henry Zhang</title>
-        <link>http://localhost:1313/post/</link>
+        <link>https://blog.henry070.org/post/</link>
         <description>Recent content in Posts on Henry Zhang</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>en-us</language>
         <copyright>blog@mail.henry070.org</copyright>
-        <lastBuildDate>Wed, 04 Mar 2026 13:38:51 +0800</lastBuildDate><atom:link href="http://localhost:1313/post/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Mon, 06 Apr 2026 02:23:56 +0800</lastBuildDate><atom:link href="https://blog.henry070.org/post/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>Mac 开发环境管理最佳实践：Homebrew &#43; fnm &#43; corepack &#43; uv</title>
+        <link>https://blog.henry070.org/p/mac-%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83%E7%AE%A1%E7%90%86%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5homebrew--fnm--corepack--uv/</link>
+        <pubDate>Mon, 06 Apr 2026 02:21:02 +0800</pubDate>
+        
+        <guid>https://blog.henry070.org/p/mac-%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83%E7%AE%A1%E7%90%86%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5homebrew--fnm--corepack--uv/</guid>
+        <description>&lt;img src="https://blog.henry070.org/default.jpeg" alt="Featured image of post Mac 开发环境管理最佳实践：Homebrew &#43; fnm &#43; corepack &#43; uv" /&gt;&lt;h1 id=&#34;mac-开发环境管理最佳实践homebrew--fnm--corepack--uv&#34;&gt;Mac 开发环境管理最佳实践：Homebrew + fnm + corepack + uv
+&lt;/h1&gt;&lt;p&gt;作为 CPS 专业的学生，你的 Mac 就是你最重要的生产工具。不同课程需要不同版本的 Node.js 和 Python，如果全局安装一个大版本，另一门课的项目可能直接跑不起来。这篇文章会带你用 &lt;strong&gt;四个工具&lt;/strong&gt; 搭建一套干净、可复现、互不冲突的开发环境。&lt;/p&gt;
+&lt;h2 id=&#34;整体架构&#34;&gt;整体架构
+&lt;/h2&gt;&lt;p&gt;先把全局图景放在脑海里，我们使用的工具链是这样的：&lt;/p&gt;
+&lt;pre class=&#34;mermaid&#34;&gt;
+  flowchart TB
+    subgraph 基础层
+        HB[Homebrew&amp;lt;br/&amp;gt;macOS 包管理器]
+    end
+
+    subgraph 运行时管理层
+        FNM[fnm&amp;lt;br/&amp;gt;Node.js 版本管理]
+        UV[uv&amp;lt;br/&amp;gt;Python 版本管理]
+    end
+
+    subgraph 包管理器层
+        CP[corepack&amp;lt;br/&amp;gt;pnpm/yarn 代理]
+        PIP[uv 内置&amp;lt;br/&amp;gt;pip/venv 替代]
+    end
+
+    subgraph 项目层
+        PJ1[项目 A&amp;lt;br/&amp;gt;Node 18 + Python 3.11]
+        PJ2[项目 B&amp;lt;br/&amp;gt;Node 20 + Python 3.12]
+    end
+
+    HB --&amp;gt; FNM
+    HB --&amp;gt; UV
+    FNM --&amp;gt; CP
+    CP --&amp;gt; PJ1
+    CP --&amp;gt; PJ2
+    FNM --&amp;gt; PJ1
+    FNM --&amp;gt; PJ2
+    UV --&amp;gt; PIP
+    PIP --&amp;gt; PJ1
+    PIP --&amp;gt; PJ2
+&lt;/pre&gt;
+
+&lt;p&gt;核心理念：&lt;strong&gt;每一层只管一件事&lt;/strong&gt;，版本切换在项目级别自动生效。&lt;/p&gt;
+&lt;h2 id=&#34;第一步安装-homebrew--一切的起点&#34;&gt;第一步：安装 Homebrew —— 一切的起点
+&lt;/h2&gt;&lt;p&gt;Homebrew 是 macOS 事实上的包管理器，后面所有的工具都通过它安装。&lt;/p&gt;
+
+
+
+
+
+&lt;div class=&#34;highlight highlight-bash&#34;&gt;
+  &lt;pre&gt;
+    &lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;/bin/bash -c &amp;#34;$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)&amp;#34;&lt;/code&gt;
+  &lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;安装完成后，根据终端提示把 Homebrew 加入 PATH。如果你用的是 zsh（macOS 默认）：&lt;/p&gt;
+
+
+
+
+
+&lt;div class=&#34;highlight highlight-bash&#34;&gt;
+  &lt;pre&gt;
+    &lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;echo &amp;#39;eval &amp;#34;$(/opt/homebrew/bin/brew shellenv)&amp;#34;&amp;#39; &amp;gt;&amp;gt; ~/.zshrc
+source ~/.zshrc&lt;/code&gt;
+  &lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;验证安装：&lt;/p&gt;
+
+
+
+
+
+&lt;div class=&#34;highlight highlight-bash&#34;&gt;
+  &lt;pre&gt;
+    &lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;brew --version&lt;/code&gt;
+  &lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;&lt;strong&gt;类比&lt;/strong&gt;：把 Homebrew 想象成你 Mac 上的「App Store 命令行版」。后面要装什么工具，一行命令搞定。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h2 id=&#34;第二步fnm--轻量级-nodejs-版本管理器&#34;&gt;第二步：fnm —— 轻量级 Node.js 版本管理器
+&lt;/h2&gt;&lt;h3 id=&#34;为什么不用-nvm&#34;&gt;为什么不用 nvm？
+&lt;/h3&gt;&lt;p&gt;&lt;code&gt;nvm&lt;/code&gt; 是最老牌的 Node.js 版本管理器，但它有两个痛点：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;strong&gt;慢&lt;/strong&gt;：每次打开终端都要 &lt;code&gt;source&lt;/code&gt; 一大段 shell 脚本，明显拖慢启动速度。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;纯 Shell 实现&lt;/strong&gt;：不支持 Windows，团队协作时配置不统一。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;&lt;code&gt;fnm&lt;/code&gt;（Fast Node Manager）用 Rust 编写，启动速度快 40 倍以上，且支持跨平台。&lt;/p&gt;
+&lt;h3 id=&#34;安装&#34;&gt;安装
+&lt;/h3&gt;
+
+
+
+
+&lt;div class=&#34;highlight highlight-bash&#34;&gt;
+  &lt;pre&gt;
+    &lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;brew install fnm&lt;/code&gt;
+  &lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;然后在 &lt;code&gt;~/.zshrc&lt;/code&gt; 中添加初始化：&lt;/p&gt;
+
+
+
+
+
+&lt;div class=&#34;highlight highlight-bash&#34;&gt;
+  &lt;pre&gt;
+    &lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;echo &amp;#39;eval &amp;#34;$(fnm env --use-on-cd --shell zsh)&amp;#34;&amp;#39; &amp;gt;&amp;gt; ~/.zshrc
+source ~/.zshrc&lt;/code&gt;
+  &lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;&lt;code&gt;--use-on-cd&lt;/code&gt; 是关键参数：当你 &lt;code&gt;cd&lt;/code&gt; 进一个包含 &lt;code&gt;.node-version&lt;/code&gt; 或 &lt;code&gt;.nvmrc&lt;/code&gt; 的项目目录时，fnm 会&lt;strong&gt;自动切换&lt;/strong&gt;到对应版本。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h3 id=&#34;常用操作&#34;&gt;常用操作
+&lt;/h3&gt;
+
+
+
+
+&lt;div class=&#34;highlight highlight-bash&#34;&gt;
+  &lt;pre&gt;
+    &lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;# 安装最新的 LTS 版本
+fnm install --lts
+
+# 安装指定版本
+fnm install 20
+fnm install 18
+
+# 查看已安装的版本
+fnm list
+
+# 切换版本
+fnm use 20
+
+# 设置默认版本
+fnm default 20
+
+# 在项目中固定 Node 版本（进入项目目录后执行）
+echo &amp;#34;20&amp;#34; &amp;gt; .node-version&lt;/code&gt;
+  &lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h3 id=&#34;验证&#34;&gt;验证
+&lt;/h3&gt;
+
+
+
+
+&lt;div class=&#34;highlight highlight-bash&#34;&gt;
+  &lt;pre&gt;
+    &lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;node --version   # 应该显示 v20.x.x
+npm --version    # 应该显示 10.x.x&lt;/code&gt;
+  &lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h2 id=&#34;第三步corepack--零安装使用-pnpm&#34;&gt;第三步：corepack —— 零安装使用 pnpm
+&lt;/h2&gt;&lt;h3 id=&#34;为什么用-pnpm-而不是-npm&#34;&gt;为什么用 pnpm 而不是 npm？
+&lt;/h3&gt;&lt;table&gt;
+  &lt;thead&gt;
+      &lt;tr&gt;
+          &lt;th&gt;特性&lt;/th&gt;
+          &lt;th&gt;npm&lt;/th&gt;
+          &lt;th&gt;pnpm&lt;/th&gt;
+      &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+      &lt;tr&gt;
+          &lt;td&gt;磁盘占用&lt;/td&gt;
+          &lt;td&gt;每个项目独立存储&lt;/td&gt;
+          &lt;td&gt;全局内容寻址存储，硬链接共享&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;安装速度&lt;/td&gt;
+          &lt;td&gt;较慢&lt;/td&gt;
+          &lt;td&gt;显著更快&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;幽灵依赖&lt;/td&gt;
+          &lt;td&gt;有（扁平化 node_modules）&lt;/td&gt;
+          &lt;td&gt;无（严格的依赖隔离）&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;Monorepo 支持&lt;/td&gt;
+          &lt;td&gt;需要 workspaces&lt;/td&gt;
+          &lt;td&gt;原生支持&lt;/td&gt;
+      &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;对 CPS 学生来说，&lt;strong&gt;pnpm 的严格依赖管理&lt;/strong&gt;能帮你避免很多「在我电脑上能跑」的经典问题。&lt;/p&gt;
+&lt;h3 id=&#34;启用-corepack&#34;&gt;启用 corepack
+&lt;/h3&gt;&lt;p&gt;Corepack 是 Node.js 官方的包管理器代理，&lt;strong&gt;不需要单独安装&lt;/strong&gt;，它随 Node.js 一起发布。你只需要启用它：&lt;/p&gt;
+
+
+
+
+
+&lt;div class=&#34;highlight highlight-bash&#34;&gt;
+  &lt;pre&gt;
+    &lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;corepack enable&lt;/code&gt;
+  &lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;这会在你的 PATH 中注册 &lt;code&gt;pnpm&lt;/code&gt;、&lt;code&gt;yarn&lt;/code&gt; 等命令的代理。当你运行 &lt;code&gt;pnpm&lt;/code&gt; 时，corepack 会根据项目 &lt;code&gt;package.json&lt;/code&gt; 中的 &lt;code&gt;&amp;quot;packageManager&amp;quot;&lt;/code&gt; 字段自动下载并使用正确版本。&lt;/p&gt;
+&lt;h3 id=&#34;在项目中使用&#34;&gt;在项目中使用
+&lt;/h3&gt;
+
+
+
+
+&lt;div class=&#34;highlight highlight-bash&#34;&gt;
+  &lt;pre&gt;
+    &lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;# 使用 pnpm 初始化项目
+pnpm init
+
+# 固定 pnpm 版本（推荐，确保团队一致性）
+corepack use pnpm@latest
+# 这会在 package.json 中写入类似：
+# &amp;#34;packageManager&amp;#34;: &amp;#34;pnpm@9.15.1&amp;#34;
+
+# 安装依赖
+pnpm install
+
+# 添加依赖
+pnpm add express
+pnpm add -D typescript&lt;/code&gt;
+  &lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h3 id=&#34;常用-pnpm-命令速查&#34;&gt;常用 pnpm 命令速查
+&lt;/h3&gt;
+
+
+
+
+&lt;div class=&#34;highlight highlight-bash&#34;&gt;
+  &lt;pre&gt;
+    &lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;pnpm add &amp;lt;pkg&amp;gt;          # 添加依赖
+pnpm add -D &amp;lt;pkg&amp;gt;       # 添加开发依赖
+pnpm run &amp;lt;script&amp;gt;       # 运行脚本
+pnpm exec &amp;lt;cmd&amp;gt;         # 在项目上下文中执行命令
+pnpm store prune        # 清理未引用的缓存包&lt;/code&gt;
+  &lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h2 id=&#34;第四步uv--极速-python-环境管理&#34;&gt;第四步：uv —— 极速 Python 环境管理
+&lt;/h2&gt;&lt;h3 id=&#34;为什么不用-conda--pyenv&#34;&gt;为什么不用 conda / pyenv？
+&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;conda&lt;/strong&gt;：重量级，base 环境容易污染，启动慢。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;pyenv&lt;/strong&gt;：编译安装 Python，在 macOS 上经常遇到 OpenSSL 编译问题。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;uv&lt;/strong&gt;：Astral 团队（Ruff 的创建者）出品，用 Rust 编写，安装 Python &lt;strong&gt;快 10-100 倍&lt;/strong&gt;，内置虚拟环境和包管理功能。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;安装-1&#34;&gt;安装
+&lt;/h3&gt;
+
+
+
+
+&lt;div class=&#34;highlight highlight-bash&#34;&gt;
+  &lt;pre&gt;
+    &lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;brew install uv&lt;/code&gt;
+  &lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h3 id=&#34;管理-python-版本&#34;&gt;管理 Python 版本
+&lt;/h3&gt;
+
+
+
+
+&lt;div class=&#34;highlight highlight-bash&#34;&gt;
+  &lt;pre&gt;
+    &lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;# 安装最新的 Python 3.12
+uv python install 3.12
+
+# 安装多个版本
+uv python install 3.11 3.12 3.13
+
+# 查看已安装的版本
+uv python list --only-installed
+
+# 查看可安装的版本
+uv python list&lt;/code&gt;
+  &lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h3 id=&#34;为每个项目创建独立环境&#34;&gt;为每个项目创建独立环境
+&lt;/h3&gt;
+
+
+
+
+&lt;div class=&#34;highlight highlight-bash&#34;&gt;
+  &lt;pre&gt;
+    &lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;# 进入项目目录
+mkdir my-project &amp;amp;&amp;amp; cd my-project
+
+# 初始化项目（会创建 .python-version 和 pyproject.toml）
+uv init
+
+# 指定 Python 版本
+uv python pin 3.12
+
+# 创建虚拟环境并安装依赖
+uv add flask
+uv add --dev pytest
+
+# 同步依赖（类似 pnpm install）
+uv sync&lt;/code&gt;
+  &lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;&lt;strong&gt;关键概念&lt;/strong&gt;：&lt;code&gt;uv python pin&lt;/code&gt; 会在项目目录生成 &lt;code&gt;.python-version&lt;/code&gt; 文件，确保任何人 clone 这个项目后运行 &lt;code&gt;uv sync&lt;/code&gt; 都能获得完全一致的环境。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h3 id=&#34;常用-uv-命令速查&#34;&gt;常用 uv 命令速查
+&lt;/h3&gt;
+
+
+
+
+&lt;div class=&#34;highlight highlight-bash&#34;&gt;
+  &lt;pre&gt;
+    &lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;uv init                  # 初始化新项目
+uv add &amp;lt;pkg&amp;gt;             # 添加依赖
+uv add --dev &amp;lt;pkg&amp;gt;       # 添加开发依赖
+uv remove &amp;lt;pkg&amp;gt;          # 移除依赖
+uv sync                  # 同步环境（安装所有依赖）
+uv run &amp;lt;cmd&amp;gt;             # 在虚拟环境中运行命令
+uv python pin &amp;lt;version&amp;gt;  # 固定 Python 版本
+uv python install &amp;lt;ver&amp;gt;  # 安装 Python 版本&lt;/code&gt;
+  &lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h2 id=&#34;第五步项目级工作流示范&#34;&gt;第五步：项目级工作流示范
+&lt;/h2&gt;&lt;p&gt;假设你这学期有两门课，分别需要不同的技术栈：&lt;/p&gt;
+&lt;pre class=&#34;mermaid&#34;&gt;
+  flowchart LR
+    subgraph &amp;#34;Web 开发课&amp;#34;
+        A[.node-version: 20] --&amp;gt; B[package.json&amp;lt;br/&amp;gt;packageManager: pnpm@9]
+        A --&amp;gt; C[.python-version: 3.12]
+    end
+
+    subgraph &amp;#34;数据科学课&amp;#34;
+        D[.node-version: 18] --&amp;gt; E[package.json&amp;lt;br/&amp;gt;packageManager: pnpm@9]
+        D --&amp;gt; F[.python-version: 3.11]
+    end
+&lt;/pre&gt;
+
+&lt;h3 id=&#34;web-开发课项目&#34;&gt;Web 开发课项目
+&lt;/h3&gt;
+
+
+
+
+&lt;div class=&#34;highlight highlight-bash&#34;&gt;
+  &lt;pre&gt;
+    &lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;mkdir web-course-project &amp;amp;&amp;amp; cd web-course-project
+
+# Node 环境
+echo &amp;#34;20&amp;#34; &amp;gt; .node-version
+fnm install &amp;amp;&amp;amp; fnm use
+corepack enable
+pnpm init
+corepack use pnpm@latest
+
+# Python 环境
+uv init
+uv python pin 3.12
+uv add flask&lt;/code&gt;
+  &lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h3 id=&#34;数据科学课项目&#34;&gt;数据科学课项目
+&lt;/h3&gt;
+
+
+
+
+&lt;div class=&#34;highlight highlight-bash&#34;&gt;
+  &lt;pre&gt;
+    &lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;mkdir data-course-project &amp;amp;&amp;amp; cd data-course-project
+
+# Node 环境
+echo &amp;#34;18&amp;#34; &amp;gt; .node-version
+fnm install &amp;amp;&amp;amp; fnm use
+
+# Python 环境
+uv init
+uv python pin 3.11
+uv add numpy pandas matplotlib&lt;/code&gt;
+  &lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;当你 &lt;code&gt;cd&lt;/code&gt; 切换项目目录时，fnm 和 uv 会&lt;strong&gt;自动&lt;/strong&gt;切换到对应版本，无需任何手动操作。&lt;/p&gt;
+&lt;h2 id=&#34;常见问题&#34;&gt;常见问题
+&lt;/h2&gt;&lt;h3 id=&#34;qfnm-和-corepack-会冲突吗&#34;&gt;Q：fnm 和 corepack 会冲突吗？
+&lt;/h3&gt;&lt;p&gt;不会。fnm 管理 Node.js 二进制文件，corepack 管理包管理器（pnpm/yarn）。它们分工明确，互不干扰。&lt;/p&gt;
+&lt;h3 id=&#34;quv-能替代-pip-吗&#34;&gt;Q：uv 能替代 pip 吗？
+&lt;/h3&gt;&lt;p&gt;能。&lt;code&gt;uv add&lt;/code&gt; 和 &lt;code&gt;uv pip install&lt;/code&gt; 都可以安装包，但推荐使用 &lt;code&gt;uv add&lt;/code&gt;，因为它会自动更新 &lt;code&gt;pyproject.toml&lt;/code&gt; 和 &lt;code&gt;uv.lock&lt;/code&gt;，保证可复现性。&lt;/p&gt;
+&lt;h3 id=&#34;q要不要把-node_modules-和-venv-加入-gitignore&#34;&gt;Q：要不要把 node_modules 和 .venv 加入 .gitignore？
+&lt;/h3&gt;&lt;p&gt;&lt;strong&gt;必须&lt;/strong&gt;。这两个目录应该永远在 &lt;code&gt;.gitignore&lt;/code&gt; 中：&lt;/p&gt;
+
+
+
+
+
+&lt;div class=&#34;highlight highlight-gitignore&#34;&gt;
+  &lt;pre&gt;
+    &lt;code class=&#34;language-gitignore&#34; data-lang=&#34;gitignore&#34;&gt;node_modules/
+.venv/
+__pycache__/&lt;/code&gt;
+  &lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;依赖锁定文件（&lt;code&gt;pnpm-lock.yaml&lt;/code&gt;、&lt;code&gt;uv.lock&lt;/code&gt;）&lt;strong&gt;必须&lt;/strong&gt;提交到 Git，它们是环境可复现的保证。&lt;/p&gt;
+&lt;h3 id=&#34;qhomebrew-cask-是什么&#34;&gt;Q：Homebrew Cask 是什么？
+&lt;/h3&gt;&lt;p&gt;&lt;code&gt;brew install&lt;/code&gt; 安装命令行工具，&lt;code&gt;brew install --cask&lt;/code&gt; 安装 GUI 应用（如 VS Code、Docker Desktop）。两者都通过 Homebrew 管理。&lt;/p&gt;
+
+
+
+
+
+&lt;div class=&#34;highlight highlight-bash&#34;&gt;
+  &lt;pre&gt;
+    &lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;brew install --cask visual-studio-code
+brew install --cask docker&lt;/code&gt;
+  &lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h2 id=&#34;总结&#34;&gt;总结
+&lt;/h2&gt;&lt;table&gt;
+  &lt;thead&gt;
+      &lt;tr&gt;
+          &lt;th&gt;工具&lt;/th&gt;
+          &lt;th&gt;管理什么&lt;/th&gt;
+          &lt;th&gt;安装方式&lt;/th&gt;
+          &lt;th&gt;版本固定文件&lt;/th&gt;
+      &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+      &lt;tr&gt;
+          &lt;td&gt;Homebrew&lt;/td&gt;
+          &lt;td&gt;系统级 CLI 工具&lt;/td&gt;
+          &lt;td&gt;&lt;code&gt;brew install&lt;/code&gt;&lt;/td&gt;
+          &lt;td&gt;Brewfile（可选）&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;fnm&lt;/td&gt;
+          &lt;td&gt;Node.js 版本&lt;/td&gt;
+          &lt;td&gt;&lt;code&gt;brew install fnm&lt;/code&gt;&lt;/td&gt;
+          &lt;td&gt;&lt;code&gt;.node-version&lt;/code&gt;&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;corepack&lt;/td&gt;
+          &lt;td&gt;pnpm/yarn 版本&lt;/td&gt;
+          &lt;td&gt;&lt;code&gt;corepack enable&lt;/code&gt;&lt;/td&gt;
+          &lt;td&gt;&lt;code&gt;package.json&lt;/code&gt; 中的 &lt;code&gt;packageManager&lt;/code&gt;&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;uv&lt;/td&gt;
+          &lt;td&gt;Python 版本 + 包&lt;/td&gt;
+          &lt;td&gt;&lt;code&gt;brew install uv&lt;/code&gt;&lt;/td&gt;
+          &lt;td&gt;&lt;code&gt;.python-version&lt;/code&gt; + &lt;code&gt;uv.lock&lt;/code&gt;&lt;/td&gt;
+      &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;记住这个原则：&lt;strong&gt;每个项目都有自己的版本文件，工具根据文件自动切换，全局永远保持干净&lt;/strong&gt;。这样无论你有多少门课、多少个项目，环境都不会打架。&lt;/p&gt;
+</description>
+        </item>
+        <item>
+        <title>PSY1000</title>
+        <link>https://blog.henry070.org/p/psy1000/</link>
+        <pubDate>Mon, 30 Mar 2026 15:21:06 +0800</pubDate>
+        
+        <guid>https://blog.henry070.org/p/psy1000/</guid>
+        <description>&lt;img src="https://blog.henry070.org/default.jpeg" alt="Featured image of post PSY1000" /&gt;&lt;h1 id=&#34;psy1000&#34;&gt;PSY1000
+&lt;/h1&gt;</description>
+        </item>
+        <item>
         <title>OOAD</title>
-        <link>http://localhost:1313/p/ooad/</link>
+        <link>https://blog.henry070.org/p/ooad/</link>
         <pubDate>Wed, 04 Mar 2026 10:03:00 +0800</pubDate>
         
-        <guid>http://localhost:1313/p/ooad/</guid>
-        <description>&lt;img src="http://localhost:1313/default.jpeg" alt="Featured image of post OOAD" /&gt;&lt;h1 id=&#34;softare-dev-circle&#34;&gt;Softare dev circle
+        <guid>https://blog.henry070.org/p/ooad/</guid>
+        <description>&lt;img src="https://blog.henry070.org/default.jpeg" alt="Featured image of post OOAD" /&gt;&lt;h1 id=&#34;softare-dev-circle&#34;&gt;Softare dev circle
 &lt;/h1&gt;&lt;h2 id=&#34;requirement&#34;&gt;requirement
 &lt;/h2&gt;&lt;ol&gt;
 &lt;li&gt;Business modeling(What should the program achieve)
@@ -37,15 +523,699 @@
 &lt;/h2&gt;&lt;h2 id=&#34;deployment&#34;&gt;Deployment
 &lt;/h2&gt;&lt;h2 id=&#34;maintenance&#34;&gt;Maintenance
 &lt;/h2&gt;&lt;h1 id=&#34;agile-vs-traditional&#34;&gt;Agile vs. Traditional
-&lt;/h1&gt;</description>
+&lt;/h1&gt;&lt;ol&gt;
+&lt;li&gt;Extreme Programming(XP)[https://www.geeksforgeeks.org/software-engineering/software-engineering-extreme-programming-xp/]&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h1 id=&#34;uml-guideline--uml-建模指南&#34;&gt;UML Guideline | UML 建模指南
+&lt;/h1&gt;&lt;p&gt;This section is a complete practical guideline for UML learning and project delivery.
+本节是一个可直接用于学习和项目交付的 UML 实战指南。&lt;/p&gt;
+&lt;h2 id=&#34;scope-and-unified-case--范围与统一案例&#34;&gt;Scope and Unified Case | 范围与统一案例
+&lt;/h2&gt;&lt;p&gt;Case system: Online Shopping System (customer, admin, payment gateway, warehouse).
+统一案例系统：在线购物系统（客户、管理员、支付网关、仓储系统）。&lt;/p&gt;
+&lt;p&gt;Main business flow:
+核心业务流程：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;Customer registers and logs in.&lt;/li&gt;
+&lt;li&gt;Customer browses products and adds items to cart.&lt;/li&gt;
+&lt;li&gt;Customer places order and pays.&lt;/li&gt;
+&lt;li&gt;System checks inventory and ships.&lt;/li&gt;
+&lt;li&gt;Admin handles refund and reporting.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2 id=&#34;modeling-workflow--建模工作流&#34;&gt;Modeling Workflow | 建模工作流
+&lt;/h2&gt;&lt;p&gt;Recommended order in real projects:
+真实项目推荐顺序：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;Use case diagram (what the system should do).&lt;/li&gt;
+&lt;li&gt;Activity and sequence diagrams (how the flow runs).&lt;/li&gt;
+&lt;li&gt;Class diagram (core domain structure).&lt;/li&gt;
+&lt;li&gt;State diagram (lifecycle-critical objects like Order).&lt;/li&gt;
+&lt;li&gt;Component, package, deployment diagrams (architecture and delivery).&lt;/li&gt;
+&lt;li&gt;Object, communication, interaction overview, timing (analysis deepening).&lt;/li&gt;
+&lt;/ol&gt;
+&lt;hr&gt;
+&lt;h3 id=&#34;1-use-case-diagram--用例图&#34;&gt;1. Use Case Diagram | 用例图
+&lt;/h3&gt;&lt;p&gt;Purpose:
+用途：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Define system boundaries, actors, and goals.&lt;/li&gt;
+&lt;li&gt;明确系统边界、参与者和目标。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Detailed case:
+详细案例：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Customer can register, login, browse products, place order, and request refund.&lt;/li&gt;
+&lt;li&gt;Admin can manage products, process refunds, and view reports.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre class=&#34;mermaid&#34;&gt;
+  flowchart LR
+    Customer((Customer))
+    Admin((Admin))
+    PaymentGateway((Payment Gateway))
+    Warehouse((Warehouse System))
+
+    subgraph ShoppingSystem[Online Shopping System]
+        UC1[Register/Login]
+        UC2[Browse Product]
+        UC3[Place Order]
+        UC4[Pay Order]
+        UC5[Track Shipment]
+        UC6[Request Refund]
+        UC7[Manage Catalog]
+        UC8[Process Refund]
+        UC9[View Dashboard]
+    end
+
+    Customer --&amp;gt; UC1
+    Customer --&amp;gt; UC2
+    Customer --&amp;gt; UC3
+    Customer --&amp;gt; UC4
+    Customer --&amp;gt; UC5
+    Customer --&amp;gt; UC6
+    Admin --&amp;gt; UC7
+    Admin --&amp;gt; UC8
+    Admin --&amp;gt; UC9
+    UC4 --&amp;gt; PaymentGateway
+    UC5 --&amp;gt; Warehouse
+&lt;/pre&gt;
+
+&lt;h3 id=&#34;2-class-diagram--类图&#34;&gt;2. Class Diagram | 类图
+&lt;/h3&gt;&lt;p&gt;Purpose:
+用途：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Describe static structure: entities, attributes, operations, and relationships.&lt;/li&gt;
+&lt;li&gt;描述静态结构：实体、属性、操作与关系。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Detailed case:
+详细案例：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;User&lt;/code&gt; has two roles: customer and admin.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;Order&lt;/code&gt; is composed of multiple &lt;code&gt;OrderItem&lt;/code&gt;.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;Order&lt;/code&gt; references payment and shipment information.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre class=&#34;mermaid&#34;&gt;
+  classDiagram
+    class User {
+        +Long id
+        +String email
+        +String passwordHash
+        +login()
+    }
+
+    class Customer {
+        +String level
+        +addToCart(productId, qty)
+    }
+
+    class Admin {
+        +manageCatalog()
+        +approveRefund(orderId)
+    }
+
+    class Product {
+        +Long id
+        +String name
+        +Decimal price
+        +Integer stock
+    }
+
+    class Cart {
+        +Long id
+        +addItem(productId, qty)
+        +clear()
+    }
+
+    class Order {
+        +Long id
+        +String status
+        +Decimal totalAmount
+        +submit()
+        +cancel()
+    }
+
+    class OrderItem {
+        +Long id
+        +Integer qty
+        +Decimal unitPrice
+    }
+
+    class Payment {
+        +Long id
+        +String method
+        +String status
+        +pay()
+        +refund()
+    }
+
+    class Shipment {
+        +Long id
+        +String carrier
+        +String trackingNo
+        +ship()
+        +deliver()
+    }
+
+    User &amp;lt;|-- Customer
+    User &amp;lt;|-- Admin
+    Customer &amp;#34;1&amp;#34; --&amp;gt; &amp;#34;1&amp;#34; Cart
+    Customer &amp;#34;1&amp;#34; --&amp;gt; &amp;#34;0..*&amp;#34; Order
+    Cart &amp;#34;1&amp;#34; --&amp;gt; &amp;#34;0..*&amp;#34; Product
+    Order &amp;#34;1&amp;#34; *-- &amp;#34;1..*&amp;#34; OrderItem
+    OrderItem &amp;#34;*&amp;#34; --&amp;gt; &amp;#34;1&amp;#34; Product
+    Order &amp;#34;1&amp;#34; --&amp;gt; &amp;#34;0..1&amp;#34; Payment
+    Order &amp;#34;1&amp;#34; --&amp;gt; &amp;#34;0..1&amp;#34; Shipment
+&lt;/pre&gt;
+
+&lt;h3 id=&#34;3-sequence-diagram--时序图&#34;&gt;3. Sequence Diagram | 时序图
+&lt;/h3&gt;&lt;p&gt;Purpose:
+用途：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Show message sequence among participants in one scenario.&lt;/li&gt;
+&lt;li&gt;展示单个场景中参与者之间的消息时序。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Detailed case:
+详细案例：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Scenario: customer places order and pays successfully.&lt;/li&gt;
+&lt;li&gt;场景：客户下单并支付成功。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre class=&#34;mermaid&#34;&gt;
+  sequenceDiagram
+    actor C as Customer
+    participant W as WebApp
+    participant O as OrderService
+    participant I as InventoryService
+    participant P as PaymentGateway
+    participant S as ShipmentService
+
+    C-&amp;gt;&amp;gt;W: Checkout(cart)
+    W-&amp;gt;&amp;gt;O: createOrder(cart)
+    O-&amp;gt;&amp;gt;I: reserveStock(items)
+    I--&amp;gt;&amp;gt;O: reserved
+    O--&amp;gt;&amp;gt;W: orderCreated(orderId, amount)
+    W-&amp;gt;&amp;gt;P: pay(orderId, amount)
+    P--&amp;gt;&amp;gt;W: paymentSuccess(txId)
+    W-&amp;gt;&amp;gt;O: confirmPayment(orderId, txId)
+    O-&amp;gt;&amp;gt;S: createShipment(orderId)
+    S--&amp;gt;&amp;gt;O: trackingNo
+    O--&amp;gt;&amp;gt;W: orderConfirmed
+    W--&amp;gt;&amp;gt;C: Show success page
+&lt;/pre&gt;
+
+&lt;h3 id=&#34;4-activity-diagram--活动图&#34;&gt;4. Activity Diagram | 活动图
+&lt;/h3&gt;&lt;p&gt;Purpose:
+用途：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Describe workflow, decisions, and exception branches.&lt;/li&gt;
+&lt;li&gt;描述流程、分支决策与异常路径。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Detailed case:
+详细案例：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Covers checkout, payment success/failure, and stock rollback.&lt;/li&gt;
+&lt;li&gt;覆盖结算、支付成功/失败，以及库存回滚。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre class=&#34;mermaid&#34;&gt;
+  flowchart TD
+    Start((Start)) --&amp;gt; ValidateCart[Validate Cart]
+    ValidateCart --&amp;gt; StockCheck{Stock Available?}
+    StockCheck --&amp;gt;|No| EndNoStock[Show Out-of-Stock]
+    StockCheck --&amp;gt;|Yes| CreateOrder[Create Order]
+    CreateOrder --&amp;gt; Pay{Payment Success?}
+    Pay --&amp;gt;|No| ReleaseStock[Release Reserved Stock]
+    ReleaseStock --&amp;gt; EndFail[Show Payment Failed]
+    Pay --&amp;gt;|Yes| CreateShipment[Create Shipment]
+    CreateShipment --&amp;gt; NotifyUser[Notify Customer]
+    NotifyUser --&amp;gt; EndOK((End))
+&lt;/pre&gt;
+
+&lt;h3 id=&#34;5-state-diagram--状态图&#34;&gt;5. State Diagram | 状态图
+&lt;/h3&gt;&lt;p&gt;Purpose:
+用途：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Model lifecycle transitions of a key entity.&lt;/li&gt;
+&lt;li&gt;建模关键实体的生命周期状态迁移。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Detailed case:
+详细案例：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Entity: &lt;code&gt;Order&lt;/code&gt; from creation to completion/refund/cancel.&lt;/li&gt;
+&lt;li&gt;对象：&lt;code&gt;Order&lt;/code&gt; 从创建到完成/退款/取消。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre class=&#34;mermaid&#34;&gt;
+  stateDiagram-v2
+    [*] --&amp;gt; Created
+    Created --&amp;gt; AwaitingPayment: Submit
+    AwaitingPayment --&amp;gt; Paid: PaymentConfirmed
+    AwaitingPayment --&amp;gt; Cancelled: PaymentTimeout
+    Paid --&amp;gt; Packed: PickAndPack
+    Packed --&amp;gt; Shipped: HandOverCarrier
+    Shipped --&amp;gt; Delivered: CustomerSign
+    Delivered --&amp;gt; Completed: ConfirmReceipt
+    Delivered --&amp;gt; RefundRequested: RequestRefund
+    RefundRequested --&amp;gt; Refunded: ApproveRefund
+    Cancelled --&amp;gt; [*]
+    Completed --&amp;gt; [*]
+    Refunded --&amp;gt; [*]
+&lt;/pre&gt;
+
+&lt;h3 id=&#34;6-component-diagram--组件图&#34;&gt;6. Component Diagram | 组件图
+&lt;/h3&gt;&lt;p&gt;Purpose:
+用途：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Show system modules/services and their dependencies.&lt;/li&gt;
+&lt;li&gt;展示系统模块/服务及其依赖关系。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Detailed case:
+详细案例：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Frontend depends on API gateway, which routes to order, payment, inventory, and user services.&lt;/li&gt;
+&lt;li&gt;前端依赖 API 网关，网关路由到订单、支付、库存、用户服务。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre class=&#34;mermaid&#34;&gt;
+  flowchart LR
+    FE[Web Frontend]
+    APIGW[API Gateway]
+    UserSvc[User Service]
+    CatalogSvc[Catalog Service]
+    OrderSvc[Order Service]
+    InventorySvc[Inventory Service]
+    PaymentSvc[Payment Service]
+    NotifySvc[Notification Service]
+
+    FE --&amp;gt; APIGW
+    APIGW --&amp;gt; UserSvc
+    APIGW --&amp;gt; CatalogSvc
+    APIGW --&amp;gt; OrderSvc
+    OrderSvc --&amp;gt; InventorySvc
+    OrderSvc --&amp;gt; PaymentSvc
+    OrderSvc --&amp;gt; NotifySvc
+&lt;/pre&gt;
+
+&lt;h3 id=&#34;7-deployment-diagram--部署图&#34;&gt;7. Deployment Diagram | 部署图
+&lt;/h3&gt;&lt;p&gt;Purpose:
+用途：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Show runtime nodes, deployed artifacts, and network links.&lt;/li&gt;
+&lt;li&gt;展示运行节点、部署产物与网络连接。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Detailed case:
+详细案例：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Cloud load balancer routes requests to app containers; services access database and message queue.&lt;/li&gt;
+&lt;li&gt;云端负载均衡将请求转发到应用容器；服务访问数据库和消息队列。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre class=&#34;mermaid&#34;&gt;
+  flowchart LR
+    UserNode((User Browser))
+
+    subgraph Cloud[Cloud VPC]
+        LB[Load Balancer]
+        subgraph AppCluster[App Cluster]
+            WebPod[Web Pod]
+            OrderPod[Order Pod]
+            PaymentPod[Payment Pod]
+        end
+        DB[(MySQL)]
+        MQ[(Message Queue)]
+        Cache[(Redis)]
+    end
+
+    UserNode --&amp;gt; LB
+    LB --&amp;gt; WebPod
+    WebPod --&amp;gt; OrderPod
+    OrderPod --&amp;gt; PaymentPod
+    OrderPod --&amp;gt; DB
+    OrderPod --&amp;gt; MQ
+    WebPod --&amp;gt; Cache
+&lt;/pre&gt;
+
+&lt;h3 id=&#34;8-object-diagram--对象图&#34;&gt;8. Object Diagram | 对象图
+&lt;/h3&gt;&lt;p&gt;Purpose:
+用途：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Capture runtime snapshots with concrete instance values.&lt;/li&gt;
+&lt;li&gt;捕获运行时快照，展示实例与具体值。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Detailed case:
+详细案例：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Snapshot at checkout moment: one customer, one order, two order items.&lt;/li&gt;
+&lt;li&gt;结算时刻快照：一个客户、一个订单、两条订单项。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre class=&#34;mermaid&#34;&gt;
+  classDiagram
+    class customer_1001 {
+        &amp;lt;&amp;lt;instance&amp;gt;&amp;gt;
+        id = 1001
+        name = &amp;#34;Alice&amp;#34;
+        level = &amp;#34;Gold&amp;#34;
+    }
+
+    class order_9001 {
+        &amp;lt;&amp;lt;instance&amp;gt;&amp;gt;
+        id = 9001
+        status = &amp;#34;AwaitingPayment&amp;#34;
+        total = 299.00
+    }
+
+    class item_1 {
+        &amp;lt;&amp;lt;instance&amp;gt;&amp;gt;
+        sku = &amp;#34;KB-001&amp;#34;
+        qty = 1
+        unitPrice = 99.00
+    }
+
+    class item_2 {
+        &amp;lt;&amp;lt;instance&amp;gt;&amp;gt;
+        sku = &amp;#34;MS-002&amp;#34;
+        qty = 2
+        unitPrice = 100.00
+    }
+
+    customer_1001 --&amp;gt; order_9001
+    order_9001 --&amp;gt; item_1
+    order_9001 --&amp;gt; item_2
+&lt;/pre&gt;
+
+&lt;h3 id=&#34;9-package-diagram--包图&#34;&gt;9. Package Diagram | 包图
+&lt;/h3&gt;&lt;p&gt;Purpose:
+用途：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Organize model/code into packages and reveal dependencies.&lt;/li&gt;
+&lt;li&gt;将模型/代码组织为包，并揭示依赖关系。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Detailed case:
+详细案例：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;UI depends on Application; Application depends on Domain; Infrastructure supports Application and Domain.&lt;/li&gt;
+&lt;li&gt;UI 依赖应用层；应用层依赖领域层；基础设施层支撑应用层与领域层。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre class=&#34;mermaid&#34;&gt;
+  flowchart TD
+    subgraph Presentation
+        WebUI[Web UI]
+        AdminUI[Admin UI]
+    end
+
+    subgraph Application
+        OrderApp[Order Application]
+        UserApp[User Application]
+    end
+
+    subgraph Domain
+        OrderDomain[Order Domain]
+        ProductDomain[Product Domain]
+        UserDomain[User Domain]
+    end
+
+    subgraph Infrastructure
+        RepoImpl[Repository Impl]
+        PaymentAdapter[Payment Adapter]
+        MQAdapter[MQ Adapter]
+    end
+
+    Presentation --&amp;gt; Application
+    Application --&amp;gt; Domain
+    Infrastructure --&amp;gt; Domain
+    Infrastructure --&amp;gt; Application
+&lt;/pre&gt;
+
+&lt;h3 id=&#34;10-composite-structure-diagram--复合结构图&#34;&gt;10. Composite Structure Diagram | 复合结构图
+&lt;/h3&gt;&lt;p&gt;Purpose:
+用途：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Show internal parts and connectors inside one classifier.&lt;/li&gt;
+&lt;li&gt;展示一个分类器内部部件与连接器结构。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Detailed case:
+详细案例：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Internal design of &lt;code&gt;OrderService&lt;/code&gt;: validator, pricing, inventory checker, payment orchestrator.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;OrderService&lt;/code&gt; 内部结构：校验器、定价器、库存检查器、支付编排器。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre class=&#34;mermaid&#34;&gt;
+  flowchart TB
+    subgraph OrderService[OrderService Internal Structure]
+        InPort[Order API Port]
+        Validator[Order Validator]
+        Pricing[Pricing Engine]
+        StockChecker[Stock Checker]
+        PaymentOrchestrator[Payment Orchestrator]
+        OutPort[Domain Event Port]
+    end
+
+    InPort --&amp;gt; Validator
+    Validator --&amp;gt; Pricing
+    Pricing --&amp;gt; StockChecker
+    StockChecker --&amp;gt; PaymentOrchestrator
+    PaymentOrchestrator --&amp;gt; OutPort
+&lt;/pre&gt;
+
+&lt;h3 id=&#34;11-timing-diagram-approximation--时序约束图近似表达&#34;&gt;11. Timing Diagram (Approximation) | 时序约束图（近似表达）
+&lt;/h3&gt;&lt;p&gt;Purpose:
+用途：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Describe time constraints and timeout behavior.&lt;/li&gt;
+&lt;li&gt;描述时间约束与超时行为。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Detailed case:
+详细案例：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Payment must complete within 15 minutes, otherwise order is canceled.&lt;/li&gt;
+&lt;li&gt;支付必须在 15 分钟内完成，否则订单取消。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre class=&#34;mermaid&#34;&gt;
+  stateDiagram-v2
+    [*] --&amp;gt; AwaitingPayment
+    AwaitingPayment --&amp;gt; Paid: payment &amp;lt; 15 min
+    AwaitingPayment --&amp;gt; Cancelled: timeout = 15 min
+    Paid --&amp;gt; Processing
+    Processing --&amp;gt; Completed
+    Cancelled --&amp;gt; [*]
+    Completed --&amp;gt; [*]
+&lt;/pre&gt;
+
+&lt;h3 id=&#34;12-communication-diagram--通信图&#34;&gt;12. Communication Diagram | 通信图
+&lt;/h3&gt;&lt;p&gt;Purpose:
+用途：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Highlight object collaboration topology and message numbering.&lt;/li&gt;
+&lt;li&gt;强调对象协作拓扑和消息编号。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Detailed case:
+详细案例：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Checkout collaboration among UI, controller, service, payment adapter, and repository.&lt;/li&gt;
+&lt;li&gt;展示结算时 UI、控制器、服务、支付适配器、仓储之间协作。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre class=&#34;mermaid&#34;&gt;
+  flowchart LR
+    UI[CheckoutPage]
+    C[OrderController]
+    S[OrderService]
+    P[PaymentAdapter]
+    R[OrderRepository]
+
+    UI -- 1: submitOrder() --&amp;gt; C
+    C -- 2: createOrder() --&amp;gt; S
+    S -- 3: pay() --&amp;gt; P
+    P -- 4: paymentResult --&amp;gt; S
+    S -- 5: save(order) --&amp;gt; R
+    S -- 6: result --&amp;gt; C
+    C -- 7: response --&amp;gt; UI
+&lt;/pre&gt;
+
+&lt;h3 id=&#34;13-interaction-overview-diagram--交互总览图&#34;&gt;13. Interaction Overview Diagram | 交互总览图
+&lt;/h3&gt;&lt;p&gt;Purpose:
+用途：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Combine multiple interactions into one high-level flow.&lt;/li&gt;
+&lt;li&gt;将多个交互场景组合成一个高层流程。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Detailed case:
+详细案例：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Main interaction branches: login check, checkout path, and refund path.&lt;/li&gt;
+&lt;li&gt;主交互分支：登录校验、下单路径、退款路径。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre class=&#34;mermaid&#34;&gt;
+  flowchart TD
+    Start[Start] --&amp;gt; Auth{Authenticated?}
+    Auth --&amp;gt;|No| LoginSeq[Sequence: Login]
+    LoginSeq --&amp;gt; Auth
+    Auth --&amp;gt;|Yes| Action{Choose Action}
+    Action --&amp;gt;|Checkout| CheckoutSeq[Sequence: Checkout and Payment]
+    Action --&amp;gt;|Refund| RefundSeq[Sequence: Refund Process]
+    CheckoutSeq --&amp;gt; End[End]
+    RefundSeq --&amp;gt; End
+&lt;/pre&gt;
+
+&lt;h2 id=&#34;common-pitfalls-and-review-checklist--常见问题与检查清单&#34;&gt;Common Pitfalls and Review Checklist | 常见问题与检查清单
+&lt;/h2&gt;&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;Keep diagram scope small and focused.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Names should reflect business language, not technical noise.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;One diagram should answer one key question.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Align terms across use case, class, and sequence diagrams.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Explicitly model exception paths (timeout, payment failure, stock shortage).&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;图要小而清晰，避免一个图承载过多目标。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;命名要贴近业务语言，避免技术噪音。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;一张图回答一个核心问题。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;用例图、类图、时序图的术语保持一致。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;必须显式建模异常路径（超时、支付失败、缺货）。&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2 id=&#34;assignment-1&#34;&gt;Assignment 1
+&lt;/h2&gt;&lt;ol&gt;
+&lt;li&gt;Business modeling: A online shopping system
+&lt;ul&gt;
+&lt;li&gt;Project workbook&lt;/li&gt;
+&lt;li&gt;Assign team roles&lt;/li&gt;
+&lt;li&gt;glossary&lt;/li&gt;
+&lt;li&gt;From an informal problem statement&lt;/li&gt;
+&lt;li&gt;Business actors(User?)&lt;/li&gt;
+&lt;li&gt;Business funcions&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;System requirement modeling: An online shopping system&lt;/li&gt;
+&lt;li&gt;Static analysis(Class diagram): An online shopping system&lt;/li&gt;
+&lt;li&gt;dynamic analysis(Sequence diagram): An online shopping system&lt;/li&gt;
+&lt;li&gt;System design&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h3 id=&#34;milestone&#34;&gt;Milestone
+&lt;/h3&gt;&lt;ol&gt;
+&lt;li&gt;Read&lt;/li&gt;
+&lt;li&gt;Plan&lt;/li&gt;
+&lt;li&gt;Organize&lt;/li&gt;
+&lt;li&gt;Execute&lt;/li&gt;
+&lt;li&gt;Review&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h1 id=&#34;dynamic-analysis&#34;&gt;Dynamic Analysis
+&lt;/h1&gt;&lt;p&gt;Dynamic analysis focuses on the &lt;strong&gt;behavior&lt;/strong&gt; and &lt;strong&gt;interactions&lt;/strong&gt; of objects over time, complementing static analysis (class diagrams) which only shows structure.&lt;/p&gt;
+&lt;h2 id=&#34;key-diagrams&#34;&gt;Key Diagrams
+&lt;/h2&gt;&lt;h3 id=&#34;sequence-diagram--时序图&#34;&gt;Sequence Diagram | 时序图
+&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;Shows message exchange between objects in &lt;strong&gt;chronological order&lt;/strong&gt;.&lt;/li&gt;
+&lt;li&gt;Best for modeling a single scenario or use case flow.&lt;/li&gt;
+&lt;li&gt;Lifelines represent participating objects; arrows represent messages.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;communication-diagram--通信图&#34;&gt;Communication Diagram | 通信图
+&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;Emphasizes &lt;strong&gt;object relationships&lt;/strong&gt; and message numbering rather than time axis.&lt;/li&gt;
+&lt;li&gt;Equivalent information to sequence diagrams but with a different emphasis.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;state-diagram--状态图&#34;&gt;State Diagram | 状态图
+&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;Models the &lt;strong&gt;lifecycle&lt;/strong&gt; of a single object across all scenarios.&lt;/li&gt;
+&lt;li&gt;Useful for entities with complex state transitions (e.g., &lt;code&gt;Order&lt;/code&gt;, &lt;code&gt;Payment&lt;/code&gt;).&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;activity-diagram--活动图&#34;&gt;Activity Diagram | 活动图
+&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;Describes &lt;strong&gt;workflow&lt;/strong&gt; with decisions, branches, and parallel actions.&lt;/li&gt;
+&lt;li&gt;Can model business processes spanning multiple objects.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;dynamic-vs-static-analysis&#34;&gt;Dynamic vs. Static Analysis
+&lt;/h2&gt;&lt;table&gt;
+  &lt;thead&gt;
+      &lt;tr&gt;
+          &lt;th&gt;Aspect&lt;/th&gt;
+          &lt;th&gt;Static Analysis&lt;/th&gt;
+          &lt;th&gt;Dynamic Analysis&lt;/th&gt;
+      &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+      &lt;tr&gt;
+          &lt;td&gt;Focus&lt;/td&gt;
+          &lt;td&gt;Structure (classes, attributes, relationships)&lt;/td&gt;
+          &lt;td&gt;Behavior (messages, state changes, workflows)&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;Key Diagram&lt;/td&gt;
+          &lt;td&gt;Class Diagram, Object Diagram&lt;/td&gt;
+          &lt;td&gt;Sequence, Communication, State, Activity&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;Answers&lt;/td&gt;
+          &lt;td&gt;What entities exist?&lt;/td&gt;
+          &lt;td&gt;How do they interact over time?&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;When&lt;/td&gt;
+          &lt;td&gt;Early in analysis phase&lt;/td&gt;
+          &lt;td&gt;After static structure is identified&lt;/td&gt;
+      &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+&lt;h2 id=&#34;how-to-perform-dynamic-analysis&#34;&gt;How to Perform Dynamic Analysis
+&lt;/h2&gt;&lt;ol&gt;
+&lt;li&gt;Identify key scenarios from use cases (e.g., &amp;ldquo;Place Order&amp;rdquo;, &amp;ldquo;Request Refund&amp;rdquo;).&lt;/li&gt;
+&lt;li&gt;For each scenario, create a &lt;strong&gt;sequence diagram&lt;/strong&gt; showing object interactions.&lt;/li&gt;
+&lt;li&gt;For objects with complex lifecycles, create a &lt;strong&gt;state diagram&lt;/strong&gt;.&lt;/li&gt;
+&lt;li&gt;For workflows with decisions, create an &lt;strong&gt;activity diagram&lt;/strong&gt;.&lt;/li&gt;
+&lt;li&gt;Validate consistency: ensure all messages in sequence diagrams correspond to operations defined in the class diagram.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h1 id=&#34;chapter-6&#34;&gt;Chapter 6
+&lt;/h1&gt;&lt;h2 id=&#34;system-requirement-modeling&#34;&gt;System requirement modeling
+&lt;/h2&gt;&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;Functional requirement: What the system should do
+e.g. An online shopping system should allow users to &lt;code&gt;add items&lt;/code&gt; to their cart and checkout.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Non-functional requirement: How the system should be
+e.g. An online shopping system should &lt;code&gt;respond&lt;/code&gt; to user actions within &lt;code&gt;2 seconds&lt;/code&gt;.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Use cases: widely considered as the most effective way to capture functional requirements.
+list of steps, typically defining the &lt;code&gt;interactions&lt;/code&gt; between a user and the system to achieve a &lt;code&gt;specific goal&lt;/code&gt;.&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;System use case: A user can &lt;code&gt;add items&lt;/code&gt; to their cart.&lt;/li&gt;
+&lt;li&gt;Business use case: A user can &lt;code&gt;purchase&lt;/code&gt; items from the online store.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;ul&gt;
+&lt;li&gt;Business(Use case) model contains: 1. Actors list 2. Glossary(行话名词解释) 3. Use cases 4. Communication diagram(Optional) 5. Activity diagram(Optional)&lt;/li&gt;
+&lt;/ul&gt;
+&lt;ol start=&#34;3&#34;&gt;
+&lt;li&gt;System use case: A user can &lt;code&gt;checkout&lt;/code&gt; their cart.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h1 id=&#34;threading&#34;&gt;Threading
+&lt;/h1&gt;&lt;h2 id=&#34;thread-pools&#34;&gt;Thread pools
+&lt;/h2&gt;&lt;h2 id=&#34;fork-join-parallelism&#34;&gt;Fork-join parallelism
+&lt;/h2&gt;&lt;h2 id=&#34;grand-central-dispatch-gcd&#34;&gt;Grand Central Dispatch (GCD)
+&lt;/h2&gt;&lt;h2 id=&#34;intel-threading-building-blocks-tbb&#34;&gt;Intel Threading Building Blocks (TBB)
+&lt;/h2&gt;&lt;h2 id=&#34;hyperthreading-by-intel-or-smt&#34;&gt;Hyperthreading by Intel or SMT
+&lt;/h2&gt;&lt;h2 id=&#34;scheduling&#34;&gt;Scheduling
+&lt;/h2&gt;&lt;h2 id=&#34;first-come-first-served-fcfs&#34;&gt;First-come, first-served (FCFS)
+&lt;/h2&gt;&lt;h2 id=&#34;&#34;&gt;
+&lt;/h2&gt;</description>
         </item>
         <item>
         <title>COMM_3590</title>
-        <link>http://localhost:1313/p/comm_3590/</link>
+        <link>https://blog.henry070.org/p/comm_3590/</link>
         <pubDate>Wed, 04 Mar 2026 09:13:44 +0800</pubDate>
         
-        <guid>http://localhost:1313/p/comm_3590/</guid>
-        <description>&lt;img src="http://localhost:1313/default.jpeg" alt="Featured image of post COMM_3590" /&gt;&lt;p&gt;Here are some notes about this course.&lt;/p&gt;
+        <guid>https://blog.henry070.org/p/comm_3590/</guid>
+        <description>&lt;img src="https://blog.henry070.org/default.jpeg" alt="Featured image of post COMM_3590" /&gt;&lt;p&gt;Here are some notes about this course.&lt;/p&gt;
 &lt;h1 id=&#34;how-to-connect-with-audience&#34;&gt;How to connect with audience
 &lt;/h1&gt;&lt;p&gt;There are researches show that only present story when talking to sb, which may make them easiler to understand and memory your speech.&lt;/p&gt;
 &lt;h1 id=&#34;star&#34;&gt;S.T.A.R
@@ -71,20 +1241,100 @@
 &lt;li&gt;A. Practice in a flight simulator vs. written test&lt;/li&gt;
 &lt;li&gt;R. Save Landing vs. crash&lt;/li&gt;
 &lt;/ol&gt;
+&lt;blockquote class=&#34;alert alert-tip&#34;&gt;
+    &lt;p&gt;When talking your story, the more detial you introduce to the audience, the more they will memmory. Try to made a pic in their mind.
+You should balance the similarity and uniqueness of your story.
+The task that you talk should not be sloved by the audience in 10s.&lt;/p&gt;&lt;/blockquote&gt;
+&lt;h1 id=&#34;good-stories-depend-on-the-uncertainty-and-conflict&#34;&gt;Good stories depend on the &lt;code&gt;uncertainty&lt;/code&gt; and &lt;code&gt;conflict&lt;/code&gt;.
+&lt;/h1&gt;&lt;p&gt;We need try and fail before we can succeed.&lt;/p&gt;
+&lt;h1 id=&#34;3-things-in-a-story&#34;&gt;3 things in a story
+&lt;/h1&gt;&lt;ol&gt;
+&lt;li&gt;A mutlti-sided character&lt;/li&gt;
+&lt;li&gt;The audience wants to see them succeed&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h1 id=&#34;asignment-2&#34;&gt;Asignment 2
+&lt;/h1&gt;&lt;h1 id=&#34;week-3&#34;&gt;Week 3
+&lt;/h1&gt;&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;Certain traps: Being certain instead of asking more questions/gathering more information&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Moral certainty trap: Judge the opposition as morally deficient or lacking intelligence.&lt;/li&gt;
+&lt;li&gt;Confirmation bias: We are more likely to recognize, trust and remember information that confirms our pre-existing beliefs.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Information Deficit Model:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Sharing more information between people who disagree = More agreement on what is true&lt;/li&gt;
+&lt;li&gt;When does more information lead to more agreement?
+&lt;ul&gt;
+&lt;li&gt;When the information is credible and relevant&lt;/li&gt;
+&lt;li&gt;When the information is shared in a way that is respectful and non-confrontational&lt;/li&gt;
+&lt;li&gt;When the individuals are open to changing their beliefs&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;More information can produce the &amp;ldquo;boomerrang effect&amp;rdquo;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;More explainatoin: when you try to persuade someone, and it causes the opposite reaction that you intended.&lt;/li&gt;
+&lt;li&gt;More information = less agreement&lt;/li&gt;
+&lt;li&gt;When it take place(signal)? Disengagement, reactance, and motivated reasoning, trigger threat &amp;ldquo;fight or flight&amp;rdquo;&lt;/li&gt;
+&lt;li&gt;How to avoid it? Active listening, deep canvassing(Next class)&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;It is particularly strong when&lt;/code&gt; = Win-loss frame, Arguments that threaten &amp;ldquo;group identity&amp;rdquo;, attacking the other person&amp;rsquo;s character, Purposefully omitting information = less trust, Loaded language&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h1 id=&#34;week-4&#34;&gt;Week 4
+&lt;/h1&gt;&lt;h2 id=&#34;reviewing-for-some-key-concept&#34;&gt;Reviewing for some key concept
+&lt;/h2&gt;&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;Automatic disambiguation:&lt;/code&gt; Brain&amp;rsquo;s tendency to instantly interpret ambiguous situations as having a clear meaning - without conscious offort.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;Certainty trap&lt;/code&gt; = being certain instead of asking more questions/gathering more information&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;Moral certainty trap&lt;/code&gt; = judge the opposition as morally deficient or lacking intelligence&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;Confirmation bias&lt;/code&gt; = we are more likely to trust and remember information that confirms our pre-existing belief. We have a bias in favor of confirming our existing beliefs.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;how-to-avoid-boomerrang-effect&#34;&gt;How to avoid boomerrang effect
+&lt;/h2&gt;&lt;ul&gt;
+&lt;li&gt;Don&amp;rsquo;t immediately counter-argue&lt;/li&gt;
+&lt;li&gt;Recognize and respect the other&amp;rsquo;s emotional state&lt;/li&gt;
+&lt;li&gt;Ask clarifying questions&lt;/li&gt;
+&lt;li&gt;Paraphrase&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h1 id=&#34;week-5--teaching&#34;&gt;Week 5 | Teaching
+&lt;/h1&gt;&lt;h2 id=&#34;example--spss&#34;&gt;Example | SPSS
+&lt;/h2&gt;&lt;ol&gt;
+&lt;li&gt;What is SPSS&lt;/li&gt;
+&lt;li&gt;Why it is useful(to make audience think that is useful): professional development&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2 id=&#34;six-effective-teaching-strategies&#34;&gt;Six effective teaching strategies
+&lt;/h2&gt;&lt;ol&gt;
+&lt;li&gt;Use audience centered commmunication&lt;/li&gt;
+&lt;li&gt;Rrelevant before content&lt;/li&gt;
+&lt;li&gt;Break big ideas into smaller parts&lt;/li&gt;
+&lt;li&gt;Check audience&amp;rsquo;s understanding&lt;/li&gt;
+&lt;li&gt;Examples before abstractions&lt;/li&gt;
+&lt;li&gt;Balance&lt;/li&gt;
+&lt;li&gt;pointing the stuff and explain it&lt;/li&gt;
+&lt;/ol&gt;
 </description>
         </item>
         <item>
-        <title>Os_ch1</title>
-        <link>http://localhost:1313/p/os_ch1/</link>
+        <title>Os</title>
+        <link>https://blog.henry070.org/p/os/</link>
         <pubDate>Mon, 02 Mar 2026 13:33:00 +0800</pubDate>
         
-        <guid>http://localhost:1313/p/os_ch1/</guid>
-        <description>&lt;img src="http://localhost:1313/p/os_ch1/opc.png" alt="Featured image of post Os_ch1" /&gt;&lt;h1 id=&#34;abstract-view-of-components-of-computer&#34;&gt;Abstract View of Components of Computer
-&lt;/h1&gt;&lt;h1 id=&#34;what-operating-systems-do&#34;&gt;What Operating Systems Do
-&lt;/h1&gt;&lt;h2 id=&#34;different-perspectives&#34;&gt;Different Perspectives
-&lt;/h2&gt;&lt;p&gt;Operating systems serve different purposes depending on the context and the type of system.&lt;/p&gt;
-&lt;pre class=&#34;mermaid&#34;&gt;
-  mindmap
+        <guid>https://blog.henry070.org/p/os/</guid>
+        <description>&lt;img src="https://blog.henry070.org/p/os/opc.png" alt="Featured image of post Os" /&gt;&lt;!-- # Abstract View of Components of Computer
+
+# What Operating Systems Do
+
+## Different Perspectives
+
+Operating systems serve different purposes depending on the context and the type of system.
+
+```mermaid
+mindmap
   root((OS Perspectives))
     User View
       Convenience
@@ -104,65 +1354,212 @@
         Shared Server Access
       Mobile Devices
         Resource Constrained
-        Usability &amp;amp; Battery Life
+        Usability &amp; Battery Life
         Touch/Voice UI
       Embedded Systems
         Little/No UI
         No User Intervention
+```
+
+### User View
+Users want **convenience**, **ease of use**, and **good performance**. They typically do not care about resource utilization.
+
+### System View
+For shared computers (mainframes, minicomputers), the OS must keep all users happy. In this context, the OS acts as:
+
+&gt; **Resource Allocator**: Manages and allocates resources (CPU time, memory space, file storage, I/O devices) to specific programs and users.
+&gt;
+&gt; **Control Program**: Controls the execution of user programs and operations of I/O devices.
+
+### Specific System Types
+
+*   **Dedicated Systems (Workstations)**: Users have dedicated resources but frequently use shared resources from servers.
+*   **Mobile Devices (Smartphones, Tablets)**:
+    *   Resource poor.
+    *   Optimized for **usability** and **battery life**.
+    *   Utilize interfaces like touch screens and voice recognition.
+*   **Embedded Systems (Devices, Automobiles)**:
+    *   Little or no user interface.
+    *   Run primarily without user intervention.
+
+## Organization
+
+## Starup
+
+- Bootstrap program: which is loaded at power
+- BIOS: Basic input and output system
+
+
+
+## Storage Structure
+
+- Memory
+- Secondary strorage: Nonvolatile storage
+
+NVME(Non-volatile memory express)
+
+#
+
+## multiprograming
+
+## multitasking
+
+# Dual-mode and multi-mode operation
+
+## Caching
+
+Prefomred at many levels of the system
+
+# Batch in
+
+# Pintos
+
+It is a simple instructional operating system framework for the x86 architecture. It is designed for educational purposes to help students understand the concepts of operating systems and how they work.
+
+## Installation
+
+## Prerequisites
+
+- Docker or Podman installed on your machine.
+
+## Steps
+
+1. Pull and run docker image:
+
+```bash
+# if sussfully enter the terminal, type ctrl+D to exit the container
+docker run -it pkuflyingpig/pintos bash
+```
+
+2. Download the (source code)[https://drive.google.com/file/d/1_4s2QGkoKypETyA4bxwDkFJlHYVo5dqx/view?usp=sharing]:
+
+3. Compile the source code:
+
+```bash
+# x86 arch
+docker run -it --rm --name pintos --mount type=bind,source=&lt;path&gt;,target=/home/PKUOS/pintos pkuflyingpig/pintos bash
+# MacOS
+docker run -it --rm --name pintos --platform linux/amd64 --mount type=bind,source=absolute/path/to/pintos/on/your/host/machine,target=/home/PKUOS/pintos pkuflyingpig/pintos bash
+```
+
+or copy below code into dockercompose.yml under the pintos folder and run `docker compose up`:
+
+```yaml
+services:
+  pintos:
+    image: pkuflyingpig/pintos
+    container_name: pintos_dev
+    platform: linux/amd64
+    working_dir: /home/PKUOS/pintos
+    volumes:
+      - .:/home/PKUOS/pintos
+    stdin_open: true
+    tty: true
+    command: bash -c &#34;cd src/threads/ &amp;&amp; make &amp;&amp; cd build &amp;&amp; pintos --&#34;
+```
+
+# Week 3
+
+## Interprocess Communication(IPC)
+
+### Shared Memory
+
+### Message Passing
+
+### Processing comsumption problem
+
+## Synchronization(同步)
+
+1. `Blocking synchronization`: A process is blocked until a certain condition is met.
+2. `Non-blocking synchronization`: A process continues to execute and periodically checks for the condition.
+ --&gt;
+&lt;h1 id=&#34;chapter-3--processes&#34;&gt;Chapter 3 | Processes
+&lt;/h1&gt;&lt;h2 id=&#34;process-concept&#34;&gt;Process Concept
+&lt;/h2&gt;&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;Defination: a &lt;code&gt;program&lt;/code&gt; in execution&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Program code = text section(the code was treat as text before compilation)&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Program counter: indicates the next instruction to execute&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Stack: contains temporary data (e.g. function parameters, return addresses, local variables)&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Data section: contains global variables&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Heap: dynamically allocated memory during runtime&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;blockquote class=&#34;alert alert-tips&#34;&gt;
+    &lt;p&gt;The heap concept in data structures is different from the heap in memory management. The former is a specific data structure, while the latter refers to a region of memory used for dynamic allocation.&lt;/p&gt;&lt;/blockquote&gt;
+&lt;ul&gt;
+&lt;li&gt;Program is &lt;code&gt;passive&lt;/code&gt;, process is &lt;code&gt;active&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;memory-layout-of-a-process&#34;&gt;Memory Layout of a Process
+&lt;/h3&gt;&lt;pre class=&#34;mermaid&#34;&gt;
+  graph TD
+    subgraph Memory_Layout [Process Memory Layout]
+        direction TB
+        High[&amp;#34;High Address&amp;#34;]
+        Stack[&amp;#34;Stack (Function calls, local variables)&amp;#34;]
+        Gap[&amp;#34;&amp;amp;nbsp;&amp;#34;]
+        Heap[&amp;#34;Heap (Dynamic memory allocation)&amp;#34;]
+        Data[&amp;#34;Data Section (Global &amp;amp; Static variables)&amp;#34;]
+        Text[&amp;#34;Text Section (Program code)&amp;#34;]
+        Low[&amp;#34;Low Address&amp;#34;]
+
+        High --- Stack
+        Stack -- &amp;#34;grows down&amp;#34; --&amp;gt; Gap
+        Gap -- &amp;#34;grows up&amp;#34; --- Heap
+        Heap --- Data
+        Data --- Text
+        Text --- Low
+    end
 &lt;/pre&gt;
 
-&lt;h3 id=&#34;user-view&#34;&gt;User View
-&lt;/h3&gt;&lt;p&gt;Users want &lt;strong&gt;convenience&lt;/strong&gt;, &lt;strong&gt;ease of use&lt;/strong&gt;, and &lt;strong&gt;good performance&lt;/strong&gt;. They typically do not care about resource utilization.&lt;/p&gt;
-&lt;h3 id=&#34;system-view&#34;&gt;System View
-&lt;/h3&gt;&lt;p&gt;For shared computers (mainframes, minicomputers), the OS must keep all users happy. In this context, the OS acts as:&lt;/p&gt;
-&lt;blockquote&gt;
-&lt;p&gt;&lt;strong&gt;Resource Allocator&lt;/strong&gt;: Manages and allocates resources (CPU time, memory space, file storage, I/O devices) to specific programs and users.&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;Control Program&lt;/strong&gt;: Controls the execution of user programs and operations of I/O devices.&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;h3 id=&#34;specific-system-types&#34;&gt;Specific System Types
+&lt;h2 id=&#34;process-state&#34;&gt;Process State
+&lt;/h2&gt;&lt;p&gt;As a process executes, it changes state. The lifecycle of a process can be visualized through the following state diagram:&lt;/p&gt;
+&lt;pre class=&#34;mermaid&#34;&gt;
+  stateDiagram-v2
+    [*] --&amp;gt; New
+    New --&amp;gt; Ready: Admitted
+    Ready --&amp;gt; Running: Scheduler dispatch
+    Running --&amp;gt; Ready: Interrupt
+    Running --&amp;gt; Waiting: I/O or event wait
+    Waiting --&amp;gt; Ready: I/O or event completion
+    Running --&amp;gt; Terminated: Exit
+    Terminated --&amp;gt; [*]
+&lt;/pre&gt;
+
+&lt;h3 id=&#34;the-five-states&#34;&gt;The Five States
 &lt;/h3&gt;&lt;ul&gt;
-&lt;li&gt;&lt;strong&gt;Dedicated Systems (Workstations)&lt;/strong&gt;: Users have dedicated resources but frequently use shared resources from servers.&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;Mobile Devices (Smartphones, Tablets)&lt;/strong&gt;:
-&lt;ul&gt;
-&lt;li&gt;Resource poor.&lt;/li&gt;
-&lt;li&gt;Optimized for &lt;strong&gt;usability&lt;/strong&gt; and &lt;strong&gt;battery life&lt;/strong&gt;.&lt;/li&gt;
-&lt;li&gt;Utilize interfaces like touch screens and voice recognition.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;New&lt;/strong&gt;: The process is being created.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Running&lt;/strong&gt;: Instructions are being executed.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Waiting&lt;/strong&gt;: The process is waiting for some event to occur (such as I/O completion or reception of a signal).&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Ready&lt;/strong&gt;: The process is waiting to be assigned to a processor.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Terminated&lt;/strong&gt;: The process has finished execution.&lt;/li&gt;
 &lt;/ul&gt;
-&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;Embedded Systems (Devices, Automobiles)&lt;/strong&gt;:
-&lt;ul&gt;
-&lt;li&gt;Little or no user interface.&lt;/li&gt;
-&lt;li&gt;Run primarily without user intervention.&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h2 id=&#34;organization&#34;&gt;Organization
-&lt;/h2&gt;&lt;h2 id=&#34;starup&#34;&gt;Starup
-&lt;/h2&gt;&lt;ul&gt;
-&lt;li&gt;Bootstrap program: which is loaded at power&lt;/li&gt;
-&lt;li&gt;BIOS: Basic input and output system&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h2 id=&#34;storage-structure&#34;&gt;Storage Structure
-&lt;/h2&gt;&lt;ul&gt;
-&lt;li&gt;Memory&lt;/li&gt;
-&lt;li&gt;Secondary strorage: Nonvolatile storage&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;NVME(Non-volatile memory express)&lt;/p&gt;
-&lt;h1 id=&#34;&#34;&gt;
-&lt;/h1&gt;&lt;h2 id=&#34;multiprograming&#34;&gt;multiprograming
-&lt;/h2&gt;&lt;h2 id=&#34;multitasking&#34;&gt;multitasking
-&lt;/h2&gt;&lt;h1 id=&#34;dual-mode-and-multi-mode-operation&#34;&gt;Dual-mode and multi-mode operation
-&lt;/h1&gt;&lt;h2 id=&#34;caching&#34;&gt;Caching
-&lt;/h2&gt;&lt;p&gt;Prefomred at many levels of the system&lt;/p&gt;
-</description>
+&lt;h2 id=&#34;process-control-block-pcb&#34;&gt;Process Control Block (PCB)
+&lt;/h2&gt;&lt;h2 id=&#34;threads&#34;&gt;Threads
+&lt;/h2&gt;&lt;h2 id=&#34;process-scheduling&#34;&gt;Process Scheduling
+&lt;/h2&gt;&lt;h2 id=&#34;context-switch&#34;&gt;Context Switch
+&lt;/h2&gt;&lt;h2 id=&#34;process-operations&#34;&gt;Process operations
+&lt;/h2&gt;&lt;h3 id=&#34;multitasking-in-mobile-systems&#34;&gt;Multitasking in Mobile Systems
+&lt;/h3&gt;&lt;h3 id=&#34;multiprocess-architecture--chrome-browser&#34;&gt;Multiprocess Architecture – Chrome Browser
+&lt;/h3&gt;</description>
         </item>
         <item>
         <title>SuperClaude 入门到精进：从零掌握 AI 辅助开发框架</title>
-        <link>http://localhost:1313/p/superclaude-%E5%85%A5%E9%97%A8%E5%88%B0%E7%B2%BE%E8%BF%9B%E4%BB%8E%E9%9B%B6%E6%8E%8C%E6%8F%A1-ai-%E8%BE%85%E5%8A%A9%E5%BC%80%E5%8F%91%E6%A1%86%E6%9E%B6/</link>
+        <link>https://blog.henry070.org/p/superclaude-%E5%85%A5%E9%97%A8%E5%88%B0%E7%B2%BE%E8%BF%9B%E4%BB%8E%E9%9B%B6%E6%8E%8C%E6%8F%A1-ai-%E8%BE%85%E5%8A%A9%E5%BC%80%E5%8F%91%E6%A1%86%E6%9E%B6/</link>
         <pubDate>Mon, 12 Jan 2026 01:30:46 +0800</pubDate>
         
-        <guid>http://localhost:1313/p/superclaude-%E5%85%A5%E9%97%A8%E5%88%B0%E7%B2%BE%E8%BF%9B%E4%BB%8E%E9%9B%B6%E6%8E%8C%E6%8F%A1-ai-%E8%BE%85%E5%8A%A9%E5%BC%80%E5%8F%91%E6%A1%86%E6%9E%B6/</guid>
-        <description>&lt;img src="http://localhost:1313/default.jpeg" alt="Featured image of post SuperClaude 入门到精进：从零掌握 AI 辅助开发框架" /&gt;&lt;p&gt;version = &amp;ldquo;1.0.0&amp;rdquo;
+        <guid>https://blog.henry070.org/p/superclaude-%E5%85%A5%E9%97%A8%E5%88%B0%E7%B2%BE%E8%BF%9B%E4%BB%8E%E9%9B%B6%E6%8E%8C%E6%8F%A1-ai-%E8%BE%85%E5%8A%A9%E5%BC%80%E5%8F%91%E6%A1%86%E6%9E%B6/</guid>
+        <description>&lt;img src="https://blog.henry070.org/p/superclaude-%E5%85%A5%E9%97%A8%E5%88%B0%E7%B2%BE%E8%BF%9B%E4%BB%8E%E9%9B%B6%E6%8E%8C%E6%8F%A1-ai-%E8%BE%85%E5%8A%A9%E5%BC%80%E5%8F%91%E6%A1%86%E6%9E%B6/cover.jpg" alt="Featured image of post SuperClaude 入门到精进：从零掌握 AI 辅助开发框架" /&gt;&lt;p&gt;version = &amp;ldquo;1.0.0&amp;rdquo;
 sc_version = &amp;ldquo;4.1.5&amp;rdquo;&lt;/p&gt;
 &lt;h1 id=&#34;superclaude-入门到精进从零掌握-ai-辅助开发框架&#34;&gt;SuperClaude 入门到精进：从零掌握 AI 辅助开发框架
 &lt;/h1&gt;&lt;blockquote&gt;
@@ -2702,11 +4099,11 @@ describe(&amp;#39;TodoItem&amp;#39;, () =&amp;gt; {
         </item>
         <item>
         <title>软件开发全流程：从0到1的完整指南</title>
-        <link>http://localhost:1313/p/%E8%BD%AF%E4%BB%B6%E5%BC%80%E5%8F%91%E5%85%A8%E6%B5%81%E7%A8%8B%E4%BB%8E0%E5%88%B01%E7%9A%84%E5%AE%8C%E6%95%B4%E6%8C%87%E5%8D%97/</link>
+        <link>https://blog.henry070.org/p/%E8%BD%AF%E4%BB%B6%E5%BC%80%E5%8F%91%E5%85%A8%E6%B5%81%E7%A8%8B%E4%BB%8E0%E5%88%B01%E7%9A%84%E5%AE%8C%E6%95%B4%E6%8C%87%E5%8D%97/</link>
         <pubDate>Mon, 12 Jan 2026 01:30:46 +0800</pubDate>
         
-        <guid>http://localhost:1313/p/%E8%BD%AF%E4%BB%B6%E5%BC%80%E5%8F%91%E5%85%A8%E6%B5%81%E7%A8%8B%E4%BB%8E0%E5%88%B01%E7%9A%84%E5%AE%8C%E6%95%B4%E6%8C%87%E5%8D%97/</guid>
-        <description>&lt;img src="http://localhost:1313/default.jpeg" alt="Featured image of post 软件开发全流程：从0到1的完整指南" /&gt;&lt;h2 id=&#34;前言&#34;&gt;前言
+        <guid>https://blog.henry070.org/p/%E8%BD%AF%E4%BB%B6%E5%BC%80%E5%8F%91%E5%85%A8%E6%B5%81%E7%A8%8B%E4%BB%8E0%E5%88%B01%E7%9A%84%E5%AE%8C%E6%95%B4%E6%8C%87%E5%8D%97/</guid>
+        <description>&lt;img src="https://blog.henry070.org/default.jpeg" alt="Featured image of post 软件开发全流程：从0到1的完整指南" /&gt;&lt;h2 id=&#34;前言&#34;&gt;前言
 &lt;/h2&gt;&lt;p&gt;无论是从0到1开发一个新项目，还是在现有项目中开发一个新功能，合理的流程对于保证&lt;strong&gt;质量&lt;/strong&gt;和&lt;strong&gt;效率&lt;/strong&gt;至关重要。很多初学者在开始编程时，往往直接打开IDE就开始写代码，这种&amp;quot;边做边想&amp;quot;的方式在小型项目中或许可行，但在企业级开发中却会导致大量的问题：&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;需求不清晰导致反复返工&lt;/li&gt;
@@ -3680,19 +5077,19 @@ Sprint评审会 (演示成果)
 &lt;hr&gt;
 &lt;p&gt;&lt;strong&gt;相关文章&lt;/strong&gt;：&lt;/p&gt;
 &lt;ul&gt;
-&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;http://localhost:1313/p/git/&#34; &gt;Git版本控制最佳实践&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;http://localhost:1313/p/tmux/&#34; &gt;Tmux终端复用器&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;http://localhost:1313/p/vibe_coding/&#34; &gt;Vibe Coding：AI辅助编程&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;https://blog.henry070.org/p/git/&#34; &gt;Git版本控制最佳实践&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;https://blog.henry070.org/p/tmux/&#34; &gt;Tmux终端复用器&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;https://blog.henry070.org/p/vibe_coding/&#34; &gt;Vibe Coding：AI辅助编程&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 </description>
         </item>
         <item>
         <title>Git Worktree：并行开发的利器</title>
-        <link>http://localhost:1313/p/git-worktree/</link>
+        <link>https://blog.henry070.org/p/git-worktree/</link>
         <pubDate>Mon, 12 Jan 2026 00:00:00 +0800</pubDate>
         
-        <guid>http://localhost:1313/p/git-worktree/</guid>
-        <description>&lt;img src="http://localhost:1313/git.png" alt="Featured image of post Git Worktree：并行开发的利器" /&gt;&lt;h2 id=&#34;前言&#34;&gt;前言
+        <guid>https://blog.henry070.org/p/git-worktree/</guid>
+        <description>&lt;img src="https://blog.henry070.org/git.png" alt="Featured image of post Git Worktree：并行开发的利器" /&gt;&lt;h2 id=&#34;前言&#34;&gt;前言
 &lt;/h2&gt;&lt;p&gt;想象一下这个场景：你正在一个复杂的 &lt;code&gt;feature/user-auth&lt;/code&gt; 分支上开发新功能，代码改了一半，还没提交。突然产品经理跑过来说：&amp;ldquo;线上有个严重bug需要马上修复！&amp;rdquo;&lt;/p&gt;
 &lt;p&gt;按照传统的 Git 工作流，你需要：&lt;/p&gt;
 &lt;ol&gt;
@@ -4367,9 +5764,9 @@ git wt rm ../f       # 删除 worktree&lt;/code&gt;
 &lt;/ul&gt;
 &lt;h3 id=&#34;相关文章&#34;&gt;相关文章
 &lt;/h3&gt;&lt;ul&gt;
-&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;http://localhost:1313/p/git/&#34; &gt;Git 版本控制完整指南&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;http://localhost:1313/p/dev_flow/&#34; &gt;软件开发全流程：从0到1的完整指南&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;http://localhost:1313/p/linux-shell-basics/&#34; &gt;Linux Shell 基础&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;https://blog.henry070.org/p/git/&#34; &gt;Git 版本控制完整指南&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;https://blog.henry070.org/p/dev_flow/&#34; &gt;软件开发全流程：从0到1的完整指南&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;https://blog.henry070.org/p/linux-shell-basics/&#34; &gt;Linux Shell 基础&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;h3 id=&#34;视频教程&#34;&gt;视频教程
 &lt;/h3&gt;&lt;p&gt;如果你想深入了解 Git 的高级用法，推荐观看：&lt;/p&gt;
@@ -4431,11 +5828,11 @@ git worktree remove ../hotfix-demo&lt;/code&gt;
         </item>
         <item>
         <title>VS Code Dev Containers 完全指南：从入门到精通</title>
-        <link>http://localhost:1313/p/vs-code-dev-containers-%E5%AE%8C%E5%85%A8%E6%8C%87%E5%8D%97%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E7%B2%BE%E9%80%9A/</link>
+        <link>https://blog.henry070.org/p/vs-code-dev-containers-%E5%AE%8C%E5%85%A8%E6%8C%87%E5%8D%97%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E7%B2%BE%E9%80%9A/</link>
         <pubDate>Mon, 12 Jan 2026 00:00:00 +0800</pubDate>
         
-        <guid>http://localhost:1313/p/vs-code-dev-containers-%E5%AE%8C%E5%85%A8%E6%8C%87%E5%8D%97%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E7%B2%BE%E9%80%9A/</guid>
-        <description>&lt;img src="http://localhost:1313/default.jpeg" alt="Featured image of post VS Code Dev Containers 完全指南：从入门到精通" /&gt;&lt;h2 id=&#34;什么是-dev-containers&#34;&gt;什么是 Dev Containers？
+        <guid>https://blog.henry070.org/p/vs-code-dev-containers-%E5%AE%8C%E5%85%A8%E6%8C%87%E5%8D%97%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E7%B2%BE%E9%80%9A/</guid>
+        <description>&lt;img src="https://blog.henry070.org/default.jpeg" alt="Featured image of post VS Code Dev Containers 完全指南：从入门到精通" /&gt;&lt;h2 id=&#34;什么是-dev-containers&#34;&gt;什么是 Dev Containers？
 &lt;/h2&gt;&lt;p&gt;VS Code Dev Containers（开发容器）是一种让您能够在容器中使用代码库的开发工具。它允许您：&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;strong&gt;隔离开发环境&lt;/strong&gt;：每个项目都有独立、一致的开发环境&lt;/li&gt;
@@ -5090,11 +6487,11 @@ volumes:
         </item>
         <item>
         <title>软件包管理：Linux 的应用商店</title>
-        <link>http://localhost:1313/p/%E8%BD%AF%E4%BB%B6%E5%8C%85%E7%AE%A1%E7%90%86linux-%E7%9A%84%E5%BA%94%E7%94%A8%E5%95%86%E5%BA%97/</link>
+        <link>https://blog.henry070.org/p/%E8%BD%AF%E4%BB%B6%E5%8C%85%E7%AE%A1%E7%90%86linux-%E7%9A%84%E5%BA%94%E7%94%A8%E5%95%86%E5%BA%97/</link>
         <pubDate>Sun, 11 Jan 2026 03:00:00 +0800</pubDate>
         
-        <guid>http://localhost:1313/p/%E8%BD%AF%E4%BB%B6%E5%8C%85%E7%AE%A1%E7%90%86linux-%E7%9A%84%E5%BA%94%E7%94%A8%E5%95%86%E5%BA%97/</guid>
-        <description>&lt;img src="http://localhost:1313/default.jpeg" alt="Featured image of post 软件包管理：Linux 的应用商店" /&gt;&lt;h1 id=&#34;软件包管理linux-的应用商店&#34;&gt;软件包管理：Linux 的应用商店
+        <guid>https://blog.henry070.org/p/%E8%BD%AF%E4%BB%B6%E5%8C%85%E7%AE%A1%E7%90%86linux-%E7%9A%84%E5%BA%94%E7%94%A8%E5%95%86%E5%BA%97/</guid>
+        <description>&lt;img src="https://blog.henry070.org/default.jpeg" alt="Featured image of post 软件包管理：Linux 的应用商店" /&gt;&lt;h1 id=&#34;软件包管理linux-的应用商店&#34;&gt;软件包管理：Linux 的应用商店
 &lt;/h1&gt;&lt;h2 id=&#34;引言&#34;&gt;引言
 &lt;/h2&gt;&lt;p&gt;软件包管理是 Linux 系统中最日常的任务之一。不同的发行版使用不同的包管理器，但核心概念是相通的。在这篇文章中，我们将系统学习 Linux 的软件包管理系统。&lt;/p&gt;
 &lt;h2 id=&#34;包管理器概述&#34;&gt;包管理器概述
@@ -5719,7 +7116,7 @@ sudo pacman -Scc         # 清理所有缓存&lt;/code&gt;
 &lt;/blockquote&gt;
 &lt;p&gt;掌握包管理器，让你的 Linux 之旅更加顺畅！&lt;/p&gt;
 &lt;hr&gt;
-&lt;p&gt;&lt;strong&gt;← 返回系列概述&lt;/strong&gt;: &lt;a class=&#34;link&#34; href=&#34;http://localhost:1313/p/linux-%E6%A6%82%E8%BF%B0%E4%BB%8E-unix-%E5%88%B0%E5%BC%80%E6%BA%90%E9%9D%A9%E5%91%BD/&#34; &gt;Linux 概述：从 Unix 到开源革命&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;← 返回系列概述&lt;/strong&gt;: &lt;a class=&#34;link&#34; href=&#34;https://blog.henry070.org/p/linux-%E6%A6%82%E8%BF%B0%E4%BB%8E-unix-%E5%88%B0%E5%BC%80%E6%BA%90%E9%9D%A9%E5%91%BD/&#34; &gt;Linux 概述：从 Unix 到开源革命&lt;/a&gt;&lt;/p&gt;
 &lt;hr&gt;
 &lt;p&gt;&lt;strong&gt;参考资源&lt;/strong&gt;：&lt;/p&gt;
 &lt;ul&gt;
@@ -5736,11 +7133,11 @@ sudo pacman -Scc         # 清理所有缓存&lt;/code&gt;
         </item>
         <item>
         <title>日志和监控：Linux 的体检医生</title>
-        <link>http://localhost:1313/p/%E6%97%A5%E5%BF%97%E5%92%8C%E7%9B%91%E6%8E%A7linux-%E7%9A%84%E4%BD%93%E6%A3%80%E5%8C%BB%E7%94%9F/</link>
+        <link>https://blog.henry070.org/p/%E6%97%A5%E5%BF%97%E5%92%8C%E7%9B%91%E6%8E%A7linux-%E7%9A%84%E4%BD%93%E6%A3%80%E5%8C%BB%E7%94%9F/</link>
         <pubDate>Sun, 11 Jan 2026 02:00:00 +0800</pubDate>
         
-        <guid>http://localhost:1313/p/%E6%97%A5%E5%BF%97%E5%92%8C%E7%9B%91%E6%8E%A7linux-%E7%9A%84%E4%BD%93%E6%A3%80%E5%8C%BB%E7%94%9F/</guid>
-        <description>&lt;img src="http://localhost:1313/default.jpeg" alt="Featured image of post 日志和监控：Linux 的体检医生" /&gt;&lt;h1 id=&#34;日志和监控linux-的体检医生&#34;&gt;日志和监控：Linux 的体检医生
+        <guid>https://blog.henry070.org/p/%E6%97%A5%E5%BF%97%E5%92%8C%E7%9B%91%E6%8E%A7linux-%E7%9A%84%E4%BD%93%E6%A3%80%E5%8C%BB%E7%94%9F/</guid>
+        <description>&lt;img src="https://blog.henry070.org/default.jpeg" alt="Featured image of post 日志和监控：Linux 的体检医生" /&gt;&lt;h1 id=&#34;日志和监控linux-的体检医生&#34;&gt;日志和监控：Linux 的体检医生
 &lt;/h1&gt;&lt;h2 id=&#34;引言&#34;&gt;引言
 &lt;/h2&gt;&lt;p&gt;日志和监控是 Linux 系统管理的眼睛和耳朵。通过日志，我们可以了解系统发生了什么；通过监控，我们可以知道系统正在做什么。在这篇文章中，我们将系统学习 Linux 的日志管理和系统监控。&lt;/p&gt;
 &lt;h2 id=&#34;系统日志概述&#34;&gt;系统日志概述
@@ -6324,7 +7721,7 @@ done&lt;/code&gt;
 &lt;/blockquote&gt;
 &lt;p&gt;监控和日志管理是系统稳定运行的保障。掌握这些工具，让你的 Linux 系统管理更上一层楼！&lt;/p&gt;
 &lt;hr&gt;
-&lt;p&gt;&lt;strong&gt;← 返回系列概述&lt;/strong&gt;: &lt;a class=&#34;link&#34; href=&#34;http://localhost:1313/p/linux-%E6%A6%82%E8%BF%B0%E4%BB%8E-unix-%E5%88%B0%E5%BC%80%E6%BA%90%E9%9D%A9%E5%91%BD/&#34; &gt;Linux 概述：从 Unix 到开源革命&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;← 返回系列概述&lt;/strong&gt;: &lt;a class=&#34;link&#34; href=&#34;https://blog.henry070.org/p/linux-%E6%A6%82%E8%BF%B0%E4%BB%8E-unix-%E5%88%B0%E5%BC%80%E6%BA%90%E9%9D%A9%E5%91%BD/&#34; &gt;Linux 概述：从 Unix 到开源革命&lt;/a&gt;&lt;/p&gt;
 &lt;hr&gt;
 &lt;p&gt;&lt;strong&gt;参考资源&lt;/strong&gt;：&lt;/p&gt;
 &lt;ul&gt;
@@ -6341,11 +7738,11 @@ done&lt;/code&gt;
         </item>
         <item>
         <title>文件系统：Linux 的数据宫殿</title>
-        <link>http://localhost:1313/p/%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9Flinux-%E7%9A%84%E6%95%B0%E6%8D%AE%E5%AE%AB%E6%AE%BF/</link>
+        <link>https://blog.henry070.org/p/%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9Flinux-%E7%9A%84%E6%95%B0%E6%8D%AE%E5%AE%AB%E6%AE%BF/</link>
         <pubDate>Sun, 11 Jan 2026 01:00:00 +0800</pubDate>
         
-        <guid>http://localhost:1313/p/%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9Flinux-%E7%9A%84%E6%95%B0%E6%8D%AE%E5%AE%AB%E6%AE%BF/</guid>
-        <description>&lt;img src="http://localhost:1313/default.jpeg" alt="Featured image of post 文件系统：Linux 的数据宫殿" /&gt;&lt;h1 id=&#34;文件系统linux-的数据宫殿&#34;&gt;文件系统：Linux 的数据宫殿
+        <guid>https://blog.henry070.org/p/%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9Flinux-%E7%9A%84%E6%95%B0%E6%8D%AE%E5%AE%AB%E6%AE%BF/</guid>
+        <description>&lt;img src="https://blog.henry070.org/default.jpeg" alt="Featured image of post 文件系统：Linux 的数据宫殿" /&gt;&lt;h1 id=&#34;文件系统linux-的数据宫殿&#34;&gt;文件系统：Linux 的数据宫殿
 &lt;/h1&gt;&lt;h2 id=&#34;引言&#34;&gt;引言
 &lt;/h2&gt;&lt;p&gt;文件系统是操作系统中最重要的组成部分之一。在 Linux 中，一切皆文件——普通文件、目录、设备、套接字等都通过文件系统接口访问。在这篇文章中，我们将深入探讨 Linux 文件系统的奥秘。&lt;/p&gt;
 &lt;h2 id=&#34;一切皆文件&#34;&gt;一切皆文件
@@ -7182,7 +8579,7 @@ cp -p source.txt backup.txt&lt;/code&gt;
 &lt;/blockquote&gt;
 &lt;p&gt;理解文件系统是理解 Linux 的关键一步。继续探索，你会发现更多精彩！&lt;/p&gt;
 &lt;hr&gt;
-&lt;p&gt;&lt;strong&gt;← 返回系列概述&lt;/strong&gt;: &lt;a class=&#34;link&#34; href=&#34;http://localhost:1313/p/linux-%E6%A6%82%E8%BF%B0%E4%BB%8E-unix-%E5%88%B0%E5%BC%80%E6%BA%90%E9%9D%A9%E5%91%BD/&#34; &gt;Linux 概述：从 Unix 到开源革命&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;← 返回系列概述&lt;/strong&gt;: &lt;a class=&#34;link&#34; href=&#34;https://blog.henry070.org/p/linux-%E6%A6%82%E8%BF%B0%E4%BB%8E-unix-%E5%88%B0%E5%BC%80%E6%BA%90%E9%9D%A9%E5%91%BD/&#34; &gt;Linux 概述：从 Unix 到开源革命&lt;/a&gt;&lt;/p&gt;
 &lt;hr&gt;
 &lt;p&gt;&lt;strong&gt;参考资源&lt;/strong&gt;：&lt;/p&gt;
 &lt;ul&gt;
@@ -7199,11 +8596,11 @@ cp -p source.txt backup.txt&lt;/code&gt;
         </item>
         <item>
         <title>进程管理：Linux 的生命线</title>
-        <link>http://localhost:1313/p/%E8%BF%9B%E7%A8%8B%E7%AE%A1%E7%90%86linux-%E7%9A%84%E7%94%9F%E5%91%BD%E7%BA%BF/</link>
+        <link>https://blog.henry070.org/p/%E8%BF%9B%E7%A8%8B%E7%AE%A1%E7%90%86linux-%E7%9A%84%E7%94%9F%E5%91%BD%E7%BA%BF/</link>
         <pubDate>Sun, 11 Jan 2026 00:00:00 +0800</pubDate>
         
-        <guid>http://localhost:1313/p/%E8%BF%9B%E7%A8%8B%E7%AE%A1%E7%90%86linux-%E7%9A%84%E7%94%9F%E5%91%BD%E7%BA%BF/</guid>
-        <description>&lt;img src="http://localhost:1313/default.jpeg" alt="Featured image of post 进程管理：Linux 的生命线" /&gt;&lt;h1 id=&#34;进程管理linux-的生命线&#34;&gt;进程管理：Linux 的生命线
+        <guid>https://blog.henry070.org/p/%E8%BF%9B%E7%A8%8B%E7%AE%A1%E7%90%86linux-%E7%9A%84%E7%94%9F%E5%91%BD%E7%BA%BF/</guid>
+        <description>&lt;img src="https://blog.henry070.org/default.jpeg" alt="Featured image of post 进程管理：Linux 的生命线" /&gt;&lt;h1 id=&#34;进程管理linux-的生命线&#34;&gt;进程管理：Linux 的生命线
 &lt;/h1&gt;&lt;h2 id=&#34;引言&#34;&gt;引言
 &lt;/h2&gt;&lt;p&gt;进程是 Linux 系统中正在运行的程序的实例。理解进程管理对于系统管理员、开发者和 DevOps 工程师至关重要。在这篇文章中，我们将深入探讨 Linux 如何创建、调度和管理进程。&lt;/p&gt;
 &lt;h2 id=&#34;什么是进程&#34;&gt;什么是进程？
@@ -8045,7 +9442,7 @@ sudo cgexec -g memory,cpu:myapp ./myapp&lt;/code&gt;
 &lt;/blockquote&gt;
 &lt;p&gt;掌握进程管理是理解 Linux 系统的关键一步。继续深入探索，你会发现更多奥秘！&lt;/p&gt;
 &lt;hr&gt;
-&lt;p&gt;&lt;strong&gt;← 返回系列概述&lt;/strong&gt;: &lt;a class=&#34;link&#34; href=&#34;http://localhost:1313/p/linux-%E6%A6%82%E8%BF%B0%E4%BB%8E-unix-%E5%88%B0%E5%BC%80%E6%BA%90%E9%9D%A9%E5%91%BD/&#34; &gt;Linux 概述：从 Unix 到开源革命&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;← 返回系列概述&lt;/strong&gt;: &lt;a class=&#34;link&#34; href=&#34;https://blog.henry070.org/p/linux-%E6%A6%82%E8%BF%B0%E4%BB%8E-unix-%E5%88%B0%E5%BC%80%E6%BA%90%E9%9D%A9%E5%91%BD/&#34; &gt;Linux 概述：从 Unix 到开源革命&lt;/a&gt;&lt;/p&gt;
 &lt;hr&gt;
 &lt;p&gt;&lt;strong&gt;参考资源&lt;/strong&gt;：&lt;/p&gt;
 &lt;ul&gt;
@@ -8062,11 +9459,11 @@ sudo cgexec -g memory,cpu:myapp ./myapp&lt;/code&gt;
         </item>
         <item>
         <title>Shell 和命令行：Linux 的控制台</title>
-        <link>http://localhost:1313/p/shell-%E5%92%8C%E5%91%BD%E4%BB%A4%E8%A1%8Clinux-%E7%9A%84%E6%8E%A7%E5%88%B6%E5%8F%B0/</link>
+        <link>https://blog.henry070.org/p/shell-%E5%92%8C%E5%91%BD%E4%BB%A4%E8%A1%8Clinux-%E7%9A%84%E6%8E%A7%E5%88%B6%E5%8F%B0/</link>
         <pubDate>Sat, 10 Jan 2026 23:00:00 +0800</pubDate>
         
-        <guid>http://localhost:1313/p/shell-%E5%92%8C%E5%91%BD%E4%BB%A4%E8%A1%8Clinux-%E7%9A%84%E6%8E%A7%E5%88%B6%E5%8F%B0/</guid>
-        <description>&lt;img src="http://localhost:1313/default.jpeg" alt="Featured image of post Shell 和命令行：Linux 的控制台" /&gt;&lt;h1 id=&#34;shell-和命令行linux-的控制台&#34;&gt;Shell 和命令行：Linux 的控制台
+        <guid>https://blog.henry070.org/p/shell-%E5%92%8C%E5%91%BD%E4%BB%A4%E8%A1%8Clinux-%E7%9A%84%E6%8E%A7%E5%88%B6%E5%8F%B0/</guid>
+        <description>&lt;img src="https://blog.henry070.org/default.jpeg" alt="Featured image of post Shell 和命令行：Linux 的控制台" /&gt;&lt;h1 id=&#34;shell-和命令行linux-的控制台&#34;&gt;Shell 和命令行：Linux 的控制台
 &lt;/h1&gt;&lt;h2 id=&#34;引言&#34;&gt;引言
 &lt;/h2&gt;&lt;p&gt;如果说 Linux 内核是汽车的发动机，那么 &lt;strong&gt;Shell&lt;/strong&gt; 就是方向盘和仪表盘。它是用户与操作系统交互的主要界面，是每个 Linux 用户必须掌握的核心技能。在这篇文章中，我们将系统学习 Shell 的方方面面。&lt;/p&gt;
 &lt;h2 id=&#34;什么是-shell&#34;&gt;什么是 Shell？
@@ -9102,7 +10499,7 @@ kill %1             # 结束作业号1&lt;/code&gt;
 &lt;/div&gt;
 
 &lt;h3 id=&#34;screentmux-会话管理&#34;&gt;Screen/Tmux 会话管理
-&lt;/h3&gt;&lt;p&gt;详见 &lt;a class=&#34;link&#34; href=&#34;http://localhost:1313/post/tmux/&#34; &gt;Tmux 博客文章&lt;/a&gt;，这里简要介绍：&lt;/p&gt;
+&lt;/h3&gt;&lt;p&gt;详见 &lt;a class=&#34;link&#34; href=&#34;https://blog.henry070.org/post/tmux/&#34; &gt;Tmux 博客文章&lt;/a&gt;，这里简要介绍：&lt;/p&gt;
 
 
 
@@ -9315,7 +10712,7 @@ fi&lt;/code&gt;
 &lt;/blockquote&gt;
 &lt;p&gt;在下一篇文章中，我们将深入学习 &lt;strong&gt;进程管理&lt;/strong&gt;，了解 Linux 如何管理和调度进程。&lt;/p&gt;
 &lt;hr&gt;
-&lt;p&gt;&lt;strong&gt;← 返回系列概述&lt;/strong&gt;: &lt;a class=&#34;link&#34; href=&#34;http://localhost:1313/p/linux-%E6%A6%82%E8%BF%B0%E4%BB%8E-unix-%E5%88%B0%E5%BC%80%E6%BA%90%E9%9D%A9%E5%91%BD/&#34; &gt;Linux 概述：从 Unix 到开源革命&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;← 返回系列概述&lt;/strong&gt;: &lt;a class=&#34;link&#34; href=&#34;https://blog.henry070.org/p/linux-%E6%A6%82%E8%BF%B0%E4%BB%8E-unix-%E5%88%B0%E5%BC%80%E6%BA%90%E9%9D%A9%E5%91%BD/&#34; &gt;Linux 概述：从 Unix 到开源革命&lt;/a&gt;&lt;/p&gt;
 &lt;hr&gt;
 &lt;p&gt;&lt;strong&gt;参考资源&lt;/strong&gt;：&lt;/p&gt;
 &lt;ul&gt;
@@ -9334,11 +10731,11 @@ fi&lt;/code&gt;
         </item>
         <item>
         <title>Linux 内核架构：操作系统的核心</title>
-        <link>http://localhost:1313/p/linux-%E5%86%85%E6%A0%B8%E6%9E%B6%E6%9E%84%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E7%9A%84%E6%A0%B8%E5%BF%83/</link>
+        <link>https://blog.henry070.org/p/linux-%E5%86%85%E6%A0%B8%E6%9E%B6%E6%9E%84%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E7%9A%84%E6%A0%B8%E5%BF%83/</link>
         <pubDate>Sat, 10 Jan 2026 22:00:00 +0800</pubDate>
         
-        <guid>http://localhost:1313/p/linux-%E5%86%85%E6%A0%B8%E6%9E%B6%E6%9E%84%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E7%9A%84%E6%A0%B8%E5%BF%83/</guid>
-        <description>&lt;img src="http://localhost:1313/default.jpeg" alt="Featured image of post Linux 内核架构：操作系统的核心" /&gt;&lt;h1 id=&#34;linux-内核架构操作系统的核心&#34;&gt;Linux 内核架构：操作系统的核心
+        <guid>https://blog.henry070.org/p/linux-%E5%86%85%E6%A0%B8%E6%9E%B6%E6%9E%84%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E7%9A%84%E6%A0%B8%E5%BF%83/</guid>
+        <description>&lt;img src="https://blog.henry070.org/default.jpeg" alt="Featured image of post Linux 内核架构：操作系统的核心" /&gt;&lt;h1 id=&#34;linux-内核架构操作系统的核心&#34;&gt;Linux 内核架构：操作系统的核心
 &lt;/h1&gt;&lt;h2 id=&#34;引言&#34;&gt;引言
 &lt;/h2&gt;&lt;p&gt;如果说 Linux 操作系统是一辆车，那么**内核（Kernel）**就是这辆车的发动机。它是操作系统的核心，负责管理硬件资源，并为用户程序提供服务。在这篇文章中，我们将深入探讨 Linux 内核的架构和各个子系统。&lt;/p&gt;
 &lt;h2 id=&#34;什么是内核&#34;&gt;什么是内核？
@@ -10127,7 +11524,7 @@ htop                  # 增强版 top&lt;/code&gt;
 &lt;/blockquote&gt;
 &lt;p&gt;理解内核最好的方式就是阅读源代码。推荐从 &lt;code&gt;kernel/&lt;/code&gt; 目录开始，逐步深入各个子系统。&lt;/p&gt;
 &lt;hr&gt;
-&lt;p&gt;&lt;strong&gt;← 返回系列概述&lt;/strong&gt;: &lt;a class=&#34;link&#34; href=&#34;http://localhost:1313/p/linux-%E6%A6%82%E8%BF%B0%E4%BB%8E-unix-%E5%88%B0%E5%BC%80%E6%BA%90%E9%9D%A9%E5%91%BD/&#34; &gt;Linux 概述：从 Unix 到开源革命&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;← 返回系列概述&lt;/strong&gt;: &lt;a class=&#34;link&#34; href=&#34;https://blog.henry070.org/p/linux-%E6%A6%82%E8%BF%B0%E4%BB%8E-unix-%E5%88%B0%E5%BC%80%E6%BA%90%E9%9D%A9%E5%91%BD/&#34; &gt;Linux 概述：从 Unix 到开源革命&lt;/a&gt;&lt;/p&gt;
 &lt;hr&gt;
 &lt;p&gt;&lt;strong&gt;参考资源&lt;/strong&gt;：&lt;/p&gt;
 &lt;ul&gt;
@@ -10146,11 +11543,11 @@ htop                  # 增强版 top&lt;/code&gt;
         </item>
         <item>
         <title>Linux 概述：从 Unix 到开源革命</title>
-        <link>http://localhost:1313/p/linux-%E6%A6%82%E8%BF%B0%E4%BB%8E-unix-%E5%88%B0%E5%BC%80%E6%BA%90%E9%9D%A9%E5%91%BD/</link>
+        <link>https://blog.henry070.org/p/linux-%E6%A6%82%E8%BF%B0%E4%BB%8E-unix-%E5%88%B0%E5%BC%80%E6%BA%90%E9%9D%A9%E5%91%BD/</link>
         <pubDate>Sat, 10 Jan 2026 21:00:48 +0800</pubDate>
         
-        <guid>http://localhost:1313/p/linux-%E6%A6%82%E8%BF%B0%E4%BB%8E-unix-%E5%88%B0%E5%BC%80%E6%BA%90%E9%9D%A9%E5%91%BD/</guid>
-        <description>&lt;img src="http://localhost:1313/default.jpeg" alt="Featured image of post Linux 概述：从 Unix 到开源革命" /&gt;&lt;h1 id=&#34;linux-概述从-unix-到开源革命&#34;&gt;Linux 概述：从 Unix 到开源革命
+        <guid>https://blog.henry070.org/p/linux-%E6%A6%82%E8%BF%B0%E4%BB%8E-unix-%E5%88%B0%E5%BC%80%E6%BA%90%E9%9D%A9%E5%91%BD/</guid>
+        <description>&lt;img src="https://blog.henry070.org/default.jpeg" alt="Featured image of post Linux 概述：从 Unix 到开源革命" /&gt;&lt;h1 id=&#34;linux-概述从-unix-到开源革命&#34;&gt;Linux 概述：从 Unix 到开源革命
 &lt;/h1&gt;&lt;h2 id=&#34;引言&#34;&gt;引言
 &lt;/h2&gt;&lt;p&gt;Linux 是现代技术世界中最重要的操作系统之一。从你手中的 Android 手机到运行互联网的服务器，从超级计算机到嵌入式设备，Linux 无处不在。这篇文章将带你深入了解 Linux 的前世今生。&lt;/p&gt;
 &lt;h2 id=&#34;unix-的诞生1969-1970s&#34;&gt;Unix 的诞生（1969-1970s）
@@ -10534,13 +11931,13 @@ sudo pacman -R nginx      # 删除软件&lt;/code&gt;
 &lt;h2 id=&#34;系列文章导航&#34;&gt;系列文章导航
 &lt;/h2&gt;&lt;p&gt;本系列深入探讨 Linux 操作系统的各个方面：&lt;/p&gt;
 &lt;ol&gt;
-&lt;li&gt;&lt;strong&gt;&lt;a class=&#34;link&#34; href=&#34;http://localhost:1313/p/linux-%E6%A6%82%E8%BF%B0%E4%BB%8E-unix-%E5%88%B0%E5%BC%80%E6%BA%90%E9%9D%A9%E5%91%BD/&#34; &gt;Linux 概述：从 Unix 到开源革命&lt;/a&gt;&lt;/strong&gt; （当前文章）&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;&lt;a class=&#34;link&#34; href=&#34;http://localhost:1313/p/linux-%E5%86%85%E6%A0%B8%E6%9E%B6%E6%9E%84%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E7%9A%84%E6%A0%B8%E5%BF%83/&#34; &gt;Linux 内核架构：操作系统的核心&lt;/a&gt;&lt;/strong&gt; - 用户空间与内核空间、系统调用、五大子系统&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;&lt;a class=&#34;link&#34; href=&#34;http://localhost:1313/p/%E8%BF%9B%E7%A8%8B%E7%AE%A1%E7%90%86linux-%E7%9A%84%E7%94%9F%E5%91%BD%E7%BA%BF/&#34; &gt;进程管理：Linux 的生命线&lt;/a&gt;&lt;/strong&gt; - 进程生命周期、CFS 调度器、进程监控&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;&lt;a class=&#34;link&#34; href=&#34;http://localhost:1313/p/%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9Flinux-%E7%9A%84%E6%95%B0%E6%8D%AE%E5%AE%AB%E6%AE%BF/&#34; &gt;文件系统：数据的管理者&lt;/a&gt;&lt;/strong&gt; - VFS、Ext4、文件权限与管理&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;&lt;a class=&#34;link&#34; href=&#34;http://localhost:1313/p/shell-%E5%92%8C%E5%91%BD%E4%BB%A4%E8%A1%8Clinux-%E7%9A%84%E6%8E%A7%E5%88%B6%E5%8F%B0/&#34; &gt;Shell 和命令行：Linux 的控制台&lt;/a&gt;&lt;/strong&gt; - Bash 基础、管道重定向、脚本编程&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;&lt;a class=&#34;link&#34; href=&#34;http://localhost:1313/p/%E6%97%A5%E5%BF%97%E5%92%8C%E7%9B%91%E6%8E%A7linux-%E7%9A%84%E4%BD%93%E6%A3%80%E5%8C%BB%E7%94%9F/&#34; &gt;日志与监控：系统的体检报告&lt;/a&gt;&lt;/strong&gt; - 系统日志、性能监控、故障排查&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;&lt;a class=&#34;link&#34; href=&#34;http://localhost:1313/p/%E8%BD%AF%E4%BB%B6%E5%8C%85%E7%AE%A1%E7%90%86linux-%E7%9A%84%E5%BA%94%E7%94%A8%E5%95%86%E5%BA%97/&#34; &gt;软件包管理：应用的生态圈&lt;/a&gt;&lt;/strong&gt; - APT/DNF/Pacman、软件源、依赖管理&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;&lt;a class=&#34;link&#34; href=&#34;https://blog.henry070.org/p/linux-%E6%A6%82%E8%BF%B0%E4%BB%8E-unix-%E5%88%B0%E5%BC%80%E6%BA%90%E9%9D%A9%E5%91%BD/&#34; &gt;Linux 概述：从 Unix 到开源革命&lt;/a&gt;&lt;/strong&gt; （当前文章）&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;&lt;a class=&#34;link&#34; href=&#34;https://blog.henry070.org/p/linux-%E5%86%85%E6%A0%B8%E6%9E%B6%E6%9E%84%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E7%9A%84%E6%A0%B8%E5%BF%83/&#34; &gt;Linux 内核架构：操作系统的核心&lt;/a&gt;&lt;/strong&gt; - 用户空间与内核空间、系统调用、五大子系统&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;&lt;a class=&#34;link&#34; href=&#34;https://blog.henry070.org/p/%E8%BF%9B%E7%A8%8B%E7%AE%A1%E7%90%86linux-%E7%9A%84%E7%94%9F%E5%91%BD%E7%BA%BF/&#34; &gt;进程管理：Linux 的生命线&lt;/a&gt;&lt;/strong&gt; - 进程生命周期、CFS 调度器、进程监控&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;&lt;a class=&#34;link&#34; href=&#34;https://blog.henry070.org/p/%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9Flinux-%E7%9A%84%E6%95%B0%E6%8D%AE%E5%AE%AB%E6%AE%BF/&#34; &gt;文件系统：数据的管理者&lt;/a&gt;&lt;/strong&gt; - VFS、Ext4、文件权限与管理&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;&lt;a class=&#34;link&#34; href=&#34;https://blog.henry070.org/p/shell-%E5%92%8C%E5%91%BD%E4%BB%A4%E8%A1%8Clinux-%E7%9A%84%E6%8E%A7%E5%88%B6%E5%8F%B0/&#34; &gt;Shell 和命令行：Linux 的控制台&lt;/a&gt;&lt;/strong&gt; - Bash 基础、管道重定向、脚本编程&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;&lt;a class=&#34;link&#34; href=&#34;https://blog.henry070.org/p/%E6%97%A5%E5%BF%97%E5%92%8C%E7%9B%91%E6%8E%A7linux-%E7%9A%84%E4%BD%93%E6%A3%80%E5%8C%BB%E7%94%9F/&#34; &gt;日志与监控：系统的体检报告&lt;/a&gt;&lt;/strong&gt; - 系统日志、性能监控、故障排查&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;&lt;a class=&#34;link&#34; href=&#34;https://blog.henry070.org/p/%E8%BD%AF%E4%BB%B6%E5%8C%85%E7%AE%A1%E7%90%86linux-%E7%9A%84%E5%BA%94%E7%94%A8%E5%95%86%E5%BA%97/&#34; &gt;软件包管理：应用的生态圈&lt;/a&gt;&lt;/strong&gt; - APT/DNF/Pacman、软件源、依赖管理&lt;/li&gt;
 &lt;/ol&gt;
 &lt;hr&gt;
 &lt;p&gt;&lt;strong&gt;参考资源&lt;/strong&gt;：&lt;/p&gt;
@@ -10560,11 +11957,11 @@ sudo pacman -R nginx      # 删除软件&lt;/code&gt;
         </item>
         <item>
         <title>使用 BFG Repo Cleaner 从 Git 历史中彻底删除大文件</title>
-        <link>http://localhost:1313/p/%E4%BD%BF%E7%94%A8-bfg-repo-cleaner-%E4%BB%8E-git-%E5%8E%86%E5%8F%B2%E4%B8%AD%E5%BD%BB%E5%BA%95%E5%88%A0%E9%99%A4%E5%A4%A7%E6%96%87%E4%BB%B6/</link>
+        <link>https://blog.henry070.org/p/%E4%BD%BF%E7%94%A8-bfg-repo-cleaner-%E4%BB%8E-git-%E5%8E%86%E5%8F%B2%E4%B8%AD%E5%BD%BB%E5%BA%95%E5%88%A0%E9%99%A4%E5%A4%A7%E6%96%87%E4%BB%B6/</link>
         <pubDate>Fri, 09 Jan 2026 22:06:31 +0800</pubDate>
         
-        <guid>http://localhost:1313/p/%E4%BD%BF%E7%94%A8-bfg-repo-cleaner-%E4%BB%8E-git-%E5%8E%86%E5%8F%B2%E4%B8%AD%E5%BD%BB%E5%BA%95%E5%88%A0%E9%99%A4%E5%A4%A7%E6%96%87%E4%BB%B6/</guid>
-        <description>&lt;img src="http://localhost:1313/default.jpeg" alt="Featured image of post 使用 BFG Repo Cleaner 从 Git 历史中彻底删除大文件" /&gt;&lt;h2 id=&#34;前言&#34;&gt;前言
+        <guid>https://blog.henry070.org/p/%E4%BD%BF%E7%94%A8-bfg-repo-cleaner-%E4%BB%8E-git-%E5%8E%86%E5%8F%B2%E4%B8%AD%E5%BD%BB%E5%BA%95%E5%88%A0%E9%99%A4%E5%A4%A7%E6%96%87%E4%BB%B6/</guid>
+        <description>&lt;img src="https://blog.henry070.org/default.jpeg" alt="Featured image of post 使用 BFG Repo Cleaner 从 Git 历史中彻底删除大文件" /&gt;&lt;h2 id=&#34;前言&#34;&gt;前言
 &lt;/h2&gt;&lt;p&gt;在使用 Git 进行版本控制时，我们可能会不小心将一些大文件（如编译产物、数据集、安装包等）提交到仓库中。即使后来删除了这些文件，它们仍然存在于 Git 的历史记录中，导致仓库体积臃肿，克隆和拉取变得缓慢。&lt;/p&gt;
 &lt;p&gt;本文将介绍 &lt;strong&gt;BFG Repo Cleaner&lt;/strong&gt; —— 一个比 &lt;code&gt;git-filter-branch&lt;/code&gt; 更简单、更快的工具，用于清理 Git 仓库历史中的大文件和敏感信息。&lt;/p&gt;
 &lt;h2 id=&#34;什么是-bfg-repo-cleaner&#34;&gt;什么是 BFG Repo Cleaner？
@@ -10966,11 +12363,11 @@ git filter-repo --strip-blobs-bigger-than 100M&lt;/code&gt;
         </item>
         <item>
         <title>Vibe Coding：AI 编程革命与程序员的新时代</title>
-        <link>http://localhost:1313/p/vibe-codingai-%E7%BC%96%E7%A8%8B%E9%9D%A9%E5%91%BD%E4%B8%8E%E7%A8%8B%E5%BA%8F%E5%91%98%E7%9A%84%E6%96%B0%E6%97%B6%E4%BB%A3/</link>
+        <link>https://blog.henry070.org/p/vibe-codingai-%E7%BC%96%E7%A8%8B%E9%9D%A9%E5%91%BD%E4%B8%8E%E7%A8%8B%E5%BA%8F%E5%91%98%E7%9A%84%E6%96%B0%E6%97%B6%E4%BB%A3/</link>
         <pubDate>Thu, 08 Jan 2026 08:44:47 -0500</pubDate>
         
-        <guid>http://localhost:1313/p/vibe-codingai-%E7%BC%96%E7%A8%8B%E9%9D%A9%E5%91%BD%E4%B8%8E%E7%A8%8B%E5%BA%8F%E5%91%98%E7%9A%84%E6%96%B0%E6%97%B6%E4%BB%A3/</guid>
-        <description>&lt;img src="http://localhost:1313/default.jpeg" alt="Featured image of post Vibe Coding：AI 编程革命与程序员的新时代" /&gt;&lt;h1 id=&#34;vibe-codingai-编程革命与程序员的新时代&#34;&gt;Vibe Coding：AI 编程革命与程序员的新时代
+        <guid>https://blog.henry070.org/p/vibe-codingai-%E7%BC%96%E7%A8%8B%E9%9D%A9%E5%91%BD%E4%B8%8E%E7%A8%8B%E5%BA%8F%E5%91%98%E7%9A%84%E6%96%B0%E6%97%B6%E4%BB%A3/</guid>
+        <description>&lt;img src="https://blog.henry070.org/default.jpeg" alt="Featured image of post Vibe Coding：AI 编程革命与程序员的新时代" /&gt;&lt;h1 id=&#34;vibe-codingai-编程革命与程序员的新时代&#34;&gt;Vibe Coding：AI 编程革命与程序员的新时代
 &lt;/h1&gt;&lt;h2 id=&#34;引言2025---ai-编程元年&#34;&gt;引言：2025 - AI 编程元年
 &lt;/h2&gt;&lt;p&gt;2025 年 2 月，OpenAI 创始成员之一、前特斯拉人工智能总监 &lt;strong&gt;Andrej Karpathy&lt;/strong&gt; 在 X（Twitter）上发布了一条看似随意的推文，却引爆了整个技术社区对编程未来的讨论。这条推文首次正式提出了 &lt;strong&gt;&amp;ldquo;Vibe Coding&amp;rdquo;&lt;/strong&gt; 这个概念。&lt;/p&gt;
 &lt;blockquote&gt;
@@ -11798,10 +13195,10 @@ Start Phase 1 immediately.&lt;/code&gt;
         </item>
         <item>
         <title>mermaid-test</title>
-        <link>http://localhost:1313/p/mermaid-test/</link>
+        <link>https://blog.henry070.org/p/mermaid-test/</link>
         <pubDate>Thu, 25 Dec 2025 02:23:00 -0500</pubDate>
         
-        <guid>http://localhost:1313/p/mermaid-test/</guid>
+        <guid>https://blog.henry070.org/p/mermaid-test/</guid>
         <description>&lt;h1 id=&#34;mermaid图表测试&#34;&gt;Mermaid图表测试
 &lt;/h1&gt;&lt;p&gt;这是一个测试Mermaid图表功能的博客文章。以下是各种类型的Mermaid图表示例。&lt;/p&gt;
 &lt;h2 id=&#34;流程图&#34;&gt;流程图
@@ -12016,11 +13413,11 @@ C --&amp;gt;|Two| E[Result 2]
         </item>
         <item>
         <title>Mcp</title>
-        <link>http://localhost:1313/p/mcp/</link>
+        <link>https://blog.henry070.org/p/mcp/</link>
         <pubDate>Tue, 23 Dec 2025 09:30:47 -0500</pubDate>
         
-        <guid>http://localhost:1313/p/mcp/</guid>
-        <description>&lt;img src="http://localhost:1313/p/mcp/mcp-blog-cover.png" alt="Featured image of post Mcp" /&gt;&lt;h1 id=&#34;what-is-the-model-context-protocol-mcp--why&#34;&gt;What is the Model Context Protocol (MCP)? | why
+        <guid>https://blog.henry070.org/p/mcp/</guid>
+        <description>&lt;img src="https://blog.henry070.org/p/mcp/mcp-blog-cover.png" alt="Featured image of post Mcp" /&gt;&lt;h1 id=&#34;what-is-the-model-context-protocol-mcp--why&#34;&gt;What is the Model Context Protocol (MCP)? | why
 &lt;/h1&gt;&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;https://modelcontextprotocol.io/docs/getting-started/intro&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;参考文档&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;mcp 作为llm的一个重要工具现在基本已经成为了agent中不可或缺的一环. 它连接了语言模型和外部的世界, 就像把人脑通过眼睛耳朵来获取信息, 通过手脚和世界交互一样.&lt;/p&gt;
@@ -12154,10 +13551,10 @@ npm install -g @google/gcloud-mcp-storage&lt;/code&gt;
         </item>
         <item>
         <title>ApexCharts Shortcode Test</title>
-        <link>http://localhost:1313/p/apexcharts-shortcode-test/</link>
+        <link>https://blog.henry070.org/p/apexcharts-shortcode-test/</link>
         <pubDate>Tue, 23 Dec 2025 09:30:46 -0500</pubDate>
         
-        <guid>http://localhost:1313/p/apexcharts-shortcode-test/</guid>
+        <guid>https://blog.henry070.org/p/apexcharts-shortcode-test/</guid>
         <description>&lt;h1 id=&#34;apexcharts-shortcode-测试页面&#34;&gt;ApexCharts Shortcode 测试页面
 &lt;/h1&gt;&lt;p&gt;这是一个测试页面，用于验证修复后的 apexchart shortcode。&lt;/p&gt;
 &lt;h2 id=&#34;基础折线图&#34;&gt;基础折线图
@@ -14218,11 +15615,11 @@ npm install -g @google/gcloud-mcp-storage&lt;/code&gt;
         </item>
         <item>
         <title>Chi-Square Distribution</title>
-        <link>http://localhost:1313/p/chi-square-distribution/</link>
+        <link>https://blog.henry070.org/p/chi-square-distribution/</link>
         <pubDate>Fri, 12 Dec 2025 22:00:52 +0800</pubDate>
         
-        <guid>http://localhost:1313/p/chi-square-distribution/</guid>
-        <description>&lt;img src="http://localhost:1313/default.jpeg" alt="Featured image of post Chi-Square Distribution" /&gt;&lt;blockquote&gt;
+        <guid>https://blog.henry070.org/p/chi-square-distribution/</guid>
+        <description>&lt;img src="https://blog.henry070.org/default.jpeg" alt="Featured image of post Chi-Square Distribution" /&gt;&lt;blockquote&gt;
 &lt;p&gt;本文是基于 YouTube 频道 &lt;strong&gt;jbstatistics&lt;/strong&gt; 的视频 &lt;a class=&#34;link&#34; href=&#34;https://www.youtube.com/watch?v=hcDb12fsbBU&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;An Introduction to the Chi-Square Distribution&lt;/a&gt; 整理的学习笔记。&lt;/p&gt;
 &lt;/blockquote&gt;
@@ -14387,11 +15784,11 @@ $$&lt;h3 id=&#34;4-确定自由度与临界值&#34;&gt;4. 确定自由度与临�
         </item>
         <item>
         <title>SHA 校验入门：从原理到实践</title>
-        <link>http://localhost:1313/p/sha-%E6%A0%A1%E9%AA%8C%E5%85%A5%E9%97%A8%E4%BB%8E%E5%8E%9F%E7%90%86%E5%88%B0%E5%AE%9E%E8%B7%B5/</link>
+        <link>https://blog.henry070.org/p/sha-%E6%A0%A1%E9%AA%8C%E5%85%A5%E9%97%A8%E4%BB%8E%E5%8E%9F%E7%90%86%E5%88%B0%E5%AE%9E%E8%B7%B5/</link>
         <pubDate>Fri, 05 Dec 2025 02:31:57 -0500</pubDate>
         
-        <guid>http://localhost:1313/p/sha-%E6%A0%A1%E9%AA%8C%E5%85%A5%E9%97%A8%E4%BB%8E%E5%8E%9F%E7%90%86%E5%88%B0%E5%AE%9E%E8%B7%B5/</guid>
-        <description>&lt;img src="http://localhost:1313/default.jpeg" alt="Featured image of post SHA 校验入门：从原理到实践" /&gt;&lt;h1 id=&#34;sha-校验入门从原理到实践&#34;&gt;SHA 校验入门：从原理到实践
+        <guid>https://blog.henry070.org/p/sha-%E6%A0%A1%E9%AA%8C%E5%85%A5%E9%97%A8%E4%BB%8E%E5%8E%9F%E7%90%86%E5%88%B0%E5%AE%9E%E8%B7%B5/</guid>
+        <description>&lt;img src="https://blog.henry070.org/default.jpeg" alt="Featured image of post SHA 校验入门：从原理到实践" /&gt;&lt;h1 id=&#34;sha-校验入门从原理到实践&#34;&gt;SHA 校验入门：从原理到实践
 &lt;/h1&gt;&lt;p&gt;在数字世界中，我们经常需要下载和传输文件。但你如何能确定下载的文件就是发布者想要你收到的那个，没有被篡改，也没有在传输过程中损坏呢？答案就是 &lt;strong&gt;哈希校验（Hash Validation）&lt;/strong&gt;，而 SHA256 正是其中最常用的一种算法。&lt;/p&gt;
 &lt;p&gt;这篇笔记将带你从零开始，理解 SHA256 的基本原理，并学会在不同操作系统上进行实际操作。&lt;/p&gt;
 &lt;h2 id=&#34;什么是-sha256&#34;&gt;什么是 SHA256？
@@ -14517,11 +15914,11 @@ CertUtil -hashfile D:\Downloads\ubuntu-24.04-desktop-amd64.iso SHA256
         </item>
         <item>
         <title>Apt</title>
-        <link>http://localhost:1313/p/apt/</link>
+        <link>https://blog.henry070.org/p/apt/</link>
         <pubDate>Fri, 05 Dec 2025 01:27:47 -0500</pubDate>
         
-        <guid>http://localhost:1313/p/apt/</guid>
-        <description>&lt;img src="http://localhost:1313/default.jpeg" alt="Featured image of post Apt" /&gt;&lt;h2 id=&#34;reference&#34;&gt;Reference
+        <guid>https://blog.henry070.org/p/apt/</guid>
+        <description>&lt;img src="https://blog.henry070.org/default.jpeg" alt="Featured image of post Apt" /&gt;&lt;h2 id=&#34;reference&#34;&gt;Reference
 &lt;/h2&gt;&lt;div class=&#34;video-wrapper&#34;&gt;
     &lt;iframe loading=&#34;lazy&#34; 
             src=&#34;https://www.youtube.com/embed/j3fOfBwom5k&#34; 
@@ -14827,18 +16224,18 @@ sudo rm /var/lib/dpkg/lock*&lt;/code&gt;
         </item>
         <item>
         <title>Git</title>
-        <link>http://localhost:1313/p/git/</link>
+        <link>https://blog.henry070.org/p/git/</link>
         <pubDate>Tue, 25 Nov 2025 17:43:06 +0800</pubDate>
         
-        <guid>http://localhost:1313/p/git/</guid>
-        <description>&lt;img src="http://localhost:1313/p/git/git.png" alt="Featured image of post Git" /&gt;&lt;h2 id=&#34;hook&#34;&gt;Hook
+        <guid>https://blog.henry070.org/p/git/</guid>
+        <description>&lt;img src="https://blog.henry070.org/p/git/git.png" alt="Featured image of post Git" /&gt;&lt;h2 id=&#34;hook&#34;&gt;Hook
 &lt;/h2&gt;&lt;p&gt;想象你写了一晚上的论文, 但是不小心被小组成员改坏了. 或者debug发现bug越来越多以至于无法修复, 整个项目基本要推倒重来. 上诉这种类似的情况其实屡见不鲜. 不只是计算机专业的同学会遇到, 其他非专业同学在编辑ppt, word, 或者设计工程图的时候也一样会遇到类似的问题. 而git的出现就是为了解决这一类的问题.&lt;/p&gt;
 &lt;h2 id=&#34;feature&#34;&gt;Feature
 &lt;/h2&gt;&lt;p&gt;git 作为版本控制工具最基本的功能就是管理文件版本. 可以将每一次文件的修改都记录起来. 当项目发生不可挽回的错误的时候. 只要.git文件夹还在就能发动败者食尘功能直接将时间会回滚到上一次提交的时候. 除此之外还提供了团队协作的功能. 不同的团队成员可以在同一个仓库下的不同brach对项目进行迭代又不会相互影响.&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:1313/p/git/jojos-killer.gif&#34;
+&lt;p&gt;&lt;img src=&#34;https://blog.henry070.org/p/git/jojos-killer.gif&#34;
 	width=&#34;464&#34;
 	height=&#34;258&#34;
-	srcset=&#34;http://localhost:1313/p/git/jojos-killer_hu_e5fcf31d63d0f58e.gif 480w, http://localhost:1313/p/git/jojos-killer_hu_5e55566e1a98829f.gif 1024w&#34;
+	srcset=&#34;https://blog.henry070.org/p/git/jojos-killer_hu_e5fcf31d63d0f58e.gif 480w, https://blog.henry070.org/p/git/jojos-killer_hu_5e55566e1a98829f.gif 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;败者食尘&#34;
@@ -15329,19 +16726,19 @@ git checkout -b fix/image-loading    # 比如你要修 bug&lt;/code&gt;
 &lt;hr&gt;
 &lt;h2 id=&#34;相关文章&#34;&gt;相关文章
 &lt;/h2&gt;&lt;ul&gt;
-&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;http://localhost:1313/p/git-worktree/&#34; &gt;Git Worktree：并行开发的利器&lt;/a&gt; - 学习如何使用 Git worktree 进行多分支并行开发，告别频繁切换分支的烦恼&lt;/li&gt;
-&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;http://localhost:1313/p/%e4%bd%bf%e7%94%a8-bfg-repo-cleaner-%e4%bb%8e-git-%e5%8e%86%e5%8f%b2%e4%b8%ad%e5%bd%bb%e5%ba%95%e5%88%a0%e9%99%a4%e5%a4%a7%e6%96%87%e4%bb%b6/&#34; &gt;使用 BFG Repo Cleaner 从 Git 历史中彻底删除大文件&lt;/a&gt; - 清理 Git 仓库历史中的大文件，减小仓库体积&lt;/li&gt;
-&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;http://localhost:1313/p/dev_flow/&#34; &gt;软件开发全流程：从0到1的完整指南&lt;/a&gt; - 深入了解企业级软件开发的完整生命周期&lt;/li&gt;
+&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;https://blog.henry070.org/p/git-worktree/&#34; &gt;Git Worktree：并行开发的利器&lt;/a&gt; - 学习如何使用 Git worktree 进行多分支并行开发，告别频繁切换分支的烦恼&lt;/li&gt;
+&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;https://blog.henry070.org/p/%e4%bd%bf%e7%94%a8-bfg-repo-cleaner-%e4%bb%8e-git-%e5%8e%86%e5%8f%b2%e4%b8%ad%e5%bd%bb%e5%ba%95%e5%88%a0%e9%99%a4%e5%a4%a7%e6%96%87%e4%bb%b6/&#34; &gt;使用 BFG Repo Cleaner 从 Git 历史中彻底删除大文件&lt;/a&gt; - 清理 Git 仓库历史中的大文件，减小仓库体积&lt;/li&gt;
+&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;https://blog.henry070.org/p/dev_flow/&#34; &gt;软件开发全流程：从0到1的完整指南&lt;/a&gt; - 深入了解企业级软件开发的完整生命周期&lt;/li&gt;
 &lt;/ul&gt;
 </description>
         </item>
         <item>
         <title>科学上网配置教程 &amp; 节点搭建</title>
-        <link>http://localhost:1313/p/%E7%A7%91%E5%AD%A6%E4%B8%8A%E7%BD%91%E9%85%8D%E7%BD%AE%E6%95%99%E7%A8%8B-%E8%8A%82%E7%82%B9%E6%90%AD%E5%BB%BA/</link>
+        <link>https://blog.henry070.org/p/%E7%A7%91%E5%AD%A6%E4%B8%8A%E7%BD%91%E9%85%8D%E7%BD%AE%E6%95%99%E7%A8%8B-%E8%8A%82%E7%82%B9%E6%90%AD%E5%BB%BA/</link>
         <pubDate>Sun, 23 Nov 2025 05:53:10 +0800</pubDate>
         
-        <guid>http://localhost:1313/p/%E7%A7%91%E5%AD%A6%E4%B8%8A%E7%BD%91%E9%85%8D%E7%BD%AE%E6%95%99%E7%A8%8B-%E8%8A%82%E7%82%B9%E6%90%AD%E5%BB%BA/</guid>
-        <description>&lt;img src="http://localhost:1313/default.jpeg" alt="Featured image of post 科学上网配置教程 &amp; 节点搭建" /&gt;&lt;h2 id=&#34;前言&#34;&gt;前言
+        <guid>https://blog.henry070.org/p/%E7%A7%91%E5%AD%A6%E4%B8%8A%E7%BD%91%E9%85%8D%E7%BD%AE%E6%95%99%E7%A8%8B-%E8%8A%82%E7%82%B9%E6%90%AD%E5%BB%BA/</guid>
+        <description>&lt;img src="https://blog.henry070.org/default.jpeg" alt="Featured image of post 科学上网配置教程 &amp; 节点搭建" /&gt;&lt;h2 id=&#34;前言&#34;&gt;前言
 &lt;/h2&gt;&lt;p&gt;首先在这里非常感谢每一个支持我, 信任我的伙伴和朋友们. 你们购买的不仅仅是简单的科学上网, 更是对我&lt;code&gt;技术和服务的认可&lt;/code&gt;. 我在这里承诺凡是购买了服务的朋友都能享受到&lt;code&gt;质保&lt;/code&gt;. 不会出现过一段时间就跑路的问题, 并且如果过程中遇到问题也可以随时联系我解决. 如果本博客有描述得不详细的地方也请给我指出(通过TG 或者 底部的评论区), 我会尽快补全.&lt;/p&gt;
 &lt;h2 id=&#34;我的联系方式&#34;&gt;我的联系方式
 &lt;/h2&gt;
@@ -15383,10 +16780,10 @@ git checkout -b fix/image-loading    # 比如你要修 bug&lt;/code&gt;
     &gt;v2rayn代理下载链接&lt;/a&gt; | &lt;a class=&#34;link&#34; href=&#34;https://github.com/2dust/v2rayN/releases/download/7.16.6/v2rayN-windows-64.zip&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;v2rayn直连下载链接&lt;/a&gt;&lt;/li&gt;
 &lt;/ol&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:1313/p/%E7%A7%91%E5%AD%A6%E4%B8%8A%E7%BD%91%E9%85%8D%E7%BD%AE%E6%95%99%E7%A8%8B-%E8%8A%82%E7%82%B9%E6%90%AD%E5%BB%BA/win1.jpg&#34;
+&lt;p&gt;&lt;img src=&#34;https://blog.henry070.org/p/%E7%A7%91%E5%AD%A6%E4%B8%8A%E7%BD%91%E9%85%8D%E7%BD%AE%E6%95%99%E7%A8%8B-%E8%8A%82%E7%82%B9%E6%90%AD%E5%BB%BA/win1.jpg&#34;
 	width=&#34;1044&#34;
 	height=&#34;634&#34;
-	srcset=&#34;http://localhost:1313/p/%E7%A7%91%E5%AD%A6%E4%B8%8A%E7%BD%91%E9%85%8D%E7%BD%AE%E6%95%99%E7%A8%8B-%E8%8A%82%E7%82%B9%E6%90%AD%E5%BB%BA/win1_hu_a25224771b7e0955.jpg 480w, http://localhost:1313/p/%E7%A7%91%E5%AD%A6%E4%B8%8A%E7%BD%91%E9%85%8D%E7%BD%AE%E6%95%99%E7%A8%8B-%E8%8A%82%E7%82%B9%E6%90%AD%E5%BB%BA/win1_hu_1f21c1a2faf34543.jpg 1024w&#34;
+	srcset=&#34;https://blog.henry070.org/p/%E7%A7%91%E5%AD%A6%E4%B8%8A%E7%BD%91%E9%85%8D%E7%BD%AE%E6%95%99%E7%A8%8B-%E8%8A%82%E7%82%B9%E6%90%AD%E5%BB%BA/win1_hu_a25224771b7e0955.jpg 480w, https://blog.henry070.org/p/%E7%A7%91%E5%AD%A6%E4%B8%8A%E7%BD%91%E9%85%8D%E7%BD%AE%E6%95%99%E7%A8%8B-%E8%8A%82%E7%82%B9%E6%90%AD%E5%BB%BA/win1_hu_1f21c1a2faf34543.jpg 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;下载下来之后解压文件夹, 并把它放在你记得的文件位置即可&#34;
@@ -15397,10 +16794,10 @@ git checkout -b fix/image-loading    # 比如你要修 bug&lt;/code&gt;
 		data-flex-basis=&#34;395px&#34;
 	
 &gt;&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:1313/p/%E7%A7%91%E5%AD%A6%E4%B8%8A%E7%BD%91%E9%85%8D%E7%BD%AE%E6%95%99%E7%A8%8B-%E8%8A%82%E7%82%B9%E6%90%AD%E5%BB%BA/win4.jpg&#34;
+&lt;p&gt;&lt;img src=&#34;https://blog.henry070.org/p/%E7%A7%91%E5%AD%A6%E4%B8%8A%E7%BD%91%E9%85%8D%E7%BD%AE%E6%95%99%E7%A8%8B-%E8%8A%82%E7%82%B9%E6%90%AD%E5%BB%BA/win4.jpg&#34;
 	width=&#34;1044&#34;
 	height=&#34;678&#34;
-	srcset=&#34;http://localhost:1313/p/%E7%A7%91%E5%AD%A6%E4%B8%8A%E7%BD%91%E9%85%8D%E7%BD%AE%E6%95%99%E7%A8%8B-%E8%8A%82%E7%82%B9%E6%90%AD%E5%BB%BA/win4_hu_b7f8e812f84ce366.jpg 480w, http://localhost:1313/p/%E7%A7%91%E5%AD%A6%E4%B8%8A%E7%BD%91%E9%85%8D%E7%BD%AE%E6%95%99%E7%A8%8B-%E8%8A%82%E7%82%B9%E6%90%AD%E5%BB%BA/win4_hu_c4029b1bf784698.jpg 1024w&#34;
+	srcset=&#34;https://blog.henry070.org/p/%E7%A7%91%E5%AD%A6%E4%B8%8A%E7%BD%91%E9%85%8D%E7%BD%AE%E6%95%99%E7%A8%8B-%E8%8A%82%E7%82%B9%E6%90%AD%E5%BB%BA/win4_hu_b7f8e812f84ce366.jpg 480w, https://blog.henry070.org/p/%E7%A7%91%E5%AD%A6%E4%B8%8A%E7%BD%91%E9%85%8D%E7%BD%AE%E6%95%99%E7%A8%8B-%E8%8A%82%E7%82%B9%E6%90%AD%E5%BB%BA/win4_hu_c4029b1bf784698.jpg 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;之后可以选择创建快捷方式到桌面上方便以后打开&#34;
@@ -15411,10 +16808,10 @@ git checkout -b fix/image-loading    # 比如你要修 bug&lt;/code&gt;
 		data-flex-basis=&#34;369px&#34;
 	
 &gt;&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:1313/p/%E7%A7%91%E5%AD%A6%E4%B8%8A%E7%BD%91%E9%85%8D%E7%BD%AE%E6%95%99%E7%A8%8B-%E8%8A%82%E7%82%B9%E6%90%AD%E5%BB%BA/win3.jpg&#34;
+&lt;p&gt;&lt;img src=&#34;https://blog.henry070.org/p/%E7%A7%91%E5%AD%A6%E4%B8%8A%E7%BD%91%E9%85%8D%E7%BD%AE%E6%95%99%E7%A8%8B-%E8%8A%82%E7%82%B9%E6%90%AD%E5%BB%BA/win3.jpg&#34;
 	width=&#34;1482&#34;
 	height=&#34;953&#34;
-	srcset=&#34;http://localhost:1313/p/%E7%A7%91%E5%AD%A6%E4%B8%8A%E7%BD%91%E9%85%8D%E7%BD%AE%E6%95%99%E7%A8%8B-%E8%8A%82%E7%82%B9%E6%90%AD%E5%BB%BA/win3_hu_b3a4b5386557bdfa.jpg 480w, http://localhost:1313/p/%E7%A7%91%E5%AD%A6%E4%B8%8A%E7%BD%91%E9%85%8D%E7%BD%AE%E6%95%99%E7%A8%8B-%E8%8A%82%E7%82%B9%E6%90%AD%E5%BB%BA/win3_hu_4f656f00ad8f3213.jpg 1024w&#34;
+	srcset=&#34;https://blog.henry070.org/p/%E7%A7%91%E5%AD%A6%E4%B8%8A%E7%BD%91%E9%85%8D%E7%BD%AE%E6%95%99%E7%A8%8B-%E8%8A%82%E7%82%B9%E6%90%AD%E5%BB%BA/win3_hu_b3a4b5386557bdfa.jpg 480w, https://blog.henry070.org/p/%E7%A7%91%E5%AD%A6%E4%B8%8A%E7%BD%91%E9%85%8D%E7%BD%AE%E6%95%99%E7%A8%8B-%E8%8A%82%E7%82%B9%E6%90%AD%E5%BB%BA/win3_hu_4f656f00ad8f3213.jpg 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;双击后或者使用管理员模式打开后点击左上角的配置项并从剪切板导入(提前将我提供的节点复制到剪切板)&#34;
@@ -15425,10 +16822,10 @@ git checkout -b fix/image-loading    # 比如你要修 bug&lt;/code&gt;
 		data-flex-basis=&#34;373px&#34;
 	
 &gt;&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:1313/p/%E7%A7%91%E5%AD%A6%E4%B8%8A%E7%BD%91%E9%85%8D%E7%BD%AE%E6%95%99%E7%A8%8B-%E8%8A%82%E7%82%B9%E6%90%AD%E5%BB%BA/win5.jpg&#34;
+&lt;p&gt;&lt;img src=&#34;https://blog.henry070.org/p/%E7%A7%91%E5%AD%A6%E4%B8%8A%E7%BD%91%E9%85%8D%E7%BD%AE%E6%95%99%E7%A8%8B-%E8%8A%82%E7%82%B9%E6%90%AD%E5%BB%BA/win5.jpg&#34;
 	width=&#34;1495&#34;
 	height=&#34;844&#34;
-	srcset=&#34;http://localhost:1313/p/%E7%A7%91%E5%AD%A6%E4%B8%8A%E7%BD%91%E9%85%8D%E7%BD%AE%E6%95%99%E7%A8%8B-%E8%8A%82%E7%82%B9%E6%90%AD%E5%BB%BA/win5_hu_a4bdcad09cf671a3.jpg 480w, http://localhost:1313/p/%E7%A7%91%E5%AD%A6%E4%B8%8A%E7%BD%91%E9%85%8D%E7%BD%AE%E6%95%99%E7%A8%8B-%E8%8A%82%E7%82%B9%E6%90%AD%E5%BB%BA/win5_hu_23d375bfc8cf880.jpg 1024w&#34;
+	srcset=&#34;https://blog.henry070.org/p/%E7%A7%91%E5%AD%A6%E4%B8%8A%E7%BD%91%E9%85%8D%E7%BD%AE%E6%95%99%E7%A8%8B-%E8%8A%82%E7%82%B9%E6%90%AD%E5%BB%BA/win5_hu_a4bdcad09cf671a3.jpg 480w, https://blog.henry070.org/p/%E7%A7%91%E5%AD%A6%E4%B8%8A%E7%BD%91%E9%85%8D%E7%BD%AE%E6%95%99%E7%A8%8B-%E8%8A%82%E7%82%B9%E6%90%AD%E5%BB%BA/win5_hu_23d375bfc8cf880.jpg 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;将添加进来的节点设置为活动配置文件(右下角路由模式为白名单模式)&#34;
@@ -15439,10 +16836,10 @@ git checkout -b fix/image-loading    # 比如你要修 bug&lt;/code&gt;
 		data-flex-basis=&#34;425px&#34;
 	
 &gt;&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:1313/p/%E7%A7%91%E5%AD%A6%E4%B8%8A%E7%BD%91%E9%85%8D%E7%BD%AE%E6%95%99%E7%A8%8B-%E8%8A%82%E7%82%B9%E6%90%AD%E5%BB%BA/win6.jpg&#34;
+&lt;p&gt;&lt;img src=&#34;https://blog.henry070.org/p/%E7%A7%91%E5%AD%A6%E4%B8%8A%E7%BD%91%E9%85%8D%E7%BD%AE%E6%95%99%E7%A8%8B-%E8%8A%82%E7%82%B9%E6%90%AD%E5%BB%BA/win6.jpg&#34;
 	width=&#34;696&#34;
 	height=&#34;786&#34;
-	srcset=&#34;http://localhost:1313/p/%E7%A7%91%E5%AD%A6%E4%B8%8A%E7%BD%91%E9%85%8D%E7%BD%AE%E6%95%99%E7%A8%8B-%E8%8A%82%E7%82%B9%E6%90%AD%E5%BB%BA/win6_hu_909220de9ae96da7.jpg 480w, http://localhost:1313/p/%E7%A7%91%E5%AD%A6%E4%B8%8A%E7%BD%91%E9%85%8D%E7%BD%AE%E6%95%99%E7%A8%8B-%E8%8A%82%E7%82%B9%E6%90%AD%E5%BB%BA/win6_hu_be6d54efc05df6f0.jpg 1024w&#34;
+	srcset=&#34;https://blog.henry070.org/p/%E7%A7%91%E5%AD%A6%E4%B8%8A%E7%BD%91%E9%85%8D%E7%BD%AE%E6%95%99%E7%A8%8B-%E8%8A%82%E7%82%B9%E6%90%AD%E5%BB%BA/win6_hu_909220de9ae96da7.jpg 480w, https://blog.henry070.org/p/%E7%A7%91%E5%AD%A6%E4%B8%8A%E7%BD%91%E9%85%8D%E7%BD%AE%E6%95%99%E7%A8%8B-%E8%8A%82%E7%82%B9%E6%90%AD%E5%BB%BA/win6_hu_be6d54efc05df6f0.jpg 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;右键点击桌面右下角的应用图表并设置为pac模式就完成基本的设置了&#34;
@@ -15463,10 +16860,10 @@ git checkout -b fix/image-loading    # 比如你要修 bug&lt;/code&gt;
     &gt;v2rayn代理下载链接&lt;/a&gt; | &lt;a class=&#34;link&#34; href=&#34;https://github.com/2dust/v2rayN/releases/download/7.16.6/v2rayN-windows-64.zip&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;v2rayn直连下载链接&lt;/a&gt; | &lt;a class=&#34;link&#34; href=&#34;https://apps.apple.com/us/app/shadowrocket/id932747118?platform=mac&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;小火箭 app store 链接(需要外区账号)&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:1313/p/%E7%A7%91%E5%AD%A6%E4%B8%8A%E7%BD%91%E9%85%8D%E7%BD%AE%E6%95%99%E7%A8%8B-%E8%8A%82%E7%82%B9%E6%90%AD%E5%BB%BA/mac1.jpg&#34;
+&lt;p&gt;&lt;img src=&#34;https://blog.henry070.org/p/%E7%A7%91%E5%AD%A6%E4%B8%8A%E7%BD%91%E9%85%8D%E7%BD%AE%E6%95%99%E7%A8%8B-%E8%8A%82%E7%82%B9%E6%90%AD%E5%BB%BA/mac1.jpg&#34;
 	width=&#34;1152&#34;
 	height=&#34;892&#34;
-	srcset=&#34;http://localhost:1313/p/%E7%A7%91%E5%AD%A6%E4%B8%8A%E7%BD%91%E9%85%8D%E7%BD%AE%E6%95%99%E7%A8%8B-%E8%8A%82%E7%82%B9%E6%90%AD%E5%BB%BA/mac1_hu_ceb3716e690eb226.jpg 480w, http://localhost:1313/p/%E7%A7%91%E5%AD%A6%E4%B8%8A%E7%BD%91%E9%85%8D%E7%BD%AE%E6%95%99%E7%A8%8B-%E8%8A%82%E7%82%B9%E6%90%AD%E5%BB%BA/mac1_hu_670ad82187b0488d.jpg 1024w&#34;
+	srcset=&#34;https://blog.henry070.org/p/%E7%A7%91%E5%AD%A6%E4%B8%8A%E7%BD%91%E9%85%8D%E7%BD%AE%E6%95%99%E7%A8%8B-%E8%8A%82%E7%82%B9%E6%90%AD%E5%BB%BA/mac1_hu_ceb3716e690eb226.jpg 480w, https://blog.henry070.org/p/%E7%A7%91%E5%AD%A6%E4%B8%8A%E7%BD%91%E9%85%8D%E7%BD%AE%E6%95%99%E7%A8%8B-%E8%8A%82%E7%82%B9%E6%90%AD%E5%BB%BA/mac1_hu_670ad82187b0488d.jpg 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;安装并打开小火箭之后点击按钮从剪切板导入我提供的节点(节点链接需要提前复制到剪切板)&#34;
@@ -15477,10 +16874,10 @@ git checkout -b fix/image-loading    # 比如你要修 bug&lt;/code&gt;
 		data-flex-basis=&#34;309px&#34;
 	
 &gt;&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:1313/p/%E7%A7%91%E5%AD%A6%E4%B8%8A%E7%BD%91%E9%85%8D%E7%BD%AE%E6%95%99%E7%A8%8B-%E8%8A%82%E7%82%B9%E6%90%AD%E5%BB%BA/mac2.jpg&#34;
+&lt;p&gt;&lt;img src=&#34;https://blog.henry070.org/p/%E7%A7%91%E5%AD%A6%E4%B8%8A%E7%BD%91%E9%85%8D%E7%BD%AE%E6%95%99%E7%A8%8B-%E8%8A%82%E7%82%B9%E6%90%AD%E5%BB%BA/mac2.jpg&#34;
 	width=&#34;1164&#34;
 	height=&#34;908&#34;
-	srcset=&#34;http://localhost:1313/p/%E7%A7%91%E5%AD%A6%E4%B8%8A%E7%BD%91%E9%85%8D%E7%BD%AE%E6%95%99%E7%A8%8B-%E8%8A%82%E7%82%B9%E6%90%AD%E5%BB%BA/mac2_hu_79231d96bb3b9ef0.jpg 480w, http://localhost:1313/p/%E7%A7%91%E5%AD%A6%E4%B8%8A%E7%BD%91%E9%85%8D%E7%BD%AE%E6%95%99%E7%A8%8B-%E8%8A%82%E7%82%B9%E6%90%AD%E5%BB%BA/mac2_hu_6f222d8b2d83b992.jpg 1024w&#34;
+	srcset=&#34;https://blog.henry070.org/p/%E7%A7%91%E5%AD%A6%E4%B8%8A%E7%BD%91%E9%85%8D%E7%BD%AE%E6%95%99%E7%A8%8B-%E8%8A%82%E7%82%B9%E6%90%AD%E5%BB%BA/mac2_hu_79231d96bb3b9ef0.jpg 480w, https://blog.henry070.org/p/%E7%A7%91%E5%AD%A6%E4%B8%8A%E7%BD%91%E9%85%8D%E7%BD%AE%E6%95%99%E7%A8%8B-%E8%8A%82%E7%82%B9%E6%90%AD%E5%BB%BA/mac2_hu_6f222d8b2d83b992.jpg 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;点击第二栏的config, 点击右上角的加号软件会提示输入url. 此时把下面的url粘贴到上面&#34;
@@ -15495,10 +16892,10 @@ git checkout -b fix/image-loading    # 比如你要修 bug&lt;/code&gt;
     &gt;https://johnshall.github.io/Shadowrocket-ADBlock-Rules-Forever/sr_top500_banlist_ad.conf&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;代理url: &lt;a class=&#34;link&#34; href=&#34;https://proxy.henry070.org/https://johnshall.github.io/Shadowrocket-ADBlock-Rules-Forever/sr_top500_banlist_ad.conf&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;https://proxy.henry070.org/https://johnshall.github.io/Shadowrocket-ADBlock-Rules-Forever/sr_top500_banlist_ad.conf&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:1313/p/%E7%A7%91%E5%AD%A6%E4%B8%8A%E7%BD%91%E9%85%8D%E7%BD%AE%E6%95%99%E7%A8%8B-%E8%8A%82%E7%82%B9%E6%90%AD%E5%BB%BA/mac3.jpg&#34;
+&lt;p&gt;&lt;img src=&#34;https://blog.henry070.org/p/%E7%A7%91%E5%AD%A6%E4%B8%8A%E7%BD%91%E9%85%8D%E7%BD%AE%E6%95%99%E7%A8%8B-%E8%8A%82%E7%82%B9%E6%90%AD%E5%BB%BA/mac3.jpg&#34;
 	width=&#34;320&#34;
 	height=&#34;668&#34;
-	srcset=&#34;http://localhost:1313/p/%E7%A7%91%E5%AD%A6%E4%B8%8A%E7%BD%91%E9%85%8D%E7%BD%AE%E6%95%99%E7%A8%8B-%E8%8A%82%E7%82%B9%E6%90%AD%E5%BB%BA/mac3_hu_8f604898a93487a5.jpg 480w, http://localhost:1313/p/%E7%A7%91%E5%AD%A6%E4%B8%8A%E7%BD%91%E9%85%8D%E7%BD%AE%E6%95%99%E7%A8%8B-%E8%8A%82%E7%82%B9%E6%90%AD%E5%BB%BA/mac3_hu_ba0be976fcb2435b.jpg 1024w&#34;
+	srcset=&#34;https://blog.henry070.org/p/%E7%A7%91%E5%AD%A6%E4%B8%8A%E7%BD%91%E9%85%8D%E7%BD%AE%E6%95%99%E7%A8%8B-%E8%8A%82%E7%82%B9%E6%90%AD%E5%BB%BA/mac3_hu_8f604898a93487a5.jpg 480w, https://blog.henry070.org/p/%E7%A7%91%E5%AD%A6%E4%B8%8A%E7%BD%91%E9%85%8D%E7%BD%AE%E6%95%99%E7%A8%8B-%E8%8A%82%E7%82%B9%E6%90%AD%E5%BB%BA/mac3_hu_ba0be976fcb2435b.jpg 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;导入规则后点击使用该规则&#34;
@@ -15509,10 +16906,10 @@ git checkout -b fix/image-loading    # 比如你要修 bug&lt;/code&gt;
 		data-flex-basis=&#34;114px&#34;
 	
 &gt;&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:1313/p/%E7%A7%91%E5%AD%A6%E4%B8%8A%E7%BD%91%E9%85%8D%E7%BD%AE%E6%95%99%E7%A8%8B-%E8%8A%82%E7%82%B9%E6%90%AD%E5%BB%BA/mac4.jpg&#34;
+&lt;p&gt;&lt;img src=&#34;https://blog.henry070.org/p/%E7%A7%91%E5%AD%A6%E4%B8%8A%E7%BD%91%E9%85%8D%E7%BD%AE%E6%95%99%E7%A8%8B-%E8%8A%82%E7%82%B9%E6%90%AD%E5%BB%BA/mac4.jpg&#34;
 	width=&#34;804&#34;
 	height=&#34;736&#34;
-	srcset=&#34;http://localhost:1313/p/%E7%A7%91%E5%AD%A6%E4%B8%8A%E7%BD%91%E9%85%8D%E7%BD%AE%E6%95%99%E7%A8%8B-%E8%8A%82%E7%82%B9%E6%90%AD%E5%BB%BA/mac4_hu_cce549b97f718a7.jpg 480w, http://localhost:1313/p/%E7%A7%91%E5%AD%A6%E4%B8%8A%E7%BD%91%E9%85%8D%E7%BD%AE%E6%95%99%E7%A8%8B-%E8%8A%82%E7%82%B9%E6%90%AD%E5%BB%BA/mac4_hu_2555beb088346128.jpg 1024w&#34;
+	srcset=&#34;https://blog.henry070.org/p/%E7%A7%91%E5%AD%A6%E4%B8%8A%E7%BD%91%E9%85%8D%E7%BD%AE%E6%95%99%E7%A8%8B-%E8%8A%82%E7%82%B9%E6%90%AD%E5%BB%BA/mac4_hu_cce549b97f718a7.jpg 480w, https://blog.henry070.org/p/%E7%A7%91%E5%AD%A6%E4%B8%8A%E7%BD%91%E9%85%8D%E7%BD%AE%E6%95%99%E7%A8%8B-%E8%8A%82%E7%82%B9%E6%90%AD%E5%BB%BA/mac4_hu_2555beb088346128.jpg 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;最后回到home点击选择节点,routing 选择 config, 打开开关就大功告成了&#34;
@@ -15561,21 +16958,21 @@ git checkout -b fix/image-loading    # 比如你要修 bug&lt;/code&gt;
         </item>
         <item>
         <title>JavaScript</title>
-        <link>http://localhost:1313/p/javascript/</link>
+        <link>https://blog.henry070.org/p/javascript/</link>
         <pubDate>Tue, 12 Aug 2025 07:44:31 +0800</pubDate>
         
-        <guid>http://localhost:1313/p/javascript/</guid>
-        <description>&lt;img src="http://localhost:1313/default.jpeg" alt="Featured image of post JavaScript" /&gt;&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;https://www.youtube.com/watch?v=hdI2bqOjy3c&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+        <guid>https://blog.henry070.org/p/javascript/</guid>
+        <description>&lt;img src="https://blog.henry070.org/default.jpeg" alt="Featured image of post JavaScript" /&gt;&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;https://www.youtube.com/watch?v=hdI2bqOjy3c&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;review link&lt;/a&gt;&lt;/p&gt;
 </description>
         </item>
         <item>
         <title>CSS</title>
-        <link>http://localhost:1313/p/css/</link>
+        <link>https://blog.henry070.org/p/css/</link>
         <pubDate>Sun, 10 Aug 2025 09:04:48 +0800</pubDate>
         
-        <guid>http://localhost:1313/p/css/</guid>
-        <description>&lt;img src="http://localhost:1313/p/css/css.png" alt="Featured image of post CSS" /&gt;&lt;h3 id=&#34;cheat-sheet-of-css&#34;&gt;Cheat Sheet of CSS
+        <guid>https://blog.henry070.org/p/css/</guid>
+        <description>&lt;img src="https://blog.henry070.org/p/css/css.png" alt="Featured image of post CSS" /&gt;&lt;h3 id=&#34;cheat-sheet-of-css&#34;&gt;Cheat Sheet of CSS
 &lt;/h3&gt;
 
 
@@ -15926,11 +17323,11 @@ a:active{
         </item>
         <item>
         <title>HTML</title>
-        <link>http://localhost:1313/p/html/</link>
+        <link>https://blog.henry070.org/p/html/</link>
         <pubDate>Sun, 10 Aug 2025 07:31:20 +0800</pubDate>
         
-        <guid>http://localhost:1313/p/html/</guid>
-        <description>&lt;img src="http://localhost:1313/p/html/html.png" alt="Featured image of post HTML" /&gt;&lt;h2 id=&#34;cheat-sheet-of-html&#34;&gt;Cheat Sheet of HTML
+        <guid>https://blog.henry070.org/p/html/</guid>
+        <description>&lt;img src="https://blog.henry070.org/p/html/html.png" alt="Featured image of post HTML" /&gt;&lt;h2 id=&#34;cheat-sheet-of-html&#34;&gt;Cheat Sheet of HTML
 &lt;/h2&gt;
 
 
@@ -16133,11 +17530,11 @@ a:active{
         </item>
         <item>
         <title>Tmux</title>
-        <link>http://localhost:1313/p/tmux/</link>
+        <link>https://blog.henry070.org/p/tmux/</link>
         <pubDate>Wed, 06 Aug 2025 03:08:51 +0800</pubDate>
         
-        <guid>http://localhost:1313/p/tmux/</guid>
-        <description>&lt;img src="http://localhost:1313/p/tmux/tmux.png" alt="Featured image of post Tmux" /&gt;&lt;h2 id=&#34;后台-shell-常驻工具&#34;&gt;后台 shell 常驻工具
+        <guid>https://blog.henry070.org/p/tmux/</guid>
+        <description>&lt;img src="https://blog.henry070.org/p/tmux/tmux.png" alt="Featured image of post Tmux" /&gt;&lt;h2 id=&#34;后台-shell-常驻工具&#34;&gt;后台 shell 常驻工具
 &lt;/h2&gt;&lt;p&gt;Reference: &lt;a class=&#34;link&#34; href=&#34;https://github.com/tmux/tmux/wiki&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;tmux wiki&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;Fully tutorial
@@ -16600,11 +17997,11 @@ run &amp;#39;~/.tmux/plugins/tpm/tpm&amp;#39;&lt;/code&gt;
         </item>
         <item>
         <title>Soft_links</title>
-        <link>http://localhost:1313/p/soft_links/</link>
+        <link>https://blog.henry070.org/p/soft_links/</link>
         <pubDate>Thu, 31 Jul 2025 15:38:14 +0800</pubDate>
         
-        <guid>http://localhost:1313/p/soft_links/</guid>
-        <description>&lt;img src="http://localhost:1313/p/soft_links/link.png" alt="Featured image of post Soft_links" /&gt;&lt;h2 id=&#34;软连接&#34;&gt;软连接
+        <guid>https://blog.henry070.org/p/soft_links/</guid>
+        <description>&lt;img src="https://blog.henry070.org/p/soft_links/link.png" alt="Featured image of post Soft_links" /&gt;&lt;h2 id=&#34;软连接&#34;&gt;软连接
 &lt;/h2&gt;&lt;p&gt;在系统中我们往往可能需要在一个项目中使用项目之外的一些文件，但是这个文件又不在这项目的根目录在。大部分人往往都选择直接将需要的文件拷贝到项目的路目中。但是这样既浪费时间又浪费系统的存储空间。尔软连接的出现就是为了解决这一问题。我们可以直接通过命令创建一个软连接。让目标文件或者文件夹的替身出现在我们的项目目录下。这样我们就可以在不使用绝对路径的情况下使用该路径了。&lt;/p&gt;
 &lt;h3 id=&#34;如何使用软连接ln&#34;&gt;如何使用软连接（ln
 &lt;/h3&gt;&lt;p&gt;在 linux 中软连接的是由&amp;rsquo;ln&amp;rsquo;这一指令完成的。&lt;/p&gt;
@@ -16642,11 +18039,11 @@ rm path/to/symlink&lt;/code&gt;
         </item>
         <item>
         <title>Linux_system_service | Linux 之 系统服务</title>
-        <link>http://localhost:1313/p/linux_system_service-linux-%E4%B9%8B-%E7%B3%BB%E7%BB%9F%E6%9C%8D%E5%8A%A1/</link>
+        <link>https://blog.henry070.org/p/linux_system_service-linux-%E4%B9%8B-%E7%B3%BB%E7%BB%9F%E6%9C%8D%E5%8A%A1/</link>
         <pubDate>Fri, 13 Jun 2025 15:47:20 +0800</pubDate>
         
-        <guid>http://localhost:1313/p/linux_system_service-linux-%E4%B9%8B-%E7%B3%BB%E7%BB%9F%E6%9C%8D%E5%8A%A1/</guid>
-        <description>&lt;img src="http://localhost:1313/p/linux_system_service-linux-%E4%B9%8B-%E7%B3%BB%E7%BB%9F%E6%9C%8D%E5%8A%A1/image.png" alt="Featured image of post Linux_system_service | Linux 之 系统服务" /&gt;&lt;h2 id=&#34;什么是系统服务service&#34;&gt;什么是系统服务(service)
+        <guid>https://blog.henry070.org/p/linux_system_service-linux-%E4%B9%8B-%E7%B3%BB%E7%BB%9F%E6%9C%8D%E5%8A%A1/</guid>
+        <description>&lt;img src="https://blog.henry070.org/p/linux_system_service-linux-%E4%B9%8B-%E7%B3%BB%E7%BB%9F%E6%9C%8D%E5%8A%A1/image.png" alt="Featured image of post Linux_system_service | Linux 之 系统服务" /&gt;&lt;h2 id=&#34;什么是系统服务service&#34;&gt;什么是系统服务(service)
 &lt;/h2&gt;&lt;p&gt;简单理解就是开机自启动的程序或者脚本, 会常驻在系统的内存中.&lt;/p&gt;
 &lt;p&gt;对于现在的大部分的 linux 发行版, 系统服务通常使用 systemd 进行管理.&lt;/p&gt;
 &lt;h3 id=&#34;三种配置文件&#34;&gt;三种配置文件
@@ -16973,11 +18370,11 @@ WantedBy=multi-user.target&lt;/code&gt;
         </item>
         <item>
         <title>MC服务器搭建 &amp; 加入</title>
-        <link>http://localhost:1313/p/mc%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%90%AD%E5%BB%BA-%E5%8A%A0%E5%85%A5/</link>
+        <link>https://blog.henry070.org/p/mc%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%90%AD%E5%BB%BA-%E5%8A%A0%E5%85%A5/</link>
         <pubDate>Mon, 09 Jun 2025 14:01:06 +0800</pubDate>
         
-        <guid>http://localhost:1313/p/mc%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%90%AD%E5%BB%BA-%E5%8A%A0%E5%85%A5/</guid>
-        <description>&lt;img src="http://localhost:1313/p/mc%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%90%AD%E5%BB%BA-%E5%8A%A0%E5%85%A5/image.png" alt="Featured image of post MC服务器搭建 &amp; 加入" /&gt;&lt;h3 id=&#34;java-环境-&#34;&gt;java 环境 ✅
+        <guid>https://blog.henry070.org/p/mc%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%90%AD%E5%BB%BA-%E5%8A%A0%E5%85%A5/</guid>
+        <description>&lt;img src="https://blog.henry070.org/p/mc%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%90%AD%E5%BB%BA-%E5%8A%A0%E5%85%A5/image.png" alt="Featured image of post MC服务器搭建 &amp; 加入" /&gt;&lt;h3 id=&#34;java-环境-&#34;&gt;java 环境 ✅
 &lt;/h3&gt;&lt;ul&gt;
 &lt;li&gt;本教程的所有内容都是基于 java 环境已经安装好的前提下.&lt;/li&gt;
 &lt;li&gt;具体的教程可以去网上搜索.&lt;/li&gt;
@@ -17089,11 +18486,11 @@ WantedBy=multi-user.target&lt;/code&gt;
 &lt;h3 id=&#34;1-如何加入我的模组服务器-建议直接使用后面的整合包安装-更稳定也更方便&#34;&gt;&lt;del&gt;1. 如何加入我的模组服务器&lt;/del&gt; 建议直接使用后面的整合包安装, 更稳定也更方便.
 &lt;/h3&gt;&lt;h4 id=&#34;安装-1182forge-4030-版本&#34;&gt;安装 1.18.2+forge 40.3.0 版本
 &lt;/h4&gt;&lt;p&gt;&lt;code&gt;点击下载&lt;/code&gt;
-&lt;img src=&#34;http://localhost:1313/p/mc%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%90%AD%E5%BB%BA-%E5%8A%A0%E5%85%A5/v1_hu_334a43f613cc0b87.png&#34; width=&#34;1200&#34; height=&#34;898&#34; alt=&#34;exception types&#34;&gt;&lt;/p&gt;
+&lt;img src=&#34;https://blog.henry070.org/p/mc%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%90%AD%E5%BB%BA-%E5%8A%A0%E5%85%A5/v1_hu_334a43f613cc0b87.png&#34; width=&#34;1200&#34; height=&#34;898&#34; alt=&#34;exception types&#34;&gt;&lt;/p&gt;
 &lt;p&gt;&lt;code&gt;选择18.2+forge 40.3.0版本&lt;/code&gt;&lt;/p&gt;
-&lt;img src=&#34;http://localhost:1313/p/mc%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%90%AD%E5%BB%BA-%E5%8A%A0%E5%85%A5/v2_hu_767ad3472e6db833.png&#34; width=&#34;1200&#34; height=&#34;905&#34; alt=&#34;exception types&#34;&gt;
-&lt;img src=&#34;http://localhost:1313/p/mc%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%90%AD%E5%BB%BA-%E5%8A%A0%E5%85%A5/v3_hu_d5de7db7ba11914e.png&#34; width=&#34;1200&#34; height=&#34;904&#34; alt=&#34;exception types&#34;&gt;
-&lt;img src=&#34;http://localhost:1313/p/mc%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%90%AD%E5%BB%BA-%E5%8A%A0%E5%85%A5/v4_hu_f51fb87ad3d6d4c6.png&#34; width=&#34;1200&#34; height=&#34;899&#34; alt=&#34;exception types&#34;&gt;
+&lt;img src=&#34;https://blog.henry070.org/p/mc%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%90%AD%E5%BB%BA-%E5%8A%A0%E5%85%A5/v2_hu_767ad3472e6db833.png&#34; width=&#34;1200&#34; height=&#34;905&#34; alt=&#34;exception types&#34;&gt;
+&lt;img src=&#34;https://blog.henry070.org/p/mc%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%90%AD%E5%BB%BA-%E5%8A%A0%E5%85%A5/v3_hu_d5de7db7ba11914e.png&#34; width=&#34;1200&#34; height=&#34;904&#34; alt=&#34;exception types&#34;&gt;
+&lt;img src=&#34;https://blog.henry070.org/p/mc%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%90%AD%E5%BB%BA-%E5%8A%A0%E5%85%A5/v4_hu_f51fb87ad3d6d4c6.png&#34; width=&#34;1200&#34; height=&#34;899&#34; alt=&#34;exception types&#34;&gt;
 &lt;h4 id=&#34;安装模组&#34;&gt;安装模组
 &lt;/h4&gt;&lt;ol&gt;
 &lt;li&gt;下载我的模组和材质包.&lt;/li&gt;
@@ -17106,14 +18503,14 @@ WantedBy=multi-user.target&lt;/code&gt;
 &lt;li&gt;压缩包下载后解压, 会有两种文件: zip, jar. zip 对应的是材质包, jar 是模组.
 点击版本管理&lt;/li&gt;
 &lt;/ol&gt;
-&lt;img src=&#34;http://localhost:1313/p/mc%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%90%AD%E5%BB%BA-%E5%8A%A0%E5%85%A5/main_hu_58c6b993e09d892a.png&#34; width=&#34;1200&#34; height=&#34;913&#34; alt=&#34;exception types&#34;&gt;
+&lt;img src=&#34;https://blog.henry070.org/p/mc%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%90%AD%E5%BB%BA-%E5%8A%A0%E5%85%A5/main_hu_58c6b993e09d892a.png&#34; width=&#34;1200&#34; height=&#34;913&#34; alt=&#34;exception types&#34;&gt;
 &lt;ol start=&#34;3&#34;&gt;
 &lt;li&gt;在模组拦选择添加模组, 选择刚刚下载的包里的&lt;code&gt;jar&lt;/code&gt;文件.&lt;/li&gt;
 &lt;/ol&gt;
-&lt;img src=&#34;http://localhost:1313/p/mc%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%90%AD%E5%BB%BA-%E5%8A%A0%E5%85%A5/v5_hu_5840638b18fd56fd.png&#34; width=&#34;1200&#34; height=&#34;911&#34; alt=&#34;exception types&#34;&gt;
+&lt;img src=&#34;https://blog.henry070.org/p/mc%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%90%AD%E5%BB%BA-%E5%8A%A0%E5%85%A5/v5_hu_5840638b18fd56fd.png&#34; width=&#34;1200&#34; height=&#34;911&#34; alt=&#34;exception types&#34;&gt;
 &lt;h4 id=&#34;安装光影&#34;&gt;安装光影
 &lt;/h4&gt;&lt;p&gt;在浏览中选择打开资源包文件夹, 然后添加下载文件夹中的&lt;code&gt;zip&lt;/code&gt;文件.
-&lt;img src=&#34;http://localhost:1313/p/mc%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%90%AD%E5%BB%BA-%E5%8A%A0%E5%85%A5/v6_hu_8b9b084a24e21732.png&#34; width=&#34;1200&#34; height=&#34;909&#34; alt=&#34;exception types&#34;&gt;&lt;/p&gt;
+&lt;img src=&#34;https://blog.henry070.org/p/mc%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%90%AD%E5%BB%BA-%E5%8A%A0%E5%85%A5/v6_hu_8b9b084a24e21732.png&#34; width=&#34;1200&#34; height=&#34;909&#34; alt=&#34;exception types&#34;&gt;&lt;/p&gt;
 &lt;h4 id=&#34;整合包安装游戏不带启动器版本&#34;&gt;整合包安装游戏(不带启动器版本)
 &lt;/h4&gt;&lt;p&gt;&lt;code&gt;该方法已淘汰, 请勿使用该方法&lt;/code&gt;&lt;/p&gt;
 &lt;p&gt;使用 HMCL 的整合包安装功能, 直接一次性安装好所有模组和材质包.&lt;/p&gt;
@@ -17122,7 +18519,7 @@ WantedBy=multi-user.target&lt;/code&gt;
 &lt;ol start=&#34;2&#34;&gt;
 &lt;li&gt;
 &lt;p&gt;点击安装整合包
-&lt;img src=&#34;http://localhost:1313/p/mc%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%90%AD%E5%BB%BA-%E5%8A%A0%E5%85%A5/p1_hu_616bc55b66b31d20.png&#34; width=&#34;1200&#34; height=&#34;901&#34; alt=&#34;exception types&#34;&gt;&lt;/p&gt;
+&lt;img src=&#34;https://blog.henry070.org/p/mc%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%90%AD%E5%BB%BA-%E5%8A%A0%E5%85%A5/p1_hu_616bc55b66b31d20.png&#34; width=&#34;1200&#34; height=&#34;901&#34; alt=&#34;exception types&#34;&gt;&lt;/p&gt;
 &lt;/li&gt;
 &lt;li&gt;
 &lt;p&gt;从本地安装整合包, 并选择下载好的 zip 整合包.&lt;/p&gt;
@@ -17141,7 +18538,7 @@ WantedBy=multi-user.target&lt;/code&gt;
 &lt;li&gt;选择版本.&lt;/li&gt;
 &lt;li&gt;点击 Installer 安装稳定版&lt;/li&gt;
 &lt;/ol&gt;
-&lt;img src=&#34;http://localhost:1313/p/mc%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%90%AD%E5%BB%BA-%E5%8A%A0%E5%85%A5/d_hu_31bfa53b7f807a8d.png&#34; width=&#34;1200&#34; height=&#34;916&#34; alt=&#34;exception types&#34;&gt;
+&lt;img src=&#34;https://blog.henry070.org/p/mc%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%90%AD%E5%BB%BA-%E5%8A%A0%E5%85%A5/d_hu_31bfa53b7f807a8d.png&#34; width=&#34;1200&#34; height=&#34;916&#34; alt=&#34;exception types&#34;&gt;
 &lt;ol start=&#34;4&#34;&gt;
 &lt;li&gt;下载完成之后看到 jar 结尾的文件说明成功下载.&lt;/li&gt;
 &lt;/ol&gt;
@@ -17261,7 +18658,7 @@ java -jar forge-1.18.2-40.3.0-installer.jar --installServer&lt;/code&gt;
 &lt;li&gt;在 cploar 服务启动之后在网页中打开服务器的&lt;code&gt;9200&lt;/code&gt;端口.&lt;/li&gt;
 &lt;li&gt;设置映射.&lt;/li&gt;
 &lt;/ol&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:1313/p/mc%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%90%AD%E5%BB%BA-%E5%8A%A0%E5%85%A5/port_hu_978793072fc3bdad.png&#34; width=&#34;1200&#34; height=&#34;472&#34; alt=&#34;exception types&#34;&gt;
+&lt;p&gt;&lt;img src=&#34;https://blog.henry070.org/p/mc%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%90%AD%E5%BB%BA-%E5%8A%A0%E5%85%A5/port_hu_978793072fc3bdad.png&#34; width=&#34;1200&#34; height=&#34;472&#34; alt=&#34;exception types&#34;&gt;
 仿照图片中的设置配置映射.&lt;/p&gt;
 &lt;blockquote class=&#34;alert alert-note&#34;&gt;
     &lt;p&gt;对于 forge, 服务器开启后默认端口为 25565, 如果想修改监听端口可以修改 properties 里的端口设置.&lt;/p&gt;&lt;/blockquote&gt;
@@ -17276,11 +18673,11 @@ java -jar forge-1.18.2-40.3.0-installer.jar --installServer&lt;/code&gt;
         </item>
         <item>
         <title>如何diy自己的工作简历</title>
-        <link>http://localhost:1313/p/%E5%A6%82%E4%BD%95diy%E8%87%AA%E5%B7%B1%E7%9A%84%E5%B7%A5%E4%BD%9C%E7%AE%80%E5%8E%86/</link>
+        <link>https://blog.henry070.org/p/%E5%A6%82%E4%BD%95diy%E8%87%AA%E5%B7%B1%E7%9A%84%E5%B7%A5%E4%BD%9C%E7%AE%80%E5%8E%86/</link>
         <pubDate>Wed, 04 Jun 2025 18:19:09 +0800</pubDate>
         
-        <guid>http://localhost:1313/p/%E5%A6%82%E4%BD%95diy%E8%87%AA%E5%B7%B1%E7%9A%84%E5%B7%A5%E4%BD%9C%E7%AE%80%E5%8E%86/</guid>
-        <description>&lt;img src="http://localhost:1313/default.jpeg" alt="Featured image of post 如何diy自己的工作简历" /&gt;
+        <guid>https://blog.henry070.org/p/%E5%A6%82%E4%BD%95diy%E8%87%AA%E5%B7%B1%E7%9A%84%E5%B7%A5%E4%BD%9C%E7%AE%80%E5%8E%86/</guid>
+        <description>&lt;img src="https://blog.henry070.org/default.jpeg" alt="Featured image of post 如何diy自己的工作简历" /&gt;
 
 
 
@@ -17305,11 +18702,11 @@ java -jar forge-1.18.2-40.3.0-installer.jar --installServer&lt;/code&gt;
         </item>
         <item>
         <title>语言如何影响你的思维</title>
-        <link>http://localhost:1313/p/%E8%AF%AD%E8%A8%80%E5%A6%82%E4%BD%95%E5%BD%B1%E5%93%8D%E4%BD%A0%E7%9A%84%E6%80%9D%E7%BB%B4/</link>
+        <link>https://blog.henry070.org/p/%E8%AF%AD%E8%A8%80%E5%A6%82%E4%BD%95%E5%BD%B1%E5%93%8D%E4%BD%A0%E7%9A%84%E6%80%9D%E7%BB%B4/</link>
         <pubDate>Thu, 29 May 2025 02:41:58 +0800</pubDate>
         
-        <guid>http://localhost:1313/p/%E8%AF%AD%E8%A8%80%E5%A6%82%E4%BD%95%E5%BD%B1%E5%93%8D%E4%BD%A0%E7%9A%84%E6%80%9D%E7%BB%B4/</guid>
-        <description>&lt;img src="http://localhost:1313/default.jpeg" alt="Featured image of post 语言如何影响你的思维" /&gt;&lt;h2 id=&#34;视频源&#34;&gt;视频源
+        <guid>https://blog.henry070.org/p/%E8%AF%AD%E8%A8%80%E5%A6%82%E4%BD%95%E5%BD%B1%E5%93%8D%E4%BD%A0%E7%9A%84%E6%80%9D%E7%BB%B4/</guid>
+        <description>&lt;img src="https://blog.henry070.org/default.jpeg" alt="Featured image of post 语言如何影响你的思维" /&gt;&lt;h2 id=&#34;视频源&#34;&gt;视频源
 &lt;/h2&gt;
 
 
@@ -17365,11 +18762,11 @@ java -jar forge-1.18.2-40.3.0-installer.jar --installServer&lt;/code&gt;
         </item>
         <item>
         <title>Chapter13</title>
-        <link>http://localhost:1313/p/chapter13/</link>
+        <link>https://blog.henry070.org/p/chapter13/</link>
         <pubDate>Mon, 26 May 2025 00:42:23 +0800</pubDate>
         
-        <guid>http://localhost:1313/p/chapter13/</guid>
-        <description>&lt;img src="http://localhost:1313/java.png" alt="Featured image of post Chapter13" /&gt;&lt;h2 id=&#34;前言&#34;&gt;前言
+        <guid>https://blog.henry070.org/p/chapter13/</guid>
+        <description>&lt;img src="https://blog.henry070.org/java.png" alt="Featured image of post Chapter13" /&gt;&lt;h2 id=&#34;前言&#34;&gt;前言
 &lt;/h2&gt;&lt;p&gt;回顾上上个章节当中讲到的遗产(inheritance)的概念, 我们可以通过创建一个类的子类来继承其 datafield 和 methods. 并且这个类也可以单独创建实例. 而抽象类就是一种特殊的父类.&lt;/p&gt;
 &lt;h2 id=&#34;抽象类&#34;&gt;抽象类
 &lt;/h2&gt;&lt;p&gt;就跟刚刚讲到的一样, 抽象类其实就是一个特殊的父类, 作为一个父类它无法实例化. 而是要通过创建其子类然后才能实例化.&lt;/p&gt;
@@ -17583,11 +18980,11 @@ class Dog implements Animal {
         </item>
         <item>
         <title>Chapter12</title>
-        <link>http://localhost:1313/p/chapter12/</link>
+        <link>https://blog.henry070.org/p/chapter12/</link>
         <pubDate>Sun, 25 May 2025 15:21:54 +0800</pubDate>
         
-        <guid>http://localhost:1313/p/chapter12/</guid>
-        <description>&lt;img src="http://localhost:1313/java.png" alt="Featured image of post Chapter12" /&gt;&lt;h2 id=&#34;情景&#34;&gt;情景
+        <guid>https://blog.henry070.org/p/chapter12/</guid>
+        <description>&lt;img src="https://blog.henry070.org/java.png" alt="Featured image of post Chapter12" /&gt;&lt;h2 id=&#34;情景&#34;&gt;情景
 &lt;/h2&gt;&lt;ol&gt;
 &lt;li&gt;随着我们的代码复杂度的增长, 很多时候我们无法完全避免程序在运行的过程中出错. 很多时候会出现程序在执行某些不重要的代码的时候报错,然后整个程序直接停止.&lt;/li&gt;
 &lt;li&gt;整个项目的代码量过大导致使用 debug 功能修复代码的时候效率过低.&lt;/li&gt;
@@ -17665,7 +19062,7 @@ class Dog implements Animal {
 &lt;/div&gt;
 
 &lt;h2 id=&#34;exception-types--错误类型&#34;&gt;Exception Types | 错误类型
-&lt;/h2&gt;&lt;img src=&#34;http://localhost:1313/p/chapter12/exception_hu_2d775bea792e44c0.png&#34; width=&#34;1200&#34; height=&#34;474&#34; alt=&#34;exception types&#34;&gt;
+&lt;/h2&gt;&lt;img src=&#34;https://blog.henry070.org/p/chapter12/exception_hu_2d775bea792e44c0.png&#34; width=&#34;1200&#34; height=&#34;474&#34; alt=&#34;exception types&#34;&gt;
 &lt;p&gt;在 Java 中， Throwable 是所有异常和错误的根类。所有通过 throw 抛出的异常必须继承自 Throwable 。其直接子类包括：&lt;/p&gt;
 &lt;h3 id=&#34;error&#34;&gt;Error
 &lt;/h3&gt;&lt;h4 id=&#34;linkageerror&#34;&gt;LinkageError
@@ -17942,11 +19339,11 @@ writer.checkError(); // 检查是否有错误发生&lt;/code&gt;
         </item>
         <item>
         <title>Stack theme hugo 字体设置</title>
-        <link>http://localhost:1313/p/stack-theme-hugo-%E5%AD%97%E4%BD%93%E8%AE%BE%E7%BD%AE/</link>
+        <link>https://blog.henry070.org/p/stack-theme-hugo-%E5%AD%97%E4%BD%93%E8%AE%BE%E7%BD%AE/</link>
         <pubDate>Sun, 25 May 2025 02:28:03 +0800</pubDate>
         
-        <guid>http://localhost:1313/p/stack-theme-hugo-%E5%AD%97%E4%BD%93%E8%AE%BE%E7%BD%AE/</guid>
-        <description>&lt;img src="http://localhost:1313/hugo.jpeg" alt="Featured image of post Stack theme hugo 字体设置" /&gt;&lt;h2 id=&#34;参考链接&#34;&gt;参考链接
+        <guid>https://blog.henry070.org/p/stack-theme-hugo-%E5%AD%97%E4%BD%93%E8%AE%BE%E7%BD%AE/</guid>
+        <description>&lt;img src="https://blog.henry070.org/hugo.jpeg" alt="Featured image of post Stack theme hugo 字体设置" /&gt;&lt;h2 id=&#34;参考链接&#34;&gt;参考链接
 &lt;/h2&gt;&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;https://blog.lufei.de/p/ziti/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;博客教程&lt;/a&gt;
 &lt;a class=&#34;link&#34; href=&#34;https://chinese-font.netlify.app/cdn/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
@@ -18030,11 +19427,11 @@ body,
         </item>
         <item>
         <title>Chapter11</title>
-        <link>http://localhost:1313/p/chapter11/</link>
+        <link>https://blog.henry070.org/p/chapter11/</link>
         <pubDate>Sat, 24 May 2025 21:05:41 +0800</pubDate>
         
-        <guid>http://localhost:1313/p/chapter11/</guid>
-        <description>&lt;img src="http://localhost:1313/java.png" alt="Featured image of post Chapter11" /&gt;&lt;h1 id=&#34;继承-和-多态java&#34;&gt;继承 和 多态(java)
+        <guid>https://blog.henry070.org/p/chapter11/</guid>
+        <description>&lt;img src="https://blog.henry070.org/java.png" alt="Featured image of post Chapter11" /&gt;&lt;h1 id=&#34;继承-和-多态java&#34;&gt;继承 和 多态(java)
 &lt;/h1&gt;&lt;p&gt;这个章节是基于类的延伸&lt;/p&gt;
 &lt;h2 id=&#34;子类和父类&#34;&gt;子类和父类
 &lt;/h2&gt;&lt;p&gt;在 java 中有一个关键字叫 &amp;rsquo;extends&amp;rsquo;，意思是扩展， 这个关键字可以定义一个类的延伸类, 并具有所有原先类的方法(method)和变量(data field)。&lt;/p&gt;
@@ -18452,11 +19849,11 @@ Collections.reverse(list);&lt;/code&gt;
         </item>
         <item>
         <title>本地静态网站托管</title>
-        <link>http://localhost:1313/p/%E6%9C%AC%E5%9C%B0%E9%9D%99%E6%80%81%E7%BD%91%E7%AB%99%E6%89%98%E7%AE%A1/</link>
+        <link>https://blog.henry070.org/p/%E6%9C%AC%E5%9C%B0%E9%9D%99%E6%80%81%E7%BD%91%E7%AB%99%E6%89%98%E7%AE%A1/</link>
         <pubDate>Sat, 24 May 2025 16:47:04 +0800</pubDate>
         
-        <guid>http://localhost:1313/p/%E6%9C%AC%E5%9C%B0%E9%9D%99%E6%80%81%E7%BD%91%E7%AB%99%E6%89%98%E7%AE%A1/</guid>
-        <description>&lt;img src="http://localhost:1313/default.jpeg" alt="Featured image of post 本地静态网站托管" /&gt;&lt;h1 id=&#34;如何在本地搭建类似-gihub-的静态网站托管服务&#34;&gt;如何在本地搭建类似 gihub 的静态网站托管服务
+        <guid>https://blog.henry070.org/p/%E6%9C%AC%E5%9C%B0%E9%9D%99%E6%80%81%E7%BD%91%E7%AB%99%E6%89%98%E7%AE%A1/</guid>
+        <description>&lt;img src="https://blog.henry070.org/default.jpeg" alt="Featured image of post 本地静态网站托管" /&gt;&lt;h1 id=&#34;如何在本地搭建类似-gihub-的静态网站托管服务&#34;&gt;如何在本地搭建类似 gihub 的静态网站托管服务
 &lt;/h1&gt;&lt;h2 id=&#34;前言&#34;&gt;前言
 &lt;/h2&gt;&lt;p&gt;本博客的初衷是因为博主之前使用第三方的静态博客发现国内的网站对这些托管并不友好, 特别是 wx 经常会对我的博客域名封杀. 而且这个网页托管的速度也比较一般. 所以打算在本地搭建网页托管的服务, 使用内网穿透来实现外网访问. 这也算是一个填坑博客吧.🤓&lt;/p&gt;
 &lt;h2 id=&#34;requirements&#34;&gt;requirements
@@ -18500,11 +19897,11 @@ Collections.reverse(list);&lt;/code&gt;
         </item>
         <item>
         <title>Daliy_blog2025 05 24</title>
-        <link>http://localhost:1313/p/daliy_blog2025-05-24/</link>
+        <link>https://blog.henry070.org/p/daliy_blog2025-05-24/</link>
         <pubDate>Sat, 24 May 2025 03:53:50 +0800</pubDate>
         
-        <guid>http://localhost:1313/p/daliy_blog2025-05-24/</guid>
-        <description>&lt;img src="http://localhost:1313/default.jpeg" alt="Featured image of post Daliy_blog2025 05 24" /&gt;&lt;h1 id=&#34;不知好歹的博主&#34;&gt;不知好歹的博主
+        <guid>https://blog.henry070.org/p/daliy_blog2025-05-24/</guid>
+        <description>&lt;img src="https://blog.henry070.org/default.jpeg" alt="Featured image of post Daliy_blog2025 05 24" /&gt;&lt;h1 id=&#34;不知好歹的博主&#34;&gt;不知好歹的博主
 &lt;/h1&gt;&lt;p&gt;博主第二天要考高数, 现在还熬到快四点钟真的很有生活了.&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;input checked=&#34;&#34; disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 添加网页个性化鼠标指针&lt;/li&gt;
@@ -18557,11 +19954,11 @@ Collections.reverse(list);&lt;/code&gt;
         </item>
         <item>
         <title>Hugo_notes</title>
-        <link>http://localhost:1313/p/hugo_notes/</link>
+        <link>https://blog.henry070.org/p/hugo_notes/</link>
         <pubDate>Thu, 22 May 2025 23:29:01 +0800</pubDate>
         
-        <guid>http://localhost:1313/p/hugo_notes/</guid>
-        <description>&lt;img src="http://localhost:1313/p/hugo_notes/1.jpeg" alt="Featured image of post Hugo_notes" /&gt;&lt;h1 id=&#34;hugo-笔记&#34;&gt;Hugo 笔记
+        <guid>https://blog.henry070.org/p/hugo_notes/</guid>
+        <description>&lt;img src="https://blog.henry070.org/p/hugo_notes/1.jpeg" alt="Featured image of post Hugo_notes" /&gt;&lt;h1 id=&#34;hugo-笔记&#34;&gt;Hugo 笔记
 &lt;/h1&gt;&lt;p&gt;这里是我记录 Hugo 这个框架笔记的方法, 方便我以后忘记的时候能回来查看. 本 blog 会持续更新&lt;/p&gt;
 &lt;blockquote&gt;
 &lt;p&gt;当然这里很多笔记也会是基于 stack 这个主题, 不过 hugo 大部分语法应该是通用的. 应该也有一定的参考价值.&lt;/p&gt;
@@ -18716,7 +20113,7 @@ hugo server -D
     &gt;参考博客&lt;/a&gt;. 圆框使用 AI 修改.&lt;/li&gt;
 &lt;li&gt;&lt;input checked=&#34;&#34; disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 代码框自动折叠功能,&lt;a class=&#34;link&#34; href=&#34;https://letere-gzj.github.io/hugo-stack/p/hugo/custom-stack-theme/#8-%E8%87%AA%E5%AE%9A%E4%B9%89md%E5%BC%95%E7%94%A8%E5%9D%97%E9%A2%9C%E8%89%B2%E6%A8%A1%E6%9D%BF&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;参考&lt;/a&gt;. 在原有的基础上修改了一下样式, 更加美观.&lt;/li&gt;
-&lt;li&gt;&lt;input checked=&#34;&#34; disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 修复字体问题, 已完成. &lt;a class=&#34;link&#34; href=&#34;http://localhost:1313/p/stack-theme-hugo-%E5%AD%97%E4%BD%93%E8%AE%BE%E7%BD%AE/&#34; &gt;教程&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;input checked=&#34;&#34; disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 修复字体问题, 已完成. &lt;a class=&#34;link&#34; href=&#34;https://blog.henry070.org/p/stack-theme-hugo-%E5%AD%97%E4%BD%93%E8%AE%BE%E7%BD%AE/&#34; &gt;教程&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;input checked=&#34;&#34; disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 返回顶部按钮&lt;/li&gt;
 &lt;li&gt;&lt;input disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 防止爬虫(&lt;a class=&#34;link&#34; href=&#34;https://blog.lufei.de/p/215/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;https://blog.lufei.de/p/215/&lt;/a&gt;)
@@ -18807,11 +20204,11 @@ hugo server -D
         </item>
         <item>
         <title>Myfirstblog</title>
-        <link>http://localhost:1313/p/myfirstblog/</link>
+        <link>https://blog.henry070.org/p/myfirstblog/</link>
         <pubDate>Thu, 22 May 2025 04:08:44 +0800</pubDate>
         
-        <guid>http://localhost:1313/p/myfirstblog/</guid>
-        <description>&lt;img src="http://localhost:1313/default.jpeg" alt="Featured image of post Myfirstblog" /&gt;&lt;h1 id=&#34;这个是我的第一个条博客准确来说是第二条-hhh&#34;&gt;这个是我的第一个条博客(准确来说是第二条 hhh)
+        <guid>https://blog.henry070.org/p/myfirstblog/</guid>
+        <description>&lt;img src="https://blog.henry070.org/default.jpeg" alt="Featured image of post Myfirstblog" /&gt;&lt;h1 id=&#34;这个是我的第一个条博客准确来说是第二条-hhh&#34;&gt;这个是我的第一个条博客(准确来说是第二条 hhh)
 &lt;/h1&gt;&lt;ul&gt;
 &lt;li&gt;时间: 25 年 5 月 22 号&lt;/li&gt;
 &lt;/ul&gt;
@@ -18843,11 +20240,11 @@ hugo server -D
         </item>
         <item>
         <title>Chinese Test</title>
-        <link>http://localhost:1313/p/test-chinese/</link>
+        <link>https://blog.henry070.org/p/test-chinese/</link>
         <pubDate>Wed, 09 Sep 2020 00:00:00 +0000</pubDate>
         
-        <guid>http://localhost:1313/p/test-chinese/</guid>
-        <description>&lt;img src="http://localhost:1313/p/test-chinese/helena-hertz-wWZzXlDpMog-unsplash.jpg" alt="Featured image of post Chinese Test" /&gt;&lt;h2 id=&#34;正文测试&#34;&gt;正文测试
+        <guid>https://blog.henry070.org/p/test-chinese/</guid>
+        <description>&lt;img src="https://blog.henry070.org/p/test-chinese/helena-hertz-wWZzXlDpMog-unsplash.jpg" alt="Featured image of post Chinese Test" /&gt;&lt;h2 id=&#34;正文测试&#34;&gt;正文测试
 &lt;/h2&gt;&lt;p&gt;而这些并不是完全重要，更加重要的问题是， 带着这些问题，我们来审视一下学生会退会。 既然如何， 对我个人而言，学生会退会不仅仅是一个重大的事件，还可能会改变我的人生。 我们不得不面对一个非常尴尬的事实，那就是， 可是，即使是这样，学生会退会的出现仍然代表了一定的意义。 学生会退会，发生了会如何，不发生又会如何。 经过上述讨论， 生活中，若学生会退会出现了，我们就不得不考虑它出现了的事实。 学生会退会，到底应该如何实现。 这样看来， 在这种困难的抉择下，本人思来想去，寝食难安。 对我个人而言，学生会退会不仅仅是一个重大的事件，还可能会改变我的人生。 就我个人来说，学生会退会对我的意义，不能不说非常重大。 莎士比亚曾经提到过，人的一生是短的，但如果卑劣地过这一生，就太长了。这似乎解答了我的疑惑。 莫扎特说过一句富有哲理的话，谁和我一样用功，谁就会和我一样成功。这启发了我， 对我个人而言，学生会退会不仅仅是一个重大的事件，还可能会改变我的人生。 学生会退会，到底应该如何实现。 一般来说， 从这个角度来看， 这种事实对本人来说意义重大，相信对这个世界也是有一定意义的。 在这种困难的抉择下，本人思来想去，寝食难安。 了解清楚学生会退会到底是一种怎么样的存在，是解决一切问题的关键。 一般来说， 生活中，若学生会退会出现了，我们就不得不考虑它出现了的事实。 问题的关键究竟为何？ 而这些并不是完全重要，更加重要的问题是。&lt;/p&gt;
 &lt;p&gt;奥斯特洛夫斯基曾经说过，共同的事业，共同的斗争，可以使人们产生忍受一切的力量。　带着这句话，我们还要更加慎重的审视这个问题： 一般来讲，我们都必须务必慎重的考虑考虑。 既然如此， 这种事实对本人来说意义重大，相信对这个世界也是有一定意义的。 带着这些问题，我们来审视一下学生会退会。 我认为， 我认为， 在这种困难的抉择下，本人思来想去，寝食难安。 问题的关键究竟为何？ 每个人都不得不面对这些问题。 在面对这种问题时， 要想清楚，学生会退会，到底是一种怎么样的存在。 我认为， 既然如此， 每个人都不得不面对这些问题。 在面对这种问题时， 那么， 我认为， 学生会退会因何而发生。&lt;/p&gt;
 &lt;h2 id=&#34;引用&#34;&gt;引用
@@ -18860,10 +20257,10 @@ hugo server -D
     &gt;最暖的憂傷 - 田馥甄&lt;/a&gt;&lt;/em&gt;&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;h2 id=&#34;图片&#34;&gt;图片
-&lt;/h2&gt;&lt;p&gt;&lt;img src=&#34;http://localhost:1313/p/test-chinese/florian-klauer-nptLmg6jqDo-unsplash.jpg&#34;
+&lt;/h2&gt;&lt;p&gt;&lt;img src=&#34;https://blog.henry070.org/p/test-chinese/florian-klauer-nptLmg6jqDo-unsplash.jpg&#34;
 	width=&#34;667&#34;
 	height=&#34;1000&#34;
-	srcset=&#34;http://localhost:1313/p/test-chinese/florian-klauer-nptLmg6jqDo-unsplash_hu_7b8a06820e6d5c.jpg 480w, http://localhost:1313/p/test-chinese/florian-klauer-nptLmg6jqDo-unsplash_hu_a347f10e565b40ff.jpg 1024w&#34;
+	srcset=&#34;https://blog.henry070.org/p/test-chinese/florian-klauer-nptLmg6jqDo-unsplash_hu_7b8a06820e6d5c.jpg 480w, https://blog.henry070.org/p/test-chinese/florian-klauer-nptLmg6jqDo-unsplash_hu_a347f10e565b40ff.jpg 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;Photo by Florian Klauer on Unsplash&#34;
@@ -18873,10 +20270,10 @@ hugo server -D
 		data-flex-grow=&#34;66&#34;
 		data-flex-basis=&#34;160px&#34;
 	
-&gt;  &lt;img src=&#34;http://localhost:1313/p/test-chinese/luca-bravo-alS7ewQ41M8-unsplash.jpg&#34;
+&gt;  &lt;img src=&#34;https://blog.henry070.org/p/test-chinese/luca-bravo-alS7ewQ41M8-unsplash.jpg&#34;
 	width=&#34;1000&#34;
 	height=&#34;667&#34;
-	srcset=&#34;http://localhost:1313/p/test-chinese/luca-bravo-alS7ewQ41M8-unsplash_hu_258fc4da0cfc7de9.jpg 480w, http://localhost:1313/p/test-chinese/luca-bravo-alS7ewQ41M8-unsplash_hu_d415bcea096fe061.jpg 1024w&#34;
+	srcset=&#34;https://blog.henry070.org/p/test-chinese/luca-bravo-alS7ewQ41M8-unsplash_hu_258fc4da0cfc7de9.jpg 480w, https://blog.henry070.org/p/test-chinese/luca-bravo-alS7ewQ41M8-unsplash_hu_d415bcea096fe061.jpg 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;Photo by Luca Bravo on Unsplash&#34;
@@ -18887,10 +20284,10 @@ hugo server -D
 		data-flex-basis=&#34;359px&#34;
 	
 &gt;&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:1313/p/test-chinese/helena-hertz-wWZzXlDpMog-unsplash.jpg&#34;
+&lt;p&gt;&lt;img src=&#34;https://blog.henry070.org/p/test-chinese/helena-hertz-wWZzXlDpMog-unsplash.jpg&#34;
 	width=&#34;1000&#34;
 	height=&#34;750&#34;
-	srcset=&#34;http://localhost:1313/p/test-chinese/helena-hertz-wWZzXlDpMog-unsplash_hu_dfbb0c559c3df461.jpg 480w, http://localhost:1313/p/test-chinese/helena-hertz-wWZzXlDpMog-unsplash_hu_212d0718b8e99eaa.jpg 1024w&#34;
+	srcset=&#34;https://blog.henry070.org/p/test-chinese/helena-hertz-wWZzXlDpMog-unsplash_hu_dfbb0c559c3df461.jpg 480w, https://blog.henry070.org/p/test-chinese/helena-hertz-wWZzXlDpMog-unsplash_hu_212d0718b8e99eaa.jpg 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;Photo by Helena Hertz on Unsplash&#34;
@@ -18900,10 +20297,10 @@ hugo server -D
 		data-flex-grow=&#34;133&#34;
 		data-flex-basis=&#34;320px&#34;
 	
-&gt;  &lt;img src=&#34;http://localhost:1313/p/test-chinese/hudai-gayiran-3Od_VKcDEAA-unsplash.jpg&#34;
+&gt;  &lt;img src=&#34;https://blog.henry070.org/p/test-chinese/hudai-gayiran-3Od_VKcDEAA-unsplash.jpg&#34;
 	width=&#34;667&#34;
 	height=&#34;1000&#34;
-	srcset=&#34;http://localhost:1313/p/test-chinese/hudai-gayiran-3Od_VKcDEAA-unsplash_hu_41819e288bf4a8c0.jpg 480w, http://localhost:1313/p/test-chinese/hudai-gayiran-3Od_VKcDEAA-unsplash_hu_1277885c87f69490.jpg 1024w&#34;
+	srcset=&#34;https://blog.henry070.org/p/test-chinese/hudai-gayiran-3Od_VKcDEAA-unsplash_hu_41819e288bf4a8c0.jpg 480w, https://blog.henry070.org/p/test-chinese/hudai-gayiran-3Od_VKcDEAA-unsplash_hu_1277885c87f69490.jpg 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;Photo by Hudai Gayiran on Unsplash&#34;
@@ -18933,11 +20330,11 @@ hugo server -D
         </item>
         <item>
         <title>Markdown Syntax Guide</title>
-        <link>http://localhost:1313/p/markdown-syntax-guide/</link>
+        <link>https://blog.henry070.org/p/markdown-syntax-guide/</link>
         <pubDate>Mon, 11 Mar 2019 00:00:00 +0000</pubDate>
         
-        <guid>http://localhost:1313/p/markdown-syntax-guide/</guid>
-        <description>&lt;img src="http://localhost:1313/p/markdown-syntax-guide/pawel-czerwinski-8uZPynIu-rQ-unsplash.jpg" alt="Featured image of post Markdown Syntax Guide" /&gt;&lt;p&gt;This article offers a sample of basic Markdown syntax that can be used in Hugo content files, also it shows whether basic HTML elements are decorated with CSS in a Hugo theme.&lt;/p&gt;
+        <guid>https://blog.henry070.org/p/markdown-syntax-guide/</guid>
+        <description>&lt;img src="https://blog.henry070.org/p/markdown-syntax-guide/pawel-czerwinski-8uZPynIu-rQ-unsplash.jpg" alt="Featured image of post Markdown Syntax Guide" /&gt;&lt;p&gt;This article offers a sample of basic Markdown syntax that can be used in Hugo content files, also it shows whether basic HTML elements are decorated with CSS in a Hugo theme.&lt;/p&gt;
 &lt;h2 id=&#34;headings&#34;&gt;Headings
 &lt;/h2&gt;&lt;p&gt;The following HTML &lt;code&gt;&amp;lt;h1&amp;gt;&lt;/code&gt;—&lt;code&gt;&amp;lt;h6&amp;gt;&lt;/code&gt; elements represent six levels of section headings. &lt;code&gt;&amp;lt;h1&amp;gt;&lt;/code&gt; is the highest section level while &lt;code&gt;&amp;lt;h6&amp;gt;&lt;/code&gt; is the lowest.&lt;/p&gt;
 &lt;h1 id=&#34;h1&#34;&gt;H1
@@ -19140,10 +20537,10 @@ rev = &amp;#34;11f52b8c72fc3a568e8bb4a4cd1f3eb025ac2e13&amp;#34;
         </item>
         <item>
         <title>Rich Content</title>
-        <link>http://localhost:1313/p/rich-content/</link>
+        <link>https://blog.henry070.org/p/rich-content/</link>
         <pubDate>Sun, 10 Mar 2019 00:00:00 +0000</pubDate>
         
-        <guid>http://localhost:1313/p/rich-content/</guid>
+        <guid>https://blog.henry070.org/p/rich-content/</guid>
         <description>&lt;p&gt;Hugo ships with several &lt;a class=&#34;link&#34; href=&#34;https://gohugo.io/content-management/shortcodes/#use-hugo-s-built-in-shortcodes&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;Built-in Shortcodes&lt;/a&gt; for rich content, along with a &lt;a class=&#34;link&#34; href=&#34;https://gohugo.io/about/hugo-and-gdpr/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;Privacy Config&lt;/a&gt; and a set of Simple Shortcodes that enable static and no-JS versions of various social media embeds.&lt;/p&gt;
@@ -19230,11 +20627,11 @@ rev = &amp;#34;11f52b8c72fc3a568e8bb4a4cd1f3eb025ac2e13&amp;#34;
         </item>
         <item>
         <title>Placeholder Text</title>
-        <link>http://localhost:1313/p/placeholder-text/</link>
+        <link>https://blog.henry070.org/p/placeholder-text/</link>
         <pubDate>Sat, 09 Mar 2019 00:00:00 +0000</pubDate>
         
-        <guid>http://localhost:1313/p/placeholder-text/</guid>
-        <description>&lt;img src="http://localhost:1313/p/placeholder-text/matt-le-SJSpo9hQf7s-unsplash.jpg" alt="Featured image of post Placeholder Text" /&gt;&lt;p&gt;Lorem est tota propiore conpellat pectoribus de pectora summo.&lt;/p&gt;
+        <guid>https://blog.henry070.org/p/placeholder-text/</guid>
+        <description>&lt;img src="https://blog.henry070.org/p/placeholder-text/matt-le-SJSpo9hQf7s-unsplash.jpg" alt="Featured image of post Placeholder Text" /&gt;&lt;p&gt;Lorem est tota propiore conpellat pectoribus de pectora summo.&lt;/p&gt;
 &lt;p&gt;Redit teque digerit hominumque toris verebor lumina non cervice subde tollit usus habet Arctonque, furores quas nec ferunt. Quoque montibus nunc caluere tempus inhospita parcite confusaque translucet patri vestro qui optatis lumine cognoscere flos nubis! Fronde ipsamque patulos Dryopen deorum.&lt;/p&gt;
 &lt;ol&gt;
 &lt;li&gt;Exierant elisi ambit vivere dedere&lt;/li&gt;
@@ -19261,10 +20658,10 @@ rev = &amp;#34;11f52b8c72fc3a568e8bb4a4cd1f3eb025ac2e13&amp;#34;
         </item>
         <item>
         <title>Math Typesetting</title>
-        <link>http://localhost:1313/p/math-typesetting/</link>
+        <link>https://blog.henry070.org/p/math-typesetting/</link>
         <pubDate>Fri, 08 Mar 2019 00:00:00 +0000</pubDate>
         
-        <guid>http://localhost:1313/p/math-typesetting/</guid>
+        <guid>https://blog.henry070.org/p/math-typesetting/</guid>
         <description>&lt;p&gt;Mathematical notation in a Hugo project can be enabled by using third party JavaScript libraries.&lt;/p&gt;
 &lt;p&gt;In this example we will be using &lt;a class=&#34;link&#34; href=&#34;https://katex.org/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;KaTeX&lt;/a&gt;&lt;/p&gt;
@@ -19304,11 +20701,11 @@ $$</description>
         </item>
         <item>
         <title>Emoji Support</title>
-        <link>http://localhost:1313/p/emoji-support/</link>
+        <link>https://blog.henry070.org/p/emoji-support/</link>
         <pubDate>Tue, 05 Mar 2019 00:00:00 +0000</pubDate>
         
-        <guid>http://localhost:1313/p/emoji-support/</guid>
-        <description>&lt;img src="http://localhost:1313/p/emoji-support/the-creative-exchange-d2zvqp3fpro-unsplash.jpg" alt="Featured image of post Emoji Support" /&gt;&lt;p&gt;Emoji can be enabled in a Hugo project in a number of ways.&lt;/p&gt;
+        <guid>https://blog.henry070.org/p/emoji-support/</guid>
+        <description>&lt;img src="https://blog.henry070.org/p/emoji-support/the-creative-exchange-d2zvqp3fpro-unsplash.jpg" alt="Featured image of post Emoji Support" /&gt;&lt;p&gt;Emoji can be enabled in a Hugo project in a number of ways.&lt;/p&gt;
 &lt;p&gt;The &lt;a class=&#34;link&#34; href=&#34;https://gohugo.io/functions/emojify/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;&lt;code&gt;emojify&lt;/code&gt;&lt;/a&gt; function can be called directly in templates or &lt;a class=&#34;link&#34; href=&#34;https://gohugo.io/templates/shortcode-templates/#inline-shortcodes&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;Inline Shortcodes&lt;/a&gt;.&lt;/p&gt;

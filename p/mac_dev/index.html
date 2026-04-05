@@ -1,0 +1,1564 @@
+<!DOCTYPE html>
+<html lang="en-us" dir="ltr">
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="+++ date = &lsquo;2026-04-06T14:00:00+08:00&rsquo; draft = false title = &rsquo;' description = &lsquo;CPS 学生在 Mac 上搭建现代化开发环境的完整指南，涵盖 Homebrew 包管理、fnm 管理 Node.js、corepack 管理 pnpm、uv 管理 Python 的全流程。&rsquo; categories = [ &ldquo;技术分享&rdquo;] tags = [ &ldquo;Mac&rdquo;, &ldquo;开发环境&rdquo;, &ldquo;Homebrew&rdquo;, &ldquo;Node.js&rdquo;, &ldquo;Python&rdquo; ] image = &lsquo;default.jpeg&rsquo; +++\n">
+<title>Mac_dev</title>
+
+<link rel='canonical' href='http://localhost:1313/p/mac_dev/'>
+
+<link rel="stylesheet" href="/scss/style.min.f15f6809de3726c4612af8dbf1dc5af3ceda5b2bc400be61fd7b23efb9569755.css"><meta property='og:title' content="Mac_dev">
+<meta property='og:description' content="+++ date = &lsquo;2026-04-06T14:00:00+08:00&rsquo; draft = false title = &rsquo;' description = &lsquo;CPS 学生在 Mac 上搭建现代化开发环境的完整指南，涵盖 Homebrew 包管理、fnm 管理 Node.js、corepack 管理 pnpm、uv 管理 Python 的全流程。&rsquo; categories = [ &ldquo;技术分享&rdquo;] tags = [ &ldquo;Mac&rdquo;, &ldquo;开发环境&rdquo;, &ldquo;Homebrew&rdquo;, &ldquo;Node.js&rdquo;, &ldquo;Python&rdquo; ] image = &lsquo;default.jpeg&rsquo; +++\n">
+<meta property='og:url' content='http://localhost:1313/p/mac_dev/'>
+<meta property='og:site_name' content='Henry Zhang'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='' /><meta property='article:published_time' content='2026-04-06T02:21:02&#43;08:00'/><meta property='article:modified_time' content='2026-04-06T02:21:31&#43;08:00'/><meta property='og:image' content='http://localhost:1313/default.jpeg' />
+<meta name="twitter:title" content="Mac_dev">
+<meta name="twitter:description" content="+++ date = &lsquo;2026-04-06T14:00:00+08:00&rsquo; draft = false title = &rsquo;' description = &lsquo;CPS 学生在 Mac 上搭建现代化开发环境的完整指南，涵盖 Homebrew 包管理、fnm 管理 Node.js、corepack 管理 pnpm、uv 管理 Python 的全流程。&rsquo; categories = [ &ldquo;技术分享&rdquo;] tags = [ &ldquo;Mac&rdquo;, &ldquo;开发环境&rdquo;, &ldquo;Homebrew&rdquo;, &ldquo;Node.js&rdquo;, &ldquo;Python&rdquo; ] image = &lsquo;default.jpeg&rsquo; +++\n"><meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content='http://localhost:1313/default.jpeg' />
+    <link rel="shortcut icon" href="/favicon.ico" />
+
+
+<script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+<script>
+  
+  function getCurrentTheme() {
+    const colorSchemeKey = 'StackColorScheme';
+    const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+    const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+    
+    if (colorSchemeItem === 'dark' || (colorSchemeItem === 'auto' && supportDarkMode)) {
+      return 'dark';
+    } else {
+      return 'light';
+    }
+  }
+
+  
+  function logThemeInfo() {
+    const colorSchemeKey = 'StackColorScheme';
+    const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+    const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+    const documentScheme = document.documentElement.dataset.scheme;
+    
+    console.log('[Mermaid] Theme Detection:', {
+      localStorage: colorSchemeItem,
+      systemDark: supportDarkMode,
+      documentScheme: documentScheme,
+      calculatedTheme: getCurrentTheme()
+    });
+  }
+
+  
+  function initializeMermaid() {
+    const currentTheme = getCurrentTheme();
+    
+    if (currentTheme === 'dark') {
+      
+      mermaid.initialize({
+        startOnLoad: false,
+        theme: 'dark',
+        themeVariables: {
+          
+          primaryColor: '#4a5568',
+          primaryTextColor: '#f7fafc',
+          primaryBorderColor: '#63b3ed',
+          lineColor: '#e2e8f0',
+          secondaryColor: '#2d3748',
+          tertiaryColor: '#1a202c',
+          background: '#1a202c',
+          
+          
+          fillType0: '#2d3748',
+          fillType1: '#4a5568',
+          fillType2: '#4299e1',
+          clusterBkg: '#2d3748',
+          clusterBorder: '#4a5568',
+          nodeBorder: '#e2e8f0',
+          mainBkg: '#4a5568',
+          altBkg: '#2d3748',
+          
+          
+          labelBackground: '#2d3748',
+          edgeLabelBackground: '#2d3748',
+          titleColor: '#f7fafc',
+          
+          
+          actorBkg: '#2d3748',
+          actorBorder: '#4a5568',
+          actorTextColor: '#e2e8f0',
+          actorLine: '#4a5568',
+          signalColor: '#e2e8f0',
+          signalTextColor: '#e2e8f0',
+          noteBkgColor: '#4a5568',
+          noteBorderColor: '#4a5568',
+          noteTextColor: '#e2e8f0',
+          activationBorderColor: '#4299e1',
+          activationBkgColor: '#2d3748',
+          
+          
+          sectionBkgColor: '#2d3748',
+          altSectionBkgColor: '#4a5568',
+          sectionBorderColor: '#4a5568',
+          taskBkgColor: '#4299e1',
+          taskBorderColor: '#63b3ed',
+          taskTextColor: '#ffffff',
+          activeTaskBkgColor: '#48bb78',
+          activeTaskBorderColor: '#38a169',
+          doneTaskBkgColor: '#2d3748',
+          doneTaskBorderColor: '#4a5568',
+          critBkgColor: '#f56565',
+          critBorderColor: '#e53e3e',
+          critTextColor: '#ffffff',
+          
+          
+          pie1: '#4299e1',
+          pie2: '#48bb78',
+          pie3: '#ed8936',
+          pie4: '#9f7aea',
+          pie5: '#ed64a6',
+          pie6: '#38b2ac',
+          pie7: '#f6ad55',
+          pie8: '#68d391',
+          pie9: '#63b3ed',
+          pie10: '#b794f4',
+          pieTitleTextSize: '24px',
+          pieSectionTextSize: '16px',
+          pieOuterStrokeWidth: '2px',
+          pieStroke: '#1a202c',
+          pieOpacity: '1',
+          
+          
+          classText: '#f7fafc',
+          classTitle: '#f7fafc',
+          
+          
+          stateBkg: '#2d3748',
+          stateBorder: '#4a5568',
+          labelColor: '#f7fafc',
+          stateLabel: '#f7fafc',
+          stateText: '#f7fafc',
+          transitionLabel: '#f7fafc',
+          
+          
+          entityBkg: '#2d3748',
+          entityBorder: '#4a5568',
+          attributeBkg: '#2d3748',
+          attributeBorder: '#4a5568',
+          relationshipText: '#f7fafc',
+          
+          
+          gridColor: '#4a5568',
+          scaleBarColor: '#4a5568',
+          barColor: '#4299e1',
+          barBorderColor: '#63b3ed',
+          todayLineColor: '#f6ad55',
+          
+          
+          git0: '#4299e1',
+          git1: '#48bb78',
+          git2: '#ed8936',
+          git3: '#9f7aea',
+          git4: '#ed64a6',
+          git5: '#38b2ac',
+          git6: '#f6ad55',
+          git7: '#68d391',
+          gitInv0: '#2d3748',
+          gitInv1: '#2d3748',
+          gitInv2: '#2d3748',
+          gitInv3: '#2d3748',
+          gitInv4: '#2d3748',
+          gitInv5: '#2d3748',
+          gitInv6: '#2d3748',
+          gitInv7: '#2d3748',
+          
+          
+          mindmapPrimary: '#4299e1',
+          mindmapSecondary: '#48bb78',
+          mindmapTertiary: '#ed8936',
+          
+          
+          errorTextColor: '#fc8181',
+          warningTextColor: '#f6ad55',
+          infoTextColor: '#63b3ed',
+          
+          
+          edgeLabelBackground: '#1a202c',
+          
+          
+          edgeLabelBackground: '#2d3748',
+          
+          
+          classLabel: '#f7fafc',
+          dividerColor: '#4a5568',
+          
+          
+          dividerColor: '#4a5568',
+          
+          
+          dividerColor: '#4a5568',
+          
+          
+          fontFamily: '"Douyin Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
+          fontSize: '16px'
+        },
+        fontFamily: '"Douyin Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
+        fontSize: 16,
+        flowchart: {
+          useMaxWidth: true,
+          htmlLabels: true,
+          curve: 'basis'
+        },
+        sequence: {
+          useMaxWidth: true
+        },
+        journey: {
+          useMaxWidth: true
+        },
+        pie: {
+          useMaxWidth: true
+        },
+        gantt: {
+          useMaxWidth: true
+        },
+        git: {
+          useMaxWidth: true
+        },
+        mindmap: {
+          useMaxWidth: true
+        }
+      });
+    } else {
+      
+      mermaid.initialize({
+        startOnLoad: false,
+        theme: 'default',
+        themeVariables: {
+          primaryColor: '#007bff',
+          primaryTextColor: '#333',
+          primaryBorderColor: '#007bff',
+          lineColor: '#666',
+          secondaryColor: '#f8f9fa',
+          tertiaryColor: '#e9ecef'
+        },
+        fontFamily: '"Douyin Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
+        fontSize: 16,
+        flowchart: {
+          useMaxWidth: true,
+          htmlLabels: true,
+          curve: 'basis'
+        }
+      });
+    }
+    
+    
+    document.querySelectorAll('.mermaid').forEach(function(element) {
+      if (!element.dataset.original) {
+        element.dataset.original = element.textContent.trim();
+      }
+    });
+    
+    
+    return mermaid.run();
+  }
+
+  
+  document.addEventListener('DOMContentLoaded', function() {
+    
+    initializeMermaid();
+    
+    
+    logThemeInfo();
+    
+    
+    const darkModeToggle = document.getElementById('dark-mode-toggle');
+    if (darkModeToggle) {
+      darkModeToggle.addEventListener('click', function() {
+        
+        document.querySelectorAll('.mermaid').forEach(function(element) {
+          element.classList.add('reloading');
+        });
+        
+        
+        setTimeout(function() {
+          
+          document.querySelectorAll('.mermaid').forEach(function(element) {
+            
+            if (!element.dataset.original) {
+              element.dataset.original = element.textContent.trim();
+            }
+            
+            
+            element.innerHTML = '';
+            
+            
+            element.textContent = element.dataset.original;
+            
+            
+            element.removeAttribute('data-processed');
+          });
+          
+          
+          console.log('[Mermaid] Theme changed, reinitializing...');
+          
+          
+          initializeMermaid().then(function() {
+            
+            document.querySelectorAll('.mermaid').forEach(function(element) {
+              element.classList.remove('reloading');
+            });
+          });
+        }, 250);
+      });
+    }
+  });
+</script>
+<link rel='stylesheet' href='https://chinese-fonts-cdn.deno.dev/packages/dymh/dist/DouyinSansBold/result.css' />
+
+
+    </head>
+    <body class="
+    article-page
+    ">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky ">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="切换菜单">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header>
+        
+            
+            <figure class="site-avatar">
+                <a href="/">
+                
+                    
+                    
+                    
+                        
+                        <img src="/img/avatar_hu_a69ebd3e9749347e.jpeg" width="300"
+                            height="296" class="site-logo" loading="lazy" alt="Avatar">
+                    
+                
+                </a>
+                
+                    <span class="emoji">🤓</span>
+                
+            </figure>
+            
+        
+        
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/">Henry Zhang</a></h1>
+            <h2 class="site-description">Driven by Wonder, Powered by Knowledge.🤓</h2>
+        </div>
+    </header><ol class="menu-social">
+            
+                <li>
+                    <a 
+                        href='https://github.com/Gzmomo001'
+                        target="_blank"
+                        title="GitHub"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+        </ol><ol class="menu" id="main-menu">
+        
+        
+        
+        <li >
+            <a href='/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="5 12 3 12 12 3 21 12 19 12" />
+  <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
+  <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
+</svg>
+
+
+
+                
+                <span>Home</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/about-me/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="7" r="4" />
+  <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
+</svg>
+
+
+
+                
+                <span>About me</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/archives/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <rect x="3" y="4" width="18" height="4" rx="2" />
+  <path d="M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-10" />
+  <line x1="10" y1="12" x2="14" y2="12" />
+</svg>
+
+
+
+                
+                <span>Archives</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/search/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="10" cy="10" r="7" />
+  <line x1="21" y1="21" x2="15" y2="15" />
+</svg>
+
+
+
+                
+                <span>Search</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/some-useful-links/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-link" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5" />
+  <path d="M14 10a3.5 3.5 0 0 0 -5 0l-4 4a3.5 3.5 0 0 0 5 5l.5 -.5" />
+</svg>
+
+
+
+                
+                <span>Some Useful Links</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/update-logs/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                
+                <span>Update Logs</span>
+            </a>
+        </li>
+        
+        <li class="menu-bottom-section">
+            <ol class="menu">
+
+                
+                    <li id="dark-mode-toggle">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <span>暗色模式</span>
+                    </li>
+                
+            </ol>
+        </li>
+    </ol>
+</aside>
+
+    <aside class="sidebar right-sidebar sticky">
+        
+        
+            
+        
+
+        
+        
+            
+                
+                    
+    <section class="widget archives">
+        <div class="widget-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+        </div>
+        <h2 class="widget-title section-title">目录</h2>
+        
+        <div class="widget--toc">
+            <nav id="TableOfContents">
+  <ol>
+    <li><a href="#mac-开发环境管理最佳实践homebrew--fnm--corepack--uv">Mac 开发环境管理最佳实践：Homebrew + fnm + corepack + uv</a>
+      <ol>
+        <li><a href="#整体架构">整体架构</a></li>
+        <li><a href="#第一步安装-homebrew--一切的起点">第一步：安装 Homebrew —— 一切的起点</a></li>
+        <li><a href="#第二步fnm--轻量级-nodejs-版本管理器">第二步：fnm —— 轻量级 Node.js 版本管理器</a>
+          <ol>
+            <li><a href="#为什么不用-nvm">为什么不用 nvm？</a></li>
+            <li><a href="#安装">安装</a></li>
+            <li><a href="#常用操作">常用操作</a></li>
+            <li><a href="#验证">验证</a></li>
+          </ol>
+        </li>
+        <li><a href="#第三步corepack--零安装使用-pnpm">第三步：corepack —— 零安装使用 pnpm</a>
+          <ol>
+            <li><a href="#为什么用-pnpm-而不是-npm">为什么用 pnpm 而不是 npm？</a></li>
+            <li><a href="#启用-corepack">启用 corepack</a></li>
+            <li><a href="#在项目中使用">在项目中使用</a></li>
+            <li><a href="#常用-pnpm-命令速查">常用 pnpm 命令速查</a></li>
+          </ol>
+        </li>
+        <li><a href="#第四步uv--极速-python-环境管理">第四步：uv —— 极速 Python 环境管理</a>
+          <ol>
+            <li><a href="#为什么不用-conda--pyenv">为什么不用 conda / pyenv？</a></li>
+            <li><a href="#安装-1">安装</a></li>
+            <li><a href="#管理-python-版本">管理 Python 版本</a></li>
+            <li><a href="#为每个项目创建独立环境">为每个项目创建独立环境</a></li>
+            <li><a href="#常用-uv-命令速查">常用 uv 命令速查</a></li>
+          </ol>
+        </li>
+        <li><a href="#第五步项目级工作流示范">第五步：项目级工作流示范</a>
+          <ol>
+            <li><a href="#web-开发课项目">Web 开发课项目</a></li>
+            <li><a href="#数据科学课项目">数据科学课项目</a></li>
+          </ol>
+        </li>
+        <li><a href="#常见问题">常见问题</a>
+          <ol>
+            <li><a href="#qfnm-和-corepack-会冲突吗">Q：fnm 和 corepack 会冲突吗？</a></li>
+            <li><a href="#quv-能替代-pip-吗">Q：uv 能替代 pip 吗？</a></li>
+            <li><a href="#q要不要把-node_modules-和-venv-加入-gitignore">Q：要不要把 node_modules 和 .venv 加入 .gitignore？</a></li>
+            <li><a href="#qhomebrew-cask-是什么">Q：Homebrew Cask 是什么？</a></li>
+          </ol>
+        </li>
+        <li><a href="#总结">总结</a></li>
+      </ol>
+    </li>
+  </ol>
+</nav>
+        </div>
+    </section>
+
+                
+            
+        
+    </aside>
+
+
+
+            <main class="main full-width">
+    <article class="has-image main-article">
+    <header class="article-header">
+        <div class="article-image">
+            <a href="/p/mac_dev/">
+                
+                    <img src="/default.jpeg" loading="lazy" alt="Featured image of post Mac_dev" />
+                
+            </a>
+        </div>
+    
+
+    <div class="article-details">
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/p/mac_dev/">Mac_dev</a>
+        </h2>
+    
+        
+    </div>
+
+    
+    
+    
+    
+    <footer class="article-time">
+        <div class="article-metadata">
+            
+            <div class="article-category">
+                
+                    
+                    
+                    <a href="/categories/daliy-blog/" class="category-link" style="background-color: #8c7d68; color: #ffffff;">
+                        Daliy Blog
+                    </a>
+                
+            </div>
+            
+
+            
+            <div class="article-tags">
+                
+            </div>
+            
+        </div>
+
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">2026-04-06</time>
+            </div>
+        <div class="article-lastmod">
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+                <time>
+                    Apr 06, 2026 02:21 CST
+                </time>
+            </div>
+    </footer>
+    
+
+    
+</div>
+
+</header>
+
+    <section class="article-content">
+    
+    
+    <p>+++
+date = &lsquo;2026-04-06T14:00:00+08:00&rsquo;
+draft = false
+title = &rsquo;'
+description = &lsquo;CPS 学生在 Mac 上搭建现代化开发环境的完整指南，涵盖 Homebrew 包管理、fnm 管理 Node.js、corepack 管理 pnpm、uv 管理 Python 的全流程。&rsquo;
+categories = [
+&ldquo;技术分享&rdquo;]
+tags = [
+&ldquo;Mac&rdquo;,
+&ldquo;开发环境&rdquo;,
+&ldquo;Homebrew&rdquo;,
+&ldquo;Node.js&rdquo;,
+&ldquo;Python&rdquo;
+]
+image = &lsquo;default.jpeg&rsquo;
++++</p>
+<h1 id="mac-开发环境管理最佳实践homebrew--fnm--corepack--uv">Mac 开发环境管理最佳实践：Homebrew + fnm + corepack + uv
+</h1><p>作为 CPS 专业的学生，你的 Mac 就是你最重要的生产工具。不同课程需要不同版本的 Node.js 和 Python，如果全局安装一个大版本，另一门课的项目可能直接跑不起来。这篇文章会带你用 <strong>四个工具</strong> 搭建一套干净、可复现、互不冲突的开发环境。</p>
+<h2 id="整体架构">整体架构
+</h2><p>先把全局图景放在脑海里，我们使用的工具链是这样的：</p>
+<pre class="mermaid">
+  flowchart TB
+    subgraph 基础层
+        HB[Homebrew&lt;br/&gt;macOS 包管理器]
+    end
+
+    subgraph 运行时管理层
+        FNM[fnm&lt;br/&gt;Node.js 版本管理]
+        UV[uv&lt;br/&gt;Python 版本管理]
+    end
+
+    subgraph 包管理器层
+        CP[corepack&lt;br/&gt;pnpm/yarn 代理]
+        PIP[uv 内置&lt;br/&gt;pip/venv 替代]
+    end
+
+    subgraph 项目层
+        PJ1[项目 A&lt;br/&gt;Node 18 + Python 3.11]
+        PJ2[项目 B&lt;br/&gt;Node 20 + Python 3.12]
+    end
+
+    HB --&gt; FNM
+    HB --&gt; UV
+    FNM --&gt; CP
+    CP --&gt; PJ1
+    CP --&gt; PJ2
+    FNM --&gt; PJ1
+    FNM --&gt; PJ2
+    UV --&gt; PIP
+    PIP --&gt; PJ1
+    PIP --&gt; PJ2
+</pre>
+
+<p>核心理念：<strong>每一层只管一件事</strong>，版本切换在项目级别自动生效。</p>
+<h2 id="第一步安装-homebrew--一切的起点">第一步：安装 Homebrew —— 一切的起点
+</h2><p>Homebrew 是 macOS 事实上的包管理器，后面所有的工具都通过它安装。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">/bin/bash -c <span class="s2">&#34;</span><span class="k">$(</span>curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh<span class="k">)</span><span class="s2">&#34;</span>
+</span></span></code></pre></div><p>安装完成后，根据终端提示把 Homebrew 加入 PATH。如果你用的是 zsh（macOS 默认）：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="nb">echo</span> <span class="s1">&#39;eval &#34;$(/opt/homebrew/bin/brew shellenv)&#34;&#39;</span> &gt;&gt; ~/.zshrc
+</span></span><span class="line"><span class="cl"><span class="nb">source</span> ~/.zshrc
+</span></span></code></pre></div><p>验证安装：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">brew --version
+</span></span></code></pre></div><blockquote>
+<p><strong>类比</strong>：把 Homebrew 想象成你 Mac 上的「App Store 命令行版」。后面要装什么工具，一行命令搞定。</p>
+</blockquote>
+<h2 id="第二步fnm--轻量级-nodejs-版本管理器">第二步：fnm —— 轻量级 Node.js 版本管理器
+</h2><h3 id="为什么不用-nvm">为什么不用 nvm？
+</h3><p><code>nvm</code> 是最老牌的 Node.js 版本管理器，但它有两个痛点：</p>
+<ol>
+<li><strong>慢</strong>：每次打开终端都要 <code>source</code> 一大段 shell 脚本，明显拖慢启动速度。</li>
+<li><strong>纯 Shell 实现</strong>：不支持 Windows，团队协作时配置不统一。</li>
+</ol>
+<p><code>fnm</code>（Fast Node Manager）用 Rust 编写，启动速度快 40 倍以上，且支持跨平台。</p>
+<h3 id="安装">安装
+</h3><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">brew install fnm
+</span></span></code></pre></div><p>然后在 <code>~/.zshrc</code> 中添加初始化：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="nb">echo</span> <span class="s1">&#39;eval &#34;$(fnm env --use-on-cd --shell zsh)&#34;&#39;</span> &gt;&gt; ~/.zshrc
+</span></span><span class="line"><span class="cl"><span class="nb">source</span> ~/.zshrc
+</span></span></code></pre></div><blockquote>
+<p><code>--use-on-cd</code> 是关键参数：当你 <code>cd</code> 进一个包含 <code>.node-version</code> 或 <code>.nvmrc</code> 的项目目录时，fnm 会<strong>自动切换</strong>到对应版本。</p>
+</blockquote>
+<h3 id="常用操作">常用操作
+</h3><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># 安装最新的 LTS 版本</span>
+</span></span><span class="line"><span class="cl">fnm install --lts
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 安装指定版本</span>
+</span></span><span class="line"><span class="cl">fnm install <span class="m">20</span>
+</span></span><span class="line"><span class="cl">fnm install <span class="m">18</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 查看已安装的版本</span>
+</span></span><span class="line"><span class="cl">fnm list
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 切换版本</span>
+</span></span><span class="line"><span class="cl">fnm use <span class="m">20</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 设置默认版本</span>
+</span></span><span class="line"><span class="cl">fnm default <span class="m">20</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 在项目中固定 Node 版本（进入项目目录后执行）</span>
+</span></span><span class="line"><span class="cl"><span class="nb">echo</span> <span class="s2">&#34;20&#34;</span> &gt; .node-version
+</span></span></code></pre></div><h3 id="验证">验证
+</h3><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">node --version   <span class="c1"># 应该显示 v20.x.x</span>
+</span></span><span class="line"><span class="cl">npm --version    <span class="c1"># 应该显示 10.x.x</span>
+</span></span></code></pre></div><h2 id="第三步corepack--零安装使用-pnpm">第三步：corepack —— 零安装使用 pnpm
+</h2><h3 id="为什么用-pnpm-而不是-npm">为什么用 pnpm 而不是 npm？
+</h3><div class="table-wrapper"><table>
+  <thead>
+      <tr>
+          <th>特性</th>
+          <th>npm</th>
+          <th>pnpm</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>磁盘占用</td>
+          <td>每个项目独立存储</td>
+          <td>全局内容寻址存储，硬链接共享</td>
+      </tr>
+      <tr>
+          <td>安装速度</td>
+          <td>较慢</td>
+          <td>显著更快</td>
+      </tr>
+      <tr>
+          <td>幽灵依赖</td>
+          <td>有（扁平化 node_modules）</td>
+          <td>无（严格的依赖隔离）</td>
+      </tr>
+      <tr>
+          <td>Monorepo 支持</td>
+          <td>需要 workspaces</td>
+          <td>原生支持</td>
+      </tr>
+  </tbody>
+</table></div>
+<p>对 CPS 学生来说，<strong>pnpm 的严格依赖管理</strong>能帮你避免很多「在我电脑上能跑」的经典问题。</p>
+<h3 id="启用-corepack">启用 corepack
+</h3><p>Corepack 是 Node.js 官方的包管理器代理，<strong>不需要单独安装</strong>，它随 Node.js 一起发布。你只需要启用它：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">corepack <span class="nb">enable</span>
+</span></span></code></pre></div><p>这会在你的 PATH 中注册 <code>pnpm</code>、<code>yarn</code> 等命令的代理。当你运行 <code>pnpm</code> 时，corepack 会根据项目 <code>package.json</code> 中的 <code>&quot;packageManager&quot;</code> 字段自动下载并使用正确版本。</p>
+<h3 id="在项目中使用">在项目中使用
+</h3><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># 使用 pnpm 初始化项目</span>
+</span></span><span class="line"><span class="cl">pnpm init
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 固定 pnpm 版本（推荐，确保团队一致性）</span>
+</span></span><span class="line"><span class="cl">corepack use pnpm@latest
+</span></span><span class="line"><span class="cl"><span class="c1"># 这会在 package.json 中写入类似：</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># &#34;packageManager&#34;: &#34;pnpm@9.15.1&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 安装依赖</span>
+</span></span><span class="line"><span class="cl">pnpm install
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 添加依赖</span>
+</span></span><span class="line"><span class="cl">pnpm add express
+</span></span><span class="line"><span class="cl">pnpm add -D typescript
+</span></span></code></pre></div><h3 id="常用-pnpm-命令速查">常用 pnpm 命令速查
+</h3><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">pnpm add &lt;pkg&gt;          <span class="c1"># 添加依赖</span>
+</span></span><span class="line"><span class="cl">pnpm add -D &lt;pkg&gt;       <span class="c1"># 添加开发依赖</span>
+</span></span><span class="line"><span class="cl">pnpm run &lt;script&gt;       <span class="c1"># 运行脚本</span>
+</span></span><span class="line"><span class="cl">pnpm <span class="nb">exec</span> &lt;cmd&gt;         <span class="c1"># 在项目上下文中执行命令</span>
+</span></span><span class="line"><span class="cl">pnpm store prune        <span class="c1"># 清理未引用的缓存包</span>
+</span></span></code></pre></div><h2 id="第四步uv--极速-python-环境管理">第四步：uv —— 极速 Python 环境管理
+</h2><h3 id="为什么不用-conda--pyenv">为什么不用 conda / pyenv？
+</h3><ul>
+<li><strong>conda</strong>：重量级，base 环境容易污染，启动慢。</li>
+<li><strong>pyenv</strong>：编译安装 Python，在 macOS 上经常遇到 OpenSSL 编译问题。</li>
+<li><strong>uv</strong>：Astral 团队（Ruff 的创建者）出品，用 Rust 编写，安装 Python <strong>快 10-100 倍</strong>，内置虚拟环境和包管理功能。</li>
+</ul>
+<h3 id="安装-1">安装
+</h3><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">brew install uv
+</span></span></code></pre></div><h3 id="管理-python-版本">管理 Python 版本
+</h3><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># 安装最新的 Python 3.12</span>
+</span></span><span class="line"><span class="cl">uv python install 3.12
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 安装多个版本</span>
+</span></span><span class="line"><span class="cl">uv python install 3.11 3.12 3.13
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 查看已安装的版本</span>
+</span></span><span class="line"><span class="cl">uv python list --only-installed
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 查看可安装的版本</span>
+</span></span><span class="line"><span class="cl">uv python list
+</span></span></code></pre></div><h3 id="为每个项目创建独立环境">为每个项目创建独立环境
+</h3><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># 进入项目目录</span>
+</span></span><span class="line"><span class="cl">mkdir my-project <span class="o">&amp;&amp;</span> <span class="nb">cd</span> my-project
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 初始化项目（会创建 .python-version 和 pyproject.toml）</span>
+</span></span><span class="line"><span class="cl">uv init
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 指定 Python 版本</span>
+</span></span><span class="line"><span class="cl">uv python pin 3.12
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 创建虚拟环境并安装依赖</span>
+</span></span><span class="line"><span class="cl">uv add flask
+</span></span><span class="line"><span class="cl">uv add --dev pytest
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 同步依赖（类似 pnpm install）</span>
+</span></span><span class="line"><span class="cl">uv sync
+</span></span></code></pre></div><blockquote>
+<p><strong>关键概念</strong>：<code>uv python pin</code> 会在项目目录生成 <code>.python-version</code> 文件，确保任何人 clone 这个项目后运行 <code>uv sync</code> 都能获得完全一致的环境。</p>
+</blockquote>
+<h3 id="常用-uv-命令速查">常用 uv 命令速查
+</h3><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">uv init                  <span class="c1"># 初始化新项目</span>
+</span></span><span class="line"><span class="cl">uv add &lt;pkg&gt;             <span class="c1"># 添加依赖</span>
+</span></span><span class="line"><span class="cl">uv add --dev &lt;pkg&gt;       <span class="c1"># 添加开发依赖</span>
+</span></span><span class="line"><span class="cl">uv remove &lt;pkg&gt;          <span class="c1"># 移除依赖</span>
+</span></span><span class="line"><span class="cl">uv sync                  <span class="c1"># 同步环境（安装所有依赖）</span>
+</span></span><span class="line"><span class="cl">uv run &lt;cmd&gt;             <span class="c1"># 在虚拟环境中运行命令</span>
+</span></span><span class="line"><span class="cl">uv python pin &lt;version&gt;  <span class="c1"># 固定 Python 版本</span>
+</span></span><span class="line"><span class="cl">uv python install &lt;ver&gt;  <span class="c1"># 安装 Python 版本</span>
+</span></span></code></pre></div><h2 id="第五步项目级工作流示范">第五步：项目级工作流示范
+</h2><p>假设你这学期有两门课，分别需要不同的技术栈：</p>
+<pre class="mermaid">
+  flowchart LR
+    subgraph &#34;Web 开发课&#34;
+        A[.node-version: 20] --&gt; B[package.json&lt;br/&gt;packageManager: pnpm@9]
+        A --&gt; C[.python-version: 3.12]
+    end
+
+    subgraph &#34;数据科学课&#34;
+        D[.node-version: 18] --&gt; E[package.json&lt;br/&gt;packageManager: pnpm@9]
+        D --&gt; F[.python-version: 3.11]
+    end
+</pre>
+
+<h3 id="web-开发课项目">Web 开发课项目
+</h3><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">mkdir web-course-project <span class="o">&amp;&amp;</span> <span class="nb">cd</span> web-course-project
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Node 环境</span>
+</span></span><span class="line"><span class="cl"><span class="nb">echo</span> <span class="s2">&#34;20&#34;</span> &gt; .node-version
+</span></span><span class="line"><span class="cl">fnm install <span class="o">&amp;&amp;</span> fnm use
+</span></span><span class="line"><span class="cl">corepack <span class="nb">enable</span>
+</span></span><span class="line"><span class="cl">pnpm init
+</span></span><span class="line"><span class="cl">corepack use pnpm@latest
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Python 环境</span>
+</span></span><span class="line"><span class="cl">uv init
+</span></span><span class="line"><span class="cl">uv python pin 3.12
+</span></span><span class="line"><span class="cl">uv add flask
+</span></span></code></pre></div><h3 id="数据科学课项目">数据科学课项目
+</h3><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">mkdir data-course-project <span class="o">&amp;&amp;</span> <span class="nb">cd</span> data-course-project
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Node 环境</span>
+</span></span><span class="line"><span class="cl"><span class="nb">echo</span> <span class="s2">&#34;18&#34;</span> &gt; .node-version
+</span></span><span class="line"><span class="cl">fnm install <span class="o">&amp;&amp;</span> fnm use
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Python 环境</span>
+</span></span><span class="line"><span class="cl">uv init
+</span></span><span class="line"><span class="cl">uv python pin 3.11
+</span></span><span class="line"><span class="cl">uv add numpy pandas matplotlib
+</span></span></code></pre></div><p>当你 <code>cd</code> 切换项目目录时，fnm 和 uv 会<strong>自动</strong>切换到对应版本，无需任何手动操作。</p>
+<h2 id="常见问题">常见问题
+</h2><h3 id="qfnm-和-corepack-会冲突吗">Q：fnm 和 corepack 会冲突吗？
+</h3><p>不会。fnm 管理 Node.js 二进制文件，corepack 管理包管理器（pnpm/yarn）。它们分工明确，互不干扰。</p>
+<h3 id="quv-能替代-pip-吗">Q：uv 能替代 pip 吗？
+</h3><p>能。<code>uv add</code> 和 <code>uv pip install</code> 都可以安装包，但推荐使用 <code>uv add</code>，因为它会自动更新 <code>pyproject.toml</code> 和 <code>uv.lock</code>，保证可复现性。</p>
+<h3 id="q要不要把-node_modules-和-venv-加入-gitignore">Q：要不要把 node_modules 和 .venv 加入 .gitignore？
+</h3><p><strong>必须</strong>。这两个目录应该永远在 <code>.gitignore</code> 中：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">node_modules/
+</span></span><span class="line"><span class="cl">.venv/
+</span></span><span class="line"><span class="cl">__pycache__/
+</span></span></code></pre></div><p>依赖锁定文件（<code>pnpm-lock.yaml</code>、<code>uv.lock</code>）<strong>必须</strong>提交到 Git，它们是环境可复现的保证。</p>
+<h3 id="qhomebrew-cask-是什么">Q：Homebrew Cask 是什么？
+</h3><p><code>brew install</code> 安装命令行工具，<code>brew install --cask</code> 安装 GUI 应用（如 VS Code、Docker Desktop）。两者都通过 Homebrew 管理。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">brew install --cask visual-studio-code
+</span></span><span class="line"><span class="cl">brew install --cask docker
+</span></span></code></pre></div><h2 id="总结">总结
+</h2><div class="table-wrapper"><table>
+  <thead>
+      <tr>
+          <th>工具</th>
+          <th>管理什么</th>
+          <th>安装方式</th>
+          <th>版本固定文件</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>Homebrew</td>
+          <td>系统级 CLI 工具</td>
+          <td><code>brew install</code></td>
+          <td>Brewfile（可选）</td>
+      </tr>
+      <tr>
+          <td>fnm</td>
+          <td>Node.js 版本</td>
+          <td><code>brew install fnm</code></td>
+          <td><code>.node-version</code></td>
+      </tr>
+      <tr>
+          <td>corepack</td>
+          <td>pnpm/yarn 版本</td>
+          <td><code>corepack enable</code></td>
+          <td><code>package.json</code> 中的 <code>packageManager</code></td>
+      </tr>
+      <tr>
+          <td>uv</td>
+          <td>Python 版本 + 包</td>
+          <td><code>brew install uv</code></td>
+          <td><code>.python-version</code> + <code>uv.lock</code></td>
+      </tr>
+  </tbody>
+</table></div>
+<p>记住这个原则：<strong>每个项目都有自己的版本文件，工具根据文件自动切换，全局永远保持干净</strong>。这样无论你有多少门课、多少个项目，环境都不会打架。</p>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+
+    
+    <section class="article-copyright">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <path d="M14.5 9a3.5 4 0 1 0 0 6" />
+</svg>
+
+
+
+        <span>A winner is just a loser who tried one more time.</span>
+    </section>
+    
+
+    
+</footer>
+
+
+    
+        <link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css"integrity="sha384-n8MVd4RsNIU0tAv4ct0nTaAbDJwPJzDEaqSD1odI&#43;WdtXRGWt2kTvGFasHpSy3SV"crossorigin="anonymous"
+            ><script 
+                src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"integrity="sha384-XjKyOOlGwcjNTAIQHIpgOno0Hl1YQqzUOEleOLALmuqehneUG&#43;vnGctmUb0ZY0l8"crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"integrity="sha384-&#43;VBxd3r6XgURycqtZ117nYw44OOcIax56Z4dCRWbxyPt0Koah1uHoK0o4&#43;/RRE05"crossorigin="anonymous"
+                defer
+                >
+            </script><script>
+    window.addEventListener("DOMContentLoaded", () => {
+	const mainArticleElement = document.querySelector(".main-article");
+        renderMathInElement(mainArticleElement, {
+            delimiters: [
+                { left: "$$", right: "$$", display: true },
+                { left: "$", right: "$", display: false },
+                { left: "\\(", right: "\\)", display: false },
+                { left: "\\[", right: "\\]", display: true }
+            ],
+            ignoredClasses: ["gist"]
+        });})
+</script>
+
+    
+</article>
+
+    
+
+    
+
+<aside class="related-content--wrapper">
+    <h2 class="section-title">相关文章</h2>
+    <div class="related-content">
+        <div class="flex article-list--tile">
+            
+                
+<article class="has-image">
+    <a href="/p/psy1000/">
+        
+        
+            <div class="article-image">
+                
+                    <img src="/default.jpeg" loading="lazy" data-key="" data-hash="/default.jpeg"/>
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">PSY1000</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="/p/ooad/">
+        
+        
+            <div class="article-image">
+                
+                    <img src="/default.jpeg" loading="lazy" data-key="" data-hash="/default.jpeg"/>
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">OOAD</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="/p/comm_3590/">
+        
+        
+            <div class="article-image">
+                
+                    <img src="/default.jpeg" loading="lazy" data-key="" data-hash="/default.jpeg"/>
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">COMM_3590</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="/p/%E8%AF%AD%E8%A8%80%E5%A6%82%E4%BD%95%E5%BD%B1%E5%93%8D%E4%BD%A0%E7%9A%84%E6%80%9D%E7%BB%B4/">
+        
+        
+            <div class="article-image">
+                
+                    <img src="/default.jpeg" loading="lazy" data-key="" data-hash="/default.jpeg"/>
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">语言如何影响你的思维</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="/p/daliy_blog2025-05-24/">
+        
+        
+            <div class="article-image">
+                
+                    <img src="/default.jpeg" loading="lazy" data-key="" data-hash="/default.jpeg"/>
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Daliy_blog2025 05 24</h2>
+        </div>
+    </a>
+</article>
+
+            
+        </div>
+    </div>
+</aside>
+
+     
+    
+        
+    <script
+    src="https://giscus.app/client.js"
+    data-repo="Gzmomo001/public"
+    data-repo-id="R_kgDOOuLpRA"
+    data-category="General"
+    data-category-id="DIC_kwDOOuLpRM4Cr0Pz"
+    data-mapping="pathname"
+    data-strict="0"
+    data-reactions-enabled="1"
+    data-emit-metadata="0"
+    data-input-position="top"
+    data-theme="light"
+    data-lang="en"
+    data-loading=""
+    crossorigin="anonymous"
+    async
+></script>
+<script>
+    function setGiscusTheme(theme) {
+        let giscus = document.querySelector("iframe.giscus-frame");
+        if (giscus) {
+            giscus.contentWindow.postMessage(
+                {
+                    giscus: {
+                        setConfig: {
+                            theme: theme,
+                        },
+                    },
+                },
+                "https://giscus.app"
+            );
+        }
+    }
+
+    (function () {
+        addEventListener("message", (e) => {
+            if (event.origin !== "https://giscus.app") return;
+            handler();
+        });
+        window.addEventListener("onColorSchemeChange", handler);
+
+        function handler() {
+            if (document.documentElement.dataset.scheme === "light") {
+                setGiscusTheme('light');
+            } else {
+                setGiscusTheme('dark_dimmed');
+            }
+        }
+    })();
+</script>
+
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+            2025 - 
+        
+        2026 blog@mail.henry070.org
+    </section>
+    
+    <section class="powerby">
+        
+            Robust AI <br/>
+        使用 <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> 构建 <br />
+        主题 <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.30.0">Stack</a></b> 由 <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a> 设计
+    </section>
+</footer>
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css"crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css"crossorigin="anonymous"
+            >
+
+            </main>
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
+                
+                >
+            </script><script type="text/javascript" src="/ts/main.fe055f50234dc99b59992d29820a4403a71f7c90de7b6ebd204c621ac170b546.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+<style>
+    #TableOfContents > ul, ol {
+        ul, ol {
+            display: none;
+        }
+        .open {
+            display: block;
+        }
+    }
+</style>
+
+<script>
+    function initTocHide() {
+        
+        let toc = document.querySelector(".widget--toc");
+        if (!toc) {
+            return;
+        }
+        
+        window.addEventListener('scroll', function() {
+            
+            let openUl = document.querySelectorAll(".open");
+            if (openUl.length > 0) {
+              openUl.forEach((ul) => {
+                ul.classList.remove("open")
+              })
+            }
+            
+            let currentLi = document.querySelector(".active-class");
+            if (!currentLi) {
+                return
+            }
+            
+            if (currentLi.children.length > 1) {
+                currentLi.children[1].classList.add("open")
+            }
+            
+            let ul = currentLi.parentElement;
+            do {
+                ul.classList.add("open");
+                ul = ul.parentElement.parentElement
+            } while (ul !== undefined && (ul.localName === 'ul' || ul.localName === 'ol'))
+        });
+    }
+    initTocHide()
+</script>
+
+<style>
+    #backTopBtn {
+        display: none;
+        position: fixed;
+        bottom: 30px;
+         
+        z-index: 99;
+        cursor: pointer;
+        width: 40px;
+        height: 40px;
+        background-color: #666;
+        border-radius: 50%;
+        text-align: center;
+        line-height: 40px;
+        font-size: 25px;
+        color: white;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+        transition: background-color 0.3s;
+    }
+    
+    #backTopBtn:hover {
+        background-color: #333;
+    }
+    
+    #backTopBtn .arrow-icon {
+        display: none;
+    }
+    
+    #backTopBtn .backtop-svg {
+        width: 24px;
+        height: 24px;
+        margin: 8px;
+        fill: white;
+    }
+</style>
+
+
+<script>
+    
+
+    function initScrollTop() {
+        let rightSideBar = document.querySelector(".right-sidebar");
+        if (!rightSideBar) {
+            return;
+        }
+        
+        let btn = document.createElement("div");
+        btn.id = "backTopBtn";
+        btn.innerHTML = '<span class="arrow-icon"></span>' +
+                        '<svg class="backtop-svg" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="15764">' +
+                        '<path d="M512 938.666667c-59.733333 0-123.733333-2.133333-185.6-4.266667l-32-2.133333c-108.8-6.4-194.133333-91.733333-200.533333-200.533334C87.466667 648.533333 85.333333 576 85.333333 512c0-59.733333 2.133333-125.866667 6.4-202.666667v-17.066666c6.4-108.8 91.733333-194.133333 200.533334-200.533334 76.8-4.266667 149.333333-6.4 219.733333-6.4 59.733333 0 123.733333 2.133333 185.6 4.266667l32 2.133333c108.8 6.4 194.133333 91.733333 200.533333 200.533334 6.4 83.2 8.533333 155.733333 8.533334 219.733333 0 59.733333-2.133333 125.866667-6.4 202.666667v17.066666c-6.4 108.8-91.733333 194.133333-200.533334 200.533334-76.8 4.266667-149.333333 6.4-219.733333 6.4z m0-224c17.066667 0 32-14.933333 32-32V430.933333l96 96c12.8 12.8 32 12.8 44.8 0 12.8-12.8 12.8-32 0-44.8l-153.6-153.6c-6.4-6.4-8.533333-8.533333-12.8-8.533333-4.266667-2.133333-8.533333-2.133333-10.666667 0-4.266667 0-6.4 2.133333-10.666666 6.4l-2.133334 2.133333-153.6 153.6c-12.8 12.8-12.8 32 0 44.8 12.8 12.8 32 12.8 44.8 0l96-96V682.666667c-2.133333 17.066667 12.8 32 29.866667 32z" fill="#ffffff" p-id="15765"></path>' +
+                        '</svg>';
+        btn.onclick = backToTop;
+        rightSideBar.appendChild(btn);
+        
+        window.onscroll = function() {
+            
+            if (document.body.scrollTop > 700 || document.documentElement.scrollTop > 700) {
+                btn.style.display = "block";
+            } else {
+                btn.style.display = "none";
+            }
+        };
+    }
+
+    
+
+    function backToTop(){
+        window.scrollTo({ top: 0, behavior: "smooth" })
+    }
+
+    initScrollTop();
+</script>
+
+<style>
+    .highlight {
+         
+        max-height: 1000px;
+        overflow: hidden;
+    }
+
+    .code-show {
+        max-height: none !important;
+    }
+
+    .code-more-box {
+        width: 100%;
+        padding-top: 120px;  
+        background-image: linear-gradient(
+            to bottom,
+            rgba(4, 6, 5, 0) 0%,
+            rgba(4, 6, 5, 0.4) 40%,
+            rgba(4, 6, 5, 0.8) 100%
+        );
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        z-index: 1;
+    }
+
+    .code-more-btn {
+        display: block;
+        margin: auto;
+        width: 44px;
+        height: 22px;
+        background: #5f5f5f;
+        border-top-left-radius: 8px;
+        border-top-right-radius: 8px;
+        padding-top: 6px;
+        cursor: pointer;
+    }
+
+    .code-more-img {
+        cursor: pointer !important;
+        display: block;
+        margin: auto;
+        width: 22px;
+        height: 16px;
+    }
+</style>
+
+<script>
+  function initCodeMoreBox() {
+    let codeBlocks = document.querySelectorAll(".highlight");
+    if (!codeBlocks) {
+      return;
+    }
+    codeBlocks.forEach(codeBlock => {
+      
+      if (codeBlock.scrollHeight <= codeBlock.clientHeight) {
+        return;
+      }
+      
+      
+      let codeMoreBox = document.createElement('div');
+      codeMoreBox.classList.add('code-more-box');
+      
+      let codeMoreBtn = document.createElement('span');
+      codeMoreBtn.classList.add('code-more-btn');
+      codeMoreBtn.addEventListener('click', () => {
+        codeBlock.classList.add('code-show');
+        codeMoreBox.style.display = 'none';
+        
+        window.dispatchEvent(new Event('resize'))
+      })
+      
+      let img = document.createElement('img');
+      img.classList.add('code-more-img');
+      img.src = "http://localhost:1313/icons/down.png"
+      
+      codeMoreBtn.appendChild(img);
+      codeMoreBox.appendChild(codeMoreBtn);
+      codeBlock.appendChild(codeMoreBox)
+    })
+  }
+  
+  initCodeMoreBox();
+</script>
+
+
+
+    </body>
+</html>

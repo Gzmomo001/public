@@ -1,19 +1,19 @@
 <!DOCTYPE html>
 <html lang="en-us" dir="ltr">
-    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><meta charset='utf-8'>
+    <head><meta charset='utf-8'>
 <meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="什么是系统服务(service) 简单理解就是开机自启动的程序或者脚本, 会常驻在系统的内存中.\n对于现在的大部分的 linux 发行版, 系统服务通常使用 systemd 进行管理.\n三种配置文件 系统: dir: /usr/lib/systemd/system/ 这里存放着系统自带的服务单元, 如 apt. 一般不建议随便乱动这里的服务, 除非你知道自己在干什么. 运行时: dir: /run/systemd/system/ 临时服务, 一般可其他服务或者用户行为启动的临时服务. 在系统重启后清空 管理员: dir: /etc/systemd/system/ 用户自定义的服务, 管理员系统服务优先级高于系统服务, 意味着它会覆盖系统中相同的服务. 如果我们想添加自己的系统服务, 建议都放在管理员服务目录下.\n">
 <title>Linux_system_service | Linux 之 系统服务</title>
 
-<link rel='canonical' href='http://localhost:1313/p/linux_system_service-linux-%E4%B9%8B-%E7%B3%BB%E7%BB%9F%E6%9C%8D%E5%8A%A1/'>
+<link rel='canonical' href='https://blog.henry070.org/p/linux_system_service-linux-%E4%B9%8B-%E7%B3%BB%E7%BB%9F%E6%9C%8D%E5%8A%A1/'>
 
-<link rel="stylesheet" href="/scss/style.min.69ed452c4f70aa0bd98aa7f62758389d29493390c2f090e74cf1c607d4445e3e.css"><meta property='og:title' content="Linux_system_service | Linux 之 系统服务">
+<link rel="stylesheet" href="/scss/style.min.f15f6809de3726c4612af8dbf1dc5af3ceda5b2bc400be61fd7b23efb9569755.css"><meta property='og:title' content="Linux_system_service | Linux 之 系统服务">
 <meta property='og:description' content="什么是系统服务(service) 简单理解就是开机自启动的程序或者脚本, 会常驻在系统的内存中.\n对于现在的大部分的 linux 发行版, 系统服务通常使用 systemd 进行管理.\n三种配置文件 系统: dir: /usr/lib/systemd/system/ 这里存放着系统自带的服务单元, 如 apt. 一般不建议随便乱动这里的服务, 除非你知道自己在干什么. 运行时: dir: /run/systemd/system/ 临时服务, 一般可其他服务或者用户行为启动的临时服务. 在系统重启后清空 管理员: dir: /etc/systemd/system/ 用户自定义的服务, 管理员系统服务优先级高于系统服务, 意味着它会覆盖系统中相同的服务. 如果我们想添加自己的系统服务, 建议都放在管理员服务目录下.\n">
-<meta property='og:url' content='http://localhost:1313/p/linux_system_service-linux-%E4%B9%8B-%E7%B3%BB%E7%BB%9F%E6%9C%8D%E5%8A%A1/'>
+<meta property='og:url' content='https://blog.henry070.org/p/linux_system_service-linux-%E4%B9%8B-%E7%B3%BB%E7%BB%9F%E6%9C%8D%E5%8A%A1/'>
 <meta property='og:site_name' content='Henry Zhang'>
-<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='linux' /><meta property='article:published_time' content='2025-06-13T15:47:20&#43;08:00'/><meta property='article:modified_time' content='2025-06-13T20:08:28&#43;08:00'/><meta property='og:image' content='http://localhost:1313/p/linux_system_service-linux-%E4%B9%8B-%E7%B3%BB%E7%BB%9F%E6%9C%8D%E5%8A%A1/image.png' />
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='linux' /><meta property='article:published_time' content='2025-06-13T15:47:20&#43;08:00'/><meta property='article:modified_time' content='2025-06-13T20:08:28&#43;08:00'/><meta property='og:image' content='https://blog.henry070.org/p/linux_system_service-linux-%E4%B9%8B-%E7%B3%BB%E7%BB%9F%E6%9C%8D%E5%8A%A1/image.png' />
 <meta name="twitter:title" content="Linux_system_service | Linux 之 系统服务">
 <meta name="twitter:description" content="什么是系统服务(service) 简单理解就是开机自启动的程序或者脚本, 会常驻在系统的内存中.\n对于现在的大部分的 linux 发行版, 系统服务通常使用 systemd 进行管理.\n三种配置文件 系统: dir: /usr/lib/systemd/system/ 这里存放着系统自带的服务单元, 如 apt. 一般不建议随便乱动这里的服务, 除非你知道自己在干什么. 运行时: dir: /run/systemd/system/ 临时服务, 一般可其他服务或者用户行为启动的临时服务. 在系统重启后清空 管理员: dir: /etc/systemd/system/ 用户自定义的服务, 管理员系统服务优先级高于系统服务, 意味着它会覆盖系统中相同的服务. 如果我们想添加自己的系统服务, 建议都放在管理员服务目录下.\n"><meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:image" content='http://localhost:1313/p/linux_system_service-linux-%E4%B9%8B-%E7%B3%BB%E7%BB%9F%E6%9C%8D%E5%8A%A1/image.png' />
+    <meta name="twitter:image" content='https://blog.henry070.org/p/linux_system_service-linux-%E4%B9%8B-%E7%B3%BB%E7%BB%9F%E6%9C%8D%E5%8A%A1/image.png' />
     <link rel="shortcut icon" href="/favicon.ico" />
 
 
@@ -1264,7 +1264,7 @@
                 src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
                 
                 >
-            </script><script type="text/javascript" src="/ts/main.fe055f50234dc99b59992d29820a4403a71f7c90de7b6ebd204c621ac170b546.js" defer></script>
+            </script><script type="text/javascript" src="/ts/main.c922af694cc257bf1ecc41c0dd7b0430f9114ec280ccf67cd2c6ad55f5316c4e.js" defer></script>
 <script>
     (function () {
         const customFont = document.createElement('link');
@@ -1472,7 +1472,7 @@
       
       let img = document.createElement('img');
       img.classList.add('code-more-img');
-      img.src = "http://localhost:1313/icons/down.png"
+      img.src = "https://blog.henry070.org/icons/down.png"
       
       codeMoreBtn.appendChild(img);
       codeMoreBox.appendChild(codeMoreBtn);

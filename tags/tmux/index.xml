@@ -2,18 +2,18 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
     <channel>
         <title>Tmux on Henry Zhang</title>
-        <link>http://localhost:1313/tags/tmux/</link>
+        <link>https://blog.henry070.org/tags/tmux/</link>
         <description>Recent content in Tmux on Henry Zhang</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>en-us</language>
         <copyright>blog@mail.henry070.org</copyright>
-        <lastBuildDate>Mon, 02 Mar 2026 13:07:53 +0800</lastBuildDate><atom:link href="http://localhost:1313/tags/tmux/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Mon, 02 Mar 2026 13:07:53 +0800</lastBuildDate><atom:link href="https://blog.henry070.org/tags/tmux/index.xml" rel="self" type="application/rss+xml" /><item>
         <title>Tmux</title>
-        <link>http://localhost:1313/p/tmux/</link>
+        <link>https://blog.henry070.org/p/tmux/</link>
         <pubDate>Wed, 06 Aug 2025 03:08:51 +0800</pubDate>
         
-        <guid>http://localhost:1313/p/tmux/</guid>
-        <description>&lt;img src="http://localhost:1313/p/tmux/tmux.png" alt="Featured image of post Tmux" /&gt;&lt;h2 id=&#34;后台-shell-常驻工具&#34;&gt;后台 shell 常驻工具
+        <guid>https://blog.henry070.org/p/tmux/</guid>
+        <description>&lt;img src="https://blog.henry070.org/p/tmux/tmux.png" alt="Featured image of post Tmux" /&gt;&lt;h2 id=&#34;后台-shell-常驻工具&#34;&gt;后台 shell 常驻工具
 &lt;/h2&gt;&lt;p&gt;Reference: &lt;a class=&#34;link&#34; href=&#34;https://github.com/tmux/tmux/wiki&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;tmux wiki&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;Fully tutorial

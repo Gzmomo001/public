@@ -2,18 +2,18 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
     <channel>
         <title>Hugo on Henry Zhang</title>
-        <link>http://localhost:1313/tags/hugo/</link>
+        <link>https://blog.henry070.org/tags/hugo/</link>
         <description>Recent content in Hugo on Henry Zhang</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>en-us</language>
         <copyright>blog@mail.henry070.org</copyright>
-        <lastBuildDate>Tue, 25 Nov 2025 18:20:14 +0800</lastBuildDate><atom:link href="http://localhost:1313/tags/hugo/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Tue, 25 Nov 2025 18:20:14 +0800</lastBuildDate><atom:link href="https://blog.henry070.org/tags/hugo/index.xml" rel="self" type="application/rss+xml" /><item>
         <title>Stack theme hugo 字体设置</title>
-        <link>http://localhost:1313/p/stack-theme-hugo-%E5%AD%97%E4%BD%93%E8%AE%BE%E7%BD%AE/</link>
+        <link>https://blog.henry070.org/p/stack-theme-hugo-%E5%AD%97%E4%BD%93%E8%AE%BE%E7%BD%AE/</link>
         <pubDate>Sun, 25 May 2025 02:28:03 +0800</pubDate>
         
-        <guid>http://localhost:1313/p/stack-theme-hugo-%E5%AD%97%E4%BD%93%E8%AE%BE%E7%BD%AE/</guid>
-        <description>&lt;img src="http://localhost:1313/hugo.jpeg" alt="Featured image of post Stack theme hugo 字体设置" /&gt;&lt;h2 id=&#34;参考链接&#34;&gt;参考链接
+        <guid>https://blog.henry070.org/p/stack-theme-hugo-%E5%AD%97%E4%BD%93%E8%AE%BE%E7%BD%AE/</guid>
+        <description>&lt;img src="https://blog.henry070.org/hugo.jpeg" alt="Featured image of post Stack theme hugo 字体设置" /&gt;&lt;h2 id=&#34;参考链接&#34;&gt;参考链接
 &lt;/h2&gt;&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;https://blog.lufei.de/p/ziti/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;博客教程&lt;/a&gt;
 &lt;a class=&#34;link&#34; href=&#34;https://chinese-font.netlify.app/cdn/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
@@ -97,11 +97,11 @@ body,
         </item>
         <item>
         <title>Hugo_notes</title>
-        <link>http://localhost:1313/p/hugo_notes/</link>
+        <link>https://blog.henry070.org/p/hugo_notes/</link>
         <pubDate>Thu, 22 May 2025 23:29:01 +0800</pubDate>
         
-        <guid>http://localhost:1313/p/hugo_notes/</guid>
-        <description>&lt;img src="http://localhost:1313/p/hugo_notes/1.jpeg" alt="Featured image of post Hugo_notes" /&gt;&lt;h1 id=&#34;hugo-笔记&#34;&gt;Hugo 笔记
+        <guid>https://blog.henry070.org/p/hugo_notes/</guid>
+        <description>&lt;img src="https://blog.henry070.org/p/hugo_notes/1.jpeg" alt="Featured image of post Hugo_notes" /&gt;&lt;h1 id=&#34;hugo-笔记&#34;&gt;Hugo 笔记
 &lt;/h1&gt;&lt;p&gt;这里是我记录 Hugo 这个框架笔记的方法, 方便我以后忘记的时候能回来查看. 本 blog 会持续更新&lt;/p&gt;
 &lt;blockquote&gt;
 &lt;p&gt;当然这里很多笔记也会是基于 stack 这个主题, 不过 hugo 大部分语法应该是通用的. 应该也有一定的参考价值.&lt;/p&gt;
@@ -256,7 +256,7 @@ hugo server -D
     &gt;参考博客&lt;/a&gt;. 圆框使用 AI 修改.&lt;/li&gt;
 &lt;li&gt;&lt;input checked=&#34;&#34; disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 代码框自动折叠功能,&lt;a class=&#34;link&#34; href=&#34;https://letere-gzj.github.io/hugo-stack/p/hugo/custom-stack-theme/#8-%E8%87%AA%E5%AE%9A%E4%B9%89md%E5%BC%95%E7%94%A8%E5%9D%97%E9%A2%9C%E8%89%B2%E6%A8%A1%E6%9D%BF&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;参考&lt;/a&gt;. 在原有的基础上修改了一下样式, 更加美观.&lt;/li&gt;
-&lt;li&gt;&lt;input checked=&#34;&#34; disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 修复字体问题, 已完成. &lt;a class=&#34;link&#34; href=&#34;http://localhost:1313/p/stack-theme-hugo-%E5%AD%97%E4%BD%93%E8%AE%BE%E7%BD%AE/&#34; &gt;教程&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;input checked=&#34;&#34; disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 修复字体问题, 已完成. &lt;a class=&#34;link&#34; href=&#34;https://blog.henry070.org/p/stack-theme-hugo-%E5%AD%97%E4%BD%93%E8%AE%BE%E7%BD%AE/&#34; &gt;教程&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;input checked=&#34;&#34; disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 返回顶部按钮&lt;/li&gt;
 &lt;li&gt;&lt;input disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 防止爬虫(&lt;a class=&#34;link&#34; href=&#34;https://blog.lufei.de/p/215/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;https://blog.lufei.de/p/215/&lt;/a&gt;)

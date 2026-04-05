@@ -2,617 +2,657 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
     <channel>
         <title>Tags on Henry Zhang</title>
-        <link>http://localhost:1313/tags/</link>
+        <link>https://blog.henry070.org/tags/</link>
         <description>Recent content in Tags on Henry Zhang</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>en-us</language>
         <copyright>blog@mail.henry070.org</copyright>
-        <lastBuildDate>Mon, 02 Mar 2026 13:07:53 +0800</lastBuildDate><atom:link href="http://localhost:1313/tags/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Mon, 06 Apr 2026 02:23:56 +0800</lastBuildDate><atom:link href="https://blog.henry070.org/tags/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>Homebrew</title>
+        <link>https://blog.henry070.org/tags/homebrew/</link>
+        <pubDate>Mon, 06 Apr 2026 02:21:02 +0800</pubDate>
+        
+        <guid>https://blog.henry070.org/tags/homebrew/</guid>
+        <description></description>
+        </item>
+        <item>
+        <title>Mac</title>
+        <link>https://blog.henry070.org/tags/mac/</link>
+        <pubDate>Mon, 06 Apr 2026 02:21:02 +0800</pubDate>
+        
+        <guid>https://blog.henry070.org/tags/mac/</guid>
+        <description></description>
+        </item>
+        <item>
+        <title>Node.js</title>
+        <link>https://blog.henry070.org/tags/node.js/</link>
+        <pubDate>Mon, 06 Apr 2026 02:21:02 +0800</pubDate>
+        
+        <guid>https://blog.henry070.org/tags/node.js/</guid>
+        <description></description>
+        </item>
+        <item>
+        <title>Python</title>
+        <link>https://blog.henry070.org/tags/python/</link>
+        <pubDate>Mon, 06 Apr 2026 02:21:02 +0800</pubDate>
+        
+        <guid>https://blog.henry070.org/tags/python/</guid>
+        <description></description>
+        </item>
+        <item>
+        <title>开发环境</title>
+        <link>https://blog.henry070.org/tags/%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83/</link>
+        <pubDate>Mon, 06 Apr 2026 02:21:02 +0800</pubDate>
+        
+        <guid>https://blog.henry070.org/tags/%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83/</guid>
+        <description></description>
+        </item>
+        <item>
         <title>AI</title>
-        <link>http://localhost:1313/tags/ai/</link>
+        <link>https://blog.henry070.org/tags/ai/</link>
         <pubDate>Mon, 12 Jan 2026 01:30:46 +0800</pubDate>
         
-        <guid>http://localhost:1313/tags/ai/</guid>
+        <guid>https://blog.henry070.org/tags/ai/</guid>
         <description></description>
         </item>
         <item>
         <title>Claude Code</title>
-        <link>http://localhost:1313/tags/claude-code/</link>
+        <link>https://blog.henry070.org/tags/claude-code/</link>
         <pubDate>Mon, 12 Jan 2026 01:30:46 +0800</pubDate>
         
-        <guid>http://localhost:1313/tags/claude-code/</guid>
+        <guid>https://blog.henry070.org/tags/claude-code/</guid>
         <description></description>
         </item>
         <item>
         <title>SDLC</title>
-        <link>http://localhost:1313/tags/sdlc/</link>
+        <link>https://blog.henry070.org/tags/sdlc/</link>
         <pubDate>Mon, 12 Jan 2026 01:30:46 +0800</pubDate>
         
-        <guid>http://localhost:1313/tags/sdlc/</guid>
+        <guid>https://blog.henry070.org/tags/sdlc/</guid>
         <description></description>
         </item>
         <item>
         <title>SuperClaude</title>
-        <link>http://localhost:1313/tags/superclaude/</link>
+        <link>https://blog.henry070.org/tags/superclaude/</link>
         <pubDate>Mon, 12 Jan 2026 01:30:46 +0800</pubDate>
         
-        <guid>http://localhost:1313/tags/superclaude/</guid>
+        <guid>https://blog.henry070.org/tags/superclaude/</guid>
         <description></description>
         </item>
         <item>
         <title>Vibe Coding</title>
-        <link>http://localhost:1313/tags/vibe-coding/</link>
+        <link>https://blog.henry070.org/tags/vibe-coding/</link>
         <pubDate>Mon, 12 Jan 2026 01:30:46 +0800</pubDate>
         
-        <guid>http://localhost:1313/tags/vibe-coding/</guid>
+        <guid>https://blog.henry070.org/tags/vibe-coding/</guid>
         <description></description>
         </item>
         <item>
         <title>开发工具</title>
-        <link>http://localhost:1313/tags/%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7/</link>
+        <link>https://blog.henry070.org/tags/%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7/</link>
         <pubDate>Mon, 12 Jan 2026 01:30:46 +0800</pubDate>
         
-        <guid>http://localhost:1313/tags/%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7/</guid>
+        <guid>https://blog.henry070.org/tags/%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7/</guid>
         <description></description>
         </item>
         <item>
         <title>开发流程</title>
-        <link>http://localhost:1313/tags/%E5%BC%80%E5%8F%91%E6%B5%81%E7%A8%8B/</link>
+        <link>https://blog.henry070.org/tags/%E5%BC%80%E5%8F%91%E6%B5%81%E7%A8%8B/</link>
         <pubDate>Mon, 12 Jan 2026 01:30:46 +0800</pubDate>
         
-        <guid>http://localhost:1313/tags/%E5%BC%80%E5%8F%91%E6%B5%81%E7%A8%8B/</guid>
+        <guid>https://blog.henry070.org/tags/%E5%BC%80%E5%8F%91%E6%B5%81%E7%A8%8B/</guid>
         <description></description>
         </item>
         <item>
         <title>软件工程</title>
-        <link>http://localhost:1313/tags/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B/</link>
+        <link>https://blog.henry070.org/tags/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B/</link>
         <pubDate>Mon, 12 Jan 2026 01:30:46 +0800</pubDate>
         
-        <guid>http://localhost:1313/tags/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B/</guid>
+        <guid>https://blog.henry070.org/tags/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B/</guid>
         <description></description>
         </item>
         <item>
         <title>项目管理</title>
-        <link>http://localhost:1313/tags/%E9%A1%B9%E7%9B%AE%E7%AE%A1%E7%90%86/</link>
+        <link>https://blog.henry070.org/tags/%E9%A1%B9%E7%9B%AE%E7%AE%A1%E7%90%86/</link>
         <pubDate>Mon, 12 Jan 2026 01:30:46 +0800</pubDate>
         
-        <guid>http://localhost:1313/tags/%E9%A1%B9%E7%9B%AE%E7%AE%A1%E7%90%86/</guid>
+        <guid>https://blog.henry070.org/tags/%E9%A1%B9%E7%9B%AE%E7%AE%A1%E7%90%86/</guid>
         <description></description>
         </item>
         <item>
         <title>Devcontainers</title>
-        <link>http://localhost:1313/tags/devcontainers/</link>
+        <link>https://blog.henry070.org/tags/devcontainers/</link>
         <pubDate>Mon, 12 Jan 2026 00:00:00 +0800</pubDate>
         
-        <guid>http://localhost:1313/tags/devcontainers/</guid>
+        <guid>https://blog.henry070.org/tags/devcontainers/</guid>
         <description></description>
         </item>
         <item>
         <title>Development</title>
-        <link>http://localhost:1313/tags/development/</link>
+        <link>https://blog.henry070.org/tags/development/</link>
         <pubDate>Mon, 12 Jan 2026 00:00:00 +0800</pubDate>
         
-        <guid>http://localhost:1313/tags/development/</guid>
+        <guid>https://blog.henry070.org/tags/development/</guid>
         <description></description>
         </item>
         <item>
         <title>Docker</title>
-        <link>http://localhost:1313/tags/docker/</link>
+        <link>https://blog.henry070.org/tags/docker/</link>
         <pubDate>Mon, 12 Jan 2026 00:00:00 +0800</pubDate>
         
-        <guid>http://localhost:1313/tags/docker/</guid>
+        <guid>https://blog.henry070.org/tags/docker/</guid>
         <description></description>
         </item>
         <item>
         <title>Git</title>
-        <link>http://localhost:1313/tags/git/</link>
+        <link>https://blog.henry070.org/tags/git/</link>
         <pubDate>Mon, 12 Jan 2026 00:00:00 +0800</pubDate>
         
-        <guid>http://localhost:1313/tags/git/</guid>
+        <guid>https://blog.henry070.org/tags/git/</guid>
         <description></description>
         </item>
         <item>
         <title>Version-Control</title>
-        <link>http://localhost:1313/tags/version-control/</link>
+        <link>https://blog.henry070.org/tags/version-control/</link>
         <pubDate>Mon, 12 Jan 2026 00:00:00 +0800</pubDate>
         
-        <guid>http://localhost:1313/tags/version-control/</guid>
+        <guid>https://blog.henry070.org/tags/version-control/</guid>
         <description></description>
         </item>
         <item>
         <title>Vscode</title>
-        <link>http://localhost:1313/tags/vscode/</link>
+        <link>https://blog.henry070.org/tags/vscode/</link>
         <pubDate>Mon, 12 Jan 2026 00:00:00 +0800</pubDate>
         
-        <guid>http://localhost:1313/tags/vscode/</guid>
+        <guid>https://blog.henry070.org/tags/vscode/</guid>
         <description></description>
         </item>
         <item>
         <title>Worktree</title>
-        <link>http://localhost:1313/tags/worktree/</link>
+        <link>https://blog.henry070.org/tags/worktree/</link>
         <pubDate>Mon, 12 Jan 2026 00:00:00 +0800</pubDate>
         
-        <guid>http://localhost:1313/tags/worktree/</guid>
+        <guid>https://blog.henry070.org/tags/worktree/</guid>
         <description></description>
         </item>
         <item>
         <title>教程</title>
-        <link>http://localhost:1313/tags/%E6%95%99%E7%A8%8B/</link>
+        <link>https://blog.henry070.org/tags/%E6%95%99%E7%A8%8B/</link>
         <pubDate>Mon, 12 Jan 2026 00:00:00 +0800</pubDate>
         
-        <guid>http://localhost:1313/tags/%E6%95%99%E7%A8%8B/</guid>
+        <guid>https://blog.henry070.org/tags/%E6%95%99%E7%A8%8B/</guid>
         <description></description>
         </item>
         <item>
         <title>Apt</title>
-        <link>http://localhost:1313/tags/apt/</link>
+        <link>https://blog.henry070.org/tags/apt/</link>
         <pubDate>Sun, 11 Jan 2026 03:00:00 +0800</pubDate>
         
-        <guid>http://localhost:1313/tags/apt/</guid>
+        <guid>https://blog.henry070.org/tags/apt/</guid>
         <description></description>
         </item>
         <item>
         <title>Dnf</title>
-        <link>http://localhost:1313/tags/dnf/</link>
+        <link>https://blog.henry070.org/tags/dnf/</link>
         <pubDate>Sun, 11 Jan 2026 03:00:00 +0800</pubDate>
         
-        <guid>http://localhost:1313/tags/dnf/</guid>
+        <guid>https://blog.henry070.org/tags/dnf/</guid>
         <description></description>
         </item>
         <item>
         <title>Linux</title>
-        <link>http://localhost:1313/tags/linux/</link>
+        <link>https://blog.henry070.org/tags/linux/</link>
         <pubDate>Sun, 11 Jan 2026 03:00:00 +0800</pubDate>
         
-        <guid>http://localhost:1313/tags/linux/</guid>
+        <guid>https://blog.henry070.org/tags/linux/</guid>
         <description></description>
         </item>
         <item>
         <title>Pacman</title>
-        <link>http://localhost:1313/tags/pacman/</link>
+        <link>https://blog.henry070.org/tags/pacman/</link>
         <pubDate>Sun, 11 Jan 2026 03:00:00 +0800</pubDate>
         
-        <guid>http://localhost:1313/tags/pacman/</guid>
+        <guid>https://blog.henry070.org/tags/pacman/</guid>
         <description></description>
         </item>
         <item>
         <title>包管理</title>
-        <link>http://localhost:1313/tags/%E5%8C%85%E7%AE%A1%E7%90%86/</link>
+        <link>https://blog.henry070.org/tags/%E5%8C%85%E7%AE%A1%E7%90%86/</link>
         <pubDate>Sun, 11 Jan 2026 03:00:00 +0800</pubDate>
         
-        <guid>http://localhost:1313/tags/%E5%8C%85%E7%AE%A1%E7%90%86/</guid>
+        <guid>https://blog.henry070.org/tags/%E5%8C%85%E7%AE%A1%E7%90%86/</guid>
         <description></description>
         </item>
         <item>
         <title>日志管理</title>
-        <link>http://localhost:1313/tags/%E6%97%A5%E5%BF%97%E7%AE%A1%E7%90%86/</link>
+        <link>https://blog.henry070.org/tags/%E6%97%A5%E5%BF%97%E7%AE%A1%E7%90%86/</link>
         <pubDate>Sun, 11 Jan 2026 02:00:00 +0800</pubDate>
         
-        <guid>http://localhost:1313/tags/%E6%97%A5%E5%BF%97%E7%AE%A1%E7%90%86/</guid>
+        <guid>https://blog.henry070.org/tags/%E6%97%A5%E5%BF%97%E7%AE%A1%E7%90%86/</guid>
         <description></description>
         </item>
         <item>
         <title>系统监控</title>
-        <link>http://localhost:1313/tags/%E7%B3%BB%E7%BB%9F%E7%9B%91%E6%8E%A7/</link>
+        <link>https://blog.henry070.org/tags/%E7%B3%BB%E7%BB%9F%E7%9B%91%E6%8E%A7/</link>
         <pubDate>Sun, 11 Jan 2026 02:00:00 +0800</pubDate>
         
-        <guid>http://localhost:1313/tags/%E7%B3%BB%E7%BB%9F%E7%9B%91%E6%8E%A7/</guid>
+        <guid>https://blog.henry070.org/tags/%E7%B3%BB%E7%BB%9F%E7%9B%91%E6%8E%A7/</guid>
         <description></description>
         </item>
         <item>
         <title>性能分析</title>
-        <link>http://localhost:1313/tags/%E6%80%A7%E8%83%BD%E5%88%86%E6%9E%90/</link>
+        <link>https://blog.henry070.org/tags/%E6%80%A7%E8%83%BD%E5%88%86%E6%9E%90/</link>
         <pubDate>Sun, 11 Jan 2026 02:00:00 +0800</pubDate>
         
-        <guid>http://localhost:1313/tags/%E6%80%A7%E8%83%BD%E5%88%86%E6%9E%90/</guid>
+        <guid>https://blog.henry070.org/tags/%E6%80%A7%E8%83%BD%E5%88%86%E6%9E%90/</guid>
         <description></description>
         </item>
         <item>
         <title>Inode</title>
-        <link>http://localhost:1313/tags/inode/</link>
+        <link>https://blog.henry070.org/tags/inode/</link>
         <pubDate>Sun, 11 Jan 2026 01:00:00 +0800</pubDate>
         
-        <guid>http://localhost:1313/tags/inode/</guid>
+        <guid>https://blog.henry070.org/tags/inode/</guid>
         <description></description>
         </item>
         <item>
         <title>VFS</title>
-        <link>http://localhost:1313/tags/vfs/</link>
+        <link>https://blog.henry070.org/tags/vfs/</link>
         <pubDate>Sun, 11 Jan 2026 01:00:00 +0800</pubDate>
         
-        <guid>http://localhost:1313/tags/vfs/</guid>
+        <guid>https://blog.henry070.org/tags/vfs/</guid>
         <description></description>
         </item>
         <item>
         <title>权限管理</title>
-        <link>http://localhost:1313/tags/%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86/</link>
+        <link>https://blog.henry070.org/tags/%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86/</link>
         <pubDate>Sun, 11 Jan 2026 01:00:00 +0800</pubDate>
         
-        <guid>http://localhost:1313/tags/%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86/</guid>
+        <guid>https://blog.henry070.org/tags/%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86/</guid>
         <description></description>
         </item>
         <item>
         <title>文件系统</title>
-        <link>http://localhost:1313/tags/%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F/</link>
+        <link>https://blog.henry070.org/tags/%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F/</link>
         <pubDate>Sun, 11 Jan 2026 01:00:00 +0800</pubDate>
         
-        <guid>http://localhost:1313/tags/%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F/</guid>
+        <guid>https://blog.henry070.org/tags/%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F/</guid>
         <description></description>
         </item>
         <item>
         <title>调度器</title>
-        <link>http://localhost:1313/tags/%E8%B0%83%E5%BA%A6%E5%99%A8/</link>
+        <link>https://blog.henry070.org/tags/%E8%B0%83%E5%BA%A6%E5%99%A8/</link>
         <pubDate>Sun, 11 Jan 2026 00:00:00 +0800</pubDate>
         
-        <guid>http://localhost:1313/tags/%E8%B0%83%E5%BA%A6%E5%99%A8/</guid>
+        <guid>https://blog.henry070.org/tags/%E8%B0%83%E5%BA%A6%E5%99%A8/</guid>
         <description></description>
         </item>
         <item>
         <title>进程管理</title>
-        <link>http://localhost:1313/tags/%E8%BF%9B%E7%A8%8B%E7%AE%A1%E7%90%86/</link>
+        <link>https://blog.henry070.org/tags/%E8%BF%9B%E7%A8%8B%E7%AE%A1%E7%90%86/</link>
         <pubDate>Sun, 11 Jan 2026 00:00:00 +0800</pubDate>
         
-        <guid>http://localhost:1313/tags/%E8%BF%9B%E7%A8%8B%E7%AE%A1%E7%90%86/</guid>
+        <guid>https://blog.henry070.org/tags/%E8%BF%9B%E7%A8%8B%E7%AE%A1%E7%90%86/</guid>
         <description></description>
         </item>
         <item>
         <title>系统编程</title>
-        <link>http://localhost:1313/tags/%E7%B3%BB%E7%BB%9F%E7%BC%96%E7%A8%8B/</link>
+        <link>https://blog.henry070.org/tags/%E7%B3%BB%E7%BB%9F%E7%BC%96%E7%A8%8B/</link>
         <pubDate>Sun, 11 Jan 2026 00:00:00 +0800</pubDate>
         
-        <guid>http://localhost:1313/tags/%E7%B3%BB%E7%BB%9F%E7%BC%96%E7%A8%8B/</guid>
+        <guid>https://blog.henry070.org/tags/%E7%B3%BB%E7%BB%9F%E7%BC%96%E7%A8%8B/</guid>
         <description></description>
         </item>
         <item>
         <title>Bash</title>
-        <link>http://localhost:1313/tags/bash/</link>
+        <link>https://blog.henry070.org/tags/bash/</link>
         <pubDate>Sat, 10 Jan 2026 23:00:00 +0800</pubDate>
         
-        <guid>http://localhost:1313/tags/bash/</guid>
+        <guid>https://blog.henry070.org/tags/bash/</guid>
         <description></description>
         </item>
         <item>
         <title>Shell</title>
-        <link>http://localhost:1313/tags/shell/</link>
+        <link>https://blog.henry070.org/tags/shell/</link>
         <pubDate>Sat, 10 Jan 2026 23:00:00 +0800</pubDate>
         
-        <guid>http://localhost:1313/tags/shell/</guid>
+        <guid>https://blog.henry070.org/tags/shell/</guid>
         <description></description>
         </item>
         <item>
         <title>脚本编程</title>
-        <link>http://localhost:1313/tags/%E8%84%9A%E6%9C%AC%E7%BC%96%E7%A8%8B/</link>
+        <link>https://blog.henry070.org/tags/%E8%84%9A%E6%9C%AC%E7%BC%96%E7%A8%8B/</link>
         <pubDate>Sat, 10 Jan 2026 23:00:00 +0800</pubDate>
         
-        <guid>http://localhost:1313/tags/%E8%84%9A%E6%9C%AC%E7%BC%96%E7%A8%8B/</guid>
+        <guid>https://blog.henry070.org/tags/%E8%84%9A%E6%9C%AC%E7%BC%96%E7%A8%8B/</guid>
         <description></description>
         </item>
         <item>
         <title>命令行</title>
-        <link>http://localhost:1313/tags/%E5%91%BD%E4%BB%A4%E8%A1%8C/</link>
+        <link>https://blog.henry070.org/tags/%E5%91%BD%E4%BB%A4%E8%A1%8C/</link>
         <pubDate>Sat, 10 Jan 2026 23:00:00 +0800</pubDate>
         
-        <guid>http://localhost:1313/tags/%E5%91%BD%E4%BB%A4%E8%A1%8C/</guid>
+        <guid>https://blog.henry070.org/tags/%E5%91%BD%E4%BB%A4%E8%A1%8C/</guid>
         <description></description>
         </item>
         <item>
         <title>操作系统原理</title>
-        <link>http://localhost:1313/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E5%8E%9F%E7%90%86/</link>
+        <link>https://blog.henry070.org/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E5%8E%9F%E7%90%86/</link>
         <pubDate>Sat, 10 Jan 2026 22:00:00 +0800</pubDate>
         
-        <guid>http://localhost:1313/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E5%8E%9F%E7%90%86/</guid>
+        <guid>https://blog.henry070.org/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E5%8E%9F%E7%90%86/</guid>
         <description></description>
         </item>
         <item>
         <title>内核</title>
-        <link>http://localhost:1313/tags/%E5%86%85%E6%A0%B8/</link>
+        <link>https://blog.henry070.org/tags/%E5%86%85%E6%A0%B8/</link>
         <pubDate>Sat, 10 Jan 2026 22:00:00 +0800</pubDate>
         
-        <guid>http://localhost:1313/tags/%E5%86%85%E6%A0%B8/</guid>
+        <guid>https://blog.henry070.org/tags/%E5%86%85%E6%A0%B8/</guid>
         <description></description>
         </item>
         <item>
         <title>系统架构</title>
-        <link>http://localhost:1313/tags/%E7%B3%BB%E7%BB%9F%E6%9E%B6%E6%9E%84/</link>
+        <link>https://blog.henry070.org/tags/%E7%B3%BB%E7%BB%9F%E6%9E%B6%E6%9E%84/</link>
         <pubDate>Sat, 10 Jan 2026 22:00:00 +0800</pubDate>
         
-        <guid>http://localhost:1313/tags/%E7%B3%BB%E7%BB%9F%E6%9E%B6%E6%9E%84/</guid>
+        <guid>https://blog.henry070.org/tags/%E7%B3%BB%E7%BB%9F%E6%9E%B6%E6%9E%84/</guid>
         <description></description>
         </item>
         <item>
         <title>操作系统</title>
-        <link>http://localhost:1313/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/</link>
+        <link>https://blog.henry070.org/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/</link>
         <pubDate>Sat, 10 Jan 2026 21:00:48 +0800</pubDate>
         
-        <guid>http://localhost:1313/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/</guid>
+        <guid>https://blog.henry070.org/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/</guid>
         <description></description>
         </item>
         <item>
         <title>开源</title>
-        <link>http://localhost:1313/tags/%E5%BC%80%E6%BA%90/</link>
+        <link>https://blog.henry070.org/tags/%E5%BC%80%E6%BA%90/</link>
         <pubDate>Sat, 10 Jan 2026 21:00:48 +0800</pubDate>
         
-        <guid>http://localhost:1313/tags/%E5%BC%80%E6%BA%90/</guid>
+        <guid>https://blog.henry070.org/tags/%E5%BC%80%E6%BA%90/</guid>
         <description></description>
         </item>
         <item>
         <title>Bfg</title>
-        <link>http://localhost:1313/tags/bfg/</link>
+        <link>https://blog.henry070.org/tags/bfg/</link>
         <pubDate>Fri, 09 Jan 2026 22:06:31 +0800</pubDate>
         
-        <guid>http://localhost:1313/tags/bfg/</guid>
+        <guid>https://blog.henry070.org/tags/bfg/</guid>
         <description></description>
         </item>
         <item>
         <title>Cursor</title>
-        <link>http://localhost:1313/tags/cursor/</link>
+        <link>https://blog.henry070.org/tags/cursor/</link>
         <pubDate>Thu, 08 Jan 2026 08:44:47 -0500</pubDate>
         
-        <guid>http://localhost:1313/tags/cursor/</guid>
+        <guid>https://blog.henry070.org/tags/cursor/</guid>
         <description></description>
         </item>
         <item>
         <title>编程趋势</title>
-        <link>http://localhost:1313/tags/%E7%BC%96%E7%A8%8B%E8%B6%8B%E5%8A%BF/</link>
+        <link>https://blog.henry070.org/tags/%E7%BC%96%E7%A8%8B%E8%B6%8B%E5%8A%BF/</link>
         <pubDate>Thu, 08 Jan 2026 08:44:47 -0500</pubDate>
         
-        <guid>http://localhost:1313/tags/%E7%BC%96%E7%A8%8B%E8%B6%8B%E5%8A%BF/</guid>
+        <guid>https://blog.henry070.org/tags/%E7%BC%96%E7%A8%8B%E8%B6%8B%E5%8A%BF/</guid>
         <description></description>
         </item>
         <item>
         <title>技术思考</title>
-        <link>http://localhost:1313/tags/%E6%8A%80%E6%9C%AF%E6%80%9D%E8%80%83/</link>
+        <link>https://blog.henry070.org/tags/%E6%8A%80%E6%9C%AF%E6%80%9D%E8%80%83/</link>
         <pubDate>Thu, 08 Jan 2026 08:44:47 -0500</pubDate>
         
-        <guid>http://localhost:1313/tags/%E6%8A%80%E6%9C%AF%E6%80%9D%E8%80%83/</guid>
+        <guid>https://blog.henry070.org/tags/%E6%8A%80%E6%9C%AF%E6%80%9D%E8%80%83/</guid>
         <description></description>
         </item>
         <item>
         <title>Diagram</title>
-        <link>http://localhost:1313/tags/diagram/</link>
+        <link>https://blog.henry070.org/tags/diagram/</link>
         <pubDate>Thu, 25 Dec 2025 02:23:00 -0500</pubDate>
         
-        <guid>http://localhost:1313/tags/diagram/</guid>
+        <guid>https://blog.henry070.org/tags/diagram/</guid>
         <description></description>
         </item>
         <item>
         <title>Mermaid</title>
-        <link>http://localhost:1313/tags/mermaid/</link>
+        <link>https://blog.henry070.org/tags/mermaid/</link>
         <pubDate>Thu, 25 Dec 2025 02:23:00 -0500</pubDate>
         
-        <guid>http://localhost:1313/tags/mermaid/</guid>
+        <guid>https://blog.henry070.org/tags/mermaid/</guid>
         <description></description>
         </item>
         <item>
         <title>Test</title>
-        <link>http://localhost:1313/tags/test/</link>
+        <link>https://blog.henry070.org/tags/test/</link>
         <pubDate>Thu, 25 Dec 2025 02:23:00 -0500</pubDate>
         
-        <guid>http://localhost:1313/tags/test/</guid>
+        <guid>https://blog.henry070.org/tags/test/</guid>
         <description></description>
         </item>
         <item>
         <title>Mcp</title>
-        <link>http://localhost:1313/tags/mcp/</link>
+        <link>https://blog.henry070.org/tags/mcp/</link>
         <pubDate>Tue, 23 Dec 2025 09:30:47 -0500</pubDate>
         
-        <guid>http://localhost:1313/tags/mcp/</guid>
+        <guid>https://blog.henry070.org/tags/mcp/</guid>
         <description></description>
         </item>
         <item>
         <title>Sample</title>
-        <link>http://localhost:1313/tags/sample/</link>
+        <link>https://blog.henry070.org/tags/sample/</link>
         <pubDate>Tue, 23 Dec 2025 09:30:46 -0500</pubDate>
         
-        <guid>http://localhost:1313/tags/sample/</guid>
+        <guid>https://blog.henry070.org/tags/sample/</guid>
         <description></description>
         </item>
         <item>
         <title>Math</title>
-        <link>http://localhost:1313/tags/math/</link>
+        <link>https://blog.henry070.org/tags/math/</link>
         <pubDate>Fri, 12 Dec 2025 22:00:52 +0800</pubDate>
         
-        <guid>http://localhost:1313/tags/math/</guid>
+        <guid>https://blog.henry070.org/tags/math/</guid>
         <description></description>
         </item>
         <item>
         <title>Cybersecurity</title>
-        <link>http://localhost:1313/tags/cybersecurity/</link>
+        <link>https://blog.henry070.org/tags/cybersecurity/</link>
         <pubDate>Fri, 05 Dec 2025 02:31:57 -0500</pubDate>
         
-        <guid>http://localhost:1313/tags/cybersecurity/</guid>
+        <guid>https://blog.henry070.org/tags/cybersecurity/</guid>
         <description></description>
         </item>
         <item>
         <title>MacOS</title>
-        <link>http://localhost:1313/tags/macos/</link>
+        <link>https://blog.henry070.org/tags/macos/</link>
         <pubDate>Fri, 05 Dec 2025 02:31:57 -0500</pubDate>
         
-        <guid>http://localhost:1313/tags/macos/</guid>
+        <guid>https://blog.henry070.org/tags/macos/</guid>
         <description></description>
         </item>
         <item>
         <title>SHA256</title>
-        <link>http://localhost:1313/tags/sha256/</link>
+        <link>https://blog.henry070.org/tags/sha256/</link>
         <pubDate>Fri, 05 Dec 2025 02:31:57 -0500</pubDate>
         
-        <guid>http://localhost:1313/tags/sha256/</guid>
+        <guid>https://blog.henry070.org/tags/sha256/</guid>
         <description></description>
         </item>
         <item>
         <title>Windows</title>
-        <link>http://localhost:1313/tags/windows/</link>
+        <link>https://blog.henry070.org/tags/windows/</link>
         <pubDate>Fri, 05 Dec 2025 02:31:57 -0500</pubDate>
         
-        <guid>http://localhost:1313/tags/windows/</guid>
+        <guid>https://blog.henry070.org/tags/windows/</guid>
         <description></description>
         </item>
         <item>
         <title>Package-Management</title>
-        <link>http://localhost:1313/tags/package-management/</link>
+        <link>https://blog.henry070.org/tags/package-management/</link>
         <pubDate>Fri, 05 Dec 2025 01:27:47 -0500</pubDate>
         
-        <guid>http://localhost:1313/tags/package-management/</guid>
+        <guid>https://blog.henry070.org/tags/package-management/</guid>
         <description></description>
         </item>
         <item>
         <title>Vpn</title>
-        <link>http://localhost:1313/tags/vpn/</link>
+        <link>https://blog.henry070.org/tags/vpn/</link>
         <pubDate>Sun, 23 Nov 2025 05:53:10 +0800</pubDate>
         
-        <guid>http://localhost:1313/tags/vpn/</guid>
+        <guid>https://blog.henry070.org/tags/vpn/</guid>
         <description></description>
         </item>
         <item>
         <title>Javascript</title>
-        <link>http://localhost:1313/tags/javascript/</link>
+        <link>https://blog.henry070.org/tags/javascript/</link>
         <pubDate>Tue, 12 Aug 2025 07:44:31 +0800</pubDate>
         
-        <guid>http://localhost:1313/tags/javascript/</guid>
+        <guid>https://blog.henry070.org/tags/javascript/</guid>
         <description></description>
         </item>
         <item>
         <title>Web</title>
-        <link>http://localhost:1313/tags/web/</link>
+        <link>https://blog.henry070.org/tags/web/</link>
         <pubDate>Tue, 12 Aug 2025 07:44:31 +0800</pubDate>
         
-        <guid>http://localhost:1313/tags/web/</guid>
+        <guid>https://blog.henry070.org/tags/web/</guid>
         <description></description>
         </item>
         <item>
         <title>Css</title>
-        <link>http://localhost:1313/tags/css/</link>
+        <link>https://blog.henry070.org/tags/css/</link>
         <pubDate>Sun, 10 Aug 2025 09:04:48 +0800</pubDate>
         
-        <guid>http://localhost:1313/tags/css/</guid>
+        <guid>https://blog.henry070.org/tags/css/</guid>
         <description></description>
         </item>
         <item>
-        <title>HTML</title>
-        <link>http://localhost:1313/tags/html/</link>
+        <title>Html</title>
+        <link>https://blog.henry070.org/tags/html/</link>
         <pubDate>Sun, 10 Aug 2025 07:31:20 +0800</pubDate>
         
-        <guid>http://localhost:1313/tags/html/</guid>
+        <guid>https://blog.henry070.org/tags/html/</guid>
         <description></description>
         </item>
         <item>
         <title>Tmux</title>
-        <link>http://localhost:1313/tags/tmux/</link>
+        <link>https://blog.henry070.org/tags/tmux/</link>
         <pubDate>Wed, 06 Aug 2025 03:08:51 +0800</pubDate>
         
-        <guid>http://localhost:1313/tags/tmux/</guid>
+        <guid>https://blog.henry070.org/tags/tmux/</guid>
         <description></description>
         </item>
         <item>
         <title>System</title>
-        <link>http://localhost:1313/tags/system/</link>
+        <link>https://blog.henry070.org/tags/system/</link>
         <pubDate>Thu, 31 Jul 2025 15:38:14 +0800</pubDate>
         
-        <guid>http://localhost:1313/tags/system/</guid>
+        <guid>https://blog.henry070.org/tags/system/</guid>
         <description></description>
         </item>
         <item>
         <title>Mc</title>
-        <link>http://localhost:1313/tags/mc/</link>
+        <link>https://blog.henry070.org/tags/mc/</link>
         <pubDate>Mon, 09 Jun 2025 14:01:06 +0800</pubDate>
         
-        <guid>http://localhost:1313/tags/mc/</guid>
+        <guid>https://blog.henry070.org/tags/mc/</guid>
         <description></description>
         </item>
         <item>
         <title>思考</title>
-        <link>http://localhost:1313/tags/%E6%80%9D%E8%80%83/</link>
+        <link>https://blog.henry070.org/tags/%E6%80%9D%E8%80%83/</link>
         <pubDate>Thu, 29 May 2025 02:41:58 +0800</pubDate>
         
-        <guid>http://localhost:1313/tags/%E6%80%9D%E8%80%83/</guid>
+        <guid>https://blog.henry070.org/tags/%E6%80%9D%E8%80%83/</guid>
         <description></description>
         </item>
         <item>
         <title>Java</title>
-        <link>http://localhost:1313/tags/java/</link>
+        <link>https://blog.henry070.org/tags/java/</link>
         <pubDate>Mon, 26 May 2025 00:42:23 +0800</pubDate>
         
-        <guid>http://localhost:1313/tags/java/</guid>
+        <guid>https://blog.henry070.org/tags/java/</guid>
         <description></description>
         </item>
         <item>
         <title>Hugo</title>
-        <link>http://localhost:1313/tags/hugo/</link>
+        <link>https://blog.henry070.org/tags/hugo/</link>
         <pubDate>Sun, 25 May 2025 02:28:03 +0800</pubDate>
         
-        <guid>http://localhost:1313/tags/hugo/</guid>
+        <guid>https://blog.henry070.org/tags/hugo/</guid>
         <description></description>
         </item>
         <item>
         <title>Stack</title>
-        <link>http://localhost:1313/tags/stack/</link>
+        <link>https://blog.henry070.org/tags/stack/</link>
         <pubDate>Sun, 25 May 2025 02:28:03 +0800</pubDate>
         
-        <guid>http://localhost:1313/tags/stack/</guid>
+        <guid>https://blog.henry070.org/tags/stack/</guid>
         <description></description>
         </item>
         <item>
         <title>Defualt</title>
-        <link>http://localhost:1313/tags/defualt/</link>
+        <link>https://blog.henry070.org/tags/defualt/</link>
         <pubDate>Sat, 24 May 2025 03:53:50 +0800</pubDate>
         
-        <guid>http://localhost:1313/tags/defualt/</guid>
+        <guid>https://blog.henry070.org/tags/defualt/</guid>
         <description></description>
         </item>
         <item>
         <title>Markdown</title>
-        <link>http://localhost:1313/tags/markdown/</link>
+        <link>https://blog.henry070.org/tags/markdown/</link>
         <pubDate>Mon, 11 Mar 2019 00:00:00 +0000</pubDate>
         
-        <guid>http://localhost:1313/tags/markdown/</guid>
+        <guid>https://blog.henry070.org/tags/markdown/</guid>
         <description></description>
         </item>
         <item>
         <title>Themes</title>
-        <link>http://localhost:1313/tags/themes/</link>
+        <link>https://blog.henry070.org/tags/themes/</link>
         <pubDate>Mon, 11 Mar 2019 00:00:00 +0000</pubDate>
         
-        <guid>http://localhost:1313/tags/themes/</guid>
+        <guid>https://blog.henry070.org/tags/themes/</guid>
         <description></description>
         </item>
         <item>
         <title>Privacy</title>
-        <link>http://localhost:1313/tags/privacy/</link>
+        <link>https://blog.henry070.org/tags/privacy/</link>
         <pubDate>Sun, 10 Mar 2019 00:00:00 +0000</pubDate>
         
-        <guid>http://localhost:1313/tags/privacy/</guid>
+        <guid>https://blog.henry070.org/tags/privacy/</guid>
         <description></description>
         </item>
         <item>
         <title>Shortcodes</title>
-        <link>http://localhost:1313/tags/shortcodes/</link>
+        <link>https://blog.henry070.org/tags/shortcodes/</link>
         <pubDate>Sun, 10 Mar 2019 00:00:00 +0000</pubDate>
         
-        <guid>http://localhost:1313/tags/shortcodes/</guid>
+        <guid>https://blog.henry070.org/tags/shortcodes/</guid>
         <description></description>
         </item>
         <item>
         <title>Tag With Whitespaces</title>
-        <link>http://localhost:1313/tags/tag-with-whitespaces/</link>
+        <link>https://blog.henry070.org/tags/tag-with-whitespaces/</link>
         <pubDate>Sat, 09 Mar 2019 00:00:00 +0000</pubDate>
         
-        <guid>http://localhost:1313/tags/tag-with-whitespaces/</guid>
+        <guid>https://blog.henry070.org/tags/tag-with-whitespaces/</guid>
         <description></description>
         </item>
         <item>
         <title>Text</title>
-        <link>http://localhost:1313/tags/text/</link>
+        <link>https://blog.henry070.org/tags/text/</link>
         <pubDate>Sat, 09 Mar 2019 00:00:00 +0000</pubDate>
         
-        <guid>http://localhost:1313/tags/text/</guid>
+        <guid>https://blog.henry070.org/tags/text/</guid>
         <description></description>
         </item>
         <item>
         <title>Emoji</title>
-        <link>http://localhost:1313/tags/emoji/</link>
+        <link>https://blog.henry070.org/tags/emoji/</link>
         <pubDate>Tue, 05 Mar 2019 00:00:00 +0000</pubDate>
         
-        <guid>http://localhost:1313/tags/emoji/</guid>
+        <guid>https://blog.henry070.org/tags/emoji/</guid>
         <description></description>
         </item>
         
